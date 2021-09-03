@@ -67,7 +67,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
             </Tabs>)
           :(<Tabs>
               <Tab label="System" to={appLink.systemManagementWorkflows()} />
-              <Tab label="Templates" to={appLink.templatesWorkflows()} />
+              <Tab label="Templates" to={appLink.templateWorkflows()} />
             </Tabs>)
       }
       actions={

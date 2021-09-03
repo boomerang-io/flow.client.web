@@ -156,6 +156,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
           scope={scope}
           team={team}
           teams={teams}
+          type={scope === WorkflowScope.Template ? "Template" : "Workflow"}
           workflows={workflows}
           //@ts-ignore
           workflowQuotasEnabled={workflowQuotasEnabled}

@@ -235,6 +235,95 @@ const workflowTemplates = [
     },
     templateUpgradesAvailable: false
     }    
+  },
+  {
+    "properties": [],
+    "description": "Testing new template",
+    "icon": "power",
+    "id": "61326e32183bdc138022dfca",
+    "name": "Test Template Isa",
+    "shortDescription": "Testing",
+    "status": "deleted",
+    "triggers": {
+        "manual": {
+            "enable": true,
+            "token": null,
+            "topic": null
+        },
+        "scheduler": {
+            "enable": false,
+            "schedule": "",
+            "timezone": "",
+            "advancedCron": false
+        },
+        "webhook": {
+            "enable": false,
+            "token": "",
+            "topic": null
+        },
+        "dockerhub": {
+            "enable": false,
+            "token": null,
+            "topic": null
+        },
+        "slack": {
+            "enable": false,
+            "token": null,
+            "topic": null
+        },
+        "custom": {
+            "enable": false,
+            "token": null,
+            "topic": null
+        }
+    },
+    "tokens": [
+        {
+            "token": "5451EE0D2D5149B5EDBD3B3650BB5F4F09A20F013C4B196D1B251F9BA735801A",
+            "label": "default"
+        }
+    ],
+    "enablePersistentStorage": false,
+    "scope": "template",
+    "revisionCount": 1,
+    "templateUpgradesAvailable": false,
+    "latestRevision": {
+        "dag": {
+            "tasks": [
+                {
+                    "taskId": "f213b199-f5f8-477a-9b0b-306227b1a9c2",
+                    "type": "start",
+                    "dependencies": [],
+                    "metadata": {
+                        "position": {
+                            "x": 300,
+                            "y": 400
+                        }
+                    }
+                },
+                {
+                    "taskId": "b918f913-0b8d-42e1-b031-22ecbda9ebab",
+                    "type": "end",
+                    "dependencies": [],
+                    "metadata": {
+                        "position": {
+                            "x": 1000,
+                            "y": 400
+                        }
+                    }
+                }
+            ]
+        },
+        "id": "61326e32183bdc138022dfcb",
+        "version": 1,
+        "workFlowId": "61326e32183bdc138022dfca",
+        "changelog": {
+            "userId": "6086e0b670bfa94ac91f84a0",
+            "reason": "Create workflow",
+            "date": 1630694962401,
+            "userName": null
+        }
+    }
   }
 ];
 

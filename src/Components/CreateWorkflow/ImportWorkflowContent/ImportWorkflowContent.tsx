@@ -46,6 +46,7 @@ interface ImportWorkflowContentProps {
   scope: string;
   teams?: FlowTeam[] | null;
   team?: FlowTeam | null;
+  type: string;
 }
 
 interface FormProps {
@@ -64,6 +65,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
   scope,
   team,
   teams,
+  type,
 }) => {
   const [existingNames, setExistingNames] = useState(existingWorkflowNames);
 
@@ -134,11 +136,11 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
       validationSchema={Yup.object().shape({
         selectedTeam: scope === WorkflowScope.Team ? Yup.string().required("Team is required") : Yup.mixed(),
         name: Yup.string()
-          .required("Please enter a name for your Workflow")
+          .required(`Please enter a name for your ${type}`)
           .max(64, "Name must not be greater than 64 characters")
           .notOneOf(
             existingNames,
-            "There’s already a Workflow with that name in this team, consider giving this one a different name."
+            `There’s already a ${type} with that name in this team, consider giving this one a different name.`
           ),
         summary: Yup.string().max(128, "Summary must not be greater than 128 characters"),
         file: Yup.mixed()
@@ -180,11 +182,11 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
           <>
             {isLoading && <Loading />}
             <ModalBody className={styles.body}>
-              <p>Add a Workflow - Select the Workflow file you want to upload</p>
+              <p>{`Add a ${type} - Select the ${type} file you want to upload`}</p>
               <FileUploaderDropContainer
                 accept={[".json"]}
                 labelText={FILE_UPLOAD_MESSAGE}
-                name="Workflow"
+                name={type}
                 multiple={false}
                 onAddFiles={async (
                   event: React.SyntheticEvent,
@@ -239,7 +241,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                     )}
                     <TextInput
                       id="name"
-                      labelText="Workflow Name"
+                      labelText={`${type} Name`}
                       name="name"
                       value={values.name}
                       onBlur={handleBlur}
@@ -264,7 +266,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                   lowContrast
                   kind="error"
                   title="Something's Wrong"
-                  subtitle="Request to import workflow failed"
+                  subtitle={`Request to import ${type.toLowerCase()} failed`}
                 />
               )}
             </ModalBody>

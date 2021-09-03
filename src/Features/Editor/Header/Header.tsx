@@ -73,7 +73,9 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
               <Link to={appLink.systemWorkflows()}>System Workflows</Link>
             ) : scope === WorkflowScope.Team ? (
               <Link to={appLink.workflowsTeams()}>Workflows</Link>
-            ) : (
+            ) : scope === WorkflowScope.Template ? (
+              <Link to={appLink.templateWorkflows()}>Template Workflows</Link>
+            ): (
               <Link to={appLink.workflowsMine()}>My Workflows</Link>
             )}
           </BreadcrumbItem>

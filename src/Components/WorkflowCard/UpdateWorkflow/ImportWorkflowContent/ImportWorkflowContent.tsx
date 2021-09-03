@@ -36,10 +36,11 @@ function checkIsValidWorkflow(data, workflowId) {
 }
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
-const VALID_TEXT_MESSAGE = "All set! This Workflow is valid, and will fully replace the existing Workflow.";
 const createInvalidTextMessage = (message) => `Whoops! ${message}. Please choose a different one.`;
+const VALID_TEXT_MESSAGE = (type) => `All set! This ${type} is valid, and will fully replace the existing ${type}.`;
 
 class ImportWorkflowContent extends Component {
+
   static propTypes = {
     closeModal: PropTypes.func,
     confirmButtonText: PropTypes.string.isRequired,
@@ -47,6 +48,7 @@ class ImportWorkflowContent extends Component {
     isLoading: PropTypes.bool,
     title: PropTypes.string.isRequired,
     workflowId: PropTypes.string.isRequired,
+    type: PropTypes.string,
   };
 
   /**
@@ -81,7 +83,7 @@ class ImportWorkflowContent extends Component {
   };
 
   render() {
-    const { title, confirmButtonText, workflowId } = this.props;
+    const { title, confirmButtonText, workflowId, type } = this.props;
 
     return (
       <Formik
@@ -150,7 +152,7 @@ class ImportWorkflowContent extends Component {
                   ) : (
                     <div className={styles.validMessage}>
                       <CheckmarkFilled32 aria-label="success-import-icon" className={styles.successIcon} />
-                      <p className={styles.message}>{VALID_TEXT_MESSAGE}</p>
+                      <p className={styles.message}>{VALID_TEXT_MESSAGE(type)}</p>
                     </div>
                   )
                 ) : null}

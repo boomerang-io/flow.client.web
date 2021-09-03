@@ -11,22 +11,23 @@ interface UpdateWorkflowProps {
   teamId: string | null;
   workflowId: string;
   onCloseModal: () => void;
+  scope: string;
+  type: string;
 }
 
-const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onCloseModal }) => {
+const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onCloseModal, scope, type }) => {
   const [importWorkflowMutator, { isLoading: isPosting }] = useMutation(resolver.postImportWorkflow, {
     onSuccess: async () => queryCache.invalidateQueries(serviceUrl.getTeams()),
   });
-
   const handleImportWorkflow = async (data: WorkflowExport, closeModal: () => void) => {
     let query;
     if (teamId) {
       query = queryString.stringify({ update: true, flowTeamId: teamId });
-    } else query = queryString.stringify({ update: true, scope: "system" });
+    } else query = queryString.stringify({ update: true, scope });
 
     try {
       await importWorkflowMutator({ query, body: data });
-      notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfully updated" />);
+      notify(<ToastNotification kind="success" title={`Update ${type}`} subtitle={`${type} successfully updated`} />);
       closeModal();
     } catch {
       // no-op
@@ -44,7 +45,7 @@ const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onC
         containerClassName: styles.container,
       }}
       modalHeaderProps={{
-        title: "Update Workflow",
+        title: `Update ${type}`,
       }}
       onCloseModal={onCloseModal}
     >
@@ -52,8 +53,9 @@ const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onC
         confirmButtonText={isPosting ? "Updating..." : "Update"}
         handleImportWorkflow={handleImportWorkflow}
         isLoading={isPosting}
-        title="Select the Workflow JSON file you want to update the current Workflow with. The Workflow id must match."
+        title={`Select the ${type} JSON file you want to update the current ${type} with. The ${type} id must match.`}
         workflowId={workflowId}
+        type={type}
       />
     </ModalFlow>
   );

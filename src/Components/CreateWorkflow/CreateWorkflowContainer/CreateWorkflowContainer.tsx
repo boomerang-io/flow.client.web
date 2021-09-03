@@ -6,21 +6,7 @@ import { FlowTeam, CreateWorkflowSummary, WorkflowExport, WorkflowSummary } from
 import styles from "./createWorkflowContainer.module.scss";
 
 const NEW_WORKFLOW = "Start from scratch";
-const IMPORT_WORKFLOW = "Import a Workflow";
-
-export const radioWorkflowOptions = [
-  {
-    id: "create-workflow-radio-id",
-    labelText: NEW_WORKFLOW,
-    value: NEW_WORKFLOW,
-  },
-  {
-    id: "import-workflow-radio-id",
-    labelText: IMPORT_WORKFLOW,
-    value: IMPORT_WORKFLOW,
-  },
-];
-
+const IMPORT_WORKFLOW = (type: string) => `Import a ${type}`;
 interface CreateWorkflowContainerProps {
   closeModal: () => void;
   createError: any;
@@ -31,6 +17,7 @@ interface CreateWorkflowContainerProps {
   importWorkflow: (workflowData: WorkflowExport, closeModal: () => void, team: FlowTeam) => Promise<void>;
   team?: FlowTeam | null;
   teams?: FlowTeam[] | null;
+  type: string;
   workflows?: WorkflowSummary[];
   workflowQuotasEnabled: boolean;
 }
@@ -45,11 +32,23 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
   scope,
   team,
   teams,
+  type,
   workflows,
   workflowQuotasEnabled,
 }) => {
   const [selectedOption, setSelectedOption] = React.useState(NEW_WORKFLOW);
-
+  const radioWorkflowOptions = [
+    {
+      id: "create-workflow-radio-id",
+      labelText: NEW_WORKFLOW,
+      value: NEW_WORKFLOW,
+    },
+    {
+      id: "import-workflow-radio-id",
+      labelText: IMPORT_WORKFLOW(type),
+      value: IMPORT_WORKFLOW(type),
+    },
+  ];
   const existingWorkflowNames = workflows?.map((workflow) => workflow.name) ?? [];
 
   return (
@@ -83,6 +82,7 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
           scope={scope}
           team={team}
           teams={teams}
+          type={type}
         />
       )}
     </ModalForm>
