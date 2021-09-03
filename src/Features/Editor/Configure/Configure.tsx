@@ -35,7 +35,8 @@ import { useLocation } from "react-router-dom";
 interface FormProps {
   description: string;
   enableACCIntegration: boolean;
-  enablePersistentStorage: boolean;
+  enableWorkflowPersistentStorage: boolean;
+  enableWorkspacePersistentStorage: boolean;
   icon: string;
   name: string;
   labels: Array<{ key: string; value: string }>;
@@ -108,7 +109,8 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         initialValues={{
           description: summaryData.description ?? "",
           enableACCIntegration: summaryData.enableACCIntegration ?? false,
-          enablePersistentStorage: summaryData.enablePersistentStorage ?? false,
+          enableWorkspacePersistentStorage: summaryData.enableWorkspacePersistentStorage ?? false,
+          enableWorkflowPersistentStorage: summaryData.enableWorkflowPersistentStorage ?? false,
           icon: summaryData.icon ?? "",
           name: summaryData.name ?? "",
           labels: summaryData.labels ? summaryData.labels : [],
@@ -139,7 +141,8 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         validationSchema={Yup.object().shape({
           description: Yup.string().max(250, "Description must not be greater than 250 characters"),
           enableACCIntegration: Yup.boolean(),
-          enablePersistentStorage: Yup.boolean(),
+          enableWorkspacePersistentStorage: Yup.boolean(),
+          enableWorkflowPersistentStorage: Yup.boolean(),
           icon: Yup.string(),
           name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
           selectedTeam: summaryData?.flowTeamId
@@ -529,10 +532,21 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <p className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</p>
             <div className={styles.toggleContainer}>
               <Toggle
-                id="enablePersistentStorage"
-                label="Enable Persistent Storage"
-                toggled={values.enablePersistentStorage}
-                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "enablePersistentStorage")}
+                id="enableWorkspacePersistentStorage"
+                label="Enable Workspace Persistent Storage"
+                toggled={values.enableWorkspacePersistentStorage}
+                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "enableWorkspacePersistentStorage")}
+                tooltipContent="Persist workspace data between executions"
+                tooltipProps={{ direction: "top" }}
+                reversed
+              />
+            </div>
+            <div className={styles.toggleContainer}>
+              <Toggle
+                id="enableWorkflowPersistentStorage"
+                label="Enable Workflow Persistent Storage"
+                toggled={values.enableWorkflowPersistentStorage}
+                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "enableWorkflowPersistentStorage")}
                 tooltipContent="Persist workflow data between executions"
                 tooltipProps={{ direction: "top" }}
                 reversed

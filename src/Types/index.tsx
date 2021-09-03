@@ -81,7 +81,8 @@ export interface WorkflowSummary {
   id: string;
   description: string;
   enableACCIntegration: boolean;
-  enablePersistentStorage: boolean;
+  enableWorkflowPersistentStorage: boolean;
+  enableWorkspacePersistentStorage: boolean;
   icon: string;
   name: string;
   labels: Array<{ key: string; value: string }>;
