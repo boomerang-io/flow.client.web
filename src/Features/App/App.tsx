@@ -241,7 +241,7 @@ interface AppFeaturesProps {
 const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeaturesProps) {
   const teamPropertiesEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
   const taskManagerEnabled = useFeature(FeatureFlag.TaskManagerEnabled);
-  const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
+  // const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
   const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
@@ -351,7 +351,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           </Route>
 
           <Redirect exact from="/" to={AppPath.Workflows} />
-          <Route path="*" component={() => <Error404 theme="boomerang"/>} />
+          <Route path="*" component={() => <Error404 theme="boomerang" />} />
         </Switch>
       </Suspense>
       <NotificationsContainer enableMultiContainer />
