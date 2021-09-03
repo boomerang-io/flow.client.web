@@ -42,10 +42,6 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
     resolver.postCreateWorkflow
   );
 
-  const [createTemplateMutator, { error: templateError, isLoading: templateIsLoading }] = useMutation(
-    resolver.postCreateTemplate
-  );
-
   const [
     createWorkflowRevisionMutator,
     { error: workflowRevisionError, isLoading: workflowRevisionIsLoading },
@@ -57,13 +53,8 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
 
   const handleCreateWorkflow = async (workflowSummary: CreateWorkflowSummary) => {
     try {
-      let newWorkflow;
-      if(scope !== WorkflowScope.Template) {
-        newWorkflow = await createWorkflowMutator({ body: workflowSummary });
-      } else {
-        newWorkflow = await createTemplateMutator({ body: workflowSummary });
-      }
-      const workflowId = newWorkflow.data.id;
+      const { data: newWorkflow } = await createWorkflowMutator({ body: workflowSummary });
+      const workflowId = newWorkflow.id;
       const dagProps = createWorkflowRevisionBody(workflowDagEngine, "Create workflow");
       const workflowRevision = {
         ...dagProps,
@@ -120,7 +111,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
     }
   };
 
-  const isLoading = workflowIsLoading || workflowRevisionIsLoading || importIsLoading || templateIsLoading;
+  const isLoading = workflowIsLoading || workflowRevisionIsLoading || importIsLoading;
 
   return (
     <ComposedModal
@@ -157,7 +148,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
       {({ closeModal }: ComposedModalChildProps) => (
         <CreateWorkflowContainer
           closeModal={closeModal}
-          createError={workflowError || workflowRevisionError || templateError}
+          createError={workflowError || workflowRevisionError}
           createWorkflow={handleCreateWorkflow}
           importError={importError}
           importWorkflow={handleImportWorkflow}
