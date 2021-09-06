@@ -160,7 +160,16 @@ const summaries = [
     ],
     scope: "team",
     tokens: [],
-    enablePersistentStorage: true,
+    workflowStorage: {
+      enabled: true,
+      size: 2,
+      mountPath: "/test",
+    },
+    workspaceStorage: {
+      enabled: false,
+      size: 0,
+      mountPath: "",
+    },
     enableACCIntegration: false,
     revisionCount: 2,
     templateUpgradesAvailable: false,

@@ -81,8 +81,16 @@ export interface WorkflowSummary {
   id: string;
   description: string;
   enableACCIntegration: boolean;
-  enableWorkflowPersistentStorage: boolean;
-  enableWorkspacePersistentStorage: boolean;
+  workflowStorage: {
+    enabled: boolean;
+    size: number;
+    mountPath: string;
+  };
+  workspaceStorage: {
+    enabled: boolean;
+    size: number;
+    mountPath: string;
+  };
   icon: string;
   name: string;
   labels: Array<{ key: string; value: string }>;

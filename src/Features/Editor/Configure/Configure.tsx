@@ -14,6 +14,7 @@ import {
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CronJobModal from "./CronJobModal";
+import ConfigureStorage from "./ConfigureStorage";
 import cx from "classnames";
 import cronstrue from "cronstrue";
 import capitalize from "lodash/capitalize";
@@ -35,8 +36,16 @@ import { useLocation } from "react-router-dom";
 interface FormProps {
   description: string;
   enableACCIntegration: boolean;
-  enableWorkflowPersistentStorage: boolean;
-  enableWorkspacePersistentStorage: boolean;
+  workflowStorage: {
+    enabled: boolean;
+    size: number;
+    mountPath: string;
+  };
+  workspaceStorage: {
+    enabled: boolean;
+    size: number;
+    mountPath: string;
+  };
   icon: string;
   name: string;
   labels: Array<{ key: string; value: string }>;
@@ -97,7 +106,6 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
 
   const location = useLocation();
   const isOnConfigurePath = appLink.editorConfigure({ workflowId: params.workflowId }) === location.pathname;
-
   return (
     <>
       <Helmet>
@@ -109,8 +117,16 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         initialValues={{
           description: summaryData.description ?? "",
           enableACCIntegration: summaryData.enableACCIntegration ?? false,
-          enableWorkspacePersistentStorage: summaryData.enableWorkspacePersistentStorage ?? false,
-          enableWorkflowPersistentStorage: summaryData.enableWorkflowPersistentStorage ?? false,
+          workspaceStorage: summaryData.workspaceStorage ?? {
+            enabled: false,
+            size: 1,
+            mountPath: "",
+          },
+          workflowStorage: summaryData.workflowStorage ?? {
+            enabled: false,
+            size: 1,
+            mountPath: "",
+          },
           icon: summaryData.icon ?? "",
           name: summaryData.name ?? "",
           labels: summaryData.labels ? summaryData.labels : [],
@@ -141,8 +157,16 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         validationSchema={Yup.object().shape({
           description: Yup.string().max(250, "Description must not be greater than 250 characters"),
           enableACCIntegration: Yup.boolean(),
-          enableWorkspacePersistentStorage: Yup.boolean(),
-          enableWorkflowPersistentStorage: Yup.boolean(),
+          workflowStorage: Yup.object().shape({ 
+            enabled: Yup.boolean(),
+            size: Yup.number().required(),
+            mountPath: Yup.string(),
+          }),
+          workspaceStorage: Yup.object().shape({ 
+            enabled: Yup.boolean(),
+            size: Yup.number().required(),
+            mountPath: Yup.string(),
+          }),
           icon: Yup.string(),
           name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
           selectedTeam: summaryData?.flowTeamId
@@ -528,30 +552,86 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
         )}
         <section className={styles.smallCol}>
           <div className={styles.optionsContainer}>
-            <h1 className={styles.header}>Other Options</h1>
+            <h1 className={styles.header}>Storage Options</h1>
             <p className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</p>
             <div className={styles.toggleContainer}>
               <Toggle
                 id="enableWorkspacePersistentStorage"
                 label="Enable Workspace Persistent Storage"
-                toggled={values.enableWorkspacePersistentStorage}
-                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "enableWorkspacePersistentStorage")}
+                toggled={values.workspaceStorage.enabled}
+                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "workspaceStorage.enabled")}
                 tooltipContent="Persist workspace data between executions"
                 tooltipProps={{ direction: "top" }}
                 reversed
               />
             </div>
+            {values.workspaceStorage.enabled && (
+              <div className={styles.webhookContainer}>
+                <ComposedModal
+                  modalHeaderProps={{
+                    title: "Configure Workspace Persistent Storage",
+                    subtitle: "Workspace storage is persisted across Workflow executions and allows you to share artifacts between workflows. Caution: this can lead to collisions if you are running many executions in parallel editing the same artifact.",
+                  }}
+                  composedModalProps={{
+                    // containerClassName: styles.buildWebhookContainer,
+                    // shouldCloseOnOverlayClick: true,
+                  }}
+                  modalTrigger={({ openModal }: { openModal: () => void }) => (
+                    <button className={styles.regenerateText} style={{marginBottom: "0.5rem"}} type="button" onClick={openModal}>
+                      <p>Configure</p>
+                    </button>
+                  )}
+                >
+                  {({ closeModal }: { closeModal: () => void }) => (
+                    <ConfigureStorage
+                      size={values.workspaceStorage.size}
+                      mountPath={values.workspaceStorage.mountPath}
+                      handleOnChange={(values: any) => setFieldValue(values,"workspaceStorage")}
+                      closeModal={closeModal}
+                    />
+                  )}
+                </ComposedModal>
+              </div>
+            )}
             <div className={styles.toggleContainer}>
               <Toggle
                 id="enableWorkflowPersistentStorage"
                 label="Enable Workflow Persistent Storage"
-                toggled={values.enableWorkflowPersistentStorage}
-                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "enableWorkflowPersistentStorage")}
+                toggled={values.workflowStorage.enabled}
+                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "workflowStorage.enabled")}
                 tooltipContent="Persist workflow data between executions"
                 tooltipProps={{ direction: "top" }}
                 reversed
               />
             </div>
+            {values.workflowStorage.enabled && (
+              <div className={styles.webhookContainer}>
+                <ComposedModal
+                  modalHeaderProps={{
+                    title: "Configure Workflow Persistent Storage",
+                    subtitle: "Workspace storage is persisted across Workflow executions and allows you to share artifacts between workflows. Caution: this can lead to collisions if you are running many executions in parallel editing the same artifact.",
+                  }}
+                  composedModalProps={{
+                    // containerClassName: styles.buildWebhookContainer,
+                    // shouldCloseOnOverlayClick: true,
+                  }}
+                  modalTrigger={({ openModal }: { openModal: () => void }) => (
+                    <button className={styles.regenerateText} type="button" onClick={openModal}>
+                      <p>Configure</p>
+                    </button>
+                  )}
+                >
+                  {({ closeModal }: { closeModal: () => void }) => (
+                    <ConfigureStorage
+                      size={values.workflowStorage.size}
+                      mountPath={values.workflowStorage.mountPath}
+                      handleOnChange={(values: any) => setFieldValue(values,"workflowStorage")}
+                      closeModal={closeModal}
+                    />
+                  )}
+                </ComposedModal>
+              </div>
+            )}
           </div>
           <hr className={styles.delimiter} />
           <div className={styles.labelsContainer}>
