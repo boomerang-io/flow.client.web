@@ -554,84 +554,106 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
           <div className={styles.optionsContainer}>
             <h1 className={styles.header}>Storage Options</h1>
             <p className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</p>
-            <div className={styles.toggleContainer}>
-              <Toggle
-                id="enableWorkspacePersistentStorage"
-                label="Enable Workspace Persistent Storage"
-                toggled={values.workspaceStorage.enabled}
-                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "workspaceStorage.enabled")}
-                tooltipContent="Persist workspace data between executions"
-                tooltipProps={{ direction: "top" }}
-                reversed
-              />
-            </div>
-            {values.workspaceStorage.enabled && (
-              <div className={styles.webhookContainer}>
-                <ComposedModal
-                  modalHeaderProps={{
-                    title: "Configure Workspace Persistent Storage",
-                    subtitle: "Workspace storage is persisted across Workflow executions and allows you to share artifacts between workflows. Caution: this can lead to collisions if you are running many executions in parallel editing the same artifact.",
-                  }}
-                  composedModalProps={{
-                    // containerClassName: styles.buildWebhookContainer,
-                    // shouldCloseOnOverlayClick: true,
-                  }}
-                  modalTrigger={({ openModal }: { openModal: () => void }) => (
-                    <button className={styles.regenerateText} style={{marginBottom: "0.5rem"}} type="button" onClick={openModal}>
-                      <p>Configure</p>
-                    </button>
-                  )}
-                >
-                  {({ closeModal }: { closeModal: () => void }) => (
-                    <ConfigureStorage
-                      size={values.workspaceStorage.size}
-                      mountPath={values.workspaceStorage.mountPath}
-                      handleOnChange={(values: any) => setFieldValue(values,"workspaceStorage")}
-                      closeModal={closeModal}
-                    />
-                  )}
-                </ComposedModal>
+            <div className={styles.storageToggle}>
+              <div className={styles.toggleContainer}>
+                <Toggle
+                  id="enableWorkspacePersistentStorage"
+                  label="Enable Workspace Persistent Storage"
+                  toggled={values.workspaceStorage.enabled}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "workspaceStorage.enabled")}
+                  tooltipContent="Persist data across workflow executions"
+                  tooltipProps={{ direction: "top" }}
+                  reversed
+                />
               </div>
-            )}
-            <div className={styles.toggleContainer}>
-              <Toggle
-                id="enableWorkflowPersistentStorage"
-                label="Enable Workflow Persistent Storage"
-                toggled={values.workflowStorage.enabled}
-                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "workflowStorage.enabled")}
-                tooltipContent="Persist workflow data between executions"
-                tooltipProps={{ direction: "top" }}
-                reversed
-              />
+              {values.workspaceStorage.enabled && (
+                <div className={styles.webhookContainer}>
+                  <ComposedModal
+                    modalHeaderProps={{
+                      title: "Configure Workspace Persistent Storage",
+                      subtitle: (
+                        <>
+                          <p>
+                            Workspace storage is persisted across workflow executions and allows you to share artifacts between workflows, such as maintaining a cache of files used every execution.
+                          </p>
+                          <p style={{ marginTop: "0.5rem" }}>
+                            Note: use with caution as this can lead to a collision if you are running many executions in parallel using the same artifact.
+                          </p>
+                        </>
+                      ),
+                    }}
+                    composedModalProps={{
+                      // containerClassName: styles.buildWebhookContainer,
+                      // shouldCloseOnOverlayClick: true,
+                    }}
+                    modalTrigger={({ openModal }: { openModal: () => void }) => (
+                      <button className={styles.regenerateText} style={{marginBottom: "0.5rem"}} type="button" onClick={openModal}>
+                        <p>Configure</p>
+                      </button>
+                    )}
+                  >
+                    {({ closeModal }: { closeModal: () => void }) => (
+                      <ConfigureStorage
+                        size={values.workspaceStorage.size}
+                        mountPath={values.workspaceStorage.mountPath}
+                        handleOnChange={(values: any) => setFieldValue(values,"workspaceStorage")}
+                        closeModal={closeModal}
+                      />
+                    )}
+                  </ComposedModal>
+                </div>
+              )}
             </div>
-            {values.workflowStorage.enabled && (
-              <div className={styles.webhookContainer}>
-                <ComposedModal
-                  modalHeaderProps={{
-                    title: "Configure Workflow Persistent Storage",
-                    subtitle: "Workspace storage is persisted across Workflow executions and allows you to share artifacts between workflows. Caution: this can lead to collisions if you are running many executions in parallel editing the same artifact.",
-                  }}
-                  composedModalProps={{
-                    // containerClassName: styles.buildWebhookContainer,
-                    // shouldCloseOnOverlayClick: true,
-                  }}
-                  modalTrigger={({ openModal }: { openModal: () => void }) => (
-                    <button className={styles.regenerateText} type="button" onClick={openModal}>
-                      <p>Configure</p>
-                    </button>
-                  )}
-                >
-                  {({ closeModal }: { closeModal: () => void }) => (
-                    <ConfigureStorage
-                      size={values.workflowStorage.size}
-                      mountPath={values.workflowStorage.mountPath}
-                      handleOnChange={(values: any) => setFieldValue(values,"workflowStorage")}
-                      closeModal={closeModal}
-                    />
-                  )}
-                </ComposedModal>
+            <div className={styles.storageToggle}>
+              <div className={styles.toggleContainer}>
+                <Toggle
+                  id="enableWorkflowPersistentStorage"
+                  label="Enable Workflow Persistent Storage"
+                  toggled={values.workflowStorage.enabled}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "workflowStorage.enabled")}
+                  tooltipContent="Persist workflow data per executions"
+                  tooltipProps={{ direction: "top" }}
+                  reversed
+                />
               </div>
-            )}
+              {values.workflowStorage.enabled && (
+                <div className={styles.webhookContainer}>
+                  <ComposedModal
+                    modalHeaderProps={{
+                      title: "Configure Workflow Persistent Storage",
+                      subtitle:(
+                        <>
+                          <p>
+                            Workflow storage is persisted per workflow execution and allows you to share short-lived artifacts between tasks in the workflow.
+                          </p>
+                          <p style={{ marginTop: "0.5rem" }}>
+                            Note: All artifacts will be deleted at the end of the workflow execution. If you want to persist long term use Workspace storage.
+                          </p>
+                        </>
+                      ),
+                    }}
+                    composedModalProps={{
+                      // containerClassName: styles.buildWebhookContainer,
+                      // shouldCloseOnOverlayClick: true,
+                    }}
+                    modalTrigger={({ openModal }: { openModal: () => void }) => (
+                      <button className={styles.regenerateText} type="button" onClick={openModal}>
+                        <p>Configure</p>
+                      </button>
+                    )}
+                  >
+                    {({ closeModal }: { closeModal: () => void }) => (
+                      <ConfigureStorage
+                        size={values.workflowStorage.size}
+                        mountPath={values.workflowStorage.mountPath}
+                        handleOnChange={(values: any) => setFieldValue(values,"workflowStorage")}
+                        closeModal={closeModal}
+                      />
+                    )}
+                  </ComposedModal>
+                </div>
+              )}
+            </div>
           </div>
           <hr className={styles.delimiter} />
           <div className={styles.labelsContainer}>
