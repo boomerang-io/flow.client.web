@@ -21,16 +21,19 @@ function checkIsValidWorkflow(data, workflowId) {
   let isValid = true;
   requiredWorkflowProps.forEach((prop) => {
     if (!data.hasOwnProperty(prop)) {
+      console.log("PROP ERROR");
       isValid = false;
     }
   });
 
   if (data.id !== workflowId) {
-    isValid = false;
+      console.log("ID ERROR");
+      isValid = false;
   }
   //Validate if workflow has the latest structure for dag
   if (!data.latestRevision?.dag?.tasks) {
-    isValid = false;
+      console.log("DAG ERROR");
+      isValid = false;
   }
   return isValid;
 }

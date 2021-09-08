@@ -22,7 +22,7 @@ const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onC
   const handleImportWorkflow = async (data: WorkflowExport, closeModal: () => void) => {
     let query;
     if (teamId) {
-      query = queryString.stringify({ update: true, flowTeamId: teamId });
+      query = queryString.stringify({ update: true, flowTeamId: teamId, scope });
     } else query = queryString.stringify({ update: true, scope });
 
     try {

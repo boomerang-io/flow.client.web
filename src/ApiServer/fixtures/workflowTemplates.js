@@ -287,7 +287,7 @@ const workflowTemplates = [
     "scope": "template",
     "revisionCount": 1,
     "templateUpgradesAvailable": false,
-    "latestRevision": {
+    "revision": {
         "dag": {
             "tasks": [
                 {
