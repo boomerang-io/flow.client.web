@@ -292,7 +292,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
     const isLoading = summaryMutation.status === QueryStatus.Loading;
 
     return (
-      <div aria-label="Configure" className={styles.wrapper} role="region">
+      <form aria-label="Configure" className={styles.wrapper} role="region" onSubmit={handleSubmit}>
         <section className={styles.largeCol}>
           <h1 className={styles.header}>General info</h1>
           <p className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</p>
@@ -716,8 +716,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <Button
               size="field"
               disabled={!dirty || isLoading}
-              iconDescription="Save"
-              onClick={handleSubmit}
+              iconDescription="Save" type="submit"
               renderIcon={Save24}
             >
               {isLoading ? "Saving..." : "Save"}
@@ -727,7 +726,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             </p>
           </div>
         </section>
-      </div>
+      </form>
     );
   }
 }
