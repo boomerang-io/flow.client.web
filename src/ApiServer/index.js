@@ -495,6 +495,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       /**
+       * Workflow Templates
+       */
+       this.post(serviceUrl.postDuplicateWorkflow({ workflowId: ":workflowId" }), (schema, request) => {
+        return {};
+      });
+      /**
        * TODO
        */
     },

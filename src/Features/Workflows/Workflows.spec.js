@@ -1,8 +1,10 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import WorkflowsHome from "./index";
 import { startApiServer } from "ApiServer";
 import { queryCaches } from "react-query";
 import { teams, profile } from "ApiServer/fixtures";
+import { AppPath, appLink } from "Config/appConfig";
 import { AppContextProvider } from "State/context";
 
 jest.mock("@boomerang-io/carbon-addons-boomerang-react", () => ({
@@ -50,8 +52,11 @@ describe("WorkflowsHome --- Snapshot", () => {
           teams,
         }}
       >
-        <WorkflowsHome {...props} />
-      </AppContextProvider>
+        <Route path={AppPath.WorkflowsTeams}>
+          <WorkflowsHome {...props} />
+        </Route>
+      </AppContextProvider>,
+      { route: appLink.workflowsTeams() }
     );
     expect(baseElement).toMatchSnapshot();
   });

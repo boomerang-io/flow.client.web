@@ -4,7 +4,7 @@ const workflowTemplates = [
   name: "Test name",
   summary: "Test summary",
   icon: "bot",
-  description: "Test System Workflow Test System Workflow Test System Workflow Test System Workflow Test System Workflow Test System Workflow Test System Workflow Test System Workflow Test System Workflow Test System Workflow Test System Workflow Test System Workflow",
+  description: "Test System Workflow Test System Workflow Test System Workflow Test System Workflow Test System Workflow Test System Workflow Test System Workflow",
   triggers: {
     manual: {
       enable: true

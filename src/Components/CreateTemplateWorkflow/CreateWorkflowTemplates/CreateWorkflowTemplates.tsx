@@ -179,7 +179,8 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
                 className={styles.wombat}
                 //@ts-ignore
                 style={{margin:"0"}} 
-                title="Select a template to start with" 
+                title="Select a template to start with"
+                data-testid="initial-template-screen" 
               />
             </Box>
           }

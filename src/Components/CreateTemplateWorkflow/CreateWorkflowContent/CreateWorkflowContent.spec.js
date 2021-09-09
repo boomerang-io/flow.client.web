@@ -12,6 +12,12 @@ const props = {
   names: [],
   teams: [{ value: "test", label: "Test" }],
   scope: "user",
+  formData: {
+    selectedWorkflow: {
+      name: "test template",
+      icon: "bot",
+    }
+  }
 };
 
 afterEach(() => {
