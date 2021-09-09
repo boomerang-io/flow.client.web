@@ -36,15 +36,17 @@ import { useLocation } from "react-router-dom";
 interface FormProps {
   description: string;
   enableACCIntegration: boolean;
-  workflowStorage: {
-    enabled: boolean;
-    size: number;
-    mountPath: string;
-  };
-  workspaceStorage: {
-    enabled: boolean;
-    size: number;
-    mountPath: string;
+  storage: {
+    workflow: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+    workspace: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
   };
   icon: string;
   name: string;
@@ -103,7 +105,6 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
       callback: () => history.push(appLink.editorConfigure({ workflowId: params.workflowId })),
     });
   };
-
   const location = useLocation();
   const isOnConfigurePath = appLink.editorConfigure({ workflowId: params.workflowId }) === location.pathname;
   return (
@@ -117,15 +118,17 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         initialValues={{
           description: summaryData.description ?? "",
           enableACCIntegration: summaryData.enableACCIntegration ?? false,
-          workspaceStorage: summaryData.workspaceStorage ?? {
-            enabled: false,
-            size: 1,
-            mountPath: "",
-          },
-          workflowStorage: summaryData.workflowStorage ?? {
-            enabled: false,
-            size: 1,
-            mountPath: "",
+          storage: {
+            workspace: summaryData.storage.workspace ?? {
+              enabled: false,
+              size: 1,
+              mountPath: "",
+            },
+            workflow: summaryData.storage.workflow ?? {
+              enabled: false,
+              size: 1,
+              mountPath: "",
+            },
           },
           icon: summaryData.icon ?? "",
           name: summaryData.name ?? "",
@@ -157,15 +160,17 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         validationSchema={Yup.object().shape({
           description: Yup.string().max(250, "Description must not be greater than 250 characters"),
           enableACCIntegration: Yup.boolean(),
-          workflowStorage: Yup.object().shape({ 
-            enabled: Yup.boolean(),
-            size: Yup.number().required(),
-            mountPath: Yup.string(),
-          }),
-          workspaceStorage: Yup.object().shape({ 
-            enabled: Yup.boolean(),
-            size: Yup.number().required(),
-            mountPath: Yup.string(),
+          storage: Yup.object().shape({
+            workflow: Yup.object().shape({ 
+              enabled: Yup.boolean(),
+              size: Yup.number().required(),
+              mountPath: Yup.string(),
+            }),
+            workspace: Yup.object().shape({ 
+              enabled: Yup.boolean(),
+              size: Yup.number().required(),
+              mountPath: Yup.string(),
+            }),
           }),
           icon: Yup.string(),
           name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
@@ -559,14 +564,14 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 <Toggle
                   id="enableWorkspacePersistentStorage"
                   label="Enable Workspace Persistent Storage"
-                  toggled={values.workspaceStorage.enabled}
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "workspaceStorage.enabled")}
+                  toggled={values.storage.workspace.enabled}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workspace.enabled")}
                   tooltipContent="Persist data across workflow executions"
                   tooltipProps={{ direction: "top" }}
                   reversed
                 />
               </div>
-              {values.workspaceStorage.enabled && (
+              {values.storage.workspace.enabled && (
                 <div className={styles.webhookContainer}>
                   <ComposedModal
                     modalHeaderProps={{
@@ -594,9 +599,9 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   >
                     {({ closeModal }: { closeModal: () => void }) => (
                       <ConfigureStorage
-                        size={values.workspaceStorage.size}
-                        mountPath={values.workspaceStorage.mountPath}
-                        handleOnChange={(values: any) => setFieldValue(values,"workspaceStorage")}
+                        size={values.storage.workspace.size}
+                        mountPath={values.storage.workspace.mountPath}
+                        handleOnChange={(values: any) => setFieldValue(values,"storage.workspace")}
                         closeModal={closeModal}
                       />
                     )}
@@ -609,14 +614,14 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 <Toggle
                   id="enableWorkflowPersistentStorage"
                   label="Enable Workflow Persistent Storage"
-                  toggled={values.workflowStorage.enabled}
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "workflowStorage.enabled")}
+                  toggled={values.storage.workflow.enabled}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflow.enabled")}
                   tooltipContent="Persist workflow data per executions"
                   tooltipProps={{ direction: "top" }}
                   reversed
                 />
               </div>
-              {values.workflowStorage.enabled && (
+              {values.storage.workflow.enabled && (
                 <div className={styles.webhookContainer}>
                   <ComposedModal
                     modalHeaderProps={{
@@ -644,9 +649,9 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   >
                     {({ closeModal }: { closeModal: () => void }) => (
                       <ConfigureStorage
-                        size={values.workflowStorage.size}
-                        mountPath={values.workflowStorage.mountPath}
-                        handleOnChange={(values: any) => setFieldValue(values,"workflowStorage")}
+                        size={values.storage.workflow.size}
+                        mountPath={values.storage.workflow.mountPath}
+                        handleOnChange={(values: any) => setFieldValue(values,"storage.workflow")}
                         closeModal={closeModal}
                       />
                     )}

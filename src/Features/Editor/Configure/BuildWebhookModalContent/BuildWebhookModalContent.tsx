@@ -8,15 +8,17 @@ import styles from "./BuildWebhookModalContent.module.scss";
 interface FormProps {
   description: string;
   enableACCIntegration: boolean;
-  workflowStorage: {
-    enabled: boolean;
-    size: number;
-    mountPath: string;
-  };
-  workspaceStorage: {
-    enabled: boolean;
-    size: number;
-    mountPath: string;
+  storage: {
+    workflow: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+    workspace: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
   };
   icon: string;
   name: string;
