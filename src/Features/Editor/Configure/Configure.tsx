@@ -100,7 +100,8 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
 }) {
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
   const handleOnSubmit = (values: { selectedTeam: { id: null | string } }) => {
-    updateSummary({
+      console.log("Handle Submit");
+      updateSummary({
       values,
       callback: () => history.push(appLink.editorConfigure({ workflowId: params.workflowId })),
     });
@@ -114,7 +115,10 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
       </Helmet>
       <Formik
         enableReinitialize
-        onSubmit={handleOnSubmit}
+        onSubmit={(values: { selectedTeam: { id: null | string } }) => {
+          console.log("Submit Formik");
+          handleOnSubmit(values);
+        }}
         initialValues={{
           description: summaryData.description ?? "",
           enableACCIntegration: summaryData.enableACCIntegration ?? false,
@@ -292,7 +296,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
     const isLoading = summaryMutation.status === QueryStatus.Loading;
 
     return (
-      <form aria-label="Configure" className={styles.wrapper} role="region" onSubmit={handleSubmit}>
+      <div aria-label="Configure" className={styles.wrapper} role="region">
         <section className={styles.largeCol}>
           <h1 className={styles.header}>General info</h1>
           <p className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</p>
@@ -716,7 +720,12 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <Button
               size="field"
               disabled={!dirty || isLoading}
-              iconDescription="Save" type="submit"
+              iconDescription="Save"
+              onClick={(e: any) => {
+                e.preventDefault();
+                console.log("Save click");
+                handleSubmit();
+              }}
               renderIcon={Save24}
             >
               {isLoading ? "Saving..." : "Save"}
@@ -726,7 +735,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             </p>
           </div>
         </section>
-      </form>
+      </div>
     );
   }
 }
