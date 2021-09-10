@@ -108,6 +108,7 @@ export default function NavbarContainer({
       <Helmet defaultTitle={appTitle} titleTemplate={`%s - ${appTitle}`} />
       <UIShell
         {...defaultUIShellProps}
+        renderFlowDocs
         onMenuClick={handleOnMenuClick(flowNavigationData)}
         headerConfig={platformNavigationData}
         onTutorialClick={handleOnTutorialClick}
