@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames/bind";
 import {
