@@ -1,5 +1,8 @@
 import orderBy from "lodash/orderBy";
 
+export const sortByProp = (arr, prop, direction = "asc") =>
+  orderBy(arr, typeof prop === "string" ? [prop] : [...prop], [direction]);
+  
 export const arrayPagination = (array, page, pageSize, key, direction) => {
   const newArray = orderBy([...array], key, direction.toLowerCase());
   const startIndex = (page - 1) * pageSize;

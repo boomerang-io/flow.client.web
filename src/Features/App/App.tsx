@@ -23,6 +23,7 @@ const Activity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/
 const Editor = lazy(() => import(/* webpackChunkName: "Editor" */ "Features/Editor"));
 const Execution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/Execution"));
 const GlobalProperties = lazy(() => import(/* webpackChunkName: "GlobalProperties" */ "Features/GlobalProperties"));
+const Tokens = lazy(() => import(/* webpackChunkName: "Tokens" */ "Features/Tokens"));
 const Insights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
 const Quotas = lazy(() => import(/* webpackChunkName: "Quotas" */ "Features/Quotas"));
 const Settings = lazy(() => import(/* webpackChunkName: "Settings" */ "Features/Settings"));
@@ -30,6 +31,7 @@ const SystemWorkflows = lazy(() => import(/* webpackChunkName: "SystemWorkflows"
 const TaskTemplates = lazy(() => import(/* webpackChunkName: "TaskTemplates" */ "Features/TaskTemplates"));
 const Teams = lazy(() => import(/* webpackChunkName: "Teams" */ "Features/Teams"));
 const TeamProperties = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/TeamProperties"));
+const TeamTokens = lazy(() => import(/* webpackChunkName: "TeamTokens" */ "Features/TeamTokens"));
 const ManageTeamTasks = lazy(() => import(/* webpackChunkName: "ManageTeamTasks" */ "Features/ManageTeamTasks"));
 const ManageTeamTasksContainer = lazy(() =>
   import(/* webpackChunkName: "ManageTeamTasksContainer" */ "Features/ManageTeamTasksContainer")
@@ -241,7 +243,6 @@ interface AppFeaturesProps {
 const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeaturesProps) {
   const teamPropertiesEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
   const taskManagerEnabled = useFeature(FeatureFlag.TaskManagerEnabled);
-  // const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
   const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
@@ -350,6 +351,23 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             <Workflows />
           </Route>
 
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<Tokens />}
+            path={AppPath.Tokens}
+            userRole={platformRole}
+          />
+
+          {/* {<ProtectedRoute
+            allowedUserRoles={[true]}
+            component={<TeamTokens />}
+            path={AppPath.TeamTokens}
+            userRole={teamTokensEnabled}
+          />} */}
+
+          <Route path={AppPath.TeamTokens}>
+            <TeamTokens />
+          </Route>
           <Redirect exact from="/" to={AppPath.Workflows} />
           <Route path="*" component={() => <Error404 theme="boomerang" />} />
         </Switch>
