@@ -13,7 +13,7 @@ import {
   notify,
   TextArea,
   ToastNotification,
-  TooltipHover
+  TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ApprovalInputRequired } from "Constants";
 import { resolver } from "Config/servicesConfig";
@@ -25,8 +25,8 @@ import styles from "./ApproveRejectActions.module.scss";
 const ModalType = {
   Single: "single",
   Approve: "approve",
-  Reject: "reject"
-}
+  Reject: "reject",
+};
 
 type ApproveRejectActionsProps = {
   actions: Action[];
@@ -39,18 +39,31 @@ type ApproveRejectActionsProps = {
   userCanApprove?: boolean;
 };
 
-function ApproveRejectActions({ actions, isAlreadyApproved=false, handleCloseModal, modalTrigger, queryToRefetch, onSuccessfulApprovalRejection, type, userCanApprove=true }: ApproveRejectActionsProps) {
+function ApproveRejectActions({
+  actions,
+  isAlreadyApproved = false,
+  handleCloseModal,
+  modalTrigger,
+  queryToRefetch,
+  onSuccessfulApprovalRejection,
+  type,
+  userCanApprove = true,
+}: ApproveRejectActionsProps) {
   const cancelRequestRef = React.useRef<any>();
 
   let title = "Approve selected actions";
-  let subtitle = `You have selected ${actions.length} action${actions.length > 1 ? "s" : ""} to approve. Check the details are correct, add optional comments, and then click Approve.`;
+  let subtitle = `You have selected ${actions.length} action${
+    actions.length > 1 ? "s" : ""
+  } to approve. Check the details are correct, add optional comments, and then click Approve.`;
 
-  if(type === ModalType.Single) {
+  if (type === ModalType.Single) {
     title = "Pending action details";
     subtitle = "";
-  } else if(type === ModalType.Reject) {
+  } else if (type === ModalType.Reject) {
     title = "Reject selected actions";
-    subtitle = `You have selected ${actions.length} action${actions.length > 1 ? "s" : ""} to reject. Check the details are correct, add optional comments, and then click Reject.`;
+    subtitle = `You have selected ${actions.length} action${
+      actions.length > 1 ? "s" : ""
+    } to reject. Check the details are correct, add optional comments, and then click Reject.`;
   }
 
   return (
@@ -64,15 +77,15 @@ function ApproveRejectActions({ actions, isAlreadyApproved=false, handleCloseMod
       }}
     >
       {(props: any) => (
-        <Form 
-          actions={actions} 
+        <Form
+          actions={actions}
           cancelRequestRef={cancelRequestRef}
           isAlreadyApproved={isAlreadyApproved}
           onSuccessfulApprovalRejection={onSuccessfulApprovalRejection}
           queryToRefetch={queryToRefetch}
           type={type}
           userCanApprove={userCanApprove}
-          {...props} 
+          {...props}
         />
       )}
     </ComposedModal>
@@ -88,22 +101,37 @@ type FormProps = {
   queryToRefetch: string;
   type: string;
   userCanApprove?: boolean;
-}
+};
 
-function Form({ actions, cancelRequestRef, closeModal, isAlreadyApproved, onSuccessfulApprovalRejection, queryToRefetch, type, userCanApprove }: FormProps) {
-  const [approveLoading, setApproveLoading] =  React.useState(false);
+function Form({
+  actions,
+  cancelRequestRef,
+  closeModal,
+  isAlreadyApproved,
+  onSuccessfulApprovalRejection,
+  queryToRefetch,
+  type,
+  userCanApprove,
+}: FormProps) {
+  const [approveLoading, setApproveLoading] = React.useState(false);
   const [rejectLoading, setRejectLoading] = React.useState(false);
 
   /** Update actions */
   const [actionsMutation, { isLoading: actionsIsLoading, isError: actionsPutError }] = useMutation(
     (args: { body: any }) => {
-      const { promise, cancel } = resolver.putWorkflowApproval(args);
+      const { promise, cancel } = resolver.putWorkflowAction(args);
       cancelRequestRef.current = cancel;
       return promise;
     }
   );
 
-  const handleActions = ({ approved, notificationSubtitle, notificationTitle, setLoading, values }: any) => async () => {
+  const handleActions = ({
+    approved,
+    notificationSubtitle,
+    notificationTitle,
+    setLoading,
+    values,
+  }: any) => async () => {
     typeof setLoading === "function" && setLoading(true);
     let request: any = [];
 
@@ -116,13 +144,7 @@ function Form({ actions, cancelRequestRef, closeModal, isAlreadyApproved, onSucc
       typeof setLoading === "function" && setLoading(false);
       onSuccessfulApprovalRejection();
       queryCache.invalidateQueries(queryToRefetch);
-      notify(
-        <ToastNotification
-          kind="success"
-          subtitle={notificationSubtitle}
-          title={notificationTitle}
-        />
-      );
+      notify(<ToastNotification kind="success" subtitle={notificationSubtitle} title={notificationTitle} />);
       closeModal();
     } catch (err) {
       typeof setLoading === "function" && setLoading(false);
@@ -153,10 +175,16 @@ function Form({ actions, cancelRequestRef, closeModal, isAlreadyApproved, onSucc
           <ModalForm>
             <ModalBody className={styles.modalBody}>
               {actionsIsLoading ? <Loading /> : null}
-              {type === ModalType.Single
-                ? <SingleActionSection action={actions[0]} formikBag={props} isAlreadyApproved={isAlreadyApproved} userCanApprove={userCanApprove} />
-                : actions.map((action) => <ActionSection key={action.id} action={action} formikBag={props} />)
-              }
+              {type === ModalType.Single ? (
+                <SingleActionSection
+                  action={actions[0]}
+                  formikBag={props}
+                  isAlreadyApproved={isAlreadyApproved}
+                  userCanApprove={userCanApprove}
+                />
+              ) : (
+                actions.map((action) => <ActionSection key={action.id} action={action} formikBag={props} />)
+              )}
               {actionsPutError && (
                 <InlineNotification
                   style={{ marginBottom: "0.5rem" }}
@@ -174,24 +202,24 @@ function Form({ actions, cancelRequestRef, closeModal, isAlreadyApproved, onSucc
                 <Button
                   disabled={!isValid || actionsIsLoading || isAlreadyApproved}
                   kind="danger"
-                  onClick={handleActions({ 
+                  onClick={handleActions({
                     approved: false,
                     notificationTitle: "Success!",
                     notificationSubtitle: "Request to reject action submitted",
                     setLoading: setRejectLoading,
-                    values
+                    values,
                   })}
                 >
                   {!rejectLoading ? "Reject" : "Rejecting..."}
                 </Button>
                 <Button
                   disabled={!isValid || actionsIsLoading || isAlreadyApproved}
-                  onClick={handleActions({ 
+                  onClick={handleActions({
                     approved: true,
                     notificationTitle: "Success!",
                     notificationSubtitle: "Request to approve action submitted",
                     setLoading: setApproveLoading,
-                    values
+                    values,
                   })}
                 >
                   {!approveLoading ? "Approve" : "Approving..."}
@@ -204,11 +232,11 @@ function Form({ actions, cancelRequestRef, closeModal, isAlreadyApproved, onSucc
                 </Button>
                 <Button
                   disabled={!isValid || actionsIsLoading}
-                  onClick={handleActions({ 
+                  onClick={handleActions({
                     approved: true,
                     notificationTitle: "Success!",
                     notificationSubtitle: `Request to approve ${actions.length} actions submitted.`,
-                    values
+                    values,
                   })}
                 >
                   {!actionsIsLoading ? "Approve" : "Approving..."}
@@ -222,11 +250,11 @@ function Form({ actions, cancelRequestRef, closeModal, isAlreadyApproved, onSucc
                 <Button
                   disabled={!isValid || actionsIsLoading}
                   kind="danger"
-                  onClick={handleActions({ 
+                  onClick={handleActions({
                     approved: false,
                     notificationTitle: "Success!",
                     notificationSubtitle: `Request to reject ${actions.length} actions submitted.`,
-                    values
+                    values,
                   })}
                 >
                   {!actionsIsLoading ? "Reject" : "Rejecting..."}
@@ -244,11 +272,7 @@ function ActionSection({ formikBag, action }: any) {
   const { id, teamName, workflowName } = action;
   const { values, touched, errors, handleChange, handleBlur } = formikBag;
 
-  const DataSection = ({
-    className,
-    label,
-    value
-  }: any) => (
+  const DataSection = ({ className, label, value }: any) => (
     <dl className={className}>
       <dt className={styles.dataLabel}>{label}</dt>
       <dd className={styles.dataValue}>{value ?? "---"}</dd>
@@ -278,22 +302,18 @@ function ActionSection({ formikBag, action }: any) {
 }
 
 function SingleActionSection({ formikBag, action, isAlreadyApproved, userCanApprove }: any) {
-  const { 
-    numberOfApprovals = 0, 
-    approvalsRequired = 0, 
+  const {
+    numberOfApprovals = 0,
+    approvalsRequired = 0,
     creationDate,
-    id, 
+    id,
     inputRequired,
     workflowName,
     teamName,
   } = action;
   const { values, touched, errors, handleChange, handleBlur } = formikBag;
 
-  const DataSection = ({
-    className,
-    label,
-    value
-  }: any) => (
+  const DataSection = ({ className, label, value }: any) => (
     <dl className={className}>
       <dt className={styles.dataLabel}>{label}</dt>
       <dd className={styles.dataValue}>{value ?? "---"}</dd>
@@ -305,29 +325,39 @@ function SingleActionSection({ formikBag, action, isAlreadyApproved, userCanAppr
       <DataSection className={styles.data} label="Team" value={teamName} />
       <DataSection className={styles.data} label="Workflow" value={workflowName} />
       <p className={styles.creationDate}>{`Submitted ${dateHelper.humanizedSimpleTimeAgo(creationDate)}`}</p>
-      {userCanApprove ?
-        !isAlreadyApproved ?
+      {userCanApprove ? (
+        !isAlreadyApproved ? (
           <>
             <div className={styles.yourInput}>
               <p className={styles.singleLabel}>Your input</p>
               {inputRequired === ApprovalInputRequired.Required ? (
-                <TooltipHover direction="top" tooltipText="You must make a decision in order for this component to proceed.">
+                <TooltipHover
+                  direction="top"
+                  tooltipText="You must make a decision in order for this component to proceed."
+                >
                   <div className={styles.yourInputRequired}>
                     <p>Required</p>
-                    <Warning16 className={styles.yourInputRequiredIcon}/>
+                    <Warning16 className={styles.yourInputRequiredIcon} />
                   </div>
                 </TooltipHover>
               ) : (
-                <TooltipHover direction="top" tooltipText="Your input is not a required action, but will count towards the required total - other approver(s) can make the needed actions for this component to proceed.">
+                <TooltipHover
+                  direction="top"
+                  tooltipText="Your input is not a required action, but will count towards the required total - other approver(s) can make the needed actions for this component to proceed."
+                >
                   <p className={styles.yourInputOptional}>Optional</p>
                 </TooltipHover>
               )}
-              <p className={styles.singleHelperText}>You must make a decision in order for this component to proceed.</p>
+              <p className={styles.singleHelperText}>
+                You must make a decision in order for this component to proceed.
+              </p>
             </div>
             <div className={styles.approvals}>
               <p className={styles.singleLabel}>Approvals</p>
               <p className={styles.approvalsRatio}>{`${numberOfApprovals}/${approvalsRequired} approvals`}</p>
-              <p className={styles.singleHelperText}>Number of required approvals that have been received in order for this component to proceed.</p>
+              <p className={styles.singleHelperText}>
+                Number of required approvals that have been received in order for this component to proceed.
+              </p>
             </div>
             <div className={styles.comment}>
               <TextArea
@@ -344,14 +374,13 @@ function SingleActionSection({ formikBag, action, isAlreadyApproved, userCanAppr
               <p className={styles.commentLength}>{`${values[id]?.comment.length}/200`}</p>
             </div>
           </>
-          :
+        ) : (
           <div className={styles.yourInput}>
             <p className={styles.singleLabel}>Your input</p>
             <p className={styles.singleHelperText}>You already submitted your response for this action.</p>
           </div>
-        :
-        null
-      }
+        )
+      ) : null}
     </section>
   );
 }

@@ -16,7 +16,14 @@ import styles from "./WorkflowTaskForm.module.scss";
 
 const AutoSuggestInput = (props) => {
   //number inputs doesn't support AutoSuggest setSelectionRange
-  if (props.type === "number") return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
+  if (props.type === "number")
+    return (
+      <TextInput
+        {...props}
+        value={props.value !== undefined && props.value !== null ? props.value : props.initialValue}
+        onChange={(e) => props.onChange(e.target.value)}
+      />
+    );
   else
     return (
       <div key={props.id}>
@@ -176,7 +183,7 @@ class WorkflowTaskForm extends Component {
     return {
       autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
       onChange: (value) => this.formikSetFieldValue(value, key, setFieldValue),
-      initialValue: values[key],
+      initialValue: values[key] !== null && values[key] !== undefined ? values[key] : input.value,
       inputProps: {
         id: key,
         onBlur: handleBlur,

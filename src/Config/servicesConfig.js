@@ -90,8 +90,9 @@ export const serviceUrl = {
   putActivationApp: () => `${BASE_URL}/users/register`,
   putRestoreTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}/activate`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
-  putWorkflowApproval: () => `${BASE_URL}/approvals/action`,
-  resourceApproverGroups: ({ teamId, groupId }) => `${BASE_URL}/teams/${teamId}/approvers${groupId ? "/" + groupId : ""}`,
+  putWorkflowAction: () => `${BASE_URL}/actions/action`,
+  resourceApproverGroups: ({ teamId, groupId }) =>
+    `${BASE_URL}/teams/${teamId}/approvers${groupId ? "/" + groupId : ""}`,
   resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
   resourceSettings: () => `${BASE_URL}/settings`,
   workflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
@@ -159,7 +160,7 @@ export const resolver = {
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
   postCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Post }),
-  postDuplicateWorkflow: ({workflowId}) => axios.post(serviceUrl.postDuplicateWorkflow({workflowId})),
+  postDuplicateWorkflow: ({ workflowId }) => axios.post(serviceUrl.postDuplicateWorkflow({ workflowId })),
   putCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Put }),
   putCreateTaskYaml: ({ id, revision, comment, body }) =>
@@ -204,6 +205,6 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.putTeamQuotasDefault({ id }), method: HttpMethod.Put }),
   putTeamQuotas: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getTeamQuotas({ id }), body, method: HttpMethod.Put }),
-  putWorkflowApproval: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.putWorkflowApproval(), body, method: HttpMethod.Put }),
+  putWorkflowAction: ({ body }) =>
+    cancellableResolver({ url: serviceUrl.putWorkflowAction(), body, method: HttpMethod.Put }),
 };

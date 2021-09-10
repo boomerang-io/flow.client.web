@@ -39,13 +39,12 @@ const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigne
   /**
    * Get approver groups
    */
-   const ApproverGroupsUrl = serviceUrl.resourceApproverGroups({ teamId: flowTeamId, groupId: undefined });
-   const { data: approverGroupsData } = useQuery({
-     queryKey: ApproverGroupsUrl,
-     queryFn: resolver.query(ApproverGroupsUrl),
-     config: { enabled: flowTeamId && isTeamScope }
-   });
-
+  const ApproverGroupsUrl = serviceUrl.resourceApproverGroups({ teamId: flowTeamId, groupId: undefined });
+  const { data: approverGroupsData } = useQuery({
+    queryKey: ApproverGroupsUrl,
+    queryFn: resolver.query(ApproverGroupsUrl),
+    config: { enabled: flowTeamId && isTeamScope },
+  });
 
   // Get the taskNames names from the nodes on the model
   const taskNames = Object.values(diagramEngine.getDiagramModel().getNodes())
@@ -81,28 +80,35 @@ const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigne
     designerNode.remove();
   };
 
-  const additionalConfig = isTeamScope && approverGroupsData ? [
-    {
-      placeholder: "",
-      description: "",
-      required: true,
-      min: 1,
-      key: "numberOfApprovals",
-      label: "Number of Approvals",
-      type: "number",
-      helperText: "Number of approvals needed in order to approve",
-    },
-    {
-      placeholder: "",
-      description: "",
-      required: false,
-      key: "approverGroupId",
-      label: "Approver Group ID (optional)",
-      type: "select",
-      helperText: "Choose an Approver Group to handle this approval",
-      options: approverGroupsData.map((approverGroup) => ({ key: approverGroup.groupId, value: approverGroup.groupName })),
-    }
-  ] : [];
+  const additionalConfig =
+    isTeamScope && approverGroupsData
+      ? [
+          {
+            placeholder: "",
+            description: "",
+            value: "1",
+            required: true,
+            min: 1,
+            key: "numberOfApprovals",
+            label: "Number of Approvals",
+            type: "number",
+            helperText: "Number of approvals needed in order to approve",
+          },
+          {
+            placeholder: "",
+            description: "",
+            required: false,
+            key: "approverGroupId",
+            label: "Approver Group (optional)",
+            type: "select",
+            helperText: "Choose an Approver Group to handle this approval",
+            options: approverGroupsData.map((approverGroup) => ({
+              key: approverGroup.groupId,
+              value: approverGroup.groupName,
+            })),
+          },
+        ]
+      : [];
 
   const renderConfigureTask = () => {
     return (

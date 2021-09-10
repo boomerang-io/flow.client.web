@@ -325,26 +325,26 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return {};
       });
 
-      /** 
+      /**
        * Actions
        */
-       this.get(serviceUrl.getActionsSummary({ query: null }), (schema) => {
+      this.get(serviceUrl.getActionsSummary({ query: null }), (schema) => {
         return schema.db.actionsSummary[0];
       });
 
       this.get(serviceUrl.getActions({ query: null }), (schema, request) => {
         const { type } = request.queryParams;
-        if(type === "approval") return schema.db.approvals[0];
-        if(type === "manual") return  schema.db.manualTasks[0];
+        if (type === "approval") return schema.db.approvals[0];
+        if (type === "manual") return schema.db.manualTasks[0];
         return {};
       });
 
-      this.put(serviceUrl.putWorkflowApproval(), () => {
+      this.put(serviceUrl.putWorkflowAction(), () => {
         return {};
       });
 
-      /** 
-       * Approvers Group 
+      /**
+       * Approvers Group
        */
       this.get(serviceUrl.resourceApproverGroups({ teamId: ":teamId" }), (schema) => {
         return schema.db.approverGroups;
@@ -367,7 +367,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         schema.approverGroups.create({ groupId: uuid(), ...body });
         return schema.approverGroups.all();
       });
-      
+
       //Update approver group
       this.put(serviceUrl.resourceApproverGroups({ teamId: ":teamId" }), (schema, request) => {
         return {};
