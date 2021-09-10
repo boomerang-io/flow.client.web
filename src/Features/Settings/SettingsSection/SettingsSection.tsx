@@ -32,7 +32,14 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({ onSave, index, settin
   return (
     <AccordionItem
       open={index === 0}
-      title={<h1 className={styles.accordionTitle}>{settingsGroup.name}</h1>}
+      title={
+        <div className={styles.accordionTitle}>
+          <h2>{settingsGroup.name}</h2>
+          <p title={settingsGroup.description} className={styles.accordionDescription}>
+            {settingsGroup.description}
+          </p>
+        </div>
+      }
       id={settingsGroup.key}
       key={`${settingsGroup.key}${index}`}
       data-testid="settings-section"
