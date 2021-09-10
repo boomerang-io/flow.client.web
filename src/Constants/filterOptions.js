@@ -31,6 +31,11 @@ export const statusOptions = [
   { label: "Invalid", value: "invalid" },
   { label: "In Progress", value: "inProgress" },
 ];
+export const approvalStatusOptions = [
+  { label: "Approved", value: "approved" },
+  { label: "Rejected", value: "rejected" },
+  { label: "Submitted", value: "submitted" },
+];
 
 export const ALL_OPTIONS = {
   TEAMS: { id: "none", name: "All Teams" },

@@ -34,8 +34,11 @@ export const serviceUrl = {
   deleteCancelWorkflow: ({ executionId }) => `${BASE_URL}/activity/${executionId}/cancel`,
   getActivitySummary: ({ query }) => `${BASE_URL}/activity/summary${query ? "?" + query : ""}`,
   getActivity: ({ query }) => `${BASE_URL}/activity${query ? "?" + query : ""}`,
+  getActionsSummary: ({ query }) => `${BASE_URL}/actions/summary${query ? "?" + query : ""}`,
+  getActions: ({ query }) => `${BASE_URL}/actions${query ? "?" + query : ""}`,
   getDefaultQuotas: () => `${BASE_URL}/quotas/default`,
   getFeatureFlags: () => `${BASE_URL}/features`,
+  getFlowTeamUsers: ({ teamId }) => `${BASE_URL}/teams/${teamId}/members`,
   getGlobalConfiguration: () => `${BASE_URL}/config`,
   getGlobalProperty: ({ id }) => `${BASE_URL}/config/${id}`,
   getInsights: ({ query }) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
@@ -63,7 +66,7 @@ export const serviceUrl = {
   getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
   // getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
   getUserProfile: () => `${BASE_URL}/users/profile`,
-
+  getUserWorkflows: () => `${BASE_URL}/workflows/user`,
   getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
 
   getWorkflowChangelog: ({ workflowId, query }) =>
@@ -88,6 +91,7 @@ export const serviceUrl = {
   putRestoreTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}/activate`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
   putWorkflowApproval: () => `${BASE_URL}/approvals/action`,
+  resourceApproverGroups: ({ teamId, groupId }) => `${BASE_URL}/teams/${teamId}/approvers${groupId ? "/" + groupId : ""}`,
   resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
   resourceSettings: () => `${BASE_URL}/settings`,
   workflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
@@ -112,6 +116,7 @@ export const resolver = {
   postMutation: (request) => axios.post(request),
   patchMutation: (request) => axios.patch(request),
   putMutation: (request) => axios.put(request),
+  deleteApproverGroup: ({ teamId, groupId }) => axios.delete(serviceUrl.resourceApproverGroups({ teamId, groupId })),
   deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   deleteCancelWorkflow: ({ executionId }) => axios.delete(serviceUrl.deleteCancelWorkflow({ executionId })),
   deleteGlobalPropertyRequest: ({ id }) => axios.delete(serviceUrl.getGlobalProperty({ id })),
@@ -143,6 +148,12 @@ export const resolver = {
     axios.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId }), body),
   // postAddService: ({ body }) =>
   //   cancellableResolver({ url: serviceUrl.postAddService(), body, method: HttpMethod.Post }),
+  postApproverGroupRequest: ({ body, teamId }) =>
+    cancellableResolver({
+      url: serviceUrl.resourceApproverGroups({ teamId }),
+      body,
+      method: HttpMethod.Post,
+    }),
   postCreateWorkflow: ({ body }) => axios.post(serviceUrl.postCreateWorkflow(), body),
   postCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
@@ -179,6 +190,12 @@ export const resolver = {
       url: serviceUrl.putActivationApp(),
       data: body,
       validateStatus: (status) => status >= 200 && status < 300,
+    }),
+  putApproverGroupRequest: ({ body, teamId }) =>
+    cancellableResolver({
+      url: serviceUrl.resourceApproverGroups({ teamId }),
+      body,
+      method: HttpMethod.Put,
     }),
   putPlatformSettings: ({ body }) => axios.put(serviceUrl.resourceSettings(), body),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.putRestoreTaskTemplate({ id })),

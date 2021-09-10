@@ -12,6 +12,12 @@ const flowNavigation = [
     link: "/activity",
   },
   {
+    name: "Actions",
+    type: "link",
+    icon: "Stamp16",
+    link: "/actions",
+  },
+  {
     name: "Insights",
     type: "link",
     icon: "ChartScatter16",
@@ -23,6 +29,11 @@ const flowNavigation = [
     icon: "SettingsAdjust16",
     childLinks: [
       {
+        name: "Team Approvers",
+        type: "link",
+        link: "/manage/approver-groups",
+      },
+      {
         name: "Team Parameters",
         type: "link",
         link: "/manage/team-parameters",
@@ -32,6 +43,11 @@ const flowNavigation = [
         type: "link",
         link: "/manage/task-templates",
       },
+      {
+        name: "Team Tokens",
+        type: "link",
+        link: "/manage/team-tokens",
+      },
     ],
   },
   {
@@ -40,12 +56,27 @@ const flowNavigation = [
     icon: "Settings16",
     childLinks: [
       {
-        name: "Parameters",
+        name: "Teams",
+        type: "link",
+        link: "/admin/teams",
+      },
+      {
+        name: "Users",
+        type: "link",
+        link: "/admin/users",
+      },
+      {
+        name: "Global Parameters",
         type: "link",
         link: "/admin/parameters",
       },
       {
-        name: "Quotas",
+        name: "Global Tokens",
+        type: "link",
+        link: "/admin/tokens",
+      },
+      {
+        name: "Team Quotas",
         type: "link",
         link: "/admin/quotas",
       },

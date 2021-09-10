@@ -133,6 +133,12 @@ export const WorkflowPropertyUpdateType = {
   Delete: "delete",
 };
 
+export const WorkflowScope = {
+  System: "system",
+  Team: "team",
+  User: "user",
+};
+
 export const SortDirection = {
   Asc: "ASC",
   Desc: "DESC",
@@ -186,6 +192,17 @@ export const executionStatusList = [
   ExecutionStatus.Waiting,
   ExecutionStatus.Cancelled,
 ];
+
+export const ActionType = {
+  Approval: "approval",
+  Manual: "manual"
+}
+
+export const ApprovalInputRequired = {
+  Optional: "optional",
+  Required: "required",
+  None: "none",
+};
 
 export const ApprovalStatus = {
   Approved: "approved",

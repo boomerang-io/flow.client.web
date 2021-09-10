@@ -110,6 +110,7 @@ function formatAutoSuggestProperties(inputProperties) {
 
 class WorkflowTaskForm extends Component {
   static propTypes = {
+    additionalConfig: PropTypes.array,
     closeModal: PropTypes.func,
     inputProperties: PropTypes.array,
     node: PropTypes.object.isRequired,
@@ -193,7 +194,7 @@ class WorkflowTaskForm extends Component {
   };
 
   render() {
-    const { node, task, taskNames, nodeConfig } = this.props;
+    const { additionalConfig = [], node, task, taskNames, nodeConfig } = this.props;
     const taskRevisions = task?.revisions ?? [];
     // Find the matching task config for the version
     const taskVersionConfig = nodeConfig
@@ -216,6 +217,7 @@ class WorkflowTaskForm extends Component {
         customComponent: TaskNameTextInput,
       },
       ...taskVersionConfig,
+      ...additionalConfig,
       {
         outputs: taskResults,
         key: "outputs",

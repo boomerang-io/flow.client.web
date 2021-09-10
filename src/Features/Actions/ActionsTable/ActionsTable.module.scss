@@ -1,0 +1,111 @@
+@import "Styles/mixins";
+
+.tableSkeleton {
+  th {
+    color: var(--cds-interactive-01);
+  }
+  thead {
+    background-color: #d5d9e0;
+    th:nth-of-type(1) {
+      width: 15% !important;
+    }
+
+    th:nth-of-type(2) {
+      width: 10% !important;
+    }
+
+    th:nth-of-type(3) {
+      width: 30% !important;
+    }
+
+    th:nth-of-type(4) {
+      width: 20% !important;
+    }
+
+    th:nth-of-type(5) {
+      width: 15% !important;
+    }
+
+    th:nth-of-type(6) {
+      width: 10% !important;
+    }
+  }
+}
+
+.tableContainer {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tableHeadHeader {
+  color: var(--cds-text-01);
+  font-size: 0.875rem;
+  font-weight: 600;
+  height: 3rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.125rem;
+
+  button {
+    width: 100% !important;
+  }
+
+  &.teamName {
+    width: 15%;
+  }
+
+  &.scope {
+    width: 10%;
+  }
+
+  &.workflowName {
+    width: 30%;
+  }
+
+  &.taskName {
+    width: 20%;
+  }
+
+  &.creationDate {
+    width: 15%;
+  }
+
+  &.status {
+    width: 10%;
+  }
+}
+
+.tableBody {
+  font-size: 0.875rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.125rem;
+}
+
+.tableRow {
+  cursor: pointer;
+
+  &:focus {
+    @include focus-outline(var(--cds-interactive-01), -0.125rem);
+  }
+}
+
+.tableTextarea {
+  background: inherit;
+  margin-left: 0.25rem;
+  max-width: 100%;
+  resize: none;
+  text-align: left;
+  white-space: normal;
+  width: 90%;
+  word-break: break-all;
+}

@@ -1,7 +1,3 @@
-import { number } from "prop-types";
-import { string } from "prop-types";
-import { boolean } from "yup";
-
 export enum PlatformRole {
   Admin = "admin",
   User = "user",
@@ -11,6 +7,35 @@ export enum PlatformRole {
 export enum UserStatus {
   Active = "active",
   Inactive = "inactive",
+}
+
+export interface Action {
+  id: string;
+  activityId: string;
+  taskActivityId: string;
+  workflowId: string;
+  teamId: string;
+  audit: any;
+  status: string;
+  type: string;
+  creationDate: string;
+  taskName: string;
+  workflowName: string;
+  teamName: string;
+  instructions: any
+}
+
+export interface Approver {
+  userName: string;
+  userId: string;
+  userEmail: string;
+  teamApprover?: boolean;
+}
+
+export interface ApproverGroup {
+  groupId: string;
+  groupName: string;
+  approvers: Array<Approver>;
 }
 
 export interface DataDrivenInput {

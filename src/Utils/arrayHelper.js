@@ -1,5 +1,13 @@
 import orderBy from "lodash/orderBy";
 
+export const sortKeyDirection = ({array, sortKey, sortDirection}) => {
+  let sortedArray = [...array];
+  if (sortDirection !== "NONE") {
+    sortedArray = orderBy(sortedArray, [sortKey], [sortDirection.toLowerCase()]);
+  }
+  return sortedArray;
+}
+
 export const arrayPagination = (array, page, pageSize, key, direction) => {
   const newArray = orderBy([...array], key, direction.toLowerCase());
   const startIndex = (page - 1) * pageSize;

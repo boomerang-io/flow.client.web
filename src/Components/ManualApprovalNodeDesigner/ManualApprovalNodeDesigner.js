@@ -1,5 +1,5 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import { useQuery } from "react-query";
 import { useEditorContext } from "Hooks";
 import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -9,6 +9,8 @@ import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import { WorkflowScope } from "Constants";
 import styles from "./ManualApprovalNodeDesigner.module.scss";
 
 const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigner({
@@ -19,19 +21,31 @@ const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigne
     availableParametersQueryData,
     revisionDispatch,
     revisionState,
-    // summaryData,
+    summaryData,
     taskTemplatesData,
   } = useEditorContext();
+  const { flowTeamId } = summaryData;
 
   /**
    * Pull data off of context
    */
-  // const inputProperties = summaryData.properties;
   const inputProperties = availableParametersQueryData;
+  const isTeamScope = summaryData?.scope === WorkflowScope.Team;
 
   const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
   const nodeConfig = revisionState.config[designerNode.id] ?? {};
   const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
+
+  /**
+   * Get approver groups
+   */
+   const ApproverGroupsUrl = serviceUrl.resourceApproverGroups({ teamId: flowTeamId, groupId: undefined });
+   const { data: approverGroupsData } = useQuery({
+     queryKey: ApproverGroupsUrl,
+     queryFn: resolver.query(ApproverGroupsUrl),
+     config: { enabled: flowTeamId && isTeamScope }
+   });
+
 
   // Get the taskNames names from the nodes on the model
   const taskNames = Object.values(diagramEngine.getDiagramModel().getNodes())
@@ -67,6 +81,29 @@ const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigne
     designerNode.remove();
   };
 
+  const additionalConfig = isTeamScope && approverGroupsData ? [
+    {
+      placeholder: "",
+      description: "",
+      required: true,
+      min: 1,
+      key: "numberOfApprovals",
+      label: "Number of Approvals",
+      type: "number",
+      helperText: "Number of approvals needed in order to approve",
+    },
+    {
+      placeholder: "",
+      description: "",
+      required: false,
+      key: "approverGroupId",
+      label: "Approver Group ID (optional)",
+      type: "select",
+      helperText: "Choose an Approver Group to handle this approval",
+      options: approverGroupsData.map((approverGroup) => ({ key: approverGroup.groupId, value: approverGroup.groupName })),
+    }
+  ] : [];
+
   const renderConfigureTask = () => {
     return (
       <ComposedModal
@@ -82,6 +119,7 @@ const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigne
       >
         {({ closeModal }) => (
           <WorkflowTaskForm
+            additionalConfig={additionalConfig}
             inputProperties={inputProperties}
             closeModal={closeModal}
             node={designerNode}

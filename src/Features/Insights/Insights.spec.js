@@ -61,6 +61,10 @@ describe("WorkflowInsights --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowInsights", async () => {
     const { baseElement, findByTestId } = rtlContextRouterRender(<WorkflowInsights />);
     await findByTestId("completed-insights");
+    const a11yElement = baseElement.querySelector("#a11y-status-message");
+    if (baseElement.contains(a11yElement)) {
+      a11yElement.parentNode.removeChild(a11yElement);
+    }
     expect(baseElement).toMatchSnapshot();
   });
 });
