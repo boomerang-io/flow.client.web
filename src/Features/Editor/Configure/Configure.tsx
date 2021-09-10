@@ -13,8 +13,8 @@ import {
   Toggle,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import CronJobModal from "./CronJobModal";
 import ConfigureStorage from "./ConfigureStorage";
+import CronJobModal from "./CronJobModal";
 import cx from "classnames";
 import cronstrue from "cronstrue";
 import capitalize from "lodash/capitalize";
@@ -123,15 +123,15 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           description: summaryData.description ?? "",
           enableACCIntegration: summaryData.enableACCIntegration ?? false,
           storage: {
-            workspace: summaryData.storage.workspace ?? {
-              enabled: false,
-              size: 1,
-              mountPath: "",
+            workspace: {
+              enabled: summaryData.storage?.workspace?.enabled ?? false,
+              size: summaryData.storage?.workspace?.size ?? 1,
+              mountPath: summaryData.storage?.workspace?.mountPath ?? "",
             },
-            workflow: summaryData.storage.workflow ?? {
-              enabled: false,
-              size: 1,
-              mountPath: "",
+            workflow: {
+              enabled: summaryData.storage?.workflow?.enabled ?? false,
+              size: summaryData.storage?.workflow?.size ?? 1,
+              mountPath: summaryData.storage?.workflow?.mountPath ?? "",
             },
           },
           icon: summaryData.icon ?? "",
@@ -166,14 +166,14 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           enableACCIntegration: Yup.boolean(),
           storage: Yup.object().shape({
             workflow: Yup.object().shape({ 
-              enabled: Yup.boolean(),
-              size: Yup.number().required(),
-              mountPath: Yup.string(),
+              enabled: Yup.boolean().nullable(),
+              size: Yup.number().required("Enter the storage size"),
+              mountPath: Yup.string().nullable(),
             }),
             workspace: Yup.object().shape({ 
-              enabled: Yup.boolean(),
-              size: Yup.number().required(),
-              mountPath: Yup.string(),
+              enabled: Yup.boolean().nullable(),
+              size: Yup.number().required("Enter the storage size"),
+              mountPath: Yup.string().nullable(),
             }),
           }),
           icon: Yup.string(),
@@ -292,9 +292,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
       teams,
       formikProps: { dirty, errors, handleBlur, handleSubmit, touched, values, setFieldValue },
     } = this.props;
-
     const isLoading = summaryMutation.status === QueryStatus.Loading;
-
     return (
       <div aria-label="Configure" className={styles.wrapper} role="region">
         <section className={styles.largeCol}>
@@ -605,7 +603,9 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                       <ConfigureStorage
                         size={values.storage.workspace.size}
                         mountPath={values.storage.workspace.mountPath}
-                        handleOnChange={(values: any) => setFieldValue(values,"storage.workspace")}
+                        handleOnChange={(storageValues: any) => {
+                          setFieldValue("storage.workspace", storageValues);
+                        }}
                         closeModal={closeModal}
                       />
                     )}
@@ -655,7 +655,9 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                       <ConfigureStorage
                         size={values.storage.workflow.size}
                         mountPath={values.storage.workflow.mountPath}
-                        handleOnChange={(values: any) => setFieldValue(values,"storage.workflow")}
+                        handleOnChange={(storageValues: any) => {
+                          setFieldValue("storage.workflow", storageValues);
+                        }}
                         closeModal={closeModal}
                       />
                     )}
