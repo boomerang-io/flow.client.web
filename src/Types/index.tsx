@@ -218,11 +218,11 @@ export interface FlowTeamQuotas {
   currentWorkflowCount: number;
   maxWorkflowStorage: number;
   maxConcurrentWorkflows: number;
-  // maxWorkflowExecutionTime: string;
+  maxWorkflowExecutionTime: number;
   monthlyResetDate: string;
 
-  // currentConcurrentWorkflows: number;
-  // currentAverageExecutionTime: number;
+  currentConcurrentWorkflows: number;
+  currentAverageExecutionTime: number;
   currentWorkflowsPersistentStorage: number;
 }
 
