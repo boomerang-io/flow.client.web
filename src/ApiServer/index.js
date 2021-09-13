@@ -89,6 +89,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.systemWorkflows;
       });
 
+      this.get(serviceUrl.getUserWorkflows(), (schema) => {
+        return schema.db.userWorkflows[0];
+      });
+
       this.get(serviceUrl.getTeamQuotas({ id: ":id" }), (schema) => {
         return schema.db.quotas[0];
       });
@@ -226,11 +230,14 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.post(serviceUrl.postCreateWorkflow(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let workflow = { ...body, id: uuid(), createdDate: Date.now(), revisionCount: 1, status: "active" };
-        let flowTeam = schema.teams.findBy({ id: body.flowTeamId });
-        const teamWorkflows = [...flowTeam.workflows];
-        teamWorkflows.push(workflow);
-        flowTeam.update({ workflows: teamWorkflows });
-        return schema.summaries.create(workflow);
+        if (body.flowTeamId) {
+          let flowTeam = schema.teams.findBy({ id: body.flowTeamId });
+          const teamWorkflows = [...flowTeam.workflows];
+          teamWorkflows.push(workflow);
+          flowTeam.update({ workflows: teamWorkflows });
+          return schema.summaries.create(workflow);
+        }
+        return {};
       });
 
       this.post(

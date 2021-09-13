@@ -133,6 +133,12 @@ export const WorkflowPropertyUpdateType = {
   Delete: "delete",
 };
 
+export const WorkflowScope = {
+  System: "system",
+  Team: "team",
+  User: "user",
+};
+
 export const SortDirection = {
   Asc: "ASC",
   Desc: "DESC",

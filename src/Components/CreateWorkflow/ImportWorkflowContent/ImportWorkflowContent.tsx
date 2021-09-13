@@ -15,6 +15,7 @@ import {
 import { requiredWorkflowProps } from "./constants";
 import { ErrorFilled32 } from "@carbon/icons-react";
 import { FlowTeam, WorkflowExport, WorkflowSummary } from "Types";
+import { WorkflowScope } from "Constants";
 import styles from "./importWorkflowContent.module.scss";
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
@@ -40,11 +41,11 @@ interface ImportWorkflowContentProps {
   closeModal(): void;
   existingWorkflowNames: string[];
   isLoading: boolean;
-  isSystem: boolean;
   importError: any;
   importWorkflow: (workflowExport: WorkflowExport, closeModal: () => void, team: FlowTeam) => Promise<void>;
-  teams: FlowTeam[] | null;
-  team: FlowTeam | null;
+  scope: string;
+  teams?: FlowTeam[] | null;
+  team?: FlowTeam | null;
 }
 
 interface FormProps {
@@ -58,9 +59,9 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
   closeModal,
   existingWorkflowNames,
   isLoading,
-  isSystem,
   importError,
   importWorkflow,
+  scope,
   team,
   teams,
 }) => {
@@ -123,7 +124,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
   return (
     <Formik
       initialValues={{
-        selectedTeam: team,
+        selectedTeam: team ?? null,
         name: "",
         summary: "",
         file: undefined,
@@ -131,7 +132,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
       validateOnMount
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({
-        selectedTeam: isSystem ? Yup.mixed() : Yup.string().required("Team is required"),
+        selectedTeam: scope === WorkflowScope.Team ? Yup.string().required("Team is required") : Yup.mixed(),
         name: Yup.string()
           .required("Please enter a name for your Workflow")
           .max(64, "Name must not be greater than 64 characters")
@@ -164,7 +165,17 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
       })}
     >
       {(props: FormikProps<FormProps>) => {
-        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue, setFieldError } = props;
+        const {
+          values,
+          touched,
+          errors,
+          isValid,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          setFieldValue,
+          setFieldError,
+        } = props;
         return (
           <>
             {isLoading && <Loading />}
@@ -175,7 +186,10 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                 labelText={FILE_UPLOAD_MESSAGE}
                 name="Workflow"
                 multiple={false}
-                onAddFiles={async (event: React.SyntheticEvent, { addedFiles }: { addedFiles: { name: string, size: number }[] }) => {
+                onAddFiles={async (
+                  event: React.SyntheticEvent,
+                  { addedFiles }: { addedFiles: { name: string; size: number }[] }
+                ) => {
                   let contents = await readFile(addedFiles[0], setFieldError);
                   let fileInfo = {
                     contents,
@@ -204,7 +218,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                   </div>
                 ) : (
                   <div className={styles.confirmInfoForm}>
-                    {!isSystem && (
+                    {scope === WorkflowScope.Team && (
                       <ComboBox
                         id="selectedTeam"
                         styles={{ marginBottom: "2.5rem" }}
