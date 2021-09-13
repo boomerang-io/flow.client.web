@@ -269,6 +269,24 @@ export interface Property {
   type: string;
 }
 
+export interface Token {
+  id: string;
+  creationDate: string;
+  expiryDate: string;
+  creatorId: string;
+  description: string;
+  creatorName: string;
+}
+
+export interface TokenRequest {
+  expiryDate: string | number | null;
+  description: string;
+}
+
+export interface TeamTokenRequest extends TokenRequest {
+  teamId: string;
+}
+
 // interface userInterface {
 //   email?: string;
 //   favoritePackages?: any;

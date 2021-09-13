@@ -44,7 +44,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       tasktemplate: Model,
       team: Model,
       teamProperties: Model,
-
+      tokens: Model,
       flowNavigation: Model,
     },
 
@@ -442,6 +442,45 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         const settings = schema.settings.all();
         settings.update(body[0]);
         return schema.settings.all();
+      });
+
+      /**
+       * Manage and Administer Tokens
+       */
+      this.get(serviceUrl.getTeamTokens({ teamId: ":teamId" }), (schema) => {
+        return schema.db.tokens;
+      });
+
+      this.get(serviceUrl.getGlobalTokens(), (schema) => {
+        return schema.db.tokens;
+      });
+
+      this.delete(serviceUrl.deleteToken({ tokenId: ":tokenId" }), (schema, request) => {
+        return {};
+      });
+
+      this.post(serviceUrl.postGlobalToken(), (schema, request) => {
+        let body = JSON.parse(request.requestBody);
+        let newToken = {
+          ...body,
+          creatorId: "1",
+          creationDate: Date.now(),
+          creatorName: "Test User",
+          tokenValue: "testglobal",
+        };
+        return schema.tokens.create(newToken);
+      });
+
+      this.post(serviceUrl.postTeamToken(), (schema, request) => {
+        let body = JSON.parse(request.requestBody);
+        let newToken = {
+          ...body,
+          creatorId: "1",
+          creationDate: Date.now(),
+          creatorName: "Test User",
+          tokenValue: "testteam",
+        };
+        return schema.tokens.create(newToken);
       });
 
       /**
