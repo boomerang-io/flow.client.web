@@ -85,6 +85,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return [];
       });
 
+      this.get(serviceUrl.workflowTemplates(), (schema, request) => {
+        return schema.db.workflowTemplates;
+      });
+
       this.get(serviceUrl.getSystemWorkflows(), (schema) => {
         return schema.db.systemWorkflows;
       });
@@ -490,6 +494,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.tokens.create(newToken);
       });
 
+      /**
+       * Workflow Templates
+       */
+       this.post(serviceUrl.postDuplicateWorkflow({ workflowId: ":workflowId" }), (schema, request) => {
+        return {};
+      });
       /**
        * TODO
        */
