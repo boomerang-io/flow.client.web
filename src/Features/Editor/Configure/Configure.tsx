@@ -100,7 +100,6 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
 }) {
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
   const handleOnSubmit = (values: { selectedTeam: { id: null | string } }) => {
-      console.log("Handle Submit");
       updateSummary({
       values,
       callback: () => history.push(appLink.editorConfigure({ workflowId: params.workflowId })),
@@ -116,7 +115,6 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
       <Formik
         enableReinitialize
         onSubmit={(values: { selectedTeam: { id: null | string } }) => {
-          console.log("Submit Formik");
           handleOnSubmit(values);
         }}
         initialValues={{
@@ -725,7 +723,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
               iconDescription="Save"
               onClick={(e: any) => {
                 e.preventDefault();
-                console.log("Save click");
                 handleSubmit();
               }}
               renderIcon={Save24}
