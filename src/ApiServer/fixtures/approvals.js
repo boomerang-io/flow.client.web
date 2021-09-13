@@ -5,14 +5,14 @@ const approvals = {
     sort: [
       {
         property: "creationDate",
-        direction: "ASC"
-      }
+        direction: "ASC",
+      },
     ],
-    totalElements: 3,
+    totalElements: 4,
     first: true,
     last: true,
     totalPages: 1,
-    numberOfElements: 3
+    numberOfElements: 4,
   },
   records: [
     {
@@ -22,14 +22,16 @@ const approvals = {
       workflowId: "613005eddb7b5f610be73468",
       teamId: null,
       audit: null,
+      scope: "user",
       status: "submitted",
       type: "approval",
       creationDate: "2021-05-20T12:12:58.963+0000",
       taskName: "Manual Approval 1",
       workflowName: "Test Action 1",
-      inputRequired: "required",
+      numberOfApprovals: 1,
+      approvalsRequired: 2,
       teamName: null,
-      instructions: null
+      instructions: null,
     },
     {
       id: "61300607db7b5f610be734asd",
@@ -38,14 +40,16 @@ const approvals = {
       workflowId: "613005eddb7b5f610be73468",
       teamId: null,
       audit: null,
+      scope: "team",
       status: "approved",
       type: "approval",
       creationDate: "2021-07-20T12:12:58.963+0000",
       taskName: "Manual Approval 2",
       workflowName: "Test Action 2",
-      inputRequired: "none",
-      teamName: null,
-      instructions: null
+      numberOfApprovals: 4,
+      approvalsRequired: 4,
+      teamName: "Team 2",
+      instructions: null,
     },
     {
       id: "61300607db7b5f610be734245",
@@ -54,14 +58,16 @@ const approvals = {
       workflowId: "613005eddb7b5f610be73468",
       teamId: null,
       audit: null,
+      scope: "system",
       status: "rejected",
       type: "approval",
       creationDate: "2021-08-30T12:12:58.963+0000",
       taskName: "Manual Approval 3",
       workflowName: "Test Action 3",
-      inputRequired: "none",
+      numberOfApprovals: 2,
+      approvalsRequired: 3,
       teamName: null,
-      instructions: null
+      instructions: null,
     },
     {
       id: "61300607db7b5f610be7346asdd",
@@ -70,17 +76,19 @@ const approvals = {
       workflowId: "613005eddb7b5f610be73468",
       teamId: null,
       audit: null,
+      scope: "team",
       status: "submitted",
       type: "approval",
       creationDate: "2021-08-24T12:12:58.963+0000",
       taskName: "Manual Approval 4",
       workflowName: "Test Action 4",
       teamName: "Team 4",
-      inputRequired: "optional",
+      numberOfApprovals: 3,
+      approvalsRequired: 3,
       submittedApproversUserIds: ["59aebd0c7424530fce952fde"],
-      instructions: null
+      instructions: null,
     },
-  ]
+  ],
 };
 
 export default approvals;

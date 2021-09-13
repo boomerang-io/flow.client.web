@@ -35,6 +35,10 @@
 .tableContainer {
   margin-top: 1rem;
   margin-bottom: 2rem;
+
+  :global .bx--table-column-checkbox {
+    min-width: 2.25rem !important;
+  }
 }
 
 .actions {
@@ -65,24 +69,32 @@
   }
 
   &.scope {
-    width: 10%;
-  }
-
-  &.workflowName {
-    width: 30%;
+    width: 5%;
   }
 
   &.taskName {
     width: 20%;
   }
 
+  &.numberOfApprovals {
+    width: 10%;
+  }
+
   &.creationDate {
-    width: 15%;
+    width: 10%;
   }
 
   &.status {
     width: 10%;
   }
+}
+
+.tableHeaderApprovals {
+  display: flex;
+}
+
+.tableHeaderApprovalsIcon {
+  margin-left: 0.5rem;
 }
 
 .tableBody {
@@ -108,4 +120,23 @@
   white-space: normal;
   width: 90%;
   word-break: break-all;
+}
+
+.tableCellInputApprovals {
+  display: flex;
+  font-size: 0.875rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.125rem;
+  width: fit-content;
+}
+
+.tableCellInputRequiredIcon {
+  margin-left: 0.5rem;
+}
+
+.tableCellSmallGray {
+  color: var(--cds-text-02);
+  font-size: 0.75rem;
+  letter-spacing: 0.02rem;
+  line-height: 1rem;
 }

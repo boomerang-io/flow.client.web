@@ -13,13 +13,10 @@ import {
   notify,
   TextArea,
   ToastNotification,
-  TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ApprovalInputRequired } from "Constants";
 import { resolver } from "Config/servicesConfig";
 import { Action } from "Types";
 import dateHelper from "Utils/dateHelper";
-import { Warning16 } from "@carbon/icons-react";
 import styles from "./ApproveRejectActions.module.scss";
 
 const ModalType = {
@@ -36,7 +33,6 @@ type ApproveRejectActionsProps = {
   onSuccessfulApprovalRejection: () => any;
   queryToRefetch: string;
   type: "single" | "approve" | "reject";
-  userCanApprove?: boolean;
 };
 
 function ApproveRejectActions({
@@ -47,7 +43,6 @@ function ApproveRejectActions({
   queryToRefetch,
   onSuccessfulApprovalRejection,
   type,
-  userCanApprove = true,
 }: ApproveRejectActionsProps) {
   const cancelRequestRef = React.useRef<any>();
 
@@ -84,7 +79,6 @@ function ApproveRejectActions({
           onSuccessfulApprovalRejection={onSuccessfulApprovalRejection}
           queryToRefetch={queryToRefetch}
           type={type}
-          userCanApprove={userCanApprove}
           {...props}
         />
       )}
@@ -100,7 +94,6 @@ type FormProps = {
   onSuccessfulApprovalRejection: () => any;
   queryToRefetch: string;
   type: string;
-  userCanApprove?: boolean;
 };
 
 function Form({
@@ -111,7 +104,6 @@ function Form({
   onSuccessfulApprovalRejection,
   queryToRefetch,
   type,
-  userCanApprove,
 }: FormProps) {
   const [approveLoading, setApproveLoading] = React.useState(false);
   const [rejectLoading, setRejectLoading] = React.useState(false);
@@ -176,14 +168,9 @@ function Form({
             <ModalBody className={styles.modalBody}>
               {actionsIsLoading ? <Loading /> : null}
               {type === ModalType.Single ? (
-                <SingleActionSection
-                  action={actions[0]}
-                  formikBag={props}
-                  isAlreadyApproved={isAlreadyApproved}
-                  userCanApprove={userCanApprove}
-                />
+                <SingleActionSection action={actions[0]} formikBag={props} isAlreadyApproved={isAlreadyApproved} />
               ) : (
-                actions.map((action) => <ActionSection key={action.id} action={action} formikBag={props} />)
+                actions.map((action: any) => <ActionSection key={action.id} action={action} formikBag={props} />)
               )}
               {actionsPutError && (
                 <InlineNotification
@@ -194,7 +181,7 @@ function Form({
                 />
               )}
             </ModalBody>
-            {type === ModalType.Single && userCanApprove ? (
+            {type === ModalType.Single ? (
               <ModalFooter className={styles.threeOptionFooter}>
                 <Button className={styles.threeOptionFooterCancel} kind="secondary" type="button" onClick={closeModal}>
                   Cancel
@@ -301,16 +288,8 @@ function ActionSection({ formikBag, action }: any) {
   );
 }
 
-function SingleActionSection({ formikBag, action, isAlreadyApproved, userCanApprove }: any) {
-  const {
-    numberOfApprovals = 0,
-    approvalsRequired = 0,
-    creationDate,
-    id,
-    inputRequired,
-    workflowName,
-    teamName,
-  } = action;
+function SingleActionSection({ formikBag, action, isAlreadyApproved }: any) {
+  const { numberOfApprovals = 0, approvalsRequired = 0, creationDate, id, workflowName, teamName } = action;
   const { values, touched, errors, handleChange, handleBlur } = formikBag;
 
   const DataSection = ({ className, label, value }: any) => (
@@ -325,62 +304,36 @@ function SingleActionSection({ formikBag, action, isAlreadyApproved, userCanAppr
       <DataSection className={styles.data} label="Team" value={teamName} />
       <DataSection className={styles.data} label="Workflow" value={workflowName} />
       <p className={styles.creationDate}>{`Submitted ${dateHelper.humanizedSimpleTimeAgo(creationDate)}`}</p>
-      {userCanApprove ? (
-        !isAlreadyApproved ? (
-          <>
-            <div className={styles.yourInput}>
-              <p className={styles.singleLabel}>Your input</p>
-              {inputRequired === ApprovalInputRequired.Required ? (
-                <TooltipHover
-                  direction="top"
-                  tooltipText="You must make a decision in order for this component to proceed."
-                >
-                  <div className={styles.yourInputRequired}>
-                    <p>Required</p>
-                    <Warning16 className={styles.yourInputRequiredIcon} />
-                  </div>
-                </TooltipHover>
-              ) : (
-                <TooltipHover
-                  direction="top"
-                  tooltipText="Your input is not a required action, but will count towards the required total - other approver(s) can make the needed actions for this component to proceed."
-                >
-                  <p className={styles.yourInputOptional}>Optional</p>
-                </TooltipHover>
-              )}
-              <p className={styles.singleHelperText}>
-                You must make a decision in order for this component to proceed.
-              </p>
-            </div>
-            <div className={styles.approvals}>
-              <p className={styles.singleLabel}>Approvals</p>
-              <p className={styles.approvalsRatio}>{`${numberOfApprovals}/${approvalsRequired} approvals`}</p>
-              <p className={styles.singleHelperText}>
-                Number of required approvals that have been received in order for this component to proceed.
-              </p>
-            </div>
-            <div className={styles.comment}>
-              <TextArea
-                id={`${id}.comment`}
-                className={styles.commentArea}
-                labelText="Comments (optional)"
-                placeholder="Add some reasoning for your decision"
-                value={values[id]?.comment}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                invalid={errors[id]?.comment && touched[id]?.comment}
-                invalidText={errors[id]?.comment}
-              />
-              <p className={styles.commentLength}>{`${values[id]?.comment.length}/200`}</p>
-            </div>
-          </>
-        ) : (
-          <div className={styles.yourInput}>
-            <p className={styles.singleLabel}>Your input</p>
-            <p className={styles.singleHelperText}>You already submitted your response for this action.</p>
+      {!isAlreadyApproved ? (
+        <>
+          <div className={styles.approvals}>
+            <p className={styles.singleLabel}>Approvals</p>
+            <p className={styles.approvalsRatio}>{`${numberOfApprovals}/${approvalsRequired} approvals`}</p>
+            <p className={styles.singleHelperText}>
+              Number of required approvals that have been received in order for this component to proceed.
+            </p>
           </div>
-        )
-      ) : null}
+          <div className={styles.comment}>
+            <TextArea
+              id={`${id}.comment`}
+              className={styles.commentArea}
+              labelText="Comments (optional)"
+              placeholder="Add some reasoning for your decision"
+              value={values[id]?.comment}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              invalid={errors[id]?.comment && touched[id]?.comment}
+              invalidText={errors[id]?.comment}
+            />
+            <p className={styles.commentLength}>{`${values[id]?.comment.length}/200`}</p>
+          </div>
+        </>
+      ) : (
+        <div className={styles.yourInput}>
+          <p className={styles.singleLabel}>Your input</p>
+          <p className={styles.singleHelperText}>You already submitted your response for this action.</p>
+        </div>
+      )}
     </section>
   );
 }

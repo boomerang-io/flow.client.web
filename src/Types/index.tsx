@@ -21,8 +21,10 @@ export interface Action {
   creationDate: string;
   taskName: string;
   workflowName: string;
+  numberOfApprovals: number;
+  approvalsRequired: number;
   teamName: string;
-  instructions: any
+  instructions: any;
 }
 
 export interface Approver {
@@ -235,7 +237,7 @@ export interface WorkflowExecutionStep {
   runWorkflowActivityStatus: string;
   switchValue: string;
   outputs: {
-    [key:string]: string;
+    [key: string]: string;
   };
   error: {
     code: string;
@@ -245,7 +247,7 @@ export interface WorkflowExecutionStep {
     name: string;
     description: string;
     value: string;
-  }>
+  }>;
 }
 export interface WorkflowExecution {
   creationDate: string;
@@ -255,20 +257,26 @@ export interface WorkflowExecution {
   workflowId: string;
   workflowRevisionid: string;
   trigger: string;
-  properties: ({
-      key: string;
-      value: string;
-  } | {
-      key: string;
-      value: null;
-  })[];
-  outputProperties: ({
-    key: string;
-    value: string;
-  } | {
-      key: string;
-      value: null;
-  })[];
+  properties: (
+    | {
+        key: string;
+        value: string;
+      }
+    | {
+        key: string;
+        value: null;
+      }
+  )[];
+  outputProperties: (
+    | {
+        key: string;
+        value: string;
+      }
+    | {
+        key: string;
+        value: null;
+      }
+  )[];
   steps: Array<WorkflowExecutionStep>;
   teamName: string;
   awaitingApproval: boolean;
