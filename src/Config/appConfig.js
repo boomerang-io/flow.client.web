@@ -51,6 +51,8 @@ export const AppPath = {
   TeamWorkflows: "/admin/teams/:teamId/workflows",
   TeamList: "/admin/teams",
   TeamProperties: `/manage/team-parameters`,
+  TeamTokens: "/manage/team-tokens",
+  Tokens: "/admin/tokens",
   User: "/admin/users/:userId",
   UserList: "/admin/users",
 
@@ -87,6 +89,8 @@ export const appLink = {
   teamWorkflows: ({ teamId }) => `/admin/teams/${teamId}/workflows`,
   teamSettings: ({ teamId }) => `/admin/teams/${teamId}/settings`,
   teamList: () => "/admin/teams",
+  teamTokens: () => `/manage/team-tokens`,
+  tokens: () => `/admin/tokens`,
   workflows: () => "/workflows",
   workflowsMine: () => "/workflows/mine",
   workflowsTeams: () => "/workflows/teams",
