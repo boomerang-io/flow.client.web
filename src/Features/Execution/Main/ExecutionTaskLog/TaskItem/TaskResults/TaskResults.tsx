@@ -1,7 +1,6 @@
 import React from "react";
-import ReactJson from "react-json-view";
 import { Button, ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ModalBody, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
 import ResultsTable from "./ResultsTable";
 import styles from "./taskResults.module.scss";
 
@@ -35,25 +34,7 @@ function TaskResults({ flowTaskName, flowTaskResults }: Props) {
       {() => (
         <ModalForm>
           <ModalBody>
-            <Tabs>
-              <Tab label="Table">
-                <ResultsTable data={flowTaskResults} />
-              </Tab>
-              <Tab label="JSON">
-                <div className={styles.propertiesJson}>
-                  <ReactJson
-                    name={false}
-                    src={flowTaskResults}
-                    displayDataTypes={false}
-                    //@ts-ignore
-                    enableDelete={false}
-                    displayObjectSize={false}
-                    enableEdit={false}
-                    enableAdd={false}
-                  />
-                </div>
-              </Tab>
-            </Tabs>
+            <ResultsTable data={flowTaskResults} />
           </ModalBody>
         </ModalForm>
       )}

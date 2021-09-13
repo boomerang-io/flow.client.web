@@ -74,6 +74,17 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     </button>
                   </th>
                   <th
+                    class="tableHeadHeader scope"
+                    id="scope"
+                    scope="col"
+                  >
+                    <div
+                      class="bx--table-header-label"
+                    >
+                      Scope
+                    </div>
+                  </th>
+                  <th
                     aria-sort="none"
                     class="tableHeadHeader workflowName"
                     scope="col"

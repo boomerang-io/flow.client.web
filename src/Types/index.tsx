@@ -329,11 +329,11 @@ export interface FlowTeamQuotas {
   currentWorkflowCount: number;
   maxWorkflowStorage: number;
   maxConcurrentWorkflows: number;
-  // maxWorkflowExecutionTime: string;
+  maxWorkflowExecutionTime: number;
   monthlyResetDate: string;
 
-  // currentConcurrentWorkflows: number;
-  // currentAverageExecutionTime: number;
+  currentConcurrentWorkflows: number;
+  currentAverageExecutionTime: number;
   currentWorkflowsPersistentStorage: number;
 }
 
@@ -379,6 +379,24 @@ export interface Property {
   key: string;
   label: string;
   type: string;
+}
+
+export interface Token {
+  id: string;
+  creationDate: string;
+  expiryDate: string;
+  creatorId: string;
+  description: string;
+  creatorName: string;
+}
+
+export interface TokenRequest {
+  expiryDate: string | number | null;
+  description: string;
+}
+
+export interface TeamTokenRequest extends TokenRequest {
+  teamId: string;
 }
 
 // interface userInterface {

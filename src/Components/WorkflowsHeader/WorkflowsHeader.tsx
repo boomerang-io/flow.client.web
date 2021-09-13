@@ -3,16 +3,20 @@ import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
+  FeatureNavTab as Tab,
+  FeatureNavTabs as Tabs,
   MultiSelect,
   Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { appLink } from "Config/appConfig";
 import { FlowTeam } from "Types";
+import { WorkflowScope } from "Constants";
 import styles from "./workflowsHeader.module.scss";
 
 type HandleUpdateFilter = (query: { [key: string]: string | string[] | null }) => void;
 
 interface WorkflowsHeaderProps {
-  isSystem: boolean;
+  scope: string;
   handleUpdateFilter: HandleUpdateFilter;
   searchQuery: string | string[] | null;
   selectedTeams: FlowTeam[] | null;
@@ -22,7 +26,7 @@ interface WorkflowsHeaderProps {
 }
 
 const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
-  isSystem,
+  scope,
   selectedTeams,
   handleUpdateFilter,
   searchQuery,
@@ -38,14 +42,31 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
         <>
           <HeaderSubtitle>These are your</HeaderSubtitle>
           <HeaderTitle>
-            {isSystem ? `System ` : ``}
-            {`Workflows (${workflowsCount})`}
+            {scope === WorkflowScope.System
+              ? `System Workflows (${workflowsCount})`
+              : scope === WorkflowScope.Team
+              ? `Team Workflows (${workflowsCount})`
+              : `Workflows (${workflowsCount})`}
           </HeaderTitle>
+          {scope === WorkflowScope.User && (
+            <HeaderSubtitle className={styles.headerMessage}>
+              Your personal playground to create and execute automation and work smarter. To collaborate on workflows,
+              create a team.
+            </HeaderSubtitle>
+          )}
         </>
+      }
+      footer={
+        !(scope === WorkflowScope.System) && (
+          <Tabs>
+            <Tab label="My Workflows" to={appLink.workflowsMine()} />
+            <Tab label="Team Workflows" to={appLink.workflowsTeams()} />
+          </Tabs>
+        )
       }
       actions={
         <SearchFilterBar
-          isSystem={isSystem}
+          scope={scope}
           selectedTeams={selectedTeams}
           handleUpdateFilter={handleUpdateFilter}
           searchQuery={searchQuery}
@@ -60,7 +81,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
 export default WorkflowsHeader;
 
 interface SearchFilterBarProps {
-  isSystem: boolean;
+  scope: string;
   handleUpdateFilter: HandleUpdateFilter;
   searchQuery: string | string[] | null;
   selectedTeams: FlowTeam[] | null;
@@ -69,7 +90,7 @@ interface SearchFilterBarProps {
 }
 
 const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
-  isSystem,
+  scope,
   selectedTeams,
   handleUpdateFilter,
   searchQuery,
@@ -92,7 +113,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
     <div className={styles.filterContainer}>
       <div className={styles.search}>
         <Search
-          disabled={isSystem ? false : !hasTeams}
+          disabled={scope === WorkflowScope.Team ? !hasTeams : false}
           data-testid="workflows-team-search"
           id="search-team-workflows"
           labelText="Search for a workflow"
@@ -101,7 +122,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
           value={searchQuery}
         />
       </div>
-      {teams && (
+      {teams && scope !== WorkflowScope.User && (
         <div className={styles.filter}>
           <MultiSelect.Filterable
             disabled={!hasTeams}

@@ -2,7 +2,7 @@ import React from "react";
 import { ModalForm, RadioGroup } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateWorkflowContent from "../CreateWorkflowContent";
 import ImportWorkflowContent from "../ImportWorkflowContent";
-import { FlowTeam, CreateWorkflowSummary, WorkflowExport } from "Types";
+import { FlowTeam, CreateWorkflowSummary, WorkflowExport, WorkflowSummary } from "Types";
 import styles from "./createWorkflowContainer.module.scss";
 
 const NEW_WORKFLOW = "Start from scratch";
@@ -26,11 +26,12 @@ interface CreateWorkflowContainerProps {
   createError: any;
   createWorkflow: (workflowData: CreateWorkflowSummary) => Promise<void>;
   isLoading: boolean;
-  isSystem: boolean;
+  scope: string;
   importError: any;
   importWorkflow: (workflowData: WorkflowExport, closeModal: () => void, team: FlowTeam) => Promise<void>;
-  team: FlowTeam | null;
-  teams: FlowTeam[] | null;
+  team?: FlowTeam | null;
+  teams?: FlowTeam[] | null;
+  workflows?: WorkflowSummary[];
 }
 
 const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
@@ -40,13 +41,14 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
   importError,
   importWorkflow,
   isLoading,
-  isSystem,
+  scope,
   team,
   teams,
+  workflows,
 }) => {
   const [selectedOption, setSelectedOption] = React.useState(NEW_WORKFLOW);
 
-  const existingWorkflowNames = team?.workflows.map((workflow) => workflow.name) ?? [];
+  const existingWorkflowNames = workflows?.map((workflow) => workflow.name) ?? [];
 
   return (
     <ModalForm>
@@ -64,7 +66,7 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
           createWorkflow={createWorkflow}
           createError={createError}
           isLoading={isLoading}
-          isSystem={isSystem}
+          scope={scope}
           team={team}
           teams={teams}
         />
@@ -75,7 +77,7 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
           importError={importError}
           importWorkflow={importWorkflow}
           isLoading={isLoading}
-          isSystem={isSystem}
+          scope={scope}
           team={team}
           teams={teams}
         />

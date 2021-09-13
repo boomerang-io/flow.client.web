@@ -46,6 +46,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       team: Model,
       teamApproverUsers: Model,
       teamProperties: Model,
+      tokens: Model,
       flowNavigation: Model,
     },
 
@@ -231,11 +232,14 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.post(serviceUrl.postCreateWorkflow(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let workflow = { ...body, id: uuid(), createdDate: Date.now(), revisionCount: 1, status: "active" };
-        let flowTeam = schema.teams.findBy({ id: body.flowTeamId });
-        const teamWorkflows = [...flowTeam.workflows];
-        teamWorkflows.push(workflow);
-        flowTeam.update({ workflows: teamWorkflows });
-        return schema.summaries.create(workflow);
+        if (body.flowTeamId) {
+          let flowTeam = schema.teams.findBy({ id: body.flowTeamId });
+          const teamWorkflows = [...flowTeam.workflows];
+          teamWorkflows.push(workflow);
+          flowTeam.update({ workflows: teamWorkflows });
+          return schema.summaries.create(workflow);
+        }
+        return {};
       });
 
       this.post(
@@ -495,6 +499,45 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         const settings = schema.settings.all();
         settings.update(body[0]);
         return schema.settings.all();
+      });
+
+      /**
+       * Manage and Administer Tokens
+       */
+      this.get(serviceUrl.getTeamTokens({ teamId: ":teamId" }), (schema) => {
+        return schema.db.tokens;
+      });
+
+      this.get(serviceUrl.getGlobalTokens(), (schema) => {
+        return schema.db.tokens;
+      });
+
+      this.delete(serviceUrl.deleteToken({ tokenId: ":tokenId" }), (schema, request) => {
+        return {};
+      });
+
+      this.post(serviceUrl.postGlobalToken(), (schema, request) => {
+        let body = JSON.parse(request.requestBody);
+        let newToken = {
+          ...body,
+          creatorId: "1",
+          creationDate: Date.now(),
+          creatorName: "Test User",
+          tokenValue: "testglobal",
+        };
+        return schema.tokens.create(newToken);
+      });
+
+      this.post(serviceUrl.postTeamToken(), (schema, request) => {
+        let body = JSON.parse(request.requestBody);
+        let newToken = {
+          ...body,
+          creatorId: "1",
+          creationDate: Date.now(),
+          creatorName: "Test User",
+          tokenValue: "testteam",
+        };
+        return schema.tokens.create(newToken);
       });
 
       /**
