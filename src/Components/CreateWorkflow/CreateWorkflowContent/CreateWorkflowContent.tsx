@@ -14,6 +14,7 @@ import { Button, ModalBody, ModalFooter, TooltipHover } from "@boomerang-io/carb
 import workflowIcons from "Assets/workflowIcons";
 import { defaultWorkflowConfig } from "./constants";
 import { ComboBoxItem, FlowTeam, CreateWorkflowSummary } from "Types";
+import { WorkflowScope } from "Constants";
 import styles from "./createWorkflow.module.scss";
 
 let classnames = classNames.bind(styles);
@@ -23,9 +24,9 @@ interface CreateWorkflowContentProps {
   createError: object;
   createWorkflow: (workflowSummary: CreateWorkflowSummary) => Promise<void>;
   isLoading: boolean;
-  isSystem: boolean;
-  team: FlowTeam | null;
-  teams: FlowTeam[] | null;
+  scope: string;
+  team?: FlowTeam | null;
+  teams?: FlowTeam[] | null;
 }
 
 const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
@@ -33,11 +34,11 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   createError,
   createWorkflow,
   isLoading,
-  isSystem,
+  scope,
   team,
   teams,
 }) => {
-  const [selectedTeam, setSelectedTeam] = useState<FlowTeam | null>(team);
+  const [selectedTeam, setSelectedTeam] = useState<FlowTeam | null>(team ?? null);
   const formikRef = useRef<any>();
 
   const existingWorkflowNames = selectedTeam?.workflows.map((workflow) => workflow.name) ?? [];
@@ -54,7 +55,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
       shortDescription: values.summary,
       description: values.description,
       icon: values.icon,
-      scope: isSystem ? "system" : "team",
+      scope,
     };
     createWorkflow(requestBody);
   };
@@ -86,7 +87,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
           <>
             {isLoading && <Loading />}
             <ModalBody aria-label="inputs" className={styles.formBody}>
-              {!isSystem ? (
+              {scope === WorkflowScope.Team ? (
                 <div className={styles.teamAndName}>
                   <ComboBox
                     id="selectedTeam"
@@ -100,7 +101,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                     itemToString={(item: ComboBoxItem) => (item ? item.name : "")}
                     titleText="Team"
                     placeholder="Select a team"
-                    invalid={!(isSystem || Boolean(selectedTeam))}
+                    invalid={scope === WorkflowScope.Team && !Boolean(selectedTeam)}
                     invalidText="Team is required"
                     shouldFilterItem={({ item, inputValue }: { item: ComboBoxItem; inputValue: string }) =>
                       item && item.name.toLowerCase().includes(inputValue.toLowerCase())

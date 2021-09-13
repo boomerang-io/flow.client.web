@@ -18,7 +18,6 @@ ActivityTable.propTypes = {
   isLoading: PropTypes.bool,
   location: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
-  systemWorkflowsEnabled: PropTypes.bool.isRequired,
   tableData: PropTypes.object,
   updateHistorySearch: PropTypes.func.isRequired,
 };
@@ -96,9 +95,6 @@ function renderCell(headerList, cellIndex, value) {
 
 function ActivityTable(props) {
   let headerList = headers;
-  if (!props.systemWorkflowsEnabled) {
-    headerList = headers.filter((header) => header.key !== "scope");
-  }
 
   function handlePaginationChange({ page, pageSize }) {
     props.updateHistorySearch({

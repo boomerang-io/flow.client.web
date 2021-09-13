@@ -161,137 +161,35 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
             class="bx--modal-content formBody"
           >
             <div
-              class="teamAndName"
+              class="bx--bmrg-text-input"
             >
               <div
-                class="bx--bmrg-select"
+                class="bx--form-item bx--text-input-wrapper"
               >
-                <div
-                  aria-expanded="false"
-                  aria-haspopup="listbox"
-                  aria-labelledby="downshift-0-label"
-                  class="bx--list-box__wrapper"
-                  role="combobox"
+                <label
+                  class="bx--label"
+                  for="name"
                 >
-                  <label
-                    class="bx--label"
-                    for="selectedTeam"
-                    id="downshift-0-label"
-                  >
-                    <div
-                      style="display: flex;"
-                    >
-                      <div>
-                        Team
-                      </div>
-                    </div>
-                  </label>
                   <div
-                    aria-label="Choose an item"
-                    class="bx--combo-box bx--list-box"
+                    class="bx--bmrg-text-input__label"
                   >
-                    <div
-                      aria-haspopup="true"
-                      aria-label="open menu"
-                      class="bx--list-box__field"
-                      data-toggle="true"
-                      id="selectedTeam"
-                      role="button"
-                      tabindex="-1"
-                      type="button"
-                    >
-                      <input
-                        aria-autocomplete="list"
-                        aria-labelledby="downshift-0-label"
-                        autocomplete="off"
-                        class="bx--text-input"
-                        id="selectedTeam"
-                        placeholder="Select a team"
-                        styles="[object Object]"
-                        tabindex="0"
-                        type="text"
-                        value="Lucas' team"
-                      />
-                      <div
-                        aria-label="Clear Selection"
-                        class="bx--list-box__selection"
-                        role="button"
-                        tabindex="0"
-                        title="Clear selected item"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
-                          />
-                        </svg>
-                      </div>
-                      <div
-                        class="bx--list-box__menu-icon"
-                      >
-                        <svg
-                          aria-label="Open menu"
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          name="chevron--down"
-                          preserveAspectRatio="xMidYMid meet"
-                          role="img"
-                          viewBox="0 0 16 16"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
-                          />
-                          <title>
-                            Open menu
-                          </title>
-                        </svg>
-                      </div>
+                    <div>
+                      Workflow Name
                     </div>
                   </div>
-                </div>
-              </div>
-              <div
-                class="bx--bmrg-text-input"
-              >
+                </label>
                 <div
-                  class="bx--form-item bx--text-input-wrapper"
+                  class="bx--text-input__field-outer-wrapper"
                 >
-                  <label
-                    class="bx--label"
-                    for="name"
-                  >
-                    <div
-                      class="bx--bmrg-text-input__label"
-                    >
-                      <div>
-                        Workflow Name
-                      </div>
-                    </div>
-                  </label>
                   <div
-                    class="bx--text-input__field-outer-wrapper"
+                    class="bx--text-input__field-wrapper"
                   >
-                    <div
-                      class="bx--text-input__field-wrapper"
-                    >
-                      <input
-                        class="bx--text-input bx--text__input"
-                        id="name"
-                        type="text"
-                        value=""
-                      />
-                    </div>
+                    <input
+                      class="bx--text-input bx--text__input"
+                      id="name"
+                      type="text"
+                      value=""
+                    />
                   </div>
                 </div>
               </div>

@@ -28,7 +28,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 >
                   <a
                     class="bx--link"
-                    href="/workflows"
+                    href="/workflows/teams"
                   >
                     Workflows
                   </a>

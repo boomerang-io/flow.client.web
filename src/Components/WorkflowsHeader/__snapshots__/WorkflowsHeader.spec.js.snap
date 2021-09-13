@@ -22,9 +22,28 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
           <h1
             class="bx--bmrg-feature-header-title"
           >
-            
             Workflows (undefined)
           </h1>
+        </div>
+        <div
+          class="bx--bmrg-feature-header__footer"
+        >
+          <nav
+            class="bx--bmrg-feature-nav-tabs"
+          >
+            <a
+              class="bx--bmrg-feature-nav-tab"
+              href="/workflows/mine"
+            >
+              My Workflows
+            </a>
+            <a
+              class="bx--bmrg-feature-nav-tab"
+              href="/workflows/teams"
+            >
+              Team Workflows
+            </a>
+          </nav>
         </div>
       </section>
       <div
@@ -35,7 +54,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
         >
           <div
             aria-labelledby="search-team-workflows-search"
-            class="bx--search bx--search--xl bx--search--disabled"
+            class="bx--search bx--search--xl"
             role="search"
           >
             <svg
@@ -64,7 +83,6 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
               autocomplete="off"
               class="bx--search-input"
               data-testid="workflows-team-search"
-              disabled=""
               id="search-team-workflows"
               placeholder="Search for a workflow"
               role="searchbox"
@@ -74,7 +92,6 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
             <button
               aria-label="Clear search input"
               class="bx--search-close bx--search-close--hidden"
-              disabled=""
               type="button"
             >
               <svg

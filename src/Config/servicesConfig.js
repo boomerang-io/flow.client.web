@@ -62,7 +62,9 @@ export const serviceUrl = {
   getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
   // getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
   getUserProfile: () => `${BASE_URL}/users/profile`,
-  
+
+  getUserWorkflows: () => `${BASE_URL}/workflows/user`,
+
   getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
   
   getWorkflowChangelog: ({ workflowId, query }) =>
@@ -154,9 +156,11 @@ export const resolver = {
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
   postCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Post }),
+
   postDuplicateWorkflow: ({workflowId}) => axios.post(serviceUrl.postDuplicateWorkflow({workflowId})),
   postGlobalToken: ({body}) => cancellableResolver({ url: serviceUrl.postGlobalToken(), body, method: HttpMethod.Post }),
   postTeamToken: ({body}) => cancellableResolver({ url: serviceUrl.postTeamToken(), body, method: HttpMethod.Post }),
+
   putCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Put }),
   putCreateTaskYaml: ({ id, revision, comment, body }) =>
