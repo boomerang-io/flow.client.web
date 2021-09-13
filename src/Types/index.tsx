@@ -53,7 +53,18 @@ export interface FormikSetFieldValue {
 export interface CreateWorkflowSummary {
   description: string;
   enableACCIntegration: boolean;
-  enablePersistentStorage: boolean;
+  storage: {
+    workflow: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+    workspace: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+  };
   icon: string;
   name: string;
   revisionCount: number;
@@ -81,7 +92,18 @@ export interface WorkflowSummary {
   id: string;
   description: string;
   enableACCIntegration: boolean;
-  enablePersistentStorage: boolean;
+  storage: {
+    workflow: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+    workspace: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+  };
   icon: string;
   name: string;
   labels: Array<{ key: string; value: string }>;
