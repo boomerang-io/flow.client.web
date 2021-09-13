@@ -1,18 +1,16 @@
 const featureFlag = {
   features: {
-    "team.management": true,
-    "workflow.quotas": true,
-    settings: true,
-    "user.management": true,
-    "global.parameters": true,
-    "workflow.tokens": true,
-    taskManager: true,
-    "enable.verified.tasks.edit": true,
-    "workflow.triggers": true,
-    "team.parameters": true,
-    "boomerang.activation": false,
-    insights: true,
     activity: true,
+    "enable.verified.tasks.edit": true,
+    "global.parameters": true,
+    insights: true,
+    "team.management": true,
+    "team.parameters": true,
+    "team.tasks": true,
+    "user.management": true,
+    "workflow.quotas": true,
+    "workflow.tokens": true,
+    "workflow.triggers": true,
   },
 };
 

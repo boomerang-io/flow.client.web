@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
+import { useFeature } from "flagged";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { useAppContext } from "Hooks";
 import { Box } from "reflexbox";
@@ -15,7 +16,7 @@ import Header from "./Header";
 import Members from "./Members";
 import Settings from "./Settings";
 import Workflows from "./Workflows";
-import { AppPath } from "Config/appConfig";
+import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./teamDetailed.module.scss";
 
@@ -40,6 +41,7 @@ const FeatureLayout: React.FC = ({ children }) => {
 };
 
 function TeamDetailedContainer() {
+  const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
   const match: { params: { teamId: string } } = useRouteMatch();
   const teamId = match?.params?.teamId;
   const { user } = useAppContext();
@@ -69,7 +71,7 @@ function TeamDetailedContainer() {
     const { isActive } = teamDetailsData;
     return (
       <div className={styles.container}>
-        <Header team={teamDetailsData} isActive={isActive} userType={user.type} />
+        <Header isActive={isActive} team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
         <Switch>
           <Route exact path={AppPath.Team}>
             <Members
@@ -77,14 +79,14 @@ function TeamDetailedContainer() {
               team={teamDetailsData}
               memberList={teamDetailsData.users}
               user={user}
-              //teamOwnerIdList={teamOwnerIdList}
+              teamManagementEnabled={teamManagementEnabled}
             />
           </Route>
           <Route exact path={AppPath.TeamWorkflows}>
             <Workflows team={teamDetailsData} />
           </Route>
           <Route exact path={AppPath.TeamSettings}>
-            <Settings team={teamDetailsData} />
+            <Settings team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
           </Route>
         </Switch>
       </div>
