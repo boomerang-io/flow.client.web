@@ -148,9 +148,9 @@ function Form({
   let initialValues: any = {};
   let validationSchema: any = {};
   actions.forEach((action) => {
-    initialValues[action.id] = { comment: "" };
+    initialValues[action.id] = { comments: "" };
     validationSchema[action.id] = Yup.object().shape({
-      comment: Yup.string().nullable().max(200, "The comment must not have more than 200 characters"),
+      comments: Yup.string().nullable().max(200, "The comment must not have more than 200 characters"),
     });
   });
 
@@ -273,17 +273,17 @@ function ActionSection({ formikBag, action }: any) {
       <DataSection className={styles.data} label="Workflow" value={workflowName} />
       <div className={styles.comment}>
         <TextArea
-          id={`${id}.comment`}
+          id={`${id}.comments`}
           className={styles.commentArea}
           labelText="Comments (optional)"
           placeholder="Add some reasoning for your decision"
-          value={values[id]?.comment}
+          value={values[id]?.comments}
           onChange={handleChange}
           onBlur={handleBlur}
-          invalid={errors[id]?.comment && touched[id]?.comment}
-          invalidText={errors[id]?.comment}
+          invalid={errors[id]?.comments && touched[id]?.comments}
+          invalidText={errors[id]?.comments}
         />
-        <p className={styles.commentLength}>{`${values[id]?.comment.length}/200`}</p>
+        <p className={styles.commentLength}>{`${values[id]?.comments.length}/200`}</p>
       </div>
     </section>
   );
@@ -316,17 +316,17 @@ function SingleActionSection({ formikBag, action, isAlreadyApproved }: any) {
           </div>
           <div className={styles.comment}>
             <TextArea
-              id={`${id}.comment`}
+              id={`${id}.comments`}
               className={styles.commentArea}
               labelText="Comments (optional)"
               placeholder="Add some reasoning for your decision"
-              value={values[id]?.comment}
+              value={values[id]?.comments}
               onChange={handleChange}
               onBlur={handleBlur}
-              invalid={errors[id]?.comment && touched[id]?.comment}
-              invalidText={errors[id]?.comment}
+              invalid={errors[id]?.comments && touched[id]?.comments}
+              invalidText={errors[id]?.comments}
             />
-            <p className={styles.commentLength}>{`${values[id]?.comment.length}/200`}</p>
+            <p className={styles.commentLength}>{`${values[id]?.comments.length}/200`}</p>
           </div>
         </>
       ) : (
