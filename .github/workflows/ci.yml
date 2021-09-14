@@ -36,7 +36,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: boomerangio/flow-service-controller:latest,boomerangio/flow-service-controller:${{ steps.get_version.outputs.VERSION }}
+          tags: boomerangio/flow-client-web:latest,boomerangio/flow-client-web:${{ steps.get_version.outputs.VERSION }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
       - name: Slack
