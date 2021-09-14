@@ -25,6 +25,7 @@ import {
   Search16,
   Settings16,
   SettingsAdjust16,
+  Stamp16,
   Task16,
   Terminal20,
   Upload16,
@@ -127,6 +128,10 @@ export const navigationIcons = [
   {
     name: "Settings16",
     Icon: Settings16,
+  },
+  {
+    name: "Stamp16",
+    Icon: Stamp16,
   },
   {
     name: "Apps16",

@@ -12,6 +12,12 @@ const flowNavigation = [
     link: "/activity",
   },
   {
+    name: "Actions",
+    type: "link",
+    icon: "Stamp16",
+    link: "/actions",
+  },
+  {
     name: "Insights",
     type: "link",
     icon: "ChartScatter16",
@@ -22,6 +28,11 @@ const flowNavigation = [
     type: "category",
     icon: "SettingsAdjust16",
     childLinks: [
+      {
+        name: "Team Approvers",
+        type: "link",
+        link: "/manage/approver-groups",
+      },
       {
         name: "Team Parameters",
         type: "link",

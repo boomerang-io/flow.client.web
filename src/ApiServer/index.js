@@ -29,6 +29,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     // Register the data as a model so we can use the schema
     models: {
       activity: Model,
+      approverGroups: Model,
       changelog: Model,
       config: Model,
       featureFlag: Model,
@@ -43,6 +44,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       systemWorkflows: Model,
       tasktemplate: Model,
       team: Model,
+      teamApproverUsers: Model,
       teamProperties: Model,
       tokens: Model,
       flowNavigation: Model,
@@ -328,6 +330,54 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       this.delete(serviceUrl.deleteCancelWorkflow({ executionId: ":id" }), (schema, request) => {
+        return {};
+      });
+
+      /**
+       * Actions
+       */
+      this.get(serviceUrl.getActionsSummary({ query: null }), (schema) => {
+        return schema.db.actionsSummary[0];
+      });
+
+      this.get(serviceUrl.getActions({ query: null }), (schema, request) => {
+        const { type } = request.queryParams;
+        if (type === "approval") return schema.db.approvals[0];
+        if (type === "manual") return schema.db.manualTasks[0];
+        return {};
+      });
+
+      this.put(serviceUrl.putWorkflowAction(), () => {
+        return {};
+      });
+
+      /**
+       * Approvers Group
+       */
+      this.get(serviceUrl.resourceApproverGroups({ teamId: ":teamId" }), (schema) => {
+        return schema.db.approverGroups;
+      });
+
+      this.get(serviceUrl.getFlowTeamUsers({ teamId: ":teamId" }), (schema) => {
+        return schema.db.teamApproverUsers;
+      });
+
+      //Delete approver group
+      this.delete(serviceUrl.resourceApproverGroups({ teamId: ":teamId", groupId: ":groupId" }), (schema, request) => {
+        const { groupId } = request.params;
+        const approverGroup = schema.approverGroups.find(groupId);
+        approverGroup.destroy();
+      });
+
+      //Create approver group
+      this.post(serviceUrl.resourceApproverGroups({ teamId: ":teamId" }), (schema, request) => {
+        const body = JSON.parse(request.requestBody);
+        schema.approverGroups.create({ groupId: uuid(), ...body });
+        return schema.approverGroups.all();
+      });
+
+      //Update approver group
+      this.put(serviceUrl.resourceApproverGroups({ teamId: ":teamId" }), (schema, request) => {
         return {};
       });
 

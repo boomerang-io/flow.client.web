@@ -1,7 +1,6 @@
 import React from "react";
-import ReactJson from "react-json-view";
 import { Button, ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ModalBody, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
 import PropertiesTable from "./PropertiesTable";
 import styles from "./outputPropertisLog.module.scss";
 
@@ -44,25 +43,7 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }: Props)
       {() => (
         <ModalForm>
           <ModalBody>
-            <Tabs>
-              <Tab label="Table">
-                <PropertiesTable hasJsonValues={!isOutput} data={isOutput ? flowTaskOutputs : arrayProps} />
-              </Tab>
-              <Tab label="JSON">
-                <div className={styles.propertiesJson}>
-                  <ReactJson
-                    name={false}
-                    src={flowTaskOutputs}
-                    displayDataTypes={false}
-                    //@ts-ignore
-                    enableDelete={false}
-                    displayObjectSize={false}
-                    enableEdit={false}
-                    enableAdd={false}
-                  />
-                </div>
-              </Tab>
-            </Tabs>
+            <PropertiesTable hasJsonValues={!isOutput} data={isOutput ? flowTaskOutputs : arrayProps} />
           </ModalBody>
         </ModalForm>
       )}

@@ -26,7 +26,7 @@ function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }
 
   const [approvalMutator, { isLoading: approvalsIsLoading, error: approvalsError }] = useMutation(
     (args: { body: { id: string; approved: boolean } }) => {
-      const { promise, cancel } = resolver.putWorkflowApproval(args);
+      const { promise, cancel } = resolver.putWorkflowAction(args);
       if (cancelRequestRef?.current) {
         cancelRequestRef.current = cancel;
       }

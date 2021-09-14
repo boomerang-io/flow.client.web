@@ -1,15 +1,14 @@
 //@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
-import styles from "./activityHeaderWidget.module.scss";
+import styles from "./HeaderWidget.module.scss";
 
-ActivityHeaderWidget.propTypes = {
-  icon: PropTypes.any,
-  text: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+interface HeaderWidgetProps {
+  icon?: any;
+  text: string;
+  value: string | number,
 };
 
-function ActivityHeaderWidget({ icon: Icon, text, value }) {
+function HeaderWidget({ icon: Icon, text, value }: HeaderWidgetProps) {
   return (
     <div className={styles.container}>
       <div className={styles.valueAndIcon}>
@@ -27,4 +26,4 @@ function ActivityHeaderWidget({ icon: Icon, text, value }) {
   );
 }
 
-export default ActivityHeaderWidget;
+export default HeaderWidget;

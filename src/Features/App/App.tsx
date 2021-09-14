@@ -20,6 +20,8 @@ import styles from "./app.module.scss";
 
 const AppActivation = lazy(() => import(/* webpackChunkName: "App Activation" */ "./AppActivation"));
 const Activity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/Activity"));
+const Actions = lazy(() => import(/* webpackChunkName: "Actions" */ "Features/Actions"));
+const ApproverGroups = lazy(() => import(/* webpackChunkName: "ApproverGroups" */ "Features/ApproverGroups"));
 const Editor = lazy(() => import(/* webpackChunkName: "Editor" */ "Features/Editor"));
 const Execution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/Execution"));
 const GlobalProperties = lazy(() => import(/* webpackChunkName: "GlobalProperties" */ "Features/GlobalProperties"));
@@ -325,6 +327,14 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             path={AppPath.Activity}
             userRole={activityEnabled}
           />
+
+          <Route path={AppPath.Actions}>
+            <Actions />
+          </Route>
+
+          <Route path={AppPath.TeamApprovers}>
+            <ApproverGroups />
+          </Route>
 
           <Route path={AppPath.Editor}>
             <Editor />

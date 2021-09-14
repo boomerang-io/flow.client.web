@@ -194,6 +194,17 @@ export const executionStatusList = [
   ExecutionStatus.Cancelled,
 ];
 
+export const ActionType = {
+  Approval: "approval",
+  Manual: "manual"
+}
+
+export const ApprovalInputRequired = {
+  Optional: "optional",
+  Required: "required",
+  None: "none",
+};
+
 export const ApprovalStatus = {
   Approved: "approved",
   Rejected: "rejected",

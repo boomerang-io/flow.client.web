@@ -1,7 +1,3 @@
-import { number } from "prop-types";
-import { string } from "prop-types";
-import { boolean } from "yup";
-
 export enum PlatformRole {
   Admin = "admin",
   User = "user",
@@ -11,6 +7,38 @@ export enum PlatformRole {
 export enum UserStatus {
   Active = "active",
   Inactive = "inactive",
+}
+
+export interface Action {
+  id: string;
+  activityId: string;
+  taskActivityId: string;
+  workflowId: string;
+  teamId: string;
+  audit: any;
+  status: string;
+  type: string;
+  creationDate: string;
+  taskName: string;
+  workflowName: string;
+  numberOfApprovals: number;
+  approvalsRequired: number;
+  submittedApproversUserIds: string[];
+  teamName: string;
+  instructions: any;
+}
+
+export interface Approver {
+  userName: string;
+  userId: string;
+  userEmail: string;
+  teamApprover?: boolean;
+}
+
+export interface ApproverGroup {
+  groupId: string;
+  groupName: string;
+  approvers: Array<Approver>;
 }
 
 export interface DataDrivenInput {
@@ -232,7 +260,7 @@ export interface WorkflowExecutionStep {
   runWorkflowActivityStatus: string;
   switchValue: string;
   outputs: {
-    [key:string]: string;
+    [key: string]: string;
   };
   error: {
     code: string;
@@ -242,7 +270,7 @@ export interface WorkflowExecutionStep {
     name: string;
     description: string;
     value: string;
-  }>
+  }>;
 }
 export interface WorkflowExecution {
   creationDate: string;
@@ -252,20 +280,26 @@ export interface WorkflowExecution {
   workflowId: string;
   workflowRevisionid: string;
   trigger: string;
-  properties: ({
-      key: string;
-      value: string;
-  } | {
-      key: string;
-      value: null;
-  })[];
-  outputProperties: ({
-    key: string;
-    value: string;
-  } | {
-      key: string;
-      value: null;
-  })[];
+  properties: (
+    | {
+        key: string;
+        value: string;
+      }
+    | {
+        key: string;
+        value: null;
+      }
+  )[];
+  outputProperties: (
+    | {
+        key: string;
+        value: string;
+      }
+    | {
+        key: string;
+        value: null;
+      }
+  )[];
   steps: Array<WorkflowExecutionStep>;
   teamName: string;
   awaitingApproval: boolean;

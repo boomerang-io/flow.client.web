@@ -49,7 +49,6 @@ export default function SystemWorkflows() {
     :
     systemWorkflowsData?.filter((workflow: any) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
 
-
   return (
     <>
       <div className={styles.container}>
