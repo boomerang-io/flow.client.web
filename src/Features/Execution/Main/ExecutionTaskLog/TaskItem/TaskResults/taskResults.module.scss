@@ -1,9 +1,0 @@
-@import "Styles/mixins";
-
-.container {
-  max-width: 50rem;
-
-  :global .bx--modal-content {
-    padding-right: 1rem;
-  }
-}

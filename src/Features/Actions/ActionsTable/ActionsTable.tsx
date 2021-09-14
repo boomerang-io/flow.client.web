@@ -307,7 +307,7 @@ function ActionsTable(props: ActionsTableProps) {
                                 onClick: () => {
                                   handleOnClickCheckbox(
                                     records
-                                      .filter((item: Action) => item.status === ApprovalStatus.Submitted)
+                                      .filter((item: Action) => item.status === ApprovalStatus.Submitted && !item?.submittedApproversUserIds?.includes(user?.id))
                                       .map((item: Action) => item.id)
                                   );
                                 },
@@ -347,7 +347,7 @@ function ActionsTable(props: ActionsTableProps) {
                         {rows.map((row: any) => {
                           const currentAction = records.find((action: Action) => action.id === row.id);
                           const isAlreadyApproved =
-                            user?.id && currentAction?.submittedApproversUserIds?.includes(user.id);
+                            ((user?.id && currentAction?.submittedApproversUserIds?.includes(user.id)) || currentAction.status !== ApprovalStatus.Submitted);
                           return isManual ? (
                             <TableRow
                               key={row.id}
@@ -385,7 +385,7 @@ function ActionsTable(props: ActionsTableProps) {
                                           handleOnClickCheckbox(row.id);
                                         },
                                       })}
-                                      disabled={currentAction.status !== ApprovalStatus.Submitted}
+                                      disabled={isAlreadyApproved}
                                     />
                                   )}
                                   {row.cells.map((cell: any, cellIndex: number) => (

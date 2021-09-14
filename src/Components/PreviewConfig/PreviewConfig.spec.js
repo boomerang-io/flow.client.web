@@ -26,9 +26,8 @@ const props = {
 
 describe("PreviewConfig --- Snapshot", () => {
   it("Capturing Snapshot of Task Templates", async () => {
-    const { baseElement, getByText } = rtlContextRouterRender(<PreviewConfig {...props}/>);
+    const { baseElement, getByText } = rtlContextRouterRender(<PreviewConfig {...props} />);
     fireEvent.click(getByText("Preview"));
     expect(baseElement).toMatchSnapshot();
   });
 });
-

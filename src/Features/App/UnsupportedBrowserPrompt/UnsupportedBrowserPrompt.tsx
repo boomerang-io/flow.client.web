@@ -3,7 +3,7 @@ import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Error403 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ArrowRight16 } from "@carbon/icons-react";
 
-const UnsupportedBrowserPrompt = ({ onDismissWarning } : { onDismissWarning: () => void }) => {
+const UnsupportedBrowserPrompt = ({ onDismissWarning }: { onDismissWarning: () => void }) => {
   return (
     <div style={{ textAlign: "center", paddingTop: "3rem" }}>
       <Error403

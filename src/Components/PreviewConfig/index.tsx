@@ -1,1 +1,1 @@
-export { default } from "./PreviewConfig"
+export { default } from "./PreviewConfig";

@@ -15,7 +15,6 @@ import { View16 } from "@carbon/icons-react";
 const modalHeadertext =
   "This is a preview of what the user sees when editing this Task. The user can also give this task a custom name for their Workflow, and can adjust its connected tasks. You can type in these fields to test any validation requirements.";
 
-
 const TextEditorInput: React.FC<any> = (props) => {
   return (
     <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
@@ -24,7 +23,7 @@ const TextEditorInput: React.FC<any> = (props) => {
   );
 };
 
-const textAreaProps = ({ input, formikProps }: { input: DataDrivenInput, formikProps: any}) => {
+const textAreaProps = ({ input, formikProps }: { input: DataDrivenInput; formikProps: any }) => {
   const { values, setFieldValue } = formikProps;
   const { key, type, ...rest } = input;
   //@ts-ignore
@@ -65,7 +64,7 @@ const PreviewConfigForm: React.FC<PreviewConfigFormProps> = ({ templateConfig })
       )}
     </DynamicFormik>
   );
-}
+};
 
 interface PreivewConfigProps {
   templateConfig: any;
@@ -95,8 +94,10 @@ const PreviewConfig: React.FC<PreivewConfigProps> = ({ templateConfig, taskTempl
         </TooltipHover>
       )}
     >
-      {({ closeModal }: ComposedModalChildProps) => <PreviewConfigForm templateConfig={templateConfig} closeModal={closeModal} />}
+      {({ closeModal }: ComposedModalChildProps) => (
+        <PreviewConfigForm templateConfig={templateConfig} closeModal={closeModal} />
+      )}
     </ComposedModal>
   );
-}
+};
 export default PreviewConfig;

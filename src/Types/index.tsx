@@ -23,6 +23,7 @@ export interface Action {
   workflowName: string;
   numberOfApprovals: number;
   approvalsRequired: number;
+  submittedApproversUserIds: string[];
   teamName: string;
   instructions: any;
 }
@@ -80,7 +81,18 @@ export interface FormikSetFieldValue {
 export interface CreateWorkflowSummary {
   description: string;
   enableACCIntegration: boolean;
-  enablePersistentStorage: boolean;
+  storage: {
+    workflow: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+    workspace: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+  };
   icon: string;
   name: string;
   revisionCount: number;
@@ -108,7 +120,18 @@ export interface WorkflowSummary {
   id: string;
   description: string;
   enableACCIntegration: boolean;
-  enablePersistentStorage: boolean;
+  storage: {
+    workflow: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+    workspace: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+  };
   icon: string;
   name: string;
   labels: Array<{ key: string; value: string }>;
@@ -423,4 +446,35 @@ export interface ComboBoxItem {
   name: string;
   label?: string;
   value: string;
+}
+
+export interface WorkflowTemplate {
+  id: string;
+  icon: string;
+  name: string;
+  description: string;
+  parameters: {
+      label: string;
+      type: string;
+  }[];
+  revision: WorkflowRevision;
+  triggers: {[key:string]: any};
+}
+
+export interface UserQuotas {
+  maxWorkflowCount: number;
+  maxWorkflowExecutionMonthly: number;
+  maxWorkflowStorage: number;
+  maxWorkflowExecutionTime: number;
+  maxConcurrentWorkflows: number;
+  currentWorkflowCount: number;
+  currentConcurrentWorkflows: number;
+  currentWorkflowExecutionMonthly: number;
+  currentAverageExecutionTime: number;
+  monthlymonthlyResetDate: string;
+}
+
+export interface UserWorkflow {
+  userQuotas: UserQuotas;
+  workflows: WorkflowSummary[];
 }

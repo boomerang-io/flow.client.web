@@ -1,1 +1,1 @@
-export { default } from "./TemplateConfigModalContent"
+export { default } from "./TemplateConfigModalContent";

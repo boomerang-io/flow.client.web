@@ -4,17 +4,15 @@ import EditTaskTemplateForm from "./index";
 const mockfn = jest.fn();
 const mockRevision = {
   name: "Test name",
-  arguments: [
-    "slack",
-  ],
+  arguments: ["slack"],
   changelog: {
     userId: "1234",
     reason: "",
     date: "2021-03-19T23:34:09.258+00:00",
-    userName: "Test User"
+    userName: "Test User",
   },
   description: "Test description",
-  command: [ ],
+  command: [],
   config: [
     {
       required: false,
@@ -25,18 +23,16 @@ const mockRevision = {
       key: "url",
       label: "URL",
       type: "text",
-      helperText: ""
-    }
+      helperText: "",
+    },
   ],
-  envs: [
-    {name: "test", value: "TEST"}
-  ],
+  envs: [{ name: "test", value: "TEST" }],
   image: "",
   results: null,
   script: null,
   version: 1,
   workingDir: null,
-}
+};
 const props = {
   closeModal: mockfn,
   handleEditTaskTemplateModal: mockfn,
@@ -47,8 +43,7 @@ const props = {
 
 describe("EditTaskTemplateForm --- Snapshot", () => {
   it("Capturing Snapshot of Task Templates", async () => {
-    const { baseElement } = rtlContextRouterRender(<EditTaskTemplateForm {...props}/>);
+    const { baseElement } = rtlContextRouterRender(<EditTaskTemplateForm {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
-

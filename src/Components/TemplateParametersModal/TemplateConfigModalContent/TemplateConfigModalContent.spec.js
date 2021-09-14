@@ -21,8 +21,7 @@ const props = {
 
 describe("TemplateConfigModalContent --- Snapshot", () => {
   it("Capturing Snapshot of Task Templates", async () => {
-    const { baseElement } = rtlContextRouterRender(<TemplateConfigModalContent {...props}/>);
+    const { baseElement } = rtlContextRouterRender(<TemplateConfigModalContent {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
-

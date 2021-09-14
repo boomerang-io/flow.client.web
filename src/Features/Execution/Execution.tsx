@@ -11,7 +11,7 @@ import { TaskModel } from "Types";
 import { serviceUrl } from "Config/servicesConfig";
 
 export default function ExecutionContainer() {
-  const { workflowId, executionId } : { workflowId: string; executionId: string; } = useParams();
+  const { workflowId, executionId }: { workflowId: string; executionId: string } = useParams();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ query: workflowId });
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getExecutionUrl = serviceUrl.getWorkflowExecution({ executionId });

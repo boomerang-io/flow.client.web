@@ -137,6 +137,7 @@ export const WorkflowScope = {
   System: "system",
   Team: "team",
   User: "user",
+  Template: "template",
 };
 
 export const SortDirection = {

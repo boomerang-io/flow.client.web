@@ -14,6 +14,7 @@ import {
   TextArea,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ApprovalStatus } from "Constants";
 import { resolver } from "Config/servicesConfig";
 import { Action } from "Types";
 import dateHelper from "Utils/dateHelper";
@@ -289,7 +290,7 @@ function ActionSection({ formikBag, action }: any) {
 }
 
 function SingleActionSection({ formikBag, action, isAlreadyApproved }: any) {
-  const { numberOfApprovals = 0, approvalsRequired = 0, creationDate, id, workflowName, teamName } = action;
+  const { numberOfApprovals = 0, approvalsRequired = 0, creationDate, id, status, workflowName, teamName } = action;
   const { values, touched, errors, handleChange, handleBlur } = formikBag;
 
   const DataSection = ({ className, label, value }: any) => (
@@ -331,7 +332,12 @@ function SingleActionSection({ formikBag, action, isAlreadyApproved }: any) {
       ) : (
         <div className={styles.yourInput}>
           <p className={styles.singleLabel}>Your input</p>
-          <p className={styles.singleHelperText}>You already submitted your response for this action.</p>
+          <p className={styles.singleHelperText}>
+            {status !== ApprovalStatus.Submitted 
+              ? `This action is already ${status}`
+              : "You already submitted your response for this action."
+            }
+          </p>
         </div>
       )}
     </section>

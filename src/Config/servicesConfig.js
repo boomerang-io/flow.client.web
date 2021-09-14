@@ -67,7 +67,6 @@ export const serviceUrl = {
   getUserProfile: () => `${BASE_URL}/users/profile`,
   getUserWorkflows: () => `${BASE_URL}/workflows/user`,
   getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
-  
   getWorkflowChangelog: ({ workflowId, query }) =>
   `${BASE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
   getWorkflowImport: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
@@ -101,6 +100,7 @@ export const serviceUrl = {
   resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
   resourceSettings: () => `${BASE_URL}/settings`,
   workflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
+  workflowTemplates: () => `${BASE_URL}/workflows/template`,
 };
 
 export const cancellableResolver = ({ url, method, body, headers, ...config }) => {
@@ -161,6 +161,7 @@ export const resolver = {
       body,
       method: HttpMethod.Post,
     }),
+  postCreateTemplate: ({ body }) => axios.post(serviceUrl.workflowTemplates(), body),
   postCreateWorkflow: ({ body }) => axios.post(serviceUrl.postCreateWorkflow(), body),
   postCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
@@ -168,9 +169,9 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Post }),
 
   postDuplicateWorkflow: ({workflowId}) => axios.post(serviceUrl.postDuplicateWorkflow({workflowId})),
+  postTemplateWorkflow: ({workflowId, body}) => axios.post(serviceUrl.postDuplicateWorkflow({workflowId}), body),
   postGlobalToken: ({body}) => cancellableResolver({ url: serviceUrl.postGlobalToken(), body, method: HttpMethod.Post }),
   postTeamToken: ({body}) => cancellableResolver({ url: serviceUrl.postTeamToken(), body, method: HttpMethod.Post }),
-
   putCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Put }),
   putCreateTaskYaml: ({ id, revision, comment, body }) =>

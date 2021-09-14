@@ -27,6 +27,7 @@ interface CreateWorkflowContentProps {
   scope: string;
   team?: FlowTeam | null;
   teams?: FlowTeam[] | null;
+  workflowQuotasEnabled: boolean;
 }
 
 const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
@@ -37,11 +38,15 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   scope,
   team,
   teams,
+  workflowQuotasEnabled,
 }) => {
   const [selectedTeam, setSelectedTeam] = useState<FlowTeam | null>(team ?? null);
   const formikRef = useRef<any>();
 
   const existingWorkflowNames = selectedTeam?.workflows.map((workflow) => workflow.name) ?? [];
+
+  const hasReachedTeamWorkflowLimit = selectedTeam && selectedTeam.workflowQuotas.maxWorkflowCount <= selectedTeam.workflowQuotas.currentWorkflowCount;
+  const createTeamWorkflowsDisabled = workflowQuotasEnabled && hasReachedTeamWorkflowLimit;
 
   useEffect(() => {
     formikRef.current?.validateForm();
@@ -121,7 +126,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
               ) : (
                 <TextInput
                   id="name"
-                  labelText="Workflow Name"
+                  labelText={scope === WorkflowScope.Template ? "Template Name" : "Workflow Name"}
                   value={values.name}
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -175,7 +180,15 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                   lowContrast
                   kind="error"
                   title="Something's Wrong"
-                  subtitle="Request to create workflow failed"
+                  subtitle={`Request to create ${scope === WorkflowScope.Template ? "template" : "workflow"} failed`}
+                />
+              )}
+              {createTeamWorkflowsDisabled && (
+                <InlineNotification
+                  lowContrast
+                  kind="error"
+                  title="Quotas exceeded"
+                  subtitle="You cannot create new workflows for this team."
                 />
               )}
             </ModalBody>
@@ -185,7 +198,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
               </Button>
               <Button
                 data-testid="workflows-create-workflow-submit"
-                disabled={!isValid || isLoading}
+                disabled={!isValid || isLoading || createTeamWorkflowsDisabled}
                 onClick={handleSubmit}
               >
                 {isLoading ? "Creating..." : "Create"}

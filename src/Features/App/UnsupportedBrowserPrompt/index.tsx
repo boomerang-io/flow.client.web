@@ -1,1 +1,1 @@
-export { default } from "./UnsupportedBrowserPrompt"
+export { default } from "./UnsupportedBrowserPrompt";

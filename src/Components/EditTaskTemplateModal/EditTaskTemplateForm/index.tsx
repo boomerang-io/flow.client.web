@@ -1,1 +1,1 @@
-export { default } from "./EditTaskTemplateForm"
+export { default } from "./EditTaskTemplateForm";

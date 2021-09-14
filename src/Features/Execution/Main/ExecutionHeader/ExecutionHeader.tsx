@@ -50,17 +50,17 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
   const displayCancelButton = cancelSatusTypes.includes(status);
 
   const [deleteCancelWorkflowMutation] = useMutation(resolver.deleteCancelWorkflow, {
-    onSuccess: () =>  queryCache.invalidateQueries(serviceUrl.getWorkflowExecution({executionId: id}))
+    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId: id })),
   });
 
-  const handleCancelWorkflow = async() => {
+  const handleCancelWorkflow = async () => {
     try {
       await deleteCancelWorkflowMutation({ executionId: id });
       notify(<ToastNotification kind="success" title="Cancel run" subtitle="Execution successfully cancelled" />);
     } catch {
       notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to cancel this execution`} />);
     }
-  }
+  };
   return (
     <Header
       className={styles.container}
@@ -96,19 +96,30 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
         </div>
       }
       header={
-        <div style={{display: "flex"}}>
+        <div style={{ display: "flex" }}>
           <HeaderTitle>Workflow run detail</HeaderTitle>
           {Boolean(workflowExecution?.data?.error?.code) && (
             <ComposedModal
               composedModalProps={{ shouldCloseOnOverlayClick: true }}
               modalHeaderProps={{ title: "Execution Error" }}
               modalTrigger={({ openModal }: { openModal: () => void }) => (
-                <Button className={styles.workflowErrorTrigger} kind={"ghost"} onClick={openModal} renderIcon={Warning16} size="small">
+                <Button
+                  className={styles.workflowErrorTrigger}
+                  kind={"ghost"}
+                  onClick={openModal}
+                  renderIcon={Warning16}
+                  size="small"
+                >
                   View Execution Error
                 </Button>
               )}
             >
-              {() => <ErrorModal errorCode={workflowExecution?.data?.error?.code} errorMessage={workflowExecution?.data?.error?.message??""}/>}
+              {() => (
+                <ErrorModal
+                  errorCode={workflowExecution?.data?.error?.code}
+                  errorMessage={workflowExecution?.data?.error?.message ?? ""}
+                />
+              )}
             </ComposedModal>
           )}
         </div>
@@ -159,10 +170,10 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
               <dd className={styles.dataValue}>{moment(creationDate).format("YYYY-MM-DD hh:mm A")}</dd>
             </dl>
             <dl className={styles.dataButton}>
-              {displayCancelButton && ( 
+              {displayCancelButton && (
                 <ConfirmModal
                   affirmativeAction={handleCancelWorkflow}
-                  affirmativeButtonProps={{kind: "danger"}}
+                  affirmativeButtonProps={{ kind: "danger" }}
                   children="Are you sure? Once a workflow is cancelled it will stop executing."
                   title="Cancel run"
                   modalTrigger={({ openModal }: { openModal: () => void }) => (
@@ -190,8 +201,8 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
   );
 }
 
-function WorkflowAdvancedDetail({ workflow } : { workflow: WorkflowSummary }) {
-  const { workflowId, executionId } : { workflowId: string; executionId: string; } = useParams();
+function WorkflowAdvancedDetail({ workflow }: { workflow: WorkflowSummary }) {
+  const { workflowId, executionId }: { workflowId: string; executionId: string } = useParams();
   const [copyTokenText, setCopyTokenText] = React.useState("Copy");
 
   const labelTexts = [`boomerang.io/workflow-id=${workflowId}`, `boomerang.io/workflow-activity-id=${executionId}`];

@@ -27,7 +27,7 @@
     "upgradePackage": "react-scripts upgradePackage"
   },
   "dependencies": {
-    "@boomerang-io/carbon-addons-boomerang-react": "1.2.4-beta.6",
+    "@boomerang-io/carbon-addons-boomerang-react": "1.2.4-beta.7",
     "@boomerang-io/styles": "0.0.3",
     "@boomerang-io/utils": "0.0.6",
     "@carbon/charts": "^0.16.24",
@@ -71,6 +71,7 @@
     "react-router-dom": "5.1.2",
     "react-scripts": "4.0.3",
     "reflexbox": "^4.0.6",
+    "ts-migrate": "^0.1.21",
     "typeface-ibm-plex-sans": "0.0.75",
     "use-immer": "^0.4.0",
     "validator": "^10.7.1",

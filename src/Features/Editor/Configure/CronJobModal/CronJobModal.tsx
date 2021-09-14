@@ -12,7 +12,7 @@ import styles from "./cronJobModal.module.scss";
 //Timezones that don't have a match in Java and can't be saved via the service
 const exludedTimezones = ["GMT+0", "GMT-0", "ROC"];
 
-const cronDayNumberMap: {[key:string]: string} = {
+const cronDayNumberMap: { [key: string]: string } = {
   sunday: "SUN",
   monday: "MON",
   tuesday: "TUE",
@@ -23,22 +23,21 @@ const cronDayNumberMap: {[key:string]: string} = {
 };
 
 type Props = {
-  advancedCron?: boolean,
-  closeModal: () => void,
-  cronExpression?: string,
-  handleOnChange: (id: string, item: any) => void,
-  timeZone?: string | boolean,
+  advancedCron?: boolean;
+  closeModal: () => void;
+  cronExpression?: string;
+  handleOnChange: (id: string, item: any) => void;
+  timeZone?: string | boolean;
   timezoneOptions?: any;
 };
 
 type State = {
   errorMessage?: string;
   message: string | undefined;
-  defaultTimeZone: any
+  defaultTimeZone: any;
 };
 
 export default class CronJobModal extends Component<Props, State> {
-  
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -96,8 +95,8 @@ export default class CronJobModal extends Component<Props, State> {
     this.props.closeModal();
   };
 
-  handleSchedule = (values: { days: Array<string>; time: string;}) => {
-    let daysCron:Array<string> | [] = [];
+  handleSchedule = (values: { days: Array<string>; time: string }) => {
+    let daysCron: Array<string> | [] = [];
     Object.values(values.days).forEach((day) => {
       //@ts-ignore
       daysCron.push(cronDayNumberMap[day]);
@@ -107,7 +106,7 @@ export default class CronJobModal extends Component<Props, State> {
     return cronExpression;
   };
 
-  handleCheckboxListChange = (setFieldValue: (id: string, value: any) => void, ...args : any) => {
+  handleCheckboxListChange = (setFieldValue: (id: string, value: any) => void, ...args: any) => {
     const currDays = args[args.length - 1];
     setFieldValue("days", currDays);
   };
@@ -134,7 +133,10 @@ export default class CronJobModal extends Component<Props, State> {
           advancedCron: !!advancedCron,
           days: activeDays,
           time: cronTime || "18:00",
-          timeZone: timeZone && typeof timeZone !== "boolean" ? this.transformTimeZone(timeZone) : this.transformTimeZone(defaultTimeZone),
+          timeZone:
+            timeZone && typeof timeZone !== "boolean"
+              ? this.transformTimeZone(timeZone)
+              : this.transformTimeZone(defaultTimeZone),
         }}
         validationSchema={Yup.object().shape({
           cronExpression: Yup.string().when("advancedCron", {
@@ -198,7 +200,7 @@ export default class CronJobModal extends Component<Props, State> {
                           initialSelectedItem={values.timeZone}
                           //@ts-ignore
                           items={this.timezoneOptions}
-                          onChange={({ selectedItem }: { selectedItem: {label: string, value: string}}) =>
+                          onChange={({ selectedItem }: { selectedItem: { label: string; value: string } }) =>
                             this.handleTimeChange(
                               selectedItem !== null ? selectedItem : { label: "", value: "" },
                               "timeZone",
@@ -233,7 +235,7 @@ export default class CronJobModal extends Component<Props, State> {
                             initialSelectedItem={values.timeZone}
                             //@ts-ignore
                             items={this.timezoneOptions}
-                            onChange={({ selectedItem }: { selectedItem: {label: string, value: string}}) =>
+                            onChange={({ selectedItem }: { selectedItem: { label: string; value: string } }) =>
                               this.handleTimeChange(
                                 selectedItem !== null ? selectedItem : { label: "", value: "" },
                                 "timeZone",
