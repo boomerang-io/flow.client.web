@@ -42,7 +42,6 @@ const summaryQuery = queryString.stringify({
 });
 
 const actionsSummaryUrl = serviceUrl.getActionsSummary({ query: summaryQuery });
-const actionsAllTimeSummaryUrl = serviceUrl.getActionsSummary({ query: undefined });
 const systemUrl = serviceUrl.getSystemWorkflows();
 const userWorkflowsUrl = serviceUrl.getUserWorkflows();
 
@@ -72,19 +71,10 @@ function Actions() {
 
   const emoji = approvalsRatePercentage > 79 ? "🙌" : approvalsRatePercentage > 49 ? "😮" : "😨";
 
-  /** Get number of approvals and manual tasks */
-  const { data: actionsAllTimeSummaryData } = useQuery({
-    queryKey: actionsAllTimeSummaryUrl,
-    queryFn: resolver.query(actionsAllTimeSummaryUrl),
-  });
-
-  const approvalsNumber = actionsAllTimeSummaryData ? actionsAllTimeSummaryData.approvals : 0;
-  const manualTasksNumber = actionsAllTimeSummaryData ? actionsAllTimeSummaryData.manual : 0;
-
   /**
    * Prepare queries and get some data
    */
-   const {
+  const {
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
     size = DEFAULT_SIZE,
@@ -114,26 +104,46 @@ function Actions() {
     queryStringOptions
   );
 
-  const actionsUrl = serviceUrl.getActions({ query: actionsUrlQuery });
+  const actionsUrlSummaryQuery = queryString.stringify(
+    {
+      scopes,
+      teamIds,
+      statuses,
+      workflowIds,
+      fromDate,
+      toDate,
+    },
+    queryStringOptions
+  );
 
-  const actionsQuery = useQuery({
-    queryKey: actionsUrl,
-    queryFn: resolver.query(actionsUrl)
+  const actionsFilterSummaryUrl = serviceUrl.getActionsSummary({ query: actionsUrlSummaryQuery });
+
+  /** Get number of approvals and manual tasks */
+  const { data: actionsFilterSummaryData } = useQuery({
+    queryKey: actionsFilterSummaryUrl,
+    queryFn: resolver.query(actionsFilterSummaryUrl),
   });
 
-  const {
-    data: systemWorkflowsData,
-    isLoading: systemWorkflowsIsLoading,
-    error: SystemWorkflowsError,
-  } = useQuery({
-    queryKey: systemUrl, 
-    queryFn: resolver.query(systemUrl), 
-    config: { enabled: isSystemWorkflowsEnabled }
+  const approvalsNumber = actionsFilterSummaryData ? actionsFilterSummaryData.approvals : 0;
+  const manualTasksNumber = actionsFilterSummaryData ? actionsFilterSummaryData.manual : 0;
+
+  const actionsUrl = serviceUrl.getActions({ query: actionsUrlQuery });
+
+  /** Get table data */
+  const actionsQuery = useQuery({
+    queryKey: actionsUrl,
+    queryFn: resolver.query(actionsUrl),
+  });
+
+  const { data: systemWorkflowsData, isLoading: systemWorkflowsIsLoading, error: SystemWorkflowsError } = useQuery({
+    queryKey: systemUrl,
+    queryFn: resolver.query(systemUrl),
+    config: { enabled: isSystemWorkflowsEnabled },
   });
 
   const { data: userWorkflowsData, isLoading: userWorkflowsIsLoading, isError: userWorkflowsIsError } = useQuery({
     queryKey: userWorkflowsUrl,
-    queryFn: resolver.query(userWorkflowsUrl)
+    queryFn: resolver.query(userWorkflowsUrl),
   });
 
   if (systemWorkflowsIsLoading || userWorkflowsIsLoading) {
@@ -153,7 +163,7 @@ function Actions() {
    * @param {object} query - all of the query params
    *
    */
-   const updateHistorySearch = ({
+  const updateHistorySearch = ({
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
     size = DEFAULT_SIZE,
@@ -304,170 +314,170 @@ function Actions() {
           <Redirect exact from={AppPath.Actions} to={AppPath.ActionsApprovals} />
         </Switch>
         <Header
-            className={styles.header}
-            includeBorder={false}
-            header={
-              <>
-                <HeaderTitle className={styles.headerTitle}>Actions</HeaderTitle>
-                <HeaderSubtitle>View and manage your approvals and manual tasks.</HeaderSubtitle>
-              </>
-            }
-            actions={
-              <section className={styles.headerSummary}>
-                {isActionsLoading ? (
-                  <SkeletonPlaceholder className={styles.headerSummarySkeleton} />
-                ) : (
-                  <>
-                    <p className={styles.headerSummaryText}>Today's numbers</p>
-                    {isActionsError ? (
-                      <>
-                        <HeaderWidget text="Manual" value="--" /> 
-                        <HeaderWidget text="Approvals" value="--" />
-                        <HeaderWidget text="Approval rate" value="--" />
-                      </>
-                    ) : (
-                      <>
-                        <HeaderWidget icon={ArrowUpRight32} text="Manual" value={manualTasksSummaryNumber} />
-                        <HeaderWidget icon={ArrowUpRight32} text="Approvals" value={approvalsSummaryNumber} />
-                        <HeaderWidget icon={emoji} text="Approval rate" value={`${approvalsRatePercentage}%`} />
-                      </>
-                    )}
-                  </>
-                )}
-              </section>
-            }
-            footer={
-              <Tabs>
-                <Tab 
-                  exact 
-                  label={`Approvals (${approvalsNumber})`} 
-                  to={{ 
-                    pathname: appLink.actionsApprovals(),
-                    search: location.search
-                  }}
-                />
-                <Tab 
-                  exact 
-                  label={`Manual (${manualTasksNumber})`} 
-                  to={{ 
-                    pathname: appLink.actionsManual(),
-                    search: location.search
-                  }}
-                />
-              </Tabs>
-            }
-          />
-          {actionsQuery.isError ? (
-            <section aria-label="Actions" className={styles.content}>
-              <ErrorMessage />
-            </section>
-          ) : (
-            <section aria-label="Actions" className={styles.content}>
-              <div className={styles.filtersContainer}>
-                <div className={styles.dataFilters}>
-                  <div className={styles.dataFilter}>
-                    <MultiSelect
-                      id="actions-scopes-select"
-                      label="Choose scope(s)"
-                      placeholder="Choose scope(s)"
-                      invalid={false}
-                      onChange={handleSelectScopes}
-                      items={workflowScopeOptions}
-                      itemToString={(scope) => (scope ? scope.label : "")}
-                      initialSelectedItems={workflowScopeOptions.filter((option) =>
-                        Boolean(selectedScopes.find((scope) => scope === option.value))
-                      )}
-                      titleText="Filter by scope"
-                    />
-                  </div>
-                  {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
-                    <div className={styles.dataFilter}>
-                      <MultiSelect
-                        id="actions-teams-select"
-                        label="Choose team(s)"
-                        placeholder="Choose team(s)"
-                        invalid={false}
-                        onChange={handleSelectTeams}
-                        items={teamsData}
-                        itemToString={(team) => (team ? team.name : "")}
-                        initialSelectedItems={selectedTeams}
-                        titleText="Filter by team"
-                      />
-                    </div>
+          className={styles.header}
+          includeBorder={false}
+          header={
+            <>
+              <HeaderTitle className={styles.headerTitle}>Actions</HeaderTitle>
+              <HeaderSubtitle>View and manage your approvals and manual tasks.</HeaderSubtitle>
+            </>
+          }
+          actions={
+            <section className={styles.headerSummary}>
+              {isActionsLoading ? (
+                <SkeletonPlaceholder className={styles.headerSummarySkeleton} />
+              ) : (
+                <>
+                  <p className={styles.headerSummaryText}>Today's numbers</p>
+                  {isActionsError ? (
+                    <>
+                      <HeaderWidget text="Manual" value="--" />
+                      <HeaderWidget text="Approvals" value="--" />
+                      <HeaderWidget text="Approval rate" value="--" />
+                    </>
+                  ) : (
+                    <>
+                      <HeaderWidget icon={ArrowUpRight32} text="Manual" value={manualTasksSummaryNumber} />
+                      <HeaderWidget icon={ArrowUpRight32} text="Approvals" value={approvalsSummaryNumber} />
+                      <HeaderWidget icon={emoji} text="Approval rate" value={`${approvalsRatePercentage}%`} />
+                    </>
                   )}
-                  <div className={styles.dataFilter}>
-                    <MultiSelect
-                      id="actions-workflows-select"
-                      label="Choose workflow(s)"
-                      placeholder="Choose workflow(s)"
-                      invalid={false}
-                      onChange={handleSelectWorkflows}
-                      items={workflowsFilter}
-                      itemToString={(workflow) => {
-                        const team = workflow ? teamsData.find((team) => team.id === workflow.flowTeamId) : undefined;
-                        return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
-                      }}
-                      initialSelectedItems={workflowsFilter.filter((workflow) =>
-                        Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
-                      )}
-                      titleText="Filter by workflow"
-                    />
-                  </div>
-                  <div className={styles.dataFilter}>
-                    <MultiSelect
-                      id="actions-statuses-select"
-                      label="Choose status(es)"
-                      placeholder="Choose status(es)"
-                      invalid={false}
-                      onChange={handleSelectStatuses}
-                      items={approvalStatusOptions}
-                      itemToString={(item) => (item ? item.label : "")}
-                      initialSelectedItems={approvalStatusOptions.filter((option) =>
-                        Boolean(selectedStatuses.find((status) => status === option.value))
-                      )}
-                      titleText="Filter by status"
-                    />
-                  </div>
-                </div>
-                <DatePicker
-                  id="actions-date-picker"
-                  className={styles.timeFilters}
-                  dateFormat="m/d/Y"
-                  datePickerType="range"
-                  maxDate={maxDate}
-                  onChange={handleSelectDate}
-                  onClose={handleCloseSelectDate}
-                >
-                  <DatePickerInput
-                    autoComplete="off"
-                    id="actions-date-picker-start"
-                    labelText="Start date"
-                    placeholder="mm/dd/yyyy"
-                    value={fromDate && moment.unix(fromDate).format("YYYY-MM-DD")}
-                  />
-                  <DatePickerInput
-                    autoComplete="off"
-                    id="actions-date-picker-end"
-                    labelText="End date"
-                    placeholder="mm/dd/yyyy"
-                    value={toDate && moment.unix(toDate).format("YYYY-MM-DD")}
-                  />
-                </DatePicker>
-              </div>
-              <ActionsTable
-                actionsQueryToRefetch={actionsUrl}
-                history={history}
-                isLoading={actionsQuery.isLoading}
-                location={location}
-                match={match}
-                isSystemWorkflowsEnabled={isSystemWorkflowsEnabled}
-                tableData={actionsQuery.data}
-                updateHistorySearch={updateHistorySearch}
-              />
+                </>
+              )}
             </section>
-          )}
+          }
+          footer={
+            <Tabs>
+              <Tab
+                exact
+                label={`Approvals (${approvalsNumber})`}
+                to={{
+                  pathname: appLink.actionsApprovals(),
+                  search: location.search,
+                }}
+              />
+              <Tab
+                exact
+                label={`Manual (${manualTasksNumber})`}
+                to={{
+                  pathname: appLink.actionsManual(),
+                  search: location.search,
+                }}
+              />
+            </Tabs>
+          }
+        />
+        {actionsQuery.isError ? (
+          <section aria-label="Actions" className={styles.content}>
+            <ErrorMessage />
+          </section>
+        ) : (
+          <section aria-label="Actions" className={styles.content}>
+            <div className={styles.filtersContainer}>
+              <div className={styles.dataFilters}>
+                <div className={styles.dataFilter}>
+                  <MultiSelect
+                    id="actions-scopes-select"
+                    label="Choose scope(s)"
+                    placeholder="Choose scope(s)"
+                    invalid={false}
+                    onChange={handleSelectScopes}
+                    items={workflowScopeOptions}
+                    itemToString={(scope) => (scope ? scope.label : "")}
+                    initialSelectedItems={workflowScopeOptions.filter((option) =>
+                      Boolean(selectedScopes.find((scope) => scope === option.value))
+                    )}
+                    titleText="Filter by scope"
+                  />
+                </div>
+                {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
+                  <div className={styles.dataFilter}>
+                    <MultiSelect
+                      id="actions-teams-select"
+                      label="Choose team(s)"
+                      placeholder="Choose team(s)"
+                      invalid={false}
+                      onChange={handleSelectTeams}
+                      items={teamsData}
+                      itemToString={(team) => (team ? team.name : "")}
+                      initialSelectedItems={selectedTeams}
+                      titleText="Filter by team"
+                    />
+                  </div>
+                )}
+                <div className={styles.dataFilter}>
+                  <MultiSelect
+                    id="actions-workflows-select"
+                    label="Choose workflow(s)"
+                    placeholder="Choose workflow(s)"
+                    invalid={false}
+                    onChange={handleSelectWorkflows}
+                    items={workflowsFilter}
+                    itemToString={(workflow) => {
+                      const team = workflow ? teamsData.find((team) => team.id === workflow.flowTeamId) : undefined;
+                      return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                    }}
+                    initialSelectedItems={workflowsFilter.filter((workflow) =>
+                      Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
+                    )}
+                    titleText="Filter by workflow"
+                  />
+                </div>
+                <div className={styles.dataFilter}>
+                  <MultiSelect
+                    id="actions-statuses-select"
+                    label="Choose status(es)"
+                    placeholder="Choose status(es)"
+                    invalid={false}
+                    onChange={handleSelectStatuses}
+                    items={approvalStatusOptions}
+                    itemToString={(item) => (item ? item.label : "")}
+                    initialSelectedItems={approvalStatusOptions.filter((option) =>
+                      Boolean(selectedStatuses.find((status) => status === option.value))
+                    )}
+                    titleText="Filter by status"
+                  />
+                </div>
+              </div>
+              <DatePicker
+                id="actions-date-picker"
+                className={styles.timeFilters}
+                dateFormat="m/d/Y"
+                datePickerType="range"
+                maxDate={maxDate}
+                onChange={handleSelectDate}
+                onClose={handleCloseSelectDate}
+              >
+                <DatePickerInput
+                  autoComplete="off"
+                  id="actions-date-picker-start"
+                  labelText="Start date"
+                  placeholder="mm/dd/yyyy"
+                  value={fromDate && moment.unix(fromDate).format("YYYY-MM-DD")}
+                />
+                <DatePickerInput
+                  autoComplete="off"
+                  id="actions-date-picker-end"
+                  labelText="End date"
+                  placeholder="mm/dd/yyyy"
+                  value={toDate && moment.unix(toDate).format("YYYY-MM-DD")}
+                />
+              </DatePicker>
+            </div>
+            <ActionsTable
+              actionsQueryToRefetch={actionsUrl}
+              history={history}
+              isLoading={actionsQuery.isLoading}
+              location={location}
+              match={match}
+              isSystemWorkflowsEnabled={isSystemWorkflowsEnabled}
+              tableData={actionsQuery.data}
+              updateHistorySearch={updateHistorySearch}
+            />
+          </section>
+        )}
       </div>
-    )
+    );
   }
 
   return null;
