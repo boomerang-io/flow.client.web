@@ -62,6 +62,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
       };
 
       await createWorkflowRevisionMutator({ workflowId, body: workflowRevision });
+      
       queryCache.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
       history.push(appLink.editorDesigner({ workflowId }));
       notify(<ToastNotification kind="success" title="Create Workflow" subtitle="Successfully created workflow" />);
@@ -69,10 +70,11 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
         queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
       } else if (scope === WorkflowScope.Team) {
         queryCache.invalidateQueries(serviceUrl.getTeams());
+      } else if (scope === WorkflowScope.Template) {
+        queryCache.invalidateQueries(serviceUrl.workflowTemplates());
       } else {
         queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
       }
-
       return;
     } catch (e) {
       console.log(e);
@@ -130,7 +132,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
         ) : (
           <button className={styles.container} onClick={openModal} data-testid="workflows-create-workflow-button">
             <Add32 className={styles.addIcon} />
-            <p className={styles.text}>Create a new workflow</p>
+            <p className={styles.text}>{scope !== WorkflowScope.Template ? "Create a new Workflow" : "Create a new Template"}</p>
           </button>
         )
       }
@@ -139,7 +141,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
         children: "Your request will not be saved",
       }}
       modalHeaderProps={{
-        title: "Create a new Workflow",
+        title: scope !== WorkflowScope.Template ? "Create a new Workflow" : "Create a new Template",
         subtitle: "Get started with these basics, then proceed to designing it out.",
       }}
     >
@@ -154,7 +156,10 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
           scope={scope}
           team={team}
           teams={teams}
+          type={scope === WorkflowScope.Template ? "Template" : "Workflow"}
           workflows={workflows}
+          //@ts-ignore
+          workflowQuotasEnabled={workflowQuotasEnabled}
         />
       )}
     </ComposedModal>

@@ -1,7 +1,7 @@
 //@ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
-import ActivityHeaderWidget from "./ActivityHeaderWidget";
+import HeaderWidget from "Components/HeaderWidget";
 import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
@@ -49,18 +49,18 @@ function ActivityHeader({
           ) : isError ? (
             <>
               <p className={styles.text}>Today's numbers</p>
-              <ActivityHeaderWidget text="Runs" value={"--"} />
-              <ActivityHeaderWidget text="Successes" value={"--"} />
-              <ActivityHeaderWidget text="Failures" value={"--"} />
-              <ActivityHeaderWidget text="Success rate" value={"--"} />
+              <HeaderWidget text="Runs" value={"--"} />
+              <HeaderWidget text="Successes" value={"--"} />
+              <HeaderWidget text="Failures" value={"--"} />
+              <HeaderWidget text="Success rate" value={"--"} />
             </>
           ) : (
             <>
               <p className={styles.text}>Today's numbers</p>
-              <ActivityHeaderWidget icon={ArrowUpRight32} text="Runs" value={runActivities} />
-              <ActivityHeaderWidget icon={ArrowUpRight32} text="Successes" value={succeededActivities} />
-              <ActivityHeaderWidget icon={ArrowDownRight32} text="Failures" value={failedActivities} />
-              <ActivityHeaderWidget icon={emoji} text="Success rate" value={`${successRatePercentage}%`} />
+              <HeaderWidget icon={ArrowUpRight32} text="Runs" value={runActivities} />
+              <HeaderWidget icon={ArrowUpRight32} text="Successes" value={succeededActivities} />
+              <HeaderWidget icon={ArrowDownRight32} text="Failures" value={failedActivities} />
+              <HeaderWidget icon={emoji} text="Success rate" value={`${successRatePercentage}%`} />
             </>
           )}
         </section>

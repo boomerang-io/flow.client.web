@@ -1,0 +1,24 @@
+@import "Styles/mixins";
+
+.modalContainer {
+  height: 46rem;
+  max-height: 84vh;
+  min-width: 55rem;
+
+  :global .bx--btn.bx--btn--primary {
+    flex: 0 auto !important;
+  }
+  :global .bx--btn.bx--btn--secondary {
+    flex: 0 1 40% !important;
+  }
+}
+
+.addIcon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.text {
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+}

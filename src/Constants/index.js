@@ -137,6 +137,7 @@ export const WorkflowScope = {
   System: "system",
   Team: "team",
   User: "user",
+  Template: "template",
 };
 
 export const SortDirection = {
@@ -192,6 +193,17 @@ export const executionStatusList = [
   ExecutionStatus.Waiting,
   ExecutionStatus.Cancelled,
 ];
+
+export const ActionType = {
+  Approval: "approval",
+  Manual: "manual"
+}
+
+export const ApprovalInputRequired = {
+  Optional: "optional",
+  Required: "required",
+  None: "none",
+};
 
 export const ApprovalStatus = {
   Approved: "approved",
