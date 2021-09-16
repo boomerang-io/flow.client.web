@@ -12,6 +12,7 @@ const featureFlag = {
     "workflow.tokens": true,
     "workflow.triggers": true,
   },
+  storageQuotas: 50,
 };
 
 export default featureFlag;

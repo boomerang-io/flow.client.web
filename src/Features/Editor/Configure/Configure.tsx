@@ -84,6 +84,7 @@ interface FormProps {
 interface ConfigureContainerProps {
   history: History;
   params: { workflowId: string };
+  storageQuotas: number;
   summaryData: WorkflowSummary;
   summaryMutation: { status: string };
   teams: Array<{ id: string }>;
@@ -93,6 +94,7 @@ interface ConfigureContainerProps {
 const ConfigureContainer = React.memo<ConfigureContainerProps>(function ConfigureContainer({
   history,
   params,
+  storageQuotas,
   summaryData,
   summaryMutation,
   teams,
@@ -206,6 +208,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
             <Configure
               workflowTriggersEnabled={workflowTriggersEnabled as boolean}
               formikProps={formikProps}
+              storageQuotas={storageQuotas}
               summaryData={summaryData}
               summaryMutation={summaryMutation}
               teams={teams}
@@ -223,6 +226,7 @@ export default ConfigureContainer;
 interface ConfigureProps {
   workflowTriggersEnabled: boolean;
   formikProps: FormikProps<FormProps>;
+  storageQuotas: number;
   summaryData: WorkflowSummary;
   summaryMutation: {
     status: string;
@@ -286,6 +290,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
 
   render() {
     const {
+      storageQuotas,
       summaryMutation,
       teams,
       formikProps: { dirty, errors, handleBlur, handleSubmit, touched, values, setFieldValue },
@@ -557,13 +562,13 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
         )}
         <section className={styles.smallCol}>
           <div className={styles.optionsContainer}>
-            <h1 className={styles.header}>Storage Options</h1>
-            <p className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</p>
+            <h1 className={styles.header}>Workspaces</h1>
+            <p className={styles.subTitle}>Workspaces allow your workflow to declare storage options to be used at execution time. This will be limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum.</p>
             <div className={styles.storageToggle}>
               <div className={styles.toggleContainer}>
                 <Toggle
-                  id="enableWorkspacePersistentStorage"
-                  label="Enable Workspace Persistent Storage"
+                  id="enableWorkflowPersistentStorage"
+                  label="Enable Workflow Persistent Storage"
                   toggled={values.storage.workspace.enabled}
                   onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workspace.enabled")}
                   tooltipContent="Persist data across workflow executions"
@@ -575,11 +580,11 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 <div className={styles.webhookContainer}>
                   <ComposedModal
                     modalHeaderProps={{
-                      title: "Configure Workspace Persistent Storage",
+                      title: "Configure Workspace - Workflow Persistent Storage",
                       subtitle: (
                         <>
                           <p>
-                            Workspace storage is persisted across workflow executions and allows you to share artifacts between workflows, such as maintaining a cache of files used every execution.
+                            The Workflow storage is persisted across workflow executions and allows you to share artifacts between workflows, such as maintaining a cache of files used every execution.
                           </p>
                           <p style={{ marginTop: "0.5rem" }}>
                             Note: use with caution as this can lead to a collision if you are running many executions in parallel using the same artifact.
@@ -605,6 +610,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                           setFieldValue("storage.workspace", storageValues);
                         }}
                         closeModal={closeModal}
+                        storageQuotas={storageQuotas}
                       />
                     )}
                   </ComposedModal>
@@ -614,8 +620,8 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <div className={styles.storageToggle}>
               <div className={styles.toggleContainer}>
                 <Toggle
-                  id="enableWorkflowPersistentStorage"
-                  label="Enable Workflow Persistent Storage"
+                  id="enableActivityPersistentStorage"
+                  label="Enable Activity Persistent Storage"
                   toggled={values.storage.workflow.enabled}
                   onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflow.enabled")}
                   tooltipContent="Persist workflow data per executions"
@@ -627,11 +633,11 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 <div className={styles.webhookContainer}>
                   <ComposedModal
                     modalHeaderProps={{
-                      title: "Configure Workflow Persistent Storage",
+                      title: "Configure Workflow - Activity Persistent Storage",
                       subtitle:(
                         <>
                           <p>
-                            Workflow storage is persisted per workflow execution and allows you to share short-lived artifacts between tasks in the workflow.
+                            The activity storage is persisted per workflow execution and allows you to share short-lived artifacts between tasks in the workflow.
                           </p>
                           <p style={{ marginTop: "0.5rem" }}>
                             Note: All artifacts will be deleted at the end of the workflow execution. If you want to persist long term use Workspace storage.
@@ -657,6 +663,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                           setFieldValue("storage.workflow", storageValues);
                         }}
                         closeModal={closeModal}
+                        storageQuotas={storageQuotas}
                       />
                     )}
                   </ComposedModal>
