@@ -1,7 +1,7 @@
 const featureFlag = {
   features: {
     "team.management": true,
-    "workflow.quotas": false,
+    "workflow.quotas": true,
     settings: true,
     "user.management": true,
     "global.parameters": true,

@@ -1,0 +1,55 @@
+import React from "react";
+import { useMutation, useQuery, queryCache } from "react-query";
+import { Helmet } from "react-helmet";
+import { useAppContext } from "Hooks";
+import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import TeamTokenComponent from "./TeamTokenComponent";
+import { FlowTeam } from "Types";
+import styles from "./tokens.module.scss";
+
+function TeamTokensContainer() {
+  const [activeTeam, setActiveTeam] = React.useState<FlowTeam|null>(null);
+  const { teams, user } = useAppContext();
+
+  const getTeamTokensUrl = serviceUrl.getTeamTokens({teamId: activeTeam?.id});
+
+  const { data: tokensData, error: tokensError, isLoading: tokensIsLoading } = useQuery({
+    queryKey: getTeamTokensUrl,
+    queryFn: resolver.query(getTeamTokensUrl),
+    config: {enabled: activeTeam?.id},
+  });
+
+  const [deleteTokenMutator] = useMutation(resolver.deleteToken, {
+    onSuccess: () => queryCache.invalidateQueries([getTeamTokensUrl]),
+  });
+
+  const deleteToken = async (tokenId: string) => {
+    try {
+      await deleteTokenMutator({ tokenId });
+      notify(<ToastNotification kind="success" title="Delete Team Token" subtitle={`Token successfully deleted`} />);
+    } catch (error) {
+      notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete token failed" />);
+    }
+  };
+
+  return (
+    <div className={styles.tokensContainer}>
+      <Helmet>
+        <title>Team Tokens</title>
+      </Helmet>
+      <TeamTokenComponent
+        deleteToken={deleteToken}
+        isLoading={tokensIsLoading}
+        hasError={tokensError}
+        tokens={tokensData}
+        teams={teams}
+        setActiveTeam={setActiveTeam}
+        activeTeam={activeTeam}
+        userType={user.type}
+      />
+    </div>
+  );
+}
+
+export default TeamTokensContainer;

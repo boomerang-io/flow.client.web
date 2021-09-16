@@ -32,12 +32,15 @@ export const BASE_CORE_USERS_URL = determineUrl(CORE_SERVICE_ENV_URL, "/users");
 export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
   deleteCancelWorkflow: ({ executionId }) => `${BASE_URL}/activity/${executionId}/cancel`,
+  deleteToken : ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
   getActivitySummary: ({ query }) => `${BASE_URL}/activity/summary${query ? "?" + query : ""}`,
   getActivity: ({ query }) => `${BASE_URL}/activity${query ? "?" + query : ""}`,
   getDefaultQuotas: () => `${BASE_URL}/quotas/default`,
   getFeatureFlags: () => `${BASE_URL}/features`,
+  getFlowNavigation: ({ query }) => `${BASE_URL}/navigation${query}`,
   getGlobalConfiguration: () => `${BASE_URL}/config`,
   getGlobalProperty: ({ id }) => `${BASE_URL}/config/${id}`,
+  getGlobalTokens: () => `${BASE_URL}/tokens/global-tokens`,
   getInsights: ({ query }) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
   getManageTeamsCreate: () => `${BASE_URL}/manage/teams`,
   getManageTeam: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}`,
@@ -46,35 +49,34 @@ export const serviceUrl = {
   getManageUsers: ({ query }) => `${BASE_URL}/manage/users${query ? "?" + query : ""}`,
   // getPlatformNavigation: () => `${BASE_CORE_USERS_URL}/navigation`,
   getPlatformNavigation: () => `${BASE_URL}/users/navigation`,
-  getFlowNavigation: ({ query }) => `${BASE_URL}/navigation${query}`,
   getSystemWorkflows: () => `${BASE_URL}/workflows/system`,
-  getWorkflowTaskTemplates: ({ workflowId }) => `${BASE_URL}/tasktemplate/workflow/${workflowId}`,
   getTaskTemplates: ({ query }) => `${BASE_URL}/tasktemplate${query ? "?" + query : ""}`,
   getTaskTemplateYaml: ({ id, revision }) => `${BASE_URL}/tasktemplate/${id}/yaml${revision ? `/${revision}` : ""}`,
-  putTaskTemplateYaml: ({ id, revision, comment }) =>
-    `${BASE_URL}/tasktemplate/${id}/yaml${`/${revision}`}${comment ? "?" + comment : ""}`,
-  postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   getTeams: () => `${BASE_URL}/teams`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/teams/${teamId}/properties/${configurationId}`,
   getTeamProperties: ({ id }) => `${BASE_URL}/teams/${id}/properties`,
   getTeamQuotas: ({ id }) => `${BASE_URL}/teams/${id}/quotas`,
+  getTeamTokens: ({ teamId }) => `${BASE_URL}/tokens/team/${teamId}`,
   getUsers: () => `${BASE_URL}/users`,
   getUser: ({ userId }) => `${BASE_URL}/users/${userId}`,
   getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
   // getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
   getUserProfile: () => `${BASE_URL}/users/profile`,
 
-  getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
+  getUserWorkflows: () => `${BASE_URL}/workflows/user`,
 
+  getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
+  
   getWorkflowChangelog: ({ workflowId, query }) =>
-    `${BASE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
+  `${BASE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
   getWorkflowImport: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
   getWorkflowExecution: ({ executionId }) => `${BASE_URL}/activity/${executionId}`,
   getWorkflowExecutionLog: ({ flowActivityId, flowTaskId }) =>
-    `${BASE_URL}/activity/${flowActivityId}/log/${flowTaskId}`,
+  `${BASE_URL}/activity/${flowActivityId}/log/${flowTaskId}`,
   getWorkflowRevision: ({ workflowId, revisionNumber }) =>
-    `${BASE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
+  `${BASE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
   getWorkflowSummary: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/summary`,
+  getWorkflowTaskTemplates: ({ workflowId }) => `${BASE_URL}/tasktemplate/workflow/${workflowId}`,
   patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/properties`,
   patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
   postCreateWorkflow: () => `${BASE_URL}/workflow`,
@@ -82,10 +84,15 @@ export const serviceUrl = {
   postCreateWorkflowToken: ({ workflowId, label }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
   postDuplicateWorkflow: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/duplicate`,
   postExecuteWorkflow: ({ id }) => `${BASE_URL}/execute/${id}`,
+  postGlobalToken: () => `${BASE_URL}/global-token`,
+  postTeamToken: () => `${BASE_URL}/team-token`,
+  postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
   // putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,
   putActivationApp: () => `${BASE_URL}/users/register`,
   putRestoreTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}/activate`,
+  putTaskTemplateYaml: ({ id, revision, comment }) =>
+  `${BASE_URL}/tasktemplate/${id}/yaml${`/${revision}`}${comment ? "?" + comment : ""}`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
   putWorkflowApproval: () => `${BASE_URL}/approvals/action`,
   resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
@@ -118,6 +125,7 @@ export const resolver = {
   deleteTeamPropertyRequest: ({ teamId, configurationId }) =>
     axios.delete(serviceUrl.getTeamProperty({ teamId, configurationId })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
+  deleteToken: ({ tokenId }) => axios.delete(serviceUrl.deleteToken({ tokenId })),
   patchGlobalPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethod.Patch }),
   patchManageTeamUser: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamUser({ teamId }), body),
@@ -148,7 +156,11 @@ export const resolver = {
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
   postCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Post }),
+
   postDuplicateWorkflow: ({workflowId}) => axios.post(serviceUrl.postDuplicateWorkflow({workflowId})),
+  postGlobalToken: ({body}) => cancellableResolver({ url: serviceUrl.postGlobalToken(), body, method: HttpMethod.Post }),
+  postTeamToken: ({body}) => cancellableResolver({ url: serviceUrl.postTeamToken(), body, method: HttpMethod.Post }),
+
   putCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Put }),
   putCreateTaskYaml: ({ id, revision, comment, body }) =>

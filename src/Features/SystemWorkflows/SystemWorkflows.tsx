@@ -11,6 +11,7 @@ import WorkflowCard from "Components/WorkflowCard";
 import queryString from "query-string";
 import { serviceUrl } from "Config/servicesConfig";
 import { WorkflowSummary } from "Types";
+import { WorkflowScope } from "Constants";
 
 import styles from "./SystemWorkflows.module.scss";
 
@@ -59,9 +60,15 @@ export default function SystemWorkflows() {
     return (
       <div className={styles.workflows}>
         {filteredWorkflows.map((workflow: WorkflowSummary) => (
-          <WorkflowCard isSystem={true} key={workflow.id} teamId={null} workflow={workflow} quotas={null} />
+          <WorkflowCard
+            scope={WorkflowScope.System}
+            key={workflow.id}
+            teamId={null}
+            workflow={workflow}
+            quotas={null}
+          />
         ))}
-        {<CreateWorkflow isSystem={true} team={null} teams={null} hasReachedWorkflowLimit={false} />}
+        {<CreateWorkflow scope={WorkflowScope.System} hasReachedWorkflowLimit={false} />}
       </div>
     );
   };
@@ -70,8 +77,8 @@ export default function SystemWorkflows() {
     <>
       <div className={styles.container}>
         <WorkflowsHeader
-          isSystem={true}
           handleUpdateFilter={handleUpdateFilter}
+          scope={WorkflowScope.System}
           searchQuery={searchQuery}
           selectedTeams={null}
           teamsQuery={null}

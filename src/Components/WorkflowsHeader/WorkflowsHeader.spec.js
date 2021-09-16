@@ -23,7 +23,7 @@ afterEach(() => {
 
 describe("WorkflowsHeader --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowsHeader", () => {
-    const { baseElement } = rtlRender(<WorkflowsHeader {...props} />);
+    const { baseElement } = rtlRouterRender(<WorkflowsHeader {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });

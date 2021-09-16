@@ -51,9 +51,14 @@ export const AppPath = {
   TeamWorkflows: "/admin/teams/:teamId/workflows",
   TeamList: "/admin/teams",
   TeamProperties: `/manage/team-parameters`,
+  TeamTokens: "/manage/team-tokens",
+  Tokens: "/admin/tokens",
   User: "/admin/users/:userId",
   UserList: "/admin/users",
+
   Workflows: "/workflows",
+  WorkflowsMine: "/workflows/mine",
+  WorkflowsTeams: "/workflows/teams",
 
   ManageTaskTemplates: `/manage/task-templates`,
   ManageTaskTemplatesTeam: `/manage/task-templates/team/:teamId`,
@@ -84,7 +89,11 @@ export const appLink = {
   teamWorkflows: ({ teamId }) => `/admin/teams/${teamId}/workflows`,
   teamSettings: ({ teamId }) => `/admin/teams/${teamId}/settings`,
   teamList: () => "/admin/teams",
+  teamTokens: () => `/manage/team-tokens`,
+  tokens: () => `/admin/tokens`,
   workflows: () => "/workflows",
+  workflowsMine: () => "/workflows/mine",
+  workflowsTeams: () => "/workflows/teams",
   workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
 
   manageTaskTemplates: ({ teamId }) => `/manage/task-templates/team/${teamId}`,

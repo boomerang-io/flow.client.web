@@ -32,6 +32,11 @@ const flowNavigation = [
         type: "link",
         link: "/manage/task-templates",
       },
+      {
+        name: "Team Tokens",
+        type: "link",
+        link: "/manage/team-tokens",
+      },
     ],
   },
   {
@@ -45,7 +50,7 @@ const flowNavigation = [
         link: "/admin/parameters",
       },
       {
-        name: "Quotas",
+        name: "Team Quotas",
         type: "link",
         link: "/admin/quotas",
       },
@@ -63,6 +68,11 @@ const flowNavigation = [
         name: "System Workflows",
         type: "link",
         link: "/admin/system-workflows",
+      },
+      {
+        name: "Global Tokens",
+        type: "link",
+        link: "/admin/tokens",
       },
     ],
   },

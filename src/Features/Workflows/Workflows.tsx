@@ -1,10 +1,18 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useFeature } from "flagged";
 import { useAppContext } from "Hooks";
-import { useHistory, useLocation } from "react-router-dom";
-import { Button, ComposedModal, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { useQuery } from "react-query";
+import { Redirect, Route, Switch, useHistory, useLocation } from "react-router-dom";
+import {
+  Button,
+  ComposedModal,
+  ErrorMessage,
+  SkeletonPlaceholder,
+  TooltipHover,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { WarningAlt16 } from "@carbon/icons-react";
 import cx from "classnames";
+import queryString from "query-string";
 import sortBy from "lodash/sortBy";
 import WelcomeBanner from "Components/WelcomeBanner";
 import EmptyState from "Components/EmptyState";
@@ -13,16 +21,17 @@ import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
 import CreateWorkflow from "Components/CreateWorkflow";
 import WorkflowsHeader from "Components/WorkflowsHeader";
 import WorkflowCard from "Components/WorkflowCard";
-import queryString from "query-string";
-import { FlowTeam, ModalTriggerProps, ComposedModalChildProps, WorkflowSummary } from "Types";
-import { FeatureFlag } from "Config/appConfig";
+import { FlowTeam, FlowUser, ModalTriggerProps, ComposedModalChildProps, WorkflowSummary } from "Types";
+import { WorkflowScope } from "Constants";
+import { AppPath, FeatureFlag } from "Config/appConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./workflowHome.module.scss";
 
 const BANNER_STORAGE_ID = "bmrg-flow-hideWelcomeBanner";
 const initShowWelcomeBanner = window.localStorage.getItem(BANNER_STORAGE_ID) !== "true";
 
 export default function WorkflowsHome() {
-  const { isTutorialActive, setIsTutorialActive, teams } = useAppContext();
+  const { user, isTutorialActive, setIsTutorialActive, teams } = useAppContext();
   const history = useHistory();
   const location = useLocation();
   const [isWelcomeBannerOpen, setIsWelcomeBannerOpen] = useState(true);
@@ -31,6 +40,13 @@ export default function WorkflowsHome() {
   let { query: searchQuery = "", teams: teamsQuery = [] } = queryString.parse(location.search, {
     arrayFormat: "comma",
   });
+
+  const userWorkflowsQuery = useQuery({
+    queryKey: serviceUrl.getUserWorkflows(),
+    queryFn: resolver.query(serviceUrl.getUserWorkflows()),
+  });
+
+  const isMyWorkflows = location.pathname.includes("/workflows/mine");
 
   //@ts-ignore
   teamsQuery = [].concat(teamsQuery);
@@ -86,7 +102,11 @@ export default function WorkflowsHome() {
     selectedTeams = sortedTeams;
   }
 
-  const workflowsCount = useMemo(() => teams?.reduce((acc, team) => team.workflows.length + acc, 0) ?? 0, [teams]);
+  const workflowsCount = useMemo(() => {
+    return isMyWorkflows
+      ? userWorkflowsQuery?.data?.workflows?.length ?? 0
+      : teams?.reduce((acc, team) => team.workflows.length + acc, 0) ?? 0;
+  }, [isMyWorkflows, teams, userWorkflowsQuery?.data]);
 
   let safeQuery = "";
   if (Array.isArray(searchQuery)) {
@@ -126,7 +146,7 @@ export default function WorkflowsHome() {
         })}
       >
         <WorkflowsHeader
-          isSystem={false}
+          scope={isMyWorkflows ? WorkflowScope.User : WorkflowScope.Team}
           handleUpdateFilter={handleUpdateFilter}
           searchQuery={searchQuery}
           selectedTeams={selectedTeams}
@@ -134,20 +154,145 @@ export default function WorkflowsHome() {
           teams={teams}
           workflowsCount={workflowsCount}
         />
-        <div aria-label="Team Workflows" className={styles.content} role="region">
-          {filteredTeams.length > 0 ? (
-            filteredTeams.map((team) => {
-              return <TeamWorkflows key={team.id} searchQuery={safeQuery} team={team} teams={teams} />;
-            })
-          ) : (
-            <NoTeamsRedirectPrompt style={{ paddingTop: "1rem" }} />
-          )}
-          {searchQuery && filteredWorkflowsCount === 0 && <EmptyState />}
+        <div aria-label="My Workflows" className={styles.content} role="region">
+          <Switch>
+            <Route path={AppPath.WorkflowsMine}>
+              <UserWorkflows searchQuery={safeQuery} user={user} userWorkflowsQuery={userWorkflowsQuery} />
+            </Route>
+            <Route path={AppPath.WorkflowsTeams}>
+              {filteredTeams.length > 0 ? (
+                searchQuery && filteredWorkflowsCount === 0 ? (
+                  <EmptyState />
+                ) : (
+                  filteredTeams.map((team) => {
+                    return <TeamWorkflows key={team.id} searchQuery={safeQuery} team={team} teams={teams} />;
+                  })
+                )
+              ) : (
+                <NoTeamsRedirectPrompt style={{ paddingTop: "1rem" }} />
+              )}
+            </Route>
+            <Redirect exact from={AppPath.Workflows} to={AppPath.WorkflowsMine} />
+          </Switch>
         </div>
       </div>
     </>
   );
 }
+
+interface UserWorkflowsProp {
+  searchQuery: string;
+  user: FlowUser;
+  userWorkflowsQuery: any;
+}
+
+const UserWorkflows: React.FC<UserWorkflowsProp> = ({ searchQuery, user, userWorkflowsQuery }) => {
+  const { data: userWorkflows, isLoading: userWorkflowsIsLoading, isError: userWorkflowsIsError } = userWorkflowsQuery;
+
+  const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
+
+  if (userWorkflowsIsLoading) {
+    return (
+      <section className={styles.sectionContainer}>
+        <div className={styles.workflows}>
+          <SkeletonPlaceholder className={styles.workflowPlaceholder} />
+          <SkeletonPlaceholder className={styles.workflowPlaceholder} />
+          <SkeletonPlaceholder className={styles.workflowPlaceholder} />
+        </div>
+      </section>
+    );
+  }
+
+  if (userWorkflowsIsError) {
+    return (
+      <section className={styles.sectionContainer}>
+        <ErrorMessage />
+      </section>
+    );
+  }
+
+  if (userWorkflows) {
+    const { workflows, userQuotas } = userWorkflows;
+    const userHasWorkflows = workflows?.length > 0;
+    const filteredWorkflows = workflows.filter((workflow: WorkflowSummary) =>
+      workflow.name.toLowerCase().includes(searchQuery)
+    );
+    const hasFilteredWorkflows = filteredWorkflows?.length > 0;
+    const hasReachedWorkflowLimit = userQuotas.maxWorkflowCount <= userQuotas.currentWorkflowCount;
+
+    if (searchQuery && !hasFilteredWorkflows) {
+      return <EmptyState />;
+    }
+
+    return (
+      <section className={styles.sectionContainer}>
+        <hgroup className={styles.header}>
+          {workflowQuotasEnabled && (
+            <div className={styles.teamQuotaContainer}>
+              <div className={styles.quotaDescriptionContainer}>
+                <p
+                  className={styles.teamQuotaText}
+                >{`Workflow quota - ${userQuotas.currentWorkflowCount} of ${userQuotas.maxWorkflowCount} used`}</p>
+                {hasReachedWorkflowLimit && (
+                  <TooltipHover
+                    direction="top"
+                    tooltipText={
+                      "You reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact an administrator to increase the quota."
+                    }
+                  >
+                    <WarningAlt16 className={styles.warningIcon} />
+                  </TooltipHover>
+                )}
+              </div>
+              <ComposedModal
+                composedModalProps={{
+                  containerClassName: styles.quotaModalContainer,
+                  shouldCloseOnOverlayClick: true,
+                }}
+                modalHeaderProps={{
+                  title: `User quotas - ${user.name}`,
+                  subtitle:
+                    "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an admin.",
+                }}
+                modalTrigger={({ openModal }: ModalTriggerProps) => (
+                  <Button iconDescription="View quota details" kind="ghost" size="field" onClick={openModal}>
+                    View more quotas
+                  </Button>
+                )}
+              >
+                {({ closeModal }: ComposedModalChildProps) => (
+                  <WorkflowQuotaModalContent closeModal={closeModal} quotas={userQuotas} scope={WorkflowScope.User} />
+                )}
+              </ComposedModal>
+            </div>
+          )}
+
+          {!userHasWorkflows && <p className={styles.noWorkflowsMessage}>You don't have any Workflows.</p>}
+        </hgroup>
+        <div className={styles.workflows}>
+          {filteredWorkflows.map((workflow: WorkflowSummary) => (
+            <WorkflowCard
+              scope={WorkflowScope.User}
+              key={workflow.id}
+              teamId={workflow.flowTeamId}
+              workflow={workflow}
+              quotas={userQuotas}
+            />
+          ))}
+          {
+            <CreateWorkflow
+              hasReachedWorkflowLimit={hasReachedWorkflowLimit}
+              scope={WorkflowScope.User}
+              workflows={workflows}
+            />
+          }
+        </div>
+      </section>
+    );
+  }
+
+  return null;
+};
 
 interface TeamWorkflowsProps {
   searchQuery: string;
@@ -203,7 +348,11 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
               )}
             >
               {({ closeModal }: ComposedModalChildProps) => (
-                <WorkflowQuotaModalContent closeModal={closeModal} quotas={team?.workflowQuotas} />
+                <WorkflowQuotaModalContent
+                  closeModal={closeModal}
+                  quotas={team?.workflowQuotas}
+                  scope={WorkflowScope.Team}
+                />
               )}
             </ComposedModal>
           </div>
@@ -218,7 +367,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
       <div className={styles.workflows}>
         {team.filteredWorkflows.map((workflow) => (
           <WorkflowCard
-            isSystem={false}
+            scope={WorkflowScope.Team}
             key={workflow.id}
             teamId={team.id}
             workflow={workflow}
@@ -227,10 +376,11 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
         ))}
         {
           <CreateWorkflow
-            isSystem={false}
+            hasReachedWorkflowLimit={hasReachedWorkflowLimit}
+            scope={WorkflowScope.Team}
             team={team}
             teams={teams}
-            hasReachedWorkflowLimit={hasReachedWorkflowLimit}
+            workflows={team.workflows}
           />
         }
       </div>

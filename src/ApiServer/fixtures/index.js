@@ -18,6 +18,8 @@ export { default as summaries } from "./summaries";
 export { default as systemWorkflows } from "./systemWorkflows";
 export { default as revisions } from "./revisions";
 export { default as teams } from "./teams";
+export { default as tokens } from "./tokens";
 export { default as teamProperties } from "./teamProperties";
+export { default as userWorkflows } from "./userWorkflows";
 export { default as quotas } from "./quotas";
 export { default as workflowExecution } from "./workflowExecution";
