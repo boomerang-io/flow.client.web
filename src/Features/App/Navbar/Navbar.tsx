@@ -114,6 +114,7 @@ export default function NavbarContainer({
         user={userData}
         skipToContentProps={skipToContentProps}
         appName="Flow"
+        isFlowApp
       />
     </>
   );
