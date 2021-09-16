@@ -307,7 +307,11 @@ function ActionsTable(props: ActionsTableProps) {
                                 onClick: () => {
                                   handleOnClickCheckbox(
                                     records
-                                      .filter((item: Action) => item.status === ApprovalStatus.Submitted && !item?.submittedApproversUserIds?.includes(user?.id))
+                                      .filter(
+                                        (item: Action) =>
+                                          item.status === ApprovalStatus.Submitted &&
+                                          !item?.actioners?.map((user) => user.approverId).includes(user?.id)
+                                      )
                                       .map((item: Action) => item.id)
                                   );
                                 },
@@ -345,9 +349,10 @@ function ActionsTable(props: ActionsTableProps) {
                       </TableHead>
                       <TableBody className={styles.tableBody}>
                         {rows.map((row: any) => {
-                          const currentAction = records.find((action: Action) => action.id === row.id);
+                          const currentAction: Action = records.find((action: Action) => action.id === row.id);
                           const isAlreadyApproved =
-                            ((user?.id && currentAction?.submittedApproversUserIds?.includes(user.id)) || currentAction.status !== ApprovalStatus.Submitted);
+                            (user?.id && currentAction?.actioners?.map((user) => user.approverId).includes(user.id)) ||
+                            currentAction.status !== ApprovalStatus.Submitted;
                           return isManual ? (
                             <TableRow
                               key={row.id}

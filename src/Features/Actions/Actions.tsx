@@ -53,7 +53,7 @@ function Actions() {
 
   /** Define constants */
   const isSystemWorkflowsEnabled = allowedUserRoles.includes(user.type);
-  const actionType = location.pathname.includes("/manual") ? ActionType.Manual : ActionType.Approval;
+  const actionType = location.pathname.includes("/manual") ? ActionType.Task : ActionType.Approval;
 
   /** Get today's numbers data */
   const actionsSummaryQuery = useQuery({

@@ -3,12 +3,12 @@
 .modalContainer {
   height: 48.31rem;
   max-height: 84vh;
+  max-width: 55rem;
 }
 
 .modalBody {
-  padding-right: 1rem;
+  padding-right: 1rem !important;
 }
-
 
 /**
  * Action section
@@ -19,7 +19,7 @@
   position: relative;
   width: 100%;
 
-  &+.action {
+  & + .action {
     border-top: 0.0625rem solid var(--cds-skeleton-02);
   }
 }
@@ -61,7 +61,6 @@
   right: 0;
   top: 0;
 }
-
 
 /**
  * Single Modal
@@ -120,6 +119,7 @@
 }
 
 .approvals {
+  border-top: 0.0625rem solid var(--cds-skeleton-02);
   padding-top: 1.5rem;
 }
 
@@ -127,4 +127,27 @@
   font-size: 0.875rem;
   letter-spacing: 0.01rem;
   line-height: 1.125rem;
+}
+
+.approvers {
+  border-top: 0.0625rem solid var(--cds-skeleton-02);
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+
+  :global .bx--structured-list-td {
+    padding: 0.5rem 1rem;
+  }
+}
+
+.approverCommentHead {
+  max-width: 40%;
+}
+
+.approverComment {
+  max-height: 3.5rem;
+  overflow-y: auto;
+}
+
+.approverActioned {
+  text-transform: capitalize;
 }

@@ -196,8 +196,8 @@ export const executionStatusList = [
 
 export const ActionType = {
   Approval: "approval",
-  Manual: "manual"
-}
+  Task: "task",
+};
 
 export const ApprovalInputRequired = {
   Optional: "optional",

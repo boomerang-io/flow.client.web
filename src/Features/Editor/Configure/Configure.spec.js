@@ -64,6 +64,6 @@ describe("Inputs --- RTL", () => {
     );
     await findByText(/General info/i);
     expect(getByText(/General info/i)).toBeInTheDocument();
-    expect(getByText(/Other Options/i)).toBeInTheDocument();
+    expect(getByText(/Storage Options/i)).toBeInTheDocument();
   });
 });

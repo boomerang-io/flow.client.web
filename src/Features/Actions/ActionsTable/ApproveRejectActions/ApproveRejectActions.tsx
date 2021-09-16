@@ -2,6 +2,7 @@ import React from "react";
 import { queryCache, useMutation } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { useAppContext } from "Hooks";
 import {
   Button,
   ComposedModal,
@@ -11,6 +12,11 @@ import {
   ModalForm,
   ModalFooter,
   notify,
+  StructuredListWrapper,
+  StructuredListHead,
+  StructuredListBody,
+  StructuredListRow,
+  StructuredListCell,
   TextArea,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -53,7 +59,7 @@ function ApproveRejectActions({
   } to approve. Check the details are correct, add optional comments, and then click Approve.`;
 
   if (type === ModalType.Single) {
-    title = "Pending action details";
+    title = "Action details";
     subtitle = "";
   } else if (type === ModalType.Reject) {
     title = "Reject selected actions";
@@ -106,6 +112,7 @@ function Form({
   queryToRefetch,
   type,
 }: FormProps) {
+  const { user } = useAppContext();
   const [approveLoading, setApproveLoading] = React.useState(false);
   const [rejectLoading, setRejectLoading] = React.useState(false);
 
@@ -169,7 +176,12 @@ function Form({
             <ModalBody className={styles.modalBody}>
               {actionsIsLoading ? <Loading /> : null}
               {type === ModalType.Single ? (
-                <SingleActionSection action={actions[0]} formikBag={props} isAlreadyApproved={isAlreadyApproved} />
+                <SingleActionSection
+                  action={actions[0]}
+                  formikBag={props}
+                  isAlreadyApproved={isAlreadyApproved}
+                  user={user}
+                />
               ) : (
                 actions.map((action: any) => <ActionSection key={action.id} action={action} formikBag={props} />)
               )}
@@ -256,7 +268,12 @@ function Form({
   );
 }
 
-function ActionSection({ formikBag, action }: any) {
+interface ActionSectionProps {
+  action: Action;
+  formikBag: any;
+}
+
+function ActionSection({ formikBag, action }: ActionSectionProps) {
   const { id, teamName, workflowName } = action;
   const { values, touched, errors, handleChange, handleBlur } = formikBag;
 
@@ -289,8 +306,24 @@ function ActionSection({ formikBag, action }: any) {
   );
 }
 
-function SingleActionSection({ formikBag, action, isAlreadyApproved }: any) {
-  const { numberOfApprovals = 0, approvalsRequired = 0, creationDate, id, status, workflowName, teamName } = action;
+interface SingleActionSectionProps {
+  action: Action;
+  formikBag: any;
+  isAlreadyApproved: boolean;
+  user: any;
+}
+
+function SingleActionSection({ formikBag, action, isAlreadyApproved, user }: SingleActionSectionProps) {
+  const {
+    numberOfApprovals = 0,
+    approvalsRequired = 0,
+    creationDate,
+    id,
+    status,
+    workflowName,
+    teamName,
+    actioners = [],
+  } = action;
   const { values, touched, errors, handleChange, handleBlur } = formikBag;
 
   const DataSection = ({ className, label, value }: any) => (
@@ -333,11 +366,47 @@ function SingleActionSection({ formikBag, action, isAlreadyApproved }: any) {
         <div className={styles.yourInput}>
           <p className={styles.singleLabel}>Your input</p>
           <p className={styles.singleHelperText}>
-            {status !== ApprovalStatus.Submitted 
+            {status !== ApprovalStatus.Submitted
               ? `This action is already ${status}`
-              : "You already submitted your response for this action."
-            }
+              : "You already submitted your response for this action."}
           </p>
+        </div>
+      )}
+      {actioners.length && (
+        <div className={styles.approvers}>
+          <p className={styles.singleLabel}>Approvers who submitted</p>
+          <StructuredListWrapper>
+            <StructuredListHead>
+              <StructuredListRow head>
+                <StructuredListCell head>Name</StructuredListCell>
+                <StructuredListCell head>Email</StructuredListCell>
+                <StructuredListCell className={styles.approverCommentHead} head>
+                  Comment
+                </StructuredListCell>
+                <StructuredListCell head>Time Submitted</StructuredListCell>
+                <StructuredListCell head>Input</StructuredListCell>
+              </StructuredListRow>
+            </StructuredListHead>
+            <StructuredListBody>
+              {actioners.map((approver, index) => (
+                <StructuredListRow key={`${approver.approverId}-${index}`}>
+                  <StructuredListCell noWrap>{`${approver.approverName}${` ${
+                    approver.approverId === user.id ? "(you!)" : ""
+                  }`}`}</StructuredListCell>
+                  <StructuredListCell noWrap>{approver.approverEmail}</StructuredListCell>
+                  <StructuredListCell>
+                    <p className={styles.approverComment}>{approver.comments ?? "---"}</p>
+                  </StructuredListCell>
+                  <StructuredListCell noWrap>
+                    {approver.actionDate ? dateHelper.humanizedSimpleTimeAgo(approver.actionDate) : "---"}
+                  </StructuredListCell>
+                  <StructuredListCell className={styles.approverActioned} noWrap>
+                    {approver.actioned ? ApprovalStatus.Approved : ApprovalStatus.Rejected}
+                  </StructuredListCell>
+                </StructuredListRow>
+              ))}
+            </StructuredListBody>
+          </StructuredListWrapper>
         </div>
       )}
     </section>

@@ -9,6 +9,15 @@ export enum UserStatus {
   Inactive = "inactive",
 }
 
+export interface SimpleApprover {
+  approverId: string;
+  approverEmail: string;
+  approverName: string;
+  comments: string;
+  actionDate: string;
+  actioned: boolean;
+}
+
 export interface Action {
   id: string;
   activityId: string;
@@ -23,7 +32,7 @@ export interface Action {
   workflowName: string;
   numberOfApprovals: number;
   approvalsRequired: number;
-  submittedApproversUserIds: string[];
+  actioners: SimpleApprover[];
   teamName: string;
   instructions: any;
 }
@@ -454,11 +463,11 @@ export interface WorkflowTemplate {
   name: string;
   description: string;
   parameters: {
-      label: string;
-      type: string;
+    label: string;
+    type: string;
   }[];
   revision: WorkflowRevision;
-  triggers: {[key:string]: any};
+  triggers: { [key: string]: any };
 }
 
 export interface UserQuotas {
