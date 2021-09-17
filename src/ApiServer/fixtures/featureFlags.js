@@ -13,8 +13,8 @@ const featureFlag = {
     "workflow.triggers": true,
   },
   quotas: {
-    maxActivityStorageSize: 50,
-    maxWorkflowStorageSize: 10,
+    maxActivityStorageSize: "50",
+    maxWorkflowStorageSize: "10",
   },
 };
 
