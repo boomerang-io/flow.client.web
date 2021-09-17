@@ -85,8 +85,8 @@ interface ConfigureContainerProps {
   history: History;
   params: { workflowId: string };
   quotas: {
-    maxActivityStorageSize: number;
-    maxWorkflowStorageSize: number;
+    maxActivityStorageSize: string;
+    maxWorkflowStorageSize: string;
   }
   summaryData: WorkflowSummary;
   summaryMutation: { status: string };
@@ -230,8 +230,8 @@ interface ConfigureProps {
   workflowTriggersEnabled: boolean;
   formikProps: FormikProps<FormProps>;
   quotas: {
-    maxActivityStorageSize: number;
-    maxWorkflowStorageSize: number;
+    maxActivityStorageSize: string;
+    maxWorkflowStorageSize: string;
   };
   summaryData: WorkflowSummary;
   summaryMutation: {

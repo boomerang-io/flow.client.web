@@ -9,7 +9,7 @@ type Props = {
   mountPath: string;
   handleOnChange: (...values: any) => void;
   closeModal: (...args: any) => void;
-  quotas: number;
+  quotas: string;
   isActivity?: boolean;
 };
 
@@ -53,7 +53,7 @@ export default function ConfigureStorage({size, mountPath, handleOnChange, close
               <BasicSlider
                 id="storage-config-size-slider"
                 min={1}
-                max={quotas}
+                max={parseInt(quotas, 10)}
                 inputType="text"
                 labelText="Storage Size"
                 helperText="Size in Gigabytes."

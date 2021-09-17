@@ -201,8 +201,8 @@ interface MainProps {
   teamsData: Array<FlowTeam>;
   userData: FlowUser;
   quotas: {
-    maxActivityStorageSize: number;
-    maxWorkflowStorageSize: number;
+    maxActivityStorageSize: string;
+    maxWorkflowStorageSize: string;
   };
 }
 
