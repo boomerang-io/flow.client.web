@@ -37,12 +37,12 @@ interface FormProps {
   description: string;
   enableACCIntegration: boolean;
   storage: {
-    workflow: {
+    activity: {
       enabled: boolean;
       size: number;
       mountPath: string;
     };
-    workspace: {
+    workflow: {
       enabled: boolean;
       size: number;
       mountPath: string;
@@ -84,6 +84,10 @@ interface FormProps {
 interface ConfigureContainerProps {
   history: History;
   params: { workflowId: string };
+  quotas: {
+    maxActivityStorageSize: number;
+    maxWorkflowStorageSize: number;
+  }
   summaryData: WorkflowSummary;
   summaryMutation: { status: string };
   teams: Array<{ id: string }>;
@@ -93,6 +97,7 @@ interface ConfigureContainerProps {
 const ConfigureContainer = React.memo<ConfigureContainerProps>(function ConfigureContainer({
   history,
   params,
+  quotas,
   summaryData,
   summaryMutation,
   teams,
@@ -121,15 +126,15 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           description: summaryData.description ?? "",
           enableACCIntegration: summaryData.enableACCIntegration ?? false,
           storage: {
-            workspace: {
-              enabled: summaryData.storage?.workspace?.enabled ?? false,
-              size: summaryData.storage?.workspace?.size ?? 1,
-              mountPath: summaryData.storage?.workspace?.mountPath ?? "",
-            },
             workflow: {
               enabled: summaryData.storage?.workflow?.enabled ?? false,
               size: summaryData.storage?.workflow?.size ?? 1,
               mountPath: summaryData.storage?.workflow?.mountPath ?? "",
+            },
+            activity: {
+              enabled: summaryData.storage?.activity?.enabled ?? false,
+              size: summaryData.storage?.activity?.size ?? 1,
+              mountPath: summaryData.storage?.activity?.mountPath ?? "",
             },
           },
           icon: summaryData.icon ?? "",
@@ -163,12 +168,12 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           description: Yup.string().max(250, "Description must not be greater than 250 characters"),
           enableACCIntegration: Yup.boolean(),
           storage: Yup.object().shape({
-            workflow: Yup.object().shape({ 
+            activity: Yup.object().shape({ 
               enabled: Yup.boolean().nullable(),
               size: Yup.number().required("Enter the storage size"),
               mountPath: Yup.string().nullable(),
             }),
-            workspace: Yup.object().shape({ 
+            workflow: Yup.object().shape({ 
               enabled: Yup.boolean().nullable(),
               size: Yup.number().required("Enter the storage size"),
               mountPath: Yup.string().nullable(),
@@ -206,6 +211,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
             <Configure
               workflowTriggersEnabled={workflowTriggersEnabled as boolean}
               formikProps={formikProps}
+              quotas={quotas}
               summaryData={summaryData}
               summaryMutation={summaryMutation}
               teams={teams}
@@ -223,6 +229,10 @@ export default ConfigureContainer;
 interface ConfigureProps {
   workflowTriggersEnabled: boolean;
   formikProps: FormikProps<FormProps>;
+  quotas: {
+    maxActivityStorageSize: number;
+    maxWorkflowStorageSize: number;
+  };
   summaryData: WorkflowSummary;
   summaryMutation: {
     status: string;
@@ -286,6 +296,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
 
   render() {
     const {
+      quotas,
       summaryMutation,
       teams,
       formikProps: { dirty, errors, handleBlur, handleSubmit, touched, values, setFieldValue },
@@ -557,29 +568,29 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
         )}
         <section className={styles.smallCol}>
           <div className={styles.optionsContainer}>
-            <h1 className={styles.header}>Storage Options</h1>
-            <p className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</p>
+            <h1 className={styles.header}>Workspaces</h1>
+            <p className={styles.subTitle}>Workspaces allow your workflow to declare storage options to be used at execution time. This will be limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum.</p>
             <div className={styles.storageToggle}>
               <div className={styles.toggleContainer}>
                 <Toggle
-                  id="enableWorkspacePersistentStorage"
-                  label="Enable Workspace Persistent Storage"
-                  toggled={values.storage.workspace.enabled}
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workspace.enabled")}
+                  id="enableWorkflowPersistentStorage"
+                  label="Enable Workflow Persistent Storage"
+                  toggled={values.storage.workflow.enabled}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflow.enabled")}
                   tooltipContent="Persist data across workflow executions"
                   tooltipProps={{ direction: "top" }}
                   reversed
                 />
               </div>
-              {values.storage.workspace.enabled && (
+              {values.storage.workflow.enabled && (
                 <div className={styles.webhookContainer}>
                   <ComposedModal
                     modalHeaderProps={{
-                      title: "Configure Workspace Persistent Storage",
+                      title: "Configure Workspace - Workflow Persistent Storage",
                       subtitle: (
                         <>
                           <p>
-                            Workspace storage is persisted across workflow executions and allows you to share artifacts between workflows, such as maintaining a cache of files used every execution.
+                            The Workflow storage is persisted across workflow executions and allows you to share artifacts between workflows, such as maintaining a cache of files used every execution.
                           </p>
                           <p style={{ marginTop: "0.5rem" }}>
                             Note: use with caution as this can lead to a collision if you are running many executions in parallel using the same artifact.
@@ -599,12 +610,13 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   >
                     {({ closeModal }: { closeModal: () => void }) => (
                       <ConfigureStorage
-                        size={values.storage.workspace.size}
-                        mountPath={values.storage.workspace.mountPath}
+                        size={values.storage.workflow.size}
+                        mountPath={values.storage.workflow.mountPath}
                         handleOnChange={(storageValues: any) => {
-                          setFieldValue("storage.workspace", storageValues);
+                          setFieldValue("storage.workflow", storageValues);
                         }}
                         closeModal={closeModal}
+                        quotas={quotas.maxWorkflowStorageSize}
                       />
                     )}
                   </ComposedModal>
@@ -614,24 +626,24 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <div className={styles.storageToggle}>
               <div className={styles.toggleContainer}>
                 <Toggle
-                  id="enableWorkflowPersistentStorage"
-                  label="Enable Workflow Persistent Storage"
-                  toggled={values.storage.workflow.enabled}
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflow.enabled")}
+                  id="enableActivityPersistentStorage"
+                  label="Enable Activity Persistent Storage"
+                  toggled={values.storage.activity.enabled}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.activity.enabled")}
                   tooltipContent="Persist workflow data per executions"
                   tooltipProps={{ direction: "top" }}
                   reversed
                 />
               </div>
-              {values.storage.workflow.enabled && (
+              {values.storage.activity.enabled && (
                 <div className={styles.webhookContainer}>
                   <ComposedModal
                     modalHeaderProps={{
-                      title: "Configure Workflow Persistent Storage",
+                      title: "Configure Workflow - Activity Persistent Storage",
                       subtitle:(
                         <>
                           <p>
-                            Workflow storage is persisted per workflow execution and allows you to share short-lived artifacts between tasks in the workflow.
+                            The activity storage is persisted per workflow execution and allows you to share short-lived artifacts between tasks in the workflow.
                           </p>
                           <p style={{ marginTop: "0.5rem" }}>
                             Note: All artifacts will be deleted at the end of the workflow execution. If you want to persist long term use Workspace storage.
@@ -651,12 +663,14 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   >
                     {({ closeModal }: { closeModal: () => void }) => (
                       <ConfigureStorage
-                        size={values.storage.workflow.size}
-                        mountPath={values.storage.workflow.mountPath}
+                        size={values.storage.activity.size}
+                        mountPath={values.storage.activity.mountPath}
                         handleOnChange={(storageValues: any) => {
-                          setFieldValue("storage.workflow", storageValues);
+                          setFieldValue("storage.activity", storageValues);
                         }}
                         closeModal={closeModal}
+                        quotas={quotas.maxActivityStorageSize}
+                        isActivity
                       />
                     )}
                   </ComposedModal>

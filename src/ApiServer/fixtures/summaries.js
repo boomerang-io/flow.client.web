@@ -161,12 +161,12 @@ const summaries = [
     scope: "team",
     tokens: [],
     storage: {
-      workflow: {
+      activity: {
         enabled: true,
         size: 2,
         mountPath: "/test",
       },
-      workspace: {
+      workflow: {
         enabled: false,
         size: 0,
         mountPath: "",
@@ -327,12 +327,12 @@ const summaries = [
     scope: "system",
     tokens: [],
     storage: {
-      workflow: {
+      activity: {
         enabled: true,
         size: 2,
         mountPath: "/test",
       },
-      workspace: {
+      workflow: {
         enabled: false,
         size: 0,
         mountPath: "",
@@ -406,12 +406,12 @@ const summaries = [
     },
     tokens: [],
     storage: {
-      workflow: {
+      activity: {
         enabled: true,
         size: 2,
         mountPath: "/test",
       },
-      workspace: {
+      workflow: {
         enabled: false,
         size: 0,
         mountPath: "",
@@ -485,12 +485,12 @@ const summaries = [
     },
     tokens: [],
     storage: {
-      workflow: {
+      activity: {
         enabled: true,
         size: 2,
         mountPath: "/test",
       },
-      workspace: {
+      workflow: {
         enabled: false,
         size: 0,
         mountPath: "",

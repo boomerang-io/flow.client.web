@@ -91,12 +91,12 @@ export interface CreateWorkflowSummary {
   description: string;
   enableACCIntegration: boolean;
   storage: {
-    workflow: {
+    activity: {
       enabled: boolean;
       size: number;
       mountPath: string;
     };
-    workspace: {
+    workflow: {
       enabled: boolean;
       size: number;
       mountPath: string;
@@ -130,12 +130,12 @@ export interface WorkflowSummary {
   description: string;
   enableACCIntegration: boolean;
   storage: {
-    workflow: {
+    activity: {
       enabled: boolean;
       size: number;
       mountPath: string;
     };
-    workspace: {
+    workflow: {
       enabled: boolean;
       size: number;
       mountPath: string;

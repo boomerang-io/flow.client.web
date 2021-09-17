@@ -146,7 +146,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 }) => {
   const location = useLocation();
   const match: { params: { workflowId: string } } = useRouteMatch();
-  const { teams } = useAppContext();
+  const { teams, quotas } = useAppContext();
   const isModalOpen = useIsModalOpen();
 
   const [workflowDagEngine, setWorkflowDagEngine] = useState<WorkflowDagEngine | null>(null);
@@ -468,6 +468,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
                   summaryMutation={summaryMutation}
                   teams={sortBy(teams, "name")}
                   updateSummary={updateSummary}
+                  quotas={quotas}
                 />
               )}
             />
@@ -487,6 +488,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
                 history={history}
                 // isOnRoute={Boolean(routeMatch)}
                 params={match.params}
+                quotas={quotas}
                 summaryData={summaryData}
                 summaryMutation={summaryMutation}
                 teams={sortBy(teams, "name")}

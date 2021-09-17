@@ -14,11 +14,15 @@ export function createContext<ContextType>() {
 export const [useAppContext, AppContextProvider] = createContext<AppContext>();
 
 type AppContext = {
-  isTutorialActive: boolean;
   communityUrl: string;
+  isTutorialActive: boolean;
   setIsTutorialActive: (isActive: boolean) => void;
-  user: FlowUser;
+  quotas: {
+    maxActivityStorageSize: number;
+    maxWorkflowStorageSize: number;
+  }
   teams: FlowTeam[];
+  user: FlowUser;
 };
 
 interface taskProvider {

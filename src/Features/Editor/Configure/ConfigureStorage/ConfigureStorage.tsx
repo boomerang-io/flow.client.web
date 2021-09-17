@@ -1,20 +1,22 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { TextInput, ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import {  Button, ModalBody, ModalFooter, TextInput, ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
+import BasicSlider from "Components/Slider";
 
 type Props = {
-  size: string | number;
+  size: number;
   mountPath: string;
   handleOnChange: (...values: any) => void;
   closeModal: (...args: any) => void;
+  quotas: number;
+  isActivity?: boolean;
 };
 
 
-export default function ConfigureStorage({size, mountPath, handleOnChange, closeModal}: Props) {
-
-   const handleOnSave = (values: any) => {
+export default function ConfigureStorage({size, mountPath, handleOnChange, closeModal, quotas, isActivity=false}: Props) {
+  const thresholdRef = React.createRef();
+  const handleOnSave = (values: any) => {
     const { size, mountPath } = values;
     handleOnChange({enabled: true, size, mountPath});
     closeModal();
@@ -42,12 +44,25 @@ export default function ConfigureStorage({size, mountPath, handleOnChange, close
           handleChange,
           handleSubmit,
           isValid,
+          setFieldValue,
         } = formikProps;
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
             <ModalBody>
-              <TextInput
+              <BasicSlider
+                id="storage-config-size-slider"
+                min={1}
+                max={quotas}
+                inputType="text"
+                labelText="Storage Size"
+                helperText="Size in Gigabytes."
+                sliderRef={thresholdRef}
+                sliderValue={values.size}
+                onChange={(value: number) => setFieldValue("size", value)}
+                data-testid="storage-config-size-slider"
+              />
+              {/* <TextInput
                 id="size"
                 data-testid="size"
                 helperText="Size in Gigabytes"
@@ -62,18 +77,18 @@ export default function ConfigureStorage({size, mountPath, handleOnChange, close
                 style={{ minWidth: "10rem" }}
                 type="number"
                 value={values.size}
-              />
+              /> */}
               <TextInput
                 id="mountPath"
                 data-testid="mountPath"
-                helperText={"Type a Mount path for your storage"}
+                helperText={"The Mount path for your storage"}
                 invalid={errors.mountPath && touched.mountPath}
                 invalidText={errors.mountPath}
                 labelText={"Mount path"}
                 name="mountPath"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder="Mount Path"
+                placeholder={`/workspace/${isActivity? "activity" : "workflow"}`}
                 style={{ minWidth: "10rem" }}
                 type="mountPath"
                 value={values.mountPath}
