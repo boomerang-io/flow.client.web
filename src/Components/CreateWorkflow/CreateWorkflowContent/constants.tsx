@@ -17,12 +17,12 @@ export const defaultWorkflowConfig = {
   },
   enableACCIntegration: false,
   storage: {
-    workspace: {
+    workflow: {
       enabled: false,
       size: 1,
       mountPath: "",
     },
-    workflow: {
+    activity: {
       enabled: false,
       size: 1,
       mountPath: "",

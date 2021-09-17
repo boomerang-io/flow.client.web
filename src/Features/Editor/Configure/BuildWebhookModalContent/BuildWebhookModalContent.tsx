@@ -9,12 +9,12 @@ interface FormProps {
   description: string;
   enableACCIntegration: boolean;
   storage: {
-    workflow: {
+    activity: {
       enabled: boolean;
       size: number;
       mountPath: string;
     };
-    workspace: {
+    workflow: {
       enabled: boolean;
       size: number;
       mountPath: string;

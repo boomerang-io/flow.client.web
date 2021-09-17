@@ -9,11 +9,12 @@ type Props = {
   mountPath: string;
   handleOnChange: (...values: any) => void;
   closeModal: (...args: any) => void;
-  storageQuotas: number;
+  quotas: number;
+  isActivity?: boolean;
 };
 
 
-export default function ConfigureStorage({size, mountPath, handleOnChange, closeModal, storageQuotas}: Props) {
+export default function ConfigureStorage({size, mountPath, handleOnChange, closeModal, quotas, isActivity=false}: Props) {
   const thresholdRef = React.createRef();
   const handleOnSave = (values: any) => {
     const { size, mountPath } = values;
@@ -51,9 +52,11 @@ export default function ConfigureStorage({size, mountPath, handleOnChange, close
             <ModalBody>
               <BasicSlider
                 id="storage-config-size-slider"
-                min={0}
-                max={storageQuotas}
+                min={1}
+                max={quotas}
                 inputType="text"
+                labelText="Storage Size"
+                helperText="Size in Gigabytes."
                 sliderRef={thresholdRef}
                 sliderValue={values.size}
                 onChange={(value: number) => setFieldValue("size", value)}
@@ -85,7 +88,7 @@ export default function ConfigureStorage({size, mountPath, handleOnChange, close
                 name="mountPath"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder="Mount Path"
+                placeholder={`/workspace/${isActivity? "activity" : "workflow"}`}
                 style={{ minWidth: "10rem" }}
                 type="mountPath"
                 value={values.mountPath}

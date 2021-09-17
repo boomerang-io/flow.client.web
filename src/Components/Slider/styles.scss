@@ -3,9 +3,7 @@
 /* Override the Slider carbon component */
 .c-slider__wrapper .bx--label {
   line-height: 1.125rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin: 1.875rem 0 0;
+  margin: 0;
 }
 
 /* Override the Slider carbon component */
@@ -82,4 +80,11 @@
     bottom: 0.625rem;
     width: 3.125rem;
   }
+}
+.c-slider__helper-text {
+  color: var(--cds-text-02);
+  font-size: 0.75rem;
+  letter-spacing: 0.02rem;
+  line-height: 0.8rem;
+  margin-top: 0.25rem;
 }

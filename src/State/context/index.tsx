@@ -17,7 +17,10 @@ type AppContext = {
   communityUrl: string;
   isTutorialActive: boolean;
   setIsTutorialActive: (isActive: boolean) => void;
-  storageQuotas: number;
+  quotas: {
+    maxActivityStorageSize: number;
+    maxWorkflowStorageSize: number;
+  }
   teams: FlowTeam[];
   user: FlowUser;
 };

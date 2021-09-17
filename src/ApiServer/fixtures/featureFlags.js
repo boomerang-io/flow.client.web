@@ -12,7 +12,10 @@ const featureFlag = {
     "workflow.tokens": true,
     "workflow.triggers": true,
   },
-  storageQuotas: 50,
+  quotas: {
+    maxActivityStorageSize: 50,
+    maxWorkflowStorageSize: 10,
+  },
 };
 
 export default featureFlag;

@@ -16,6 +16,8 @@ type Props = {
   sliderValue: number;
   onChange: (value: number) => void;
   "data-testid": string;
+  labelText?: string;
+  helperText?: string;
 };
 
 type State = any;
@@ -71,6 +73,7 @@ class BasicSlider extends Component<Props, State> {
     return (
       <div className="c-slider__wrapper">
         <Slider {...this.propsHandler()} />
+        {this.props.helperText && <p className="c-slider__helper-text">{this.props.helperText}</p>}
         <div className="c-slider__input-divider" />
       </div>
     );

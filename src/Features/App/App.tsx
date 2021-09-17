@@ -183,7 +183,7 @@ export default function App() {
             shouldShowBrowserWarning={shouldShowBrowserWarning}
             teamsData={teamsQuery.data}
             userData={userQuery.data}
-            storageQuotas={featureQuery.data.storageQuotas}
+            quotas={featureQuery.data.quotas}
           />
         </ErrorBoundary>
       </FlagsProvider>
@@ -200,7 +200,10 @@ interface MainProps {
   shouldShowBrowserWarning: boolean;
   teamsData: Array<FlowTeam>;
   userData: FlowUser;
-  storageQuotas: number;
+  quotas: {
+    maxActivityStorageSize: number;
+    maxWorkflowStorageSize: number;
+  };
 }
 
 function Main({
@@ -211,7 +214,7 @@ function Main({
   shouldShowBrowserWarning,
   teamsData,
   userData,
-  storageQuotas,
+  quotas,
 }: MainProps) {
   const { id: userId, type: platformRole }: { id: string; type: string } = userData;
 
@@ -232,7 +235,7 @@ function Main({
         setIsTutorialActive,
         user: userData,
         teams: teamsData,
-        storageQuotas,
+        quotas,
       }}
     >
       <AppFeatures platformRole={platformRole} />
