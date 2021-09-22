@@ -100,6 +100,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       workingDir: values.workingDir,
       envs: newEnvs,
       config: hasFile && Boolean(values.currentRevision) ? values.currentRevision.config : [],
+      results: hasFile && Boolean(values.currentRevision) ? values.currentRevision.results : [],
       changelog: { reason: "" },
     };
     const body = {
