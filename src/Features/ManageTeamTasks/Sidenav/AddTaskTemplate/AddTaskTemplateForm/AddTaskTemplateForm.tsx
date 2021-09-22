@@ -17,6 +17,7 @@ import {
   TextInput,
   TextArea,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { useParams } from "react-router-dom";
 import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utils/taskIcons";
@@ -77,6 +78,7 @@ const readFile = (file) => {
 // ];
 
 function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTaskTemplate }) {
+  const params: { teamId: string } = useParams();
   let taskTemplateNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
   const orderedIcons = orderBy(taskIcons, ["name"]);
 
