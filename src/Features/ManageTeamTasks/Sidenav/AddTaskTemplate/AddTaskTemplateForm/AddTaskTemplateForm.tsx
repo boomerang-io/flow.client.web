@@ -98,7 +98,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       arguments: Boolean(values.arguments) ? values.arguments.trim().split(/\n{1,}/) : [],
       image: values.image,
       command: Boolean(values.command) ? values.command.trim().split(/\n{1,}/) : [],
-      scipt: values.script,
+      script: values.script,
       workingDir: values.workingDir,
       envs: newEnvs,
       config: hasFile && Boolean(values.currentRevision) ? values.currentRevision.config : [],
