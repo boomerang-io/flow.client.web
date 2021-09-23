@@ -25,7 +25,7 @@ describe("Editor -- workflow", function () {
   it("Select a task", function () {
     cy.wait(1000);
     cy.get("[data-testid=editor-task-search]").type("make");
-    cy.findByText("github (1)").click();
+    cy.findByText("GitHub (1)").click();
     cy.findByText("Make Repositories Private").should("be.visible");
   });
 });

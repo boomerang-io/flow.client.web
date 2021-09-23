@@ -19,7 +19,8 @@ it("Loads home", () => {
 it("Search Functionality", () => {
   cy.visit("/");
   cy.wait(1000);
-  cy.findByText("IBM Services Engineering (1)").should("be.visible");
+  cy.findByText("Team Workflows").click();
+  cy.findByText("IBM Services Engineering (3)").should("be.visible");
   cy.get("[data-testid=workflow-card-title]").should("be.visible");
   cy.get("[data-testid=workflows-team-search]").type("nonexistent flow");
   cy.findByText("Looks like there's nothing here").should("be.visible");
