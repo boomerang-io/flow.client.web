@@ -117,7 +117,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
     };
     await handleAddTaskTemplate({ body, closeModal });
   };
-  const getTemplateData = async ({ file, setFieldValue }) => {
+  const getTemplateData = async ({ file, setFieldValue, setFieldTouched }) => {
     try {
       const yamlData = await readFile(file);
       setFieldValue("file", file);
@@ -127,18 +127,21 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       if (checkIsValidTask(fileData)) {
         const currentRevision = fileData.revisions.find((revision) => revision.version === fileData.currentVersion);
         setFieldValue("name", fileData.name);
+        setFieldTouched("name", true);
         setFieldValue("description", fileData.description);
+        setFieldTouched("description", true);
         setFieldValue("category", fileData.category);
+        setFieldTouched("category", true);
         selectedIcon &&
           setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
         setFieldValue("image", currentRevision.image);
         setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
         setFieldValue("command", currentRevision.command ?? "");
         setFieldValue("script", currentRevision.script ?? "");
-        const formattedEnvs = templateData.envs.map((env) => {
+        const formattedEnvs = Array.isArray(currentRevision.envs) ? currentRevision.envs.map((env) => {
           return `${env.name}:${env.value}`;
-        });
-        setFieldValue("envs", formattedEnvs ?? []);
+        }) : [];
+        setFieldValue("envs", formattedEnvs);
         setFieldValue("workingDir", currentRevision?.workingDir);
         setFieldValue("currentRevision", currentRevision);
         setFieldValue("fileData", fileData);
@@ -216,6 +219,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           touched,
           handleChange,
           setFieldValue,
+          setFieldTouched,
           handleBlur,
           resetForm,
         } = props;
@@ -236,7 +240,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                   name="Workflow"
                   multiple={false}
                   onAddFiles={(event, { addedFiles }) => {
-                    getTemplateData({ file: addedFiles[0], setFieldValue });
+                    getTemplateData({ file: addedFiles[0], setFieldValue, setFieldTouched });
                   }}
                 />
                 {values.file && (
