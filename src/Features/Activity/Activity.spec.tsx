@@ -7,6 +7,8 @@ import WorkflowActivity from "./index";
 import { startApiServer } from "ApiServer";
 import { queryCaches } from "react-query";
 
+jest.setTimeout(60000);
+
 let server;
 
 beforeEach(() => {

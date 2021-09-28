@@ -68,6 +68,36 @@ export default class DateHelper {
     return moment(datetimestamp).add(duration, "milliseconds").fromNow();
   }
 
+  static humanizedSimpleTimeAgo(datetimestamp) {
+    const duration = moment.duration(moment().diff(moment(datetimestamp)));
+    let time = 0;
+    let timeName = "sec";
+
+    if(duration.years() >= 1) {
+      time = duration.years();
+      timeName = "year";
+    } else if(duration.months() >= 1) {
+      time = duration.months();
+      timeName = "month";
+    } else if(duration.weeks() >= 1) {
+      time = duration.weeks();
+      timeName = "week";
+    } else if(duration.days() >= 1) {
+      time = duration.days();
+      timeName = "day";
+    } else if(duration.hours() >= 1) {
+      time = duration.hours();
+      timeName = "hour";
+    } else if(duration.minutes() >= 1) {
+      time = duration.minutes();
+      timeName = "min";
+    } else if(duration.seconds() >= 1) {
+      time = duration.seconds();
+    }
+
+    return `${time} ${timeName}${time > 1 ? "s" : ""} ago`;
+  }
+
   /**
    * Get human readdable difference from a time in the past to now
    * @param {String} datetimestamp

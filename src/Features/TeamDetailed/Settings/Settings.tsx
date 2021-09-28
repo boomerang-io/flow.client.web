@@ -24,7 +24,7 @@ const query = `?${queryString.stringify({
   sort: DEFAULT_SORT,
 })}`;
 
-export default function Settings({ team }: { team: FlowTeam }) {
+export default function Settings({ team, teamManagementEnabled }: { team: FlowTeam; teamManagementEnabled: any }) {
   const teamsUrl = serviceUrl.getManageTeams({ query });
 
   const { data: teamsData, error, isLoading } = useQuery({
@@ -56,6 +56,8 @@ export default function Settings({ team }: { team: FlowTeam }) {
 
   const teamNameList = teamsData.records.map((team: FlowTeam) => team.name);
 
+  const canEdit = teamManagementEnabled;
+
   return (
     <section aria-label="Team Settings" className={styles.settingsContainer}>
       <Helmet>
@@ -65,25 +67,27 @@ export default function Settings({ team }: { team: FlowTeam }) {
         <p className={styles.teamNameLabel}>Team Name</p>
         <div className={styles.actionableNameContainer}>
           <p className={styles.headerEditText}>{team.name}</p>
-          <ComposedModal
-            composedModalProps={{
-              containerClassName: styles.teamNameModalContainer,
-            }}
-            modalHeaderProps={{
-              title: "Change team name",
-              //   subtitle:
-              //     "Try to keep it concise to avoid truncation in the sidebar. You must make sure the name is valid before it can be updated.",
-            }}
-            modalTrigger={({ openModal }: { openModal: () => void }) => (
-              <button className={styles.teamEditIcon} onClick={openModal} data-testid="open-change-name-modal">
-                <Edit16 />
-              </button>
-            )}
-          >
-            {({ closeModal }: { closeModal: () => void }) => (
-              <UpdateTeamName closeModal={closeModal} team={team} teamNameList={teamNameList} />
-            )}
-          </ComposedModal>
+          {canEdit && (
+            <ComposedModal
+              composedModalProps={{
+                containerClassName: styles.teamNameModalContainer,
+              }}
+              modalHeaderProps={{
+                title: "Change team name",
+                //   subtitle:
+                //     "Try to keep it concise to avoid truncation in the sidebar. You must make sure the name is valid before it can be updated.",
+              }}
+              modalTrigger={({ openModal }: { openModal: () => void }) => (
+                <button className={styles.teamEditIcon} onClick={openModal} data-testid="open-change-name-modal">
+                  <Edit16 />
+                </button>
+              )}
+            >
+              {({ closeModal }: { closeModal: () => void }) => (
+                <UpdateTeamName closeModal={closeModal} team={team} teamNameList={teamNameList} />
+              )}
+            </ComposedModal>
+          )}
         </div>
       </div>
     </section>

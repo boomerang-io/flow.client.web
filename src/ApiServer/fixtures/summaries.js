@@ -160,7 +160,18 @@ const summaries = [
     ],
     scope: "team",
     tokens: [],
-    enablePersistentStorage: true,
+    storage: {
+      activity: {
+        enabled: true,
+        size: 2,
+        mountPath: "/test",
+      },
+      workflow: {
+        enabled: false,
+        size: 0,
+        mountPath: "",
+      },
+    },
     enableACCIntegration: false,
     revisionCount: 2,
     templateUpgradesAvailable: false,
@@ -315,7 +326,18 @@ const summaries = [
     ],
     scope: "system",
     tokens: [],
-    enablePersistentStorage: true,
+    storage: {
+      activity: {
+        enabled: true,
+        size: 2,
+        mountPath: "/test",
+      },
+      workflow: {
+        enabled: false,
+        size: 0,
+        mountPath: "",
+      },
+    },
     enableACCIntegration: false,
     revisionCount: 2,
     templateUpgradesAvailable: false,
@@ -383,7 +405,18 @@ const summaries = [
       },
     },
     tokens: [],
-    enablePersistentStorage: false,
+    storage: {
+      activity: {
+        enabled: true,
+        size: 2,
+        mountPath: "/test",
+      },
+      workflow: {
+        enabled: false,
+        size: 0,
+        mountPath: "",
+      },
+    },
     scope: "team",
     revisionCount: 8,
     templateUpgradesAvailable: false,
@@ -451,7 +484,18 @@ const summaries = [
       },
     },
     tokens: [],
-    enablePersistentStorage: false,
+    storage: {
+      activity: {
+        enabled: true,
+        size: 2,
+        mountPath: "/test",
+      },
+      workflow: {
+        enabled: false,
+        size: 0,
+        mountPath: "",
+      },
+    },
     scope: "system",
     revisionCount: 16,
     templateUpgradesAvailable: false,

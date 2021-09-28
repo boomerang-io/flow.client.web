@@ -13,6 +13,7 @@ import {
   Toggle,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import ConfigureStorage from "./ConfigureStorage";
 import CronJobModal from "./CronJobModal";
 import cx from "classnames";
 import cronstrue from "cronstrue";
@@ -35,7 +36,18 @@ import { useLocation } from "react-router-dom";
 interface FormProps {
   description: string;
   enableACCIntegration: boolean;
-  enablePersistentStorage: boolean;
+  storage: {
+    activity: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+    workflow: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+  };
   icon: string;
   name: string;
   labels: Array<{ key: string; value: string }>;
@@ -72,6 +84,10 @@ interface FormProps {
 interface ConfigureContainerProps {
   history: History;
   params: { workflowId: string };
+  quotas: {
+    maxActivityStorageSize: string;
+    maxWorkflowStorageSize: string;
+  }
   summaryData: WorkflowSummary;
   summaryMutation: { status: string };
   teams: Array<{ id: string }>;
@@ -81,6 +97,7 @@ interface ConfigureContainerProps {
 const ConfigureContainer = React.memo<ConfigureContainerProps>(function ConfigureContainer({
   history,
   params,
+  quotas,
   summaryData,
   summaryMutation,
   teams,
@@ -88,15 +105,13 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
 }) {
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
   const handleOnSubmit = (values: { selectedTeam: { id: null | string } }) => {
-    updateSummary({
+      updateSummary({
       values,
       callback: () => history.push(appLink.editorConfigure({ workflowId: params.workflowId })),
     });
   };
-
   const location = useLocation();
   const isOnConfigurePath = appLink.editorConfigure({ workflowId: params.workflowId }) === location.pathname;
-
   return (
     <>
       <Helmet>
@@ -104,11 +119,24 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
       </Helmet>
       <Formik
         enableReinitialize
-        onSubmit={handleOnSubmit}
+        onSubmit={(values: { selectedTeam: { id: null | string } }) => {
+          handleOnSubmit(values);
+        }}
         initialValues={{
           description: summaryData.description ?? "",
           enableACCIntegration: summaryData.enableACCIntegration ?? false,
-          enablePersistentStorage: summaryData.enablePersistentStorage ?? false,
+          storage: {
+            workflow: {
+              enabled: summaryData.storage?.workflow?.enabled ?? false,
+              size: summaryData.storage?.workflow?.size ?? 1,
+              mountPath: summaryData.storage?.workflow?.mountPath ?? "",
+            },
+            activity: {
+              enabled: summaryData.storage?.activity?.enabled ?? false,
+              size: summaryData.storage?.activity?.size ?? 1,
+              mountPath: summaryData.storage?.activity?.mountPath ?? "",
+            },
+          },
           icon: summaryData.icon ?? "",
           name: summaryData.name ?? "",
           labels: summaryData.labels ? summaryData.labels : [],
@@ -139,7 +167,18 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         validationSchema={Yup.object().shape({
           description: Yup.string().max(250, "Description must not be greater than 250 characters"),
           enableACCIntegration: Yup.boolean(),
-          enablePersistentStorage: Yup.boolean(),
+          storage: Yup.object().shape({
+            activity: Yup.object().shape({ 
+              enabled: Yup.boolean().nullable(),
+              size: Yup.number().required("Enter the storage size"),
+              mountPath: Yup.string().nullable(),
+            }),
+            workflow: Yup.object().shape({ 
+              enabled: Yup.boolean().nullable(),
+              size: Yup.number().required("Enter the storage size"),
+              mountPath: Yup.string().nullable(),
+            }),
+          }),
           icon: Yup.string(),
           name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
           selectedTeam: summaryData?.flowTeamId
@@ -172,6 +211,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
             <Configure
               workflowTriggersEnabled={workflowTriggersEnabled as boolean}
               formikProps={formikProps}
+              quotas={quotas}
               summaryData={summaryData}
               summaryMutation={summaryMutation}
               teams={teams}
@@ -189,6 +229,10 @@ export default ConfigureContainer;
 interface ConfigureProps {
   workflowTriggersEnabled: boolean;
   formikProps: FormikProps<FormProps>;
+  quotas: {
+    maxActivityStorageSize: string;
+    maxWorkflowStorageSize: string;
+  };
   summaryData: WorkflowSummary;
   summaryMutation: {
     status: string;
@@ -252,13 +296,12 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
 
   render() {
     const {
+      quotas,
       summaryMutation,
       teams,
       formikProps: { dirty, errors, handleBlur, handleSubmit, touched, values, setFieldValue },
     } = this.props;
-
     const isLoading = summaryMutation.status === QueryStatus.Loading;
-
     return (
       <div aria-label="Configure" className={styles.wrapper} role="region">
         <section className={styles.largeCol}>
@@ -525,18 +568,114 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
         )}
         <section className={styles.smallCol}>
           <div className={styles.optionsContainer}>
-            <h1 className={styles.header}>Other Options</h1>
-            <p className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</p>
-            <div className={styles.toggleContainer}>
-              <Toggle
-                id="enablePersistentStorage"
-                label="Enable Persistent Storage"
-                toggled={values.enablePersistentStorage}
-                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "enablePersistentStorage")}
-                tooltipContent="Persist workflow data between executions"
-                tooltipProps={{ direction: "top" }}
-                reversed
-              />
+            <h1 className={styles.header}>Workspaces</h1>
+            <p className={styles.subTitle}>Workspaces allow your workflow to declare storage options to be used at execution time. This will be limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum.</p>
+            <div className={styles.storageToggle}>
+              <div className={styles.toggleContainer}>
+                <Toggle
+                  id="enableWorkflowPersistentStorage"
+                  label="Enable Workflow Persistent Storage"
+                  toggled={values.storage.workflow.enabled}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflow.enabled")}
+                  tooltipContent="Persist data across workflow executions"
+                  tooltipProps={{ direction: "top" }}
+                  reversed
+                />
+              </div>
+              {values.storage.workflow.enabled && (
+                <div className={styles.webhookContainer}>
+                  <ComposedModal
+                    modalHeaderProps={{
+                      title: "Configure Workspace - Workflow Persistent Storage",
+                      subtitle: (
+                        <>
+                          <p>
+                            The Workflow storage is persisted across workflow executions and allows you to share artifacts between workflows, such as maintaining a cache of files used every execution.
+                          </p>
+                          <p style={{ marginTop: "0.5rem" }}>
+                            Note: use with caution as this can lead to a collision if you are running many executions in parallel using the same artifact.
+                          </p>
+                        </>
+                      ),
+                    }}
+                    composedModalProps={{
+                      // containerClassName: styles.buildWebhookContainer,
+                      // shouldCloseOnOverlayClick: true,
+                    }}
+                    modalTrigger={({ openModal }: { openModal: () => void }) => (
+                      <button className={styles.regenerateText} style={{marginBottom: "0.5rem"}} type="button" onClick={openModal}>
+                        <p>Configure</p>
+                      </button>
+                    )}
+                  >
+                    {({ closeModal }: { closeModal: () => void }) => (
+                      <ConfigureStorage
+                        size={values.storage.workflow.size}
+                        mountPath={values.storage.workflow.mountPath}
+                        handleOnChange={(storageValues: any) => {
+                          setFieldValue("storage.workflow", storageValues);
+                        }}
+                        closeModal={closeModal}
+                        quotas={quotas.maxWorkflowStorageSize}
+                      />
+                    )}
+                  </ComposedModal>
+                </div>
+              )}
+            </div>
+            <div className={styles.storageToggle}>
+              <div className={styles.toggleContainer}>
+                <Toggle
+                  id="enableActivityPersistentStorage"
+                  label="Enable Activity Persistent Storage"
+                  toggled={values.storage.activity.enabled}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.activity.enabled")}
+                  tooltipContent="Persist workflow data per executions"
+                  tooltipProps={{ direction: "top" }}
+                  reversed
+                />
+              </div>
+              {values.storage.activity.enabled && (
+                <div className={styles.webhookContainer}>
+                  <ComposedModal
+                    modalHeaderProps={{
+                      title: "Configure Workflow - Activity Persistent Storage",
+                      subtitle:(
+                        <>
+                          <p>
+                            The activity storage is persisted per workflow execution and allows you to share short-lived artifacts between tasks in the workflow.
+                          </p>
+                          <p style={{ marginTop: "0.5rem" }}>
+                            Note: All artifacts will be deleted at the end of the workflow execution. If you want to persist long term use Workspace storage.
+                          </p>
+                        </>
+                      ),
+                    }}
+                    composedModalProps={{
+                      // containerClassName: styles.buildWebhookContainer,
+                      // shouldCloseOnOverlayClick: true,
+                    }}
+                    modalTrigger={({ openModal }: { openModal: () => void }) => (
+                      <button className={styles.regenerateText} type="button" onClick={openModal}>
+                        <p>Configure</p>
+                      </button>
+                    )}
+                  >
+                    {({ closeModal }: { closeModal: () => void }) => (
+                      <ConfigureStorage
+                        size={values.storage.activity.size}
+                        mountPath={values.storage.activity.mountPath}
+                        handleOnChange={(storageValues: any) => {
+                          setFieldValue("storage.activity", storageValues);
+                        }}
+                        closeModal={closeModal}
+                        quotas={quotas.maxActivityStorageSize}
+                        isActivity
+                      />
+                    )}
+                  </ComposedModal>
+                </div>
+              )}
             </div>
           </div>
           <hr className={styles.delimiter} />
@@ -596,7 +735,10 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
               size="field"
               disabled={!dirty || isLoading}
               iconDescription="Save"
-              onClick={handleSubmit}
+              onClick={(e: any) => {
+                e.preventDefault();
+                handleSubmit();
+              }}
               renderIcon={Save24}
             >
               {isLoading ? "Saving..." : "Save"}

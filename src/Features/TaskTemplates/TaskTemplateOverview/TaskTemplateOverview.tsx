@@ -18,10 +18,10 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import EmptyState from "Components/EmptyState";
-import EditTaskTemplateModal from "./EditTaskTemplateModal";
-import TemplateParametersModal from "./TemplateParametersModal";
-import PreviewConfig from "./PreviewConfig";
-import TemplateConfigModal from "./TemplateConfigModal";
+import EditTaskTemplateModal from "Components/EditTaskTemplateModal";
+import TemplateParametersModal from "Components/TemplateParametersModal";
+import PreviewConfig from "Components/PreviewConfig";
+import TemplateConfigModal from "Components/TemplateConfigModal";
 import Header from "../Header";
 import { formatErrorMessage } from "@boomerang-io/utils";
 import { TaskTemplateStatus } from "Constants";

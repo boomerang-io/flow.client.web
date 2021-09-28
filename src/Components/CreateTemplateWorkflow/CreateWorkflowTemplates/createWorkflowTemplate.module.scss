@@ -1,0 +1,90 @@
+@import "Styles/mixins";
+
+.formBody {
+  display: flex;
+  padding-right: 1rem !important;
+}
+
+.templates {
+  display: flex;
+  border-left: transparent 0.25rem solid;
+  flex-direction: column;
+  height: 100%;
+  margin-right: 1rem;
+  max-width: 15rem;
+  min-width: 15rem;
+  overflow-y: auto;
+  :global .bx--btn {
+    border-radius: 0;
+  }
+  .active {
+    background-color: var(--cds-ui-03);
+    border-left-color: var(--cds-interactive-01);
+  }
+}
+
+.template {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.icon {
+  margin-right: 1rem;
+  max-height: 1.25rem;
+  max-width: 1.25rem;
+  min-height: 1.25rem;
+  min-width: 1.25rem;
+}
+
+.buttonText {
+  @include text-overflow-ellipsis();
+}
+
+.templateInfo {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0 !important;
+  overflow-y: auto;
+  width: 100%;
+  
+  svg:not(:root) {
+    overflow: visible !important;
+  }
+}
+
+.diagram {
+  background-color: var(--cds-ui-background);
+  height: 14rem;
+  min-height: 14rem;
+  padding: 1rem;
+}
+
+.icons {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, 2.7rem);
+  width: 60%;
+}
+
+.wombat {
+  display: flex;
+  flex-direction: column;
+  height: 10rem;
+  margin-top: 3rem;
+  width: 30rem;
+  :global .bx--bmrg-error-page__graphic {
+    width: 10rem;
+  }
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.75rem 0;
+}
+
+.tagsContainer {
+  display: flex;
+}

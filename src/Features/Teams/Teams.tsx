@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "Hooks";
+import { useFeature } from "flagged";
 import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
 import {
@@ -23,7 +24,7 @@ import debounce from "lodash/debounce";
 import queryString from "query-string";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import { SortDirection } from "Constants";
-import { AppPath, appLink } from "Config/appConfig";
+import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { ComposedModalChildProps, FlowTeam, ModalTriggerProps, PaginatedResponse } from "Types";
 import styles from "./Teams.module.scss";
@@ -83,6 +84,7 @@ const TeamList: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
   const cancelRequestRef = React.useRef<{} | null>();
+  const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
 
   const teamsUrl = serviceUrl.getManageTeams({ query: allQuery });
 
@@ -159,7 +161,7 @@ const TeamList: React.FC = () => {
   }
   return (
     <FeatureLayout handleSearchChange={handleSearchChange}>
-      {teamsData && (
+      {teamsData && teamManagementEnabled && (
         <ComposedModal
           composedModalProps={{ shouldCloseOnOverlayClick: true }}
           modalHeaderProps={{

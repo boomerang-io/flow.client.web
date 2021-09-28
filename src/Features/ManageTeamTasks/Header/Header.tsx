@@ -16,7 +16,7 @@ import {
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useParams } from "react-router-dom";
-import VersionHistory from "./VersionHistory";
+import VersionHistory from "Components/VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
 import moment from "moment";
 import { appLink } from "Config/appConfig";

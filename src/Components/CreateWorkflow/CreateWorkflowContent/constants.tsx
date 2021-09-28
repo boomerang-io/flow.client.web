@@ -16,7 +16,18 @@ export const defaultWorkflowConfig = {
     },
   },
   enableACCIntegration: false,
-  enablePersistentStorage: false,
+  storage: {
+    workflow: {
+      enabled: false,
+      size: 1,
+      mountPath: "",
+    },
+    activity: {
+      enabled: false,
+      size: 1,
+      mountPath: "",
+    },
+  },
   enableIAMIntegration: false,
   properties: [],
   revisionCount: 0,

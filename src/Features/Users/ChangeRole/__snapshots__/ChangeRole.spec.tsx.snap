@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChangeRole --- Snapshot Test Capturing Snapshot of ChangeRole 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <form
+      class="bx--bmrg-modal-flow-form"
+    >
+      <div
+        class="bx--modal-content"
+      >
+        <div
+          class="gridContainer"
+        >
+          <div
+            class="bx--form-item"
+          >
+            <div
+              class="bx--radio-button-group bx--radio-button-group--vertical bx--radio-button-group--label-right"
+            >
+              <div
+                class="bx--radio-button-wrapper"
+              >
+                <input
+                  class="bx--radio-button"
+                  id="platform-role-admin"
+                  name="platform-role"
+                  type="radio"
+                  value="admin"
+                />
+                <label
+                  class="bx--radio-button__label"
+                  for="platform-role-admin"
+                >
+                  <span
+                    class="bx--radio-button__appearance"
+                  />
+                  <span
+                    class=""
+                  >
+                    Admin
+                  </span>
+                </label>
+              </div>
+              <div
+                class="bx--radio-button-wrapper"
+              >
+                <input
+                  class="bx--radio-button"
+                  id="platform-role-user"
+                  name="platform-role"
+                  type="radio"
+                  value="user"
+                />
+                <label
+                  class="bx--radio-button__label"
+                  for="platform-role-user"
+                >
+                  <span
+                    class="bx--radio-button__appearance"
+                  />
+                  <span
+                    class=""
+                  >
+                    User
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bx--modal-footer bx--btn-set"
+      >
+        <button
+          class="bx--btn bx--btn--secondary"
+          tabindex="0"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="bx--btn bx--btn--primary bx--btn--disabled"
+          disabled=""
+          tabindex="0"
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+`;

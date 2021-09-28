@@ -96,12 +96,7 @@ export default function NavbarContainer({
   const defaultUIShellProps = {
     renderLogo: true,
   };
-  const platformName = platformNavigationData.platform?.platformName;
-  const isBoomerangInPlatformName = platformName?.includes(BOOMERANG_FALLBACK);
-  const appTitle =
-    !isBoomerangInPlatformName && platformName
-      ? `${BOOMERANG_FALLBACK} Flow - ${platformName}`
-      : `${BOOMERANG_FALLBACK} Flow`;
+  const appTitle = `${BOOMERANG_FALLBACK} Flow`;
 
   return (
     <>

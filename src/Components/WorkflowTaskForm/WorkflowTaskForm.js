@@ -16,7 +16,14 @@ import styles from "./WorkflowTaskForm.module.scss";
 
 const AutoSuggestInput = (props) => {
   //number inputs doesn't support AutoSuggest setSelectionRange
-  if (props.type === "number") return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
+  if (props.type === "number")
+    return (
+      <TextInput
+        {...props}
+        value={props.value !== undefined && props.value !== null ? props.value : props.initialValue}
+        onChange={(e) => props.onChange(e.target.value)}
+      />
+    );
   else
     return (
       <div key={props.id}>
@@ -110,6 +117,7 @@ function formatAutoSuggestProperties(inputProperties) {
 
 class WorkflowTaskForm extends Component {
   static propTypes = {
+    additionalConfig: PropTypes.array,
     closeModal: PropTypes.func,
     inputProperties: PropTypes.array,
     node: PropTypes.object.isRequired,
@@ -175,7 +183,7 @@ class WorkflowTaskForm extends Component {
     return {
       autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
       onChange: (value) => this.formikSetFieldValue(value, key, setFieldValue),
-      initialValue: values[key],
+      initialValue: values[key] !== null && values[key] !== undefined ? values[key] : input.value,
       inputProps: {
         id: key,
         onBlur: handleBlur,
@@ -193,7 +201,7 @@ class WorkflowTaskForm extends Component {
   };
 
   render() {
-    const { node, task, taskNames, nodeConfig } = this.props;
+    const { additionalConfig = [], node, task, taskNames, nodeConfig } = this.props;
     const taskRevisions = task?.revisions ?? [];
     // Find the matching task config for the version
     const taskVersionConfig = nodeConfig
@@ -216,6 +224,7 @@ class WorkflowTaskForm extends Component {
         customComponent: TaskNameTextInput,
       },
       ...taskVersionConfig,
+      ...additionalConfig,
       {
         outputs: taskResults,
         key: "outputs",

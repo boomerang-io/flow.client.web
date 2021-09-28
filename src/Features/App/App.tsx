@@ -20,6 +20,8 @@ import styles from "./app.module.scss";
 
 const AppActivation = lazy(() => import(/* webpackChunkName: "App Activation" */ "./AppActivation"));
 const Activity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/Activity"));
+const Actions = lazy(() => import(/* webpackChunkName: "Actions" */ "Features/Actions"));
+const ApproverGroups = lazy(() => import(/* webpackChunkName: "ApproverGroups" */ "Features/ApproverGroups"));
 const Editor = lazy(() => import(/* webpackChunkName: "Editor" */ "Features/Editor"));
 const Execution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/Execution"));
 const GlobalProperties = lazy(() => import(/* webpackChunkName: "GlobalProperties" */ "Features/GlobalProperties"));
@@ -152,19 +154,17 @@ export default function App() {
     return (
       <FlagsProvider
         features={{
-          TeamManagementEnabled: feature["team.management"],
-          WorkflowQuotasEnabled: feature["workflow.quotas"],
-          SettingsEnabled: feature["settings"],
-          UserManagementEnabled: feature["user.management"],
-          GlobalParametersEnabled: feature["global.parameters"],
-          WorkflowTokensEnabled: feature["workflow.tokens"],
-          TaskManagerEnabled: feature["taskManager"],
-          EditVerifiedTasksEnabled: feature["enable.verified.tasks.edit"],
-          WorkflowTriggersEnabled: feature["workflow.triggers"],
-          TeamParametersEnabled: feature["team.parameters"],
-
           ActivityEnabled: feature["activity"],
+          EditVerifiedTasksEnabled: feature["enable.verified.tasks.edit"],
+          GlobalParametersEnabled: feature["global.parameters"],
           InsightsEnabled: feature["insights"],
+          TeamManagementEnabled: feature["team.management"],
+          TeamParametersEnabled: feature["team.parameters"],
+          TeamTasksEnabled: feature["team.tasks"],
+          UserManagementEnabled: feature["user.management"],
+          WorkflowQuotasEnabled: feature["workflow.quotas"],
+          WorkflowTokensEnabled: feature["workflow.tokens"],
+          WorkflowTriggersEnabled: feature["workflow.triggers"],
         }}
       >
         <Navbar
@@ -183,6 +183,7 @@ export default function App() {
             shouldShowBrowserWarning={shouldShowBrowserWarning}
             teamsData={teamsQuery.data}
             userData={userQuery.data}
+            quotas={featureQuery.data.quotas}
           />
         </ErrorBoundary>
       </FlagsProvider>
@@ -199,6 +200,10 @@ interface MainProps {
   shouldShowBrowserWarning: boolean;
   teamsData: Array<FlowTeam>;
   userData: FlowUser;
+  quotas: {
+    maxActivityStorageSize: string;
+    maxWorkflowStorageSize: string;
+  };
 }
 
 function Main({
@@ -209,6 +214,7 @@ function Main({
   shouldShowBrowserWarning,
   teamsData,
   userData,
+  quotas,
 }: MainProps) {
   const { id: userId, type: platformRole }: { id: string; type: string } = userData;
 
@@ -229,6 +235,7 @@ function Main({
         setIsTutorialActive,
         user: userData,
         teams: teamsData,
+        quotas,
       }}
     >
       <AppFeatures platformRole={platformRole} />
@@ -241,12 +248,10 @@ interface AppFeaturesProps {
 }
 
 const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeaturesProps) {
-  const teamPropertiesEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
-  const taskManagerEnabled = useFeature(FeatureFlag.TaskManagerEnabled);
-  const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
-  const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
   const insightsEnabled = useFeature(FeatureFlag.InsightsEnabled);
+  const teamPropertiesEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
+  const teamTasksEnabled = useFeature(FeatureFlag.TeamTasksEnabled);
 
   return (
     <main id="content" className={styles.container}>
@@ -277,14 +282,14 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             allowedUserRoles={[true]}
             component={<ManageTeamTasks />}
             path={AppPath.ManageTaskTemplatesTeam}
-            userRole={taskManagerEnabled}
+            userRole={teamTasksEnabled}
           />
 
           <ProtectedRoute
             allowedUserRoles={[true]}
             component={<ManageTeamTasksContainer />}
             path={AppPath.ManageTaskTemplates}
-            userRole={taskManagerEnabled}
+            userRole={teamTasksEnabled}
           />
 
           <ProtectedRoute
@@ -301,19 +306,13 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             userRole={platformRole}
           />
 
-          <ProtectedRoute
-            allowedUserRoles={[true]}
-            component={<Teams />}
-            path={AppPath.TeamList}
-            userRole={teamManagementEnabled}
-          />
+          <Route path={AppPath.TeamList}>
+            <Teams />
+          </Route>
 
-          <ProtectedRoute
-            allowedUserRoles={[true]}
-            component={<Users />}
-            path={AppPath.UserList}
-            userRole={userManagementEnabled}
-          />
+          <Route path={AppPath.UserList}>
+            <Users />
+          </Route>
 
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
@@ -335,6 +334,14 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             path={AppPath.Activity}
             userRole={activityEnabled}
           />
+
+          <Route path={AppPath.Actions}>
+            <Actions />
+          </Route>
+
+          <Route path={AppPath.TeamApprovers}>
+            <ApproverGroups />
+          </Route>
 
           <Route path={AppPath.Editor}>
             <Editor />

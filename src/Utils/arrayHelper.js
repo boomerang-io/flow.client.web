@@ -1,5 +1,13 @@
 import orderBy from "lodash/orderBy";
 
+export const sortKeyDirection = ({array, sortKey, sortDirection}) => {
+  let sortedArray = [...array];
+  if (sortDirection !== "NONE") {
+    sortedArray = orderBy(sortedArray, [sortKey], [sortDirection.toLowerCase()]);
+  }
+  return sortedArray;
+}
+
 export const sortByProp = (arr, prop, direction = "asc") =>
   orderBy(arr, typeof prop === "string" ? [prop] : [...prop], [direction]);
   

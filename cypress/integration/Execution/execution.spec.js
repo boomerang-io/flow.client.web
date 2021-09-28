@@ -31,7 +31,6 @@ describe("Execution", function () {
 
   it("View task properties", function () {
     cy.findAllByText("View Parameters", { timeout: 5000 }).eq(0).click();
-    cy.get(".bx--tabs--scrollable__nav-link").contains("JSON").click();
-    cy.get(".bx--tabs--scrollable__nav-link").contains("Table").click();
+    cy.findByText("box.id");
   });
 });
