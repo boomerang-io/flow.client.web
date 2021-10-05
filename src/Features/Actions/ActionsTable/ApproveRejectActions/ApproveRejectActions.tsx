@@ -372,7 +372,7 @@ function SingleActionSection({ formikBag, action, isAlreadyApproved, user }: Sin
           </p>
         </div>
       )}
-      {actioners.length && (
+      {Array.isArray(actioners) && actioners.length && (
         <div className={styles.approvers}>
           <p className={styles.singleLabel}>Approvers who submitted</p>
           <StructuredListWrapper>

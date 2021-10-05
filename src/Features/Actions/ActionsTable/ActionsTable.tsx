@@ -352,7 +352,7 @@ function ActionsTable(props: ActionsTableProps) {
                           const currentAction: Action = records.find((action: Action) => action.id === row.id);
                           const isAlreadyApproved =
                             (user?.id && currentAction?.actioners?.map((user) => user.approverId).includes(user.id)) ||
-                            currentAction.status !== ApprovalStatus.Submitted;
+                            currentAction?.status !== ApprovalStatus.Submitted;
                           return isManual ? (
                             <TableRow
                               key={row.id}
