@@ -25,13 +25,17 @@ export function revisionReducer(state, action) {
     }
     case RevisionActionTypes.UpdateNodeConfig: {
       const { nodeId, inputs } = action.data;
-      state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
+      state.config[nodeId].inputs = Boolean(state.config?.[nodeId]?.inputs)
+        ? { ...state.config[nodeId].inputs, ...inputs }
+        : { ...inputs };
       state.hasUnsavedUpdates = true;
       return state;
     }
     case RevisionActionTypes.UpdateNodeConfigWithResult: {
       const { nodeId, inputs, outputs } = action.data;
-      state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
+      state.config[nodeId].inputs = Boolean(state.config?.[nodeId]?.inputs)
+        ? { ...state.config[nodeId].inputs, ...inputs }
+        : { ...inputs };
       state.config[nodeId].outputs = outputs;
       state.hasUnsavedUpdates = true;
       return state;
@@ -40,7 +44,9 @@ export function revisionReducer(state, action) {
       const { nodeId, inputs, version } = action.data;
       state.dag.nodes.find((node) => node.nodeId === nodeId).templateUpgradeAvailable = false;
       state.config[nodeId].taskVersion = version;
-      state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
+      state.config[nodeId].inputs = Boolean(state.config?.[nodeId]?.inputs)
+        ? { ...state.config[nodeId].inputs, ...inputs }
+        : { ...inputs };
       state.hasUnsavedUpdates = true;
       return state;
     }
