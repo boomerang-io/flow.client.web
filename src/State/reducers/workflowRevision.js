@@ -25,9 +25,10 @@ export function revisionReducer(state, action) {
     }
     case RevisionActionTypes.UpdateNodeConfig: {
       const { nodeId, inputs } = action.data;
-      state.config[nodeId].inputs = Boolean(state.config?.[nodeId]?.inputs)
-        ? { ...state.config[nodeId].inputs, ...inputs }
-        : { ...inputs };
+      if(state.config[nodeId])
+        state.config[nodeId].inputs = Boolean(state.config?.[nodeId]?.inputs)
+          ? { ...state.config[nodeId].inputs, ...inputs }
+          : { ...inputs };
       state.hasUnsavedUpdates = true;
       return state;
     }
