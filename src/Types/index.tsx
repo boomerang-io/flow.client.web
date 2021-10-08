@@ -257,6 +257,7 @@ export interface FlowUser {
   lastLoginDate: string;
   flowTeams: FlowTeam[];
   status: UserStatus;
+  hasConsented: boolean;
 }
 
 export interface Property {

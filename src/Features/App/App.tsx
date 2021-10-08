@@ -219,6 +219,10 @@ function Main({
     return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
   }
 
+  if (!Boolean(userData?.hasConsented)) {
+    return null;
+  }
+
   return (
     <AppContextProvider
       value={{
@@ -351,7 +355,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           </Route>
 
           <Redirect exact from="/" to={AppPath.Workflows} />
-          <Route path="*" component={() => <Error404 theme="boomerang"/>} />
+          <Route path="*" component={() => <Error404 theme="boomerang" />} />
         </Switch>
       </Suspense>
       <NotificationsContainer enableMultiContainer />
