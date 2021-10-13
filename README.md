@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+# Boomerang Flow Web Client
+
+The web client for Boomerang Flow, a low-code, cloud-native workflow automation tool.
+
+Learn more about our projects on the [docs site](https://useboomerang.io/docs).
+
+View current project work in our [community roadmap repo](https://github.com/boomerang-io/roadmap).
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
