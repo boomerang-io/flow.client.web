@@ -13,7 +13,7 @@ export { default as manageTeamDetails } from "./manageTeamDetails";
 export { default as manageTeams } from "./manageTeams";
 export { default as manageUsers } from "./manageUsers";
 export { default as manualTasks } from "./manualTasks";
-export { default as platformNavigation } from "./platformNavigation";
+export { default as platformConfig } from "./platformConfig";
 export { default as flowNavigation } from "./flowNavigation";
 export { default as profile } from "./profile";
 export { default as tasktemplate } from "./tasktemplate";

@@ -15,7 +15,7 @@ import queryString from "query-string";
 import { allowedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { FlowTeam, FlowUser } from "Types";
+import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig } from "Types";
 import styles from "./app.module.scss";
 
 const AppActivation = lazy(() => import(/* webpackChunkName: "App Activation" */ "./AppActivation"));
@@ -43,8 +43,9 @@ const Users = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Featur
 const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Features/Workflows"));
 
 const getUserUrl = serviceUrl.getUserProfile();
-const getPlatformNavigationUrl = serviceUrl.getPlatformNavigation();
+const getPlatformConfigUrl = serviceUrl.getPlatformConfig();
 const getTeamsUrl = serviceUrl.getTeams();
+const featureFlagsUrl = serviceUrl.getFeatureFlags();
 const browser = detect();
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
@@ -67,35 +68,36 @@ export default function App() {
       const response = await axios.get(getUserUrl);
       return response.data;
     } catch (error) {
-      if (error.response?.status === 423) {
-        // Prevent both the rerender and remount on refetch
-        if (!showActivatePlatform && !activationCode) {
-          setShowActivatePlatform(true);
+      if (axios.isAxiosError(error))
+        if (error.response?.status === 423) {
+          // Prevent both the rerender and remount on refetch
+          if (!showActivatePlatform && !activationCode) {
+            setShowActivatePlatform(true);
+          }
+          return {};
         }
-        return {};
-      }
     }
   };
 
-  const featureQuery = useQuery({
-    queryKey: serviceUrl.getFeatureFlags(),
-    queryFn: resolver.query(serviceUrl.getFeatureFlags()),
+  const featureQuery = useQuery<FlowFeatures, string>({
+    queryKey: featureFlagsUrl,
+    queryFn: resolver.query(featureFlagsUrl),
   });
 
-  const userQuery = useQuery({
+  const userQuery = useQuery<FlowUser, string>({
     queryKey: getUserUrl,
     queryFn: fetchUserResolver,
   });
 
-  const navigationQuery = useQuery({
-    queryKey: getPlatformNavigationUrl,
-    queryFn: resolver.query(getPlatformNavigationUrl),
+  const navigationQuery = useQuery<PlatformConfig, string>({
+    queryKey: getPlatformConfigUrl,
+    queryFn: resolver.query(getPlatformConfigUrl),
     config: {
       enabled: Boolean(userQuery.data?.id),
     },
   });
 
-  const flowNavigationQuery = useQuery({
+  const flowNavigationQuery = useQuery<Array<FlowNavigationItem>, string>({
     queryKey: getFlowNavigationUrl,
     queryFn: resolver.query(getFlowNavigationUrl),
     config: {
@@ -103,7 +105,7 @@ export default function App() {
     },
   });
 
-  const teamsQuery = useQuery({
+  const teamsQuery = useQuery<Array<FlowTeam>, string>({
     queryKey: getTeamsUrl,
     queryFn: resolver.query(getTeamsUrl),
     config: {
@@ -117,14 +119,13 @@ export default function App() {
     teamsQuery.isLoading ||
     featureQuery.isLoading ||
     flowNavigationQuery.isLoading;
+
   const hasError =
     userQuery.isError ||
     navigationQuery.isError ||
     teamsQuery.isError ||
     featureQuery.isError ||
     flowNavigationQuery.isError;
-  const hasData =
-    userQuery.data && navigationQuery.data && teamsQuery.data && featureQuery.data && flowNavigationQuery.data;
 
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
@@ -149,8 +150,8 @@ export default function App() {
     );
   }
 
-  if (hasData) {
-    const feature = featureQuery.data?.features;
+  if (userQuery.data && navigationQuery.data && teamsQuery.data && featureQuery.data && flowNavigationQuery.data) {
+    const feature = featureQuery.data.features;
     return (
       <FlagsProvider
         features={{
@@ -169,7 +170,7 @@ export default function App() {
       >
         <Navbar
           handleOnTutorialClick={() => setIsTutorialActive(true)}
-          platformNavigationData={navigationQuery.data}
+          platformConfigData={navigationQuery.data}
           flowNavigationData={flowNavigationQuery.data}
           userData={userQuery.data}
         />
@@ -177,7 +178,7 @@ export default function App() {
         <ErrorBoundary>
           <Main
             isTutorialActive={isTutorialActive}
-            platformNavigationData={navigationQuery.data}
+            platformConfigData={navigationQuery.data}
             setIsTutorialActive={setIsTutorialActive}
             setShouldShowBrowserWarning={setShouldShowBrowserWarning}
             shouldShowBrowserWarning={shouldShowBrowserWarning}
@@ -194,21 +195,18 @@ export default function App() {
 
 interface MainProps {
   isTutorialActive: boolean;
-  platformNavigationData: { platform: { communityUrl: string } };
+  platformConfigData: PlatformConfig;
   setIsTutorialActive: (isTutorialActive: boolean) => void;
   setShouldShowBrowserWarning: (shouldShowBrowserWarning: boolean) => void;
   shouldShowBrowserWarning: boolean;
   teamsData: Array<FlowTeam>;
   userData: FlowUser;
-  quotas: {
-    maxActivityStorageSize: string;
-    maxWorkflowStorageSize: string;
-  };
+  quotas: FlowFeatures["quotas"];
 }
 
 function Main({
   isTutorialActive,
-  platformNavigationData,
+  platformConfigData,
   setIsTutorialActive,
   setShouldShowBrowserWarning,
   shouldShowBrowserWarning,
@@ -216,7 +214,7 @@ function Main({
   userData,
   quotas,
 }: MainProps) {
-  const { id: userId, type: platformRole }: { id: string; type: string } = userData;
+  const { id: userId, type: platformRole } = userData;
 
   // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
   if (!userId) {
@@ -231,7 +229,7 @@ function Main({
     <AppContextProvider
       value={{
         isTutorialActive,
-        communityUrl: platformNavigationData?.platform?.communityUrl ?? "",
+        communityUrl: platformConfigData?.platform?.communityUrl ?? "",
         setIsTutorialActive,
         user: userData,
         teams: teamsData,

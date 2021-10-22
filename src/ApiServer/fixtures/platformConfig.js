@@ -3,7 +3,6 @@ const platformNavigation = {
     version: "7.1.0",
     name: "Boomerang Core",
     signOutUrl: "https://launch.boomerangplatform.net/oauth/sign_out?rd=/oauth/sign_out",
-    platformName: "Essentials@IBM",
     displayLogo: false,
     privateTeams: false,
     sendMail: true,
