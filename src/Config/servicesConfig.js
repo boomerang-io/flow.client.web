@@ -38,6 +38,7 @@ export const serviceUrl = {
   getActionsSummary: ({ query }) => `${BASE_URL}/actions/summary${query ? "?" + query : ""}`,
   getActions: ({ query }) => `${BASE_URL}/actions${query ? "?" + query : ""}`,
   getDefaultQuotas: () => `${BASE_URL}/quotas/default`,
+  getCronValidation: ({expression}) => `${BASE_URL}/validate/cron?cron=${expression}`,
   getFeatureFlags: () => `${BASE_URL}/features`,
   getFlowTeamUsers: ({ teamId }) => `${BASE_URL}/teams/${teamId}/members`,
   getFlowNavigation: ({ query }) => `${BASE_URL}/navigation${query}`,

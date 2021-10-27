@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import axios from "axios";
 import cronstrue from "cronstrue";
 import moment from "moment-timezone";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { CheckboxList, ComboBox, TextInput, ModalFlowForm, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
+import { CheckboxList, ComboBox, TextInput, ModalFlowForm, Toggle, InlineLoading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import { daysOfWeekCronList } from "Constants";
+import { serviceUrl } from "Config/servicesConfig";
 import { cronToDateTime } from "Utils/cronHelper";
 import styles from "./cronJobModal.module.scss";
 
@@ -35,6 +37,7 @@ type State = {
   errorMessage?: string;
   message: string | undefined;
   defaultTimeZone: any;
+  isValidatingCron: boolean;
 };
 
 export default class CronJobModal extends Component<Props, State> {
@@ -44,6 +47,7 @@ export default class CronJobModal extends Component<Props, State> {
       errorMessage: undefined,
       message: props.cronExpression ? cronstrue.toString(props.cronExpression) : cronstrue.toString("0 18 * * *"),
       defaultTimeZone: moment.tz.guess(),
+      isValidatingCron: false,
     };
 
     //@ts-ignore
@@ -53,27 +57,37 @@ export default class CronJobModal extends Component<Props, State> {
       .map((element) => this.transformTimeZone(element));
   }
 
-  handleOnChange = (e: any, handleChange: (e: any) => void) => {
-    this.validateCron(e.target.value);
-    handleChange(e);
-  };
+  handleOnBlur = (e: any, handleBlur: (e: any) => void, setFieldValue: any) => {
+    this.validateCron(e.target.value, setFieldValue);
+    handleBlur(e);
+  }
 
   handleTimeChange = (selectedItem: any, id: string, setFieldValue: (id: string, item: any) => void) => {
     setFieldValue(id, selectedItem);
   };
 
   //receives input value from TextInput
-  validateCron = (value: string) => {
+  validateCron = async(value: string, setFieldValue: any) => {
     if (value === "1 1 1 1 1" || value === "* * * * *") {
       this.setState({ message: undefined, errorMessage: `Expression ${value} is not allowed for Boomerang Flow` });
       return false;
     }
     try {
-      const message = cronstrue.toString(value); //just need to run it
-      this.setState({ message, errorMessage: undefined });
+      this.setState({isValidatingCron: true});
+      const response = await axios.get(serviceUrl.getCronValidation({expression: value}));
+      if(response.data.valid) {
+        const message = cronstrue.toString(response.data.cron); //just need to run it
+        this.setState({ message, errorMessage: undefined });
+        Boolean(response.data.cron) && setFieldValue("cronExpression", response.data.cron);
+      }
+      else {
+        this.setState({ message: undefined, errorMessage: "Expression is invalid and couldn't be converted. Please, try again." });
+      }
     } catch (e) {
-      this.setState({ message: undefined, errorMessage: e.slice(7) });
+      this.setState({ message: undefined, errorMessage: typeof e === "string" ? e.slice(7) : "Something went wrong", isValidatingCron: false });
       return false;
+    } finally {
+      this.setState({isValidatingCron: false});
     }
     return true;
   };
@@ -112,10 +126,11 @@ export default class CronJobModal extends Component<Props, State> {
   };
 
   render() {
-    const { defaultTimeZone, errorMessage, message } = this.state;
+    const { defaultTimeZone, errorMessage, message, isValidatingCron } = this.state;
     const { cronExpression, timeZone, advancedCron } = this.props;
     const cronToData = cronToDateTime(!!cronExpression, cronExpression ? cronExpression : undefined);
     const { cronTime, selectedDays } = cronToData;
+
 
     let activeDays: string[] = [];
     Object.entries(selectedDays).forEach(([key, value]) => {
@@ -181,14 +196,16 @@ export default class CronJobModal extends Component<Props, State> {
                       <div className={styles.cronContainer}>
                         <TextInput
                           id="cronExpression"
+                          disabled={isValidatingCron}
                           invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
                           invalidText={errorMessage}
                           labelText="CRON Expression"
-                          onBlur={handleBlur}
-                          onChange={(e: any) => this.handleOnChange(e, handleChange)}
+                          onBlur={(e: any) => this.handleOnBlur(e, handleBlur, setFieldValue)}
+                          onChange={handleChange}
                           placeholder="Enter a CRON Expression"
                           value={values.cronExpression}
                         />
+                        {isValidatingCron && <InlineLoading description="Checking..." />}
                         {
                           // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
                         }
