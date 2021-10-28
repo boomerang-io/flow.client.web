@@ -297,10 +297,9 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       //Workflow Config Cron
 
-      this.get(`${BASE_URL}/validate/cron`, () => {
+      this.get(`${BASE_URL}/workflow/validate/cron`, () => {
         return({
-          valid:true, 
-          cron:"0 15 10 * * ? 2021"
+          valid:true,
         });
       });
 
