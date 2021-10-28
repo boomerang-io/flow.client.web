@@ -57,8 +57,8 @@ export default class CronJobModal extends Component<Props, State> {
       .map((element) => this.transformTimeZone(element));
   }
 
-  handleOnBlur = (e: any, handleBlur: (e: any) => void, setFieldValue: any) => {
-    this.validateCron(e.target.value, setFieldValue);
+  handleOnBlur = (e: any, handleBlur: (e: any) => void) => {
+    this.validateCron(e.target.value);
     handleBlur(e);
   }
 
@@ -67,7 +67,7 @@ export default class CronJobModal extends Component<Props, State> {
   };
 
   //receives input value from TextInput
-  validateCron = async(value: string, setFieldValue: any) => {
+  validateCron = async(value: string) => {
     if (value === "1 1 1 1 1" || value === "* * * * *") {
       this.setState({ message: undefined, errorMessage: `Expression ${value} is not allowed for Boomerang Flow` });
       return false;
@@ -78,7 +78,6 @@ export default class CronJobModal extends Component<Props, State> {
       if(response.data.valid) {
         const message = cronstrue.toString(response.data.cron); //just need to run it
         this.setState({ message, errorMessage: undefined });
-        Boolean(response.data.cron) && setFieldValue("cronExpression", response.data.cron);
       }
       else {
         this.setState({ message: undefined, errorMessage: "Expression is invalid and couldn't be converted. Please, try again." });
@@ -200,7 +199,7 @@ export default class CronJobModal extends Component<Props, State> {
                           invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
                           invalidText={errorMessage}
                           labelText="CRON Expression"
-                          onBlur={(e: any) => this.handleOnBlur(e, handleBlur, setFieldValue)}
+                          onBlur={(e: any) => this.handleOnBlur(e, handleBlur)}
                           onChange={handleChange}
                           placeholder="Enter a CRON Expression"
                           value={values.cronExpression}
