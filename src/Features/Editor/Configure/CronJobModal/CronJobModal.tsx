@@ -80,7 +80,7 @@ export default class CronJobModal extends Component<Props, State> {
         this.setState({ message, errorMessage: undefined });
       }
       else {
-        this.setState({ message: undefined, errorMessage: "Expression is invalid and couldn't be converted. Please, try again." });
+        this.setState({ message: undefined, errorMessage: response.data?.message ?? "Expression is invalid and couldn't be converted. Please, try again." });
       }
     } catch (e) {
       this.setState({ message: undefined, errorMessage: typeof e === "string" ? e.slice(7) : "Something went wrong", isValidatingCron: false });
