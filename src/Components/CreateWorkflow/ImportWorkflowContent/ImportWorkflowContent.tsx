@@ -134,7 +134,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
       validateOnMount
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({
-        selectedTeam: scope === WorkflowScope.Team ? Yup.string().required("Team is required") : Yup.mixed(),
+        selectedTeam: scope === WorkflowScope.Team ? Yup.mixed().required("Team is required") : Yup.mixed(),
         name: Yup.string()
           .required(`Please enter a name for your ${type}`)
           .max(64, "Name must not be greater than 64 characters")
