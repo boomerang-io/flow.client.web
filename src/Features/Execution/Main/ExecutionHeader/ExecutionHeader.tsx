@@ -133,6 +133,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
                   <OutputPropertiesLog
                     isOutput
                     flowTaskName={workflow.data.name}
+                    //@ts-ignore
                     flowTaskOutputs={workflowExecution.data.outputProperties}
                   />
                 </div>
