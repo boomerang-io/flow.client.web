@@ -42,7 +42,7 @@ const activity = [
         startTime: "2020-05-20T12:13:10.361+0000",
         taskId: "23201b45-6f91-4bc4-9129-37eb3dcc981f",
         taskName: "Download Train Samples",
-        outputs: { "": "" },
+        results: { "": "" },
       },
       {
         isAwaitingApproval: false,
@@ -54,7 +54,7 @@ const activity = [
         startTime: "2020-05-20T12:13:16.379+0000",
         taskId: "997213d5-f1ec-4fa9-9d95-719fa4db7253",
         taskName: "Download Latest Published Version",
-        outputs: { "": "" },
+        results: { "": "" },
       },
       {
         isAwaitingApproval: false,
@@ -66,7 +66,7 @@ const activity = [
         startTime: "2020-05-20T12:13:21.331+0000",
         taskId: "5d1f2eaf-790e-456e-b278-cf4a52ea829a",
         taskName: "Check Version File Type",
-        outputs: { "#Wed May 20 12:13:29 GMT 2020": "" },
+        results: { "#Wed May 20 12:13:29 GMT 2020": "" },
       },
       {
         isAwaitingApproval: false,
@@ -78,7 +78,7 @@ const activity = [
         startTime: "2020-05-20T12:13:30.643+0000",
         taskId: "62f77206-e48e-4e0d-aeb8-5db0607eeb03",
         taskName: "Create New Version File",
-        outputs: { "#Wed May 20 12:13:39 GMT 2020": "" },
+        results: { "#Wed May 20 12:13:39 GMT 2020": "" },
       },
       {
         isAwaitingApproval: false,
@@ -90,7 +90,7 @@ const activity = [
         startTime: "2020-05-20T12:13:40.769+0000",
         taskId: "9f00063f-8235-48e4-b38b-c43361ee8990",
         taskName: "Upload Incremented Version",
-        outputs: { "": "" },
+        results: { "": "" },
       },
       {
         isAwaitingApproval: false,
@@ -102,7 +102,7 @@ const activity = [
         startTime: "2020-05-20T12:13:44.935+0000",
         taskId: "0821727a-b336-48ac-b42e-34f7b062dd8c",
         taskName: "Print Persistence Folder",
-        outputs: { "#Wed May 20 12:13:52 GMT 2020": "" },
+        results: { "#Wed May 20 12:13:52 GMT 2020": "" },
       },
       {
         activityId: "5f74033d78c0d807c15532bd",
