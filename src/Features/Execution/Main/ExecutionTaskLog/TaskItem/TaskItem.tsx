@@ -30,7 +30,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
     duration,
     flowTaskStatus,
     id,
-    outputs,
+    results,
     startTime,
     taskId,
     taskName,
@@ -99,8 +99,9 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
             (logTaskTypes.includes(taskType) && logStatusTypes.includes(runStatus))) && (
             <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
           )}
-          {outputs && Object.keys(outputs).length > 0 && (
-            <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
+          {results && Object.keys(results).length > 0 && (
+            //@ts-ignore
+            <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={results} />
           )}
           {taskType === NodeType.RunWorkflow && runWorkflowActivityId && runWorkflowId && (
             <Link
@@ -122,7 +123,9 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                 </Button>
               )}
             >
-              {({ closeModal }: { closeModal: () => void }) => <ErrorModal errorCode={error?.code ?? ""} errorMessage={error?.message ?? ""} />}
+              {({ closeModal }: { closeModal: () => void }) => (
+                <ErrorModal errorCode={error?.code ?? ""} errorMessage={error?.message ?? ""} />
+              )}
             </ComposedModal>
           )}
           {flowTaskStatus !== ExecutionStatus.Cancelled &&
@@ -140,11 +143,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                 )}
               >
                 {({ closeModal }: { closeModal: () => void }) => (
-                  <TaskApprovalModal
-                    approvalId={approval.id}
-                    executionId={executionId}
-                    closeModal={closeModal}
-                  />
+                  <TaskApprovalModal approvalId={approval.id} executionId={executionId} closeModal={closeModal} />
                 )}
               </ComposedModal>
             )}
