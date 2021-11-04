@@ -487,3 +487,65 @@ export interface UserWorkflow {
   userQuotas: UserQuotas;
   workflows: WorkflowSummary[];
 }
+
+export interface FlowNavigationItem {
+  icon: string;
+  name: string;
+  link: string;
+  type: string;
+}
+
+export type PlatformFeatureKey =
+  | "consent.enabled"
+  | "docs.enabled"
+  | "metering.enabled"
+  | "notifications.enabled"
+  | "support.enabled"
+  | "welcome.enabled";
+
+export interface PlatformConfig {
+  features: {
+    [k in PlatformFeatureKey]: boolean;
+  };
+  navigation: Array<{ name: string; url: string }>;
+  platform: {
+    baseEnvUrl?: string;
+    baseServicesUrl?: string;
+    communityUrl?: string;
+    displayLogo: boolean;
+    name: string;
+    privateTeams: boolean;
+    sendMail: boolean;
+    signOutUrl: string;
+    version: string;
+  };
+  platformMessage: {
+    kind: string;
+    message: string;
+    title: string;
+  };
+}
+
+export type FlowFeatureKey =
+  | "activity"
+  | "enable.verified.tasks.edit"
+  | "global.parameters"
+  | "insights"
+  | "team.management"
+  | "team.parameters"
+  | "team.tasks"
+  | "user.management"
+  | "workflow.quotas"
+  | "workflow.tokens"
+  | "workflow.triggers";
+
+export type FlowQuotaKey = "maxActivityStorageSize" | "maxWorkflowStorageSize";
+
+export interface FlowFeatures {
+  features: {
+    [k in FlowFeatureKey]: boolean;
+  };
+  quotas: {
+    [k in FlowQuotaKey]: string;
+  };
+}

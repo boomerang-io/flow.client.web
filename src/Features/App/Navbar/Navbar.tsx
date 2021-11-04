@@ -12,7 +12,7 @@ import {
   UIShell,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { APP_ROOT } from "Config/appConfig";
-import { FlowUser } from "Types";
+import { FlowNavigationItem, FlowUser, PlatformConfig } from "Types";
 import { navigationIcons } from "Utils/navigationIcons";
 import { FlowData16 } from "@carbon/icons-react";
 
@@ -27,7 +27,7 @@ function getRelativePath(navUrl: string) {
   return navUrl.substring(navUrl.indexOf(APP_ROOT) + APP_ROOT.length);
 }
 
-const handleOnMenuClick = (flowNavigationData: any) => ({
+const handleOnMenuClick = (flowNavigationData: FlowNavigationItem[]) => ({
   isOpen,
   onMenuClose,
 }: {
@@ -82,16 +82,16 @@ const skipToContentProps = {
 
 interface NavbarContainerProps {
   handleOnTutorialClick(): void;
-  platformNavigationData: { platform: { platformName: string } };
+  flowNavigationData: Array<FlowNavigationItem>;
+  platformConfigData: PlatformConfig;
   userData: FlowUser;
-  flowNavigationData: any;
 }
 
 export default function NavbarContainer({
   handleOnTutorialClick,
-  platformNavigationData,
-  userData,
   flowNavigationData,
+  platformConfigData,
+  userData,
 }: NavbarContainerProps) {
   const defaultUIShellProps = {
     renderLogo: true,
@@ -105,7 +105,7 @@ export default function NavbarContainer({
         {...defaultUIShellProps}
         renderFlowDocs
         onMenuClick={handleOnMenuClick(flowNavigationData)}
-        headerConfig={platformNavigationData}
+        headerConfig={platformConfigData}
         onTutorialClick={handleOnTutorialClick}
         user={userData}
         skipToContentProps={skipToContentProps}
