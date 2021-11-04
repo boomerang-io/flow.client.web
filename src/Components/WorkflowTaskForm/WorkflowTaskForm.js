@@ -242,7 +242,7 @@ class WorkflowTaskForm extends Component {
             .required("Enter a task name")
             .notOneOf(takenTaskNames, "Enter a unique value for task name"),
         })}
-        initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
+        initialValues={{ taskName: node.taskName, ...nodeConfig.inputs, outputs: taskResults }}
         inputs={inputs}
         onSubmit={this.handleOnSave}
         dataDrivenInputProps={{
