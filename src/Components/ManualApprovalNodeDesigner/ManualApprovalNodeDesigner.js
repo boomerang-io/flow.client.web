@@ -64,9 +64,11 @@ const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigne
   };
 
   const handleOnSaveTaskConfig = (inputs) => {
+    const outputs = inputs.outputs;
+    delete inputs.outputs;
     revisionDispatch({
-      type: RevisionActionTypes.UpdateNodeConfig,
-      data: { nodeId: designerNode.id, inputs },
+      type: RevisionActionTypes.UpdateNodeConfigWithResult,
+      data: { nodeId: designerNode.id, inputs, outputs },
     });
   };
 

@@ -78,9 +78,6 @@ const workflowExecution = {
       taskName: "Execute Shell 1",
       taskType: "template",
       preApproved: false,
-      outputs: {
-        "#Mon Oct 19 22:58:01 GMT 2020": "",
-      },
       error: {
         code: "001",
         message: "This is a task level special error",
@@ -109,7 +106,7 @@ const workflowExecution = {
       taskName: "Execute HTTP Call 1",
       taskType: "template",
       preApproved: false,
-      outputs: {
+      results: {
         "#Mon Oct 19 22:58:16 GMT 2020": "",
         response:
           '{"id"\\:1,"name"\\:"Leanne Graham","username"\\:"Bret","email"\\:"Sincere@april.biz","address"\\:{"street"\\:"Kulas Light","suite"\\:"Apt. 556","city"\\:"Gwenborough","zipcode"\\:"92998-3874","geo"\\:{"lat"\\:"-37.3159","lng"\\:"81.1496"}},"phone"\\:"1-770-736-8031 x56442","website"\\:"hildegard.org","company"\\:{"name"\\:"Romaguera-Crona","catchPhrase"\\:"Multi-layered client-server neural-net","bs"\\:"harness real-time e-markets"}}',
@@ -126,7 +123,7 @@ const workflowExecution = {
       taskName: "Json Path To Property 1",
       taskType: "template",
       preApproved: false,
-      outputs: {
+      results: {
         "#Mon Oct 19 22:58:20 GMT 2020": "",
         email: "Sincere@april.biz",
       },
