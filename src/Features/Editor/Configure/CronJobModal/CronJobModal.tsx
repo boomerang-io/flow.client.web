@@ -68,10 +68,6 @@ export default class CronJobModal extends Component<Props, State> {
 
   //receives input value from TextInput
   validateCron = async(value: string) => {
-    if (value === "1 1 1 1 1" || value === "* * * * *") {
-      this.setState({ message: undefined, errorMessage: `Expression ${value} is not allowed for Boomerang Flow` });
-      return false;
-    }
     try {
       this.setState({isValidatingCron: true});
       const response = await axios.get(serviceUrl.getCronValidation({expression: value}));
