@@ -1971,6 +1971,28 @@ const taskTemplate = [
         command: "",
         arguments: ["approval"],
         config: [],
+        results: [
+          {
+          description: "The status of the approval task, can be approved or rejected.",
+          name: "approvalStatus"
+          },
+          {
+          description: "Date and time of the action",
+          name: "approvalDate"
+          },
+          {
+          description: "Username of the approver",
+          name: "approvalUserName"
+          },
+          {
+          description: "Email address of the approver",
+          name: "approvalUserEmail"
+          },
+          {
+          description: "Additional comments added by the approver",
+          name: "approvalComments"
+          }
+        ],
         changelog: {
           userId: "5e8a6c6cd0827100011c2a35",
           reason: "",
