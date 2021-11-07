@@ -66,8 +66,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.profile[0];
       });
 
-      this.get(serviceUrl.getPlatformNavigation(), (schema) => {
-        return schema.db.platformNavigation[0];
+      this.get(serviceUrl.getPlatformConfig(), (schema) => {
+        return schema.db.platformConfig[0];
       });
 
       this.get(`${BASE_URL}/navigation`, (schema) => {
@@ -547,7 +547,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Workflow Templates
        */
-       this.post(serviceUrl.postDuplicateWorkflow({ workflowId: ":workflowId" }), (schema, request) => {
+      this.post(serviceUrl.postDuplicateWorkflow({ workflowId: ":workflowId" }), (schema, request) => {
         return {};
       });
       /**

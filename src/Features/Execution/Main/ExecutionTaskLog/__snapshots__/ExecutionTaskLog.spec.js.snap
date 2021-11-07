@@ -223,15 +223,7 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
           </section>
           <section
             class="data"
-          >
-            <button
-              class="bx--btn bx--btn--sm bx--btn--ghost"
-              tabindex="0"
-              type="button"
-            >
-              View Parameters
-            </button>
-          </section>
+          />
         </li>
         <li
           class="taskitem completed"
@@ -334,24 +326,10 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
           </section>
           <section
             class="data"
-          >
-            <button
-              class="bx--btn bx--btn--sm bx--btn--ghost"
-              tabindex="0"
-              type="button"
-            >
-              View Parameters
-            </button>
-          </section>
+          />
         </li>
       </ul>
     </aside>
   </div>
-  <div
-    class="bx--bmrg-modal-portal"
-  />
-  <div
-    class="bx--bmrg-modal-portal"
-  />
 </body>
 `;
