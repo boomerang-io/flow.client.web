@@ -4,7 +4,14 @@ import cronstrue from "cronstrue";
 import moment from "moment-timezone";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { CheckboxList, ComboBox, TextInput, ModalFlowForm, Toggle, InlineLoading } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  CheckboxList,
+  ComboBox,
+  TextInput,
+  ModalFlowForm,
+  Toggle,
+  InlineLoading,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import { daysOfWeekCronList } from "Constants";
 import { serviceUrl } from "Config/servicesConfig";
@@ -38,6 +45,7 @@ type State = {
   message: string | undefined;
   defaultTimeZone: any;
   isValidatingCron: boolean;
+  hasValidated: boolean;
 };
 
 export default class CronJobModal extends Component<Props, State> {
@@ -48,6 +56,7 @@ export default class CronJobModal extends Component<Props, State> {
       message: props.cronExpression ? cronstrue.toString(props.cronExpression) : cronstrue.toString("0 18 * * *"),
       defaultTimeZone: moment.tz.guess(),
       isValidatingCron: false,
+      hasValidated: true,
     };
 
     //@ts-ignore
@@ -57,32 +66,33 @@ export default class CronJobModal extends Component<Props, State> {
       .map((element) => this.transformTimeZone(element));
   }
 
-  handleOnBlur = (e: any, handleBlur: (e: any) => void) => {
-    this.validateCron(e.target.value);
-    handleBlur(e);
-  }
-
   handleTimeChange = (selectedItem: any, id: string, setFieldValue: (id: string, item: any) => void) => {
     setFieldValue(id, selectedItem);
   };
 
   //receives input value from TextInput
-  validateCron = async(value: string) => {
+  validateCron = async (value: string) => {
     try {
-      this.setState({isValidatingCron: true});
-      const response = await axios.get(serviceUrl.getCronValidation({expression: value}));
-      if(response.data.valid) {
+      this.setState({ isValidatingCron: true });
+      const response = await axios.get(serviceUrl.getCronValidation({ expression: value }));
+      if (response.data.valid) {
         const message = cronstrue.toString(value); //just need to run it
-        this.setState({ message, errorMessage: undefined });
-      }
-      else {
-        this.setState({ message: undefined, errorMessage: response.data?.message ?? "Expression is invalid and couldn't be converted. Please, try again." });
+        this.setState({ message, errorMessage: undefined, hasValidated: true });
+      } else {
+        this.setState({
+          message: undefined,
+          errorMessage: response.data?.message ?? "Expression is invalid and couldn't be converted. Please, try again.",
+        });
       }
     } catch (e) {
-      this.setState({ message: undefined, errorMessage: typeof e === "string" ? e.slice(7) : "Something went wrong", isValidatingCron: false });
+      this.setState({
+        message: undefined,
+        errorMessage: typeof e === "string" ? e.slice(7) : "Something went wrong",
+        isValidatingCron: false,
+      });
       return false;
     } finally {
-      this.setState({isValidatingCron: false});
+      this.setState({ isValidatingCron: false });
     }
     return true;
   };
@@ -121,11 +131,11 @@ export default class CronJobModal extends Component<Props, State> {
   };
 
   render() {
-    const { defaultTimeZone, errorMessage, message, isValidatingCron } = this.state;
+    const { defaultTimeZone, errorMessage, message, isValidatingCron, hasValidated } = this.state;
     const { cronExpression, timeZone, advancedCron } = this.props;
     const cronToData = cronToDateTime(!!cronExpression, cronExpression ? cronExpression : undefined);
     const { cronTime, selectedDays } = cronToData;
-
+    const initialCron = "0 0 18 * * *";
 
     let activeDays: string[] = [];
     Object.entries(selectedDays).forEach(([key, value]) => {
@@ -139,7 +149,7 @@ export default class CronJobModal extends Component<Props, State> {
         validateOnMount
         onSubmit={this.handleOnSave}
         initialValues={{
-          cronExpression: cronExpression || "0 18 * * *",
+          cronExpression: cronExpression || initialCron,
           advancedCron: !!advancedCron,
           days: activeDays,
           time: cronTime || "18:00",
@@ -164,6 +174,7 @@ export default class CronJobModal extends Component<Props, State> {
             values,
             touched,
             errors,
+            dirty: isDirty,
             handleBlur,
             handleChange,
             handleSubmit,
@@ -189,21 +200,36 @@ export default class CronJobModal extends Component<Props, State> {
                     <>
                       <p className={styles.configureText}>Configure a CRON schedule for this Workflow</p>
                       <div className={styles.cronContainer}>
-                        <TextInput
-                          id="cronExpression"
-                          disabled={isValidatingCron}
-                          invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
-                          invalidText={errorMessage}
-                          labelText="CRON Expression"
-                          onBlur={(e: any) => this.handleOnBlur(e, handleBlur)}
-                          onChange={handleChange}
-                          placeholder="Enter a CRON Expression"
-                          value={values.cronExpression}
-                        />
-                        {isValidatingCron && <InlineLoading description="Checking..." />}
-                        {
-                          // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
-                        }
+                        <div className={styles.inputContainer}>
+                          <TextInput
+                            id="cronExpression"
+                            disabled={isValidatingCron}
+                            invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
+                            invalidText={errorMessage}
+                            helperText="You need to validate the expression before submiting this form."
+                            labelText="CRON Expression"
+                            onChange={(e: any) => {
+                              handleChange(e);
+                              this.setState({ hasValidated: false });
+                            }}
+                            onBlur={handleBlur}
+                            placeholder="Enter a CRON Expression"
+                            value={values.cronExpression}
+                          />
+                          {isValidatingCron ? (
+                            <InlineLoading description="Checking..." />
+                          ) : (
+                            <Button
+                              onClick={() => this.validateCron(values.cronExpression)}
+                              disabled={Boolean(errors.cronExpression) || hasValidated}
+                              kind="ghost"
+                              size="small"
+                              className={styles.validityStatusComponent}
+                            >
+                              Validate expression
+                            </Button>
+                          )}
+                        </div>
                         {values.cronExpression && message && <div className={styles.cronMessage}>{message}</div>}
                       </div>
                       <div className={styles.timezone}>
@@ -276,7 +302,12 @@ export default class CronJobModal extends Component<Props, State> {
                   Cancel
                 </Button>
                 <Button
-                  disabled={!isValid || (errorMessage && values.advancedCron)} //disable if the form is invalid or if there is an error message
+                  disabled={
+                    !isValid ||
+                    (errorMessage && values.advancedCron) ||
+                    (!hasValidated && values.advancedCron) ||
+                    !isDirty
+                  } //disable if the form is invalid or if there is an error message
                   type="submit"
                   onClick={(e: React.MouseEvent) => {
                     this.handleOnSave(e, values);
