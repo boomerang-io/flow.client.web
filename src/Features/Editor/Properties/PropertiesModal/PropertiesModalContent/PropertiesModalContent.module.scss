@@ -1,0 +1,20 @@
+.container {
+  :global .bx--list-box__menu {
+    max-height: 13rem !important;
+  }
+}
+
+.dateFormat {
+  display: flex;
+}
+
+.flatpickrLink {
+  align-items: center;
+  display: flex;
+  margin-left: 0.25rem;
+  width: fit-content;
+}
+
+.flatpickrIcon {
+  height: 0.875rem;
+}

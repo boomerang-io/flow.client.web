@@ -1,27 +1,38 @@
 // @ts-nocheck
 import React, { Component } from "react";
 import {
+  Button,
   ComboBox,
+  ComboBoxMultiSelect,
   Creatable,
+  DateInput,
   Loading,
+  ModalBody,
+  ModalFooter,
   TextArea,
   TextInput,
   Toggle,
   ModalFlowForm,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import {} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
 import { InputProperty, InputType, InputTypeCopy, WorkflowPropertyUpdateType, PROPERTY_KEY_REGEX } from "Constants";
 import { DataDrivenInput, FormikSetFieldValue } from "Types";
+import { Launch20 } from "@carbon/icons-react";
 import styles from "./PropertiesModalContent.module.scss";
 
 const textInputItem = { label: InputTypeCopy[InputType.Text], value: InputType.Text };
 
 const inputTypeItems = [
   { label: InputTypeCopy[InputType.Boolean], value: InputType.Boolean },
+  { label: InputTypeCopy[InputType.CreatablePair], value: InputType.CreatablePair },
+  { label: InputTypeCopy[InputType.CreatableSingle], value: InputType.CreatableSingle },
+  { label: InputTypeCopy[InputType.Date], value: InputType.Date },
+  { label: InputTypeCopy[InputType.DateRange], value: InputType.DateRange },
   { label: InputTypeCopy[InputType.Email], value: InputType.Email },
+  { label: InputTypeCopy[InputType.MultiSelect], value: InputType.MultiSelect },
   { label: InputTypeCopy[InputType.Number], value: InputType.Number },
   { label: InputTypeCopy[InputType.Password], value: InputType.Password },
   { label: InputTypeCopy[InputType.Select], value: InputType.Select },
@@ -54,11 +65,6 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
     setFieldValue(InputProperty.DefaultValue, selectedItem.value === InputType.Boolean ? false : undefined);
   };
 
-  // Only save an array of strings to match api and simplify renderDefaultValue()
-  handleOptionsChange = (values: [string], setFieldValue: (id: string, values: [string]) => void) => {
-    setFieldValue(InputProperty.Options, values);
-  };
-
   // Check if key contains alpahanumeric, underscore, dash, and period chars
   validateKey = (key: string) => {
     return PROPERTY_KEY_REGEX.test(key);
@@ -68,16 +74,40 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
     let property = clonedeep(values);
     property.type = property.type.value;
 
+    if (property.type !== InputType.Date && property.type !== InputType.DateRange) {
+      delete property[InputProperty.DateFormat];
+    }
+
     // Remove in case they are present if the user changed their mind
-    if (property.type !== InputType.Select) {
+    if (property.type !== InputType.Select && property.type !== InputType.MultiSelect) {
       delete property.options;
     } else {
       // Create options in correct type for service - { key, value }
-      property.options = property?.options.map((property) => ({ key: property, value: property }));
+      property.options = property.options.map((option) => {
+        let propertyKeyLabel = option.split(":");
+        return { key: propertyKeyLabel[0], value: propertyKeyLabel[1] };
+      });
+    }
+
+    if (property.type === InputType.MultiSelect) {
+      if (property.defaultValue) {
+        const defaultKeys = property.defaultValue.split(",");
+        let defaultOptionLabel = [];
+        property.options.forEach((option) => {
+          if (defaultKeys.some((key) => key === option.key)) {
+            defaultOptionLabel.push(option.value);
+          }
+        });
+        property.defaultOptionLabel = defaultOptionLabel.join();
+      }
     }
 
     if (property.type === InputType.Boolean) {
       if (!property.defaultValue) property.defaultValue = false;
+    }
+
+    if (property.type !== InputType.CreatableSingle && property.type !== InputType.CreatablePair) {
+      delete property.max;
     }
 
     if (this.props.isEdit) {
@@ -106,7 +136,21 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
   renderDefaultValue = (formikProps: FormikProps) => {
     const { values, handleBlur, handleChange, setFieldValue } = formikProps;
 
-    switch (values?.type?.value) {
+    // If editing an option, values will be an array of { key, value}
+    let options = [];
+    let keyValueOptions = [];
+    if (Array.isArray(values.options)) {
+      options = clonedeep(values.options);
+      keyValueOptions =
+        options.map((option) => {
+          let keyLabel = option.split(":");
+          return { key: keyLabel[0], value: keyLabel[1] };
+        }) ?? [];
+    }
+
+    const type = values?.type?.value;
+
+    switch (type) {
       case InputType.Boolean:
         return (
           <Toggle
@@ -120,29 +164,142 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
             toggled={values?.defaultValue === "true"}
           />
         );
+      case InputType.CreatableSingle:
+      case InputType.CreatablePair:
+        const isPair = type === InputType.CreatablePair;
+        return (
+          <Creatable
+            data-testid="creatable"
+            id={isPair ? `${InputProperty.DefaultValue}-pair` : InputProperty.DefaultValue}
+            onChange={(createdItems) => setFieldValue(InputProperty.DefaultValue, createdItems?.join() ?? "")}
+            label="Default Value"
+            keyLabelText="Default Value"
+            helperText="Initial value that can be changed"
+            value={values.defaultValue || null}
+            max={values.max}
+            createKeyValuePair={isPair}
+          />
+        );
+      case InputType.Date:
+        return (
+          <DateInput
+            data-testid="date-input"
+            id={InputProperty.DefaultValue}
+            label="Default Value"
+            helperText="Initial value that can be changed"
+            onChange={handleChange}
+            onCalendarChange={(dateArray) => setFieldValue(InputProperty.DefaultValue, dateArray[0]?.toISOString())}
+            dateFormat={values.dateFormat}
+            value={values.defaultValue}
+          />
+        );
+      case InputType.DateRange:
+        return (
+          <DateInput
+            data-testid="date-input"
+            id={`${InputProperty.DefaultValue}-date-range`}
+            label="Default Value"
+            helperText="Initial value that can be changed"
+            onChange={(dateArray) => {
+              const isoDates = Array.isArray(dateArray) ? dateArray.map((date) => date.toISOString()).join() : "";
+              setFieldValue(InputProperty.DefaultValue, isoDates);
+            }}
+            dateFormat={values.dateFormat}
+            value={values.defaultValue}
+            type={InputType.DateRange}
+          />
+        );
       case InputType.Select:
-        // If editing an option, values will be an array of { key, value}
-        let options = clonedeep(values.options);
+        let keyValueDefaultOption = keyValueOptions.find((option) => option.key === values.defaultValue);
         return (
           <>
             <Creatable
               data-testid="creatable"
               id={InputProperty.Options}
-              onChange={(createdItems: any) => this.handleOptionsChange(createdItems, setFieldValue)}
-              label="Options"
-              placeholder="Enter option"
+              onChange={(createdItems) => {
+                if (Boolean(values.defaultValue) && !createdItems.includes(values.defaultValue)) {
+                  setFieldValue(InputProperty.DefaultValue, "");
+                }
+                setFieldValue(InputProperty.Options, createdItems);
+              }}
               values={options || []}
+              createKeyValuePair
+              keyLabel="Option key"
+              valueLabel="Option label"
             />
             <ComboBox
               data-testid="select"
               id={InputProperty.DefaultValue}
-              onChange={({ selectedItem }: any) =>
-                this.handleOnFieldValueChange(selectedItem, InputProperty.DefaultValue, setFieldValue)
-              }
-              items={options || []}
-              initialSelectedItem={values.defaultValue || {}}
+              itemToString={(item) => item?.value}
+              onChange={({ selectedItem }) => setFieldValue(InputProperty.DefaultValue, selectedItem?.key)}
+              items={keyValueOptions}
+              initialSelectedItem={keyValueDefaultOption}
+              selectedItem={keyValueDefaultOption}
+              shouldFilterItem={({ item, inputValue }) => {
+                if (item?.value) {
+                  return item.value.toLowerCase().includes(inputValue?.toLowerCase());
+                }
+
+                return item;
+              }}
               label="Default Option"
-              placeholder="Select option"
+            />
+          </>
+        );
+      case InputType.MultiSelect:
+        let keyValueDefaultOptions = [];
+
+        if (typeof values.defaultValue === "string" && values.defaultValue.length) {
+          const defaultOptionsKeys = values.defaultValue.split(",");
+          keyValueDefaultOptions = keyValueOptions.filter((option) =>
+            defaultOptionsKeys.some((defaultOptionKey) => defaultOptionKey === option.key)
+          );
+        }
+
+        return (
+          <>
+            <Creatable
+              data-testid="creatable"
+              id={InputProperty.Options}
+              onChange={(createdItems) => {
+                if (typeof values.defaultValue === "string" && values.defaultValue.length) {
+                  const defaultOptionsKeys = values.defaultValue.split(",");
+                  const newDefaultValues = defaultOptionsKeys.filter((defaultValue) =>
+                    createdItems.some((createdItem) => createdItem.split(":")[0] === defaultValue)
+                  );
+                  setFieldValue(InputProperty.DefaultValue, newDefaultValues.join());
+                }
+                setFieldValue(InputProperty.Options, createdItems);
+              }}
+              values={options || []}
+              createKeyValuePair
+              keyLabel="Option key"
+              valueLabel="Option label"
+            />
+            <ComboBoxMultiSelect
+              data-testid="mulitiselect"
+              id={InputProperty.DefaultValue}
+              items={keyValueOptions}
+              itemToString={(item) => item?.value}
+              onChange={({ selectedItems }) => {
+                const selectedItemsString = Array.isArray(selectedItems)
+                  ? selectedItems.map((selectedItem) => selectedItem.key).join()
+                  : "";
+                setFieldValue(InputProperty.DefaultValue, selectedItemsString);
+              }}
+              selectedItems={keyValueDefaultOptions}
+              initialSelectedItems={keyValueDefaultOptions}
+              shouldFilterItem={({ item, inputValue }) => {
+                if (item?.value) {
+                  return (
+                    item.value.toLowerCase().includes(inputValue?.toLowerCase()) &&
+                    !keyValueDefaultOptions.some((option) => option.value === item.value)
+                  );
+                }
+
+                return item;
+              }}
+              label="Default Options"
             />
           </>
         );
@@ -182,6 +339,8 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
       case InputType.TextArea:
       case InputType.Password:
         return Yup.string();
+      case InputType.Date:
+        return Yup.date();
       case InputType.Boolean:
         return Yup.boolean();
       case InputType.Number:
@@ -204,16 +363,20 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
         validateOnMount
         onSubmit={this.handleConfirm}
         initialValues={{
+          [InputProperty.DateFormat]: property?.dateFormat ?? "Y-m-d",
+          [InputProperty.DefaultValue]: property?.defaultValue ?? "",
+          [InputProperty.Description]: property?.description ?? "",
+          [InputProperty.JsonPath]: property?.jsonPath ?? "",
           [InputProperty.Key]: property?.key ?? "",
           [InputProperty.Label]: property?.label ?? "",
-          [InputProperty.Description]: property?.description ?? "",
-          [InputProperty.Required]: property?.required ?? false,
-          [InputProperty.Type]: property ? inputTypeItems.find((type) => type.value === property.type) : textInputItem,
-          [InputProperty.DefaultValue]: property?.defaultValue ?? "",
-          [InputProperty.JsonPath]: property?.jsonPath ?? "",
+          [InputProperty.Max]: property?.max ?? 0,
           // Read in values as an array of strings. Service returns object { key, value }
           [InputProperty.Options]:
-            property?.options?.map((option) => (typeof option === "object" ? option.key : option)) ?? [],
+            property?.type === InputType.Select || property?.type === InputType.MultiSelect
+              ? property?.options?.map((option) => `${option.key}:${option.value}`)
+              : property?.options?.map((option) => (typeof option === "object" ? option.key : option)) ?? [],
+          [InputProperty.Required]: property?.required ?? false,
+          [InputProperty.Type]: property ? inputTypeItems.find((type) => type.value === property.type) : textInputItem,
         }}
         validationSchema={Yup.object().shape({
           [InputProperty.Key]: Yup.string()
@@ -232,7 +395,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
           [InputProperty.Required]: Yup.boolean(),
           [InputProperty.Type]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
           [InputProperty.Options]: Yup.array().when(InputProperty.Type, {
-            is: (type) => type.value === InputType.Select,
+            is: (type) => type === InputType.Select || type === InputType.MultiSelect,
             then: Yup.array().required("Enter an option").min(1, "Enter at least one option"),
           }),
           [InputProperty.DefaultValue]: this.determineDefaultValueSchema(defaultValueType),
@@ -321,7 +484,53 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                   orientation="vertical"
                   toggled={values.required}
                 />
-
+                {values.type?.value.includes("creatable") && (
+                  <TextInput
+                    data-testid="text-input"
+                    id={InputProperty.Max}
+                    labelText="Values Limit"
+                    helperText="Specify 0 for no limit to how many values a user can provide"
+                    onBlur={handleBlur}
+                    onChange={(e) => {
+                      handleChange(e);
+                      if (
+                        e.target.valueAsNumber < values.defaultValue?.split(",").length &&
+                        e.target.valueAsNumber > 0
+                      ) {
+                        setFieldValue(InputProperty.DefaultValue, "");
+                      }
+                    }}
+                    type="number"
+                    value={values.max}
+                    min={0}
+                  />
+                )}
+                {values.type?.value.includes(InputType.Date) && (
+                  <TextInput
+                    id={InputProperty.DateFormat}
+                    invalid={errors.dateFormat && touched.dateFormat}
+                    invalidText={errors.dateFormat}
+                    labelText="Date format"
+                    helperText={
+                      <p className={styles.dateFormat}>
+                        Provide a date format following
+                        <a
+                          className={styles.flatpickrLink}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          href="https://flatpickr.js.org/formatting/"
+                        >
+                          flatpickr docs
+                          <Launch20 className={styles.flatpickrIcon} />
+                        </a>
+                      </p>
+                    }
+                    placeholder="e.g. Y-m-d"
+                    onBlur={handleBlur}
+                    onChange={(e) => handleChange(e)}
+                    value={values.dateFormat}
+                  />
+                )}
                 {this.renderDefaultValue(formikProps)}
               </ModalBody>
               <ModalFooter>
