@@ -135,7 +135,7 @@ export default class CronJobModal extends Component<Props, State> {
     const { cronExpression, timeZone, advancedCron } = this.props;
     const cronToData = cronToDateTime(!!cronExpression, cronExpression ? cronExpression : undefined);
     const { cronTime, selectedDays } = cronToData;
-    const initialCron = "0 0 18 * * *";
+    const initialCron = "0 18 * * *";
 
     let activeDays: string[] = [];
     Object.entries(selectedDays).forEach(([key, value]) => {
