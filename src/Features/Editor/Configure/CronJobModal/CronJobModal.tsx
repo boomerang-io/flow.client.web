@@ -206,7 +206,6 @@ export default class CronJobModal extends Component<Props, State> {
                             disabled={isValidatingCron}
                             invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
                             invalidText={errorMessage}
-                            helperText="You need to validate the expression before submiting this form."
                             labelText="CRON Expression"
                             onChange={(e: any) => {
                               handleChange(e);
