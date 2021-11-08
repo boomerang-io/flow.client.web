@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from "react";
+import flatpickr from "flatpickr";
 import { useMutation, queryCache } from "react-query";
 import { Helmet } from "react-helmet";
 import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -12,11 +13,26 @@ import { DataDrivenInput, ModalTriggerProps, WorkflowSummary } from "Types";
 import { stringToPassword } from "Utils/stringHelper";
 import styles from "./Properties.module.scss";
 
-const formatDefaultValue = ({ type, value }: { type: string | undefined; value: string | undefined }) => {
+const formatDefaultValue = ({
+  dateFormat,
+  type,
+  value,
+}: {
+  dateFormat: string | undefined;
+  type: string | undefined;
+  value: string | undefined;
+}) => {
   if (!value) {
     return "---";
   } else if (type === InputType.Password) {
     return stringToPassword(value);
+  } else if (type === InputType.Date) {
+    return flatpickr.formatDate(new Date(value), dateFormat);
+  } else if (type === InputType.DateRange) {
+    return value
+      .split(",")
+      .map((date) => flatpickr.formatDate(new Date(date), dateFormat))
+      .join();
   } else {
     return value;
   }
@@ -119,7 +135,11 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
             <WorkflowPropertyRow title="Event Payload JsonPath" value={property.jsonPath ?? "---"} />
             <WorkflowPropertyRow
               title="Default value"
-              value={formatDefaultValue({ type: property.type, value: property.defaultValue })}
+              value={formatDefaultValue({
+                type: property.type,
+                value: property.defaultValue,
+                dateFormat: property.dateFormat,
+              })}
             />
             <WorkflowPropertyRow
               title="Options"

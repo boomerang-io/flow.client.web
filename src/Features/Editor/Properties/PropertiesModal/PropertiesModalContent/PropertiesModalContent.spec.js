@@ -40,7 +40,9 @@ describe("Inputs --- Snapshot Test", () => {
 
 describe("Inputs --- RTL", () => {
   it("Change default value by type correctly", async () => {
-    const { getByText, queryByTestId, getByPlaceholderText } = rtlContextRouterRender(<Inputs {...props} />);
+    const { getByText, getByTitle, queryByTestId, getByPlaceholderText } = rtlContextRouterRender(
+      <Inputs {...props} />
+    );
     expect(queryByTestId("text-input")).toBeInTheDocument();
 
     const typeSelect = getByPlaceholderText("Select an item");
@@ -71,7 +73,7 @@ describe("Inputs --- RTL", () => {
     });
 
     act(() => {
-      fireEvent.click(getByText(/select/i));
+      fireEvent.click(getByTitle("Select"));
     });
 
     expect(queryByTestId("text-area")).not.toBeInTheDocument();

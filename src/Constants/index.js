@@ -40,11 +40,13 @@ export const ExecutionStatusCopy = {
 };
 
 export const InputProperty = {
+  DateFormat: "dateFormat",
   DefaultValue: "defaultValue",
   Description: "description",
   HelperText: "helperText",
   Key: "key",
   Label: "label",
+  Max: "max",
   Options: "options",
   Placeholder: "placeholder",
   ReadOnly: "readOnly",
@@ -55,7 +57,12 @@ export const InputProperty = {
 
 export const InputType = {
   Boolean: "boolean",
+  CreatablePair: "creatable-pair",
+  CreatableSingle: "creatable-single",
+  Date: "date",
+  DateRange: "date-range",
   Email: "email",
+  MultiSelect: "multiselect",
   Number: "number",
   Password: "password",
   Select: "select",
@@ -71,7 +78,12 @@ export const InputType = {
 
 export const InputTypeCopy = {
   [InputType.Boolean]: "Boolean",
+  [InputType.CreatablePair]: "Creatable Pair",
+  [InputType.CreatableSingle]: "Creatable Single",
+  [InputType.Date]: "Date",
+  [InputType.DateRange]: "Date Range",
   [InputType.Email]: "Email",
+  [InputType.MultiSelect]: "Multi Select",
   [InputType.Number]: "Number",
   [InputType.Password]: "Password",
   [InputType.Select]: "Select",
