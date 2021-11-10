@@ -13,15 +13,26 @@ type Props = {
 };
 
 function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }: Props) {
-  let arrayProps: {id: string; key: string; value: string;}[] = [];
-  Object.keys(flowTaskOutputs).forEach(
-    (val: string, index: number) =>
-      (arrayProps = arrayProps.concat({
-        id: `${val}-${index}`,
-        key: val,
-        value: JSON.stringify(flowTaskOutputs[val], null, 2),
-      }))
-  );
+  let arrayProps: { id: string; key: string; value: string }[] = [];
+  if (Array.isArray(flowTaskOutputs)) {
+    flowTaskOutputs.forEach(
+      (val: { name: string; description: string; value: string }, index: number) =>
+        (arrayProps = arrayProps.concat({
+          id: `${val.name}-${index}`,
+          key: val.name,
+          value: `${val.description}${val.value ? " - " + val.value : ""}`,
+        }))
+    );
+  } else {
+    Object.keys(flowTaskOutputs).forEach(
+      (val: string, index: number) =>
+        (arrayProps = arrayProps.concat({
+          id: `${val}-${index}`,
+          key: val,
+          value: JSON.stringify(flowTaskOutputs[val], null, 2),
+        }))
+    );
+  }
 
   return (
     <ComposedModal
@@ -43,7 +54,10 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }: Props)
       {() => (
         <ModalForm>
           <ModalBody>
-            <PropertiesTable hasJsonValues={!isOutput} data={isOutput ? flowTaskOutputs : arrayProps} />
+            <PropertiesTable
+              hasJsonValues={!isOutput && !Array.isArray(flowTaskOutputs)}
+              data={isOutput ? flowTaskOutputs : arrayProps}
+            />
           </ModalBody>
         </ModalForm>
       )}
