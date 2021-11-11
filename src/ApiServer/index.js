@@ -295,6 +295,14 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.revisions.create(revision);
       });
 
+      //Workflow Config Cron
+
+      this.get(`${BASE_URL}/workflow/validate/cron`, () => {
+        return({
+          valid:true,
+        });
+      });
+
       // Workflow Properties
       this.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId: ":workflowId" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
