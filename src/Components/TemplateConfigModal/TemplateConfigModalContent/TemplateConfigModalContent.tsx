@@ -14,6 +14,7 @@ import TextEditorModal from "Components/TextEditorModal";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
 import { InputProperty, InputType, PROPERTY_KEY_REGEX } from "Constants";
+import { validateUrlWithProperties } from "Utils/urlPropertySyntaxHelper";
 import { FormikProps } from "formik";
 import { DataDrivenInput } from "Types";
 import styles from "./TemplateConfigModalContent.module.scss";
@@ -202,15 +203,19 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
 
   determineDefaultValueSchema = (defaultType: string) => {
     switch (defaultType) {
-      case "text":
-      case "textarea":
-      case "texteditor":
-      case "password":
+      case InputType.Text:
+      case InputType.TextArea:
+      case InputType.TextEditor:
+      case InputType.Password:
         return Yup.string();
-      case "boolean":
+      case InputType.Boolean:
         return Yup.boolean();
-      case "number":
+      case InputType.Number:
         return Yup.number();
+      case InputType.URL:
+        return Yup.string().test("hasValidUrlPropSyntax", "", (value: string) => {
+          return validateUrlWithProperties({ value });
+        });
       default:
         return Yup.mixed();
     }
