@@ -13,6 +13,7 @@ import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boom
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
+import { validateUrlWithProperties } from "Utils/urlPropertySyntaxHelper";
 import { InputProperty, InputType, InputTypeCopy, WorkflowPropertyUpdateType, PROPERTY_KEY_REGEX } from "Constants";
 import { DataDrivenInput, FormikSetFieldValue } from "Types";
 import styles from "./PropertiesModalContent.module.scss";
@@ -187,7 +188,9 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
       case InputType.Number:
         return Yup.number();
       case InputType.URL:
-        return Yup.string().url("Enter a valid URL");
+        return Yup.string().test("hasValidUrlPropSyntax", "", (value: string) => {
+          return validateUrlWithProperties({ value });
+        });
       case InputType.Email:
         return Yup.string().email("Enter a valid email");
       default:
