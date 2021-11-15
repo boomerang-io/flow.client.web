@@ -16,7 +16,24 @@
 .cronContainer {
   position: relative;
 }
-
+.inputContainer {
+  align-items: flex-start;
+  display: flex;
+  :global .bx--bmrg-text-input {
+    width: 23.625rem;
+  }
+  :global .bx--inline-loading {
+    margin-left: 1rem;
+    margin-top: 1.75rem;
+    width: auto;
+  }
+}
+.validityStatusComponent {
+  font-size: 0.75rem;
+  height: 2rem;
+  margin-left: 1rem;
+  margin-top: 1.65rem;
+}
 .timeContainer {
   align-items: flex-end;
   display: flex;

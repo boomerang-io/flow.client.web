@@ -54,7 +54,6 @@ export default function EditorContainer() {
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
 
   const availableParametersQuery = useQuery(getAvailableParametersUrl);
-
   /**
    * Mutations
    */
