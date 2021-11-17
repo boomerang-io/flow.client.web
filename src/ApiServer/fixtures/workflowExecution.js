@@ -90,8 +90,18 @@ const workflowExecution = {
         },
         {
           name: "test",
-          description: "Test description",
+          description: null,
           value: "Testing value",
+        },
+        {
+          name: "test again",
+          description: "Test description",
+          value: null,
+        },
+        {
+          name: "test one more result",
+          description: null,
+          value: null,
         },
       ],
     },
