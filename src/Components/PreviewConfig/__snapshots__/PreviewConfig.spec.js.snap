@@ -45,10 +45,11 @@ exports[`PreviewConfig --- Snapshot Capturing Snapshot of Task Templates 1`] = `
     class="bx--bmrg-modal-portal"
   >
     <div
-      class="bx--bmrg-modal-overlay --is-open"
+      class="bx--bmrg-modal-overlay"
     >
       <div
-        class="bx--bmrg-modal-container bx--bmrg-modal-composed-container bx--modal-container modal-container-fix-width --is-open"
+        aria-modal="true"
+        class="bx--bmrg-modal-container bx--bmrg-modal-composed-container bx--modal-container modal-container-fix-width"
         role="dialog"
         tabindex="-1"
       >

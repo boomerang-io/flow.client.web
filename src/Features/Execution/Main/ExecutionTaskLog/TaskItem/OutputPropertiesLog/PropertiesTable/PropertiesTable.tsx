@@ -41,13 +41,15 @@ function PropertiesTable({ data: properties, hasJsonValues = false }: Props) {
           <StructuredListHead>
             <StructuredListRow head>
               <StructuredListCell head>Parameter</StructuredListCell>
+              {!hasJsonValues && <StructuredListCell head>Description</StructuredListCell>}
               <StructuredListCell head>Value</StructuredListCell>
             </StructuredListRow>
           </StructuredListHead>
           <StructuredListBody>
-            {Array.isArray(properties) && properties.map((property: {key: string; value: string;}, i: number) => (
+            {Array.isArray(properties) && properties.map((property: {key: string; value: string; description?: string;}, i: number) => (
               <StructuredListRow key={`row-${i}`}>
                 <StructuredListCell>{property.key}</StructuredListCell>
+                {!hasJsonValues && <StructuredListCell>{property?.description ?? "---"}</StructuredListCell>}
                 <StructuredListCell>
                   {<code className={styles.code}>{formatPropertyValue(property.value)}</code>}
                 </StructuredListCell>

@@ -13,14 +13,15 @@ type Props = {
 };
 
 function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }: Props) {
-  let arrayProps: { id: string; key: string; value: string }[] = [];
+  let arrayProps: { id: string; key: string; value: string; description?: string }[] = [];
   if (Array.isArray(flowTaskOutputs)) {
     flowTaskOutputs.forEach(
       (val: { name: string; description: string; value: string }, index: number) =>
         (arrayProps = arrayProps.concat({
           id: `${val.name}-${index}`,
           key: val.name,
-          value: `${val.description}${val.value ? " - " + val.value : ""}`,
+          description: val.description ? val.description : "---",
+          value: val.value ? val.value : "---",
         }))
     );
   } else {
