@@ -83,8 +83,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       this.get(serviceUrl.workflowAvailableParameters({ workflowId: ":workflowId" }), (schema) => {
-        // return schema.availableParameters.all();
-        return [];
+        return schema.db.availableParameters[0].data;
       });
 
       this.get(serviceUrl.workflowTemplates(), (schema, request) => {
@@ -298,9 +297,9 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       //Workflow Config Cron
 
       this.get(`${BASE_URL}/workflow/validate/cron`, () => {
-        return({
-          valid:true,
-        });
+        return {
+          valid: true,
+        };
       });
 
       // Workflow Properties
