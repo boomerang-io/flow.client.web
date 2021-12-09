@@ -14,6 +14,7 @@ import Header from "./Header";
 import Configure from "./Configure";
 import Designer from "./Designer";
 import Properties from "./Properties";
+import Schedule from "./Schedule";
 import sortBy from "lodash/sortBy";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
@@ -67,7 +68,8 @@ export default function EditorContainer() {
     },
   });
   const [parametersMutation] = useMutation(resolver.postWorkflowAvailableParameters, {
-    onSuccess: (response) => queryCache.setQueryData(serviceUrl.workflowAvailableParameters({workflowId}), response.data),
+    onSuccess: (response) =>
+      queryCache.setQueryData(serviceUrl.workflowAvailableParameters({ workflowId }), response.data),
   });
 
   // Only show loading for the summary and task templates
@@ -113,9 +115,9 @@ interface EditorStateContainerProps {
     variables: { body: any },
     options?: MutateOptions<AxiosResponse<any>, { body: any }, Error> | undefined
   ) => Promise<any>;
-  parametersMutation:(
-    variables: { workflowId: any; body: any; }, 
-    options?: MutateOptions<AxiosResponse<any>, { workflowId: any; body: any; }, Error, unknown> | undefined 
+  parametersMutation: (
+    variables: { workflowId: any; body: any },
+    options?: MutateOptions<AxiosResponse<any>, { workflowId: any; body: any }, Error, unknown> | undefined
   ) => Promise<any>;
   revisionMutation: MutationResult<AxiosResponse<any>, Error>;
   revisionQuery: QueryResult<WorkflowRevision, Error>;
@@ -154,7 +156,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     initRevisionReducerState(revisionQuery.data)
   );
 
-  const [revisionConfig, setRevisionConfig] = useState<WorkflowRevision>({...revisionState});
+  const [revisionConfig, setRevisionConfig] = useState<WorkflowRevision>({ ...revisionState });
   // Reset the reducer state if there is new data
   useEffect(() => {
     if (revisionQuery.data) {
@@ -167,7 +169,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   //Triggers the POST request for refresh availableParameters
   useEffect(() => {
-    if(JSON.stringify(revisionConfig) !== JSON.stringify(revisionState)) {
+    if (JSON.stringify(revisionConfig) !== JSON.stringify(revisionState)) {
       const normilzedConfig = Object.values(revisionState.config).map((config: any) => ({
         ...config,
         currentVersion: undefined,
@@ -180,7 +182,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         dag: revisionState.dag,
       };
       setRevisionConfig(revisionState);
-      parametersMutation({workflowId, body: revision})
+      parametersMutation({ workflowId, body: revision });
     }
   }, [parametersMutation, workflowId, revisionState, revisionConfig]);
 
@@ -444,6 +446,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             </Route>
             <Route path={AppPath.EditorProperties}>
               <Properties summaryData={summaryData} />
+            </Route>
+            <Route path={AppPath.EditorSchedule}>
+              <Schedule summaryData={summaryData} />
             </Route>
             <Route path={AppPath.EditorChangelog}>
               <ChangeLog summaryData={summaryData} />

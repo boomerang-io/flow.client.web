@@ -1,0 +1,101 @@
+@import "Styles/animation";
+
+.main {
+  --fc-button-bg-color: var(--cds-interactive-01);
+  --fc-button-border-color: var(--cds-interactive-01);
+  --fc-button-hover-bg-color: var(--cds-hover-primary);
+  --fc-button-hover-border-color: var(--cds-hover-primary);
+  --fc-button-active-bg-color: var(--cds-active-primary);
+  --fc-today-bg-color: var(--cds-ui-03);
+  height: calc(100vh - 12.125rem);
+  position: relative;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+}
+
+.listContainer {
+  background: var(--cds-layer);
+  width: 28rem;
+  padding: 2rem 1rem;
+
+  h2 {
+    font-size: 1.25rem;
+  }
+}
+
+.calendarContainer {
+  flex-grow: 1;
+  padding: 2rem;
+  z-index: 0;
+}
+
+.editorContainer {
+  background-color: var(--cds-ui-background);
+  margin-top: 12.125rem;
+  border: none;
+  height: calc(100vh - 12.125rem);
+  transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
+  :global .slide-pane__content {
+    padding: 0;
+  }
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.listItem {
+  background: var(--cds-ui-background);
+  height: 8rem;
+  margin: 1rem 0rem;
+  padding: 1rem;
+  position: relative;
+
+  h3 {
+    font-weight: bold;
+  }
+}
+
+:global .fc {
+  /* the calendar root */
+  margin: 0 auto;
+  tr {
+    background: white;
+  }
+}
+
+:global .bx--date-picker--range {
+  :global .bx--date-picker__input {
+    width: 13rem;
+    background: var(--cds-ui-02);
+  }
+}
+
+.eventContentContainer {
+  display: flex;
+  position: relative;
+}
+
+.detailsSection {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  section {
+    margin: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px var(--cds-ui-04) solid;
+  }
+
+  footer {
+    margin-top: auto;
+    width: 100%;
+    button {
+      border-radius: 0;
+      width: 50% !important;
+    }
+  }
+}
