@@ -15,8 +15,6 @@ import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  FeatureNavTab as Tab,
-  FeatureNavTabs as Tabs,
   Loading,
   MultiSelect as Select,
   SkeletonPlaceholder,
@@ -26,20 +24,18 @@ import HeaderWidget from "Components/HeaderWidget";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
 import { allowedUserRoles, ActionType, WorkflowScope } from "Constants";
-import { approvalStatusOptions } from "Constants/filterOptions";
 import { ArrowUpRight32 } from "@carbon/icons-react";
 import styles from "./Schedule.module.scss";
 
 const MultiSelect = Select.Filterable;
-const DEFAULT_ORDER = "DESC";
-const DEFAULT_PAGE = 0;
-const DEFAULT_SIZE = 10;
-const DEFAULT_SORT = "creationDate";
+const DEFAULT_START_DATE = 0;
+const DEFAULT_END_DATE = "creationDate";
 
 export const scheduleStatusOptions = [
   { label: "Active", value: "active" },
+  { label: "Deleted", value: "deleted" },
   { label: "Inactive", value: "inactive" },
-  { label: "Disbled", value: "disabled" },
+  { label: "Workflow Disabled", value: "trigger_disabled" },
 ];
 
 const summaryQuery = queryString.stringify({
@@ -129,9 +125,6 @@ function Actions() {
     queryKey: actionsFilterSummaryUrl,
     queryFn: resolver.query(actionsFilterSummaryUrl),
   });
-
-  const approvalsNumber = actionsFilterSummaryData ? actionsFilterSummaryData.approvals : 0;
-  const manualTasksNumber = actionsFilterSummaryData ? actionsFilterSummaryData.manual : 0;
 
   const actionsUrl = serviceUrl.getActions({ query: actionsUrlQuery });
 
@@ -325,7 +318,7 @@ function Actions() {
           header={
             <>
               <HeaderTitle className={styles.headerTitle}>Schedule</HeaderTitle>
-              <HeaderSubtitle>View and manage your workflow schedules.</HeaderSubtitle>
+              <HeaderSubtitle>View your workflow schedules.</HeaderSubtitle>
             </>
           }
           actions={
@@ -351,26 +344,6 @@ function Actions() {
                 </>
               )}
             </section>
-          }
-          footer={
-            <Tabs>
-              <Tab
-                exact
-                label={`Approvals (${approvalsNumber})`}
-                to={{
-                  pathname: appLink.actionsApprovals(),
-                  search: location.search,
-                }}
-              />
-              <Tab
-                exact
-                label={`Manual (${manualTasksNumber})`}
-                to={{
-                  pathname: appLink.actionsManual(),
-                  search: location.search,
-                }}
-              />
-            </Tabs>
           }
         />
         {actionsQuery.isError ? (
@@ -436,9 +409,9 @@ function Actions() {
                     placeholder="Choose status(es)"
                     invalid={false}
                     onChange={handleSelectStatuses}
-                    items={approvalStatusOptions}
+                    items={scheduleStatusOptions}
                     itemToString={(item) => (item ? item.label : "")}
-                    initialSelectedItems={approvalStatusOptions.filter((option) =>
+                    initialSelectedItems={scheduleStatusOptions.filter((option) =>
                       Boolean(selectedStatuses.find((status) => status === option.value))
                     )}
                     titleText="Filter by status"
