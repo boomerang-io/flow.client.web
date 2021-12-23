@@ -49,9 +49,10 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   revisionQuery,
   summaryData,
 }) => {
+  const routeMatch: { params: { workflowId: string } } = useRouteMatch();
   const {
     params: { workflowId },
-  } = useRouteMatch();
+  } = routeMatch;
   const { revisionCount, name, scope } = summaryData;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;

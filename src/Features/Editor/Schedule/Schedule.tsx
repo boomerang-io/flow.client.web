@@ -1,25 +1,11 @@
 import React from "react";
-import {
-  Button,
-  CheckboxList,
-  ComboBox,
-  DatePicker,
-  DatePickerInput,
-  InlineLoading,
-  OverflowMenu,
-  OverflowMenuItem,
-  TextInput,
-  Tile,
-  Toggle,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, OverflowMenu, OverflowMenuItem, Tile } from "@boomerang-io/carbon-addons-boomerang-react";
 import CronJobConfig from "./CronJobConfig";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import SlidingPane from "react-sliding-pane";
-import moment from "moment";
-import queryString from "query-string";
 import { WorkflowSummary } from "Types";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import styles from "./Schedule.module.scss";
@@ -28,20 +14,52 @@ interface ScheduleProps {
   summaryData: WorkflowSummary;
 }
 
-interface Event {
+interface ScheduledEvent {
   id: string;
-  title: string;
-  start: string;
+  name: string;
+  description?: string;
+  labels?: { [k: string]: string };
+  parameters?: { [k: string]: string };
+  status: "active" | "inactive" | "deleted";
+  type: "runOnce" | "cron" | "advancedCron";
 }
 
-const events = [
-  { id: "2", title: "Trigger", start: "2021-12-07T12:00:00" },
-  { id: "1", title: "Daily event", start: "2021-12-08T15:00:00" },
+interface ScheduledDateEvent extends ScheduledEvent {
+  dateSchedule: string;
+}
+
+interface ScheduledCronEvent extends ScheduledEvent {
+  cronSchedule: string;
+}
+
+type ScheduledEventUnion = ScheduledDateEvent | ScheduledCronEvent;
+
+const events: Array<ScheduledEventUnion> = [
+  {
+    dateSchedule: "2021-12-07T12:00:00",
+    description: "This triggers things",
+    id: "2",
+    labels: { maintenance: "hello", daily: "yes" },
+    name: "Trigger",
+    parameters: { name: "Tyson", word: "this" },
+    status: "active",
+    type: "runOnce",
+  },
+  {
+    cronSchedule: "2021-12-08T15:00:00",
+    description: "This does stuff daily",
+    id: "1",
+    labels: { maintenance: "hello", daily: "yes" },
+    name: "Daily event",
+    parameters: { name: "Tyson", word: "this" },
+    status: "active",
+    type: "cron",
+  },
 ];
 
 export default function Schedule(props: ScheduleProps) {
   const [isEditorOpen, setIsEditorOpen] = React.useState(false);
-  const [activeEvent, setActiveEvent] = React.useState<Event | null>(null);
+  const [activeEvent, setActiveEvent] = React.useState<ScheduledEventUnion | null>(null);
   const [isCreatorOpen, setIsCreatorOpen] = React.useState(false);
   const [activeDate, setActiveDate] = React.useState(null);
 
@@ -51,34 +69,24 @@ export default function Schedule(props: ScheduleProps) {
         <div className={styles.container}>
           <section className={styles.listContainer}>
             <h2>{`Existing Schedules (${events.length})`}</h2>
-            <div>
-              <DatePicker
-                id="schedule-date-picker"
-                dateFormat="m/d/Y"
-                datePickerType="range"
-                style={{ marginTop: "1rem" }}
-              >
-                <DatePickerInput
-                  autoComplete="off"
-                  id="schedule-date-picker-start"
-                  labelText="Start date"
-                  placeholder="mm/dd/yyyy"
-                />
-                <DatePickerInput
-                  autoComplete="off"
-                  id="schedule-date-picker-end"
-                  labelText="End date"
-                  placeholder="mm/dd/yyyy"
-                />
-              </DatePicker>
-            </div>
             <ul>
               {events.map((event) => {
+                const labelMap = new Map<string, string>(Object.entries(event?.labels ?? {}));
+                const labels = [];
+                for (const [key, value] of labelMap) {
+                  labels.push(
+                    <>
+                      <dt>{key}</dt>
+                      <dd>{value}</dd>
+                    </>
+                  );
+                }
                 return (
                   <li>
                     <Tile className={styles.listItem}>
-                      <h3>{event.title}</h3>
-                      <p>{event.start}</p>
+                      <h3>{event.name}</h3>
+                      <dl>{labels}</dl>
+                      <p>{event?.description ?? "---"}</p>
                       <OverflowMenu
                         flipped
                         ariaLabel="Schedule card menu"
@@ -127,10 +135,14 @@ export default function Schedule(props: ScheduleProps) {
             <section>
               <h2>Details</h2>
               <dl>
-                <dt>Title:</dt>
-                <dd>{activeEvent?.title}</dd>
-                <dt>Time:</dt>
-                <dd>{activeEvent?.start.toString()}</dd>
+                <div>
+                  <dt style={{ display: "inline-block" }}>Title:</dt>
+                  <dd style={{ display: "inline-block" }}>{activeEvent?.name}</dd>
+                </div>
+                <div>
+                  <dt style={{ display: "inline-block" }}>Time:</dt>
+                  {/* <dd style={{ display: "inline-block" }}>{moment(activeEvent.).format("YYYY-MM-DD hh:mm A")}</dd> */}
+                </div>
               </dl>
             </section>
             <hr />

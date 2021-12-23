@@ -1,3 +1,18 @@
+declare global {
+  interface Window {
+    _SERVER_DATA: {
+      APP_ROOT: string;
+      CORE_ENV_URL: string;
+      CORE_SERVICE_ENV_URL: string;
+      EMBEDDED_MODE: string;
+      PRODUCT_ENV_URL: string;
+      PRODUCT_SERVICE_ENV_URL: string;
+      PRODUCT_STANDALONE: string;
+      [key: string]: string;
+    };
+  }
+}
+
 export enum PlatformRole {
   Admin = "admin",
   User = "user",
@@ -488,11 +503,24 @@ export interface UserWorkflow {
   workflows: WorkflowSummary[];
 }
 
+export interface FlowNavigationItemChild {
+  activeClassName?: string;
+  element?: React.ReactNode;
+  onClick?: (e: React.SyntheticEvent) => any;
+  href?: string;
+  large: boolean;
+  link: string;
+  name: string;
+  renderIcon: SVGElement;
+  to?: string;
+}
+
 export interface FlowNavigationItem {
   icon: string;
   name: string;
   link: string;
   type: string;
+  childLinks: [FlowNavigationItemChild];
 }
 
 export type PlatformFeatureKey =

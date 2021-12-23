@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React from "react";
 import { Helmet } from "react-helmet";
 import { NavLink } from "react-router-dom";
@@ -12,7 +11,7 @@ import {
   UIShell,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { APP_ROOT } from "Config/appConfig";
-import { FlowNavigationItem, FlowUser, PlatformConfig } from "Types";
+import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, PlatformConfig } from "Types";
 import { navigationIcons } from "Utils/navigationIcons";
 import { FlowData16 } from "@carbon/icons-react";
 
@@ -42,8 +41,8 @@ const handleOnMenuClick = (flowNavigationData: FlowNavigationItem[]) => ({
           if (item?.childLinks) {
             return (
               <SideNavMenu large title={item.name} renderIcon={itemIcon.Icon}>
-                {item.childLinks.map((childItem: any) => {
-                  let props = {
+                {item.childLinks.map((childItem) => {
+                  let props: Omit<FlowNavigationItemChild, "link" | "name"> = {
                     large: true,
                     renderIcon: itemIcon.Icon,
                   };
@@ -58,7 +57,7 @@ const handleOnMenuClick = (flowNavigationData: FlowNavigationItem[]) => ({
               </SideNavMenu>
             );
           } else {
-            let props = {
+            let props: Omit<FlowNavigationItemChild, "link" | "name"> = {
               large: true,
               renderIcon: itemIcon.Icon,
             };

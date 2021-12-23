@@ -27,7 +27,51 @@ export const BASE_DOCUMENTATION_URL = PRODUCT_STANDALONE
 export const isDevEnv = process.env.NODE_ENV === "development";
 export const isTestEnv = process.env.NODE_ENV === "test";
 
-export const AppPath = {
+type AppPathKey =
+  | "Root"
+  | "Error"
+  | "Activity"
+  | "Actions"
+  | "ActionsApprovals"
+  | "ActionsManual"
+  | "Editor"
+  | "EditorDesigner"
+  | "EditorConfigure"
+  | "EditorChangelog"
+  | "EditorProperties"
+  | "EditorSchedule"
+  | "Execution"
+  | "Insights"
+  | "ManageTaskTemplates"
+  | "ManageTaskTemplatesTeam"
+  | "ManageTaskTemplateEdit"
+  | "ManageTaskTemplateYaml"
+  | "Properties"
+  | "Quotas"
+  | "QuotasEdit"
+  | "Schedule"
+  | "Settings"
+  | "SystemWorkflows"
+  | "SystemManagementWorkflows"
+  | "TemplatesWorkflows"
+  | "TaskTemplates"
+  | "TaskTemplateEdit"
+  | "TaskTemplateYaml"
+  | "Team"
+  | "TeamSettings"
+  | "TeamWorkflows"
+  | "TeamList"
+  | "TeamApprovers"
+  | "TeamProperties"
+  | "TeamTokens"
+  | "Tokens"
+  | "User"
+  | "UserList"
+  | "Workflows"
+  | "WorkflowsMine"
+  | "WorkflowsTeams";
+
+export const AppPath: Record<AppPathKey, string> = {
   Root: "/",
   Error: "/error",
   Activity: "/activity",
@@ -42,9 +86,14 @@ export const AppPath = {
   EditorSchedule: `/editor/:workflowId/schedule`,
   Execution: "/activity/:workflowId/execution/:executionId",
   Insights: "/insights",
+  ManageTaskTemplates: `/manage/task-templates`,
+  ManageTaskTemplatesTeam: `/manage/task-templates/team/:teamId`,
+  ManageTaskTemplateEdit: `/manage/task-templates/team/:teamId/:taskId/:version`,
+  ManageTaskTemplateYaml: `/manage/task-templates/team/:teamId/:taskId/:version/yaml-editor`,
   Properties: "/admin/parameters",
   Quotas: "/admin/quotas",
   QuotasEdit: "/admin/quotas/:teamId",
+  Schedule: "/schedule",
   Settings: "/admin/settings",
   SystemWorkflows: "/admin/system-workflows",
   SystemManagementWorkflows: "/admin/system-workflows/system",
@@ -62,18 +111,12 @@ export const AppPath = {
   Tokens: "/admin/tokens",
   User: "/admin/users/:userId",
   UserList: "/admin/users",
-
   Workflows: "/workflows",
   WorkflowsMine: "/workflows/mine",
   WorkflowsTeams: "/workflows/teams",
-
-  ManageTaskTemplates: `/manage/task-templates`,
-  ManageTaskTemplatesTeam: `/manage/task-templates/team/:teamId`,
-  ManageTaskTemplateEdit: `/manage/task-templates/team/:teamId/:taskId/:version`,
-  ManageTaskTemplateYaml: `/manage/task-templates/team/:teamId/:taskId/:version/yaml-editor`,
 };
 
-export const appLink = {
+export const appLink: Record<string, (args?: any) => string> = {
   activity: () => `/activity`,
   actions: () => `/actions`,
   actionsApprovals: () => `/actions/approvals`,
@@ -85,10 +128,15 @@ export const appLink = {
   editorSchedule: ({ workflowId }) => `/editor/${workflowId}/schedule`,
   execution: ({ executionId, workflowId }) => `/activity/${workflowId}/execution/${executionId}`,
   insights: () => "/insights",
-  properties: () => "/admin/parameters",
+  manageTaskTemplates: ({ teamId }) => `/manage/task-templates/team/${teamId}`,
+  manageTaskTemplateEdit: ({ teamId, taskId, version }) => `/manage/task-templates/team/${teamId}/${taskId}/${version}`,
+  manageTaskTemplateYaml: ({ teamId, taskId, version }) =>
+    `/manage/task-templates/team/${teamId}/${taskId}/${version}/yaml-editor`,
   manageUsers: () => "/admin/users",
+  properties: () => "/admin/parameters",
   quotas: () => "/admin/quotas",
   quotasEdit: ({ teamId }) => `/admin/quotas/${teamId}`,
+  schedule: () => "/schedule",
   settings: () => "/admin/settings",
   systemWorkflows: () => "/admin/system-workflows",
   systemManagementWorkflows: () => "/admin/system-workflows/system",
@@ -110,19 +158,13 @@ export const appLink = {
   workflowsMine: () => "/workflows/mine",
   workflowsTeams: () => "/workflows/teams",
   workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
-
-  manageTaskTemplates: ({ teamId }) => `/manage/task-templates/team/${teamId}`,
-  manageTaskTemplateEdit: ({ teamId, taskId, version }) => `/manage/task-templates/team/${teamId}/${taskId}/${version}`,
-  manageTaskTemplateYaml: ({ teamId, taskId, version }) =>
-    `/manage/task-templates/team/${teamId}/${taskId}/${version}/yaml-editor`,
-
   //external apps
   docsWorkflowEditor: () => `${BASE_DOCUMENTATION_URL}/how-to-guide/workflow-editor`,
 };
 
 export const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true };
 
-export const FeatureFlag = {
+export const FeatureFlag: Record<string, string> = {
   /**
    * new Feature Flags
    */

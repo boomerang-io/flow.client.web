@@ -87,7 +87,7 @@ interface ConfigureContainerProps {
   quotas: {
     maxActivityStorageSize: string;
     maxWorkflowStorageSize: string;
-  }
+  };
   summaryData: WorkflowSummary;
   summaryMutation: { status: string };
   teams: Array<{ id: string }>;
@@ -105,7 +105,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
 }) {
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
   const handleOnSubmit = (values: { selectedTeam: { id: null | string } }) => {
-      updateSummary({
+    updateSummary({
       values,
       callback: () => history.push(appLink.editorConfigure({ workflowId: params.workflowId })),
     });
@@ -168,12 +168,12 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           description: Yup.string().max(250, "Description must not be greater than 250 characters"),
           enableACCIntegration: Yup.boolean(),
           storage: Yup.object().shape({
-            activity: Yup.object().shape({ 
+            activity: Yup.object().shape({
               enabled: Yup.boolean().nullable(),
               size: Yup.number().required("Enter the storage size"),
               mountPath: Yup.string().nullable(),
             }),
-            workflow: Yup.object().shape({ 
+            workflow: Yup.object().shape({
               enabled: Yup.boolean().nullable(),
               size: Yup.number().required("Enter the storage size"),
               mountPath: Yup.string().nullable(),
@@ -546,7 +546,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             </div>
             <hr className={styles.delimiter} />
             <h1 className={styles.header}>Tokens</h1>
-            <p className={styles.subTitle}>Customize how you run your workflow</p>
+            <p className={styles.subTitle}>Customize how you run your Workflow</p>
             <div>
               <div className={styles.triggerSection}>
                 {values.tokens.map((token) => (
@@ -569,7 +569,10 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
         <section className={styles.smallCol}>
           <div className={styles.optionsContainer}>
             <h1 className={styles.header}>Workspaces</h1>
-            <p className={styles.subTitle}>Workspaces allow your workflow to declare storage options to be used at execution time. This will be limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum.</p>
+            <p className={styles.subTitle}>
+              Workspaces allow your workflow to declare storage options to be used at execution time. This will be
+              limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum.
+            </p>
             <div className={styles.storageToggle}>
               <div className={styles.toggleContainer}>
                 <Toggle
@@ -590,20 +593,29 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                       subtitle: (
                         <>
                           <p>
-                            The Workflow storage is persisted across workflow executions and allows you to share artifacts between workflows, such as maintaining a cache of files used every execution.
+                            The Workflow storage is persisted across workflow executions and allows you to share
+                            artifacts between workflows, such as maintaining a cache of files used every execution.
                           </p>
                           <p style={{ marginTop: "0.5rem" }}>
-                            Note: use with caution as this can lead to a collision if you are running many executions in parallel using the same artifact.
+                            Note: use with caution as this can lead to a collision if you are running many executions in
+                            parallel using the same artifact.
                           </p>
                         </>
                       ),
                     }}
-                    composedModalProps={{
-                      // containerClassName: styles.buildWebhookContainer,
-                      // shouldCloseOnOverlayClick: true,
-                    }}
+                    composedModalProps={
+                      {
+                        // containerClassName: styles.buildWebhookContainer,
+                        // shouldCloseOnOverlayClick: true,
+                      }
+                    }
                     modalTrigger={({ openModal }: { openModal: () => void }) => (
-                      <button className={styles.regenerateText} style={{marginBottom: "0.5rem"}} type="button" onClick={openModal}>
+                      <button
+                        className={styles.regenerateText}
+                        style={{ marginBottom: "0.5rem" }}
+                        type="button"
+                        onClick={openModal}
+                      >
                         <p>Configure</p>
                       </button>
                     )}
@@ -640,21 +652,25 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   <ComposedModal
                     modalHeaderProps={{
                       title: "Configure Workflow - Activity Persistent Storage",
-                      subtitle:(
+                      subtitle: (
                         <>
                           <p>
-                            The activity storage is persisted per workflow execution and allows you to share short-lived artifacts between tasks in the workflow.
+                            The activity storage is persisted per workflow execution and allows you to share short-lived
+                            artifacts between tasks in the workflow.
                           </p>
                           <p style={{ marginTop: "0.5rem" }}>
-                            Note: All artifacts will be deleted at the end of the workflow execution. If you want to persist long term use Workspace storage.
+                            Note: All artifacts will be deleted at the end of the workflow execution. If you want to
+                            persist long term use Workspace storage.
                           </p>
                         </>
                       ),
                     }}
-                    composedModalProps={{
-                      // containerClassName: styles.buildWebhookContainer,
-                      // shouldCloseOnOverlayClick: true,
-                    }}
+                    composedModalProps={
+                      {
+                        // containerClassName: styles.buildWebhookContainer,
+                        // shouldCloseOnOverlayClick: true,
+                      }
+                    }
                     modalTrigger={({ openModal }: { openModal: () => void }) => (
                       <button className={styles.regenerateText} type="button" onClick={openModal}>
                         <p>Configure</p>

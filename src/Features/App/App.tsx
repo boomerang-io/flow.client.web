@@ -4,7 +4,13 @@ import { FlagsProvider, useFeature } from "flagged";
 import { AppContextProvider } from "State/context";
 import { useQuery } from "react-query";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
-import { Error404, Loading, NotificationsContainer, ProtectedRoute } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  DelayedRender,
+  Error404,
+  Loading,
+  NotificationsContainer,
+  ProtectedRoute,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorBoundary from "Components/ErrorBoundary";
 import ErrorDragon from "Components/ErrorDragon";
 import OnBoardExpContainer from "Features/Tutorial";
@@ -28,6 +34,7 @@ const GlobalProperties = lazy(() => import(/* webpackChunkName: "GlobalPropertie
 const Tokens = lazy(() => import(/* webpackChunkName: "Tokens" */ "Features/Tokens"));
 const Insights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
 const Quotas = lazy(() => import(/* webpackChunkName: "Quotas" */ "Features/Quotas"));
+const Schedule = lazy(() => import(/* webpackChunkName: "Schedule" */ "Features/Schedule"));
 const Settings = lazy(() => import(/* webpackChunkName: "Settings" */ "Features/Settings"));
 const SystemWorkflows = lazy(() => import(/* webpackChunkName: "SystemWorkflows" */ "Features/SystemWorkflows"));
 const TaskTemplates = lazy(() => import(/* webpackChunkName: "TaskTemplates" */ "Features/TaskTemplates"));
@@ -133,7 +140,11 @@ export default function App() {
   };
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <DelayedRender>
+        <Loading />
+      </DelayedRender>
+    );
   }
 
   if (hasError) {
@@ -142,7 +153,7 @@ export default function App() {
 
   if (showActivatePlatform) {
     return (
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={() => <DelayedRender>{null}</DelayedRender>}>
         <div className={styles.appActivationContainer}>
           <AppActivation setActivationCode={handleSetActivationCode} />
         </div>
@@ -253,125 +264,115 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
 
   return (
     <main id="content" className={styles.container}>
-      <Suspense fallback={<Loading />}>
+      <Suspense
+        fallback={() => (
+          <DelayedRender>
+            <Loading />
+          </DelayedRender>
+        )}
+      >
         <Switch>
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<GlobalProperties />}
-            path={AppPath.Properties}
-            userRole={platformRole}
-          />
-
-          <ProtectedRoute
-            allowedUserRoles={[true]}
-            component={<TeamProperties />}
-            path={AppPath.TeamProperties}
-            userRole={teamPropertiesEnabled}
-          />
-
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<TaskTemplates />}
-            path={AppPath.TaskTemplates}
-            userRole={platformRole}
-          />
-
-          <ProtectedRoute
-            allowedUserRoles={[true]}
-            component={<ManageTeamTasks />}
-            path={AppPath.ManageTaskTemplatesTeam}
-            userRole={teamTasksEnabled}
-          />
-
-          <ProtectedRoute
-            allowedUserRoles={[true]}
-            component={<ManageTeamTasksContainer />}
-            path={AppPath.ManageTaskTemplates}
-            userRole={teamTasksEnabled}
-          />
-
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<Quotas />}
-            path={AppPath.Quotas}
-            userRole={platformRole}
-          />
-
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<Settings />}
-            path={AppPath.Settings}
-            userRole={platformRole}
-          />
-
-          <Route path={AppPath.TeamList}>
-            <Teams />
-          </Route>
-
-          <Route path={AppPath.UserList}>
-            <Users />
-          </Route>
-
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<SystemWorkflows />}
-            path={AppPath.SystemWorkflows}
-            userRole={platformRole}
-          />
-
-          <ProtectedRoute
-            allowedUserRoles={[true]}
-            component={<Execution />}
-            path={AppPath.Execution}
-            userRole={activityEnabled}
-          />
-
           <ProtectedRoute
             allowedUserRoles={[true]}
             component={<Activity />}
             path={AppPath.Activity}
             userRole={activityEnabled}
           />
-
-          <Route path={AppPath.Actions}>
-            <Actions />
-          </Route>
-
-          <Route path={AppPath.TeamApprovers}>
-            <ApproverGroups />
-          </Route>
-
-          <Route path={AppPath.Editor}>
-            <Editor />
-          </Route>
-
+          <ProtectedRoute
+            allowedUserRoles={[true]}
+            component={<Execution />}
+            path={AppPath.Execution}
+            userRole={activityEnabled}
+          />
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<GlobalProperties />}
+            path={AppPath.Properties}
+            userRole={platformRole}
+          />
           <ProtectedRoute
             allowedUserRoles={[true]}
             component={<Insights />}
             path={AppPath.Insights}
             userRole={insightsEnabled}
           />
-
-          <Route path={AppPath.Workflows}>
-            <Workflows />
-          </Route>
-
+          <ProtectedRoute
+            allowedUserRoles={[true]}
+            component={<ManageTeamTasks />}
+            path={AppPath.ManageTaskTemplatesTeam}
+            userRole={teamTasksEnabled}
+          />
+          <ProtectedRoute
+            allowedUserRoles={[true]}
+            component={<ManageTeamTasksContainer />}
+            path={AppPath.ManageTaskTemplates}
+            userRole={teamTasksEnabled}
+          />
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
-            component={<Tokens />}
-            path={AppPath.Tokens}
+            component={<Quotas />}
+            path={AppPath.Quotas}
             userRole={platformRole}
           />
-
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<Settings />}
+            path={AppPath.Settings}
+            userRole={platformRole}
+          />
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<SystemWorkflows />}
+            path={AppPath.SystemWorkflows}
+            userRole={platformRole}
+          />
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<TaskTemplates />}
+            path={AppPath.TaskTemplates}
+            userRole={platformRole}
+          />
+          <ProtectedRoute
+            allowedUserRoles={[true]}
+            component={<TeamProperties />}
+            path={AppPath.TeamProperties}
+            userRole={teamPropertiesEnabled}
+          />
           {/* {<ProtectedRoute
             allowedUserRoles={[true]}
             component={<TeamTokens />}
             path={AppPath.TeamTokens}
             userRole={teamTokensEnabled}
           />} */}
-
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<Tokens />}
+            path={AppPath.Tokens}
+            userRole={platformRole}
+          />
+          <Route path={AppPath.Actions}>
+            <Actions />
+          </Route>
+          <Route path={AppPath.Editor}>
+            <Editor />
+          </Route>
+          <Route path={AppPath.Schedule}>
+            <Schedule />
+          </Route>
+          <Route path={AppPath.TeamList}>
+            <Teams />
+          </Route>
+          <Route path={AppPath.TeamApprovers}>
+            <ApproverGroups />
+          </Route>
           <Route path={AppPath.TeamTokens}>
             <TeamTokens />
+          </Route>
+          <Route path={AppPath.UserList}>
+            <Users />
+          </Route>
+          <Route path={AppPath.Workflows}>
+            <Workflows />
           </Route>
           <Redirect exact from="/" to={AppPath.Workflows} />
           <Route path="*" component={() => <Error404 theme="boomerang" />} />

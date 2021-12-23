@@ -361,7 +361,12 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
           style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
         />
       ) : (
-        <OverflowMenu flipped ariaLabel="Overflow card menu" iconDescription="Overflow menu icon">
+        <OverflowMenu
+          flipped
+          ariaLabel="Overflow card menu"
+          iconDescription="Overflow menu icon"
+          style={{ position: "absolute", right: "0" }}
+        >
           {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
             <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
           ))}

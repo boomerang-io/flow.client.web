@@ -20,17 +20,20 @@ export const timeframeOptions = [
   // { label: "6 months", value: sixMonthsAgoInDays },
   // { label: "1 year", value: yearAgoInDays }
 ];
+
 export const executionOptions = [
   { label: "cron", value: "cron" },
   { label: "manual", value: "manual" },
   { label: "webhook", value: "webhook" },
 ];
+
 export const statusOptions = [
   { label: "Succeeded", value: "completed" },
   { label: "Failed", value: "failure" },
   { label: "Invalid", value: "invalid" },
   { label: "In Progress", value: "inProgress" },
 ];
+
 export const approvalStatusOptions = [
   { label: "Approved", value: "approved" },
   { label: "Rejected", value: "rejected" },
