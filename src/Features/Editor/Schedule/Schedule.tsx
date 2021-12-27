@@ -1,11 +1,13 @@
 import React from "react";
-import { Button, OverflowMenu, OverflowMenuItem, Tile } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, OverflowMenu, OverflowMenuItem, Search, Tile } from "@boomerang-io/carbon-addons-boomerang-react";
+import { useQuery } from "react-query";
 import CronJobConfig from "./CronJobConfig";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
+import Calendar from "Components/Calendar";
+import moment from "moment";
 import SlidingPane from "react-sliding-pane";
+import queryString, { StringifyOptions } from "query-string";
+import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import { WorkflowSummary } from "Types";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import styles from "./Schedule.module.scss";
@@ -57,11 +59,27 @@ const events: Array<ScheduledEventUnion> = [
   },
 ];
 
+const fromDate = moment().startOf("isoWeek");
+const toDate = moment().endOf("isoWeek");
+
 export default function Schedule(props: ScheduleProps) {
   const [isEditorOpen, setIsEditorOpen] = React.useState(false);
   const [activeEvent, setActiveEvent] = React.useState<ScheduledEventUnion | null>(null);
   const [isCreatorOpen, setIsCreatorOpen] = React.useState(false);
-  const [activeDate, setActiveDate] = React.useState(null);
+
+  const actionsUrlQuery = queryString.stringify(
+    {
+      fromDate,
+      toDate,
+    },
+    queryStringOptions
+  );
+  const actionsUrl = serviceUrl.getActions({ query: actionsUrlQuery });
+
+  const scheduleEventQuery = useQuery({
+    queryKey: actionsUrl,
+    queryFn: resolver.query(actionsUrl),
+  });
 
   return (
     <>
@@ -69,6 +87,7 @@ export default function Schedule(props: ScheduleProps) {
         <div className={styles.container}>
           <section className={styles.listContainer}>
             <h2>{`Existing Schedules (${events.length})`}</h2>
+            <Search light id="Search" placeHolderText="Search schedules" />
             <ul>
               {events.map((event) => {
                 const labelMap = new Map<string, string>(Object.entries(event?.labels ?? {}));
@@ -105,10 +124,7 @@ export default function Schedule(props: ScheduleProps) {
             </ul>
           </section>
           <section className={styles.calendarContainer}>
-            <FullCalendar
-              aspectRatio={2}
-              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-              initialView="dayGridMonth"
+            <Calendar
               eventClick={(data: any) => {
                 setIsEditorOpen(true);
                 setActiveEvent(data.event);
@@ -116,11 +132,6 @@ export default function Schedule(props: ScheduleProps) {
               dateClick={() => setIsCreatorOpen(true)}
               //eventContent={renderEventContent}
               events={events}
-              headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay",
-              }}
             />
           </section>
         </div>

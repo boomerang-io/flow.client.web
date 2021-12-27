@@ -2,6 +2,7 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { Switch, Route, Redirect, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import Calendar from "Components/Calendar";
 import moment from "moment";
 import queryString from "query-string";
 import { Helmet } from "react-helmet";
@@ -19,7 +20,6 @@ import {
   MultiSelect as Select,
   SkeletonPlaceholder,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import ActionsTable from "./ActionsTable";
 import HeaderWidget from "Components/HeaderWidget";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
@@ -351,109 +351,104 @@ function Actions() {
             <ErrorMessage />
           </section>
         ) : (
-          <section aria-label="Actions" className={styles.content}>
-            <div className={styles.filtersContainer}>
-              <div className={styles.dataFilters}>
-                <div className={styles.dataFilter}>
-                  <MultiSelect
-                    id="actions-scopes-select"
-                    label="Choose scope(s)"
-                    placeholder="Choose scope(s)"
-                    invalid={false}
-                    onChange={handleSelectScopes}
-                    items={workflowScopeOptions}
-                    itemToString={(scope) => (scope ? scope.label : "")}
-                    initialSelectedItems={workflowScopeOptions.filter((option) =>
-                      Boolean(selectedScopes.find((scope) => scope === option.value))
-                    )}
-                    titleText="Filter by scope"
-                  />
-                </div>
-                {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
+          <div className={styles.content}>
+            <section aria-label="Actions">
+              <div className={styles.filtersContainer}>
+                <div className={styles.dataFilters}>
                   <div className={styles.dataFilter}>
                     <MultiSelect
-                      id="actions-teams-select"
-                      label="Choose team(s)"
-                      placeholder="Choose team(s)"
+                      id="actions-scopes-select"
+                      label="Choose scope(s)"
+                      placeholder="Choose scope(s)"
                       invalid={false}
-                      onChange={handleSelectTeams}
-                      items={teamsData}
-                      itemToString={(team) => (team ? team.name : "")}
-                      initialSelectedItems={selectedTeams}
-                      titleText="Filter by team"
+                      onChange={handleSelectScopes}
+                      items={workflowScopeOptions}
+                      itemToString={(scope) => (scope ? scope.label : "")}
+                      initialSelectedItems={workflowScopeOptions.filter((option) =>
+                        Boolean(selectedScopes.find((scope) => scope === option.value))
+                      )}
+                      titleText="Filter by scope"
                     />
                   </div>
-                )}
-                <div className={styles.dataFilter}>
-                  <MultiSelect
-                    id="actions-workflows-select"
-                    label="Choose workflow(s)"
-                    placeholder="Choose workflow(s)"
-                    invalid={false}
-                    onChange={handleSelectWorkflows}
-                    items={workflowsFilter}
-                    itemToString={(workflow) => {
-                      const team = workflow ? teamsData.find((team) => team.id === workflow.flowTeamId) : undefined;
-                      return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
-                    }}
-                    initialSelectedItems={workflowsFilter.filter((workflow) =>
-                      Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
-                    )}
-                    titleText="Filter by workflow"
-                  />
+                  {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
+                    <div className={styles.dataFilter}>
+                      <MultiSelect
+                        id="actions-teams-select"
+                        label="Choose team(s)"
+                        placeholder="Choose team(s)"
+                        invalid={false}
+                        onChange={handleSelectTeams}
+                        items={teamsData}
+                        itemToString={(team) => (team ? team.name : "")}
+                        initialSelectedItems={selectedTeams}
+                        titleText="Filter by team"
+                      />
+                    </div>
+                  )}
+                  <div className={styles.dataFilter}>
+                    <MultiSelect
+                      id="actions-workflows-select"
+                      label="Choose workflow(s)"
+                      placeholder="Choose workflow(s)"
+                      invalid={false}
+                      onChange={handleSelectWorkflows}
+                      items={workflowsFilter}
+                      itemToString={(workflow) => {
+                        const team = workflow ? teamsData.find((team) => team.id === workflow.flowTeamId) : undefined;
+                        return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                      }}
+                      initialSelectedItems={workflowsFilter.filter((workflow) =>
+                        Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
+                      )}
+                      titleText="Filter by workflow"
+                    />
+                  </div>
+                  <div className={styles.dataFilter}>
+                    <MultiSelect
+                      id="actions-statuses-select"
+                      label="Choose status(es)"
+                      placeholder="Choose status(es)"
+                      invalid={false}
+                      onChange={handleSelectStatuses}
+                      items={scheduleStatusOptions}
+                      itemToString={(item) => (item ? item.label : "")}
+                      initialSelectedItems={scheduleStatusOptions.filter((option) =>
+                        Boolean(selectedStatuses.find((status) => status === option.value))
+                      )}
+                      titleText="Filter by status"
+                    />
+                  </div>
                 </div>
-                <div className={styles.dataFilter}>
-                  <MultiSelect
-                    id="actions-statuses-select"
-                    label="Choose status(es)"
-                    placeholder="Choose status(es)"
-                    invalid={false}
-                    onChange={handleSelectStatuses}
-                    items={scheduleStatusOptions}
-                    itemToString={(item) => (item ? item.label : "")}
-                    initialSelectedItems={scheduleStatusOptions.filter((option) =>
-                      Boolean(selectedStatuses.find((status) => status === option.value))
-                    )}
-                    titleText="Filter by status"
+                <DatePicker
+                  id="actions-date-picker"
+                  className={styles.timeFilters}
+                  dateFormat="m/d/Y"
+                  datePickerType="range"
+                  maxDate={maxDate}
+                  onChange={handleSelectDate}
+                  onClose={handleCloseSelectDate}
+                >
+                  <DatePickerInput
+                    autoComplete="off"
+                    id="actions-date-picker-start"
+                    labelText="Start date"
+                    placeholder="mm/dd/yyyy"
+                    value={fromDate && moment.unix(fromDate).format("YYYY-MM-DD")}
                   />
-                </div>
+                  <DatePickerInput
+                    autoComplete="off"
+                    id="actions-date-picker-end"
+                    labelText="End date"
+                    placeholder="mm/dd/yyyy"
+                    value={toDate && moment.unix(toDate).format("YYYY-MM-DD")}
+                  />
+                </DatePicker>
               </div>
-              <DatePicker
-                id="actions-date-picker"
-                className={styles.timeFilters}
-                dateFormat="m/d/Y"
-                datePickerType="range"
-                maxDate={maxDate}
-                onChange={handleSelectDate}
-                onClose={handleCloseSelectDate}
-              >
-                <DatePickerInput
-                  autoComplete="off"
-                  id="actions-date-picker-start"
-                  labelText="Start date"
-                  placeholder="mm/dd/yyyy"
-                  value={fromDate && moment.unix(fromDate).format("YYYY-MM-DD")}
-                />
-                <DatePickerInput
-                  autoComplete="off"
-                  id="actions-date-picker-end"
-                  labelText="End date"
-                  placeholder="mm/dd/yyyy"
-                  value={toDate && moment.unix(toDate).format("YYYY-MM-DD")}
-                />
-              </DatePicker>
-            </div>
-            <ActionsTable
-              actionsQueryToRefetch={actionsUrl}
-              history={history}
-              isLoading={actionsQuery.isLoading}
-              location={location}
-              match={match}
-              isSystemWorkflowsEnabled={isSystemWorkflowsEnabled}
-              tableData={actionsQuery.data}
-              updateHistorySearch={updateHistorySearch}
-            />
-          </section>
+            </section>
+            <section>
+              <Calendar />
+            </section>
+          </div>
         )}
       </div>
     );
