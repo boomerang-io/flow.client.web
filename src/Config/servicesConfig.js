@@ -56,9 +56,10 @@ export const serviceUrl = {
   getPlatformConfig: () => `${BASE_URL}/users/navigation`,
   getWorkflowSchedules: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/schedules`,
   getWorkflowSchedule: ({ workflowId, scheduleId }) => `${BASE_URL}/workflow/${workflowId}/schedule/${scheduleId}`,
-  getWorkflowCalendar: ({ workflowId, query }) => `${BASE_URL}/workflow/${workflowId}/schedules/calendar?${query}`,
+  getWorkflowCalendar: ({ workflowId, query }) =>
+    `${BASE_URL}/workflow/${workflowId}/schedules/calendar${query ? "?" + query : ""}`,
   getWorkflowScheduleCalendar: ({ workflowId, scheduleId, query }) =>
-    `${BASE_URL}/workflow/${workflowId}/schedule/${scheduleId}/calendar?${query}`,
+    `${BASE_URL}/workflow/${workflowId}/schedule/${scheduleId}/calendar${query ? "?" + query : ""}`,
   getSystemWorkflows: () => `${BASE_URL}/workflows/system`,
   getTaskTemplates: ({ query }) => `${BASE_URL}/tasktemplate${query ? "?" + query : ""}`,
   getTaskTemplateYaml: ({ id, revision }) => `${BASE_URL}/tasktemplate/${id}/yaml${revision ? `/${revision}` : ""}`,

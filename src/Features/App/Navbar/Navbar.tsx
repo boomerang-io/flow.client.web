@@ -51,7 +51,9 @@ const handleOnMenuClick = (flowNavigationData: FlowNavigationItem[]) => ({
                     props.activeClassName = ACTIVE_CLASS_NAME;
                     props.element = NavLink;
                     props.onClick = onMenuClose;
-                  } else props.href = childItem.link;
+                  } else {
+                    props.href = childItem.link;
+                  }
                   return <SideNavMenuItem {...props}>{childItem.name}</SideNavMenuItem>;
                 })}
               </SideNavMenu>
@@ -79,19 +81,19 @@ const skipToContentProps = {
   href: "#content",
 };
 
-interface NavbarContainerProps {
+interface NavbarProps {
   handleOnTutorialClick(): void;
   flowNavigationData: Array<FlowNavigationItem>;
   platformConfigData: PlatformConfig;
   userData: FlowUser;
 }
 
-export default function NavbarContainer({
+export default function Navbar({
   handleOnTutorialClick,
   flowNavigationData,
   platformConfigData,
   userData,
-}: NavbarContainerProps) {
+}: NavbarProps) {
   const defaultUIShellProps = {
     renderLogo: true,
   };

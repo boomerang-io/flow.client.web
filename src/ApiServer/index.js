@@ -48,6 +48,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       teamProperties: Model,
       tokens: Model,
       flowNavigation: Model,
+      workflowCalendar: Model,
+      workflowSchedules: Model,
     },
 
     routes() {
@@ -82,11 +84,25 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.featureFlags[0];
       });
 
+      this.get(
+        serviceUrl.getWorkflowCalendar({
+          workflowId: ":workflowId",
+          query: null,
+        }),
+        (schema) => {
+          return schema.db.workflowCalendar;
+        }
+      );
+
+      this.get(serviceUrl.getWorkflowSchedules({ workflowId: ":workflowId" }), (schema, request) => {
+        return schema.db.workflowSchedules;
+      });
+
       this.get(serviceUrl.workflowAvailableParameters({ workflowId: ":workflowId" }), (schema) => {
         return schema.db.availableParameters[0].data;
       });
 
-      this.get(serviceUrl.workflowTemplates(), (schema, request) => {
+      this.get(serviceUrl.workflowTemplates(), (schema) => {
         return schema.db.workflowTemplates;
       });
 
@@ -106,7 +122,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.manageTeams[0];
       });
 
-      this.post(serviceUrl.putActivationApp(), (schema) => {
+      this.post(serviceUrl.putActivationApp(), () => {
         return {};
       });
 

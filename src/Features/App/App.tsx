@@ -265,11 +265,11 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
   return (
     <main id="content" className={styles.container}>
       <Suspense
-        fallback={() => (
+        fallback={
           <DelayedRender>
             <Loading />
           </DelayedRender>
-        )}
+        }
       >
         <Switch>
           <ProtectedRoute
