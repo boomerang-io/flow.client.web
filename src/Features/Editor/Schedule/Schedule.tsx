@@ -18,6 +18,7 @@ import SlidingPane from "react-sliding-pane";
 import queryString, { StringifyOptions } from "query-string";
 import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import { EventContentArg } from "@fullcalendar/react";
 import { WorkflowSummary } from "Types";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import styles from "./Schedule.module.scss";
@@ -100,7 +101,7 @@ export default function Schedule(props: ScheduleProps) {
   }
 
   const calendarEvents = workflowCalendarQuery.data.map((entry: ScheduledEventUnion) => {
-    let newEntry = { ...entry };
+    let newEntry = { ...entry, title: entry.name };
     if (entry.dateSchedule) {
       newEntry["start"] = entry.dateSchedule;
     } else {
@@ -115,6 +116,11 @@ export default function Schedule(props: ScheduleProps) {
         keys: ["name", "description", "type", "status"],
       })
     : schedules;
+
+  function findAndSetActiveEvent(event) {
+    const foundEvent = calendarEvents.find((calendarEvent) => calendarEvent.id === event.id);
+    setActiveEvent(foundEvent);
+  }
 
   return (
     <>
@@ -166,11 +172,10 @@ export default function Schedule(props: ScheduleProps) {
           <Calendar
             eventClick={(data: any) => {
               setIsEditorOpen(true);
-              setActiveEvent(data.event);
+              findAndSetActiveEvent(data.event);
             }}
             datesSet={(dateinfo) => console.log(dateinfo)}
             dateClick={() => setIsCreatorOpen(true)}
-            //eventContent={renderEventContent}
             events={calendarEvents}
           />
         </section>
@@ -188,11 +193,17 @@ export default function Schedule(props: ScheduleProps) {
             <dl>
               <div>
                 <dt style={{ display: "inline-block" }}>Title:</dt>
-                <dd style={{ display: "inline-block" }}>{activeEvent?.name}</dd>
+                <dd style={{ display: "inline-block" }}>{activeEvent?.name ?? "---"}</dd>
+              </div>
+              <div>
+                <dt style={{ display: "inline-block" }}>Description:</dt>
+                <dd style={{ display: "inline-block" }}>{activeEvent?.description ?? "---"}</dd>
               </div>
               <div>
                 <dt style={{ display: "inline-block" }}>Time:</dt>
-                {/* <dd style={{ display: "inline-block" }}>{moment(activeEvent.).format("YYYY-MM-DD hh:mm A")}</dd> */}
+                <dd style={{ display: "inline-block" }}>
+                  {activeEvent?.start ? moment(activeEvent.start).format("YYYY-MM-DD hh:mm A") : "---"}
+                </dd>
               </div>
             </dl>
           </section>
@@ -208,7 +219,9 @@ export default function Schedule(props: ScheduleProps) {
           </section>
           <hr />
           <footer>
-            <Button kind="secondary">Cancel</Button>
+            <Button kind="secondary" onClick={() => setIsEditorOpen(false)}>
+              Cancel
+            </Button>
             <Button>Save</Button>
           </footer>
         </div>
@@ -221,26 +234,23 @@ export default function Schedule(props: ScheduleProps) {
         width="32rem"
       >
         <h2>Create</h2>
+        <footer>
+          <Button kind="secondary" onClick={() => setIsCreatorOpen(false)}>
+            Cancel
+          </Button>
+          <Button>Save</Button>
+        </footer>
       </SlidingPane>
     </>
   );
 }
 
-// function renderEventContent(eventInfo: any) {
+// function renderEventContent(eventContent: EventContentArg) {
+//   console.log(eventContent);
 //   return (
 //     <div className={styles.eventContentContainer}>
-//       <p>{eventInfo.event.title}</p>
-//       {/* <OverflowMenu
-//         flipped
-//         ariaLabel="Schedule card menu"
-//         iconDescription="Schedule menu icon"
-//         style={{ position: "absolute", right: "0" }}
-//       >
-//         <OverflowMenuItem itemText={"Edit"} key={"Edit"} />
-//         <OverflowMenuItem itemText={"View Activity"} key={"Activity"} />
-//         <OverflowMenuItem itemText={"Duplicate"} key={"Duplicate"} />
-//         <OverflowMenuItem itemText={"Delete"} key={"Delete"} />
-//       </OverflowMenu> */}
+//       <b>{eventContent.timeText}</b>
+//       <i>{eventContent.event.title}</i>
 //     </div>
 //   );
 // }
