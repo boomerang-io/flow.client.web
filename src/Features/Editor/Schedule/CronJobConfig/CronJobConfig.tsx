@@ -101,7 +101,7 @@ export default class CronJobModal extends Component<Props, State> {
 
   handleOnSave = (e: any, values: any) => {
     e.preventDefault();
-    const scheduleValue = values.advancedCron ? values.cronExpression : this.handleSchedule(values);
+    //const scheduleValue = values.advancedCron ? values.cronExpression : this.handleSchedule(values);
     // this.props.handleOnChange(values.advancedCron, "triggers.scheduler.advancedCron");
     // this.props.handleOnChange(scheduleValue, "triggers.scheduler.schedule");
     // this.props.handleOnChange(
@@ -170,16 +170,17 @@ export default class CronJobModal extends Component<Props, State> {
             values,
             touched,
             errors,
-            dirty: isDirty,
+            //dirty: isDirty,
             handleBlur,
             handleChange,
-            handleSubmit,
+            //handleSubmit,
             setFieldValue,
-            isValid,
+            //isValid,
           } = formikProps;
 
           return (
             <>
+              <h2>Change schedule</h2>
               <div className={styles.advancedCronToggle}>
                 <Toggle
                   reversed

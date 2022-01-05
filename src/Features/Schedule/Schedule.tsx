@@ -1,4 +1,5 @@
 //@ts-nocheck
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { useQuery } from "react-query";
 import { Switch, Route, Redirect, useHistory, useLocation, useRouteMatch } from "react-router-dom";
@@ -76,25 +77,13 @@ function Actions() {
   /**
    * Prepare queries and get some data
    */
-  const {
-    order = DEFAULT_ORDER,
-    page = DEFAULT_PAGE,
-    size = DEFAULT_SIZE,
-    sort = DEFAULT_SORT,
-    scopes,
-    workflowIds,
-    statuses,
-    teamIds,
-    fromDate,
-    toDate,
-  } = queryString.parse(location.search, queryStringOptions);
+  const { scopes, workflowIds, statuses, teamIds, fromDate, toDate } = queryString.parse(
+    location.search,
+    queryStringOptions
+  );
 
   const actionsUrlQuery = queryString.stringify(
     {
-      order,
-      page,
-      size,
-      sort,
       scopes,
       statuses,
       teamIds,
@@ -162,13 +151,7 @@ function Actions() {
    * @param {object} query - all of the query params
    *
    */
-  const updateHistorySearch = ({
-    order = DEFAULT_ORDER,
-    page = DEFAULT_PAGE,
-    size = DEFAULT_SIZE,
-    sort = DEFAULT_SORT,
-    ...props
-  }) => {
+  const updateHistorySearch = ({ ...props }) => {
     const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props }, queryStringOptions)}`;
     history.push({ search: queryStr });
     return;

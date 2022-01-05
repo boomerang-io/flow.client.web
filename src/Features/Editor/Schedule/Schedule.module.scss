@@ -1,4 +1,5 @@
 @import "Styles/animation";
+@import "Styles/mixins";
 
 .container {
   display: flex;
@@ -40,13 +41,55 @@
 
 .listItem {
   background: var(--cds-ui-background);
-  height: 8rem;
+  min-height: 8rem;
   margin: 1rem 0rem;
   padding: 1rem;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+
+  dt {
+    font-size: 0.75rem;
+  }
+  dd {
+    font-size: 0.875rem;
+  }
+}
+
+.listItemTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 90%;
 
   h3 {
+    font-size: 1rem;
     font-weight: bold;
+    @include text-overflow-ellipsis();
+  }
+}
+
+.listItemDescription {
+  @include multiline-text-overflow-ellipsis();
+  max-width: 90%;
+}
+
+.listItemLabels {
+  display: flex;
+  max-width: 90%;
+}
+
+.statusCircle {
+  &[data-status="active"] {
+    fill: var(--cds-support-success);
+  }
+  &[data-status="inactive"] {
+    fill: var(--cds-text-01);
+  }
+  &[data-status="deleted"] {
+    fill: var(--cds-support-error);
   }
 }
 

@@ -81,6 +81,12 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               </a>
               <a
                 class="bx--bmrg-feature-nav-tab"
+                href="/editor/5eb2c4085a92d80001a16d87/schedule"
+              >
+                Schedule
+              </a>
+              <a
+                class="bx--bmrg-feature-nav-tab"
                 href="/editor/5eb2c4085a92d80001a16d87/changelog"
               >
                 Change Log
