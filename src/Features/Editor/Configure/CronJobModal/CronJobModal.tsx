@@ -74,7 +74,7 @@ export default class CronJobModal extends Component<Props, State> {
   validateCron = async (value: string) => {
     try {
       this.setState({ isValidatingCron: true });
-      const response = await axios.get(serviceUrl.getCronValidation({ expression: value }));
+      const response = await axios.get(serviceUrl.getScheduleCronValidation({ expression: value }));
       if (response.data.valid) {
         const message = cronstrue.toString(value); //just need to run it
         this.setState({ message, errorMessage: undefined, hasValidated: true });

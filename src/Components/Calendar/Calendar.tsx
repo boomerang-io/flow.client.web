@@ -16,7 +16,7 @@ export default function Calendar(props: CalendarOptions) {
         headerToolbar={{
           left: "prev,next today",
           center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay",
+          right: "timeGridDay,timeGridWeek,dayGridMonth",
         }}
         {...props}
       />

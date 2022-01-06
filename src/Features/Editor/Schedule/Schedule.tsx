@@ -14,9 +14,11 @@ import {
   TextInput,
   Tile,
   TooltipHover,
+  ToastNotification,
+  notify,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Add16, CircleFilled16 } from "@carbon/icons-react";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, queryCache } from "react-query";
 import CronJobConfig from "./CronJobConfig";
 import Calendar from "Components/Calendar";
 import capitalize from "lodash/capitalize";
@@ -35,44 +37,51 @@ interface ScheduleProps {
   summaryData: WorkflowSummary;
 }
 
-interface ScheduledEvent {
+interface WorkflowScheduleCalendar {
+  scheduleId: string;
+  dates: Array<string>;
+}
+
+interface WorkflowSchedule {
   id: string;
   name: string;
   description?: string;
-  labels?: { [k: string]: string };
+  labels?: Array<{ key: string; value: string }>;
   parameters?: { [k: string]: string };
-  status: "active" | "inactive" | "deleted";
+  status: "active" | "inactive" | "deleted" | "trigger_disabled";
   type: "runOnce" | "cron" | "advancedCron";
-  start?: string;
 }
 
-interface ScheduledDateEvent extends ScheduledEvent {
+interface WorkflowScheduleDate extends WorkflowSchedule {
   dateSchedule: string;
 }
 
-interface ScheduledCronEvent extends ScheduledEvent {
+interface WorkflowScheduleCron extends WorkflowSchedule {
   cronSchedule: string;
 }
 
-type ScheduledEventUnion = ScheduledDateEvent | ScheduledCronEvent;
+interface CalendarEvent extends WorkflowSchedule {
+  start: string;
+  title: string;
+}
+
+type WorkflowScheduleUnion = WorkflowScheduleDate | WorkflowScheduleCron;
 
 export default function Schedule(props: ScheduleProps) {
-  const [fromDate, setFromDate] = React.useState(moment().startOf("month"));
-  const [toDate, setToDate] = React.useState(moment().startOf("month"));
+  const [fromDate, setFromDate] = React.useState(moment().startOf("month").unix());
+  const [toDate, setToDate] = React.useState(moment().endOf("month").unix());
   const [isEditorOpen, setIsEditorOpen] = React.useState(false);
-  const [activeEvent, setActiveEvent] = React.useState<ScheduledEventUnion | null>(null);
+  const [activeEvent, setActiveSchedule] = React.useState<WorkflowScheduleUnion | null>(null);
   const [isCreatorOpen, setIsCreatorOpen] = React.useState(false);
 
   /**
-   * Get the schedule for the workflow
+   * Get the schedules for the workflow
    * A schedule is an object that defines the events
    */
 
-  const workflowScheduleUrl = serviceUrl.getWorkflowSchedules({
-    workflowId: props.summaryData.id,
-  });
+  const workflowScheduleUrl = serviceUrl.getWorkflowSchedules({ workflowId: props.summaryData.id });
 
-  const workflowSchedulesQuery = useQuery<Array<ScheduledEventUnion>, string>({
+  const workflowSchedulesQuery = useQuery<Array<WorkflowScheduleUnion>, string>({
     queryKey: workflowScheduleUrl,
     queryFn: resolver.query(workflowScheduleUrl),
   });
@@ -84,33 +93,21 @@ export default function Schedule(props: ScheduleProps) {
    */
   const workflowCalendarUrlQuery = queryString.stringify(
     {
-      fromDate,
-      toDate,
+      fromDate: fromDate,
+      toDate: toDate,
     },
-    queryStringOptions
+    { ...queryStringOptions, encode: false }
   );
 
-  const workflowCalendarUrl = serviceUrl.getWorkflowCalendar({
+  const workflowCalendarUrl = serviceUrl.getWorkflowSchedulesCalendar({
     workflowId: props.summaryData.id,
     query: workflowCalendarUrlQuery,
   });
 
-  const workflowCalendarQuery = useQuery<Array<ScheduledEventUnion>, string>({
+  const workflowCalendarQuery = useQuery<Array<WorkflowScheduleCalendar>, string>({
     queryKey: workflowCalendarUrl,
     queryFn: resolver.query(workflowCalendarUrl),
   });
-
-  /**
-   * Delete schedule
-   */
-  const [deleteWorkflowScheduleMutator, { isLoading: isDeletingWorkflowSchedule }] = useMutation(
-    resolver.deleteWorkflowSchedule,
-    {}
-  );
-
-  /**
-   * Disable schedule
-   */
 
   /**
    * Start rendering
@@ -124,33 +121,46 @@ export default function Schedule(props: ScheduleProps) {
     return <Error />;
   }
 
-  const calendarEvents = workflowCalendarQuery.data.map((entry: ScheduledEventUnion) => {
-    let newEntry = { ...entry, title: entry.name };
-    //@ts-ignore
-    newEntry["start"] = entry?.cronSchedule || entry?.dateSchedule;
-    return newEntry;
-  });
+  const calendarEvents: Array<CalendarEvent> = [];
+  for (let calendarEntry of workflowCalendarQuery.data) {
+    const matchingSchedule: WorkflowScheduleUnion | undefined = workflowSchedulesQuery.data.find(
+      (schedule: WorkflowScheduleUnion) => schedule.id === calendarEntry.scheduleId
+    );
+    if (matchingSchedule) {
+      for (const date of calendarEntry.dates) {
+        const newEntry = { ...matchingSchedule, start: date, title: matchingSchedule.name };
+        calendarEvents.push(newEntry);
+      }
+    }
+  }
 
   const schedules = workflowSchedulesQuery.data;
 
   function findAndSetActiveEvent(eventContent: EventContentArg) {
-    const foundEvent = calendarEvents.find((calendarEvent) => calendarEvent.id === eventContent.event.id);
-    setActiveEvent(foundEvent || null);
+    if (workflowSchedulesQuery.data) {
+      const foundEvent = workflowSchedulesQuery.data.find(
+        (calendarEvent) => calendarEvent.id === eventContent.event.id
+      );
+      setActiveSchedule(foundEvent || null);
+    }
   }
 
   return (
     <>
       <div className={styles.container}>
         <ScheduleList
-          deleteWorkflowSchedule={deleteWorkflowScheduleMutator}
-          setActiveEvent={setActiveEvent}
+          setActiveSchedule={setActiveSchedule}
           setIsCreatorOpen={setIsCreatorOpen}
           setIsEditorOpen={setIsEditorOpen}
           schedules={schedules}
+          workflowId={props.summaryData.id}
+          workflowScheduleUrl={workflowScheduleUrl}
         />
         <CalendarView
           events={calendarEvents}
           findAndSetActiveEvent={findAndSetActiveEvent}
+          setFromDate={setFromDate}
+          setToDate={setToDate}
           setIsCreatorOpen={setIsCreatorOpen}
           setIsEditorOpen={setIsEditorOpen}
         />
@@ -162,13 +172,22 @@ export default function Schedule(props: ScheduleProps) {
 }
 
 interface CalendarViewProps {
-  events: Array<ScheduledEventUnion>;
+  events: Array<CalendarEvent>;
+  setFromDate: (unixDate: number) => void;
+  setToDate: (unixDate: number) => void;
   setIsCreatorOpen: (isOpen: boolean) => void;
   setIsEditorOpen: (isOpen: boolean) => void;
   findAndSetActiveEvent: (event: EventContentArg) => void;
 }
 
 function CalendarView(props: CalendarViewProps) {
+  const handleDateRangeChange = (dateInfo: any) => {
+    const toDate = moment(dateInfo.endStr).unix();
+    const fromDate = moment(dateInfo.startStr).unix();
+    props.setToDate(toDate);
+    props.setFromDate(fromDate);
+  };
+
   return (
     <section className={styles.calendarContainer}>
       <Calendar
@@ -176,7 +195,7 @@ function CalendarView(props: CalendarViewProps) {
           props.setIsEditorOpen(true);
           props.findAndSetActiveEvent(data);
         }}
-        datesSet={(dateinfo) => console.log(dateinfo)}
+        datesSet={handleDateRangeChange}
         dateClick={() => props.setIsCreatorOpen(true)}
         events={props.events}
       />
@@ -185,11 +204,12 @@ function CalendarView(props: CalendarViewProps) {
 }
 
 interface ScheduleListProps {
-  deleteWorkflowSchedule: (variables: { workflowId: string; scheduleId: string }) => void;
-  schedules: Array<ScheduledEventUnion>;
-  setActiveEvent: (event: ScheduledEventUnion) => void;
+  schedules: Array<WorkflowScheduleUnion>;
+  setActiveSchedule: (event: WorkflowScheduleUnion) => void;
   setIsCreatorOpen: (isOpen: boolean) => void;
   setIsEditorOpen: (isOpen: boolean) => void;
+  workflowId: string;
+  workflowScheduleUrl: string;
 }
 
 function ScheduleList(props: ScheduleListProps) {
@@ -200,6 +220,26 @@ function ScheduleList(props: ScheduleListProps) {
         keys: ["name", "description", "type", "status"],
       })
     : props.schedules;
+
+  function renderLists() {
+    if (props.schedules.length === 0) {
+      return <div>No schedules found</div>;
+    }
+
+    if (filteredSchedules.length === 0) {
+      return <div>No matching schedules found</div>;
+    }
+
+    return filteredSchedules.map((schedule) => (
+      <ScheduledListItem
+        schedule={schedule}
+        setActiveSchedule={props.setActiveSchedule}
+        setIsEditorOpen={props.setIsEditorOpen}
+        workflowId={props.workflowId}
+        workflowScheduleUrl={props.workflowScheduleUrl}
+      />
+    ));
+  }
 
   return (
     <section className={styles.listContainer}>
@@ -215,37 +255,91 @@ function ScheduleList(props: ScheduleListProps) {
         placeHolderText="Filter schedules"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterQuery(e.target.value)}
       />
-      <ul>
-        {filteredSchedules.map((schedule) => (
-          <ScheduledListItem
-            schedule={schedule}
-            setActiveEvent={props.setActiveEvent}
-            setIsEditorOpen={props.setIsEditorOpen}
-          />
-        ))}
-      </ul>
+      <ul>{renderLists()}</ul>
     </section>
   );
 }
 
 interface ScheduledListItemProps {
-  schedule: ScheduledEventUnion;
-  setActiveEvent: (event: ScheduledEventUnion) => void;
+  schedule: WorkflowScheduleUnion;
+  setActiveSchedule: (event: WorkflowScheduleUnion) => void;
   setIsEditorOpen: (isOpen: boolean) => void;
+  workflowId: string;
+  workflowScheduleUrl: string;
 }
 
 function ScheduledListItem(props: ScheduledListItemProps) {
   const history = useHistory();
-
   const [isDisableModalOpen, setIsDisableModalOpen] = React.useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
 
+  /**
+   * Delete schedule
+   */
+
+  const [deleteScheduleMutator, { isLoading: isDeletingWorkflowSchedule }] = useMutation(resolver.deleteSchedule, {});
+
+  const handleDeleteWorkflowSchedule = async (workflow: WorkflowSummary) => {
+    try {
+      await deleteScheduleMutator({ workflowId: props.workflowId, scheduleId: props.schedule.id });
+      notify(
+        <ToastNotification
+          kind="success"
+          title={`Duplicate ${props.schedule.name}`}
+          subtitle={`Successfully duplicated ${props.schedule.name}`}
+        />
+      );
+      queryCache.invalidateQueries(props.workflowScheduleUrl);
+    } catch (e) {
+      notify(
+        <ToastNotification
+          kind="error"
+          title="Something's Wrong"
+          subtitle={`Request to duplicate ${props.schedule.name} failed`}
+        />
+      );
+      return;
+    }
+  };
+
+  /**
+   * Disable schedule
+   */
+  const [disableWorkflowScheduleMutator, { isLoading: isDisablingWorkflowSchedule }] = useMutation(
+    resolver.deleteSchedule,
+    {}
+  );
+
+  const handleDisableWorkflowSchedule = async (workflow: WorkflowSummary) => {
+    try {
+      await disableWorkflowScheduleMutator({ workflowId: props.workflowId, scheduleId: props.schedule.id });
+      notify(
+        <ToastNotification
+          kind="success"
+          title={`Disable ${props.schedule.name}`}
+          subtitle={`Successfully disabled ${props.schedule.name}`}
+        />
+      );
+      queryCache.invalidateQueries(props.workflowScheduleUrl);
+    } catch (e) {
+      notify(
+        <ToastNotification
+          kind="error"
+          title="Something's Wrong"
+          subtitle={`Request to disabled ${props.schedule.name} failed`}
+        />
+      );
+      return;
+    }
+  };
+
+  // Set up the Oveflow menu options
   let menuOptions = [
     {
       itemText: "Edit",
       onClick: () => {
         props.setIsEditorOpen(true);
-        props.setActiveEvent(props.schedule);
+        props.setActiveSchedule(props.schedule);
       },
     },
     {
@@ -264,12 +358,11 @@ function ScheduledListItem(props: ScheduledListItemProps) {
     },
   ];
 
-  const labelMap = new Map<string, string>(Object.entries(props.schedule?.labels ?? {}));
   const labels = [];
-  for (const [key, value] of labelMap) {
+  for (const entry of props.schedule?.labels || []) {
     labels.push(
       <Tag>
-        {key}:{value}
+        {entry.key}:{entry.value}
       </Tag>
     );
   }
@@ -341,7 +434,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
 }
 
 interface PanelProps {
-  event: ScheduledEventUnion | null;
+  event: WorkflowScheduleUnion | null;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
@@ -373,9 +466,9 @@ function EditorPanel(props: PanelProps) {
             </div>
             <div style={{ display: "flex", gap: "0.5rem" }}>
               <dt style={{ display: "inline-block" }}>Time:</dt>
-              <dd style={{ display: "inline-block" }}>
+              {/* <dd style={{ display: "inline-block" }}>
                 {props?.event?.start ? moment(props.event.start).format("YYYY-MM-DD hh:mm A") : "---"}
-              </dd>
+              </dd> */}
             </div>
           </dl>
         </section>

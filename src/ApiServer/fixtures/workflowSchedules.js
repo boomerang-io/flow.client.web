@@ -2,7 +2,7 @@ const workflowSchedules = [
   {
     dateSchedule: "2021-12-07T12:00:00",
     description: "Yep",
-    id: "2",
+    id: "61d6286bc570b75ec2b47884",
     labels: { maintenance: "hello", daily: "yes" },
     name: "Trigger",
     parameters: { name: "Tyson", word: "this" },
@@ -12,7 +12,7 @@ const workflowSchedules = [
   {
     cronSchedule: "2021-12-08T15:00:00",
     description: "This does stuff daily",
-    id: "1",
+    id: "71d6286bc570b75ec2b47884",
     labels: { maintenance: "hello", daily: "yes" },
     name: "Daily event",
     parameters: { name: "Tyson", word: "this" },
@@ -23,7 +23,7 @@ const workflowSchedules = [
     cronSchedule: "2021-12-08T15:00:00",
     description:
       "This does stuff daily. But I need to include way to much information here. Way way too much, I mean it is absurd how much I am going to include here.",
-    id: "3",
+    id: "81d6286bc570b75ec2b47884",
     labels: { maintenance: "hello", daily: "yes" },
     name: "Deleted Daily event",
     parameters: { name: "Tyson", word: "this" },

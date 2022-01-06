@@ -1,23 +1,20 @@
 export const workflowCalendar = [
   {
-    dateSchedule: "2021-12-07T12:00:00",
-    description: "This triggers things",
-    id: "2",
-    labels: { maintenance: "hello", daily: "yes" },
-    name: "Trigger",
-    parameters: { name: "Tyson", word: "this" },
-    status: "active",
-    type: "runOnce",
-  },
-  {
-    cronSchedule: "2021-12-08T15:00:00",
-    description: "This does stuff daily",
-    id: "1",
-    labels: { maintenance: "hello", daily: "yes" },
-    name: "Daily event",
-    parameters: { name: "Tyson", word: "this" },
-    status: "active",
-    type: "cron",
+    scheduleId: "61d6286bc570b75ec2b47884",
+    dates: [
+      "2022-01-05T23:40:00.000+00:00",
+      "2022-01-05T23:45:00.000+00:00",
+      "2022-01-05T23:50:00.000+00:00",
+      "2022-01-05T23:55:00.000+00:00",
+      "2022-01-06T00:00:00.000+00:00",
+      "2022-01-06T00:05:00.000+00:00",
+      "2022-01-06T00:10:00.000+00:00",
+      "2022-01-06T00:15:00.000+00:00",
+      "2022-01-06T00:20:00.000+00:00",
+      "2022-01-06T00:25:00.000+00:00",
+      "2022-01-06T00:30:00.000+00:00",
+      "2022-01-10T12:25:00.000+00:00",
+    ],
   },
 ];
 
