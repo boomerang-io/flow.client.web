@@ -127,7 +127,6 @@ export default class CronJobModal extends Component<Props, State> {
 
   render() {
     const { defaultTimeZone, errorMessage, message, isValidatingCron, hasValidated } = this.state;
-    console.log(this.props);
     const { cronSchedule, timezone, advancedCron } = this.props;
     const cronToData = cronToDateTime(!!cronSchedule, cronSchedule ? cronSchedule : undefined);
     const { cronTime, selectedDays } = cronToData;
@@ -179,7 +178,6 @@ export default class CronJobModal extends Component<Props, State> {
 
           return (
             <>
-              <h2>Change schedule</h2>
               <div className={styles.advancedCronToggle}>
                 <Toggle
                   reversed
@@ -192,7 +190,6 @@ export default class CronJobModal extends Component<Props, State> {
               </div>
               {values.advancedCron ? (
                 <div className={styles.container}>
-                  <p className={styles.configureText}>Configure a CRON schedule for this Workflow</p>
                   <div className={styles.cronContainer}>
                     <div className={styles.inputContainer}>
                       <TextInput

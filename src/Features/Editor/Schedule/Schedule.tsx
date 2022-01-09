@@ -574,6 +574,7 @@ interface CreateScheduleProps {
 }
 
 function CreateSchedule(props: CreateScheduleProps) {
+  const [scheduleType, setScheduleType] = React.useState("runOnce");
   return (
     <ComposedModal
       composedModalProps={{
@@ -598,19 +599,29 @@ function CreateSchedule(props: CreateScheduleProps) {
             <RadioButtonGroup
               labelPosition="right"
               name="platform-role"
-              onChange={() => {}}
+              onChange={setScheduleType}
               orientation="horizontal"
               valueSelected={"runOnce"}
             >
-              <RadioButton key={"runOnce"} id={"role-runOnce"} labelText={"Once"} value={"role-runOnce"} />
-              <RadioButton key={"cron"} id={"role-cron"} labelText={"Repeatedly"} value={"role-cron"} />
+              <RadioButton key={"runOnce"} id={"runOnce"} labelText={"Once"} value={"runOnce"} />
+              <RadioButton key={"cron"} id={"cron"} labelText={"Repeatedly"} value={"cron"} />
             </RadioButtonGroup>
             <TextInput labelText="Name" id="name" placeholder="e.g. Daily task" />
             <TextArea labelText="Description" id="description" placeholder="e.g. Runs very important daily task." />
-            <div style={{ display: "flex", width: "100%", gap: "0.5rem" }}>
-              <TextInput type="datetime-local" labelText="Time" />
-              <TextInput labelText="Time Zone" />
-            </div>
+            <p>
+              <b>Date and Time</b>
+            </p>
+            {scheduleType === "runOnce" ? (
+              <div style={{ display: "flex", width: "100%", gap: "0.5rem" }}>
+                <TextInput type="datetime-local" labelText="Time" />
+                <TextInput labelText="Time Zone" />
+              </div>
+            ) : (
+              <CronJobConfig handleOnChange={(event: any) => console.log(event)} />
+            )}
+            <p>
+              <b>Labels</b>
+            </p>
             <Creatable keyLabelText="Label key" valueLabelText="Label value" createKeyValuePair />
             <p>
               <b>Parameters</b>
