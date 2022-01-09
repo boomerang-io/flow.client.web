@@ -6,6 +6,7 @@ import {
   ConfirmModal,
   ComposedModal,
   Creatable,
+  DataDrivenInput,
   ModalBody,
   ModalForm,
   ModalFooter,
@@ -95,7 +96,7 @@ export default function ScheduleView(props: ScheduleProps) {
           setIsCreatorOpen={setIsCreatorOpen}
           setIsEditorOpen={setIsEditorOpen}
           schedules={schedules}
-          workflowId={props.summaryData.id}
+          workflow={props.summaryData}
           workflowScheduleUrl={workflowScheduleUrl}
         />
         <CalendarView
@@ -188,7 +189,7 @@ interface ScheduleListProps {
   setActiveSchedule: (event: ScheduleUnion) => void;
   setIsCreatorOpen: (isOpen: boolean) => void;
   setIsEditorOpen: (isOpen: boolean) => void;
-  workflowId: string;
+  workflow: WorkflowSummary;
   workflowScheduleUrl: string;
 }
 
@@ -228,7 +229,7 @@ function ScheduleList(props: ScheduleListProps) {
         schedule={schedule}
         setActiveSchedule={props.setActiveSchedule}
         setIsEditorOpen={props.setIsEditorOpen}
-        workflowId={props.workflowId}
+        workflowId={props.workflow.id}
         workflowScheduleUrl={props.workflowScheduleUrl}
       />
     ));
@@ -238,7 +239,7 @@ function ScheduleList(props: ScheduleListProps) {
     <section className={styles.listContainer}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <h2>{`Existing Schedules (${props.schedules.length})`}</h2>
-        <CreateSchedule />
+        <CreateSchedule workflow={props.workflow} />
       </div>
       <div style={{ display: "flex", alignItems: "end", gap: "0.5rem", width: "100%" }}>
         <div style={{ width: "50%" }}>
@@ -568,7 +569,11 @@ function CreatorPanel(props: PanelProps) {
   );
 }
 
-function CreateSchedule() {
+interface CreateScheduleProps {
+  workflow: WorkflowSummary;
+}
+
+function CreateSchedule(props: CreateScheduleProps) {
   return (
     <ComposedModal
       composedModalProps={{
@@ -586,10 +591,10 @@ function CreateSchedule() {
       {() => (
         <ModalForm>
           <ModalBody>
-            <TextInput labelText="Name" id="name" placeholder="e.g. Daily task" />
-            <TextArea labelText="Description" id="description" placeholder="e.g. Runs very important daily task." />
-            <Creatable labelText="Parameters" />
-            <Creatable keyLabelText="Key" valueLabelText="Value" createKeyValuePair />
+            <p>
+              <b>About</b>
+            </p>
+            <p>How many times do you want to execute this Schedule?</p>
             <RadioButtonGroup
               labelPosition="right"
               name="platform-role"
@@ -597,13 +602,22 @@ function CreateSchedule() {
               orientation="horizontal"
               valueSelected={"runOnce"}
             >
-              <RadioButton key={"runOnce"} id={"role-runOnce"} labelText={"Run Once"} value={"role-runOnce"} />
-              <RadioButton key={"cron"} id={"role-cron"} labelText={"Recurring"} value={"role-cron"} />
+              <RadioButton key={"runOnce"} id={"role-runOnce"} labelText={"Once"} value={"role-runOnce"} />
+              <RadioButton key={"cron"} id={"role-cron"} labelText={"Repeatedly"} value={"role-cron"} />
             </RadioButtonGroup>
+            <TextInput labelText="Name" id="name" placeholder="e.g. Daily task" />
+            <TextArea labelText="Description" id="description" placeholder="e.g. Runs very important daily task." />
             <div style={{ display: "flex", width: "100%", gap: "0.5rem" }}>
               <TextInput type="datetime-local" labelText="Time" />
               <TextInput labelText="Time Zone" />
             </div>
+            <Creatable keyLabelText="Label key" valueLabelText="Label value" createKeyValuePair />
+            <p>
+              <b>Parameters</b>
+            </p>
+            {props.workflow.properties.map((property: any) => {
+              return <DataDrivenInput {...property} />;
+            })}
           </ModalBody>
           <ModalFooter>
             <Button kind="secondary">Cancel</Button>
