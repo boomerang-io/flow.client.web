@@ -584,14 +584,19 @@ export interface ScheduleCalendar {
   dates: Array<string>;
 }
 
+export type ScheduleStatus = "active" | "inactive" | "deleted" | "trigger_disabled";
+export type ScheduleType = "runOnce" | "cron" | "advancedCron";
+
 export interface Schedule {
   id: string;
   name: string;
   description?: string;
   labels?: Array<{ key: string; value: string }>;
-  parameters?: { [k: string]: string };
-  status: "active" | "inactive" | "deleted" | "trigger_disabled";
-  type: "runOnce" | "cron" | "advancedCron";
+  parameters?: { [k: string]: any };
+  status: ScheduleStatus;
+  type: ScheduleType;
+  timezone: string;
+  workflowId: string;
 }
 
 export interface ScheduleDate extends Schedule {
@@ -605,9 +610,11 @@ export interface ScheduleCron extends Schedule {
   nextScheduleDate: string;
 }
 
-export interface CalendarEvent extends Schedule {
-  start: string;
+export interface CalendarEvent {
+  start: Date;
+  end: Date;
   title: string;
+  resource: ScheduleUnion;
 }
 
 export type ScheduleUnion = ScheduleDate | ScheduleCron;

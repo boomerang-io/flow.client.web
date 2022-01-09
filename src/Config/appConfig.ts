@@ -50,7 +50,7 @@ type AppPathKey =
   | "Properties"
   | "Quotas"
   | "QuotasEdit"
-  | "Schedule"
+  | "Schedules"
   | "Settings"
   | "SystemWorkflows"
   | "SystemManagementWorkflows"
@@ -94,7 +94,7 @@ export const AppPath: Record<AppPathKey, string> = {
   Properties: "/admin/parameters",
   Quotas: "/admin/quotas",
   QuotasEdit: "/admin/quotas/:teamId",
-  Schedule: "/schedule",
+  Schedules: "/schedules",
   Settings: "/admin/settings",
   SystemWorkflows: "/admin/system-workflows",
   SystemManagementWorkflows: "/admin/system-workflows/system",

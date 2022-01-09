@@ -356,7 +356,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           <Route path={AppPath.Editor}>
             <Editor />
           </Route>
-          <Route path={AppPath.Schedule}>
+          <Route path={AppPath.Schedules}>
             <Schedule />
           </Route>
           <Route path={AppPath.TeamList}>

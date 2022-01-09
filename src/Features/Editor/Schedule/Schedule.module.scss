@@ -8,7 +8,8 @@
 
 .listContainer {
   background: var(--cds-layer);
-  width: 30rem;
+  width: 31.725rem;
+  flex-shrink: 0;
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
@@ -82,6 +83,9 @@
 .listItemLabels {
   display: flex;
   max-width: 90%;
+  span:first-child {
+    margin-left: 0rem;
+  }
 }
 
 .statusCircle {

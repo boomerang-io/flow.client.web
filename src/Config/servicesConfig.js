@@ -207,6 +207,7 @@ export const resolver = {
   postGlobalPropertyRequest: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalConfiguration(), body, method: HttpMethod.Post }),
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
+  postSchedule: ({ body }) => axios.post(serviceUrl.postSchedule(), body),
   postTeamPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HttpMethod.Post }),
   postWorkflowAvailableParameters: ({ workflowId, body }) =>
