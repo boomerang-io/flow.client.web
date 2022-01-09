@@ -25,12 +25,17 @@
   display: flex;
   gap: 0.25rem;
   color: var(--cds-text-01);
-  padding: 0.25rem;
+  font-family: var(--cds-font-family);
+  font-size: 0.875rem;
   max-width: 100%;
   overflow: hidden;
   svg {
     min-height: 1rem;
     min-width: 1rem;
+  }
+
+  &[data-status="trigger_disabled"] {
+    text-decoration: line-through;
   }
 }
 
@@ -43,5 +48,9 @@
   }
   &[data-status="deleted"] {
     fill: var(--cds-support-error);
+  }
+
+  &[data-status="trigger_disabled"] {
+    fill: var(--cds-text-03);
   }
 }

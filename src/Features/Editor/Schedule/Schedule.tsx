@@ -31,7 +31,7 @@ import { Add16, CircleFilled16 } from "@carbon/icons-react";
 import { useQuery, useMutation, queryCache } from "react-query";
 import CronJobConfig from "./CronJobConfig";
 import RunOnceConfig from "./RunOnceConfig";
-import Calendar2 from "Components/Calendar2";
+import Calendar from "Components/Calendar";
 import capitalize from "lodash/capitalize";
 import matchSorter from "match-sorter";
 import moment from "moment-timezone";
@@ -184,7 +184,7 @@ function CalendarView(props: CalendarViewProps) {
 
   return (
     <section className={styles.calendarContainer}>
-      <Calendar2
+      <Calendar
         onSelectEvent={(data: CalendarEvent) => {
           props.setIsEditorOpen(true);
           props.setActiveSchedule(data.resource);

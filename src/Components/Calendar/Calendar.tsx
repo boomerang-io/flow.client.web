@@ -1,49 +1,63 @@
 import React from "react";
-import FullCalendar from "@fullcalendar/react";
-import { EventContentArg } from "@fullcalendar/react";
-import { CalendarOptions } from "@fullcalendar/common";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import listPlugin from "@fullcalendar/list";
-import interactionPlugin from "@fullcalendar/interaction";
+import { Calendar, momentLocalizer } from "react-big-calendar";
 import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
-import { CircleFilled16 } from "@carbon/icons-react";
 import capitalize from "lodash/capitalize";
-import styles from "./Calender.module.scss";
+import moment from "moment";
+import { CalendarEvent } from "Types";
+import { CircleFilled16 } from "@carbon/icons-react";
+import styles from "./Calendar.module.scss";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import "./big-calendar.scss";
 
-export default function Calendar(props: CalendarOptions) {
-  const height = window.innerHeight - 300; //meh
-  return (
-    <div className={styles.container}>
-      <FullCalendar
-        contentHeight={height}
-        dayMaxEvents={3}
-        weekNumberContent={<div>hello</div>}
-        eventContent={renderEventContent}
-        eventMaxStack={2}
-        initialView="dayGridMonth"
-        nowIndicator={true}
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-        headerToolbar={{
-          left: "prev,next today",
-          center: "title",
-          right: "timeGridDay,timeGridWeek,dayGridMonth,listWeek",
-        }}
-        {...props}
-      />
-    </div>
-  );
+const localizer = momentLocalizer(moment);
+
+interface MyCalendarProps {
+  heightOffset?: number;
+  events: Array<CalendarEvent>;
+  [key: string]: any;
 }
+const MyCalendar = (props: MyCalendarProps) => {
+  const { heightOffset = 250 } = props;
+  const [height, setHeight] = React.useState(window.innerHeight - heightOffset); //meh
 
-function renderEventContent(eventContent: EventContentArg) {
-  const schedule = eventContent.event.extendedProps;
+  React.useLayoutEffect(() => {
+    function updateSize() {
+      setHeight(window.innerHeight - heightOffset);
+    }
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  });
+
+  return (
+    <Calendar
+      popup
+      components={{ event: renderEventContent }}
+      localizer={localizer}
+      style={{ height }}
+      views={["month", "agenda"]}
+      eventPropGetter={(args: any) => ({
+        className: styles.event,
+      })}
+      {...props}
+    />
+  );
+};
+
+function renderEventContent(eventContent: any) {
+  const event = eventContent.event;
+  const schedule = event.resource;
+  const hour = moment(event.start).format("h:mm a");
   return (
     <div className={styles.eventContentContainer} data-status={schedule.status}>
-      <TooltipHover direction="top" tooltipText={capitalize(schedule.status)}>
+      <TooltipHover direction="top" tooltipText={capitalize(schedule.status.split("_").join(" "))}>
         <CircleFilled16 className={styles.statusCircle} data-status={schedule.status} />
       </TooltipHover>
-      <b>{eventContent.timeText}</b>
-      <span>{eventContent.event.title}</span>
+      <span>
+        <b>{event.title}</b>
+      </span>
+      <span>{hour}</span>
     </div>
   );
 }
+
+export default MyCalendar;

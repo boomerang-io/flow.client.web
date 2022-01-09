@@ -6,8 +6,6 @@ import { useHistory, useLocation } from "react-router-dom";
 import Calendar from "Components/Calendar";
 import { useAppContext } from "Hooks";
 import {
-  DatePicker,
-  DatePickerInput,
   ErrorMessage,
   ErrorDragon,
   FeatureHeader as Header,
@@ -392,8 +390,8 @@ function CalendarView(props: CalendarViewProps) {
   const { fromDate = defaultFromDate, toDate = defaultToDate } = queryString.parse(location.search, queryStringOptions);
 
   const handleDateRangeChange = (dateInfo: any) => {
-    const toDate = moment(dateInfo.endStr).unix();
-    const fromDate = moment(dateInfo.startStr).unix();
+    const toDate = moment(dateInfo.end).unix();
+    const fromDate = moment(dateInfo.start).unix();
     props.updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), toDate, fromDate });
   };
 
@@ -431,14 +429,29 @@ function CalendarView(props: CalendarViewProps) {
       );
       if (matchingSchedule) {
         for (const date of calendarEntry.dates) {
-          const newEntry = { ...matchingSchedule, start: date, title: matchingSchedule.name };
+          const newEntry = {
+            resource: matchingSchedule,
+            start: new Date(date),
+            end: new Date(date),
+            title: matchingSchedule.name,
+          };
           calendarEvents.push(newEntry);
         }
       }
     }
   }
 
-  return <Calendar datesSet={handleDateRangeChange} events={calendarEvents} contentHeight={window.innerHeight - 320} />;
+  return (
+    <Calendar
+      // onSelectEvent={(data: CalendarEvent) => {
+      //   props.setIsEditorOpen(true);
+      //   props.setActiveSchedule(data.resource);
+      // }}
+      onRangeChange={handleDateRangeChange}
+      events={calendarEvents}
+      heightOffset={280}
+    />
+  );
 }
 
 interface ScheduleListProps {
