@@ -196,6 +196,7 @@ export default class Tasks extends Component<TaskProps> {
           <>
             <section className={styles.tasks}>
               <Search
+                light
                 data-testid="editor-task-search"
                 id="search-tasks"
                 size="sm"

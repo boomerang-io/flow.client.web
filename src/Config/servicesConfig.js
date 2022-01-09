@@ -33,7 +33,7 @@ export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
   deleteCancelWorkflow: ({ executionId }) => `${BASE_URL}/activity/${executionId}/cancel`,
   deleteToken: ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
-  deleteSchedule: ({ query }) => `${BASE_URL}/schedule/${query ? "?" + query : ""}`,
+  deleteSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
   getActivitySummary: ({ query }) => `${BASE_URL}/activity/summary${query ? "?" + query : ""}`,
   getActivity: ({ query }) => `${BASE_URL}/activity${query ? "?" + query : ""}`,
   getActionsSummary: ({ query }) => `${BASE_URL}/actions/summary${query ? "?" + query : ""}`,
@@ -58,7 +58,7 @@ export const serviceUrl = {
   getSchedulesCalendars: ({ query }) => `${BASE_URL}/schedules/calendar${query ? "?" + query : ""}`,
   getScheduleCalendar: ({ scheduleId, query }) =>
     `${BASE_URL}/schedules/${scheduleId}/calendar${query ? "?" + query : ""}`,
-  getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedule/validate/cron?cron=${expression}`,
+  getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedules/validate/cron?cron=${expression}`,
   getSystemWorkflows: () => `${BASE_URL}/workflows/system`,
   getTaskTemplates: ({ query }) => `${BASE_URL}/tasktemplate${query ? "?" + query : ""}`,
   getTaskTemplateYaml: ({ id, revision }) => `${BASE_URL}/tasktemplate/${id}/yaml${revision ? `/${revision}` : ""}`,
@@ -89,7 +89,7 @@ export const serviceUrl = {
   getWorkflowTaskTemplates: ({ workflowId }) => `${BASE_URL}/tasktemplate/workflow/${workflowId}`,
   patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/properties`,
   patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
-  patchSchedule: ({ scheduleId }) => `${BASE_URL}/schedule/${scheduleId}`,
+  patchSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
   postCreateWorkflow: () => `${BASE_URL}/workflow`,
   postCreateWorkflowRevision: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/revision`,
   postCreateWorkflowToken: ({ workflowId, label }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
@@ -141,13 +141,14 @@ export const resolver = {
   deleteTeamPropertyRequest: ({ teamId, configurationId }) =>
     axios.delete(serviceUrl.getTeamProperty({ teamId, configurationId })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
-  deleteSchedule: ({ workflowId, scheduleId }) => axios.delete(serviceUrl.deleteSchedule({ workflowId, scheduleId })),
+  deleteSchedule: ({ scheduleId }) => axios.delete(serviceUrl.deleteSchedule({ scheduleId })),
   deleteToken: ({ tokenId }) => axios.delete(serviceUrl.deleteToken({ tokenId })),
   patchGlobalPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethod.Patch }),
   patchManageTeamUser: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamUser({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
     cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethod.Patch }),
+  patchSchedule: ({ scheduleId, body }) => axios.patch(serviceUrl.patchSchedule({ scheduleId }), body),
   postValidateYaml: ({ body }) =>
     axios({
       method: HttpMethod.Post,

@@ -1,14 +1,10 @@
-//@ts-nocheck
 /* eslint-disable @typescript-eslint/no-unused-vars */
+//@ts-nocheck
 import React from "react";
-import { useQuery } from "react-query";
-import { Switch, Route, Redirect, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { useQuery, useMutation, queryCache } from "react-query";
+import { useHistory, useLocation } from "react-router-dom";
 import Calendar from "Components/Calendar";
-import moment from "moment";
-import queryString from "query-string";
-import { Helmet } from "react-helmet";
 import { useAppContext } from "Hooks";
-import { sortByProp } from "@boomerang-io/utils";
 import {
   DatePicker,
   DatePickerInput,
@@ -21,16 +17,35 @@ import {
   MultiSelect as Select,
   SkeletonPlaceholder,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  Button,
+  ConfirmModal,
+  Error,
+  OverflowMenu,
+  OverflowMenuItem,
+  Search,
+  Tag,
+  TextArea,
+  TextInput,
+  Tile,
+  TooltipHover,
+  ToastNotification,
+  notify,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import HeaderWidget from "Components/HeaderWidget";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
-import { allowedUserRoles, ActionType, WorkflowScope } from "Constants";
-import { ArrowUpRight32 } from "@carbon/icons-react";
+import { queryStringOptions } from "Config/appConfig";
+import { sortByProp } from "@boomerang-io/utils";
+import capitalize from "lodash/capitalize";
+import matchSorter from "match-sorter";
+import moment from "moment";
+import queryString from "query-string";
+import { allowedUserRoles, WorkflowScope } from "Constants";
+import { Add16, ArrowUpRight32, CircleFilled16 } from "@carbon/icons-react";
+import { CalendarEvent, ScheduleUnion, WorkflowSummary } from "Types";
 import styles from "./Schedule.module.scss";
 
 const MultiSelect = Select.Filterable;
-const DEFAULT_START_DATE = 0;
-const DEFAULT_END_DATE = "creationDate";
 
 export const scheduleStatusOptions = [
   { label: "Active", value: "active" },
@@ -38,113 +53,78 @@ export const scheduleStatusOptions = [
   { label: "Inactive", value: "inactive" },
   { label: "Workflow Disabled", value: "trigger_disabled" },
 ];
+const defaultStatusArray = scheduleStatusOptions.map((statusObj) => statusObj.value);
 
-const summaryQuery = queryString.stringify({
-  fromDate: moment(new Date()).subtract("24", "hours").unix(),
-  toDate: moment(new Date()).unix(),
-});
+const defaultFromDate = moment().startOf("month").unix();
+const defaultToDate = moment().endOf("month").unix();
 
-const actionsSummaryUrl = serviceUrl.getActionsSummary({ query: summaryQuery });
 const systemUrl = serviceUrl.getSystemWorkflows();
 const userWorkflowsUrl = serviceUrl.getUserWorkflows();
 
-function Actions() {
-  const { teams, user } = useAppContext();
+function Schedule() {
   const history = useHistory();
   const location = useLocation();
-  const match = useRouteMatch();
+  const { teams, user } = useAppContext();
 
-  /** Define constants */
+  let userTeamIds: Array<string> = [];
   const isSystemWorkflowsEnabled = allowedUserRoles.includes(user.type);
-  const actionType = location.pathname.includes("/manual") ? ActionType.Task : ActionType.Approval;
-
-  /** Get today's numbers data */
-  const actionsSummaryQuery = useQuery({
-    queryKey: actionsSummaryUrl,
-    queryFn: resolver.query(actionsSummaryUrl),
-  });
-
-  /** Organize today's numbers data */
-  const { data: actionsData, isLoading: isActionsLoading, isError: isActionsError } = actionsSummaryQuery;
-
-  const approvalsSummaryNumber = actionsData ? actionsData.approvals : 0;
-  const manualTasksSummaryNumber = actionsData ? actionsData.manual : 0;
-
-  const approvalsRatePercentage = actionsData ? actionsData.approvalsRate : 0;
-
-  const emoji = approvalsRatePercentage > 79 ? "🙌" : approvalsRatePercentage > 49 ? "😮" : "😨";
 
   /**
-   * Prepare queries and get some data
+   * Get worfklow data for calendar and schedule queries
    */
-  const { scopes, workflowIds, statuses, teamIds, fromDate, toDate } = queryString.parse(
-    location.search,
-    queryStringOptions
-  );
-
-  const actionsUrlQuery = queryString.stringify(
-    {
-      scopes,
-      statuses,
-      teamIds,
-      type: actionType,
-      workflowIds,
-      fromDate,
-      toDate,
-    },
-    queryStringOptions
-  );
-
-  const actionsUrlSummaryQuery = queryString.stringify(
-    {
-      scopes,
-      teamIds,
-      statuses,
-      workflowIds,
-      fromDate,
-      toDate,
-    },
-    queryStringOptions
-  );
-
-  const actionsFilterSummaryUrl = serviceUrl.getActionsSummary({ query: actionsUrlSummaryQuery });
-
-  /** Get number of approvals and manual tasks */
-  const { data: actionsFilterSummaryData } = useQuery({
-    queryKey: actionsFilterSummaryUrl,
-    queryFn: resolver.query(actionsFilterSummaryUrl),
-  });
-
-  const actionsUrl = serviceUrl.getActions({ query: actionsUrlQuery });
-
-  /** Get table data */
-  const actionsQuery = useQuery({
-    queryKey: actionsUrl,
-    queryFn: resolver.query(actionsUrl),
-  });
-
-  const { data: systemWorkflowsData, isLoading: systemWorkflowsIsLoading, error: SystemWorkflowsError } = useQuery({
+  const systemWorkflowsQuery = useQuery({
     queryKey: systemUrl,
     queryFn: resolver.query(systemUrl),
     config: { enabled: isSystemWorkflowsEnabled },
   });
 
-  const { data: userWorkflowsData, isLoading: userWorkflowsIsLoading, isError: userWorkflowsIsError } = useQuery({
+  const userWorkflowsQuery = useQuery({
     queryKey: userWorkflowsUrl,
     queryFn: resolver.query(userWorkflowsUrl),
   });
 
-  if (systemWorkflowsIsLoading || userWorkflowsIsLoading) {
-    return <Loading />;
+  /** Get schedule and calendar data */
+  const hasWorkflowsData = Boolean(systemWorkflowsQuery.data) && Boolean(userWorkflowsQuery.data);
+
+  let userWorkflowIds = [];
+  if (hasWorkflowsData) {
+    for (const workflow of userWorkflowsQuery.data.workflows) {
+      userWorkflowIds.push(workflow.id);
+    }
+
+    for (const workflow of systemWorkflowsQuery.data) {
+      userWorkflowIds.push(workflow.id);
+    }
   }
 
-  if (SystemWorkflowsError || userWorkflowsIsError) {
+  const { scopes, statuses = defaultStatusArray, workflowIds, teamIds } = queryString.parse(
+    location.search,
+    queryStringOptions
+  );
+
+  const schedulesUrlQuery = queryString.stringify(
+    {
+      scopes,
+      statuses,
+      teamIds,
+      workflowIds,
+    },
+    queryStringOptions
+  );
+  const getSchedulesUrl = serviceUrl.getSchedules({ query: schedulesUrlQuery });
+
+  const schedulesQuery = useQuery<Array<ScheduleUnion>, string>({
+    queryKey: getSchedulesUrl,
+    queryFn: resolver.query(getSchedulesUrl),
+  });
+
+  // if (schedulesQuery.isLoading) {
+  //   return <Loading />;
+  // }
+
+  if (schedulesQuery.isError) {
     return <ErrorDragon />;
   }
-
-  /**
-   * Filters handlers
-   */
 
   /**
    * Function that updates url search history to persist state
@@ -152,80 +132,68 @@ function Actions() {
    *
    */
   const updateHistorySearch = ({ ...props }) => {
-    const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props }, queryStringOptions)}`;
+    //@ts-ignore next-line
+    const queryStr = `?${queryString.stringify({ ...props }, queryStringOptions)}`;
     history.push({ search: queryStr });
     return;
   };
 
+  //@ts-ignore next-line
   function handleSelectScopes({ selectedItems }) {
+    //@ts-ignore next-line
     const scopes = selectedItems.length > 0 ? selectedItems.map((scope) => scope.value) : undefined;
     updateHistorySearch({
       ...queryString.parse(location.search, queryStringOptions),
       scopes: scopes,
       teamIds: undefined,
       workflowIds: undefined,
-      page: 0,
     });
     return;
   }
 
+  //@ts-ignore next-line
   function handleSelectTeams({ selectedItems }) {
+    //@ts-ignore next-line
     const teamIds = selectedItems.length > 0 ? selectedItems.map((team) => team.id) : undefined;
     updateHistorySearch({
       ...queryString.parse(location.search, queryStringOptions),
       teamIds,
       workflowIds: undefined,
-      page: 0,
     });
     return;
   }
 
+  //@ts-ignore next-line
   function handleSelectWorkflows({ selectedItems }) {
+    //@ts-ignore next-line
     const workflowIds = selectedItems.length > 0 ? selectedItems.map((worflow) => worflow.id) : undefined;
     updateHistorySearch({
       ...queryString.parse(location.search, queryStringOptions),
       workflowIds: workflowIds,
-      page: 0,
     });
     return;
   }
 
+  //@ts-ignore next-line
   function handleSelectStatuses({ selectedItems }) {
+    //@ts-ignore next-line
     const statuses = selectedItems.length > 0 ? selectedItems.map((status) => status.value) : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses, page: 0 });
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses });
     return;
   }
 
-  function handleSelectDate(dates) {
-    let [fromDateObj, toDateObj] = dates;
-    const fromDate = moment(fromDateObj).unix();
-    const toDate = moment(toDateObj).unix();
-    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), fromDate, toDate, page: 0 });
-    return;
-  }
-
-  const handleCloseSelectDate = (dates) => {
-    let [fromDateObj, toDateObj] = dates;
-    const selectedFromDate = moment(fromDateObj).unix();
-    const selectedToDate = moment(toDateObj).unix();
-    updateHistorySearch({
-      ...queryString.parse(location.search, queryStringOptions),
-      fromDate: selectedFromDate === selectedToDate ? fromDate : selectedFromDate,
-      toDate: selectedToDate,
-      page: 0,
-    });
-    return;
-  };
-
+  //@ts-ignore next-line
   function getWorkflowFilter({ teamsData, selectedTeams, systemWorkflowsData = [], userWorkflowsData = [] }) {
     let workflowsList = [];
     if (!scopes || scopes?.includes(WorkflowScope.Team)) {
       if (!selectedTeams.length && teamsData) {
+        //@ts-ignore next-line
         workflowsList = teamsData.reduce((acc, team) => {
           acc.push(...team.workflows);
           return acc;
         }, []);
       } else if (selectedTeams) {
+        //@ts-ignore next-line
         workflowsList = selectedTeams.reduce((acc, team) => {
           acc.push(...team.workflows);
           return acc;
@@ -242,7 +210,7 @@ function Actions() {
     return workflowsFilter;
   }
 
-  if (teams || systemWorkflowsData || userWorkflowsData) {
+  if (teams || systemWorkflowsQuery.data || userWorkflowsQuery.data) {
     const { workflowIds = "", scopes = "", statuses = "", teamIds = "" } = queryString.parse(
       location.search,
       queryStringOptions
@@ -255,9 +223,12 @@ function Actions() {
 
     const teamsData = teams && JSON.parse(JSON.stringify(teams));
 
+    //@ts-ignore next-line
     const selectedTeams =
       teams &&
+      //@ts-ignore next-line
       teamsData.filter((team) => {
+        //@ts-ignore next-line
         if (selectedTeamIds.find((id) => id === team.id)) {
           return true;
         } else {
@@ -268,8 +239,8 @@ function Actions() {
     const workflowsFilter = getWorkflowFilter({
       teamsData,
       selectedTeams,
-      systemWorkflowsData,
-      userWorkflowsData: userWorkflowsData?.workflows,
+      systemWorkflowsData: systemWorkflowsQuery.data,
+      userWorkflowsData: userWorkflowsQuery?.data?.workflows,
     });
     const maxDate = moment().format("MM/DD/YYYY");
 
@@ -278,23 +249,12 @@ function Actions() {
       { label: "Team", value: WorkflowScope.Team },
     ];
 
-    if (isSystemWorkflowsEnabled) workflowScopeOptions.push({ label: "System", value: WorkflowScope.System });
+    if (isSystemWorkflowsEnabled) {
+      workflowScopeOptions.push({ label: "System", value: WorkflowScope.System });
+    }
 
     return (
       <div className={styles.container}>
-        <Switch>
-          <Route exact path={AppPath.ActionsApprovals}>
-            <Helmet>
-              <title>Actions - Approvals</title>
-            </Helmet>
-          </Route>
-          <Route exact path={AppPath.ActionsManual}>
-            <Helmet>
-              <title>Actions - Manual Tasks</title>
-            </Helmet>
-          </Route>
-          <Redirect exact from={AppPath.Actions} to={AppPath.ActionsApprovals} />
-        </Switch>
         <Header
           className={styles.header}
           includeBorder={false}
@@ -306,7 +266,7 @@ function Actions() {
           }
           actions={
             <section className={styles.headerSummary}>
-              {isActionsLoading ? (
+              {/* {isActionsLoading ? (
                 <SkeletonPlaceholder className={styles.headerSummarySkeleton} />
               ) : (
                 <>
@@ -325,114 +285,96 @@ function Actions() {
                     </>
                   )}
                 </>
-              )}
+              )} */}
             </section>
           }
         />
-        {actionsQuery.isError ? (
-          <section aria-label="Actions" className={styles.content}>
-            <ErrorMessage />
-          </section>
-        ) : (
-          <div className={styles.content}>
-            <section aria-label="Actions">
-              <div className={styles.filtersContainer}>
-                <div className={styles.dataFilters}>
-                  <div className={styles.dataFilter}>
-                    <MultiSelect
-                      id="actions-scopes-select"
-                      label="Choose scope(s)"
-                      placeholder="Choose scope(s)"
-                      invalid={false}
-                      onChange={handleSelectScopes}
-                      items={workflowScopeOptions}
-                      itemToString={(scope) => (scope ? scope.label : "")}
-                      initialSelectedItems={workflowScopeOptions.filter((option) =>
-                        Boolean(selectedScopes.find((scope) => scope === option.value))
-                      )}
-                      titleText="Filter by scope"
-                    />
-                  </div>
-                  {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
-                    <div className={styles.dataFilter}>
-                      <MultiSelect
-                        id="actions-teams-select"
-                        label="Choose team(s)"
-                        placeholder="Choose team(s)"
-                        invalid={false}
-                        onChange={handleSelectTeams}
-                        items={teamsData}
-                        itemToString={(team) => (team ? team.name : "")}
-                        initialSelectedItems={selectedTeams}
-                        titleText="Filter by team"
-                      />
-                    </div>
-                  )}
-                  <div className={styles.dataFilter}>
-                    <MultiSelect
-                      id="actions-workflows-select"
-                      label="Choose workflow(s)"
-                      placeholder="Choose workflow(s)"
-                      invalid={false}
-                      onChange={handleSelectWorkflows}
-                      items={workflowsFilter}
-                      itemToString={(workflow) => {
-                        const team = workflow ? teamsData.find((team) => team.id === workflow.flowTeamId) : undefined;
-                        return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
-                      }}
-                      initialSelectedItems={workflowsFilter.filter((workflow) =>
-                        Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
-                      )}
-                      titleText="Filter by workflow"
-                    />
-                  </div>
-                  <div className={styles.dataFilter}>
-                    <MultiSelect
-                      id="actions-statuses-select"
-                      label="Choose status(es)"
-                      placeholder="Choose status(es)"
-                      invalid={false}
-                      onChange={handleSelectStatuses}
-                      items={scheduleStatusOptions}
-                      itemToString={(item) => (item ? item.label : "")}
-                      initialSelectedItems={scheduleStatusOptions.filter((option) =>
-                        Boolean(selectedStatuses.find((status) => status === option.value))
-                      )}
-                      titleText="Filter by status"
-                    />
-                  </div>
+        <div className={styles.content}>
+          <section aria-label="Actions">
+            <div className={styles.filtersContainer}>
+              <div className={styles.dataFilters}>
+                <div className={styles.dataFilter}>
+                  <MultiSelect
+                    id="actions-scopes-select"
+                    label="Choose scope(s)"
+                    placeholder="Choose scope(s)"
+                    invalid={false}
+                    onChange={handleSelectScopes}
+                    items={workflowScopeOptions}
+                    //@ts-ignore next-line
+                    itemToString={(scope) => (scope ? scope.label : "")}
+                    initialSelectedItems={workflowScopeOptions.filter((option) =>
+                      //@ts-ignore next-line
+                      Boolean(selectedScopes.find((scope) => scope === option.value))
+                    )}
+                    titleText="Filter by scope"
+                  />
                 </div>
-                <DatePicker
-                  id="actions-date-picker"
-                  className={styles.timeFilters}
-                  dateFormat="m/d/Y"
-                  datePickerType="range"
-                  maxDate={maxDate}
-                  onChange={handleSelectDate}
-                  onClose={handleCloseSelectDate}
-                >
-                  <DatePickerInput
-                    autoComplete="off"
-                    id="actions-date-picker-start"
-                    labelText="Start date"
-                    placeholder="mm/dd/yyyy"
-                    value={fromDate && moment.unix(fromDate).format("YYYY-MM-DD")}
+                {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
+                  <div className={styles.dataFilter}>
+                    <MultiSelect
+                      id="actions-teams-select"
+                      label="Choose team(s)"
+                      placeholder="Choose team(s)"
+                      invalid={false}
+                      onChange={handleSelectTeams}
+                      items={teamsData}
+                      //@ts-ignore next-line
+                      itemToString={(team) => (team ? team.name : "")}
+                      initialSelectedItems={selectedTeams}
+                      titleText="Filter by team"
+                    />
+                  </div>
+                )}
+                <div className={styles.dataFilter}>
+                  <MultiSelect
+                    id="actions-workflows-select"
+                    label="Choose workflow(s)"
+                    placeholder="Choose workflow(s)"
+                    invalid={false}
+                    onChange={handleSelectWorkflows}
+                    items={workflowsFilter}
+                    //@ts-ignore next-line
+                    itemToString={(workflow) => {
+                      //@ts-ignore next-line
+                      const team = workflow ? teamsData.find((team) => team.id === workflow.flowTeamId) : undefined;
+                      return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                    }}
+                    //@ts-ignore next-line
+                    initialSelectedItems={workflowsFilter.filter((workflow) =>
+                      //@ts-ignore next-line
+                      Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
+                    )}
+                    titleText="Filter by workflow"
                   />
-                  <DatePickerInput
-                    autoComplete="off"
-                    id="actions-date-picker-end"
-                    labelText="End date"
-                    placeholder="mm/dd/yyyy"
-                    value={toDate && moment.unix(toDate).format("YYYY-MM-DD")}
+                </div>
+                <div className={styles.dataFilter}>
+                  <MultiSelect
+                    id="actions-statuses-select"
+                    label="Choose status(es)"
+                    placeholder="Choose status(es)"
+                    invalid={false}
+                    onChange={handleSelectStatuses}
+                    items={scheduleStatusOptions}
+                    //@ts-ignore next-line
+                    itemToString={(item) => (item ? item.label : "")}
+                    initialSelectedItems={scheduleStatusOptions.filter((option) =>
+                      //@ts-ignore next-line
+                      Boolean(selectedStatuses.find((status) => status === option.value))
+                    )}
+                    titleText="Filter by status"
                   />
-                </DatePicker>
+                </div>
               </div>
-            </section>
-            <section>
-              <Calendar />
+            </div>
+          </section>
+          <div className={styles.contentContainer}>
+            <ScheduleList schedules={schedulesQuery.data} getSchedulesUrl={getSchedulesUrl} />
+            <section className={styles.calendarContainer}>
+              <CalendarView schedules={schedulesQuery.data} updateHistorySearch={updateHistorySearch} />
             </section>
           </div>
-        )}
+        </div>
       </div>
     );
   }
@@ -440,4 +382,300 @@ function Actions() {
   return null;
 }
 
-export default Actions;
+interface CalendarViewProps {
+  schedules: Array<ScheduleUnion> | undefined;
+  updateHistorySearch: (props: any) => void;
+}
+
+function CalendarView(props: CalendarViewProps) {
+  const location = useLocation();
+  const { fromDate = defaultFromDate, toDate = defaultToDate } = queryString.parse(location.search, queryStringOptions);
+
+  const handleDateRangeChange = (dateInfo: any) => {
+    const toDate = moment(dateInfo.endStr).unix();
+    const fromDate = moment(dateInfo.startStr).unix();
+    props.updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), toDate, fromDate });
+  };
+
+  const hasScheduleData = Boolean(props.schedules);
+  let userScheduleIds = [];
+  if (props.schedules) {
+    for (const schedule of props.schedules) {
+      userScheduleIds.push(schedule.id);
+    }
+  }
+  const calendarUrlQuery = queryString.stringify(
+    {
+      scheduleIds: userScheduleIds,
+      fromDate,
+      toDate,
+    },
+    queryStringOptions
+  );
+  const getCalendarUrl = serviceUrl.getSchedulesCalendars({ query: calendarUrlQuery });
+  //@ts-ignore next-line
+  const calendarQuery = useQuery(
+    {
+      queryKey: getCalendarUrl,
+      queryFn: resolver.query(getCalendarUrl),
+    },
+    { enabled: hasScheduleData }
+  );
+
+  const calendarEvents: Array<CalendarEvent> = [];
+  if (calendarQuery.data && props.schedules) {
+    //@ts-ignore next-line
+    for (let calendarEntry of calendarQuery.data) {
+      const matchingSchedule: ScheduleUnion | undefined = props.schedules.find(
+        (schedule: ScheduleUnion) => schedule.id === calendarEntry.scheduleId
+      );
+      if (matchingSchedule) {
+        for (const date of calendarEntry.dates) {
+          const newEntry = { ...matchingSchedule, start: date, title: matchingSchedule.name };
+          calendarEvents.push(newEntry);
+        }
+      }
+    }
+  }
+
+  return <Calendar datesSet={handleDateRangeChange} events={calendarEvents} contentHeight={window.innerHeight - 320} />;
+}
+
+interface ScheduleListProps {
+  schedules: Array<ScheduleUnion>;
+  workflowId: string;
+  getSchedulesUrl: string;
+}
+
+function ScheduleList(props: ScheduleListProps) {
+  const [filterQuery, setFilterQuery] = React.useState("");
+
+  const filteredSchedules = Boolean(filterQuery)
+    ? matchSorter(props.schedules, filterQuery, {
+        keys: ["name", "description", "type", "status"],
+      })
+    : props.schedules;
+
+  function renderLists() {
+    if (props.schedules.length === 0) {
+      return <div>No schedules found</div>;
+    }
+
+    if (filteredSchedules.length === 0) {
+      return <div>No matching schedules found</div>;
+    }
+
+    const sortedSchedules = filteredSchedules.sort((a, b) => {
+      return a.name.localeCompare(b.name);
+    });
+
+    return sortedSchedules.map((schedule) => (
+      <ScheduledListItem
+        key={schedule.id}
+        schedule={schedule}
+        workflowId={props.workflowId}
+        getSchedulesUrl={props.getSchedulesUrl}
+      />
+    ));
+  }
+
+  if (!props.schedules) {
+    return <section className={styles.listContainer}>Loading</section>;
+  }
+
+  return (
+    <section className={styles.listContainer}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <h2>{`Existing Schedules (${props.schedules.length})`}</h2>
+      </div>
+      <Search
+        light
+        id="schedules-filter"
+        labelText="Filter schedules"
+        placeHolderText="Search schedules"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterQuery(e.target.value)}
+      />
+      <ul>{renderLists()}</ul>
+    </section>
+  );
+}
+
+interface ScheduledListItemProps {
+  schedule: ScheduleUnion;
+  workflowId: string;
+  getSchedulesUrl: string;
+}
+
+function ScheduledListItem(props: ScheduledListItemProps) {
+  const history = useHistory();
+  const [isToggleStatusModalOpen, setIsToggleStatusModalOpen] = React.useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
+
+  // Determine some things for rendering
+  const isActive = props.schedule.status === "active";
+
+  const labels = [];
+  for (const entry of props.schedule?.labels || []) {
+    labels.push(
+      <Tag>
+        {entry.key}:{entry.value}
+      </Tag>
+    );
+  }
+
+  const nextScheduledText = props.schedule.type === "runOnce" ? "Scheduled" : "Next Execution";
+  const nextScheduleData =
+    props.schedule.type === "runOnce"
+      ? moment(props.schedule.dateSchedule).format("MMMM DD, YYYY HH:mm")
+      : moment(props.schedule.nextScheduleDate).format("MMMM DD, YYYY HH:mm");
+
+  /**
+   * Delete schedule
+   */
+
+  const [deleteScheduleMutator, { isLoading: isDeletingSchedule }] = useMutation(resolver.deleteSchedule, {});
+
+  const handleDeleteSchedule = async (workflow: WorkflowSummary) => {
+    try {
+      await deleteScheduleMutator({ scheduleId: props.schedule.id });
+      notify(
+        <ToastNotification
+          kind="success"
+          title={`Duplicate ${props.schedule.name}`}
+          subtitle={`Successfully duplicated ${props.schedule.name}`}
+        />
+      );
+      queryCache.invalidateQueries(props.getSchedulesUrl);
+    } catch (e) {
+      notify(
+        <ToastNotification
+          kind="error"
+          title="Something's Wrong"
+          subtitle={`Request to duplicate ${props.schedule.name} failed`}
+        />
+      );
+      return;
+    }
+  };
+
+  /**
+   * Disable schedule
+   */
+  const [toggleScheduleStatusMutator, ...disableScheduleMutation] = useMutation(resolver.patchSchedule, {});
+
+  const handleToggleStatus = async () => {
+    const body = { ...props.schedule, status: isActive ? "inactive" : "active" };
+    try {
+      await toggleScheduleStatusMutator({ scheduleId: props.schedule.id, body });
+      notify(
+        <ToastNotification
+          kind="success"
+          title={`${isActive ? "Disable" : "Enable"} Schedule`}
+          subtitle={`Successfully ${isActive ? "disabled" : "enabled"} schedule ${props.schedule.name} `}
+        />
+      );
+      queryCache.invalidateQueries(props.getSchedulesUrl);
+    } catch (e) {
+      notify(
+        <ToastNotification
+          kind="error"
+          title="Something's Wrong"
+          subtitle={`Request to ${isActive ? "disable" : "enable"} schedule ${props.schedule.name} failed`}
+        />
+      );
+      return;
+    }
+  };
+
+  // Set up the Oveflow menu options
+  let menuOptions = [
+    // {
+    //   itemText: "View Activity",
+    //   onClick: () => history.push(appLink.workflowActivity({ workflowId: props.workflowId })),
+    // },
+    {
+      itemText: isActive ? "Disable" : "Enable",
+      onClick: () => setIsToggleStatusModalOpen(true),
+    },
+    {
+      hasDivider: true,
+      itemText: "Delete",
+      isDelete: true,
+      onClick: () => setIsDeleteModalOpen(true),
+    },
+  ];
+
+  return (
+    <li>
+      <Tile className={styles.listItem}>
+        <div className={styles.listItemTitle}>
+          <h3 title={props.schedule.name}>{props.schedule.name}</h3>
+          <TooltipHover direction="top" tooltipText={capitalize(props.schedule.status)}>
+            <CircleFilled16 className={styles.statusCircle} data-status={props.schedule.status} />
+          </TooltipHover>
+        </div>
+        <p className={styles.listItemDescription}>{props.schedule?.description ?? "---"}</p>
+        <div style={{ display: "flex", gap: "2rem" }}>
+          <div>
+            <dt>Executes</dt>
+            <dd>{props.schedule.type === "runOnce" ? "Once" : "Repeatedly"}</dd>
+          </div>
+          <div>
+            <dt>{nextScheduledText}</dt>
+            <dd>{nextScheduleData}</dd>
+          </div>
+        </div>
+        <div className={styles.listItemLabels}>{labels}</div>
+        <OverflowMenu
+          flipped
+          ariaLabel="Schedule card menu"
+          iconDescription="Schedule menu icon"
+          style={{ position: "absolute", right: "0", top: "0" }}
+        >
+          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
+            <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
+          ))}
+        </OverflowMenu>
+      </Tile>
+      {isToggleStatusModalOpen && (
+        <ConfirmModal
+          affirmativeAction={handleToggleStatus}
+          affirmativeText={isActive ? "Disable" : "Enable"}
+          isOpen={isToggleStatusModalOpen}
+          negativeAction={() => {
+            setIsToggleStatusModalOpen(false);
+          }}
+          negativeText="Cancel"
+          onCloseModal={() => {
+            setIsToggleStatusModalOpen(false);
+          }}
+          title={`${isActive ? "Disable" : "Enable"} Schedule?`}
+        >
+          {`Are you sure you want to ${isActive ? "disable" : "enable"} schedule ${
+            props.schedule.name
+          }? Don't worry, you can change it in the future.`}
+        </ConfirmModal>
+      )}
+      {isDeleteModalOpen && (
+        <ConfirmModal
+          affirmativeAction={handleDeleteSchedule}
+          affirmativeButtonProps={{ kind: "danger" }}
+          affirmativeText="Delete"
+          isOpen={isDeleteModalOpen}
+          negativeAction={() => {
+            setIsDeleteModalOpen(false);
+          }}
+          negativeText="Cancel"
+          onCloseModal={() => {
+            setIsDeleteModalOpen(false);
+          }}
+          title={`Delete Schedule?`}
+        >
+          {`Are you sure you want to delete schedule ${props.schedule.name}? There's no going back from this decision.`}
+        </ConfirmModal>
+      )}
+    </li>
+  );
+}
+
+export default Schedule;

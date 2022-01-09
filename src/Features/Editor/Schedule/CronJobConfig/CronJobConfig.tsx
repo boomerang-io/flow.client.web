@@ -30,11 +30,15 @@ const cronDayNumberMap: { [key: string]: string } = {
   saturday: "SAT",
 };
 
+const INIT_CRON = "0 18 * * *";
+const INIT_HOUR = "18:00";
+
 type Props = {
   advancedCron?: boolean;
-  cronExpression?: string;
-  timeZone?: string | boolean;
+  cronSchedule?: string;
+  timezone?: string | boolean;
   timezoneOptions?: any;
+  handleOnChange: (schedule: any) => void;
 };
 
 type State = {
@@ -50,7 +54,7 @@ export default class CronJobModal extends Component<Props, State> {
     super(props);
     this.state = {
       errorMessage: undefined,
-      message: props.cronExpression ? cronstrue.toString(props.cronExpression) : cronstrue.toString("0 18 * * *"),
+      message: props.cronSchedule ? cronstrue.toString(props.cronSchedule) : cronstrue.toString("0 18 * * *"),
       defaultTimeZone: moment.tz.guess(),
       isValidatingCron: false,
       hasValidated: true,
@@ -62,6 +66,12 @@ export default class CronJobModal extends Component<Props, State> {
       .filter((tz) => !exludedTimezones.includes(tz))
       .map((element) => this.transformTimeZone(element));
   }
+
+  handleOnSave = (e: any, values: any) => {
+    e.preventDefault();
+    const scheduleValue = values.advancedCron ? values.cronSchedule : this.handleSchedule(values);
+    this.props.handleOnChange(scheduleValue);
+  };
 
   handleTimeChange = (selectedItem: any, id: string, setFieldValue: (id: string, item: any) => void) => {
     setFieldValue(id, selectedItem);
@@ -94,20 +104,9 @@ export default class CronJobModal extends Component<Props, State> {
     return true;
   };
 
-  // transform timeZone in { label, value } object
-  transformTimeZone = (timeZone: string) => {
-    return { label: `${timeZone} (UTC ${moment.tz(timeZone).format("Z")})`, value: timeZone };
-  };
-
-  handleOnSave = (e: any, values: any) => {
-    e.preventDefault();
-    //const scheduleValue = values.advancedCron ? values.cronExpression : this.handleSchedule(values);
-    // this.props.handleOnChange(values.advancedCron, "triggers.scheduler.advancedCron");
-    // this.props.handleOnChange(scheduleValue, "triggers.scheduler.schedule");
-    // this.props.handleOnChange(
-    //   values.timeZone.value ? values.timeZone.value : this.state.defaultTimeZone,
-    //   "triggers.scheduler.timezone"
-    // );
+  // transform timezone in { label, value } object
+  transformTimeZone = (timezone: string) => {
+    return { label: `${timezone} (UTC ${moment.tz(timezone).format("Z")})`, value: timezone };
   };
 
   handleSchedule = (values: { days: Array<string>; time: string }) => {
@@ -117,8 +116,8 @@ export default class CronJobModal extends Component<Props, State> {
       daysCron.push(cronDayNumberMap[day]);
     });
     const timeCron = !values.time ? ["0", "0"] : values.time.split(":");
-    const cronExpression = `0 ${timeCron[1]} ${timeCron[0]} ? * ${daysCron.length !== 0 ? daysCron.toString() : "*"}`;
-    return cronExpression;
+    const cronSchedule = `0 ${timeCron[1]} ${timeCron[0]} ? * ${daysCron.length !== 0 ? daysCron.toString() : "*"}`;
+    return cronSchedule;
   };
 
   handleCheckboxListChange = (setFieldValue: (id: string, value: any) => void, ...args: any) => {
@@ -128,10 +127,10 @@ export default class CronJobModal extends Component<Props, State> {
 
   render() {
     const { defaultTimeZone, errorMessage, message, isValidatingCron, hasValidated } = this.state;
-    const { cronExpression, timeZone, advancedCron } = this.props;
-    const cronToData = cronToDateTime(!!cronExpression, cronExpression ? cronExpression : undefined);
+    console.log(this.props);
+    const { cronSchedule, timezone, advancedCron } = this.props;
+    const cronToData = cronToDateTime(!!cronSchedule, cronSchedule ? cronSchedule : undefined);
     const { cronTime, selectedDays } = cronToData;
-    const initialCron = "0 18 * * *";
 
     let activeDays: string[] = [];
     Object.entries(selectedDays).forEach(([key, value]) => {
@@ -145,24 +144,24 @@ export default class CronJobModal extends Component<Props, State> {
         validateOnMount
         onSubmit={this.handleOnSave}
         initialValues={{
-          cronExpression: cronExpression || initialCron,
+          cronSchedule: cronSchedule || INIT_CRON,
           advancedCron: !!advancedCron,
           days: activeDays,
-          time: cronTime || "18:00",
-          timeZone:
-            timeZone && typeof timeZone !== "boolean"
-              ? this.transformTimeZone(timeZone)
+          time: cronTime || INIT_HOUR,
+          timezone:
+            timezone && typeof timezone !== "boolean"
+              ? this.transformTimeZone(timezone)
               : this.transformTimeZone(defaultTimeZone),
         }}
         validationSchema={Yup.object().shape({
-          cronExpression: Yup.string().when("advancedCron", {
+          cronSchedule: Yup.string().when("advancedCron", {
             is: true,
             then: (cron: any) => cron.required("Expression required"),
           }),
           advancedCron: Yup.bool(),
           days: Yup.array(),
           time: Yup.string().when("advancedCron", { is: false, then: (time: any) => time.required("Enter a time") }),
-          timeZone: Yup.object().shape({ label: Yup.string(), value: Yup.string() }),
+          timezone: Yup.object().shape({ label: Yup.string(), value: Yup.string() }),
         })}
       >
         {(formikProps) => {
@@ -197,9 +196,9 @@ export default class CronJobModal extends Component<Props, State> {
                   <div className={styles.cronContainer}>
                     <div className={styles.inputContainer}>
                       <TextInput
-                        id="cronExpression"
+                        id="cronSchedule"
                         disabled={isValidatingCron}
-                        invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
+                        invalid={(errors.cronSchedule || errorMessage) && touched.cronSchedule}
                         invalidText={errorMessage}
                         labelText="CRON Expression"
                         onChange={(e: any) => {
@@ -208,14 +207,14 @@ export default class CronJobModal extends Component<Props, State> {
                         }}
                         onBlur={handleBlur}
                         placeholder="Enter a CRON Expression"
-                        value={values.cronExpression}
+                        value={values.cronSchedule}
                       />
                       {isValidatingCron ? (
                         <InlineLoading description="Checking..." />
                       ) : (
                         <Button
-                          onClick={() => this.validateCron(values.cronExpression)}
-                          disabled={Boolean(errors.cronExpression) || hasValidated}
+                          onClick={() => this.validateCron(values.cronSchedule)}
+                          disabled={Boolean(errors.cronSchedule) || hasValidated}
                           kind="ghost"
                           size="small"
                           className={styles.validityStatusComponent}
@@ -224,18 +223,18 @@ export default class CronJobModal extends Component<Props, State> {
                         </Button>
                       )}
                     </div>
-                    {values.cronExpression && message && <div className={styles.cronMessage}>{message}</div>}
+                    {values.cronSchedule && message && <div className={styles.cronMessage}>{message}</div>}
                   </div>
                   <div className={styles.timezone}>
                     <ComboBox
-                      id="timeZone"
-                      initialSelectedItem={values.timeZone}
+                      id="timezone"
+                      initialSelectedItem={values.timezone}
                       //@ts-ignore
                       items={this.timezoneOptions}
                       onChange={({ selectedItem }: { selectedItem: { label: string; value: string } }) =>
                         this.handleTimeChange(
                           selectedItem !== null ? selectedItem : { label: "", value: "" },
-                          "timeZone",
+                          "timezone",
                           setFieldValue
                         )
                       }
@@ -258,19 +257,18 @@ export default class CronJobModal extends Component<Props, State> {
                       onChange={handleChange}
                       placeholder="Time"
                       style={{ minWidth: "10rem" }}
-                      type="time"
                       value={values.time}
                     />
                     <div className={styles.timezone}>
                       <ComboBox
-                        id="timeZone"
-                        initialSelectedItem={values.timeZone}
+                        id="timezone"
+                        initialSelectedItem={values.timezone}
                         //@ts-ignore
                         items={this.timezoneOptions}
                         onChange={({ selectedItem }: { selectedItem: { label: string; value: string } }) =>
                           this.handleTimeChange(
                             selectedItem !== null ? selectedItem : { label: "", value: "" },
-                            "timeZone",
+                            "timezone",
                             setFieldValue
                           )
                         }

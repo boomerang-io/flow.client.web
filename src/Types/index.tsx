@@ -577,3 +577,37 @@ export interface FlowFeatures {
     [k in FlowQuotaKey]: string;
   };
 }
+
+//Schedule types
+export interface ScheduleCalendar {
+  scheduleId: string;
+  dates: Array<string>;
+}
+
+export interface Schedule {
+  id: string;
+  name: string;
+  description?: string;
+  labels?: Array<{ key: string; value: string }>;
+  parameters?: { [k: string]: string };
+  status: "active" | "inactive" | "deleted" | "trigger_disabled";
+  type: "runOnce" | "cron" | "advancedCron";
+}
+
+export interface ScheduleDate extends Schedule {
+  dateSchedule: string;
+  type: "runOnce";
+}
+
+export interface ScheduleCron extends Schedule {
+  cronSchedule: string;
+  type: "cron" | "advancedCron";
+  nextScheduleDate: string;
+}
+
+export interface CalendarEvent extends Schedule {
+  start: string;
+  title: string;
+}
+
+export type ScheduleUnion = ScheduleDate | ScheduleCron;
