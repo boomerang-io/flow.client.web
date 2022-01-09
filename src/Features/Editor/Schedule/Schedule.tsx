@@ -1,14 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-import { useHistory } from "react-router";
+//import { useHistory } from "react-router";
 import {
   Button,
   ConfirmModal,
+  ComposedModal,
+  Creatable,
+  ModalBody,
+  ModalForm,
+  ModalFooter,
   MultiSelect,
   Error,
   Loading,
   OverflowMenu,
   OverflowMenuItem,
+  RadioButtonGroup,
+  RadioButton,
   Search,
   Tag,
   TextArea,
@@ -187,27 +194,35 @@ interface ScheduleListProps {
 
 function ScheduleList(props: ScheduleListProps) {
   const [filterQuery, setFilterQuery] = React.useState("");
-
-  const filteredSchedules = Boolean(filterQuery)
-    ? matchSorter(props.schedules, filterQuery, {
-        keys: ["name", "description", "type", "status"],
-      })
-    : props.schedules;
+  const [selectedStatuses, setSelectedStatuses] = React.useState<Array<string>>([]);
 
   function renderLists() {
     if (props.schedules.length === 0) {
       return <div>No schedules found</div>;
     }
 
-    if (filteredSchedules.length === 0) {
-      return <div>No matching schedules found</div>;
-    }
+    const filteredSchedules = Boolean(filterQuery)
+      ? matchSorter(props.schedules, filterQuery, {
+          keys: ["name", "description", "type", "status"],
+        })
+      : props.schedules;
 
     const sortedSchedules = filteredSchedules.sort((a, b) => {
       return a.name.localeCompare(b.name);
     });
 
-    return sortedSchedules.map((schedule) => (
+    let selectedSchedules = sortedSchedules;
+    if (selectedStatuses.length) {
+      selectedSchedules = sortedSchedules.filter((schedule) => {
+        return selectedStatuses.includes(schedule.status);
+      });
+    }
+
+    if (selectedSchedules.length === 0) {
+      return <div>No matching schedules found</div>;
+    }
+
+    return selectedSchedules.map((schedule) => (
       <ScheduledListItem
         key={schedule.id}
         schedule={schedule}
@@ -223,9 +238,7 @@ function ScheduleList(props: ScheduleListProps) {
     <section className={styles.listContainer}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <h2>{`Existing Schedules (${props.schedules.length})`}</h2>
-        <Button size="field" renderIcon={Add16} onClick={props.setIsCreatorOpen} disabled>
-          Create a Schedule
-        </Button>
+        <CreateSchedule />
       </div>
       <div style={{ display: "flex", alignItems: "end", gap: "0.5rem", width: "100%" }}>
         <div style={{ width: "50%" }}>
@@ -244,12 +257,11 @@ function ScheduleList(props: ScheduleListProps) {
             label="Choose status(es)"
             placeholder="Choose status(es)"
             invalid={false}
-            // onChange={handleSelectStatuses}
+            onChange={({ selectedItems }: any) =>
+              void console.log(selectedItems) || setSelectedStatuses(selectedItems.map((item: any) => item.value))
+            }
             items={scheduleStatusOptions}
-            // itemToString={(item) => (item ? item.label : "")}
-            // initialSelectedItems={scheduleStatusOptions.filter((option) =>
-            //   Boolean(selectedStatuses.find((status) => status === option.value))
-            // )}
+            selectedItem={selectedStatuses}
             titleText="Filter by status"
           />
         </div>
@@ -268,7 +280,7 @@ interface ScheduledListItemProps {
 }
 
 function ScheduledListItem(props: ScheduledListItemProps) {
-  const history = useHistory();
+  //const history = useHistory();
   const [isToggleStatusModalOpen, setIsToggleStatusModalOpen] = React.useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
 
@@ -453,6 +465,11 @@ interface PanelProps {
 }
 
 function EditorPanel(props: PanelProps) {
+  const nextScheduledText = props.event?.type === "runOnce" ? "Scheduled" : "Next Execution";
+  const nextScheduleData =
+    props.event?.type === "runOnce"
+      ? moment(props.event?.dateSchedule).format("MMMM DD, YYYY HH:mm")
+      : moment(props.event?.nextScheduleDate).format("MMMM DD, YYYY HH:mm");
   return (
     <SlidingPane
       hideHeader
@@ -462,29 +479,25 @@ function EditorPanel(props: PanelProps) {
       width="32rem"
     >
       <div className={styles.detailsSection}>
-        <section>
-          <h2>Details</h2>
-          <dl>
-            <div style={{ display: "flex", gap: "0.5rem" }}>
-              <dt style={{ display: "inline-block" }}>Type:</dt>
-              <dd style={{ display: "inline-block" }}>{props.event?.type ?? "---"}</dd>
+        <div className={styles.detailsInfo}>
+          <div className={styles.detailsTitle}>
+            <h2 title={props.event?.name}>{props.event?.name}</h2>
+            <TooltipHover direction="top" tooltipText={capitalize(props.event?.status)}>
+              <CircleFilled16 className={styles.statusCircle} data-status={props.event?.status} />
+            </TooltipHover>
+          </div>
+          <p className={styles.detailDescription}>{props.event?.description ?? "---"}</p>
+          <div style={{ display: "flex", gap: "2rem" }}>
+            <div>
+              <dt>Executes</dt>
+              <dd>{props.event?.type === "runOnce" ? "Once" : "Repeatedly"}</dd>
             </div>
-            <div style={{ display: "flex", gap: "0.5rem" }}>
-              <dt style={{ display: "inline-block" }}>Title:</dt>
-              <dd style={{ display: "inline-block" }}>{props.event?.name ?? "---"}</dd>
+            <div>
+              <dt>{nextScheduledText}</dt>
+              <dd>{nextScheduleData}</dd>
             </div>
-            <div style={{ display: "flex", gap: "0.5rem" }}>
-              <dt style={{ display: "inline-block" }}>Description:</dt>
-              <dd style={{ display: "inline-block" }}>{props.event?.description ?? "---"}</dd>
-            </div>
-            <div style={{ display: "flex", gap: "0.5rem" }}>
-              <dt style={{ display: "inline-block" }}>Time:</dt>
-              {/* <dd style={{ display: "inline-block" }}>
-                {props?.event?.start ? moment(props.event.start).format("YYYY-MM-DD hh:mm A") : "---"}
-              </dd> */}
-            </div>
-          </dl>
-        </section>
+          </div>
+        </div>
         <hr />
         {props.event && (
           <>
@@ -552,5 +565,52 @@ function CreatorPanel(props: PanelProps) {
         </footer>
       </div>
     </SlidingPane>
+  );
+}
+
+function CreateSchedule() {
+  return (
+    <ComposedModal
+      composedModalProps={{
+        containerClassName: styles.modalContainer,
+      }}
+      modalHeaderProps={{
+        title: "Create a Schedule",
+      }}
+      modalTrigger={({ openModal }: { openModal: () => void }) => (
+        <Button size="field" renderIcon={Add16} onClick={openModal}>
+          Create a Schedule
+        </Button>
+      )}
+    >
+      {() => (
+        <ModalForm>
+          <ModalBody>
+            <TextInput labelText="Name" id="name" placeholder="e.g. Daily task" />
+            <TextArea labelText="Description" id="description" placeholder="e.g. Runs very important daily task." />
+            <Creatable labelText="Parameters" />
+            <Creatable keyLabelText="Key" valueLabelText="Value" createKeyValuePair />
+            <RadioButtonGroup
+              labelPosition="right"
+              name="platform-role"
+              onChange={() => {}}
+              orientation="horizontal"
+              valueSelected={"runOnce"}
+            >
+              <RadioButton key={"runOnce"} id={"role-runOnce"} labelText={"Run Once"} value={"role-runOnce"} />
+              <RadioButton key={"cron"} id={"role-cron"} labelText={"Recurring"} value={"role-cron"} />
+            </RadioButtonGroup>
+            <div style={{ display: "flex", width: "100%", gap: "0.5rem" }}>
+              <TextInput type="datetime-local" labelText="Time" />
+              <TextInput labelText="Time Zone" />
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button kind="secondary">Cancel</Button>
+            <Button>Create</Button>
+          </ModalFooter>
+        </ModalForm>
+      )}
+    </ComposedModal>
   );
 }

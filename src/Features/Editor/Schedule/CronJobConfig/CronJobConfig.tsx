@@ -251,12 +251,13 @@ export default class CronJobModal extends Component<Props, State> {
                       data-testid="time"
                       invalid={errors.time && touched.time}
                       invalidText={errors.time}
-                      labelText={"Choose a time"}
+                      labelText={"Time"}
                       name="time"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       placeholder="Time"
                       style={{ minWidth: "10rem" }}
+                      type="time"
                       value={values.time}
                     />
                     <div className={styles.timezone}>
@@ -272,8 +273,8 @@ export default class CronJobModal extends Component<Props, State> {
                             setFieldValue
                           )
                         }
-                        placeholder="Timezone"
-                        titleText={null}
+                        placeholder="Time Zone"
+                        titleText={"Time Zone"}
                       />
                     </div>
                   </div>

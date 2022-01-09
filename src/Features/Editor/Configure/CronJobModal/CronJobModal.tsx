@@ -257,7 +257,7 @@ export default class CronJobModal extends Component<Props, State> {
                           data-testid="time"
                           invalid={errors.time && touched.time}
                           invalidText={errors.time}
-                          labelText={"Choose a time"}
+                          labelText={"Time"}
                           name="time"
                           onBlur={handleBlur}
                           onChange={handleChange}
@@ -269,6 +269,7 @@ export default class CronJobModal extends Component<Props, State> {
                         <div className={styles.timezone}>
                           <ComboBox
                             id="timeZone"
+                            label="Time Zone"
                             initialSelectedItem={values.timeZone}
                             //@ts-ignore
                             items={this.timezoneOptions}
@@ -290,6 +291,7 @@ export default class CronJobModal extends Component<Props, State> {
                           labelText="Choose day(s)"
                           options={daysOfWeekCronList}
                           onChange={(...args: any) => this.handleCheckboxListChange(setFieldValue, ...args)}
+                          orientation="horizontal"
                         />
                       </div>
                     </>

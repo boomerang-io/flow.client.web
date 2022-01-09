@@ -14,14 +14,13 @@ import {
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import ConfigureStorage from "./ConfigureStorage";
-import CronJobModal from "./CronJobModal";
 import cx from "classnames";
 import cronstrue from "cronstrue";
 import capitalize from "lodash/capitalize";
 import * as Yup from "yup";
 import { appLink, BASE_DOCUMENTATION_URL, FeatureFlag } from "Config/appConfig";
 import { QueryStatus } from "Constants";
-import { EventSchedule16, Save24 } from "@carbon/icons-react";
+import { Save24 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
 import { WorkflowSummary } from "Types";
 import BuildWebhookModalContent from "./BuildWebhookModalContent";
@@ -427,38 +426,16 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                             values.triggers.scheduler.timezone
                           }`}
                         </div>
-                        {/*<div className={styles.informationTimeZone}>
-                        {`${values.triggers.scheduler.timezone} Timezone`}
-                  </div>*/}
                       </div>
                     )}
-                  {values.triggers.scheduler.enable && (
-                    <ComposedModal
-                      modalHeaderProps={{
-                        title: "Change schedule",
-                      }}
-                      modalTrigger={({ openModal }: { openModal: () => void }) => (
-                        <button
-                          className={styles.regenerateText}
-                          type="button"
-                          onClick={openModal}
-                          data-testid="launchCronModal"
-                        >
-                          <p>Change schedule</p>
-                          <EventSchedule16 className={styles.scheduleIcon} fill={"#0072C3"} />
-                        </button>
-                      )}
-                    >
-                      {({ closeModal }: { closeModal: () => void }) => (
-                        <CronJobModal
-                          advancedCron={values.triggers.scheduler.advancedCron}
-                          closeModal={closeModal}
-                          cronExpression={values.triggers.scheduler.schedule}
-                          handleOnChange={this.handleOnToggleChange}
-                          timeZone={values.triggers.scheduler.timezone}
-                        />
-                      )}
-                    </ComposedModal>
+                  {values.triggers.scheduler.enable ? (
+                    <p>
+                      <b>All active</b> schedules will execute.
+                    </p>
+                  ) : (
+                    <p>
+                      <b>No schedules</b> will execute, regardless of status.
+                    </p>
                   )}
                 </div>
               </div>

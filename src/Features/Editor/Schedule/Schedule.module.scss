@@ -101,6 +101,20 @@
   flex-direction: column;
   height: 100%;
 
+  h2 {
+    display: flex;
+    font-weight: bold;
+    margin-bottom: 0rem;
+  }
+
+  dl {
+    margin-top: 1rem;
+  }
+
+  dt {
+    font-size: 0.875rem;
+  }
+
   section {
     margin: 1rem;
     padding-bottom: 1.5rem;
@@ -115,4 +129,22 @@
       width: 50% !important;
     }
   }
+}
+
+.detailsInfo {
+  padding: 1rem;
+}
+
+.detailsTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.modalContainer {
+  height: 50rem;
+  max-width: 50rem;
+  width: 50rem;
+  max-height: 84vh;
 }
