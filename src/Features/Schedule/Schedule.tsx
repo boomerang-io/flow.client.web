@@ -40,17 +40,22 @@ import moment from "moment";
 import queryString from "query-string";
 import { allowedUserRoles, WorkflowScope } from "Constants";
 import { Add16, ArrowUpRight32, CircleFilled16 } from "@carbon/icons-react";
-import { CalendarEvent, ScheduleUnion, WorkflowSummary } from "Types";
+import { CalendarEvent, ScheduleStatus, ScheduleUnion, WorkflowSummary } from "Types";
 import styles from "./Schedule.module.scss";
 
 const MultiSelect = Select.Filterable;
 
 export const scheduleStatusOptions = [
-  { label: "Active", value: "active" },
-  { label: "Deleted", value: "deleted" },
-  { label: "Inactive", value: "inactive" },
+  { label: "Enabled", value: "active" },
+  { label: "Disabled", value: "inactive" },
   { label: "Workflow Disabled", value: "trigger_disabled" },
 ];
+
+export const statusLabelMap: Record<ScheduleStatus, string> = {
+  active: "Enabled",
+  inactive: "Disabled",
+  trigger_disabled: "Trigger Disabled",
+};
 const defaultStatusArray = scheduleStatusOptions.map((statusObj) => statusObj.value);
 
 const defaultFromDate = moment().startOf("month").unix();
@@ -526,6 +531,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
 
   // Determine some things for rendering
   const isActive = props.schedule.status === "active";
+  const isTriggerDisabled = props.schedule.status === "trigger_disabled";
 
   const labels = [];
   for (const entry of props.schedule?.labels || []) {
@@ -623,7 +629,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
       <Tile className={styles.listItem}>
         <div className={styles.listItemTitle}>
           <h3 title={props.schedule.name}>{props.schedule.name}</h3>
-          <TooltipHover direction="top" tooltipText={capitalize(props.schedule.status)}>
+          <TooltipHover direction="top" tooltipText={statusLabelMap[props.schedule.status] ?? "---"}>
             <CircleFilled16 className={styles.statusCircle} data-status={props.schedule.status} />
           </TooltipHover>
         </div>

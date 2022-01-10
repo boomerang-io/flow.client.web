@@ -15,7 +15,7 @@
 
 .timezone {
   position: relative;
-  width: 60.5%;
+  width: 23.5rem;
 }
 
 .cronContainer {
@@ -62,4 +62,8 @@
   font-weight: 400;
   letter-spacing: 0.32px;
   line-height: 1rem;
+}
+
+:global .bx--bmrg-creatable__colon {
+  margin-top: 2.215rem !important;
 }

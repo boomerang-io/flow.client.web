@@ -1,10 +1,10 @@
 import React from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
-import capitalize from "lodash/capitalize";
 import moment from "moment";
-import { CalendarEvent } from "Types";
+import { statusLabelMap } from "Features/Schedule";
 import { CircleFilled16 } from "@carbon/icons-react";
+import { CalendarEvent, ScheduleUnion } from "Types";
 import styles from "./Calendar.module.scss";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./big-calendar.scss";
@@ -31,7 +31,8 @@ const MyCalendar = (props: MyCalendarProps) => {
   return (
     <Calendar
       popup
-      components={{ event: renderEventContent }}
+      //@ts-ignore
+      components={{ event: Event }}
       localizer={localizer}
       style={{ height }}
       views={["month", "agenda"]}
@@ -43,13 +44,22 @@ const MyCalendar = (props: MyCalendarProps) => {
   );
 };
 
-function renderEventContent(eventContent: any) {
-  const event = eventContent.event;
+interface EventProps {
+  event: {
+    title: string;
+    start: string;
+    end: string;
+    resource: ScheduleUnion;
+  };
+}
+
+function Event(props: EventProps) {
+  const { event } = props;
   const schedule = event.resource;
   const hour = moment(event.start).format("h:mm a");
   return (
     <div className={styles.eventContentContainer} data-status={schedule.status}>
-      <TooltipHover direction="top" tooltipText={capitalize(schedule.status.split("_").join(" "))}>
+      <TooltipHover direction="top" tooltipText={statusLabelMap[schedule.status] ?? "---"}>
         <CircleFilled16 className={styles.statusCircle} data-status={schedule.status} />
       </TooltipHover>
       <span>

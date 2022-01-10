@@ -145,6 +145,9 @@
   &[data-status="deleted"] {
     fill: var(--cds-support-error);
   }
+  &[data-status="trigger_disabled"] {
+    fill: var(--cds-text-03);
+  }
 }
 
 .detailsSection {

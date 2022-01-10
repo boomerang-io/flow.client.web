@@ -136,7 +136,7 @@ export default class CronJobModal extends Component<Props, State> {
     const cronToData = cronToDateTime(!!cronExpression, cronExpression ? cronExpression : undefined);
     const { cronTime, selectedDays } = cronToData;
     const initialCron = "0 18 * * *";
-    console.log(selectedDays);
+    console.log(cronToData);
     let activeDays: string[] = [];
     Object.entries(selectedDays).forEach(([key, value]) => {
       if (value) {
@@ -206,13 +206,13 @@ export default class CronJobModal extends Component<Props, State> {
                             disabled={isValidatingCron}
                             invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
                             invalidText={errorMessage}
-                            labelText="CRON Expression"
+                            labelText="Cron Expression"
                             onChange={(e: any) => {
                               handleChange(e);
                               this.setState({ hasValidated: false });
                             }}
                             onBlur={handleBlur}
-                            placeholder="Enter a CRON Expression"
+                            placeholder="Enter a Cron Expression"
                             value={values.cronExpression}
                           />
                           {isValidatingCron ? (

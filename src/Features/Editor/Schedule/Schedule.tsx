@@ -27,7 +27,7 @@ import {
   ToastNotification,
   notify,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Add16, CircleFilled16 } from "@carbon/icons-react";
+import { Add16, CircleFilled16, SettingsAdjust16 } from "@carbon/icons-react";
 import { useQuery, useMutation, queryCache } from "react-query";
 import CronJobConfig from "./CronJobConfig";
 import RunOnceConfig from "./RunOnceConfig";
@@ -38,7 +38,7 @@ import moment from "moment-timezone";
 import SlidingPane from "react-sliding-pane";
 import queryString from "query-string";
 import { queryStringOptions } from "Config/appConfig";
-import { scheduleStatusOptions } from "Features/Schedule";
+import { scheduleStatusOptions, statusLabelMap } from "Features/Schedule";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import * as Yup from "yup";
 import {
@@ -245,6 +245,8 @@ function ScheduleList(props: ScheduleListProps) {
         setIsEditorOpen={props.setIsEditorOpen}
         workflowId={props.workflow.id}
         workflowScheduleUrl={props.workflowScheduleUrl}
+        workflowCalendarUrl={props.workflowCalendarUrl}
+        workflow={props.workflow}
       />
     ));
   }
@@ -276,9 +278,7 @@ function ScheduleList(props: ScheduleListProps) {
             label="Choose status(es)"
             placeholder="Choose status(es)"
             invalid={false}
-            onChange={({ selectedItems }: any) =>
-              void console.log(selectedItems) || setSelectedStatuses(selectedItems.map((item: any) => item.value))
-            }
+            onChange={({ selectedItems }: any) => setSelectedStatuses(selectedItems.map((item: any) => item.value))}
             items={scheduleStatusOptions}
             selectedItem={selectedStatuses}
             titleText="Filter by status"
@@ -296,6 +296,8 @@ interface ScheduledListItemProps {
   setIsEditorOpen: (isOpen: boolean) => void;
   workflowId: string;
   workflowScheduleUrl: string;
+  workflowCalendarUrl: string;
+  workflow: WorkflowSummary;
 }
 
 function ScheduledListItem(props: ScheduledListItemProps) {
@@ -309,7 +311,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   const labels = [];
   for (const entry of props.schedule?.labels || []) {
     labels.push(
-      <Tag>
+      <Tag key={entry.key}>
         {entry.key}:{entry.value}
       </Tag>
     );
@@ -327,14 +329,14 @@ function ScheduledListItem(props: ScheduledListItemProps) {
 
   const [deleteScheduleMutator, { isLoading: isDeletingSchedule }] = useMutation(resolver.deleteSchedule, {});
 
-  const handleDeleteSchedule = async (workflow: WorkflowSummary) => {
+  const handleDeleteSchedule = async () => {
     try {
       await deleteScheduleMutator({ scheduleId: props.schedule.id });
       notify(
         <ToastNotification
           kind="success"
-          title={`Duplicate ${props.schedule.name}`}
-          subtitle={`Successfully duplicated ${props.schedule.name}`}
+          title={`Delete Schedule`}
+          subtitle={`Successfully deleted schedule ${props.schedule.name}`}
         />
       );
       queryCache.invalidateQueries(props.workflowScheduleUrl);
@@ -343,7 +345,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
         <ToastNotification
           kind="error"
           title="Something's Wrong"
-          subtitle={`Request to duplicate ${props.schedule.name} failed`}
+          subtitle={`Request to delete schedule ${props.schedule.name} failed`}
         />
       );
       return;
@@ -405,11 +407,11 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   ];
 
   return (
-    <li>
+    <li key={props.schedule.id}>
       <Tile className={styles.listItem}>
         <div className={styles.listItemTitle}>
           <h3 title={props.schedule.name}>{props.schedule.name}</h3>
-          <TooltipHover direction="top" tooltipText={capitalize(props.schedule.status.split("_").join(" "))}>
+          <TooltipHover direction="top" tooltipText={statusLabelMap[props.schedule.status] ?? "---"}>
             <CircleFilled16 className={styles.statusCircle} data-status={props.schedule.status} />
           </TooltipHover>
         </div>
@@ -435,6 +437,12 @@ function ScheduledListItem(props: ScheduledListItemProps) {
             <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
           ))}
         </OverflowMenu>
+        <EditSchedule
+          schedule={props.schedule}
+          workflowScheduleUrl={props.workflowScheduleUrl}
+          workflowCalendarUrl={props.workflowCalendarUrl}
+          workflow={props.workflow}
+        />
       </Tile>
       {isToggleStatusModalOpen && (
         <ConfirmModal
@@ -621,9 +629,10 @@ interface CreateScheduleForm {
   advancedCron: boolean;
   parameters: { [key: string]: any };
 }
+
 function CreateSchedule(props: CreateScheduleProps) {
   /**
-   * Disable schedule
+   * Create schedule
    */
   const [createScheduleMutator, { isLoading: createScheduleIsLoading }] = useMutation(resolver.postSchedule, {});
 
@@ -652,19 +661,7 @@ function CreateSchedule(props: CreateScheduleProps) {
   };
 
   const handleSubmit = async (values: CreateScheduleForm) => {
-    const {
-      name,
-      description,
-      cronSchedule,
-      dateTime,
-      labels,
-      timezone,
-      type,
-      advancedCron,
-      days,
-      time,
-      ...parameters
-    } = values;
+    const { name, description, cronSchedule, dateTime, labels, timezone, type, days, time, ...parameters } = values;
 
     let scheduleLabels: Array<{ key: string; value: string }> = [];
     if (values.labels.length) {
@@ -683,10 +680,6 @@ function CreateSchedule(props: CreateScheduleProps) {
       parameters,
       workflowId: props.workflow.id,
     };
-
-    if (advancedCron) {
-      scheduleType = "advancedCron";
-    }
 
     if (schedule.type === "runOnce") {
       schedule["dateSchedule"] = new Date(dateTime).toISOString();
@@ -714,97 +707,243 @@ function CreateSchedule(props: CreateScheduleProps) {
       )}
     >
       {(modalProps: ComposedModalChildProps) => (
-        <DynamicFormik
-          initialValues={{
-            type: "runOnce",
-            cronSchedule: INIT_CRON,
-            advancedCron: false,
-            days: [],
-            time: INIT_HOUR,
-            timezone: transformTimeZone(defaultTimeZone),
-            labels: [],
-          }}
-          inputs={props.workflow.properties}
-          onSubmit={async (args: any) => {
-            await handleSubmit(args);
-            modalProps.closeModal();
-          }}
-          validationSchemaExtension={Yup.object().shape({
-            name: Yup.string().required("Name is required"),
-            description: Yup.string(),
-            type: Yup.string(),
-            dateTime: Yup.string().when("type", {
-              is: "runOnce",
-              then: Yup.string().required("Time is required"),
-            }),
-            labels: Yup.array(),
-            cronSchedule: Yup.string().when("advancedCron", {
-              is: true,
-              then: (cron: any) => cron.required("Expression required"),
-            }),
-            advancedCron: Yup.bool(),
-            days: Yup.array(),
-            time: Yup.string().when("advancedCron", { is: false, then: (time: any) => time.required("Enter a time") }),
-            timezone: Yup.object().shape({ label: Yup.string(), value: Yup.string() }),
-          })}
-        >
-          {({ inputs, formikProps }: any) => (
-            <ModalForm noValidate onSubmit={formikProps.handleSubmit}>
-              <ModalBody>
-                <p>
-                  <b>About</b>
-                </p>
-                <TextInput
-                  labelText="Name"
-                  id="name"
-                  onBlur={formikProps.handleBlur}
-                  onChange={formikProps.handleChange}
-                  invalid={formikProps.errors.name && formikProps.touched.name}
-                  invalidText={formikProps.errors.name}
-                  placeholder="e.g. Daily task"
-                  value={formikProps.values.name}
-                />
-                <TextArea
-                  labelText="Description (optional)"
-                  id="description"
-                  placeholder="e.g. Runs very important daily task."
-                  onBlur={formikProps.handleBlur}
-                  onChange={formikProps.handleChange}
-                  invalid={formikProps.errors.description && formikProps.touched.description}
-                  invalidText={formikProps.errors.description}
-                  value={formikProps.values.description}
-                />
-                <p>
-                  <b>Date and Time</b>
-                </p>
-                <section>
-                  <p>How many times do you want to execute this Schedule?</p>
-                  <RadioButtonGroup
-                    id="type"
-                    labelPosition="right"
-                    name="type"
-                    onChange={(type: string) => formikProps.setFieldValue("type", type)}
-                    orientation="horizontal"
-                    valueSelected={formikProps.values["type"]}
-                  >
-                    <RadioButton key={"runOnce"} id={"runOnce"} labelText={"Once"} value={"runOnce"} />
-                    <RadioButton key={"cron"} id={"cron"} labelText={"Repeatedly"} value={"cron"} />
-                  </RadioButtonGroup>
-                </section>
-                {formikProps.values["type"] === "runOnce" ? (
-                  <div style={{ display: "flex", width: "100%", gap: "0.5rem", alignItems: "flex-start" }}>
-                    <TextInput
-                      type="datetime-local"
-                      labelText="Time"
-                      id="dateTime"
-                      name="dateTime"
-                      onBlur={formikProps.handleBlur}
-                      onChange={formikProps.handleChange}
-                      invalid={formikProps.errors.dateTime && formikProps.touched.dateTime}
-                      invalidText={formikProps.errors.dateTime}
-                      value={formikProps.values.dateTime}
-                      min={moment().format("YYYY-MM-DDThh:mm")}
-                    />
+        <CreateEditForm
+          modalProps={modalProps}
+          isLoading={createScheduleIsLoading}
+          handleSubmit={handleSubmit}
+          //@ts-ignore
+          parameters={props.workflow.properties}
+          type="create"
+        />
+      )}
+    </ComposedModal>
+  );
+}
+
+interface EditScheduleProps {
+  schedule: ScheduleUnion;
+  workflowScheduleUrl: string;
+  workflowCalendarUrl: string;
+  workflow: WorkflowSummary;
+}
+
+function EditSchedule(props: EditScheduleProps) {
+  /**
+   * Update schedule
+   */
+  const [updateScheduleMutator, { isLoading: updateScheduleIsLoading }] = useMutation(resolver.patchSchedule, {});
+
+  const handleUpdateSchedule = async (schedule: ScheduleUnion) => {
+    try {
+      await updateScheduleMutator({ body: schedule, scheduleId: schedule.id });
+      notify(
+        <ToastNotification
+          kind="success"
+          title={`Updated Schedule`}
+          subtitle={`Successfully updated schedule ${schedule.name} `}
+        />
+      );
+      queryCache.invalidateQueries(props.workflowScheduleUrl);
+      queryCache.invalidateQueries(props.workflowCalendarUrl);
+    } catch (e) {
+      notify(
+        <ToastNotification
+          kind="error"
+          title="Something's Wrong"
+          subtitle={`Request to update schedule ${schedule.name} failed`}
+        />
+      );
+      return;
+    }
+  };
+
+  const handleSubmit = async (values: CreateScheduleForm) => {
+    const { name, description, cronSchedule, dateTime, labels, timezone, type, days, time, ...parameters } = values;
+
+    let scheduleLabels: Array<{ key: string; value: string }> = [];
+    if (values.labels.length) {
+      scheduleLabels = values.labels.map((pair: string) => {
+        const [key, value] = pair.split(":");
+        return { key, value };
+      });
+    }
+    let scheduleType = type;
+    const schedule: Partial<ScheduleUnion> = {
+      name,
+      description,
+      type: scheduleType,
+      timezone: timezone.value,
+      labels: scheduleLabels,
+      parameters,
+    };
+
+    if (schedule.type === "runOnce") {
+      schedule["dateSchedule"] = new Date(dateTime).toISOString();
+    }
+
+    if (schedule.type === "cron" || schedule.type === "advancedCron") {
+      schedule["cronSchedule"] = cronSchedule;
+    }
+
+    await handleUpdateSchedule(schedule as ScheduleUnion);
+  };
+
+  return (
+    <ComposedModal
+      composedModalProps={{
+        containerClassName: styles.modalContainer,
+      }}
+      modalHeaderProps={{
+        title: "Edit a Schedule",
+      }}
+      modalTrigger={({ openModal }: { openModal: () => void }) => (
+        <Button size="field" renderIcon={SettingsAdjust16} onClick={openModal} kind="ghost">
+          Edit Schedule
+        </Button>
+      )}
+    >
+      {(modalProps: ComposedModalChildProps) => (
+        <CreateEditForm
+          isLoading={updateScheduleIsLoading}
+          handleSubmit={handleSubmit}
+          modalProps={modalProps}
+          parameters={props.workflow.properties}
+          schedule={props.schedule}
+          type={"edit"}
+        />
+      )}
+    </ComposedModal>
+  );
+}
+
+interface CreateEditFormProps {
+  handleSubmit: (args: CreateScheduleForm) => void;
+  isLoading: boolean;
+  modalProps: ComposedModalChildProps;
+  parameters?: { [k: string]: any };
+  type: "create" | "edit";
+  schedule?: ScheduleUnion;
+}
+
+function CreateEditForm(props: CreateEditFormProps) {
+  let initValues: any = {};
+  if (props.schedule?.type === "runOnce") {
+    initValues["dateTime"] = moment(props.schedule?.dateSchedule).format("YYYY-MM-DDThh:mm");
+  }
+
+  if (props.schedule?.type === "cron" || props.schedule?.type === "advancedCron") {
+    initValues["cronSchedule"] = props.schedule?.cronSchedule;
+  }
+
+  return (
+    <DynamicFormik
+      initialValues={{
+        type: "runOnce",
+        cronSchedule: INIT_CRON,
+        days: [],
+        time: INIT_HOUR,
+        timezone: transformTimeZone(defaultTimeZone),
+        labels: [],
+        ...props.schedule,
+        ...initValues,
+      }}
+      inputs={props.parameters}
+      onSubmit={async (args: CreateScheduleForm) => {
+        await props.handleSubmit(args);
+        props.modalProps.closeModal();
+      }}
+      validationSchemaExtension={Yup.object().shape({
+        name: Yup.string().required("Name is required"),
+        description: Yup.string(),
+        type: Yup.string(),
+        dateTime: Yup.string().when("type", {
+          is: "runOnce",
+          then: Yup.string().required("Date and Time is required"),
+        }),
+        labels: Yup.array(),
+        cronSchedule: Yup.string().when("advancedCron", {
+          is: true,
+          then: (cron: any) => cron.required("Expression required"),
+        }),
+        days: Yup.array(),
+        time: Yup.string().when("advancedCron", { is: false, then: (time: any) => time.required("Enter a time") }),
+        timezone: Yup.object().shape({ label: Yup.string(), value: Yup.string() }),
+      })}
+    >
+      {({ inputs, formikProps }: any) =>
+        void console.log(formikProps.values) || (
+          <ModalForm noValidate onSubmit={formikProps.handleSubmit}>
+            <ModalBody>
+              <p>
+                <b>About</b>
+              </p>
+              <TextInput
+                labelText="Name"
+                id="name"
+                onBlur={formikProps.handleBlur}
+                onChange={formikProps.handleChange}
+                invalid={formikProps.errors.name && formikProps.touched.name}
+                invalidText={formikProps.errors.name}
+                placeholder="e.g. Daily task"
+                value={formikProps.values.name}
+              />
+              <TextArea
+                labelText="Description (optional)"
+                id="description"
+                placeholder="e.g. Runs very important daily task."
+                onBlur={formikProps.handleBlur}
+                onChange={formikProps.handleChange}
+                invalid={formikProps.errors.description && formikProps.touched.description}
+                invalidText={formikProps.errors.description}
+                value={formikProps.values.description}
+              />
+              <Creatable
+                createKeyValuePair
+                keyLabelText="Label key"
+                keyPlaceholder="level"
+                valueLabelText="Label value"
+                valuePlaceholder="important"
+                onChange={(labels: string) => formikProps.setFieldValue("labels", labels)}
+              />
+              <p>
+                <b>Schedule</b>
+              </p>
+              <section>
+                <p>How many times do you want to execute this Schedule?</p>
+                <RadioButtonGroup
+                  id="type"
+                  labelPosition="right"
+                  name="type"
+                  onChange={(type: string) => formikProps.setFieldValue("type", type)}
+                  orientation="horizontal"
+                  valueSelected={formikProps.values["type"]}
+                >
+                  <RadioButton key={"runOnce"} id={"runOnce"} labelText={"Once"} value={"runOnce"} />
+                  <RadioButton key={"cron"} id={"cron"} labelText={"Repeatedly"} value={"cron"} />
+                  <RadioButton
+                    key={"advanced-cron"}
+                    id={"advanced-cron"}
+                    labelText={"Repeatedly via cron schedule"}
+                    value={"advancedCron"}
+                  />
+                </RadioButtonGroup>
+              </section>
+              {formikProps.values["type"] === "runOnce" ? (
+                <>
+                  <TextInput
+                    type="datetime-local"
+                    labelText="Date and Time"
+                    id="dateTime"
+                    name="dateTime"
+                    onBlur={formikProps.handleBlur}
+                    onChange={formikProps.handleChange}
+                    invalid={formikProps.errors.dateTime && formikProps.touched.dateTime}
+                    invalidText={formikProps.errors.dateTime}
+                    value={formikProps.values.dateTime}
+                    min={moment().format("YYYY-MM-DDThh:mm")}
+                    style={{ width: "23.5rem" }}
+                  />
+                  <div style={{ width: "23.5rem" }}>
                     <ComboBox
                       id="timezone"
                       initialSelectedItem={formikProps.values.timezone}
@@ -814,39 +953,34 @@ function CreateSchedule(props: CreateScheduleProps) {
                         const item = selectedItem ?? { label: "", value: "" };
                         formikProps.setFieldValue("timezone", item);
                       }}
-                      placeholder="Timezone"
-                      titleText="Timezone"
+                      placeholder="e.g. US/Central (UTC -06:00)"
+                      titleText="Time Zone"
                     />
                   </div>
-                ) : (
-                  <CronJobConfig formikProps={formikProps} timezoneOptions={timezoneOptions} />
-                )}
-                <p>
-                  <b>Labels</b>
-                </p>
-                <Creatable
-                  createKeyValuePair
-                  keyLabelText="Label key"
-                  valueLabelText="Label value"
-                  onChange={(labels: string) => formikProps.setFieldValue("labels", labels)}
-                />
-                <p>
-                  <b>Parameters</b>
-                </p>
-                {inputs}
-              </ModalBody>
-              <ModalFooter>
-                <Button kind="secondary" onClick={modalProps.closeModal}>
-                  Cancel
-                </Button>
-                <Button disabled={!formikProps.isValid || createScheduleIsLoading} type="submit">
-                  Create
-                </Button>
-              </ModalFooter>
-            </ModalForm>
-          )}
-        </DynamicFormik>
-      )}
-    </ComposedModal>
+                </>
+              ) : (
+                <CronJobConfig formikProps={formikProps} timezoneOptions={timezoneOptions} />
+              )}
+              {inputs.length ? (
+                <>
+                  <p>
+                    <b>Parameters</b>
+                  </p>
+                  {inputs}
+                </>
+              ) : null}
+            </ModalBody>
+            <ModalFooter>
+              <Button kind="secondary" onClick={props.modalProps.closeModal}>
+                Cancel
+              </Button>
+              <Button disabled={!formikProps.isValid || props.isLoading} type="submit">
+                Create
+              </Button>
+            </ModalFooter>
+          </ModalForm>
+        )
+      }
+    </DynamicFormik>
   );
 }

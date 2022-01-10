@@ -430,11 +430,11 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                     )}
                   {values.triggers.scheduler.enable ? (
                     <p>
-                      <b>All active</b> schedules will execute.
+                      <b>All enabled</b> schedules will execute. Manage them in the Schedule tab.
                     </p>
                   ) : (
                     <p>
-                      <b>No schedules</b> will execute, regardless of status.
+                      <b>No schedules</b> will execute, regardless of status. Manage them in the Schedule tab.
                     </p>
                   )}
                 </div>
