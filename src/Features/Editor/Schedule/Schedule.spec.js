@@ -1,7 +1,6 @@
 import React from "react";
 import Schedule from "./index";
-import { fireEvent, waitFor } from "@testing-library/react";
-import { AppPath, appLink } from "Config/appConfig";
+import { waitFor } from "@testing-library/react";
 
 const initialState = {};
 
@@ -21,8 +20,6 @@ const props = {
     id: "123",
   },
 };
-
-
 
 describe("Schedule --- Snapshot Test", () => {
   it("Capturing Snapshot of Inputs", async () => {

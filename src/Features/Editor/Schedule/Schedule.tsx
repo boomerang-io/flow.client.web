@@ -38,6 +38,7 @@ import moment from "moment-timezone";
 import SlidingPane from "react-sliding-pane";
 import queryString from "query-string";
 import { queryStringOptions } from "Config/appConfig";
+import { cronToDateTime } from "Utils/cronHelper";
 import { scheduleStatusOptions, statusLabelMap } from "Features/Schedule";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import * as Yup from "yup";
@@ -617,6 +618,7 @@ interface CreateScheduleProps {
 }
 
 interface CreateScheduleForm {
+  id: string;
   name: string;
   description: string;
   cronSchedule: string;
@@ -733,14 +735,14 @@ function EditSchedule(props: EditScheduleProps) {
    */
   const [updateScheduleMutator, { isLoading: updateScheduleIsLoading }] = useMutation(resolver.patchSchedule, {});
 
-  const handleUpdateSchedule = async (schedule: ScheduleUnion) => {
+  const handleUpdateSchedule = async (updatedSchedule: ScheduleUnion) => {
     try {
-      await updateScheduleMutator({ body: schedule, scheduleId: schedule.id });
+      await updateScheduleMutator({ body: updatedSchedule, scheduleId: props.schedule.id });
       notify(
         <ToastNotification
           kind="success"
           title={`Updated Schedule`}
-          subtitle={`Successfully updated schedule ${schedule.name} `}
+          subtitle={`Successfully updated schedule ${props.schedule.name} `}
         />
       );
       queryCache.invalidateQueries(props.workflowScheduleUrl);
@@ -750,7 +752,7 @@ function EditSchedule(props: EditScheduleProps) {
         <ToastNotification
           kind="error"
           title="Something's Wrong"
-          subtitle={`Request to update schedule ${schedule.name} failed`}
+          subtitle={`Request to update schedule ${props.schedule.name} failed`}
         />
       );
       return;
@@ -826,7 +828,19 @@ interface CreateEditFormProps {
 }
 
 function CreateEditForm(props: CreateEditFormProps) {
-  let initValues: any = {};
+  let initValues: Partial<CreateScheduleForm> = {
+    id: props.schedule?.name,
+    name: props.schedule?.name ?? "",
+    description: props.schedule?.description ?? "",
+    type: props.schedule?.type || "runOnce",
+    cronSchedule: INIT_CRON,
+    days: [],
+    time: INIT_HOUR,
+    timezone: transformTimeZone(defaultTimeZone),
+    labels: [],
+    ...props.schedule?.parameters,
+  };
+
   if (props.schedule?.type === "runOnce") {
     initValues["dateTime"] = moment(props.schedule?.dateSchedule).format("YYYY-MM-DDThh:mm");
   }
@@ -834,19 +848,33 @@ function CreateEditForm(props: CreateEditFormProps) {
   if (props.schedule?.type === "cron" || props.schedule?.type === "advancedCron") {
     initValues["cronSchedule"] = props.schedule?.cronSchedule;
   }
+  if (props.schedule?.type === "cron") {
+    const cronSchedule = props.schedule?.cronSchedule ?? undefined;
+    const cronToData = cronToDateTime(Boolean(cronSchedule), cronSchedule);
+    const { selectedDays } = cronToData;
+
+    let activeDays: string[] = [];
+    Object.entries(selectedDays).forEach(([key, value]) => {
+      if (value) {
+        activeDays.push(key);
+      }
+    });
+
+    initValues["days"] = activeDays;
+  }
+
+  let scheduleLabels: Array<string> = [];
+  if (props.schedule?.labels?.length) {
+    for (let labelObj of props.schedule.labels) {
+      const scheduleLabel = `${labelObj.key}:${labelObj.value}`;
+      scheduleLabels.push(scheduleLabel);
+    }
+    initValues["labels"] = scheduleLabels;
+  }
 
   return (
     <DynamicFormik
-      initialValues={{
-        type: "runOnce",
-        cronSchedule: INIT_CRON,
-        days: [],
-        time: INIT_HOUR,
-        timezone: transformTimeZone(defaultTimeZone),
-        labels: [],
-        ...props.schedule,
-        ...initValues,
-      }}
+      initialValues={initValues}
       inputs={props.parameters}
       onSubmit={async (args: CreateScheduleForm) => {
         await props.handleSubmit(args);
@@ -903,6 +931,7 @@ function CreateEditForm(props: CreateEditFormProps) {
                 keyPlaceholder="level"
                 valueLabelText="Label value"
                 valuePlaceholder="important"
+                value={formikProps.values.labels}
                 onChange={(labels: string) => formikProps.setFieldValue("labels", labels)}
               />
               <p>
@@ -975,7 +1004,7 @@ function CreateEditForm(props: CreateEditFormProps) {
                 Cancel
               </Button>
               <Button disabled={!formikProps.isValid || props.isLoading} type="submit">
-                Create
+                {props.type === "create" ? "Create" : "Update"}
               </Button>
             </ModalFooter>
           </ModalForm>

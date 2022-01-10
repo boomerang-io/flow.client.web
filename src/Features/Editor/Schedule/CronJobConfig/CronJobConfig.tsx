@@ -3,7 +3,6 @@ import axios from "axios";
 import cronstrue from "cronstrue";
 import { Button, CheckboxList, ComboBox, InlineLoading, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
 import { daysOfWeekCronList } from "Constants";
-import { cronToDateTime } from "Utils/cronHelper";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./CronJobConfig.module.scss";
 
@@ -92,16 +91,6 @@ export default class CronJobModal extends Component<Props, State> {
   render() {
     const { errorMessage, message, isValidatingCron, hasValidated } = this.state;
     const { values, touched, errors, handleBlur, handleChange, setFieldValue } = this.props.formikProps;
-    const { cronSchedule } = values;
-    const cronToData = cronToDateTime(!!cronSchedule, cronSchedule ? cronSchedule : undefined);
-    const { selectedDays } = cronToData;
-
-    let activeDays: string[] = [];
-    Object.entries(selectedDays).forEach(([key, value]) => {
-      if (value) {
-        activeDays.push(key);
-      }
-    });
 
     return (
       <>
