@@ -150,7 +150,7 @@ function ConfigureInputsForm(props) {
   }
 
   const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
-  const workflowProperties = nodeConfig?.inputs?.workflowId
+  const workflowProperties = Boolean(workflows.length) && nodeConfig?.inputs?.workflowId
     ? workflows.find((workflow) => workflow.id === nodeConfig?.inputs?.workflowId).properties
     : null;
   const [activeProperties, setActiveProperties] = useState(
