@@ -142,7 +142,7 @@ function ConfigureInputsForm(props) {
   if (isSystem) {
     workflows = systemWorkflows?.filter((workflow) => workflow.id !== summaryData?.id);
   } else if (isUser) {
-    workflows = userWorkflows;
+    workflows = userWorkflows?.workflows ?? [];
   } else {
     workflows = teams
       .find((team) => team.id === summaryData?.flowTeamId)
