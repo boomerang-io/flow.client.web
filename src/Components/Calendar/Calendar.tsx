@@ -17,7 +17,7 @@ interface MyCalendarProps {
   [key: string]: any;
 }
 const MyCalendar = (props: MyCalendarProps) => {
-  const { heightOffset = 250 } = props;
+  const { heightOffset = 260 } = props;
   const [height, setHeight] = React.useState(window.innerHeight - heightOffset); //meh
 
   React.useLayoutEffect(() => {
@@ -31,8 +31,10 @@ const MyCalendar = (props: MyCalendarProps) => {
   return (
     <Calendar
       popup
+      selectable
       //@ts-ignore
       components={{ event: Event }}
+      drilldownView="agenda"
       localizer={localizer}
       style={{ height }}
       views={["month", "agenda"]}

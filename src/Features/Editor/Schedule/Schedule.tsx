@@ -1,4 +1,5 @@
 import React from "react";
+import { useQuery, useMutation, queryCache } from "react-query";
 import {
   Button,
   ConfirmModal,
@@ -26,21 +27,20 @@ import {
   ToastNotification,
   notify,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Add16, CircleFilled16, SettingsAdjust16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
-import { useQuery, useMutation, queryCache } from "react-query";
 import CronJobConfig from "./CronJobConfig";
-import Calendar from "Components/Calendar";
-import matchSorter from "match-sorter";
-import moment from "moment-timezone";
 import SlidingPane from "react-sliding-pane";
 import queryString from "query-string";
-import { queryStringOptions } from "Config/appConfig";
+import Calendar from "Components/Calendar";
+import cronstrue from "cronstrue";
+import matchSorter from "match-sorter";
+import moment from "moment-timezone";
+import * as Yup from "yup";
 import { cronToDateTime, cronDayNumberMap } from "Utils/cronHelper";
 import { DATE_TIME_LOCAL_INPUT_FORMAT, defaultTimeZone, timezoneOptions, transformTimeZone } from "Utils/dateHelper";
-import cronstrue from "cronstrue";
 import { scheduleStatusOptions, statusLabelMap } from "Features/Schedule";
+import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import * as Yup from "yup";
+import { Add16, CircleFilled16, SettingsAdjust16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
 import {
   CalendarEvent,
   ComposedModalChildProps,
@@ -100,10 +100,12 @@ export default function ScheduleView(props: ScheduleProps) {
   });
 
   const handleDateRangeChange = (dateInfo: any) => {
-    const fromDate = moment(dateInfo.start).unix();
-    const toDate = moment(dateInfo.end).unix();
-    setFromDate(fromDate);
-    setToDate(toDate);
+    if (dateInfo) {
+      const fromDate = moment(dateInfo.start).unix();
+      const toDate = moment(dateInfo.end).unix();
+      setFromDate(fromDate);
+      setToDate(toDate);
+    }
   };
 
   /**
@@ -206,7 +208,7 @@ function CalendarView(props: CalendarViewProps) {
           props.setActiveSchedule({ ...data.resource, nextScheduleDate: new Date(data.start).toISOString() });
         }}
         onRangeChange={props.onDateRangeChange}
-        onSelectSlot={() => props.setIsCreatorOpen(true)}
+        onSelectSlot={() => void console.log("here") || props.setIsCreatorOpen(true)}
         events={calendarEvents}
       />
     </section>
@@ -414,7 +416,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
       <Tile className={styles.listItem}>
         <div className={styles.listItemTitle}>
           <h3 title={props.schedule.name}>{props.schedule.name}</h3>
-          <TooltipHover direction="top" tooltipText={props.schedule.type === "runOnce" ? "Once" : "Recurring"}>
+          <TooltipHover direction="top" tooltipText={props.schedule.type === "runOnce" ? "Single" : "Recurring"}>
             {props.schedule.type === "runOnce" ? <RepeatOne16 /> : <Repeat16 />}
           </TooltipHover>
           <TooltipHover direction="top" tooltipText={statusLabelMap[props.schedule.status]}>
@@ -537,10 +539,17 @@ function EditorPanel(props: PanelProps) {
                 renderIcon={SettingsAdjust16}
                 style={{ marginLeft: "auto" }}
               >
-                Edit
+                Edit Schedule
               </Button>
             </div>
             <p className={styles.listItemDescription}>{schedule?.description ?? "---"}</p>
+            <dl>
+              <dt>Type</dt>
+              <dd style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
+                {schedule.type === "runOnce" ? "Single" : "Recurring"}
+                {schedule.type === "runOnce" ? <RepeatOne16 /> : <Repeat16 />}
+              </dd>
+            </dl>
             <dl>
               <dt>Status</dt>
               <dd style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
@@ -553,13 +562,6 @@ function EditorPanel(props: PanelProps) {
               </dd>
             </dl>
             <dl>
-              <dt>Type</dt>
-              <dd style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
-                {schedule.type === "runOnce" ? "Once" : "Recurring"}
-                {schedule.type === "runOnce" ? <RepeatOne16 /> : <Repeat16 />}
-              </dd>
-            </dl>
-            <dl>
               <dt>Scheduled</dt>
               <dd>{nextScheduleData}</dd>
             </dl>
@@ -569,7 +571,7 @@ function EditorPanel(props: PanelProps) {
             </dl>
             <dl>
               <dt>Frequency </dt>
-              <dd>{schedule.type === "runOnce" ? "Once" : cronstrue.toString(schedule.cronSchedule)}</dd>
+              <dd>{schedule.type === "runOnce" ? "Single" : cronstrue.toString(schedule.cronSchedule)}</dd>
             </dl>
             <dl>
               <dt>Labels</dt>
@@ -579,7 +581,7 @@ function EditorPanel(props: PanelProps) {
           <section>
             <h2>Workflow Parameters</h2>
             <p style={{ marginBottom: "1rem" }}>Values for your workflow</p>
-            <CodeSnippet hideCopyButton type="multi">
+            <CodeSnippet light hideCopyButton type="multi">
               {JSON.stringify(schedule?.parameters)}
             </CodeSnippet>
           </section>
@@ -591,7 +593,7 @@ function EditorPanel(props: PanelProps) {
   return (
     <SlidingPane
       hideHeader
-      className={styles.editorContainer}
+      className={styles.panelContainer}
       onRequestClose={() => props.setIsOpen(false)}
       isOpen={props.isOpen}
       width="32rem"

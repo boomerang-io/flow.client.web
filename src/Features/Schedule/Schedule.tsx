@@ -1,20 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-//@ts-nocheck
 import React from "react";
-import { useQuery, useMutation, queryCache } from "react-query";
-import { useHistory, useLocation } from "react-router-dom";
-import Calendar from "Components/Calendar";
 import { useAppContext } from "Hooks";
-import {
-  ErrorMessage,
-  ErrorDragon,
-  FeatureHeader as Header,
-  FeatureHeaderTitle as HeaderTitle,
-  FeatureHeaderSubtitle as HeaderSubtitle,
-  Loading,
-  MultiSelect as Select,
-  SkeletonPlaceholder,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { useHistory, useLocation } from "react-router-dom";
+import { useQuery, useMutation, queryCache } from "react-query";
 import {
   ConfirmModal,
   OverflowMenu,
@@ -25,21 +12,28 @@ import {
   TooltipHover,
   ToastNotification,
   notify,
+  ErrorDragon,
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
+  MultiSelect as Select,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { serviceUrl, resolver } from "Config/servicesConfig";
-import { queryStringOptions } from "Config/appConfig";
+import Calendar from "Components/Calendar";
 import { sortByProp } from "@boomerang-io/utils";
+import cronstrue from "cronstrue";
 import matchSorter from "match-sorter";
 import moment from "moment";
 import queryString from "query-string";
 import { allowedUserRoles, WorkflowScope } from "Constants";
-import { Add16, ArrowUpRight32, CircleFilled16 } from "@carbon/icons-react";
-import { CalendarEvent, ScheduleStatus, ScheduleUnion, WorkflowSummary } from "Types";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import { queryStringOptions } from "Config/appConfig";
+import { CircleFilled16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
+import { CalendarEvent, FlowTeam, ScheduleStatus, ScheduleUnion, WorkflowSummary } from "Types";
 import styles from "./Schedule.module.scss";
 
 const MultiSelect = Select.Filterable;
 
-export const scheduleStatusOptions = [
+export const scheduleStatusOptions: Array<{ label: string; value: ScheduleStatus }> = [
   { label: "Enabled", value: "active" },
   { label: "Disabled", value: "inactive" },
   { label: "Workflow Disabled", value: "trigger_disabled" },
@@ -49,6 +43,7 @@ export const statusLabelMap: Record<ScheduleStatus, string> = {
   active: "Enabled",
   inactive: "Disabled",
   trigger_disabled: "Trigger Disabled",
+  deleted: "Deleted",
 };
 const defaultStatusArray = scheduleStatusOptions.map((statusObj) => statusObj.value);
 
@@ -56,14 +51,12 @@ const defaultFromDate = moment().startOf("month").unix();
 const defaultToDate = moment().endOf("month").unix();
 
 const systemUrl = serviceUrl.getSystemWorkflows();
-const userWorkflowsUrl = serviceUrl.getUserWorkflows();
 
 function Schedule() {
   const history = useHistory();
   const location = useLocation();
   const { teams, user, userWorkflows } = useAppContext();
 
-  let userTeamIds: Array<string> = [];
   const isSystemWorkflowsEnabled = allowedUserRoles.includes(user.type);
 
   /**
@@ -76,7 +69,7 @@ function Schedule() {
   });
 
   /** Get schedule and calendar data */
-  const hasWorkflowsData = Boolean(systemWorkflowsQuery.data) && Boolean(userWorkflowsQuery.data);
+  const hasWorkflowsData = Boolean(systemWorkflowsQuery.data) && Boolean(userWorkflows.workflows);
 
   let userWorkflowIds = [];
   if (hasWorkflowsData) {
@@ -175,18 +168,29 @@ function Schedule() {
   }
 
   //@ts-ignore next-line
-  function getWorkflowFilter({ teamsData, selectedTeams, systemWorkflowsData = [], userWorkflowsData = [] }) {
-    let workflowsList = [];
+  interface GetWorkflowFilterArgs {
+    teamsData: Array<FlowTeam>;
+    selectedTeams: Array<string>;
+    systemWorkflowsData: Array<WorkflowSummary>;
+    userWorkflowsData: Array<WorkflowSummary>;
+  }
+  function getWorkflowFilter({
+    teamsData,
+    selectedTeams,
+    systemWorkflowsData = [],
+    userWorkflowsData = [],
+  }: GetWorkflowFilterArgs) {
+    let workflowsList: Array<WorkflowSummary> = [];
     if (!scopes || scopes?.includes(WorkflowScope.Team)) {
       if (!selectedTeams.length && teamsData) {
         //@ts-ignore next-line
-        workflowsList = teamsData.reduce((acc, team) => {
+        workflowsList = teamsData.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
           acc.push(...team.workflows);
           return acc;
         }, []);
       } else if (selectedTeams) {
         //@ts-ignore next-line
-        workflowsList = selectedTeams.reduce((acc, team) => {
+        workflowsList = selectedTeams.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
           acc.push(...team.workflows);
           return acc;
         }, []);
@@ -202,7 +206,7 @@ function Schedule() {
     return workflowsFilter;
   }
 
-  if (teams || systemWorkflowsQuery.data || userWorkflowsQuery.data) {
+  if (teams || systemWorkflowsQuery.data || userWorkflows.workflows) {
     const { workflowIds = "", scopes = "", statuses = "", teamIds = "" } = queryString.parse(
       location.search,
       queryStringOptions
@@ -232,9 +236,8 @@ function Schedule() {
       teamsData,
       selectedTeams,
       systemWorkflowsData: systemWorkflowsQuery.data,
-      userWorkflowsData: userWorkflowsQuery?.data?.workflows,
+      userWorkflowsData: userWorkflows.workflows,
     });
-    const maxDate = moment().format("MM/DD/YYYY");
 
     const workflowScopeOptions = [
       { label: "User", value: WorkflowScope.User },
@@ -249,7 +252,7 @@ function Schedule() {
       <div className={styles.container}>
         <Header
           className={styles.header}
-          includeBorder={false}
+          includeBorder={true}
           header={
             <>
               <HeaderTitle className={styles.headerTitle}>Schedule</HeaderTitle>
@@ -257,109 +260,87 @@ function Schedule() {
             </>
           }
           actions={
-            <section className={styles.headerSummary}>
-              {/* {isActionsLoading ? (
-                <SkeletonPlaceholder className={styles.headerSummarySkeleton} />
-              ) : (
-                <>
-                  <p className={styles.headerSummaryText}>Today's numbers</p>
-                  {isActionsError ? (
-                    <>
-                      <HeaderWidget text="Manual" value="--" />
-                      <HeaderWidget text="Approvals" value="--" />
-                      <HeaderWidget text="Approval rate" value="--" />
-                    </>
-                  ) : (
-                    <>
-                      <HeaderWidget icon={ArrowUpRight32} text="Manual" value={manualTasksSummaryNumber} />
-                      <HeaderWidget icon={ArrowUpRight32} text="Approvals" value={approvalsSummaryNumber} />
-                      <HeaderWidget icon={emoji} text="Approval rate" value={`${approvalsRatePercentage}%`} />
-                    </>
+            <section aria-label="Schedule filters" className={styles.dataFiltersContainer}>
+              <div className={styles.dataFilter}>
+                <MultiSelect
+                  light
+                  id="actions-scopes-select"
+                  label="Choose scope(s)"
+                  placeholder="Choose scope(s)"
+                  invalid={false}
+                  onChange={handleSelectScopes}
+                  items={workflowScopeOptions}
+                  //@ts-ignore next-line
+                  itemToString={(scope) => (scope ? scope.label : "")}
+                  initialSelectedItems={workflowScopeOptions.filter((option) =>
+                    //@ts-ignore next-line
+                    Boolean(selectedScopes.find((scope) => scope === option.value))
                   )}
-                </>
-              )} */}
+                  titleText="Filter by scope"
+                />
+              </div>
+              {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
+                <div className={styles.dataFilter}>
+                  <MultiSelect
+                    light
+                    id="actions-teams-select"
+                    label="Choose team(s)"
+                    placeholder="Choose team(s)"
+                    invalid={false}
+                    onChange={handleSelectTeams}
+                    items={teamsData}
+                    //@ts-ignore next-line
+                    itemToString={(team) => (team ? team.name : "")}
+                    initialSelectedItems={selectedTeams}
+                    titleText="Filter by team"
+                  />
+                </div>
+              )}
+              <div className={styles.dataFilter}>
+                <MultiSelect
+                  light
+                  id="actions-workflows-select"
+                  label="Choose workflow(s)"
+                  placeholder="Choose workflow(s)"
+                  invalid={false}
+                  onChange={handleSelectWorkflows}
+                  items={workflowsFilter}
+                  //@ts-ignore next-line
+                  itemToString={(workflow) => {
+                    //@ts-ignore next-line
+                    const team = workflow ? teamsData.find((team) => team.id === workflow.flowTeamId) : undefined;
+                    return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                  }}
+                  //@ts-ignore next-line
+                  initialSelectedItems={workflowsFilter.filter((workflow) =>
+                    //@ts-ignore next-line
+                    Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
+                  )}
+                  titleText="Filter by workflow"
+                />
+              </div>
+              <div className={styles.dataFilter}>
+                <MultiSelect
+                  light
+                  id="actions-statuses-select"
+                  label="Choose status(es)"
+                  placeholder="Choose status(es)"
+                  invalid={false}
+                  onChange={handleSelectStatuses}
+                  items={scheduleStatusOptions}
+                  //@ts-ignore next-line
+                  itemToString={(item) => (item ? item.label : "")}
+                  initialSelectedItems={scheduleStatusOptions.filter((option) =>
+                    //@ts-ignore next-line
+                    Boolean(selectedStatuses.find((status) => status === option.value))
+                  )}
+                  titleText="Filter by status"
+                />
+              </div>
             </section>
           }
         />
         <div className={styles.content}>
-          <section aria-label="Actions">
-            <div className={styles.filtersContainer}>
-              <div className={styles.dataFilters}>
-                <div className={styles.dataFilter}>
-                  <MultiSelect
-                    id="actions-scopes-select"
-                    label="Choose scope(s)"
-                    placeholder="Choose scope(s)"
-                    invalid={false}
-                    onChange={handleSelectScopes}
-                    items={workflowScopeOptions}
-                    //@ts-ignore next-line
-                    itemToString={(scope) => (scope ? scope.label : "")}
-                    initialSelectedItems={workflowScopeOptions.filter((option) =>
-                      //@ts-ignore next-line
-                      Boolean(selectedScopes.find((scope) => scope === option.value))
-                    )}
-                    titleText="Filter by scope"
-                  />
-                </div>
-                {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
-                  <div className={styles.dataFilter}>
-                    <MultiSelect
-                      id="actions-teams-select"
-                      label="Choose team(s)"
-                      placeholder="Choose team(s)"
-                      invalid={false}
-                      onChange={handleSelectTeams}
-                      items={teamsData}
-                      //@ts-ignore next-line
-                      itemToString={(team) => (team ? team.name : "")}
-                      initialSelectedItems={selectedTeams}
-                      titleText="Filter by team"
-                    />
-                  </div>
-                )}
-                <div className={styles.dataFilter}>
-                  <MultiSelect
-                    id="actions-workflows-select"
-                    label="Choose workflow(s)"
-                    placeholder="Choose workflow(s)"
-                    invalid={false}
-                    onChange={handleSelectWorkflows}
-                    items={workflowsFilter}
-                    //@ts-ignore next-line
-                    itemToString={(workflow) => {
-                      //@ts-ignore next-line
-                      const team = workflow ? teamsData.find((team) => team.id === workflow.flowTeamId) : undefined;
-                      return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
-                    }}
-                    //@ts-ignore next-line
-                    initialSelectedItems={workflowsFilter.filter((workflow) =>
-                      //@ts-ignore next-line
-                      Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
-                    )}
-                    titleText="Filter by workflow"
-                  />
-                </div>
-                <div className={styles.dataFilter}>
-                  <MultiSelect
-                    id="actions-statuses-select"
-                    label="Choose status(es)"
-                    placeholder="Choose status(es)"
-                    invalid={false}
-                    onChange={handleSelectStatuses}
-                    items={scheduleStatusOptions}
-                    //@ts-ignore next-line
-                    itemToString={(item) => (item ? item.label : "")}
-                    initialSelectedItems={scheduleStatusOptions.filter((option) =>
-                      //@ts-ignore next-line
-                      Boolean(selectedStatuses.find((status) => status === option.value))
-                    )}
-                    titleText="Filter by status"
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
           <div className={styles.contentContainer}>
             <ScheduleList schedules={schedulesQuery.data} getSchedulesUrl={getSchedulesUrl} />
             <section className={styles.calendarContainer}>
@@ -443,47 +424,48 @@ function CalendarView(props: CalendarViewProps) {
       // }}
       onRangeChange={handleDateRangeChange}
       events={calendarEvents}
-      heightOffset={280}
+      heightOffset={224}
     />
   );
 }
 
 interface ScheduleListProps {
-  schedules: Array<ScheduleUnion>;
-  workflowId: string;
+  schedules?: Array<ScheduleUnion>;
   getSchedulesUrl: string;
 }
 
 function ScheduleList(props: ScheduleListProps) {
   const [filterQuery, setFilterQuery] = React.useState("");
 
-  const filteredSchedules = Boolean(filterQuery)
-    ? matchSorter(props.schedules, filterQuery, {
-        keys: ["name", "description", "type", "status"],
-      })
-    : props.schedules;
+  let filteredSchedules: Array<ScheduleUnion> = [];
+  if (props.schedules) {
+    filteredSchedules = Boolean(filterQuery)
+      ? matchSorter(props.schedules ?? [], filterQuery, {
+          keys: ["name", "description", "type", "status"],
+        })
+      : props.schedules;
+  }
 
   function renderLists() {
-    if (props.schedules.length === 0) {
-      return <div>No schedules found</div>;
+    if (props.schedules) {
+      if (props.schedules.length === 0) {
+        return <div>No schedules found</div>;
+      }
+
+      if (filteredSchedules.length === 0) {
+        return <div>No matching schedules found</div>;
+      }
+
+      const sortedSchedules = filteredSchedules.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });
+
+      return sortedSchedules.map((schedule) => (
+        <ScheduledListItem key={schedule.id} schedule={schedule} getSchedulesUrl={props.getSchedulesUrl} />
+      ));
     }
 
-    if (filteredSchedules.length === 0) {
-      return <div>No matching schedules found</div>;
-    }
-
-    const sortedSchedules = filteredSchedules.sort((a, b) => {
-      return a.name.localeCompare(b.name);
-    });
-
-    return sortedSchedules.map((schedule) => (
-      <ScheduledListItem
-        key={schedule.id}
-        schedule={schedule}
-        workflowId={props.workflowId}
-        getSchedulesUrl={props.getSchedulesUrl}
-      />
-    ));
+    return null;
   }
 
   if (!props.schedules) {
@@ -509,41 +491,33 @@ function ScheduleList(props: ScheduleListProps) {
 
 interface ScheduledListItemProps {
   schedule: ScheduleUnion;
-  workflowId: string;
   getSchedulesUrl: string;
 }
 
 function ScheduledListItem(props: ScheduledListItemProps) {
-  const history = useHistory();
   const [isToggleStatusModalOpen, setIsToggleStatusModalOpen] = React.useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
 
   // Determine some things for rendering
   const isActive = props.schedule.status === "active";
-  const isTriggerDisabled = props.schedule.status === "trigger_disabled";
-
   const labels = [];
   for (const entry of props.schedule?.labels || []) {
     labels.push(
-      <Tag>
+      <Tag style={{ marginLeft: 0 }} type="teal">
         {entry.key}:{entry.value}
       </Tag>
     );
   }
-
-  const nextScheduledText = props.schedule.type === "runOnce" ? "Scheduled" : "Next Execution";
-  const nextScheduleData =
-    props.schedule.type === "runOnce"
-      ? moment(props.schedule.dateSchedule).format("MMMM DD, YYYY HH:mm")
-      : moment(props.schedule.nextScheduleDate).format("MMMM DD, YYYY HH:mm");
+  const nextScheduledText = "Scheduled";
+  const nextScheduleData = moment(props.schedule.nextScheduleDate).format("MMMM DD, YYYY HH:mm");
 
   /**
    * Delete schedule
    */
 
-  const [deleteScheduleMutator, { isLoading: isDeletingSchedule }] = useMutation(resolver.deleteSchedule, {});
+  const [deleteScheduleMutator, deleteScheduleMutation] = useMutation(resolver.deleteSchedule, {});
 
-  const handleDeleteSchedule = async (workflow: WorkflowSummary) => {
+  const handleDeleteSchedule = async () => {
     try {
       await deleteScheduleMutator({ scheduleId: props.schedule.id });
       notify(
@@ -569,7 +543,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   /**
    * Disable schedule
    */
-  const [toggleScheduleStatusMutator, ...disableScheduleMutation] = useMutation(resolver.patchSchedule, {});
+  const [toggleScheduleStatusMutator, toggleScheduleStatusMutation] = useMutation(resolver.patchSchedule, {});
 
   const handleToggleStatus = async () => {
     const body = { ...props.schedule, status: isActive ? "inactive" : "active" };
@@ -618,22 +592,38 @@ function ScheduledListItem(props: ScheduledListItemProps) {
       <Tile className={styles.listItem}>
         <div className={styles.listItemTitle}>
           <h3 title={props.schedule.name}>{props.schedule.name}</h3>
-          <TooltipHover direction="top" tooltipText={statusLabelMap[props.schedule.status] ?? "---"}>
-            <CircleFilled16 className={styles.statusCircle} data-status={props.schedule.status} />
+          <TooltipHover direction="top" tooltipText={props.schedule.type === "runOnce" ? "Single" : "Recurring"}>
+            {props.schedule.type === "runOnce" ? <RepeatOne16 /> : <Repeat16 />}
+          </TooltipHover>
+          <TooltipHover direction="top" tooltipText={statusLabelMap[props.schedule.status]}>
+            {props.schedule.status === "inactive" ? (
+              <RadioButton16 className={styles.statusCircle} data-status={props.schedule.status} />
+            ) : (
+              <CircleFilled16 className={styles.statusCircle} data-status={props.schedule.status} />
+            )}
           </TooltipHover>
         </div>
         <p className={styles.listItemDescription}>{props.schedule?.description ?? "---"}</p>
-        <div style={{ display: "flex", gap: "2rem" }}>
-          <div>
-            <dt>Executes</dt>
-            <dd>{props.schedule.type === "runOnce" ? "Once" : "Repeatedly"}</dd>
-          </div>
-          <div>
+        <dl style={{ display: "flex" }}>
+          <div style={{ width: "50%" }}>
             <dt>{nextScheduledText}</dt>
             <dd>{nextScheduleData}</dd>
           </div>
-        </div>
-        <div className={styles.listItemLabels}>{labels}</div>
+          <div style={{ width: "50%" }}>
+            <dt>Time Zone</dt>
+            <dd>{props.schedule.timezone}</dd>
+          </div>
+        </dl>
+        <dl style={{ display: "flex" }}>
+          <div>
+            <dt>Frequency </dt>
+            <dd>{props.schedule.type === "runOnce" ? "Once" : cronstrue.toString(props.schedule.cronSchedule)}</dd>
+          </div>
+        </dl>
+        <dl>
+          <dt>Labels</dt>
+          <dd>{labels.length > 0 ? labels : "---"}</dd>
+        </dl>
         <OverflowMenu
           flipped
           ariaLabel="Schedule card menu"
@@ -648,6 +638,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
       {isToggleStatusModalOpen && (
         <ConfirmModal
           affirmativeAction={handleToggleStatus}
+          affirmativeButtonProps={{ kind: "danger", disabled: toggleScheduleStatusMutation.isLoading }}
           affirmativeText={isActive ? "Disable" : "Enable"}
           isOpen={isToggleStatusModalOpen}
           negativeAction={() => {
@@ -667,7 +658,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
       {isDeleteModalOpen && (
         <ConfirmModal
           affirmativeAction={handleDeleteSchedule}
-          affirmativeButtonProps={{ kind: "danger" }}
+          affirmativeButtonProps={{ kind: "danger", disabled: deleteScheduleMutation.isLoading }}
           affirmativeText="Delete"
           isOpen={isDeleteModalOpen}
           negativeAction={() => {

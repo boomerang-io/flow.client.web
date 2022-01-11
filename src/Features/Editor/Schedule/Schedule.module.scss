@@ -25,10 +25,11 @@
   flex-grow: 1;
   padding: 2rem;
   z-index: 0;
+  overflow: scroll;
 }
 
-.editorContainer {
-  background-color: var(--cds-ui-background);
+.panelContainer {
+  background-color: var(--cds-ui-01);
   margin-top: 12.125rem;
   border: none;
   height: calc(100vh - 12.125rem);

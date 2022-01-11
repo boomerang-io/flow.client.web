@@ -87,10 +87,20 @@ export const AppPath: Record<AppPathKey, string> = {
   EditorSchedule: `/editor/:workflowId/schedule`,
   Execution: "/activity/:workflowId/execution/:executionId",
   Insights: "/insights",
+  TeamTokens: "/manage/team-tokens",
+  Workflows: "/workflows",
+  WorkflowsMine: "/workflows/mine",
+  WorkflowsTeams: "/workflows/teams",
+
+  //Manage
   ManageTaskTemplates: `/manage/task-templates`,
   ManageTaskTemplatesTeam: `/manage/task-templates/team/:teamId`,
   ManageTaskTemplateEdit: `/manage/task-templates/team/:teamId/:taskId/:version`,
   ManageTaskTemplateYaml: `/manage/task-templates/team/:teamId/:taskId/:version/yaml-editor`,
+  TeamApprovers: `/manage/approver-groups`,
+  TeamProperties: `/manage/team-parameters`,
+
+  //Admin
   Properties: "/admin/parameters",
   Quotas: "/admin/quotas",
   QuotasEdit: "/admin/quotas/:teamId",
@@ -106,15 +116,9 @@ export const AppPath: Record<AppPathKey, string> = {
   TeamSettings: "/admin/teams/:teamId/settings",
   TeamWorkflows: "/admin/teams/:teamId/workflows",
   TeamList: "/admin/teams",
-  TeamApprovers: `/manage/approver-groups`,
-  TeamProperties: `/manage/team-parameters`,
-  TeamTokens: "/manage/team-tokens",
   Tokens: "/admin/tokens",
   User: "/admin/users/:userId",
   UserList: "/admin/users",
-  Workflows: "/workflows",
-  WorkflowsMine: "/workflows/mine",
-  WorkflowsTeams: "/workflows/teams",
 };
 
 export const appLink: Record<string, (args?: any) => string> = {
