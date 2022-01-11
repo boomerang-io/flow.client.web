@@ -911,6 +911,39 @@ const taskTemplate = [
     verified: true,
   },
   {
+    id: "603591f5c267b8ce33782571",
+    description:
+      "This task runs the selected workflow separately. It only triggers the workflow, it does not wait for completion. Additionally you can pass in parameters to the workflow if they have been defined.",
+    lastModified: "2020-04-30T22:53:23.337+00:00",
+    name: "Run Workflow",
+    category: "workflow",
+    revisions: [
+      {
+        arguments: ["runworkflow"],
+        changelog: {
+          userId: "5e8a6c6cd0827100011c2a35",
+          reason: "",
+          date: "2020-04-30T22:53:23.337+00:00",
+          userName: null,
+        },
+        command: [],
+        config: [],
+        envs: null,
+        image: "",
+        results: null,
+        script: null,
+        version: 1,
+        workingDir: null,
+      },
+    ],
+    status: "active",
+    createdDate: "2020-01-09T00:01:00.000+00:00",
+    icon: "Automated task",
+    verified: true,
+    currentVersion: 1,
+    nodeType: "runworkflow",
+  },
+  {
     id: "5d9e703dc90b5240508869e2",
     description: "Run a trusted custom container as a task",
     lastModified: "2020-04-30T22:55:44.895+0000",
@@ -1973,25 +2006,25 @@ const taskTemplate = [
         config: [],
         results: [
           {
-          description: "The status of the approval task, can be approved or rejected.",
-          name: "approvalStatus"
+            description: "The status of the approval task, can be approved or rejected.",
+            name: "approvalStatus",
           },
           {
-          description: "Date and time of the action",
-          name: "approvalDate"
+            description: "Date and time of the action",
+            name: "approvalDate",
           },
           {
-          description: "Username of the approver",
-          name: "approvalUserName"
+            description: "Username of the approver",
+            name: "approvalUserName",
           },
           {
-          description: "Email address of the approver",
-          name: "approvalUserEmail"
+            description: "Email address of the approver",
+            name: "approvalUserEmail",
           },
           {
-          description: "Additional comments added by the approver",
-          name: "approvalComments"
-          }
+            description: "Additional comments added by the approver",
+            name: "approvalComments",
+          },
         ],
         changelog: {
           userId: "5e8a6c6cd0827100011c2a35",
