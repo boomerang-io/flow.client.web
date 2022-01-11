@@ -3,7 +3,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import moment from "moment";
 import { statusLabelMap } from "Features/Schedule";
-import { CircleFilled16 } from "@carbon/icons-react";
+import { CircleFilled16, RadioButton16 } from "@carbon/icons-react";
 import { CalendarEvent, ScheduleUnion } from "Types";
 import styles from "./Calendar.module.scss";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -60,7 +60,11 @@ function Event(props: EventProps) {
   return (
     <div className={styles.eventContentContainer} data-status={schedule.status}>
       <TooltipHover direction="top" tooltipText={statusLabelMap[schedule.status] ?? "---"}>
-        <CircleFilled16 className={styles.statusCircle} data-status={schedule.status} />
+        {schedule.status === "inactive" ? (
+          <RadioButton16 className={styles.statusCircle} data-status={schedule.status} />
+        ) : (
+          <CircleFilled16 className={styles.statusCircle} data-status={schedule.status} />
+        )}
       </TooltipHover>
       <span>
         <b>{event.title}</b>

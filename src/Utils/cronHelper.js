@@ -10,6 +10,16 @@ const CRON_TO_DAY = {
   SAT: 6,
 };
 
+export const cronDayNumberMap = {
+  sunday: "SUN",
+  monday: "MON",
+  tuesday: "TUE",
+  wednesday: "WED",
+  thursday: "THU",
+  friday: "FRI",
+  saturday: "SAT",
+};
+
 const createListOfDays = (lowEnd, highEnd) => {
   var output = "";
   for (var i = lowEnd; i <= highEnd; i++) {
@@ -67,3 +77,6 @@ export const cronToDateTime = (hasSchedule, cronExp) => {
     : "18:00";
   return { selectedDays, cronTime };
 };
+
+export const INIT_CRON = "0 18 * * *";
+export const INIT_HOUR = "18:00";

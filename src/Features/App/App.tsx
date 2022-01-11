@@ -21,7 +21,7 @@ import queryString from "query-string";
 import { allowedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig } from "Types";
+import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, UserWorkflow } from "Types";
 import styles from "./app.module.scss";
 
 const AppActivation = lazy(() => import(/* webpackChunkName: "App Activation" */ "./AppActivation"));
@@ -52,6 +52,7 @@ const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Feature
 const getUserUrl = serviceUrl.getUserProfile();
 const getPlatformConfigUrl = serviceUrl.getPlatformConfig();
 const getTeamsUrl = serviceUrl.getTeams();
+const getUserWorkflows = serviceUrl.getUserWorkflows();
 const featureFlagsUrl = serviceUrl.getFeatureFlags();
 const browser = detect();
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
@@ -120,19 +121,29 @@ export default function App() {
     },
   });
 
+  const userWorkflowsQuery = useQuery<UserWorkflow, string>({
+    queryKey: getUserWorkflows,
+    queryFn: resolver.query(getUserWorkflows),
+    config: {
+      enabled: Boolean(userQuery.data?.id),
+    },
+  });
+
   const isLoading =
     userQuery.isLoading ||
     navigationQuery.isLoading ||
     teamsQuery.isLoading ||
     featureQuery.isLoading ||
-    flowNavigationQuery.isLoading;
+    flowNavigationQuery.isLoading ||
+    userWorkflowsQuery.isLoading;
 
   const hasError =
     userQuery.isError ||
     navigationQuery.isError ||
     teamsQuery.isError ||
     featureQuery.isError ||
-    flowNavigationQuery.isError;
+    flowNavigationQuery.isError ||
+    userWorkflowsQuery.isError;
 
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
@@ -161,7 +172,14 @@ export default function App() {
     );
   }
 
-  if (userQuery.data && navigationQuery.data && teamsQuery.data && featureQuery.data && flowNavigationQuery.data) {
+  if (
+    userQuery.data &&
+    navigationQuery.data &&
+    teamsQuery.data &&
+    featureQuery.data &&
+    flowNavigationQuery.data &&
+    userWorkflowsQuery.data
+  ) {
     const feature = featureQuery.data.features;
     return (
       <FlagsProvider
@@ -195,6 +213,7 @@ export default function App() {
             shouldShowBrowserWarning={shouldShowBrowserWarning}
             teamsData={teamsQuery.data}
             userData={userQuery.data}
+            userWorkflowsData={userWorkflowsQuery.data}
             quotas={featureQuery.data.quotas}
           />
         </ErrorBoundary>
@@ -213,6 +232,7 @@ interface MainProps {
   teamsData: Array<FlowTeam>;
   userData: FlowUser;
   quotas: FlowFeatures["quotas"];
+  userWorkflowsData: UserWorkflow;
 }
 
 function Main({
@@ -223,6 +243,7 @@ function Main({
   shouldShowBrowserWarning,
   teamsData,
   userData,
+  userWorkflowsData,
   quotas,
 }: MainProps) {
   const { id: userId, type: platformRole } = userData;
@@ -244,6 +265,7 @@ function Main({
         setIsTutorialActive,
         user: userData,
         teams: teamsData,
+        userWorkflows: userWorkflowsData,
         quotas,
       }}
     >

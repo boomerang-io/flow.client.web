@@ -592,6 +592,7 @@ export interface Schedule {
   name: string;
   description?: string;
   labels?: Array<{ key: string; value: string }>;
+  nextScheduleDate: string;
   parameters?: { [k: string]: any };
   status: ScheduleStatus;
   type: ScheduleType;
@@ -607,7 +608,6 @@ export interface ScheduleDate extends Schedule {
 export interface ScheduleCron extends Schedule {
   cronSchedule: string;
   type: "cron" | "advancedCron";
-  nextScheduleDate: string;
 }
 
 export interface CalendarEvent {

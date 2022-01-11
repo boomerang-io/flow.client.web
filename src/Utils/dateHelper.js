@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from "moment-timezone";
 
 export default class DateHelper {
   // See tests for desired format.
@@ -73,25 +73,25 @@ export default class DateHelper {
     let time = 0;
     let timeName = "sec";
 
-    if(duration.years() >= 1) {
+    if (duration.years() >= 1) {
       time = duration.years();
       timeName = "year";
-    } else if(duration.months() >= 1) {
+    } else if (duration.months() >= 1) {
       time = duration.months();
       timeName = "month";
-    } else if(duration.weeks() >= 1) {
+    } else if (duration.weeks() >= 1) {
       time = duration.weeks();
       timeName = "week";
-    } else if(duration.days() >= 1) {
+    } else if (duration.days() >= 1) {
       time = duration.days();
       timeName = "day";
-    } else if(duration.hours() >= 1) {
+    } else if (duration.hours() >= 1) {
       time = duration.hours();
       timeName = "hour";
-    } else if(duration.minutes() >= 1) {
+    } else if (duration.minutes() >= 1) {
       time = duration.minutes();
       timeName = "min";
-    } else if(duration.seconds() >= 1) {
+    } else if (duration.seconds() >= 1) {
       time = duration.seconds();
     }
 
@@ -112,3 +112,18 @@ export default class DateHelper {
     return minutesAgo === 0 ? "just now" : `${this.timeMinutesToTimeUnit(minutesAgo)} ago`;
   }
 }
+
+const exludedTimezones = ["GMT+0", "GMT-0", "ROC"];
+
+export function transformTimeZone(timezone) {
+  return { label: `${timezone} (UTC ${moment.tz(timezone).format("Z")})`, value: timezone };
+}
+
+export const timezoneOptions = moment.tz
+  .names()
+  .filter((tz) => !exludedTimezones.includes(tz))
+  .map((element) => transformTimeZone(element));
+
+export const defaultTimeZone = moment.tz.guess();
+
+export const DATE_TIME_LOCAL_INPUT_FORMAT = "MMMM DD, YYYY HH:mm";

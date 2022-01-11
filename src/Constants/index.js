@@ -92,6 +92,7 @@ export const NodeType = {
   Wait: "eventwait",
   Acquirelock: "acquirelock",
   Releaselock: "releaselock",
+  RunScheduledWorkflow: "runscheduledworkflow",
   RunWorkflow: "runworkflow",
   Script: "script",
   SetStatus: "setwfstatus",

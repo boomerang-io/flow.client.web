@@ -27,6 +27,7 @@ import SetStatusNodeModel from "Utils/dag/setStatusNode/setStatusNodeModel";
 import WaitNodeModel from "Utils/dag/waitNode/waitNodeModel";
 import AcquireLockNodeModel from "Utils/dag/acquireLockNode/AcquireLockNodeModel";
 import ReleaseLockNodeModel from "Utils/dag/releaseLockNode/ReleaseLockNodeModel";
+import RunScheduledWorkflowNodeModel from "Utils/dag/runScheduledWorkflowNode/RunScheduledWorkflowNodeModel";
 import RunWorkflowNodeModel from "Utils/dag/runWorkflowNode/RunWorkflowNodeModel";
 import ScriptNodeModel from "Utils/dag/scriptNode/ScriptNodeModel";
 
@@ -331,6 +332,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           break;
         case NodeType.Releaselock:
           node = new ReleaseLockNodeModel(nodeObj);
+          break;
+        case NodeType.RunScheduledWorkflow:
+          node = new RunScheduledWorkflowNodeModel(nodeObj);
           break;
         case NodeType.RunWorkflow:
           node = new RunWorkflowNodeModel(nodeObj);

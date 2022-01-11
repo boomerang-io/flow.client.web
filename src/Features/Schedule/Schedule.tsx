@@ -16,25 +16,19 @@ import {
   SkeletonPlaceholder,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import {
-  Button,
   ConfirmModal,
-  Error,
   OverflowMenu,
   OverflowMenuItem,
   Search,
   Tag,
-  TextArea,
-  TextInput,
   Tile,
   TooltipHover,
   ToastNotification,
   notify,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import HeaderWidget from "Components/HeaderWidget";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { queryStringOptions } from "Config/appConfig";
 import { sortByProp } from "@boomerang-io/utils";
-import capitalize from "lodash/capitalize";
 import matchSorter from "match-sorter";
 import moment from "moment";
 import queryString from "query-string";
@@ -67,7 +61,7 @@ const userWorkflowsUrl = serviceUrl.getUserWorkflows();
 function Schedule() {
   const history = useHistory();
   const location = useLocation();
-  const { teams, user } = useAppContext();
+  const { teams, user, userWorkflows } = useAppContext();
 
   let userTeamIds: Array<string> = [];
   const isSystemWorkflowsEnabled = allowedUserRoles.includes(user.type);
@@ -81,17 +75,12 @@ function Schedule() {
     config: { enabled: isSystemWorkflowsEnabled },
   });
 
-  const userWorkflowsQuery = useQuery({
-    queryKey: userWorkflowsUrl,
-    queryFn: resolver.query(userWorkflowsUrl),
-  });
-
   /** Get schedule and calendar data */
   const hasWorkflowsData = Boolean(systemWorkflowsQuery.data) && Boolean(userWorkflowsQuery.data);
 
   let userWorkflowIds = [];
   if (hasWorkflowsData) {
-    for (const workflow of userWorkflowsQuery.data.workflows) {
+    for (const workflow of userWorkflows.workflows) {
       userWorkflowIds.push(workflow.id);
     }
 

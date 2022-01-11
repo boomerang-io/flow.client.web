@@ -1,25 +1,26 @@
 // @ts-nocheck
 import { DiagramEngine, DiagramModel } from "@projectstorm/react-diagrams";
-import CustomTaskNodeFactory from "./customTaskNode/CustomTaskNodeFactory";
-import ScriptNodeFactory from "./scriptNode/ScriptNodeFactory";
-import SimplePortFactory from "./simplePort/SimplePortFactory";
-import StartEndNodeFactory from "./startEndNode/StartEndNodeFactory";
 import StartEndNodeModel from "./startEndNode/StartEndNodeModel";
 import StartEndPortModel from "./startEndNode/StartEndPortModel";
-import SwitchLinkFactory from "./switchLink/SwitchLinkFactory";
-import SwitchNodeFactory from "./switchNode/SwitchNodeFactory";
 import SwitchPortModel from "./switchNode/SwitchPortModel";
-import TaskLinkFactory from "./taskLink/TaskLinkFactory";
 import TaskPortModel from "./taskPort/TaskPortModel";
-import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
+import AcquireLockNodeFactory from "./acquireLockNode/acquireLockNodeFactory";
+import CustomTaskNodeFactory from "./customTaskNode/CustomTaskNodeFactory";
 import ManualApprovalNodeFactory from "./manualApprovalNode/ManualApprovalNodeFactory";
 import ManualTaskNodeFactory from "./manualTaskNode/ManualTaskNodeFactory";
+import ReleaseLockNodeFactory from "./releaseLockNode/releaseLockNodeFactory";
+import RunScheduledWorkflowNodeFactory from "./runScheduledWorkflowNode/RunScheduledWorkflowNodeFactory";
+import RunWorkflowNodeFactory from "./runWorkflowNode/RunWorkflowNodeFactory";
+import ScriptNodeFactory from "./scriptNode/ScriptNodeFactory";
 import SetPropertyNodeFactory from "./setPropertyNode/setPropertyNodeFactory";
 import SetStatusNodeFactory from "./setStatusNode/setStatusNodeFactory";
+import SimplePortFactory from "./simplePort/SimplePortFactory";
+import StartEndNodeFactory from "./startEndNode/StartEndNodeFactory";
+import SwitchLinkFactory from "./switchLink/SwitchLinkFactory";
+import SwitchNodeFactory from "./switchNode/SwitchNodeFactory";
+import TaskLinkFactory from "./taskLink/TaskLinkFactory";
+import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
 import WaitNodeFactory from "./waitNode/waitNodeFactory";
-import AcquireLockNodeFactory from "./acquireLockNode/acquireLockNodeFactory";
-import ReleaseLockNodeFactory from "./releaseLockNode/releaseLockNodeFactory";
-import RunWorkflowNodeFactory from "./runWorkflowNode/RunWorkflowNodeFactory";
 
 import { NodeType, WorkflowDagEngineMode } from "Constants";
 
@@ -35,19 +36,20 @@ export default class WorkflowDagEngine {
   constructor({ dag, mode = WorkflowDagEngineMode.Editor }: DagModel) {
     this.diagramEngine = new DiagramEngine();
     this.diagramEngine.installDefaultFactories();
+    this.diagramEngine.registerNodeFactory(new AcquireLockNodeFactory());
     this.diagramEngine.registerNodeFactory(new CustomTaskNodeFactory());
-    this.diagramEngine.registerNodeFactory(new StartEndNodeFactory());
-    this.diagramEngine.registerNodeFactory(new TemplateTaskNodeFactory());
-    this.diagramEngine.registerNodeFactory(new SwitchNodeFactory());
     this.diagramEngine.registerNodeFactory(new ManualApprovalNodeFactory());
     this.diagramEngine.registerNodeFactory(new ManualTaskNodeFactory());
+    this.diagramEngine.registerNodeFactory(new ReleaseLockNodeFactory());
+    this.diagramEngine.registerNodeFactory(new RunScheduledWorkflowNodeFactory());
+    this.diagramEngine.registerNodeFactory(new RunWorkflowNodeFactory());
     this.diagramEngine.registerNodeFactory(new SetPropertyNodeFactory());
     this.diagramEngine.registerNodeFactory(new SetStatusNodeFactory());
-    this.diagramEngine.registerNodeFactory(new WaitNodeFactory());
-    this.diagramEngine.registerNodeFactory(new AcquireLockNodeFactory());
-    this.diagramEngine.registerNodeFactory(new ReleaseLockNodeFactory());
-    this.diagramEngine.registerNodeFactory(new RunWorkflowNodeFactory());
     this.diagramEngine.registerNodeFactory(new ScriptNodeFactory());
+    this.diagramEngine.registerNodeFactory(new StartEndNodeFactory());
+    this.diagramEngine.registerNodeFactory(new SwitchNodeFactory());
+    this.diagramEngine.registerNodeFactory(new TemplateTaskNodeFactory());
+    this.diagramEngine.registerNodeFactory(new WaitNodeFactory());
     this.diagramEngine.mode = mode;
 
     //need to find a way to register port factory

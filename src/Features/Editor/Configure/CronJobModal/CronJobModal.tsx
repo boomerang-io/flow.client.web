@@ -136,7 +136,6 @@ export default class CronJobModal extends Component<Props, State> {
     const cronToData = cronToDateTime(!!cronExpression, cronExpression ? cronExpression : undefined);
     const { cronTime, selectedDays } = cronToData;
     const initialCron = "0 18 * * *";
-    console.log(cronToData);
     let activeDays: string[] = [];
     Object.entries(selectedDays).forEach(([key, value]) => {
       if (value) {
@@ -198,7 +197,7 @@ export default class CronJobModal extends Component<Props, State> {
                   </div>
                   {values.advancedCron ? (
                     <>
-                      <p className={styles.configureText}>Configure a CRON schedule for this Workflow</p>
+                      <p className={styles.configureText}>Configure a CRON expression for this Workflow</p>
                       <div className={styles.cronContainer}>
                         <div className={styles.inputContainer}>
                           <TextInput

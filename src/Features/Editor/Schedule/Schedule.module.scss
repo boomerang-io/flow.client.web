@@ -89,15 +89,18 @@
 }
 
 .statusCircle {
+  height: 1rem;
+  width: 1rem;
   &[data-status="active"] {
     fill: var(--cds-support-success);
   }
   &[data-status="inactive"] {
-    fill: var(--cds-text-03);
+    fill: var(--cds-support-success);
   }
   &[data-status="deleted"] {
     fill: var(--cds-support-error);
   }
+
   &[data-status="trigger_disabled"] {
     fill: var(--cds-text-03);
   }
@@ -138,15 +141,16 @@
   }
 }
 
-.detailsInfo {
-  padding: 1rem;
-}
-
 .detailsTitle {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   width: 100%;
+
+  h2 {
+    max-width: 80%;
+    @include text-overflow-ellipsis();
+  }
 }
 
 .modalContainer {

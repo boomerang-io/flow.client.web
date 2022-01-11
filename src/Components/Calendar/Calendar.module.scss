@@ -40,11 +40,13 @@
 }
 
 .statusCircle {
+  height: 1rem;
+  width: 1rem;
   &[data-status="active"] {
     fill: var(--cds-support-success);
   }
   &[data-status="inactive"] {
-    fill: var(--cds-text-03);
+    fill: var(--cds-support-success);
   }
   &[data-status="deleted"] {
     fill: var(--cds-support-error);
