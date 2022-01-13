@@ -615,6 +615,7 @@ export interface CalendarEvent {
   end: Date;
   title: string;
   resource: ScheduleUnion;
+  onClick?: () => void;
 }
 
 export type ScheduleUnion = ScheduleDate | ScheduleCron;

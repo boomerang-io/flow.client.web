@@ -126,4 +126,5 @@ export const timezoneOptions = moment.tz
 
 export const defaultTimeZone = moment.tz.guess();
 
-export const DATE_TIME_LOCAL_INPUT_FORMAT = "MMMM DD, YYYY HH:mm";
+export const DATETIME_LOCAL_DISPLAY_FORMAT = "MMMM DD, YYYY h:mma";
+export const DATETIME_LOCAL_INPUT_FORMAT = "YYYY-MM-DDTHH:mm";

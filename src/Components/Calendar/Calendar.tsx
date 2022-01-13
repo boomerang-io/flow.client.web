@@ -1,10 +1,10 @@
 import React from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer, EventProps, Event } from "react-big-calendar";
 import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import moment from "moment";
 import { statusLabelMap } from "Features/Schedule";
 import { CircleFilled16, RadioButton16 } from "@carbon/icons-react";
-import { CalendarEvent, ScheduleUnion } from "Types";
+import { CalendarEvent } from "Types";
 import styles from "./Calendar.module.scss";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./big-calendar.scss";
@@ -32,10 +32,10 @@ const MyCalendar = (props: MyCalendarProps) => {
     <Calendar
       popup
       selectable
-      //@ts-ignore
-      components={{ event: Event }}
+      components={{ event: CustomEvent }}
       drilldownView="agenda"
       localizer={localizer}
+      messages={{ noEventsInRange: "" }}
       style={{ height }}
       views={["month", "agenda"]}
       eventPropGetter={(args: any) => ({
@@ -46,21 +46,16 @@ const MyCalendar = (props: MyCalendarProps) => {
   );
 };
 
-interface EventProps {
-  event: {
-    title: string;
-    start: string;
-    end: string;
-    resource: ScheduleUnion;
-  };
+interface LocalEventProps extends EventProps<Event> {
+  event: CalendarEvent;
 }
 
-function Event(props: EventProps) {
+function CustomEvent(props: LocalEventProps) {
   const { event } = props;
   const schedule = event.resource;
   const hour = moment(event.start).format("h:mm a");
   return (
-    <div className={styles.eventContentContainer} data-status={schedule.status}>
+    <button className={styles.eventContentContainer} data-status={schedule.status} onClick={event.onClick}>
       <TooltipHover direction="top" tooltipText={statusLabelMap[schedule.status] ?? "---"}>
         {schedule.status === "inactive" ? (
           <RadioButton16 className={styles.statusCircle} data-status={schedule.status} />
@@ -72,7 +67,7 @@ function Event(props: EventProps) {
         <b>{event.title}</b>
       </span>
       <span>{hour}</span>
-    </div>
+    </button>
   );
 }
 

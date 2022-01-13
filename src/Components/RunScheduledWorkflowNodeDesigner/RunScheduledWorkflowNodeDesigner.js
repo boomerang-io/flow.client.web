@@ -69,6 +69,9 @@ const RunScheduledWorkflowNodeDesigner = React.memo(function RunWorkflowNodeDesi
   const renderConfigureTask = () => {
     return (
       <ComposedModal
+        composedModalProps={{
+          containerClassName: styles.configureTaskModalContainer,
+        }}
         confirmModalProps={{
           title: "Are you sure?",
           children: "Your changes will not be saved",

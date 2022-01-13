@@ -28,7 +28,7 @@ import { allowedUserRoles, WorkflowScope } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { queryStringOptions } from "Config/appConfig";
 import { CircleFilled16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
-import { CalendarEvent, FlowTeam, ScheduleStatus, ScheduleUnion, WorkflowSummary } from "Types";
+import { CalendarEvent, FlowTeam, ScheduleStatus, ScheduleType, ScheduleUnion, WorkflowSummary } from "Types";
 import styles from "./Schedule.module.scss";
 
 const MultiSelect = Select.Filterable;
@@ -45,6 +45,13 @@ export const statusLabelMap: Record<ScheduleStatus, string> = {
   trigger_disabled: "Trigger Disabled",
   deleted: "Deleted",
 };
+
+export const typeLabelMap: Record<ScheduleType, string> = {
+  runOnce: "Run Once",
+  cron: "Recurring",
+  advancedCron: "Recurring via cron expression",
+};
+
 const defaultStatusArray = scheduleStatusOptions.map((statusObj) => statusObj.value);
 
 const defaultFromDate = moment().startOf("month").unix();

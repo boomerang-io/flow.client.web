@@ -26,6 +26,9 @@
   padding: 2rem;
   z-index: 0;
   overflow: scroll;
+  &[data-is-loading="true"] {
+    opacity: 0.5;
+  }
 }
 
 .panelContainer {

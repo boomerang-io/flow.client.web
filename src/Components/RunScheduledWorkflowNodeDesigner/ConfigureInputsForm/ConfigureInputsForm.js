@@ -16,7 +16,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
-import { DATE_TIME_LOCAL_INPUT_FORMAT, timezoneOptions, defaultTimeZone, transformTimeZone } from "Utils/dateHelper";
+import { DATETIME_LOCAL_DISPLAY_FORMAT } from "Utils/dateHelper";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./WorkflowTaskForm.module.scss";
@@ -168,11 +168,7 @@ function ConfigureInputsForm(props) {
 
   const handleOnSave = (values) => {
     props.node.taskName = values.taskName;
-    const newValues = {
-      time: new Date(values.time).toISOString(),
-      timezone: values.timezone.value,
-    };
-    props.onSave(newValues);
+    props.onSave(values);
     props.closeModal();
   };
 
@@ -258,6 +254,7 @@ function ConfigureInputsForm(props) {
       : "";
     return (
       <ComboBox
+        helperText="Which workflow you want to execute"
         id="workflow-select"
         onChange={({ selectedItem }) => {
           setFieldValue("workflowId", selectedItem?.value ?? "");
@@ -286,35 +283,22 @@ function ConfigureInputsForm(props) {
     const { errors, touched, handleChange, values } = formikProps;
     const error = errors[otherProps.id];
     const hasBeenTouched = touched[otherProps.id];
+    if (values.futurePeriod === "minutes" || values.futurePeriod === "hours") {
+      return null;
+    }
+
     return (
       <TextInput
+        helperText={otherProps.helperText}
         id="time"
         invalid={Boolean(error) && hasBeenTouched}
         invalidText={error}
-        labelText="Date and Time"
+        labelText="Time"
         name="time"
         onChange={handleChange}
-        placeholder="Select a workflow"
-        type="datetime-local"
+        placeholder="e.g. 8:00"
+        type="time"
         value={values["time"]}
-      />
-    );
-  };
-
-  const TimeZoneInput = ({ formikProps, ...otherProps }) => {
-    const { values } = formikProps;
-    return (
-      <ComboBox
-        id="timezone"
-        initialSelectedItem={values.timezone}
-        //@ts-ignore
-        items={timezoneOptions}
-        onChange={({ selectedItem }) => {
-          const item = selectedItem ?? { label: "", value: "" };
-          formikProps.setFieldValue("timezone", item);
-        }}
-        placeholder="e.g. US/Central (UTC -06:00)"
-        titleText="Time Zone"
       />
     );
   };
@@ -338,28 +322,44 @@ function ConfigureInputsForm(props) {
       customComponent: WorkflowSelectionInput,
     },
     {
-      key: "time",
-      label: "Date and Time",
-      placeholder: "",
+      key: "futureIn",
+      id: "futureIn",
+      label: "In",
+      helperText: "The number of the selected time period",
+      placeholder: "e.g. 10",
+      type: "number",
+      required: true,
+    },
+    {
+      key: "futurePeriod",
+      id: "futurePeriod",
+      label: "Period",
+      placeholder: "e.g. Days",
+      helperText: "The type of time period",
+      type: "select",
+      options: [
+        { key: "minutes", value: "Minutes" },
+        { key: "hours", value: "Hours" },
+        { key: "days", value: "Days" },
+        { key: "weeks", value: "Weeks" },
+        { key: "months", value: "Months" },
+      ],
+      required: true,
+    },
+    {
+      key: "futureAtTime",
+      id: "futureAtTime",
+      label: "At Time",
+      helperText: "When in the future you want this to execute",
       type: "custom",
       required: true,
       customComponent: TimeInput,
     },
-    {
-      key: "timezone",
-      label: "Time Zone",
-      placeholder: "",
-      type: "custom",
-      required: true,
-      customComponent: TimeZoneInput,
-    },
     ...activeProperties,
   ];
-  console.log(nodeConfig);
 
-  const initTimezone = nodeConfig?.inputs?.timezone ? transformTimeZone(nodeConfig?.inputs?.timezone) : defaultTimeZone;
   const initTime = nodeConfig?.inputs?.time
-    ? moment(nodeConfig?.inputs?.time).format(DATE_TIME_LOCAL_INPUT_FORMAT)
+    ? moment(nodeConfig?.inputs?.time).format(DATETIME_LOCAL_DISPLAY_FORMAT)
     : "";
 
   return (
@@ -372,14 +372,19 @@ function ConfigureInputsForm(props) {
           .required("Enter a task name")
           .notOneOf(takenTaskNames, "Enter a unique value for task name"),
         workflowId: Yup.string().required("Select a workflow"),
+        futureIn: Yup.number().required("In is required ").min(1, "Must be at least one increment in future"),
+        futurePeriod: Yup.string().required("Period is required"),
+        futureAtTime: Yup.string().when("period", {
+          is: "days" || "weeks" || "months",
+          then: Yup.string().required("Time is required"),
+        }),
       })}
       initialValues={{
         taskName: node.taskName,
         workflowId: activeWorkflowId,
         ...activeInputs,
         ...nodeConfig.inputs,
-        timezone: initTimezone,
-        time: initTime,
+        futureAtTime: initTime,
       }}
       inputs={inputs}
       onSubmit={handleOnSave}

@@ -1,1 +1,1 @@
-export { default, scheduleStatusOptions, statusLabelMap } from "./Schedule";
+export { default, scheduleStatusOptions, statusLabelMap, typeLabelMap } from "./Schedule";

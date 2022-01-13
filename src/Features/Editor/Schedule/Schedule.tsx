@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, useMutation, queryCache } from "react-query";
+import { useQuery, useMutation, queryCache, QueryResult } from "react-query";
 import {
   Button,
   ConfirmModal,
@@ -36,8 +36,14 @@ import matchSorter from "match-sorter";
 import moment from "moment-timezone";
 import * as Yup from "yup";
 import { cronToDateTime, cronDayNumberMap } from "Utils/cronHelper";
-import { DATE_TIME_LOCAL_INPUT_FORMAT, defaultTimeZone, timezoneOptions, transformTimeZone } from "Utils/dateHelper";
-import { scheduleStatusOptions, statusLabelMap } from "Features/Schedule";
+import {
+  DATETIME_LOCAL_DISPLAY_FORMAT,
+  DATETIME_LOCAL_INPUT_FORMAT,
+  defaultTimeZone,
+  timezoneOptions,
+  transformTimeZone,
+} from "Utils/dateHelper";
+import { scheduleStatusOptions, statusLabelMap, typeLabelMap } from "Features/Schedule";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Add16, CircleFilled16, SettingsAdjust16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
@@ -141,7 +147,7 @@ export default function ScheduleView(props: ScheduleProps) {
           setIsEditorOpen={setIsEditorOpen}
           setIsPanelOpen={setIsPanelOpen}
           workflowSchedules={workflowSchedulesQuery.data}
-          workflowCalendarData={workflowCalendarQuery.data}
+          workflowCalendarQuery={workflowCalendarQuery}
         />
       </div>
       <EditorPanel
@@ -153,6 +159,7 @@ export default function ScheduleView(props: ScheduleProps) {
       <CreateSchedule
         isModalOpen={isCreatorOpen}
         onCloseModal={() => setIsCreatorOpen(false)}
+        schedule={activeSchedule}
         workflow={props.summaryData}
         workflowScheduleUrl={workflowScheduleUrl}
         workflowCalendarUrl={workflowCalendarUrl}
@@ -175,14 +182,14 @@ interface CalendarViewProps {
   setIsCreatorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPanelOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  workflowCalendarData?: Array<ScheduleCalendar>;
+  workflowCalendarQuery: QueryResult<ScheduleCalendar[], Error>;
   workflowSchedules: Array<ScheduleUnion>;
 }
 
 function CalendarView(props: CalendarViewProps) {
   const calendarEvents: Array<CalendarEvent> = [];
-  if (props.workflowCalendarData && props.workflowSchedules) {
-    for (let calendarEntry of props.workflowCalendarData) {
+  if (props.workflowCalendarQuery.data && props.workflowSchedules) {
+    for (let calendarEntry of props.workflowCalendarQuery.data) {
       const matchingSchedule: ScheduleUnion | undefined = props.workflowSchedules.find(
         (schedule: ScheduleUnion) => schedule.id === calendarEntry.scheduleId
       );
@@ -193,6 +200,10 @@ function CalendarView(props: CalendarViewProps) {
             start: new Date(date),
             end: new Date(date),
             title: matchingSchedule.name,
+            onClick: () => {
+              props.setActiveSchedule(matchingSchedule);
+              props.setIsPanelOpen(true);
+            },
           };
           calendarEvents.push(newEntry);
         }
@@ -201,14 +212,33 @@ function CalendarView(props: CalendarViewProps) {
   }
 
   return (
-    <section className={styles.calendarContainer}>
+    <section className={styles.calendarContainer} data-is-loading={props.workflowCalendarQuery.isLoading}>
       <Calendar
         onSelectEvent={(data: CalendarEvent) => {
           props.setIsPanelOpen(true);
           props.setActiveSchedule({ ...data.resource, nextScheduleDate: new Date(data.start).toISOString() });
         }}
         onRangeChange={props.onDateRangeChange}
-        onSelectSlot={() => void console.log("here") || props.setIsCreatorOpen(true)}
+        onSelectSlot={(day: any) => {
+          const selectedDate = moment(day.start);
+          const isCurrentDay = selectedDate.isSame(new Date(), "day");
+          if (selectedDate.isAfter() || isCurrentDay) {
+            const dateSchedule = isCurrentDay ? moment().toISOString() : day.start.toISOString();
+            //@ts-ignore
+            props.setActiveSchedule({ dateSchedule, type: "runOnce" });
+            props.setIsCreatorOpen(true);
+          }
+        }}
+        dayPropGetter={(date: Date) => {
+          const selectedDate = moment(date);
+          if (selectedDate.isBefore(new Date(), "day")) {
+            return {
+              style: {
+                cursor: "initial",
+              },
+            };
+          }
+        }}
         events={calendarEvents}
       />
     </section>
@@ -329,7 +359,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
     );
   }
   const nextScheduledText = props.schedule.type === "runOnce" ? "Scheduled" : "Next Execution";
-  const nextScheduleData = moment(props.schedule.nextScheduleDate).format("MMM DD, YYYY HH:mm");
+  const nextScheduleData = moment(props.schedule.nextScheduleDate).format(DATETIME_LOCAL_DISPLAY_FORMAT);
 
   /**
    * Delete schedule
@@ -416,7 +446,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
       <Tile className={styles.listItem}>
         <div className={styles.listItemTitle}>
           <h3 title={props.schedule.name}>{props.schedule.name}</h3>
-          <TooltipHover direction="top" tooltipText={props.schedule.type === "runOnce" ? "Single" : "Recurring"}>
+          <TooltipHover direction="top" tooltipText={typeLabelMap[props.schedule.type] ?? "---"}>
             {props.schedule.type === "runOnce" ? <RepeatOne16 /> : <Repeat16 />}
           </TooltipHover>
           <TooltipHover direction="top" tooltipText={statusLabelMap[props.schedule.status]}>
@@ -512,11 +542,11 @@ function EditorPanel(props: PanelProps) {
   const schedule = props.event;
 
   function renderSchedule() {
-    if (!schedule) {
+    if (!schedule || !props.isOpen) {
       return null;
     }
 
-    const nextScheduleData = moment(schedule.nextScheduleDate).format(DATE_TIME_LOCAL_INPUT_FORMAT);
+    const nextScheduleData = moment(schedule.nextScheduleDate).format(DATETIME_LOCAL_DISPLAY_FORMAT);
     const labels = [];
     for (const entry of schedule?.labels || []) {
       labels.push(
@@ -546,7 +576,7 @@ function EditorPanel(props: PanelProps) {
             <dl>
               <dt>Type</dt>
               <dd style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
-                {schedule.type === "runOnce" ? "Single" : "Recurring"}
+                {typeLabelMap[schedule.type]}
                 {schedule.type === "runOnce" ? <RepeatOne16 /> : <Repeat16 />}
               </dd>
             </dl>
@@ -571,7 +601,7 @@ function EditorPanel(props: PanelProps) {
             </dl>
             <dl>
               <dt>Frequency </dt>
-              <dd>{schedule.type === "runOnce" ? "Single" : cronstrue.toString(schedule.cronSchedule)}</dd>
+              <dd>{schedule.type === "runOnce" ? "Once" : cronstrue.toString(schedule.cronSchedule)}</dd>
             </dl>
             <dl>
               <dt>Labels</dt>
@@ -609,6 +639,7 @@ function EditorPanel(props: PanelProps) {
 interface CreateScheduleProps {
   isModalOpen: boolean;
   onCloseModal: () => void;
+  schedule?: ScheduleUnion;
   workflow: WorkflowSummary;
   workflowScheduleUrl: string;
   workflowCalendarUrl: string;
@@ -720,6 +751,7 @@ function CreateSchedule(props: CreateScheduleProps) {
           handleSubmit={handleSubmit}
           //@ts-ignore
           parameters={props.workflow.properties}
+          schedule={props.schedule}
           type="create"
         />
       )}
@@ -857,13 +889,21 @@ function CreateEditForm(props: CreateEditFormProps) {
   };
 
   /**
+   * Handle creating it from calendar click
+   */
+  if (props.type === "create" && props.schedule && props.schedule.type === "runOnce") {
+    console.log(props.schedule.dateSchedule);
+    initFormValues["dateTime"] = moment(props.schedule.dateSchedule).format(DATETIME_LOCAL_INPUT_FORMAT);
+  }
+
+  /**
    * Lots of manipulating of data for the inputs based on type
    */
   if (props.type === "edit" && props.schedule) {
     initFormValues["timezone"] = transformTimeZone(props.schedule.timezone);
 
     if (props.schedule.type === "runOnce") {
-      initFormValues["dateTime"] = moment(props.schedule.dateSchedule).format("YYYY-MM-DDThh:mm");
+      initFormValues["dateTime"] = moment(props.schedule.dateSchedule).format(DATETIME_LOCAL_INPUT_FORMAT);
     }
 
     if (props.schedule.type === "advancedCron") {
@@ -909,10 +949,14 @@ function CreateEditForm(props: CreateEditFormProps) {
         name: Yup.string().required("Name is required"),
         description: Yup.string(),
         type: Yup.string().required("Enter a type"),
-        dateTime: Yup.string().when("type", {
-          is: "runOnce",
-          then: Yup.string().required("Date and Time is required"),
-        }),
+        dateTime: Yup.string()
+          .when("type", {
+            is: "runOnce",
+            then: Yup.string().required("Date and Time is required"),
+          })
+          .test("isAfterNow", "Enter a date and time after now", (value: string | undefined) => {
+            return moment(value).isAfter(new Date());
+          }),
         labels: Yup.array(),
         cronSchedule: Yup.string().when("type", {
           is: "advancedCron",
@@ -965,7 +1009,7 @@ function CreateEditForm(props: CreateEditFormProps) {
               <b>Schedule</b>
             </p>
             <section>
-              <p>How many times do you want to execute this Schedule?</p>
+              <p>What type of Schedule do you want to create?</p>
               <RadioButtonGroup
                 id="type"
                 labelPosition="right"
@@ -974,31 +1018,32 @@ function CreateEditForm(props: CreateEditFormProps) {
                 orientation="horizontal"
                 valueSelected={formikProps.values["type"]}
               >
-                <RadioButton key={"runOnce"} id={"runOnce"} labelText={"Once"} value={"runOnce"} />
-                <RadioButton key={"cron"} id={"cron"} labelText={"Repeatedly"} value={"cron"} />
+                <RadioButton key={"runOnce"} id={"runOnce"} labelText={typeLabelMap["runOnce"]} value={"runOnce"} />
+                <RadioButton key={"cron"} id={"cron"} labelText={typeLabelMap["cron"]} value={"cron"} />
                 <RadioButton
                   key={"advanced-cron"}
                   id={"advanced-cron"}
-                  labelText={"Repeatedly via cron expression"}
+                  labelText={typeLabelMap["advancedCron"]}
                   value={"advancedCron"}
                 />
               </RadioButtonGroup>
             </section>
             {formikProps.values["type"] === "runOnce" ? (
               <>
-                <TextInput
-                  type="datetime-local"
-                  labelText="Date and Time"
-                  id="dateTime"
-                  name="dateTime"
-                  onBlur={formikProps.handleBlur}
-                  onChange={formikProps.handleChange}
-                  invalid={formikProps.errors.dateTime && formikProps.touched.dateTime}
-                  invalidText={formikProps.errors.dateTime}
-                  value={formikProps.values.dateTime}
-                  min={moment().format("YYYY-MM-DDThh:mm")}
-                  style={{ width: "23.5rem" }}
-                />
+                <div style={{ width: "23.5rem" }}>
+                  <TextInput
+                    type="datetime-local"
+                    labelText="Date and Time"
+                    id="dateTime"
+                    name="dateTime"
+                    onBlur={formikProps.handleBlur}
+                    onChange={formikProps.handleChange}
+                    invalid={formikProps.errors.dateTime && formikProps.touched.dateTime}
+                    invalidText={formikProps.errors.dateTime}
+                    value={formikProps.values.dateTime}
+                    min={moment().format(DATETIME_LOCAL_INPUT_FORMAT)}
+                  />
+                </div>
                 <div style={{ width: "23.5rem" }}>
                   <ComboBox
                     id="timezone"
