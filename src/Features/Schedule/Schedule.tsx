@@ -255,6 +255,8 @@ function Schedule() {
       workflowScopeOptions.push({ label: "System", value: WorkflowScope.System });
     }
 
+    const disableTeamsDropdown = scopes && !scopes.includes(WorkflowScope.Team);
+
     return (
       <div className={styles.container}>
         <Header
@@ -286,23 +288,23 @@ function Schedule() {
                   titleText="Filter by scope"
                 />
               </div>
-              {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
-                <div className={styles.dataFilter}>
-                  <MultiSelect
-                    light
-                    id="actions-teams-select"
-                    label="Choose team(s)"
-                    placeholder="Choose team(s)"
-                    invalid={false}
-                    onChange={handleSelectTeams}
-                    items={teamsData}
-                    //@ts-ignore next-line
-                    itemToString={(team) => (team ? team.name : "")}
-                    initialSelectedItems={selectedTeams}
-                    titleText="Filter by team"
-                  />
-                </div>
-              )}
+              <div className={styles.dataFilter}>
+                <MultiSelect
+                  light
+                  disabled={disableTeamsDropdown}
+                  key={disableTeamsDropdown ? "teams-disabled" : "teams-enabeld"}
+                  id="actions-teams-select"
+                  label="Choose team(s)"
+                  placeholder="Choose team(s)"
+                  invalid={false}
+                  onChange={handleSelectTeams}
+                  items={teamsData}
+                  //@ts-ignore next-line
+                  itemToString={(team) => (team ? team.name : "")}
+                  initialSelectedItems={selectedTeams}
+                  titleText="Filter by team"
+                />
+              </div>
               <div className={styles.dataFilter}>
                 <MultiSelect
                   light
@@ -431,7 +433,7 @@ function CalendarView(props: CalendarViewProps) {
       // }}
       onRangeChange={handleDateRangeChange}
       events={calendarEvents}
-      heightOffset={224}
+      heightOffset={210}
     />
   );
 }

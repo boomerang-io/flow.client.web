@@ -17,7 +17,7 @@ interface MyCalendarProps {
   [key: string]: any;
 }
 const MyCalendar = (props: MyCalendarProps) => {
-  const { heightOffset = 260 } = props;
+  const { heightOffset = 244 } = props;
   const [height, setHeight] = React.useState(window.innerHeight - heightOffset); //meh
 
   React.useLayoutEffect(() => {

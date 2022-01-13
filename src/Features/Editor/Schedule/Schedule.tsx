@@ -892,7 +892,6 @@ function CreateEditForm(props: CreateEditFormProps) {
    * Handle creating it from calendar click
    */
   if (props.type === "create" && props.schedule && props.schedule.type === "runOnce") {
-    console.log(props.schedule.dateSchedule);
     initFormValues["dateTime"] = moment(props.schedule.dateSchedule).format(DATETIME_LOCAL_INPUT_FORMAT);
   }
 

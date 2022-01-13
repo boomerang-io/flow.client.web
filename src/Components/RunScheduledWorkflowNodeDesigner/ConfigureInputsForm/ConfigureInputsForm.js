@@ -16,7 +16,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
-import { DATETIME_LOCAL_DISPLAY_FORMAT } from "Utils/dateHelper";
+import { DATETIME_LOCAL_DISPLAY_FORMAT, defaultTimeZone } from "Utils/dateHelper";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./WorkflowTaskForm.module.scss";
@@ -254,7 +254,7 @@ function ConfigureInputsForm(props) {
       : "";
     return (
       <ComboBox
-        helperText="Which workflow you want to execute"
+        helperText="Workflow you want to execute in the future"
         id="workflow-select"
         onChange={({ selectedItem }) => {
           setFieldValue("workflowId", selectedItem?.value ?? "");
@@ -272,7 +272,7 @@ function ConfigureInputsForm(props) {
         items={workflowsMapped}
         initialSelectedItem={initialSelectedItem}
         titleText="Workflow"
-        placeholder="Select a workflow"
+        placeholder="Select a Workflow"
         invalid={error && touch}
         invalidText={error}
       />
@@ -314,28 +314,21 @@ function ConfigureInputsForm(props) {
       customComponent: TaskNameTextInput,
     },
     {
-      key: "workflowId",
-      label: "Task Name",
-      placeholder: "Select a workflow",
-      type: "custom",
-      required: true,
-      customComponent: WorkflowSelectionInput,
-    },
-    {
       key: "futureIn",
       id: "futureIn",
-      label: "In",
-      helperText: "The number of the selected time period",
+      label: "Interval",
+      helperText: "Length of the selected time period",
       placeholder: "e.g. 10",
       type: "number",
       required: true,
+      min: 1,
     },
     {
       key: "futurePeriod",
       id: "futurePeriod",
-      label: "Period",
+      label: "Time Period",
       placeholder: "e.g. Days",
-      helperText: "The type of time period",
+      helperText: "Type of time period",
       type: "select",
       options: [
         { key: "minutes", value: "Minutes" },
@@ -350,10 +343,16 @@ function ConfigureInputsForm(props) {
       key: "futureAtTime",
       id: "futureAtTime",
       label: "At Time",
-      helperText: "When in the future you want this to execute",
+      helperText: "When in the future you want the Workflow to execute",
       type: "custom",
       required: true,
       customComponent: TimeInput,
+    },
+    {
+      key: "workflowId",
+      type: "custom",
+      required: true,
+      customComponent: WorkflowSelectionInput,
     },
     ...activeProperties,
   ];
@@ -368,16 +367,17 @@ function ConfigureInputsForm(props) {
       enableReinitialize
       validateOnMount
       validationSchemaExtension={Yup.object().shape({
-        taskName: Yup.string()
-          .required("Enter a task name")
-          .notOneOf(takenTaskNames, "Enter a unique value for task name"),
-        workflowId: Yup.string().required("Select a workflow"),
-        futureIn: Yup.number().required("In is required ").min(1, "Must be at least one increment in future"),
-        futurePeriod: Yup.string().required("Period is required"),
         futureAtTime: Yup.string().when("period", {
           is: "days" || "weeks" || "months",
           then: Yup.string().required("Time is required"),
         }),
+        futureIn: Yup.number().required("In is required ").min(1, "Must be at least one increment in future"),
+        futurePeriod: Yup.string().required("Period is required"),
+        taskName: Yup.string()
+          .required("Enter a task name")
+          .notOneOf(takenTaskNames, "Enter a unique value for task name"),
+        timezone: Yup.string().required(),
+        workflowId: Yup.string().required("Select a workflow"),
       })}
       initialValues={{
         taskName: node.taskName,
@@ -385,6 +385,7 @@ function ConfigureInputsForm(props) {
         ...activeInputs,
         ...nodeConfig.inputs,
         futureAtTime: initTime,
+        timezone: defaultTimeZone,
       }}
       inputs={inputs}
       onSubmit={handleOnSave}
