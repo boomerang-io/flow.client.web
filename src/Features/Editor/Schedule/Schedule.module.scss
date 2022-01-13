@@ -13,11 +13,15 @@
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   gap: 1rem;
-  overflow-y: auto;
 
   h2 {
     font-size: 1.25rem;
+  }
+
+  ul {
+    overflow-y: scroll;
   }
 }
 

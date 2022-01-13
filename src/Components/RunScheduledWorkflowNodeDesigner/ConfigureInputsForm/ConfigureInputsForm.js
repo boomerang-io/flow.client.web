@@ -340,8 +340,8 @@ function ConfigureInputsForm(props) {
       required: true,
     },
     {
-      key: "futureAtTime",
-      id: "futureAtTime",
+      key: "time",
+      id: "time",
       label: "At Time",
       helperText: "When in the future you want the Workflow to execute",
       type: "custom",
@@ -367,7 +367,7 @@ function ConfigureInputsForm(props) {
       enableReinitialize
       validateOnMount
       validationSchemaExtension={Yup.object().shape({
-        futureAtTime: Yup.string().when("period", {
+        time: Yup.string().when("period", {
           is: "days" || "weeks" || "months",
           then: Yup.string().required("Time is required"),
         }),
@@ -384,7 +384,7 @@ function ConfigureInputsForm(props) {
         workflowId: activeWorkflowId,
         ...activeInputs,
         ...nodeConfig.inputs,
-        futureAtTime: initTime,
+        time: initTime,
         timezone: defaultTimeZone,
       }}
       inputs={inputs}

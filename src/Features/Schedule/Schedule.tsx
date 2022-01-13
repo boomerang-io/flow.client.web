@@ -425,17 +425,7 @@ function CalendarView(props: CalendarViewProps) {
     }
   }
 
-  return (
-    <Calendar
-      // onSelectEvent={(data: CalendarEvent) => {
-      //   props.setIsEditorOpen(true);
-      //   props.setActiveSchedule(data.resource);
-      // }}
-      onRangeChange={handleDateRangeChange}
-      events={calendarEvents}
-      heightOffset={210}
-    />
-  );
+  return <Calendar events={calendarEvents} heightOffset={210} onRangeChange={handleDateRangeChange} />;
 }
 
 interface ScheduleListProps {

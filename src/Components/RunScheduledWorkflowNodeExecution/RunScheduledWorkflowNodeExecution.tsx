@@ -6,22 +6,21 @@ import { ExecutionStatus } from "Constants";
 import WorkflowNode from "Components/WorkflowNode";
 import styles from "./RunScheduledWorkflowNodeExecution.module.scss";
 
-import RunWorkflowNodeModel from "Utils/dag/runWorkflowNode/RunWorkflowNodeModel";
+import RunScheduledWorkflowNodeModel from "Utils/dag/runScheduledWorkflowNode/RunScheduledWorkflowNodeModel";
 
 interface RunScheduledWorkflowNodeExecutionProps {
-  node: RunWorkflowNodeModel;
+  node: RunScheduledWorkflowNodeModel;
 }
 
 const RunScheduledWorkflowNodeExecution: React.FC<RunScheduledWorkflowNodeExecutionProps> = (props) => {
   const { tasks, workflowExecution } = useExecutionContext();
   const { id, taskId, taskName } = props.node;
+
   const task = tasks.find((task) => task.id === taskId);
-  // const { steps } = workflowExecution;
   const stepTaskStatus = Array.isArray(workflowExecution.steps)
-    ? workflowExecution.steps.find((step) => step.taskId === id)?.runWorkflowActivityStatus
+    ? workflowExecution.steps.find((step) => step.taskId === id)?.flowTaskStatus
     : null;
-  // const flowTaskStatus = stepTaskStatus ?? ExecutionStatus.Skipped;
-  const flowTaskStatus = stepTaskStatus ? stepTaskStatus : ExecutionStatus.Skipped;
+  const flowTaskStatus = stepTaskStatus ?? ExecutionStatus.Skipped;
 
   return (
     <WorkflowNode
