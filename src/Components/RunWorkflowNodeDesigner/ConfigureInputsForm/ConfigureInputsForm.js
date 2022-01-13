@@ -119,19 +119,30 @@ function ConfigureInputsForm(props) {
   const { summaryData } = useEditorContext();
   const [activeWorkflowId, setActiveWorkflowId] = useState("");
   const { node, taskNames, nodeConfig } = props;
+  const scope = summaryData?.scope;
+  const isSystem = scope === "system";
+  const isUser = scope === "user";
 
-  const isSystem = summaryData?.scope === "system";
+  const {
+    data: systemWorkflows,
+    error: systemWorkflowsError,
+    isLoading: systemWorkflowsIsLoading,
+  } = useQuery(serviceUrl.getSystemWorkflows(), resolver.query(serviceUrl.getSystemWorkflows()), { enabled: isSystem });
+  const {
+    data: userWorkflows,
+    error: userWorkflowsError,
+    isLoading: userWorkflowsIsLoading,
+  } = useQuery(serviceUrl.getUserWorkflows(), resolver.query(serviceUrl.getUserWorkflows()), { enabled: isUser });
 
-  const { data: systemWorkflows, error, isLoading } = useQuery(
-    serviceUrl.getSystemWorkflows(),
-    resolver.query(serviceUrl.getSystemWorkflows()),
-    { enabled: isSystem }
-  );
+  const error = systemWorkflowsError || userWorkflowsError;
+  const isLoading = systemWorkflowsIsLoading || userWorkflowsIsLoading;
 
   let workflows = [];
 
   if (isSystem) {
     workflows = systemWorkflows?.filter((workflow) => workflow.id !== summaryData?.id);
+  } else if (isUser) {
+    workflows = userWorkflows?.workflows ?? [];
   } else {
     workflows = teams
       .find((team) => team.id === summaryData?.flowTeamId)
@@ -139,7 +150,7 @@ function ConfigureInputsForm(props) {
   }
 
   const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
-  const workflowProperties = nodeConfig?.inputs?.workflowId
+  const workflowProperties = Boolean(workflows.length) && nodeConfig?.inputs?.workflowId
     ? workflows.find((workflow) => workflow.id === nodeConfig?.inputs?.workflowId).properties
     : null;
   const [activeProperties, setActiveProperties] = useState(
