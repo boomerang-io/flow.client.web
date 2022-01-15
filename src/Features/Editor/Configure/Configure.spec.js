@@ -64,6 +64,10 @@ describe("Inputs --- RTL", () => {
     );
     await findByText(/General info/i);
     expect(getByText(/General info/i)).toBeInTheDocument();
-    expect(getByText(/Workspaces allow your workflow to declare storage options to be used at execution time. This will be limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum./)).toBeInTheDocument();
+    expect(
+      getByText(
+        /Workspaces allow your workflow to declare storage options to be used at execution time. This will be limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum./
+      )
+    ).toBeInTheDocument();
   });
 });

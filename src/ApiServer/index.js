@@ -85,7 +85,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       this.get(
-        serviceUrl.getScheduleCalendar({
+        serviceUrl.getWorkflowSchedulesCalendar({
           workflowId: ":workflowId",
           query: null,
         }),
@@ -94,7 +94,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
       );
 
-      this.get(serviceUrl.getSchedules({ workflowId: ":workflowId" }), (schema, request) => {
+      this.get(serviceUrl.getWorkflowSchedules({ workflowId: ":workflowId" }), (schema, request) => {
         return schema.db.workflowSchedules;
       });
 

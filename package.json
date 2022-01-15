@@ -27,9 +27,9 @@
     "upgradePackage": "react-scripts upgradePackage"
   },
   "dependencies": {
-    "@boomerang-io/carbon-addons-boomerang-react": "1.4.0-beta.7",
+    "@boomerang-io/carbon-addons-boomerang-react": "1.4.1",
     "@boomerang-io/styles": "0.0.3",
-    "@boomerang-io/utils": "0.0.6",
+    "@boomerang-io/utils": "0.0.7",
     "@carbon/charts": "^0.16.24",
     "@carbon/charts-react": "^0.16.24",
     "@carbon/icons-react": "^10.12.0",

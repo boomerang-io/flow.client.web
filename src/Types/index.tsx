@@ -619,3 +619,18 @@ export interface CalendarEvent {
 }
 
 export type ScheduleUnion = ScheduleDate | ScheduleCron;
+
+export interface ScheduleManagerFormInputs {
+  id: string;
+  name: string;
+  description: string;
+  cronSchedule: string;
+  dateTime: string;
+  labels: Array<string>;
+  type: ScheduleType;
+  days: Array<string>;
+  timezone: { label: string; value: string };
+  time: string;
+  advancedCron: boolean;
+  parameters: { [key: string]: any };
+}
