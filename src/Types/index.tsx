@@ -621,16 +621,17 @@ export interface CalendarEvent {
 export type ScheduleUnion = ScheduleDate | ScheduleCron;
 
 export interface ScheduleManagerFormInputs {
-  id: string;
-  name: string;
-  description: string;
+  advancedCron: boolean;
   cronSchedule: string;
   dateTime: string;
-  labels: Array<string>;
-  type: ScheduleType;
   days: Array<string>;
+  description: string;
+  id: string;
+  labels: Array<string>;
+  name: string;
+  parameters: { [key: string]: any };
+  type: ScheduleType;
   timezone: { label: string; value: string };
   time: string;
-  advancedCron: boolean;
-  parameters: { [key: string]: any };
+  workflow: WorkflowSummary;
 }

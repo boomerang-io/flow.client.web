@@ -1,33 +1,25 @@
 import React from "react";
 import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
-import { useQuery, useMutation, queryCache } from "react-query";
+import { useQuery } from "react-query";
 import {
-  ConfirmModal,
-  OverflowMenu,
-  OverflowMenuItem,
-  Search,
-  Tag,
-  Tile,
-  TooltipHover,
-  ToastNotification,
-  notify,
-  ErrorDragon,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
   MultiSelect as Select,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import Calendar from "Components/Calendar";
+import ErrorDragon from "Components/ErrorDragon";
+import ScheduleCreator from "Components/ScheduleCreator";
+import ScheduleEditor from "Components/ScheduleEditor";
+import SchedulePanelDetail from "Components/SchedulePanelDetail";
+import SchedulePanelList from "Components/SchedulePanelList";
 import { sortByProp } from "@boomerang-io/utils";
-import cronstrue from "cronstrue";
-import matchSorter from "match-sorter";
 import moment from "moment";
 import queryString from "query-string";
 import { allowedUserRoles, WorkflowScope } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { queryStringOptions } from "Config/appConfig";
-import { CircleFilled16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
 import { CalendarEvent, FlowTeam, ScheduleStatus, ScheduleType, ScheduleUnion, WorkflowSummary } from "Types";
 import styles from "./Schedule.module.scss";
 
@@ -63,6 +55,10 @@ function Schedule() {
   const history = useHistory();
   const location = useLocation();
   const { teams, user, userWorkflows } = useAppContext();
+  const [activeSchedule, setActiveSchedule] = React.useState<ScheduleUnion | undefined>();
+  const [isPanelOpen, setIsPanelOpen] = React.useState(false);
+  const [isEditorOpen, setIsEditorOpen] = React.useState(false);
+  const [isCreatorOpen, setIsCreatorOpen] = React.useState(false);
 
   const isSystemWorkflowsEnabled = allowedUserRoles.includes(user.type);
 
@@ -109,10 +105,6 @@ function Schedule() {
     queryKey: getSchedulesUrl,
     queryFn: resolver.query(getSchedulesUrl),
   });
-
-  // if (schedulesQuery.isLoading) {
-  //   return <Loading />;
-  // }
 
   if (schedulesQuery.isError) {
     return <ErrorDragon />;
@@ -255,7 +247,7 @@ function Schedule() {
       workflowScopeOptions.push({ label: "System", value: WorkflowScope.System });
     }
 
-    const disableTeamsDropdown = scopes && !scopes.includes(WorkflowScope.Team);
+    const disableTeamsDropdown = !!scopes && !scopes.includes(WorkflowScope.Team);
 
     return (
       <div className={styles.container}>
@@ -314,10 +306,10 @@ function Schedule() {
                   invalid={false}
                   onChange={handleSelectWorkflows}
                   items={workflowsFilter}
-                  //@ts-ignore next-line
-                  itemToString={(workflow) => {
-                    //@ts-ignore next-line
-                    const team = workflow ? teamsData.find((team) => team.id === workflow.flowTeamId) : undefined;
+                  itemToString={(workflow: WorkflowSummary) => {
+                    const team = workflow
+                      ? teamsData.find((team: FlowTeam) => team.id === workflow.flowTeamId)
+                      : undefined;
                     return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
                   }}
                   //@ts-ignore next-line
@@ -351,10 +343,50 @@ function Schedule() {
         />
         <div className={styles.content}>
           <div className={styles.contentContainer}>
-            <ScheduleList schedules={schedulesQuery.data} getSchedulesUrl={getSchedulesUrl} />
+            <SchedulePanelList
+              getCalendarUrl=""
+              getSchedulesUrl={getSchedulesUrl}
+              includeStatusFilter={false}
+              schedulesQuery={schedulesQuery}
+              setActiveSchedule={setActiveSchedule}
+              setIsCreatorOpen={setIsCreatorOpen}
+              setIsEditorOpen={setIsEditorOpen}
+            />
             <section className={styles.calendarContainer}>
-              <CalendarView schedules={schedulesQuery.data} updateHistorySearch={updateHistorySearch} />
+              <CalendarView
+                schedules={schedulesQuery.data}
+                updateHistorySearch={updateHistorySearch}
+                setActiveSchedule={setActiveSchedule}
+                setIsCreatorOpen={setIsCreatorOpen}
+                setIsEditorOpen={setIsEditorOpen}
+                setIsPanelOpen={setIsPanelOpen}
+              />
             </section>
+            <SchedulePanelDetail
+              className={styles.panelContainer}
+              event={activeSchedule}
+              isOpen={isPanelOpen}
+              setIsOpen={setIsPanelOpen}
+              setIsEditorOpen={setIsEditorOpen}
+            />
+            <ScheduleCreator
+              getCalendarUrl={""}
+              getSchedulesUrl={getSchedulesUrl}
+              includeWorkflowDropdown={true}
+              isModalOpen={isCreatorOpen}
+              onCloseModal={() => setIsCreatorOpen(false)}
+              schedule={activeSchedule}
+              workflowOptions={workflowsFilter}
+            />
+            <ScheduleEditor
+              getCalendarUrl={""}
+              getSchedulesUrl={getSchedulesUrl}
+              includeWorkflowDropdown={true}
+              isModalOpen={isEditorOpen}
+              onCloseModal={() => setIsEditorOpen(false)}
+              schedule={activeSchedule}
+              workflowOptions={workflowsFilter}
+            />
           </div>
         </div>
       </div>
@@ -365,7 +397,11 @@ function Schedule() {
 }
 
 interface CalendarViewProps {
-  schedules: Array<ScheduleUnion> | undefined;
+  setActiveSchedule: React.Dispatch<React.SetStateAction<ScheduleUnion | undefined>>;
+  setIsCreatorOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPanelOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  schedules?: Array<ScheduleUnion>;
   updateHistorySearch: (props: any) => void;
 }
 
@@ -425,254 +461,36 @@ function CalendarView(props: CalendarViewProps) {
     }
   }
 
-  return <Calendar events={calendarEvents} heightOffset={210} onRangeChange={handleDateRangeChange} />;
-}
-
-interface ScheduleListProps {
-  schedules?: Array<ScheduleUnion>;
-  getSchedulesUrl: string;
-}
-
-function ScheduleList(props: ScheduleListProps) {
-  const [filterQuery, setFilterQuery] = React.useState("");
-
-  let filteredSchedules: Array<ScheduleUnion> = [];
-  if (props.schedules) {
-    filteredSchedules = Boolean(filterQuery)
-      ? matchSorter(props.schedules ?? [], filterQuery, {
-          keys: ["name", "description", "type", "status"],
-        })
-      : props.schedules;
-  }
-
-  function renderLists() {
-    if (props.schedules) {
-      if (props.schedules.length === 0) {
-        return <div>No schedules found</div>;
-      }
-
-      if (filteredSchedules.length === 0) {
-        return <div>No matching schedules found</div>;
-      }
-
-      const sortedSchedules = filteredSchedules.sort((a, b) => {
-        return a.name.localeCompare(b.name);
-      });
-
-      return sortedSchedules.map((schedule) => (
-        <ScheduledListItem key={schedule.id} schedule={schedule} getSchedulesUrl={props.getSchedulesUrl} />
-      ));
-    }
-
-    return null;
-  }
-
-  if (!props.schedules) {
-    return <section className={styles.listContainer}>Loading</section>;
-  }
-
   return (
-    <section className={styles.listContainer}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <h2>{`Existing Schedules (${props.schedules.length})`}</h2>
-      </div>
-      <Search
-        light
-        id="schedules-filter"
-        labelText="Filter schedules"
-        placeHolderText="Search schedules"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterQuery(e.target.value)}
-      />
-      <ul>{renderLists()}</ul>
-    </section>
-  );
-}
-
-interface ScheduledListItemProps {
-  schedule: ScheduleUnion;
-  getSchedulesUrl: string;
-}
-
-function ScheduledListItem(props: ScheduledListItemProps) {
-  const [isToggleStatusModalOpen, setIsToggleStatusModalOpen] = React.useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
-
-  // Determine some things for rendering
-  const isActive = props.schedule.status === "active";
-  const labels = [];
-  for (const entry of props.schedule?.labels || []) {
-    labels.push(
-      <Tag style={{ marginLeft: 0 }} type="teal">
-        {entry.key}:{entry.value}
-      </Tag>
-    );
-  }
-  const nextScheduledText = "Scheduled";
-  const nextScheduleData = moment(props.schedule.nextScheduleDate).format("MMMM DD, YYYY HH:mm");
-
-  /**
-   * Delete schedule
-   */
-
-  const [deleteScheduleMutator, deleteScheduleMutation] = useMutation(resolver.deleteSchedule, {});
-
-  const handleDeleteSchedule = async () => {
-    try {
-      await deleteScheduleMutator({ scheduleId: props.schedule.id });
-      notify(
-        <ToastNotification
-          kind="success"
-          title={`Duplicate ${props.schedule.name}`}
-          subtitle={`Successfully duplicated ${props.schedule.name}`}
-        />
-      );
-      queryCache.invalidateQueries(props.getSchedulesUrl);
-    } catch (e) {
-      notify(
-        <ToastNotification
-          kind="error"
-          title="Something's Wrong"
-          subtitle={`Request to duplicate ${props.schedule.name} failed`}
-        />
-      );
-      return;
-    }
-  };
-
-  /**
-   * Disable schedule
-   */
-  const [toggleScheduleStatusMutator, toggleScheduleStatusMutation] = useMutation(resolver.patchSchedule, {});
-
-  const handleToggleStatus = async () => {
-    const body = { ...props.schedule, status: isActive ? "inactive" : "active" };
-    try {
-      await toggleScheduleStatusMutator({ scheduleId: props.schedule.id, body });
-      notify(
-        <ToastNotification
-          kind="success"
-          title={`${isActive ? "Disable" : "Enable"} Schedule`}
-          subtitle={`Successfully ${isActive ? "disabled" : "enabled"} schedule ${props.schedule.name} `}
-        />
-      );
-      queryCache.invalidateQueries(props.getSchedulesUrl);
-    } catch (e) {
-      notify(
-        <ToastNotification
-          kind="error"
-          title="Something's Wrong"
-          subtitle={`Request to ${isActive ? "disable" : "enable"} schedule ${props.schedule.name} failed`}
-        />
-      );
-      return;
-    }
-  };
-
-  // Set up the Oveflow menu options
-  let menuOptions = [
-    // {
-    //   itemText: "View Activity",
-    //   onClick: () => history.push(appLink.workflowActivity({ workflowId: props.workflowId })),
-    // },
-    {
-      itemText: isActive ? "Disable" : "Enable",
-      onClick: () => setIsToggleStatusModalOpen(true),
-    },
-    {
-      hasDivider: true,
-      itemText: "Delete",
-      isDelete: true,
-      onClick: () => setIsDeleteModalOpen(true),
-    },
-  ];
-
-  return (
-    <li>
-      <Tile className={styles.listItem}>
-        <div className={styles.listItemTitle}>
-          <h3 title={props.schedule.name}>{props.schedule.name}</h3>
-          <TooltipHover direction="top" tooltipText={props.schedule.type === "runOnce" ? "Single" : "Recurring"}>
-            {props.schedule.type === "runOnce" ? <RepeatOne16 /> : <Repeat16 />}
-          </TooltipHover>
-          <TooltipHover direction="top" tooltipText={statusLabelMap[props.schedule.status]}>
-            {props.schedule.status === "inactive" ? (
-              <RadioButton16 className={styles.statusCircle} data-status={props.schedule.status} />
-            ) : (
-              <CircleFilled16 className={styles.statusCircle} data-status={props.schedule.status} />
-            )}
-          </TooltipHover>
-        </div>
-        <p className={styles.listItemDescription}>{props.schedule?.description ?? "---"}</p>
-        <dl style={{ display: "flex" }}>
-          <div style={{ width: "50%" }}>
-            <dt>{nextScheduledText}</dt>
-            <dd>{nextScheduleData}</dd>
-          </div>
-          <div style={{ width: "50%" }}>
-            <dt>Time Zone</dt>
-            <dd>{props.schedule.timezone}</dd>
-          </div>
-        </dl>
-        <dl style={{ display: "flex" }}>
-          <div>
-            <dt>Frequency </dt>
-            <dd>{props.schedule.type === "runOnce" ? "Once" : cronstrue.toString(props.schedule.cronSchedule)}</dd>
-          </div>
-        </dl>
-        <dl>
-          <dt>Labels</dt>
-          <dd>{labels.length > 0 ? labels : "---"}</dd>
-        </dl>
-        <OverflowMenu
-          flipped
-          ariaLabel="Schedule card menu"
-          iconDescription="Schedule menu icon"
-          style={{ position: "absolute", right: "0", top: "0" }}
-        >
-          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
-            <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
-          ))}
-        </OverflowMenu>
-      </Tile>
-      {isToggleStatusModalOpen && (
-        <ConfirmModal
-          affirmativeAction={handleToggleStatus}
-          affirmativeButtonProps={{ kind: "danger", disabled: toggleScheduleStatusMutation.isLoading }}
-          affirmativeText={isActive ? "Disable" : "Enable"}
-          isOpen={isToggleStatusModalOpen}
-          negativeAction={() => {
-            setIsToggleStatusModalOpen(false);
-          }}
-          negativeText="Cancel"
-          onCloseModal={() => {
-            setIsToggleStatusModalOpen(false);
-          }}
-          title={`${isActive ? "Disable" : "Enable"} Schedule?`}
-        >
-          {`Are you sure you want to ${isActive ? "disable" : "enable"} schedule ${
-            props.schedule.name
-          }? Don't worry, you can change it in the future.`}
-        </ConfirmModal>
-      )}
-      {isDeleteModalOpen && (
-        <ConfirmModal
-          affirmativeAction={handleDeleteSchedule}
-          affirmativeButtonProps={{ kind: "danger", disabled: deleteScheduleMutation.isLoading }}
-          affirmativeText="Delete"
-          isOpen={isDeleteModalOpen}
-          negativeAction={() => {
-            setIsDeleteModalOpen(false);
-          }}
-          negativeText="Cancel"
-          onCloseModal={() => {
-            setIsDeleteModalOpen(false);
-          }}
-          title={`Delete Schedule?`}
-        >
-          {`Are you sure you want to delete schedule ${props.schedule.name}? There's no going back from this decision.`}
-        </ConfirmModal>
-      )}
-    </li>
+    <Calendar
+      heightOffset={210}
+      onSelectEvent={(data: CalendarEvent) => {
+        props.setIsPanelOpen(true);
+        props.setActiveSchedule({ ...data.resource, nextScheduleDate: new Date(data.start).toISOString() });
+      }}
+      onRangeChange={handleDateRangeChange}
+      onSelectSlot={(day: any) => {
+        const selectedDate = moment(day.start);
+        const isCurrentDay = selectedDate.isSame(new Date(), "day");
+        if (selectedDate.isAfter() || isCurrentDay) {
+          const dateSchedule = isCurrentDay ? moment().toISOString() : day.start.toISOString();
+          //@ts-ignore
+          props.setActiveSchedule({ dateSchedule, type: "runOnce" });
+          props.setIsCreatorOpen(true);
+        }
+      }}
+      dayPropGetter={(date: Date) => {
+        const selectedDate = moment(date);
+        if (selectedDate.isBefore(new Date(), "day")) {
+          return {
+            style: {
+              cursor: "initial",
+            },
+          };
+        }
+      }}
+      events={calendarEvents}
+    />
   );
 }
 

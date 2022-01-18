@@ -1,4 +1,5 @@
 import React from "react";
+import { useAppContext } from "Hooks";
 import {
   Button,
   Creatable,
@@ -6,6 +7,7 @@ import {
   ComboBox,
   DynamicFormik,
   InlineLoading,
+  InlineNotification,
   ModalBody,
   ModalForm,
   ModalFooter,
@@ -22,26 +24,42 @@ import * as Yup from "yup";
 import { cronToDateTime } from "Utils/cronHelper";
 import { DATETIME_LOCAL_INPUT_FORMAT, defaultTimeZone, timezoneOptions, transformTimeZone } from "Utils/dateHelper";
 import { daysOfWeekCronList } from "Constants";
-import { ComposedModalChildProps, ScheduleManagerFormInputs, ScheduleUnion } from "Types";
+import {
+  ComposedModalChildProps,
+  DataDrivenInput,
+  FlowTeam,
+  ScheduleManagerFormInputs,
+  ScheduleUnion,
+  WorkflowSummary,
+} from "Types";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./ScheduleManagerForm.module.scss";
 
 interface CreateEditFormProps {
   handleSubmit: (args: ScheduleManagerFormInputs) => void;
+  includeWorkflowDropdown?: boolean;
+  isError: boolean;
   isLoading: boolean;
   modalProps: ComposedModalChildProps;
-  parameters?: { [k: string]: any };
-  type: "create" | "edit";
   schedule?: ScheduleUnion;
+  type: "create" | "edit";
+  workflow?: WorkflowSummary;
+  workflowOptions?: Array<WorkflowSummary>;
 }
 
 export default function CreateEditForm(props: CreateEditFormProps) {
+  const { teams } = useAppContext();
+
+  const [workflowProperties, setWorkflowProperties] = React.useState<Array<DataDrivenInput> | undefined>(
+    props.workflow?.properties
+  );
   let initFormValues: Partial<ScheduleManagerFormInputs> = {
     id: props.schedule?.name,
     name: props.schedule?.name ?? "",
     description: props.schedule?.description ?? "",
     type: props.schedule?.type || "runOnce",
     timezone: transformTimeZone(defaultTimeZone),
+    workflow: props.workflow,
     days: [],
     labels: [],
     ...props.schedule?.parameters,
@@ -59,6 +77,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
    */
   if (props.type === "edit" && props.schedule) {
     initFormValues["timezone"] = transformTimeZone(props.schedule.timezone);
+    initFormValues["workflow"] = props.workflow;
 
     if (props.schedule.type === "runOnce") {
       initFormValues["dateTime"] = moment(props.schedule.dateSchedule).format(DATETIME_LOCAL_INPUT_FORMAT);
@@ -96,26 +115,27 @@ export default function CreateEditForm(props: CreateEditFormProps) {
 
   return (
     <DynamicFormik
+      enableReinitialize
       validateOnMount
       initialValues={initFormValues}
-      inputs={props.parameters}
+      inputs={workflowProperties ?? []}
       onSubmit={async (args: ScheduleManagerFormInputs) => {
         await props.handleSubmit(args);
         props.modalProps.closeModal();
       }}
       validationSchemaExtension={Yup.object().shape({
-        name: Yup.string().required("Name is required"),
-        description: Yup.string(),
+        name: Yup.string().required("Name is required").max(200, "Enter less than 200 characters"),
+        description: Yup.string().max(500, "Enter less than 500 characters"),
         type: Yup.string().required("Enter a type"),
-        dateTime: Yup.string()
-          .when("type", {
-            is: "runOnce",
-            then: Yup.string().required("Date and Time is required"),
-          })
-          .test("isAfterNow", "Enter a date and time after now", (value: string | undefined) => {
-            return moment(value).isAfter(new Date());
-          }),
-        labels: Yup.array(),
+        dateTime: Yup.string().when("type", {
+          is: "runOnce",
+          then: Yup.string()
+            .required("Date and Time is required")
+            .test("isAfterNow", "Enter a date and time after now", (value: string | undefined) => {
+              return moment(value).isAfter(new Date());
+            }),
+        }),
+        labels: Yup.array().max(20, "Enter less than 20 labels"),
         cronSchedule: Yup.string().when("type", {
           is: "advancedCron",
           then: Yup.string().required("Expression required"),
@@ -134,24 +154,44 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             <p>
               <b>About</b>
             </p>
+            {props.includeWorkflowDropdown && (
+              <ComboBox
+                helperText="Workflow for this Schedule to execute"
+                id="workflow"
+                initialSelectedItem={formikProps.values.workflow}
+                items={props.workflowOptions}
+                itemToString={(workflow: WorkflowSummary) => {
+                  const team = workflow ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId) : undefined;
+                  return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                }}
+                onChange={({ selectedItem }: { selectedItem: WorkflowSummary }) => {
+                  formikProps.setFieldValue("workflow", selectedItem);
+                  if (selectedItem?.id) {
+                    setWorkflowProperties(selectedItem.properties);
+                  }
+                }}
+                placeholder="e.g. Number 1 Workflow"
+                titleText="Workflow"
+              />
+            )}
             <TextInput
-              labelText="Name"
               id="name"
+              invalidText={formikProps.errors.name}
+              invalid={formikProps.errors.name && formikProps.touched.name}
+              labelText="Name"
               onBlur={formikProps.handleBlur}
               onChange={formikProps.handleChange}
-              invalid={formikProps.errors.name && formikProps.touched.name}
-              invalidText={formikProps.errors.name}
               placeholder="e.g. Daily task"
               value={formikProps.values.name}
             />
             <TextArea
-              labelText="Description (optional)"
               id="description"
-              placeholder="e.g. Runs very important daily task."
-              onBlur={formikProps.handleBlur}
-              onChange={formikProps.handleChange}
               invalid={formikProps.errors.description && formikProps.touched.description}
               invalidText={formikProps.errors.description}
+              labelText="Description (optional)"
+              onBlur={formikProps.handleBlur}
+              onChange={formikProps.handleChange}
+              placeholder="e.g. Runs very important daily task."
               value={formikProps.values.description}
             />
             <Creatable
@@ -179,8 +219,8 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                 <RadioButton key={"runOnce"} id={"runOnce"} labelText={typeLabelMap["runOnce"]} value={"runOnce"} />
                 <RadioButton key={"cron"} id={"cron"} labelText={typeLabelMap["cron"]} value={"cron"} />
                 <RadioButton
-                  key={"advanced-cron"}
                   id={"advanced-cron"}
+                  key={"advanced-cron"}
                   labelText={typeLabelMap["advancedCron"]}
                   value={"advancedCron"}
                 />
@@ -190,20 +230,22 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               <>
                 <div style={{ width: "23.5rem" }}>
                   <TextInput
-                    type="datetime-local"
-                    labelText="Date and Time"
+                    helperText="When you want it to execute"
                     id="dateTime"
+                    invalid={formikProps.errors.dateTime && formikProps.touched.dateTime}
+                    invalidText={formikProps.errors.dateTime}
+                    labelText="Date and Time"
+                    min={moment().format(DATETIME_LOCAL_INPUT_FORMAT)}
                     name="dateTime"
                     onBlur={formikProps.handleBlur}
                     onChange={formikProps.handleChange}
-                    invalid={formikProps.errors.dateTime && formikProps.touched.dateTime}
-                    invalidText={formikProps.errors.dateTime}
+                    type="datetime-local"
                     value={formikProps.values.dateTime}
-                    min={moment().format(DATETIME_LOCAL_INPUT_FORMAT)}
                   />
                 </div>
                 <div style={{ width: "23.5rem" }}>
                   <ComboBox
+                    helperText="What time zone do you want to use"
                     id="timezone"
                     initialSelectedItem={formikProps.values.timezone}
                     //@ts-ignore
@@ -220,14 +262,25 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             ) : (
               <CronJobConfig formikProps={formikProps} timezoneOptions={timezoneOptions} />
             )}
-            {inputs.length ? (
-              <>
-                <p>
-                  <b>Workflow Parameters</b>
-                </p>
-                {inputs}
-              </>
-            ) : null}
+
+            <>
+              <p>
+                <b>Workflow Parameters</b>
+              </p>
+              {formikProps.values.workflow && inputs.length ? (
+                inputs
+              ) : (
+                <div>No parameters to configure for this Workflow</div>
+              )}
+            </>
+            {props.isError && (
+              <InlineNotification
+                lowContrast
+                kind="error"
+                title="Something's Wrong"
+                subtitle={`Request to ${props.type} Schedule failed`}
+              />
+            )}
           </ModalBody>
           <ModalFooter>
             <Button kind="secondary" onClick={props.modalProps.closeModal}>
@@ -313,6 +366,7 @@ class CronJobConfig extends React.Component<Props, State> {
             <div className={styles.cronContainer}>
               <div className={styles.inputContainer}>
                 <TextInput
+                  helperText="Cron expression that will used by the scheduler"
                   id="cronSchedule"
                   invalid={(errors.cronSchedule || errorMessage) && touched.cronSchedule}
                   invalidText={errorMessage}
@@ -332,6 +386,7 @@ class CronJobConfig extends React.Component<Props, State> {
             </div>
             <div className={styles.timezone}>
               <ComboBox
+                helperText="What time zone do you want to use"
                 id="timezone"
                 initialSelectedItem={values.timezone}
                 //@ts-ignore

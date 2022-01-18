@@ -2,24 +2,27 @@ import React from "react";
 import { useMutation, queryCache } from "react-query";
 import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import ScheduleManagerForm from "Components/ScheduleManagerForm";
+import { cronDayNumberMap } from "Utils/cronHelper";
 import { resolver } from "Config/servicesConfig";
 import { ComposedModalChildProps, ScheduleManagerFormInputs, ScheduleUnion, WorkflowSummary } from "Types";
 import styles from "./ScheduleEditor.module.scss";
 
 interface ScheduleEditorProps {
+  getCalendarUrl: string;
+  getSchedulesUrl: string;
+  includeWorkflowDropdown?: boolean;
   isModalOpen: boolean;
   onCloseModal: () => void;
   schedule?: ScheduleUnion;
-  workflowScheduleUrl: string;
-  workflowCalendarUrl: string;
-  workflow: WorkflowSummary;
+  workflow?: WorkflowSummary;
+  workflowOptions?: Array<WorkflowSummary>;
 }
 
 function ScheduleEditor(props: ScheduleEditorProps) {
   /**
    * Update schedule
    */
-  const [updateScheduleMutator, { isLoading: updateScheduleIsLoading }] = useMutation(resolver.patchSchedule, {});
+  const [updateScheduleMutator, editScheduleMutation] = useMutation(resolver.patchSchedule, {});
 
   const handleUpdateSchedule = async (updatedSchedule: ScheduleUnion) => {
     if (props.schedule) {
@@ -32,8 +35,8 @@ function ScheduleEditor(props: ScheduleEditorProps) {
             subtitle={`Successfully updated schedule ${props.schedule.name} `}
           />
         );
-        queryCache.invalidateQueries(props.workflowScheduleUrl);
-        queryCache.invalidateQueries(props.workflowCalendarUrl);
+        queryCache.invalidateQueries(props.getCalendarUrl);
+        queryCache.invalidateQueries(props.getSchedulesUrl);
       } catch (e) {
         notify(
           <ToastNotification
@@ -48,7 +51,20 @@ function ScheduleEditor(props: ScheduleEditorProps) {
   };
 
   const handleSubmit = async (values: ScheduleManagerFormInputs) => {
-    const { id, name, description, cronSchedule, dateTime, labels, timezone, type, days, time, ...parameters } = values;
+    const {
+      id,
+      name,
+      description,
+      cronSchedule,
+      dateTime,
+      labels,
+      timezone,
+      type,
+      days,
+      time,
+      workflow,
+      ...parameters
+    } = values;
 
     let scheduleLabels: Array<{ key: string; value: string }> = [];
     if (values.labels.length) {
@@ -64,6 +80,7 @@ function ScheduleEditor(props: ScheduleEditorProps) {
       type: scheduleType,
       timezone: timezone.value,
       labels: scheduleLabels,
+      workflowId: workflow.id,
       parameters,
     };
 
@@ -102,12 +119,15 @@ function ScheduleEditor(props: ScheduleEditorProps) {
     >
       {(modalProps: ComposedModalChildProps) => (
         <ScheduleManagerForm
-          isLoading={updateScheduleIsLoading}
           handleSubmit={handleSubmit}
+          isError={editScheduleMutation.isError}
+          isLoading={editScheduleMutation.isLoading}
+          includeWorkflowDropdown={props.includeWorkflowDropdown}
           modalProps={modalProps}
-          parameters={props.workflow.properties}
           schedule={props.schedule}
           type={"edit"}
+          workflow={props.workflow}
+          workflowOptions={props.workflowOptions}
         />
       )}
     </ComposedModal>

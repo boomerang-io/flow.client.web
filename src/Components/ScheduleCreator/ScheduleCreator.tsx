@@ -2,17 +2,20 @@ import React from "react";
 import { useMutation, queryCache } from "react-query";
 import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import ScheduleManagerForm from "Components/ScheduleManagerForm";
+import { cronDayNumberMap } from "Utils/cronHelper";
 import { resolver } from "Config/servicesConfig";
 import { ComposedModalChildProps, ScheduleManagerFormInputs, ScheduleUnion, WorkflowSummary } from "Types";
 import styles from "./ScheduleCreator.module.scss";
 
 interface CreateScheduleProps {
+  getCalendarUrl: string;
+  getSchedulesUrl: string;
+  includeWorkflowDropdown?: boolean;
   isModalOpen: boolean;
   onCloseModal: () => void;
   schedule?: ScheduleUnion;
-  workflow: WorkflowSummary;
-  workflowScheduleUrl: string;
-  workflowCalendarUrl: string;
+  workflow?: WorkflowSummary;
+  workflowOptions?: Array<WorkflowSummary>;
 }
 
 export default function CreateSchedule(props: CreateScheduleProps) {
@@ -31,8 +34,8 @@ export default function CreateSchedule(props: CreateScheduleProps) {
           subtitle={`Successfully created schedule ${schedule.name} `}
         />
       );
-      queryCache.invalidateQueries(props.workflowScheduleUrl);
-      queryCache.invalidateQueries(props.workflowCalendarUrl);
+      queryCache.invalidateQueries(props.getCalendarUrl);
+      queryCache.invalidateQueries(props.getSchedulesUrl);
     } catch (e) {
       notify(
         <ToastNotification
@@ -46,7 +49,19 @@ export default function CreateSchedule(props: CreateScheduleProps) {
   };
 
   const handleSubmit = async (values: ScheduleManagerFormInputs) => {
-    const { name, description, cronSchedule, dateTime, labels, timezone, type, days, time, ...parameters } = values;
+    const {
+      name,
+      description,
+      cronSchedule,
+      dateTime,
+      labels,
+      timezone,
+      type,
+      days,
+      time,
+      workflow,
+      ...parameters
+    } = values;
 
     let scheduleLabels: Array<{ key: string; value: string }> = [];
     if (values.labels.length) {
@@ -63,7 +78,7 @@ export default function CreateSchedule(props: CreateScheduleProps) {
       timezone: timezone.value,
       labels: scheduleLabels,
       parameters,
-      workflowId: props.workflow.id,
+      workflowId: workflow.id,
     };
 
     if (schedule.type === "runOnce") {
@@ -101,13 +116,15 @@ export default function CreateSchedule(props: CreateScheduleProps) {
     >
       {(modalProps: ComposedModalChildProps) => (
         <ScheduleManagerForm
-          modalProps={modalProps}
-          isLoading={createScheduleMutation.isLoading}
           handleSubmit={handleSubmit}
-          //@ts-ignore
-          parameters={props.workflow.properties}
+          includeWorkflowDropdown={props.includeWorkflowDropdown}
+          isError={createScheduleMutation.isError}
+          isLoading={createScheduleMutation.isLoading}
+          modalProps={modalProps}
           schedule={props.schedule}
           type="create"
+          workflow={props.workflow}
+          workflowOptions={props.workflowOptions}
         />
       )}
     </ComposedModal>

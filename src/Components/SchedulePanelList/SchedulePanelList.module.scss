@@ -1,0 +1,84 @@
+@import "Styles/mixins";
+
+.listContainer {
+  background: var(--cds-layer);
+  width: 31.725rem;
+  flex-shrink: 0;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 1rem;
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  ul {
+    overflow-y: scroll;
+  }
+}
+
+.listItem {
+  background: var(--cds-ui-background);
+  border-radius: 0.25rem;
+  min-height: 8rem;
+  margin: 1rem 0rem;
+  padding: 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+
+  dt {
+    font-size: 0.75rem;
+  }
+  dd {
+    font-size: 0.875rem;
+  }
+}
+
+.listItemTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 90%;
+
+  h3 {
+    font-size: 1rem;
+    font-weight: bold;
+    @include text-overflow-ellipsis();
+  }
+}
+
+.listItemDescription {
+  @include multiline-text-overflow-ellipsis();
+  max-width: 90%;
+}
+
+.listItemLabels {
+  display: flex;
+  max-width: 90%;
+  span:first-child {
+    margin-left: 0rem;
+  }
+}
+
+.statusCircle {
+  height: 1rem;
+  width: 1rem;
+  &[data-status="active"] {
+    fill: var(--cds-support-success);
+  }
+  &[data-status="inactive"] {
+    fill: var(--cds-support-success);
+  }
+  &[data-status="deleted"] {
+    fill: var(--cds-support-error);
+  }
+
+  &[data-status="trigger_disabled"] {
+    fill: var(--cds-text-03);
+  }
+}
