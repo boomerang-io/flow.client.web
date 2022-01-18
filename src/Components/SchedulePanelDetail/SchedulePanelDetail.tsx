@@ -72,6 +72,14 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
                 )}
               </dd>
             </dl>
+            {schedule.workflow && (
+              <>
+                <dl>
+                  <dt>Workflow</dt>
+                  <dd>{schedule.workflow.name}</dd>
+                </dl>
+              </>
+            )}
             <dl>
               <dt>Scheduled</dt>
               <dd>{nextScheduleData}</dd>

@@ -6,6 +6,7 @@ import {
   MultiSelect,
   OverflowMenu,
   OverflowMenuItem,
+  SkeletonPlaceholder,
   Search,
   Tag,
   Tile,
@@ -27,7 +28,9 @@ interface SchedulePanelListProps {
   getCalendarUrl: string;
   getSchedulesUrl: string;
   includeStatusFilter: boolean;
-  setActiveSchedule: React.Dispatch<React.SetStateAction<ScheduleUnion | undefined>>;
+  setActiveSchedule:
+    | React.Dispatch<React.SetStateAction<ScheduleUnion | undefined>>
+    | ((schedule: ScheduleUnion) => void);
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsCreatorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   schedulesQuery: QueryResult<ScheduleUnion[], Error>;
@@ -39,7 +42,14 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
 
   function renderLists() {
     if (props.schedulesQuery.isLoading) {
-      return <div>Loading</div>;
+      return (
+        <div>
+          <SkeletonPlaceholder className={styles.listItemSkeleton} />
+          <SkeletonPlaceholder className={styles.listItemSkeleton} />
+          <SkeletonPlaceholder className={styles.listItemSkeleton} />
+          <SkeletonPlaceholder className={styles.listItemSkeleton} />
+        </div>
+      );
     }
 
     if (props.schedulesQuery.data && props.schedulesQuery.data.length === 0) {
@@ -133,7 +143,9 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
 
 interface ScheduledListItemProps {
   schedule: ScheduleUnion;
-  setActiveSchedule: React.Dispatch<React.SetStateAction<ScheduleUnion | undefined>>;
+  setActiveSchedule:
+    | React.Dispatch<React.SetStateAction<ScheduleUnion | undefined>>
+    | ((schedule: ScheduleUnion) => void);
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   getSchedulesUrl: string;
   getCalendarUrl: string;

@@ -22,7 +22,7 @@
 .listItem {
   background: var(--cds-ui-background);
   border-radius: 0.25rem;
-  min-height: 8rem;
+  min-height: 10rem;
   margin: 1rem 0rem;
   padding: 1rem;
   position: relative;
@@ -37,6 +37,13 @@
   dd {
     font-size: 0.875rem;
   }
+}
+
+.listItemSkeleton {
+  border-radius: 0.25rem;
+  min-height: 12rem;
+  margin: 1rem 0rem;
+  min-width: 100%;
 }
 
 .listItemTitle {

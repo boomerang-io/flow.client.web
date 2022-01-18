@@ -8,8 +8,7 @@ import {
   FeatureHeaderSubtitle as HeaderSubtitle,
   MultiSelect as Select,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import Calendar from "Components/Calendar";
-import ErrorDragon from "Components/ErrorDragon";
+import Calendar from "Components/ScheduleCalendar";
 import ScheduleCreator from "Components/ScheduleCreator";
 import ScheduleEditor from "Components/ScheduleEditor";
 import SchedulePanelDetail from "Components/SchedulePanelDetail";
@@ -20,7 +19,15 @@ import queryString from "query-string";
 import { allowedUserRoles, WorkflowScope } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { queryStringOptions } from "Config/appConfig";
-import { CalendarEvent, FlowTeam, ScheduleStatus, ScheduleType, ScheduleUnion, WorkflowSummary } from "Types";
+import {
+  CalendarEntry,
+  CalendarEvent,
+  FlowTeam,
+  ScheduleStatus,
+  ScheduleType,
+  ScheduleUnion,
+  WorkflowSummary,
+} from "Types";
 import styles from "./Schedule.module.scss";
 
 const MultiSelect = Select.Filterable;
@@ -65,25 +72,13 @@ function Schedule() {
   /**
    * Get worfklow data for calendar and schedule queries
    */
-  const systemWorkflowsQuery = useQuery({
+  const systemWorkflowsQuery = useQuery<Array<WorkflowSummary>, string>({
     queryKey: systemUrl,
     queryFn: resolver.query(systemUrl),
     config: { enabled: isSystemWorkflowsEnabled },
   });
 
   /** Get schedule and calendar data */
-  const hasWorkflowsData = Boolean(systemWorkflowsQuery.data) && Boolean(userWorkflows.workflows);
-
-  let userWorkflowIds = [];
-  if (hasWorkflowsData) {
-    for (const workflow of userWorkflows.workflows) {
-      userWorkflowIds.push(workflow.id);
-    }
-
-    for (const workflow of systemWorkflowsQuery.data) {
-      userWorkflowIds.push(workflow.id);
-    }
-  }
 
   const { scopes, statuses = defaultStatusArray, workflowIds, teamIds } = queryString.parse(
     location.search,
@@ -106,25 +101,51 @@ function Schedule() {
     queryFn: resolver.query(getSchedulesUrl),
   });
 
-  if (schedulesQuery.isError) {
-    return <ErrorDragon />;
+  const { fromDate = defaultFromDate, toDate = defaultToDate } = queryString.parse(location.search, queryStringOptions);
+
+  const hasScheduleData = Boolean(schedulesQuery.data);
+  let userScheduleIds = [];
+  if (schedulesQuery.data) {
+    for (const schedule of schedulesQuery.data) {
+      userScheduleIds.push(schedule.id);
+    }
   }
 
+  const calendarUrlQuery = queryString.stringify(
+    {
+      scheduleIds: userScheduleIds,
+      fromDate,
+      toDate,
+    },
+    queryStringOptions
+  );
+  const getCalendarUrl = serviceUrl.getSchedulesCalendars({ query: calendarUrlQuery });
+
   /**
-   * Function that updates url search history to persist state
-   * @param {object} query - all of the query params
-   *
+   * Component functions
    */
-  const updateHistorySearch = ({ ...props }) => {
-    //@ts-ignore next-line
+  function handleDateRangeChange(dateInfo: any) {
+    const toDate = moment(dateInfo.end).unix();
+    const fromDate = moment(dateInfo.start).unix();
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), toDate, fromDate });
+  }
+
+  function updateHistorySearch({ ...props }) {
     const queryStr = `?${queryString.stringify({ ...props }, queryStringOptions)}`;
     history.push({ search: queryStr });
     return;
+  }
+
+  type MultiSelectItem = {
+    label: string;
+    value: string;
   };
 
-  //@ts-ignore next-line
-  function handleSelectScopes({ selectedItems }) {
-    //@ts-ignore next-line
+  interface MultiSelectItems<Type = MultiSelectItem> {
+    selectedItems: Array<Type>;
+  }
+
+  function handleSelectScopes({ selectedItems }: MultiSelectItems) {
     const scopes = selectedItems.length > 0 ? selectedItems.map((scope) => scope.value) : undefined;
     updateHistorySearch({
       ...queryString.parse(location.search, queryStringOptions),
@@ -135,9 +156,7 @@ function Schedule() {
     return;
   }
 
-  //@ts-ignore next-line
-  function handleSelectTeams({ selectedItems }) {
-    //@ts-ignore next-line
+  function handleSelectTeams({ selectedItems }: MultiSelectItems<FlowTeam>) {
     const teamIds = selectedItems.length > 0 ? selectedItems.map((team) => team.id) : undefined;
     updateHistorySearch({
       ...queryString.parse(location.search, queryStringOptions),
@@ -147,9 +166,7 @@ function Schedule() {
     return;
   }
 
-  //@ts-ignore next-line
-  function handleSelectWorkflows({ selectedItems }) {
-    //@ts-ignore next-line
+  function handleSelectWorkflows({ selectedItems }: MultiSelectItems<WorkflowSummary>) {
     const workflowIds = selectedItems.length > 0 ? selectedItems.map((worflow) => worflow.id) : undefined;
     updateHistorySearch({
       ...queryString.parse(location.search, queryStringOptions),
@@ -158,21 +175,46 @@ function Schedule() {
     return;
   }
 
-  //@ts-ignore next-line
-  function handleSelectStatuses({ selectedItems }) {
+  function handleSelectStatuses({ selectedItems }: MultiSelectItems) {
     //@ts-ignore next-line
     const statuses = selectedItems.length > 0 ? selectedItems.map((status) => status.value) : undefined;
     updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses });
     return;
   }
 
-  //@ts-ignore next-line
+  function handleSetActiveSchedule(schedule: ScheduleUnion) {
+    const worklflowFindPredicate = (workflow: WorkflowSummary) => {
+      return workflow.id === schedule.workflowId;
+    };
+    let workflow: WorkflowSummary | undefined;
+    for (let team of teams) {
+      if (!workflow) {
+        const foundWorkflow = team.workflows.find(worklflowFindPredicate);
+        if (foundWorkflow) {
+          workflow = foundWorkflow;
+          break;
+        }
+      }
+    }
+
+    if (!workflow) {
+      workflow = userWorkflows.workflows.find(worklflowFindPredicate);
+    }
+
+    if (!workflow) {
+      workflow = systemWorkflowsQuery.data?.find(worklflowFindPredicate);
+    }
+
+    setActiveSchedule({ ...schedule, workflow });
+  }
+
   interface GetWorkflowFilterArgs {
     teamsData: Array<FlowTeam>;
     selectedTeams: Array<string>;
-    systemWorkflowsData: Array<WorkflowSummary>;
+    systemWorkflowsData?: Array<WorkflowSummary>;
     userWorkflowsData: Array<WorkflowSummary>;
   }
+
   function getWorkflowFilter({
     teamsData,
     selectedTeams,
@@ -218,13 +260,10 @@ function Schedule() {
 
     const teamsData = teams && JSON.parse(JSON.stringify(teams));
 
-    //@ts-ignore next-line
     const selectedTeams =
       teams &&
-      //@ts-ignore next-line
-      teamsData.filter((team) => {
-        //@ts-ignore next-line
-        if (selectedTeamIds.find((id) => id === team.id)) {
+      teamsData.filter((team: FlowTeam) => {
+        if (selectedTeamIds?.find((id: string) => id === team.id)) {
           return true;
         } else {
           return false;
@@ -256,8 +295,8 @@ function Schedule() {
           includeBorder={true}
           header={
             <>
-              <HeaderTitle className={styles.headerTitle}>Schedule</HeaderTitle>
-              <HeaderSubtitle>View your workflow schedules.</HeaderSubtitle>
+              <HeaderTitle className={styles.headerTitle}>Schedules</HeaderTitle>
+              <HeaderSubtitle>Manange all of your Schedules</HeaderSubtitle>
             </>
           }
           actions={
@@ -271,11 +310,9 @@ function Schedule() {
                   invalid={false}
                   onChange={handleSelectScopes}
                   items={workflowScopeOptions}
-                  //@ts-ignore next-line
-                  itemToString={(scope) => (scope ? scope.label : "")}
+                  itemToString={(scope: MultiSelectItem) => (scope ? scope.label : "")}
                   initialSelectedItems={workflowScopeOptions.filter((option) =>
-                    //@ts-ignore next-line
-                    Boolean(selectedScopes.find((scope) => scope === option.value))
+                    Boolean(selectedScopes?.find((scope) => scope === option.value))
                   )}
                   titleText="Filter by scope"
                 />
@@ -291,8 +328,7 @@ function Schedule() {
                   invalid={false}
                   onChange={handleSelectTeams}
                   items={teamsData}
-                  //@ts-ignore next-line
-                  itemToString={(team) => (team ? team.name : "")}
+                  itemToString={(team: FlowTeam) => (team ? team.name : "")}
                   initialSelectedItems={selectedTeams}
                   titleText="Filter by team"
                 />
@@ -312,10 +348,8 @@ function Schedule() {
                       : undefined;
                     return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
                   }}
-                  //@ts-ignore next-line
-                  initialSelectedItems={workflowsFilter.filter((workflow) =>
-                    //@ts-ignore next-line
-                    Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
+                  initialSelectedItems={workflowsFilter.filter((workflow: WorkflowSummary) =>
+                    Boolean(selectedWorkflowIds?.find((id) => id === workflow.id))
                   )}
                   titleText="Filter by workflow"
                 />
@@ -329,11 +363,9 @@ function Schedule() {
                   invalid={false}
                   onChange={handleSelectStatuses}
                   items={scheduleStatusOptions}
-                  //@ts-ignore next-line
-                  itemToString={(item) => (item ? item.label : "")}
+                  itemToString={(item: MultiSelectItem) => (item ? item.label : "")}
                   initialSelectedItems={scheduleStatusOptions.filter((option) =>
-                    //@ts-ignore next-line
-                    Boolean(selectedStatuses.find((status) => status === option.value))
+                    Boolean(selectedStatuses?.find((status) => status === option.value))
                   )}
                   titleText="Filter by status"
                 />
@@ -344,19 +376,22 @@ function Schedule() {
         <div className={styles.content}>
           <div className={styles.contentContainer}>
             <SchedulePanelList
-              getCalendarUrl=""
+              getCalendarUrl={getCalendarUrl}
               getSchedulesUrl={getSchedulesUrl}
               includeStatusFilter={false}
               schedulesQuery={schedulesQuery}
-              setActiveSchedule={setActiveSchedule}
+              setActiveSchedule={handleSetActiveSchedule}
               setIsCreatorOpen={setIsCreatorOpen}
               setIsEditorOpen={setIsEditorOpen}
             />
             <section className={styles.calendarContainer}>
               <CalendarView
+                handleDateRangeChange={handleDateRangeChange}
+                hasScheduleData={hasScheduleData}
+                getCalendarUrl={getCalendarUrl}
                 schedules={schedulesQuery.data}
                 updateHistorySearch={updateHistorySearch}
-                setActiveSchedule={setActiveSchedule}
+                setActiveSchedule={handleSetActiveSchedule}
                 setIsCreatorOpen={setIsCreatorOpen}
                 setIsEditorOpen={setIsEditorOpen}
                 setIsPanelOpen={setIsPanelOpen}
@@ -397,7 +432,10 @@ function Schedule() {
 }
 
 interface CalendarViewProps {
-  setActiveSchedule: React.Dispatch<React.SetStateAction<ScheduleUnion | undefined>>;
+  getCalendarUrl: string;
+  handleDateRangeChange: (dateInfo: any) => void;
+  hasScheduleData: boolean;
+  setActiveSchedule: (schedule: ScheduleUnion) => void;
   setIsCreatorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPanelOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -406,43 +444,14 @@ interface CalendarViewProps {
 }
 
 function CalendarView(props: CalendarViewProps) {
-  const location = useLocation();
-  const { fromDate = defaultFromDate, toDate = defaultToDate } = queryString.parse(location.search, queryStringOptions);
-
-  const handleDateRangeChange = (dateInfo: any) => {
-    const toDate = moment(dateInfo.end).unix();
-    const fromDate = moment(dateInfo.start).unix();
-    props.updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), toDate, fromDate });
-  };
-
-  const hasScheduleData = Boolean(props.schedules);
-  let userScheduleIds = [];
-  if (props.schedules) {
-    for (const schedule of props.schedules) {
-      userScheduleIds.push(schedule.id);
-    }
-  }
-  const calendarUrlQuery = queryString.stringify(
-    {
-      scheduleIds: userScheduleIds,
-      fromDate,
-      toDate,
-    },
-    queryStringOptions
-  );
-  const getCalendarUrl = serviceUrl.getSchedulesCalendars({ query: calendarUrlQuery });
-  //@ts-ignore next-line
-  const calendarQuery = useQuery(
-    {
-      queryKey: getCalendarUrl,
-      queryFn: resolver.query(getCalendarUrl),
-    },
-    { enabled: hasScheduleData }
-  );
+  const calendarQuery = useQuery<Array<CalendarEntry>, string>({
+    queryKey: props.getCalendarUrl,
+    queryFn: resolver.query(props.getCalendarUrl),
+    config: { enabled: props.hasScheduleData },
+  });
 
   const calendarEvents: Array<CalendarEvent> = [];
   if (calendarQuery.data && props.schedules) {
-    //@ts-ignore next-line
     for (let calendarEntry of calendarQuery.data) {
       const matchingSchedule: ScheduleUnion | undefined = props.schedules.find(
         (schedule: ScheduleUnion) => schedule.id === calendarEntry.scheduleId
@@ -464,11 +473,12 @@ function CalendarView(props: CalendarViewProps) {
   return (
     <Calendar
       heightOffset={210}
+      //@ts-ignore
       onSelectEvent={(data: CalendarEvent) => {
         props.setIsPanelOpen(true);
         props.setActiveSchedule({ ...data.resource, nextScheduleDate: new Date(data.start).toISOString() });
       }}
-      onRangeChange={handleDateRangeChange}
+      onRangeChange={props.handleDateRangeChange}
       onSelectSlot={(day: any) => {
         const selectedDate = moment(day.start);
         const isCurrentDay = selectedDate.isSame(new Date(), "day");
@@ -479,6 +489,7 @@ function CalendarView(props: CalendarViewProps) {
           props.setIsCreatorOpen(true);
         }
       }}
+      //@ts-ignore
       dayPropGetter={(date: Date) => {
         const selectedDate = moment(date);
         if (selectedDate.isBefore(new Date(), "day")) {

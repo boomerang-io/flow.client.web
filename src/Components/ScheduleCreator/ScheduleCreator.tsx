@@ -4,7 +4,13 @@ import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-a
 import ScheduleManagerForm from "Components/ScheduleManagerForm";
 import { cronDayNumberMap } from "Utils/cronHelper";
 import { resolver } from "Config/servicesConfig";
-import { ComposedModalChildProps, ScheduleManagerFormInputs, ScheduleUnion, WorkflowSummary } from "Types";
+import {
+  ComposedModalChildProps,
+  ScheduleManagerFormInputs,
+  ScheduleUnion,
+  WorkflowSummary,
+  DayOfWeekCronAbbreviation,
+} from "Types";
 import styles from "./ScheduleCreator.module.scss";
 
 interface CreateScheduleProps {
@@ -86,11 +92,10 @@ export default function CreateSchedule(props: CreateScheduleProps) {
     }
 
     if (schedule.type === "cron") {
-      let daysCron: Array<string> | [] = [];
-      Object.values(days).forEach((day) => {
-        //@ts-ignore
+      let daysCron: Array<DayOfWeekCronAbbreviation> = [];
+      for (let day of Object.values(days)) {
         daysCron.push(cronDayNumberMap[day]);
-      });
+      }
       const timeCron = !time ? ["0", "0"] : time.split(":");
       const cronSchedule = `0 ${timeCron[1]} ${timeCron[0]} ? * ${daysCron.length !== 0 ? daysCron.toString() : "*"}`;
       schedule["cronSchedule"] = cronSchedule;

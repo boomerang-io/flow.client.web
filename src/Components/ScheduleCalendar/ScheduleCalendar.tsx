@@ -1,22 +1,23 @@
 import React from "react";
-import { Calendar, momentLocalizer, EventProps, Event } from "react-big-calendar";
+import { Calendar, CalendarProps, EventProps, Event, momentLocalizer } from "react-big-calendar";
 import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import moment from "moment";
 import { statusLabelMap } from "Features/Schedule";
 import { CircleFilled16, RadioButton16 } from "@carbon/icons-react";
 import { CalendarEvent } from "Types";
-import styles from "./Calendar.module.scss";
+import styles from "./ScheduleCalendar.module.scss";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./big-calendar.scss";
 
 const localizer = momentLocalizer(moment);
 
-interface MyCalendarProps {
+interface ScheduleCalendarProps extends CalendarProps {
   heightOffset?: number;
   events: Array<CalendarEvent>;
   [key: string]: any;
 }
-const MyCalendar = (props: MyCalendarProps) => {
+
+export default function ScheduleCalendar(props: ScheduleCalendarProps) {
   const { heightOffset = 244 } = props;
   const [height, setHeight] = React.useState(window.innerHeight - heightOffset); //meh
 
@@ -29,22 +30,24 @@ const MyCalendar = (props: MyCalendarProps) => {
   });
 
   return (
-    <Calendar
+    <Calendar<CalendarEvent>
       popup
       selectable
+      // @ts-ignore
       components={{ event: CustomEvent }}
       drilldownView="agenda"
+      // @ts-ignore
       localizer={localizer}
       messages={{ noEventsInRange: "" }}
       style={{ height }}
       views={["month", "agenda"]}
-      eventPropGetter={(args: any) => ({
+      eventPropGetter={() => ({
         className: styles.event,
       })}
       {...props}
     />
   );
-};
+}
 
 interface LocalEventProps extends EventProps<Event> {
   event: CalendarEvent;
@@ -70,5 +73,3 @@ function CustomEvent(props: LocalEventProps) {
     </button>
   );
 }
-
-export default MyCalendar;

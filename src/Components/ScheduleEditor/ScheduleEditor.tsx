@@ -80,7 +80,7 @@ function ScheduleEditor(props: ScheduleEditorProps) {
       type: scheduleType,
       timezone: timezone.value,
       labels: scheduleLabels,
-      workflowId: workflow.id,
+      workflowId: workflow.id || props.workflow?.id,
       parameters,
     };
 
@@ -126,7 +126,7 @@ function ScheduleEditor(props: ScheduleEditorProps) {
           modalProps={modalProps}
           schedule={props.schedule}
           type={"edit"}
-          workflow={props.workflow}
+          workflow={props.workflow || props.schedule?.workflow}
           workflowOptions={props.workflowOptions}
         />
       )}

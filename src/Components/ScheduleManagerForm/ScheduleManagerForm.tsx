@@ -21,12 +21,12 @@ import axios from "axios";
 import cronstrue from "cronstrue";
 import moment from "moment-timezone";
 import * as Yup from "yup";
-import { cronToDateTime } from "Utils/cronHelper";
+import { cronToDateTime, daysOfWeekCronList } from "Utils/cronHelper";
 import { DATETIME_LOCAL_INPUT_FORMAT, defaultTimeZone, timezoneOptions, transformTimeZone } from "Utils/dateHelper";
-import { daysOfWeekCronList } from "Constants";
 import {
   ComposedModalChildProps,
   DataDrivenInput,
+  DayOfWeekKey,
   FlowTeam,
   ScheduleManagerFormInputs,
   ScheduleUnion,
@@ -90,14 +90,19 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     if (props.schedule.type === "cron") {
       const cronSchedule = props.schedule.cronSchedule;
       const cronToData = cronToDateTime(Boolean(cronSchedule), cronSchedule);
-      const { cronTime, selectedDays } = cronToData;
+      const {
+        cronTime,
+        selectedDays,
+      }: { cronTime: string; selectedDays: { [day in DayOfWeekKey]: boolean } } = cronToData;
 
-      let activeDays: string[] = [];
-      Object.entries(selectedDays).forEach(([key, value]) => {
+      let activeDays: DayOfWeekKey[] = [];
+      for (let entry in selectedDays) {
+        const day = entry as DayOfWeekKey;
+        const value = selectedDays[day];
         if (value) {
-          activeDays.push(key);
+          activeDays.push(day);
         }
-      });
+      }
 
       initFormValues["time"] = cronTime;
       initFormValues["days"] = activeDays;

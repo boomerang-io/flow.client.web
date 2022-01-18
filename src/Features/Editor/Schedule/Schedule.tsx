@@ -1,16 +1,17 @@
 import React from "react";
 import { useQuery, QueryResult } from "react-query";
-import { Error, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
+import ErrorDragon from "Components/ErrorDragon";
 import ScheduleCreator from "Components/ScheduleCreator";
 import ScheduleEditor from "Components/ScheduleEditor";
 import SchedulePanelDetail from "Components/SchedulePanelDetail";
 import SchedulePanelList from "Components/SchedulePanelList";
 import queryString from "query-string";
-import Calendar from "Components/Calendar";
+import ScheduleCalendar from "Components/ScheduleCalendar";
 import moment from "moment-timezone";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { CalendarEvent, ScheduleCalendar, ScheduleUnion, WorkflowSummary } from "Types";
+import { CalendarEvent, CalendarEntry, ScheduleUnion, WorkflowSummary } from "Types";
 import styles from "./Schedule.module.scss";
 
 interface ScheduleProps {
@@ -55,7 +56,7 @@ export default function ScheduleView(props: ScheduleProps) {
     query: workflowCalendarUrlQuery,
   });
 
-  const workflowCalendarQuery = useQuery<Array<ScheduleCalendar>, string>({
+  const workflowCalendarQuery = useQuery<Array<CalendarEntry>, string>({
     queryKey: workflowCalendarUrl,
     queryFn: resolver.query(workflowCalendarUrl),
   });
@@ -78,7 +79,7 @@ export default function ScheduleView(props: ScheduleProps) {
   }
 
   if (workflowSchedulesQuery.error) {
-    return <Error />;
+    return <ErrorDragon />;
   }
 
   return (
@@ -136,7 +137,7 @@ interface CalendarViewProps {
   setIsCreatorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPanelOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  workflowCalendarQuery: QueryResult<ScheduleCalendar[], Error>;
+  workflowCalendarQuery: QueryResult<Array<CalendarEntry>, Error>;
   workflowSchedules: Array<ScheduleUnion>;
 }
 
@@ -167,7 +168,8 @@ function CalendarView(props: CalendarViewProps) {
 
   return (
     <section className={styles.calendarContainer} data-is-loading={props.workflowCalendarQuery.isLoading}>
-      <Calendar
+      <ScheduleCalendar
+        //@ts-ignore
         onSelectEvent={(data: CalendarEvent) => {
           props.setIsPanelOpen(true);
           props.setActiveSchedule({ ...data.resource, nextScheduleDate: new Date(data.start).toISOString() });
@@ -183,8 +185,10 @@ function CalendarView(props: CalendarViewProps) {
             props.setIsCreatorOpen(true);
           }
         }}
-        dayPropGetter={(date: Date) => {
-          const selectedDate = moment(date);
+        //@ts-ignore
+        dayPropGetter={(data: any) => {
+          console.log(data);
+          const selectedDate = moment(data);
           if (selectedDate.isBefore(new Date(), "day")) {
             return {
               style: {

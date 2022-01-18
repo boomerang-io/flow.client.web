@@ -579,10 +579,6 @@ export interface FlowFeatures {
 }
 
 //Schedule types
-export interface ScheduleCalendar {
-  scheduleId: string;
-  dates: Array<string>;
-}
 
 export type ScheduleStatus = "active" | "inactive" | "deleted" | "trigger_disabled";
 export type ScheduleType = "runOnce" | "cron" | "advancedCron";
@@ -598,6 +594,7 @@ export interface Schedule {
   type: ScheduleType;
   timezone: string;
   workflowId: string;
+  workflow?: WorkflowSummary;
 }
 
 export interface ScheduleDate extends Schedule {
@@ -610,6 +607,13 @@ export interface ScheduleCron extends Schedule {
   type: "cron" | "advancedCron";
 }
 
+export type ScheduleUnion = ScheduleDate | ScheduleCron;
+
+export interface CalendarEntry {
+  scheduleId: string;
+  dates: Array<string>;
+}
+
 export interface CalendarEvent {
   start: Date;
   end: Date;
@@ -618,13 +622,11 @@ export interface CalendarEvent {
   onClick?: () => void;
 }
 
-export type ScheduleUnion = ScheduleDate | ScheduleCron;
-
 export interface ScheduleManagerFormInputs {
   advancedCron: boolean;
   cronSchedule: string;
   dateTime: string;
-  days: Array<string>;
+  days: Array<DayOfWeekKey>;
   description: string;
   id: string;
   labels: Array<string>;
@@ -635,3 +637,6 @@ export interface ScheduleManagerFormInputs {
   time: string;
   workflow: WorkflowSummary;
 }
+
+export type DayOfWeekKey = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+export type DayOfWeekCronAbbreviation = "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";
