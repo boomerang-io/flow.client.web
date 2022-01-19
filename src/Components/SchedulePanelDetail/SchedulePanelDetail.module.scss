@@ -3,6 +3,7 @@
 
 .panelContainer {
   background-color: var(--cds-ui-01);
+  margin-top: 12.125rem;
   border: none;
   height: calc(100vh - 12.125rem);
   transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
@@ -49,7 +50,7 @@
 }
 
 .detailsDescription {
-  @include multiline-text-overflow-ellipsis();
+  @include multiline-text-overflow-ellipsis(5, vertical);
   max-width: 90%;
 }
 

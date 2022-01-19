@@ -87,10 +87,10 @@ describe("WorkflowActivity --- RTL", () => {
     await findByText(/This is all of the/i);
 
     userEvent.click(screen.getByRole("button", { name: /Filter by trigger/i }));
-    userEvent.click(screen.getAllByText("cron")[0]);
+    userEvent.click(screen.getAllByText("Manual")[0]);
 
     await waitFor(() =>
-      expect(history.location.search).toBe("?" + queryString.stringify({ triggers: "cron", ...basicQuery }))
+      expect(history.location.search).toBe("?" + queryString.stringify({ triggers: "manual", ...basicQuery }))
     );
   });
 });

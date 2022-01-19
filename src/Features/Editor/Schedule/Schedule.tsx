@@ -2,16 +2,18 @@ import React from "react";
 import { useQuery, QueryResult } from "react-query";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
+import ScheduleCalendar from "Components/ScheduleCalendar";
 import ScheduleCreator from "Components/ScheduleCreator";
 import ScheduleEditor from "Components/ScheduleEditor";
 import SchedulePanelDetail from "Components/SchedulePanelDetail";
 import SchedulePanelList from "Components/SchedulePanelList";
-import queryString from "query-string";
-import ScheduleCalendar from "Components/ScheduleCalendar";
+import isArray from "lodash/isArray";
 import moment from "moment-timezone";
+import queryString from "query-string";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { CalendarEvent, CalendarEntry, ScheduleUnion, WorkflowSummary } from "Types";
+import { SlotInfo } from "react-big-calendar";
+import { CalendarDateRange, CalendarEvent, CalendarEntry, ScheduleDate, ScheduleUnion, WorkflowSummary } from "Types";
 import styles from "./Schedule.module.scss";
 
 interface ScheduleProps {
@@ -20,6 +22,7 @@ interface ScheduleProps {
 
 export default function ScheduleView(props: ScheduleProps) {
   const [activeSchedule, setActiveSchedule] = React.useState<ScheduleUnion | undefined>();
+  const [newSchedule, setNewSchedule] = React.useState<Pick<ScheduleDate, "dateSchedule" | "type"> | undefined>();
   const [isPanelOpen, setIsPanelOpen] = React.useState(false);
   const [isEditorOpen, setIsEditorOpen] = React.useState(false);
   const [isCreatorOpen, setIsCreatorOpen] = React.useState(false);
@@ -61,10 +64,10 @@ export default function ScheduleView(props: ScheduleProps) {
     queryFn: resolver.query(workflowCalendarUrl),
   });
 
-  const handleDateRangeChange = (dateInfo: any) => {
-    if (dateInfo) {
-      const fromDate = moment(dateInfo.start).unix();
-      const toDate = moment(dateInfo.end).unix();
+  const handleDateRangeChange = (dateRange: CalendarDateRange) => {
+    if (!isArray(dateRange)) {
+      const fromDate = moment(dateRange.start).unix();
+      const toDate = moment(dateRange.end).unix();
       setFromDate(fromDate);
       setToDate(toDate);
     }
@@ -100,6 +103,7 @@ export default function ScheduleView(props: ScheduleProps) {
           setIsCreatorOpen={setIsCreatorOpen}
           setIsEditorOpen={setIsEditorOpen}
           setIsPanelOpen={setIsPanelOpen}
+          setNewSchedule={setNewSchedule}
           workflowSchedules={workflowSchedulesQuery.data}
           workflowCalendarQuery={workflowCalendarQuery}
         />
@@ -116,7 +120,7 @@ export default function ScheduleView(props: ScheduleProps) {
         getSchedulesUrl={workflowScheduleUrl}
         isModalOpen={isCreatorOpen}
         onCloseModal={() => setIsCreatorOpen(false)}
-        schedule={activeSchedule}
+        schedule={newSchedule}
         workflow={props.summaryData}
       />
       <ScheduleEditor
@@ -132,11 +136,12 @@ export default function ScheduleView(props: ScheduleProps) {
 }
 
 interface CalendarViewProps {
-  onDateRangeChange: (dateInfo: any) => void;
+  onDateRangeChange: (dateRange: CalendarDateRange) => void;
   setActiveSchedule: React.Dispatch<React.SetStateAction<ScheduleUnion | undefined>>;
   setIsCreatorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPanelOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setNewSchedule: React.Dispatch<React.SetStateAction<Pick<ScheduleDate, "dateSchedule" | "type"> | undefined>>;
   workflowCalendarQuery: QueryResult<Array<CalendarEntry>, Error>;
   workflowSchedules: Array<ScheduleUnion>;
 }
@@ -175,20 +180,18 @@ function CalendarView(props: CalendarViewProps) {
           props.setActiveSchedule({ ...data.resource, nextScheduleDate: new Date(data.start).toISOString() });
         }}
         onRangeChange={props.onDateRangeChange}
-        onSelectSlot={(day: any) => {
-          const selectedDate = moment(day.start);
+        onSelectSlot={(slot: SlotInfo) => {
+          const selectedDate = moment(slot.start);
           const isCurrentDay = selectedDate.isSame(new Date(), "day");
           if (selectedDate.isAfter() || isCurrentDay) {
-            const dateSchedule = isCurrentDay ? moment().toISOString() : day.start.toISOString();
-            //@ts-ignore
-            props.setActiveSchedule({ dateSchedule, type: "runOnce" });
+            const dateSchedule = isCurrentDay ? moment().toISOString() : selectedDate.toISOString();
+            props.setNewSchedule({ dateSchedule, type: "runOnce" });
             props.setIsCreatorOpen(true);
           }
         }}
         //@ts-ignore
-        dayPropGetter={(data: any) => {
-          console.log(data);
-          const selectedDate = moment(data);
+        dayPropGetter={(date: Date) => {
+          const selectedDate = moment(date);
           if (selectedDate.isBefore(new Date(), "day")) {
             return {
               style: {

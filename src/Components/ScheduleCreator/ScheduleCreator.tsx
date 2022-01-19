@@ -7,6 +7,7 @@ import { resolver } from "Config/servicesConfig";
 import {
   ComposedModalChildProps,
   ScheduleManagerFormInputs,
+  ScheduleDate,
   ScheduleUnion,
   WorkflowSummary,
   DayOfWeekCronAbbreviation,
@@ -19,7 +20,7 @@ interface CreateScheduleProps {
   includeWorkflowDropdown?: boolean;
   isModalOpen: boolean;
   onCloseModal: () => void;
-  schedule?: ScheduleUnion;
+  schedule?: Pick<ScheduleDate, "dateSchedule" | "type">;
   workflow?: WorkflowSummary;
   workflowOptions?: Array<WorkflowSummary>;
 }
@@ -31,27 +32,18 @@ export default function CreateSchedule(props: CreateScheduleProps) {
   const [createScheduleMutator, createScheduleMutation] = useMutation(resolver.postSchedule, {});
 
   const handleCreateSchedule = async (schedule: ScheduleUnion) => {
-    try {
-      await createScheduleMutator({ body: schedule });
-      notify(
-        <ToastNotification
-          kind="success"
-          title={`Created Schedule`}
-          subtitle={`Successfully created schedule ${schedule.name} `}
-        />
-      );
-      queryCache.invalidateQueries(props.getCalendarUrl);
-      queryCache.invalidateQueries(props.getSchedulesUrl);
-    } catch (e) {
-      notify(
-        <ToastNotification
-          kind="error"
-          title="Something's Wrong"
-          subtitle={`Request to create schedule ${schedule.name} failed`}
-        />
-      );
-      return;
-    }
+    // intentionally don't handle error so it can be done by the ScheduleManagerForm
+    await createScheduleMutator({ body: schedule });
+    notify(
+      <ToastNotification
+        kind="success"
+        title={`Create Schedule`}
+        subtitle={`Successfully created schedule ${schedule.name} `}
+      />
+    );
+    queryCache.invalidateQueries(props.getCalendarUrl);
+    queryCache.invalidateQueries(props.getSchedulesUrl);
+    return;
   };
 
   const handleSubmit = async (values: ScheduleManagerFormInputs) => {
@@ -126,7 +118,7 @@ export default function CreateSchedule(props: CreateScheduleProps) {
           isError={createScheduleMutation.isError}
           isLoading={createScheduleMutation.isLoading}
           modalProps={modalProps}
-          schedule={props.schedule}
+          schedule={props.schedule as ScheduleUnion}
           type="create"
           workflow={props.workflow}
           workflowOptions={props.workflowOptions}

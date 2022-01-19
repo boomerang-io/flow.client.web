@@ -378,7 +378,7 @@ function WorkflowActivity() {
                   invalid={false}
                   onChange={handleSelectTriggers}
                   items={executionOptions}
-                  itemToString={(item) => (item ? item.value : "")}
+                  itemToString={(item) => (item ? item.label : "")}
                   initialSelectedItems={executionOptions.filter((option) =>
                     Boolean(selectedTriggers.find((trigger) => trigger === option.value))
                   )}

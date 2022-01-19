@@ -26,27 +26,18 @@ function ScheduleEditor(props: ScheduleEditorProps) {
 
   const handleUpdateSchedule = async (updatedSchedule: ScheduleUnion) => {
     if (props.schedule) {
-      try {
-        await updateScheduleMutator({ body: updatedSchedule, scheduleId: props.schedule.id });
-        notify(
-          <ToastNotification
-            kind="success"
-            title={`Updated Schedule`}
-            subtitle={`Successfully updated schedule ${props.schedule.name} `}
-          />
-        );
-        queryCache.invalidateQueries(props.getCalendarUrl);
-        queryCache.invalidateQueries(props.getSchedulesUrl);
-      } catch (e) {
-        notify(
-          <ToastNotification
-            kind="error"
-            title="Something's Wrong"
-            subtitle={`Request to update schedule ${props.schedule.name} failed`}
-          />
-        );
-        return;
-      }
+      // intentionally don't catch error so it can be done by the ScheduleManagerForm
+      await updateScheduleMutator({ body: updatedSchedule, scheduleId: props.schedule.id });
+      notify(
+        <ToastNotification
+          kind="success"
+          title={`Update Schedule`}
+          subtitle={`Successfully updated schedule ${props.schedule.name} `}
+        />
+      );
+      queryCache.invalidateQueries(props.getCalendarUrl);
+      queryCache.invalidateQueries(props.getSchedulesUrl);
+      return;
     }
   };
 

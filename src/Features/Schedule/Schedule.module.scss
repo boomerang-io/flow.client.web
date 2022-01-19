@@ -85,6 +85,9 @@
   padding: 1.5rem;
   overflow: scroll;
   z-index: 0;
+  &[data-is-loading="true"] {
+    opacity: 0.5;
+  }
 }
 
 .panelContainer {

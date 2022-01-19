@@ -297,7 +297,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
           >
             <div
               aria-labelledby="search-tasks-search"
-              class="bx--search bx--search--sm"
+              class="bx--search bx--search--sm bx--search--light"
               role="search"
             >
               <svg

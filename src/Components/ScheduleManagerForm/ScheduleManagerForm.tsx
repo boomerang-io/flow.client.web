@@ -6,7 +6,6 @@ import {
   CheckboxList,
   ComboBox,
   DynamicFormik,
-  InlineLoading,
   InlineNotification,
   ModalBody,
   ModalForm,
@@ -54,8 +53,9 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     props.workflow?.properties
   );
   let initFormValues: Partial<ScheduleManagerFormInputs> = {
-    id: props.schedule?.name,
+    id: props.schedule?.id,
     name: props.schedule?.name ?? "",
+    dateTime: "",
     description: props.schedule?.description ?? "",
     type: props.schedule?.type || "runOnce",
     timezone: transformTimeZone(defaultTimeZone),
@@ -103,7 +103,6 @@ export default function CreateEditForm(props: CreateEditFormProps) {
           activeDays.push(day);
         }
       }
-
       initFormValues["time"] = cronTime;
       initFormValues["days"] = activeDays;
     }
@@ -125,8 +124,12 @@ export default function CreateEditForm(props: CreateEditFormProps) {
       initialValues={initFormValues}
       inputs={workflowProperties ?? []}
       onSubmit={async (args: ScheduleManagerFormInputs) => {
-        await props.handleSubmit(args);
-        props.modalProps.closeModal();
+        try {
+          await props.handleSubmit(args);
+          props.modalProps.closeModal();
+        } catch (e) {
+          //no-op
+        }
       }}
       validationSchemaExtension={Yup.object().shape({
         name: Yup.string().required("Name is required").max(200, "Enter less than 200 characters"),
@@ -135,7 +138,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
         dateTime: Yup.string().when("type", {
           is: "runOnce",
           then: Yup.string()
-            .required("Date and Time is required")
+            .required("Date and Time are required")
             .test("isAfterNow", "Enter a date and time after now", (value: string | undefined) => {
               return moment(value).isAfter(new Date());
             }),
@@ -143,13 +146,30 @@ export default function CreateEditForm(props: CreateEditFormProps) {
         labels: Yup.array().max(20, "Enter less than 20 labels"),
         cronSchedule: Yup.string().when("type", {
           is: "advancedCron",
-          then: Yup.string().required("Expression required"),
+          then: Yup.string()
+            .required("Cron Expression is required")
+            .test({
+              name: "isValidCron",
+              test: async (value: string | undefined, { createError, path }) => {
+                const response = await axios.get(serviceUrl.getScheduleCronValidation({ expression: value }));
+                if (response.data.valid) {
+                  return true;
+                } else {
+                  return createError({
+                    path,
+                    message:
+                      response.data.message ??
+                      "Cron Expression is invalid and couldn't be converted. Please, try again.",
+                  });
+                }
+              },
+            }),
         }),
         days: Yup.array().when("type", {
           is: "cron",
-          then: Yup.array().min(1, "Enter at least one day"),
+          then: Yup.array().min(1, "At least one day is required"),
         }),
-        time: Yup.string().when("type", { is: "cron", then: (time: any) => time.required("Enter a time") }),
+        time: Yup.string().when("type", { is: "cron", then: Yup.string().required("Time is required") }),
         timezone: Yup.object().shape({ label: Yup.string(), value: Yup.string() }),
       })}
     >
@@ -245,7 +265,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                     onBlur={formikProps.handleBlur}
                     onChange={formikProps.handleChange}
                     type="datetime-local"
-                    value={formikProps.values.dateTime}
+                    value={formikProps.values.dateTime ?? ""}
                   />
                 </div>
                 <div style={{ width: "23.5rem" }}>
@@ -253,7 +273,6 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                     helperText="What time zone do you want to use"
                     id="timezone"
                     initialSelectedItem={formikProps.values.timezone}
-                    //@ts-ignore
                     items={timezoneOptions}
                     onChange={({ selectedItem }: { selectedItem: { label: string; value: string } }) => {
                       const item = selectedItem ?? { label: "", value: "" };
@@ -292,7 +311,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               Cancel
             </Button>
             <Button disabled={!formikProps.isValid || props.isLoading} type="submit">
-              {props.type === "create" ? "Create" : "Update"}
+              {props.isError ? "Try again" : props.type === "create" ? "Create" : "Update"}
             </Button>
           </ModalFooter>
         </ModalForm>
@@ -328,31 +347,13 @@ class CronJobConfig extends React.Component<Props, State> {
     setFieldValue(id, selectedItem);
   };
 
-  //receives input value from TextInput
   validateCron = async (value: string) => {
     try {
-      this.setState({ isValidatingCron: true });
-      const response = await axios.get(serviceUrl.getScheduleCronValidation({ expression: value }));
-      if (response.data.valid) {
-        const message = cronstrue.toString(value); //just need to run it
-        this.setState({ message, errorMessage: undefined, hasValidated: true });
-      } else {
-        this.setState({
-          message: undefined,
-          errorMessage: response.data?.message ?? "Expression is invalid and couldn't be converted. Please, try again.",
-        });
-      }
+      const message = cronstrue.toString(value); //just need to run it
+      this.setState({ message });
     } catch (e) {
-      this.setState({
-        message: undefined,
-        errorMessage: typeof e === "string" ? e.slice(7) : "Something went wrong",
-        isValidatingCron: false,
-      });
-      return false;
-    } finally {
-      this.setState({ isValidatingCron: false });
+      this.setState({ message: undefined });
     }
-    return true;
   };
 
   handleCheckboxListChange = (setFieldValue: (id: string, value: any) => void, ...args: any) => {
@@ -361,7 +362,6 @@ class CronJobConfig extends React.Component<Props, State> {
   };
 
   render() {
-    const { errorMessage, message, isValidatingCron } = this.state;
     const { values, touched, errors, handleBlur, handleChange, setFieldValue } = this.props.formikProps;
 
     return (
@@ -371,10 +371,10 @@ class CronJobConfig extends React.Component<Props, State> {
             <div className={styles.cronContainer}>
               <div className={styles.inputContainer}>
                 <TextInput
-                  helperText="Cron expression that will used by the scheduler"
+                  helperText={this.state.message}
                   id="cronSchedule"
-                  invalid={(errors.cronSchedule || errorMessage) && touched.cronSchedule}
-                  invalidText={errorMessage}
+                  invalid={(errors.cronSchedule || this.state.errorMessage) && touched.cronSchedule}
+                  invalidText={this.state.errorMessage || errors.cronSchedule}
                   labelText="Cron Expression"
                   onChange={(e: any) => {
                     handleChange(e);
@@ -385,16 +385,13 @@ class CronJobConfig extends React.Component<Props, State> {
                   value={values.cronSchedule}
                   style={{ width: "23.5rem" }}
                 />
-                {isValidatingCron && <InlineLoading description="Checking..." />}
               </div>
-              {values.cronSchedule && message && <div className={styles.cronMessage}>{message}</div>}
             </div>
             <div className={styles.timezone}>
               <ComboBox
                 helperText="What time zone do you want to use"
                 id="timezone"
                 initialSelectedItem={values.timezone}
-                //@ts-ignore
                 items={this.props.timezoneOptions}
                 onChange={({ selectedItem }: { selectedItem: { label: string; value: string } }) => {
                   const item = selectedItem ?? { label: "", value: "" };

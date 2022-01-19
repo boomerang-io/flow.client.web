@@ -84,6 +84,7 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
         <ul>
           {selectedSchedules.map((schedule) => (
             <ScheduledListItem
+              key={schedule.id}
               getCalendarUrl={props.getCalendarUrl}
               getSchedulesUrl={props.getSchedulesUrl}
               schedule={schedule}
@@ -115,8 +116,8 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
           <Search
             light
             id="schedules-filter"
-            labelText="Filter schedules"
-            placeHolderText="Search schedules"
+            labelText="Filter Schedules"
+            placeHolderText="Search Schedules"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterQuery(e.target.value)}
           />
         </div>
@@ -128,7 +129,9 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
               label="Choose status(es)"
               placeholder="Choose status(es)"
               invalid={false}
-              onChange={({ selectedItems }: any) => setSelectedStatuses(selectedItems.map((item: any) => item.value))}
+              onChange={({ selectedItems }: { selectedItems: Array<{ key: string; value: string }> }) =>
+                setSelectedStatuses(selectedItems.map((item: { key: string; value: string }) => item.value))
+              }
               items={scheduleStatusOptions}
               selectedItem={selectedStatuses}
               titleText="Filter by status"
@@ -167,6 +170,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   }
   const nextScheduledText = props.schedule.type === "runOnce" ? "Scheduled" : "Next Execution";
   const nextScheduleData = moment(props.schedule.nextScheduleDate).format(DATETIME_LOCAL_DISPLAY_FORMAT);
+  const scheduleDescription = props.schedule?.description ?? "---";
 
   /**
    * Delete schedule
@@ -237,8 +241,8 @@ function ScheduledListItem(props: ScheduledListItemProps) {
       },
     },
     {
-      itemText: props.schedule.status === "inactive" ? "Enable" : "Disable",
       disabled: props.schedule.status === "trigger_disabled",
+      itemText: props.schedule.status === "inactive" ? "Enable" : "Disable",
       onClick: () => setIsToggleStatusModalOpen(true),
     },
     {
@@ -250,7 +254,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   ];
 
   return (
-    <li key={props.schedule.id}>
+    <li>
       <Tile className={styles.listItem}>
         <div className={styles.listItemTitle}>
           <h3 title={props.schedule.name}>{props.schedule.name}</h3>
@@ -265,7 +269,9 @@ function ScheduledListItem(props: ScheduledListItemProps) {
             )}
           </TooltipHover>
         </div>
-        <p className={styles.listItemDescription}>{props.schedule?.description ?? "---"}</p>
+        <p title={scheduleDescription} className={styles.listItemDescription}>
+          {scheduleDescription}
+        </p>
         <dl style={{ display: "flex" }}>
           <div style={{ width: "50%" }}>
             <dt>{nextScheduledText}</dt>

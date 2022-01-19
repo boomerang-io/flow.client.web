@@ -40,12 +40,9 @@ const handleOnMenuClick = (flowNavigationData: FlowNavigationItem[]) => ({
           const itemIcon = navigationIcons.find((icon) => icon.name === item.icon) ?? FlowData16;
           if (item?.childLinks) {
             return (
-              <SideNavMenu large title={item.name} renderIcon={itemIcon.Icon}>
+              <SideNavMenu large key={item.name} title={item.name} renderIcon={itemIcon.Icon}>
                 {item.childLinks.map((childItem) => {
-                  let props: Omit<FlowNavigationItemChild, "link" | "name"> = {
-                    large: true,
-                    renderIcon: itemIcon.Icon,
-                  };
+                  let props: Omit<FlowNavigationItemChild, "link" | "name" | "renderIcon" | "large"> = {};
                   if (isInternalLink(childItem.link)) {
                     props.to = getRelativePath(childItem.link);
                     props.activeClassName = ACTIVE_CLASS_NAME;
@@ -54,7 +51,11 @@ const handleOnMenuClick = (flowNavigationData: FlowNavigationItem[]) => ({
                   } else {
                     props.href = childItem.link;
                   }
-                  return <SideNavMenuItem {...props}>{childItem.name}</SideNavMenuItem>;
+                  return (
+                    <SideNavMenuItem key={childItem.name} {...props}>
+                      {childItem.name}
+                    </SideNavMenuItem>
+                  );
                 })}
               </SideNavMenu>
             );
@@ -69,7 +70,11 @@ const handleOnMenuClick = (flowNavigationData: FlowNavigationItem[]) => ({
               props.element = NavLink;
               props.onClick = onMenuClose;
             } else props.href = item.link;
-            return <SideNavLink {...props}>{item.name}</SideNavLink>;
+            return (
+              <SideNavLink key={item.name} {...props}>
+                {item.name}
+              </SideNavLink>
+            );
           }
         })}
       </SideNavItems>

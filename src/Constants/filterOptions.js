@@ -22,9 +22,9 @@ export const timeframeOptions = [
 ];
 
 export const executionOptions = [
-  { label: "cron", value: "cron" },
-  { label: "manual", value: "manual" },
-  { label: "webhook", value: "webhook" },
+  { label: "Scheduler", value: "scheduler" },
+  { label: "Manual", value: "manual" },
+  { label: "Webhook", value: "webhook" },
 ];
 
 export const statusOptions = [

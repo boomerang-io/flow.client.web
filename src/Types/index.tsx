@@ -622,6 +622,8 @@ export interface CalendarEvent {
   onClick?: () => void;
 }
 
+export type CalendarDateRange = { start: string | Date; end: string | Date } | Date[];
+
 export interface ScheduleManagerFormInputs {
   advancedCron: boolean;
   cronSchedule: string;

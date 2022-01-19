@@ -4,8 +4,8 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import {
   FeatureHeader as Header,
-  FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
+  FeatureHeaderTitle as HeaderTitle,
   MultiSelect as Select,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import Calendar from "Components/ScheduleCalendar";
@@ -13,16 +13,20 @@ import ScheduleCreator from "Components/ScheduleCreator";
 import ScheduleEditor from "Components/ScheduleEditor";
 import SchedulePanelDetail from "Components/SchedulePanelDetail";
 import SchedulePanelList from "Components/SchedulePanelList";
-import { sortByProp } from "@boomerang-io/utils";
+import isArray from "lodash/isArray";
 import moment from "moment";
 import queryString from "query-string";
+import { sortByProp } from "@boomerang-io/utils";
 import { allowedUserRoles, WorkflowScope } from "Constants";
-import { serviceUrl, resolver } from "Config/servicesConfig";
 import { queryStringOptions } from "Config/appConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import { SlotInfo } from "react-big-calendar";
 import {
+  CalendarDateRange,
   CalendarEntry,
   CalendarEvent,
   FlowTeam,
+  ScheduleDate,
   ScheduleStatus,
   ScheduleType,
   ScheduleUnion,
@@ -63,6 +67,7 @@ function Schedule() {
   const location = useLocation();
   const { teams, user, userWorkflows } = useAppContext();
   const [activeSchedule, setActiveSchedule] = React.useState<ScheduleUnion | undefined>();
+  const [newSchedule, setNewSchedule] = React.useState<Pick<ScheduleDate, "dateSchedule" | "type"> | undefined>();
   const [isPanelOpen, setIsPanelOpen] = React.useState(false);
   const [isEditorOpen, setIsEditorOpen] = React.useState(false);
   const [isCreatorOpen, setIsCreatorOpen] = React.useState(false);
@@ -124,10 +129,12 @@ function Schedule() {
   /**
    * Component functions
    */
-  function handleDateRangeChange(dateInfo: any) {
-    const toDate = moment(dateInfo.end).unix();
-    const fromDate = moment(dateInfo.start).unix();
-    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), toDate, fromDate });
+  function handleDateRangeChange(range: CalendarDateRange) {
+    if (!isArray(range)) {
+      const toDate = moment(range.end).unix();
+      const fromDate = moment(range.start).unix();
+      updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), toDate, fromDate });
+    }
   }
 
   function updateHistorySearch({ ...props }) {
@@ -384,19 +391,18 @@ function Schedule() {
               setIsCreatorOpen={setIsCreatorOpen}
               setIsEditorOpen={setIsEditorOpen}
             />
-            <section className={styles.calendarContainer}>
-              <CalendarView
-                handleDateRangeChange={handleDateRangeChange}
-                hasScheduleData={hasScheduleData}
-                getCalendarUrl={getCalendarUrl}
-                schedules={schedulesQuery.data}
-                updateHistorySearch={updateHistorySearch}
-                setActiveSchedule={handleSetActiveSchedule}
-                setIsCreatorOpen={setIsCreatorOpen}
-                setIsEditorOpen={setIsEditorOpen}
-                setIsPanelOpen={setIsPanelOpen}
-              />
-            </section>
+            <CalendarView
+              handleDateRangeChange={handleDateRangeChange}
+              hasScheduleData={hasScheduleData}
+              getCalendarUrl={getCalendarUrl}
+              schedules={schedulesQuery.data}
+              setActiveSchedule={handleSetActiveSchedule}
+              setIsCreatorOpen={setIsCreatorOpen}
+              setIsEditorOpen={setIsEditorOpen}
+              setIsPanelOpen={setIsPanelOpen}
+              setNewSchedule={setNewSchedule}
+              updateHistorySearch={updateHistorySearch}
+            />
             <SchedulePanelDetail
               className={styles.panelContainer}
               event={activeSchedule}
@@ -405,16 +411,16 @@ function Schedule() {
               setIsEditorOpen={setIsEditorOpen}
             />
             <ScheduleCreator
-              getCalendarUrl={""}
+              getCalendarUrl={getCalendarUrl}
               getSchedulesUrl={getSchedulesUrl}
               includeWorkflowDropdown={true}
               isModalOpen={isCreatorOpen}
               onCloseModal={() => setIsCreatorOpen(false)}
-              schedule={activeSchedule}
+              schedule={newSchedule}
               workflowOptions={workflowsFilter}
             />
             <ScheduleEditor
-              getCalendarUrl={""}
+              getCalendarUrl={getCalendarUrl}
               getSchedulesUrl={getSchedulesUrl}
               includeWorkflowDropdown={true}
               isModalOpen={isEditorOpen}
@@ -433,13 +439,14 @@ function Schedule() {
 
 interface CalendarViewProps {
   getCalendarUrl: string;
-  handleDateRangeChange: (dateInfo: any) => void;
+  handleDateRangeChange: (dateInfo: CalendarDateRange) => void;
   hasScheduleData: boolean;
+  schedules?: Array<ScheduleUnion>;
   setActiveSchedule: (schedule: ScheduleUnion) => void;
   setIsCreatorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPanelOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  schedules?: Array<ScheduleUnion>;
+  setNewSchedule: React.Dispatch<React.SetStateAction<Pick<ScheduleDate, "dateSchedule" | "type"> | undefined>>;
   updateHistorySearch: (props: any) => void;
 }
 
@@ -471,37 +478,38 @@ function CalendarView(props: CalendarViewProps) {
   }
 
   return (
-    <Calendar
-      heightOffset={210}
-      //@ts-ignore
-      onSelectEvent={(data: CalendarEvent) => {
-        props.setIsPanelOpen(true);
-        props.setActiveSchedule({ ...data.resource, nextScheduleDate: new Date(data.start).toISOString() });
-      }}
-      onRangeChange={props.handleDateRangeChange}
-      onSelectSlot={(day: any) => {
-        const selectedDate = moment(day.start);
-        const isCurrentDay = selectedDate.isSame(new Date(), "day");
-        if (selectedDate.isAfter() || isCurrentDay) {
-          const dateSchedule = isCurrentDay ? moment().toISOString() : day.start.toISOString();
-          //@ts-ignore
-          props.setActiveSchedule({ dateSchedule, type: "runOnce" });
-          props.setIsCreatorOpen(true);
-        }
-      }}
-      //@ts-ignore
-      dayPropGetter={(date: Date) => {
-        const selectedDate = moment(date);
-        if (selectedDate.isBefore(new Date(), "day")) {
-          return {
-            style: {
-              cursor: "initial",
-            },
-          };
-        }
-      }}
-      events={calendarEvents}
-    />
+    <section className={styles.calendarContainer} data-is-loading={calendarQuery.isLoading}>
+      <Calendar
+        heightOffset={210}
+        //@ts-ignore
+        onSelectEvent={(data: CalendarEvent) => {
+          props.setIsPanelOpen(true);
+          props.setActiveSchedule({ ...data.resource, nextScheduleDate: new Date(data.start).toISOString() });
+        }}
+        onRangeChange={props.handleDateRangeChange}
+        onSelectSlot={(slot: SlotInfo) => {
+          const selectedDate = moment(slot.start);
+          const isCurrentDay = selectedDate.isSame(new Date(), "day");
+          if (selectedDate.isAfter() || isCurrentDay) {
+            const dateSchedule = isCurrentDay ? moment().toISOString() : selectedDate.toISOString();
+            props.setNewSchedule({ dateSchedule, type: "runOnce" });
+            props.setIsCreatorOpen(true);
+          }
+        }}
+        //@ts-ignore
+        dayPropGetter={(date: Date) => {
+          const selectedDate = moment(date);
+          if (selectedDate.isBefore(new Date(), "day")) {
+            return {
+              style: {
+                cursor: "initial",
+              },
+            };
+          }
+        }}
+        events={calendarEvents}
+      />
+    </section>
   );
 }
 

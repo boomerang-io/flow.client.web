@@ -24,10 +24,11 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
 
   function renderSchedule() {
     if (!schedule || !props.isOpen) {
-      return null;
+      return <></>;
     }
 
     const nextScheduleData = moment(schedule.nextScheduleDate).format(DATETIME_LOCAL_DISPLAY_FORMAT);
+    const scheduleDescription = schedule?.description ?? "---";
     const labels = [];
     for (const entry of schedule?.labels || []) {
       labels.push(
@@ -53,7 +54,9 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
                 Edit Schedule
               </Button>
             </div>
-            <p className={styles.detailsDescription}>{schedule?.description ?? "---"}</p>
+            <p title={scheduleDescription} className={styles.detailsDescription}>
+              {scheduleDescription}
+            </p>
             <dl>
               <dt>Type</dt>
               <dd style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
