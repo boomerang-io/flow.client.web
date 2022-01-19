@@ -1,13 +1,13 @@
 import React from "react";
-// import { useHistory } from "react-router-dom";
 import { Flex } from "reflexbox";
 import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from "react-error-boundary";
 import { ErrorFullPage } from "@boomerang-io/carbon-addons-boomerang-react";
+import { CORE_ENV_URL } from "Config/appConfig";
 
 const ErrorMessage: React.FC<FallbackProps> = (props) => {
   return (
     <Flex mt="10rem" alignItems="center" flexDirection="column" justifyContent="center">
-      <ErrorFullPage statusUrl="" />
+      <ErrorFullPage statusUrl={`${CORE_ENV_URL}/status`} />
     </Flex>
   );
 };
