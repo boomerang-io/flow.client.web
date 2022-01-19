@@ -18,10 +18,10 @@ const flowNavigation = [
     link: "/actions",
   },
   {
-    name: "Schedule",
+    name: "Schedules",
     type: "link",
     icon: "CalendarHeatMap16",
-    link: "/schedule",
+    link: "/schedules",
   },
   {
     name: "Insights",
