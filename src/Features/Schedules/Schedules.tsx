@@ -18,6 +18,7 @@ import moment from "moment";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
 import { allowedUserRoles, WorkflowScope } from "Constants";
+import { scheduleStatusOptions } from "Constants/schedule";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { SlotInfo } from "react-big-calendar";
@@ -27,33 +28,12 @@ import {
   CalendarEvent,
   FlowTeam,
   ScheduleDate,
-  ScheduleStatus,
-  ScheduleType,
   ScheduleUnion,
   WorkflowSummary,
 } from "Types";
-import styles from "./Schedule.module.scss";
+import styles from "./Schedules.module.scss";
 
 const MultiSelect = Select.Filterable;
-
-export const scheduleStatusOptions: Array<{ label: string; value: ScheduleStatus }> = [
-  { label: "Enabled", value: "active" },
-  { label: "Disabled", value: "inactive" },
-  { label: "Workflow Disabled", value: "trigger_disabled" },
-];
-
-export const statusLabelMap: Record<ScheduleStatus, string> = {
-  active: "Enabled",
-  inactive: "Disabled",
-  trigger_disabled: "Trigger Disabled",
-  deleted: "Deleted",
-};
-
-export const typeLabelMap: Record<ScheduleType, string> = {
-  runOnce: "Run Once",
-  cron: "Recurring",
-  advancedCron: "Recurring via cron expression",
-};
 
 const defaultStatusArray = scheduleStatusOptions.map((statusObj) => statusObj.value);
 
@@ -190,13 +170,13 @@ function Schedule() {
   }
 
   function handleSetActiveSchedule(schedule: ScheduleUnion) {
-    const worklflowFindPredicate = (workflow: WorkflowSummary) => {
+    const workflowFindPredicate = (workflow: WorkflowSummary) => {
       return workflow.id === schedule.workflowId;
     };
     let workflow: WorkflowSummary | undefined;
     for (let team of teams) {
       if (!workflow) {
-        const foundWorkflow = team.workflows.find(worklflowFindPredicate);
+        const foundWorkflow = team.workflows.find(workflowFindPredicate);
         if (foundWorkflow) {
           workflow = foundWorkflow;
           break;
@@ -205,39 +185,37 @@ function Schedule() {
     }
 
     if (!workflow) {
-      workflow = userWorkflows.workflows.find(worklflowFindPredicate);
+      workflow = userWorkflows.workflows.find(workflowFindPredicate);
     }
 
     if (!workflow) {
-      workflow = systemWorkflowsQuery.data?.find(worklflowFindPredicate);
+      workflow = systemWorkflowsQuery.data?.find(workflowFindPredicate);
     }
 
     setActiveSchedule({ ...schedule, workflow });
   }
 
   interface GetWorkflowFilterArgs {
-    teamsData: Array<FlowTeam>;
-    selectedTeams: Array<string>;
+    selectedTeams: Array<FlowTeam>;
     systemWorkflowsData?: Array<WorkflowSummary>;
+    teams: Array<FlowTeam>;
     userWorkflowsData: Array<WorkflowSummary>;
   }
 
   function getWorkflowFilter({
-    teamsData,
+    teams,
     selectedTeams,
     systemWorkflowsData = [],
     userWorkflowsData = [],
   }: GetWorkflowFilterArgs) {
     let workflowsList: Array<WorkflowSummary> = [];
     if (!scopes || scopes?.includes(WorkflowScope.Team)) {
-      if (!selectedTeams.length && teamsData) {
-        //@ts-ignore next-line
-        workflowsList = teamsData.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
+      if (selectedTeams.length === 0 && teams) {
+        workflowsList = teams.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
           acc.push(...team.workflows);
           return acc;
         }, []);
       } else if (selectedTeams) {
-        //@ts-ignore next-line
         workflowsList = selectedTeams.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
           acc.push(...team.workflows);
           return acc;
@@ -245,10 +223,10 @@ function Schedule() {
       }
     }
     if ((!scopes || scopes?.includes(WorkflowScope.System)) && isSystemWorkflowsEnabled) {
-      workflowsList = workflowsList.concat(systemWorkflowsData);
+      workflowsList.push(...systemWorkflowsData);
     }
     if (!scopes || scopes?.includes(WorkflowScope.User)) {
-      workflowsList = workflowsList.concat(userWorkflowsData);
+      workflowsList.push(...userWorkflowsData);
     }
     let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
     return workflowsFilter;
@@ -265,20 +243,11 @@ function Schedule() {
     const selectedWorkflowIds = typeof workflowIds === "string" ? [workflowIds] : workflowIds;
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
 
-    const teamsData = teams && JSON.parse(JSON.stringify(teams));
-
     const selectedTeams =
-      teams &&
-      teamsData.filter((team: FlowTeam) => {
-        if (selectedTeamIds?.find((id: string) => id === team.id)) {
-          return true;
-        } else {
-          return false;
-        }
-      });
+      teams && teams.filter((team: FlowTeam) => selectedTeamIds?.find((id: string) => id === team.id));
 
     const workflowsFilter = getWorkflowFilter({
-      teamsData,
+      teams,
       selectedTeams,
       systemWorkflowsData: systemWorkflowsQuery.data,
       userWorkflowsData: userWorkflows.workflows,
@@ -334,10 +303,10 @@ function Schedule() {
                   placeholder="Choose team(s)"
                   invalid={false}
                   onChange={handleSelectTeams}
-                  items={teamsData}
+                  items={teams}
                   itemToString={(team: FlowTeam) => (team ? team.name : "")}
                   initialSelectedItems={selectedTeams}
-                  titleText="Filter by team"
+                  titleText="Filter by Team"
                 />
               </div>
               <div className={styles.dataFilter}>
@@ -350,15 +319,23 @@ function Schedule() {
                   onChange={handleSelectWorkflows}
                   items={workflowsFilter}
                   itemToString={(workflow: WorkflowSummary) => {
-                    const team = workflow
-                      ? teamsData.find((team: FlowTeam) => team.id === workflow.flowTeamId)
-                      : undefined;
-                    return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                    if (workflow.scope === "team") {
+                      const team = workflow
+                        ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId)
+                        : undefined;
+                      if (team) {
+                        return workflow ? (team ? `${workflow.name} (${team.name})` : workflow.name) : "";
+                      }
+                    }
+                    if (workflow.scope === "system") {
+                      return `${workflow.name} (System)`;
+                    }
+                    return workflow.name;
                   }}
                   initialSelectedItems={workflowsFilter.filter((workflow: WorkflowSummary) =>
                     Boolean(selectedWorkflowIds?.find((id) => id === workflow.id))
                   )}
-                  titleText="Filter by workflow"
+                  titleText="Filter by Workflow"
                 />
               </div>
               <div className={styles.dataFilter}>

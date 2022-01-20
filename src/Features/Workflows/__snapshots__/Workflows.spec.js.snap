@@ -264,13 +264,13 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 for="b-search-filter__filter"
                 id="b-search-filter__filter-label"
               >
-                Filter by team
+                Filter by Team
               </label>
               <div
                 aria-expanded="false"
                 aria-haspopup="listbox"
                 aria-labelledby="b-search-filter__filter-label"
-                class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box bx--list-box--light"
                 role="combobox"
               >
                 <div
@@ -287,7 +287,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                     aria-autocomplete="list"
                     aria-labelledby="b-search-filter__filter-label"
                     autocomplete="off"
-                    class="bx--text-input bx--text-input--empty"
+                    class="bx--text-input bx--text-input--empty bx--text-input--light"
                     id="b-search-filter__filter-input"
                     placeholder="Choose a team"
                     value=""

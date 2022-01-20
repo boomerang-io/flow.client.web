@@ -52,7 +52,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 style="display: flex;"
               >
                 <div>
-                  Filter by team
+                  Filter by Team
                 </div>
               </div>
             </label>

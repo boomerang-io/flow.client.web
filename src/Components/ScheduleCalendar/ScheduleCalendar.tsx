@@ -2,7 +2,7 @@ import React from "react";
 import { Calendar, CalendarProps, EventProps, Event, momentLocalizer } from "react-big-calendar";
 import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import moment from "moment";
-import { statusLabelMap } from "Features/Schedule";
+import { statusLabelMap } from "Constants/schedule";
 import { CircleFilled16, RadioButton16 } from "@carbon/icons-react";
 import { CalendarEvent } from "Types";
 import styles from "./ScheduleCalendar.module.scss";

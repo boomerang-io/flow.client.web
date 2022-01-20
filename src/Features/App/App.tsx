@@ -34,7 +34,7 @@ const GlobalProperties = lazy(() => import(/* webpackChunkName: "GlobalPropertie
 const Tokens = lazy(() => import(/* webpackChunkName: "Tokens" */ "Features/Tokens"));
 const Insights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
 const Quotas = lazy(() => import(/* webpackChunkName: "Quotas" */ "Features/Quotas"));
-const Schedule = lazy(() => import(/* webpackChunkName: "Schedule" */ "Features/Schedule"));
+const Schedule = lazy(() => import(/* webpackChunkName: "Schedule" */ "Features/Schedules"));
 const Settings = lazy(() => import(/* webpackChunkName: "Settings" */ "Features/Settings"));
 const SystemWorkflows = lazy(() => import(/* webpackChunkName: "SystemWorkflows" */ "Features/SystemWorkflows"));
 const TaskTemplates = lazy(() => import(/* webpackChunkName: "TaskTemplates" */ "Features/TaskTemplates"));
@@ -106,7 +106,7 @@ export default function App() {
   });
 
   const flowNavigationQuery = useQuery<Array<FlowNavigationItem>, string>({
-    queryKey: getFlowNavigationUrl,
+    queryKey: serviceUrl.getFlowNavigation({ query: "" }),
     queryFn: resolver.query(getFlowNavigationUrl),
     config: {
       enabled: Boolean(userQuery.data?.id),

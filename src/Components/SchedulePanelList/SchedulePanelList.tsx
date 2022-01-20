@@ -18,7 +18,7 @@ import cronstrue from "cronstrue";
 import matchSorter from "match-sorter";
 import moment from "moment-timezone";
 import { DATETIME_LOCAL_DISPLAY_FORMAT } from "Utils/dateHelper";
-import { scheduleStatusOptions, statusLabelMap, typeLabelMap } from "Features/Schedule";
+import { scheduleStatusOptions, statusLabelMap, typeLabelMap } from "Constants/schedule";
 import { resolver } from "Config/servicesConfig";
 import { Add16, CircleFilled16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
 import { ScheduleUnion } from "Types";
