@@ -366,7 +366,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.get(serviceUrl.getActions({ query: null }), (schema, request) => {
         const { type } = request.queryParams;
         if (type === "approval") return schema.db.approvals[0];
-        if (type === "manual") return schema.db.manualTasks[0];
+        if (type === "task") return schema.db.manualTasks[0];
         return {};
       });
 
