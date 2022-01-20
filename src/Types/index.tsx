@@ -160,7 +160,7 @@ export interface WorkflowSummary {
   name: string;
   labels: Array<{ key: string; value: string }>;
   revisionCount: number;
-  scope: string;
+  scope: "team" | "user" | "system";
   shortDescription: string;
   properties: [DataDrivenInput];
   triggers: {

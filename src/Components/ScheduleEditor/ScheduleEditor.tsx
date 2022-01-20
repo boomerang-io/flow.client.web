@@ -65,6 +65,7 @@ function ScheduleEditor(props: ScheduleEditorProps) {
       });
     }
     let scheduleType = type;
+    console.log({ workflow });
     const schedule: Partial<ScheduleUnion> = {
       name,
       description,

@@ -15,13 +15,13 @@ import {
   TextArea,
   TextInput,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { typeLabelMap } from "Features/Schedule";
 import axios from "axios";
 import cronstrue from "cronstrue";
 import moment from "moment-timezone";
 import * as Yup from "yup";
 import { cronToDateTime, daysOfWeekCronList } from "Utils/cronHelper";
 import { DATETIME_LOCAL_INPUT_FORMAT, defaultTimeZone, timezoneOptions, transformTimeZone } from "Utils/dateHelper";
+import { typeLabelMap } from "Constants/schedule";
 import {
   ComposedModalChildProps,
   DataDrivenInput,
@@ -186,8 +186,16 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                 initialSelectedItem={formikProps.values.workflow}
                 items={props.workflowOptions}
                 itemToString={(workflow: WorkflowSummary) => {
-                  const team = workflow ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId) : undefined;
-                  return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                  if (workflow?.scope === "team") {
+                    const team = workflow ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId) : undefined;
+                    if (team) {
+                      return workflow ? (team ? `${workflow.name} (${team.name})` : workflow.name) : "";
+                    }
+                  }
+                  if (workflow?.scope === "system") {
+                    return `${workflow.name} (System)`;
+                  }
+                  return workflow?.name ?? "";
                 }}
                 onChange={({ selectedItem }: { selectedItem: WorkflowSummary }) => {
                   formikProps.setFieldValue("workflow", selectedItem);
@@ -311,7 +319,15 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               Cancel
             </Button>
             <Button disabled={!formikProps.isValid || props.isLoading} type="submit">
-              {props.isError ? "Try again" : props.type === "create" ? "Create" : "Update"}
+              {props.isError
+                ? "Try again"
+                : props.type === "create"
+                ? props.isLoading
+                  ? "Creating..."
+                  : "Create"
+                : props.isLoading
+                ? "Updating..."
+                : "Update"}
             </Button>
           </ModalFooter>
         </ModalForm>
