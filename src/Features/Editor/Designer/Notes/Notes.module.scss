@@ -59,6 +59,7 @@
   left: 0.25rem;
   top: 0.25rem;
   width: 1.5rem;
+  z-index: 1;
 
   &:focus {
     @include focus-outline();

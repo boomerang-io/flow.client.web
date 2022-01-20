@@ -7,6 +7,7 @@ import {
   ComboBox,
   DynamicFormik,
   InlineNotification,
+  Loading,
   ModalBody,
   ModalForm,
   ModalFooter,
@@ -176,6 +177,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
       {({ inputs, formikProps }: any) => (
         <ModalForm noValidate onSubmit={formikProps.handleSubmit}>
           <ModalBody>
+            {props.isLoading && <Loading />}
             <p>
               <b>About</b>
             </p>

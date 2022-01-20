@@ -363,7 +363,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
           <h2 className={styles.iconTitle}>Pick an icon (any icon)</h2>
           <div className={styles.icons}>
             {workflowIcons.map(({ name, Icon }, index) => (
-              <TooltipHover direction="top" tooltipText={capitalize(name)}>
+              <TooltipHover key={name} direction="top" tooltipText={capitalize(name)}>
                 <label
                   className={cx(styles.icon, {
                     [styles.active]: values.icon === name,

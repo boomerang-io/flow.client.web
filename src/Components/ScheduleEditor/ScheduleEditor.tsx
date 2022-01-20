@@ -100,7 +100,7 @@ function ScheduleEditor(props: ScheduleEditorProps) {
 
   return (
     <ComposedModal
-      isOpen={props.isModalOpen}
+      isOpen={Boolean(props.isModalOpen)}
       onCloseModal={props.onCloseModal}
       composedModalProps={{
         containerClassName: styles.modalContainer,
