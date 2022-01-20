@@ -14,7 +14,7 @@ import { taskIcons } from "Utils/taskIcons";
 import matchSorter from "match-sorter";
 import uniqBy from "lodash/uniqBy";
 import { sortByProp } from "@boomerang-io/utils";
-import { ChevronLeft32, SettingsAdjust20, Recommend16 } from "@carbon/icons-react";
+import { ChevronLeft32, SettingsAdjust16, Recommend16 } from "@carbon/icons-react";
 import { TaskModel } from "Types";
 import styles from "./tasks.module.scss";
 
@@ -206,8 +206,9 @@ export default class Tasks extends Component<TaskProps> {
                 value={this.state.searchQuery}
               />
               <OverflowMenu
+                size="sm"
                 iconDescription="Filter"
-                renderIcon={SettingsAdjust20}
+                renderIcon={SettingsAdjust16}
                 style={{
                   backgroundColor:
                     this.state.activeFilters.length > 0 || this.state.showVerified ? "#3DDBD9" : "initial",
@@ -220,7 +221,9 @@ export default class Tasks extends Component<TaskProps> {
                   <p className={styles.filterTitle}>Filters</p>
                   <button
                     className={styles.resetFilter}
-                    onClick={() => this.setState({ activeFilters: [], tasksToDisplay: this.props.tasks })}
+                    onClick={() =>
+                      this.setState({ activeFilters: [], tasksToDisplay: this.props.tasks, showVerified: false })
+                    }
                   >
                     Reset filters
                   </button>

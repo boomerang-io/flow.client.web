@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
-import moment from "moment";
 import { useAppContext, useEditorContext } from "Hooks";
 import {
   AutoSuggest,
@@ -16,7 +15,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
-import { DATETIME_LOCAL_DISPLAY_FORMAT, defaultTimeZone } from "Utils/dateHelper";
+import { defaultTimeZone } from "Utils/dateHelper";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./WorkflowTaskForm.module.scss";
@@ -92,12 +91,7 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
  *   type: String
  * }
  */
-// function formatAutoSuggestProperties(inputProperties) {
-//   return inputProperties.map((parameter) => ({
-//     value: `$(${parameter.key})`,
-//     label: parameter.key,
-//   }));
-// }
+
 function formatAutoSuggestProperties(inputProperties) {
   return inputProperties.map((parameter) => ({
     value: `$(${parameter})`,
@@ -168,6 +162,7 @@ function ConfigureInputsForm(props) {
 
   const handleOnSave = (values) => {
     props.node.taskName = values.taskName;
+    console.log({ values });
     props.onSave(values);
     props.closeModal();
   };
@@ -213,7 +208,6 @@ function ConfigureInputsForm(props) {
     return {
       autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
       onChange: (value) => formikSetFieldValue(value, `['${key}']`, setFieldValue),
-      // initialValue: values[`['${key}']`],
       initialValue: values[key],
 
       inputProps: {
@@ -226,7 +220,7 @@ function ConfigureInputsForm(props) {
     };
   };
 
-  const toggleProps = ({ input, formikProps }) => {
+  const toggleProps = () => {
     return {
       orientation: "vertical",
     };
@@ -303,7 +297,7 @@ function ConfigureInputsForm(props) {
     );
   };
 
-  // Add the name input
+  // Add the name and future inputs
   const inputs = [
     {
       key: "taskName",
@@ -357,9 +351,7 @@ function ConfigureInputsForm(props) {
     ...activeProperties,
   ];
 
-  const initTime = nodeConfig?.inputs?.time
-    ? moment(nodeConfig?.inputs?.time).format(DATETIME_LOCAL_DISPLAY_FORMAT)
-    : "";
+  const initTime = nodeConfig?.inputs?.time ? nodeConfig?.inputs?.time : "";
 
   return (
     <DynamicFormik
