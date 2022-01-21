@@ -203,10 +203,10 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
   const { number: page, sort, totalElements, totalPages, records } = usersData;
 
-  const viewDetailsUser = records.find((user) => user.id === viewDetailsUserId);
-  const changeRoleUser = records.find((user) => user.id === changeRoleUserId);
+  const viewDetailsUser = records?.find((user) => user.id === viewDetailsUserId);
+  const changeRoleUser = records?.find((user) => user.id === changeRoleUserId);
 
-  return records.length > 0 ? (
+  return records?.length > 0 ? (
     <>
       <DataTable
         rows={records}

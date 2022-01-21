@@ -25,7 +25,7 @@ const manageUsers = {
       type: "admin",
       firstLoginDate: "2020-07-21T15:35:25.369+00:00",
       lastLoginDate: "2020-07-21T15:35:25.369+00:00",
-      flowTeams: [],
+      flowTeams: ["5e3a35ad8c222700018ccd39", "5e3a35ad8c222700018ccd38"],
       status: "active",
     },
     {
@@ -36,7 +36,7 @@ const manageUsers = {
       type: "admin",
       firstLoginDate: "2020-07-21T15:35:25.369+00:00",
       lastLoginDate: "2020-07-21T15:35:25.369+00:00",
-      flowTeams: [],
+      flowTeams: ["5e3a35ad8c222700018ccd39"],
       status: "active",
     },
     {

@@ -398,7 +398,7 @@ export interface FlowUser {
   type: PlatformRole;
   firstLoginDate: string;
   lastLoginDate: string;
-  flowTeams: FlowTeam[];
+  flowTeams: string[];
   status: UserStatus;
   platformRole: string;
 }

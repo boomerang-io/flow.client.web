@@ -17,7 +17,6 @@ afterEach(() => {
   queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
-
 describe("Users --- Snapshot Test", () => {
   it("Capturing Snapshot of Users", async () => {
     const { baseElement, findByText } = rtlContextRouterRender(
@@ -64,6 +63,6 @@ describe("Users --- RTL", () => {
 
     fireEvent.click(overflowMenuButtons[0]);
     fireEvent.click(await screen.findByText(/^View details$/i));
-    expect(screen.getByText(/^# of Flow Teams/i)).toBeInTheDocument();
+    expect(screen.getByText(/^Last Login$/i)).toBeInTheDocument();
   });
 });
