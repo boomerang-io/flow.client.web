@@ -1,12 +1,19 @@
 import React from "react";
-import { Button, CodeSnippet, Tag } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, CodeSnippet, Tag, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import SlidingPane from "react-sliding-pane";
 import cronstrue from "cronstrue";
 import cx from "classnames";
 import moment from "moment-timezone";
 import { DATETIME_LOCAL_DISPLAY_FORMAT } from "Utils/dateHelper";
 import { statusLabelMap, typeLabelMap } from "Constants/schedule";
-import { CircleFilled16, SettingsAdjust16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
+import {
+  CircleFilled16,
+  Information16,
+  SettingsAdjust16,
+  RadioButton16,
+  Repeat16,
+  RepeatOne16,
+} from "@carbon/icons-react";
 import { ScheduleUnion } from "Types";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import styles from "./SchedulePanelDetail.module.scss";
@@ -27,8 +34,13 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
       return <></>;
     }
 
-    const nextScheduleData = moment(schedule.nextScheduleDate).format(DATETIME_LOCAL_DISPLAY_FORMAT);
     const scheduleDescription = schedule?.description ?? "---";
+    // Convert from UTC to configured timezone to get the correct offset, adjusting for daylight saving time
+    // Then convert to the local time of the users's browser
+    const nextScheduledDate = moment(moment.tz(schedule.nextScheduleDate, schedule.timezone).toISOString()).format(
+      DATETIME_LOCAL_DISPLAY_FORMAT
+    );
+
     const labels = [];
     for (const entry of schedule?.labels || []) {
       labels.push(
@@ -40,7 +52,7 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
 
     return (
       <>
-        <div className={styles.detailsSection}>
+        <div className={styles.detailsContainer}>
           <section className={styles.detailsInfo}>
             <div className={styles.detailsTitle}>
               <h2 title={schedule.name}>{schedule.name}</h2>
@@ -84,12 +96,17 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
               </>
             )}
             <dl>
-              <dt>Scheduled</dt>
-              <dd>{nextScheduleData}</dd>
-            </dl>
-            <dl>
-              <dt>Time Zone </dt>
-              <dd>{schedule.timezone}</dd>
+              <dt>
+                Scheduled Execution{" "}
+                <TooltipHover
+                  direction="top"
+                  tooltipText={"The execution date is shown in local time based on the time zone of your browser."}
+                  style={{ height: "0.75rem" }}
+                >
+                  <Information16 />
+                </TooltipHover>
+              </dt>
+              <dd>{nextScheduledDate}</dd>
             </dl>
             <dl>
               <dt>Frequency </dt>

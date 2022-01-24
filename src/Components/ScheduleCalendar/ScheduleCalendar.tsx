@@ -12,8 +12,8 @@ import "./big-calendar.scss";
 const localizer = momentLocalizer(moment);
 
 interface ScheduleCalendarProps extends CalendarProps {
-  heightOffset?: number;
   events: Array<CalendarEvent>;
+  heightOffset?: number;
   [key: string]: any;
 }
 

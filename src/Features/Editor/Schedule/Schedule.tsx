@@ -157,8 +157,8 @@ function CalendarView(props: CalendarViewProps) {
         for (const date of calendarEntry.dates) {
           const newEntry = {
             resource: matchingSchedule,
-            start: new Date(date),
-            end: new Date(date),
+            start: moment.tz(date, matchingSchedule.timezone).toDate(),
+            end: moment.tz(date, matchingSchedule.timezone).toDate(),
             title: matchingSchedule.name,
             onClick: () => {
               props.setActiveSchedule(matchingSchedule);

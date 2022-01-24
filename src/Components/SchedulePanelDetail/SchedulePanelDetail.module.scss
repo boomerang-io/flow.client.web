@@ -80,7 +80,7 @@
   }
 }
 
-.detailsSection {
+.detailsContainer {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -96,6 +96,9 @@
   }
 
   dt {
+    align-items: center;
+    display: flex;
+    gap: 0.25rem;
     font-size: 0.875rem;
   }
 

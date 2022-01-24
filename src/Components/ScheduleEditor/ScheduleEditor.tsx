@@ -2,6 +2,7 @@ import React from "react";
 import { useMutation, queryCache } from "react-query";
 import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import ScheduleManagerForm from "Components/ScheduleManagerForm";
+import moment from "moment-timezone";
 import { cronDayNumberMap } from "Utils/cronHelper";
 import { resolver } from "Config/servicesConfig";
 import { ComposedModalChildProps, ScheduleManagerFormInputs, ScheduleUnion, WorkflowSummary } from "Types";
@@ -65,7 +66,6 @@ function ScheduleEditor(props: ScheduleEditorProps) {
       });
     }
     let scheduleType = type;
-    console.log({ workflow });
     const schedule: Partial<ScheduleUnion> = {
       name,
       description,
@@ -77,7 +77,8 @@ function ScheduleEditor(props: ScheduleEditorProps) {
     };
 
     if (schedule.type === "runOnce") {
-      schedule["dateSchedule"] = new Date(dateTime).toISOString();
+      const timeZoneDate = moment.tz(dateTime, timezone.value);
+      schedule["dateSchedule"] = timeZoneDate.toISOString();
     }
 
     if (schedule.type === "cron") {
@@ -95,7 +96,7 @@ function ScheduleEditor(props: ScheduleEditorProps) {
       schedule["cronSchedule"] = cronSchedule;
     }
 
-    await handleUpdateSchedule(schedule as ScheduleUnion);
+    return await handleUpdateSchedule(schedule as ScheduleUnion);
   };
 
   return (

@@ -77,11 +77,14 @@ export default function CreateEditForm(props: CreateEditFormProps) {
    * Lots of manipulating of data for the inputs based on type
    */
   if (props.type === "edit" && props.schedule) {
-    initFormValues["timezone"] = transformTimeZone(props.schedule.timezone);
+    const timeZoneObj = transformTimeZone(props.schedule.timezone);
+    initFormValues["timezone"] = timeZoneObj;
     initFormValues["workflow"] = props.workflow;
 
     if (props.schedule.type === "runOnce") {
-      initFormValues["dateTime"] = moment(props.schedule.dateSchedule).format(DATETIME_LOCAL_INPUT_FORMAT);
+      initFormValues["dateTime"] = moment
+        .tz(props.schedule.dateSchedule, timeZoneObj.value)
+        .format(DATETIME_LOCAL_INPUT_FORMAT);
     }
 
     if (props.schedule.type === "advancedCron") {
@@ -140,8 +143,8 @@ export default function CreateEditForm(props: CreateEditFormProps) {
           is: "runOnce",
           then: Yup.string()
             .required("Date and Time are required")
-            .test("isAfterNow", "Enter a date and time after now", (value: string | undefined) => {
-              return moment(value).isAfter(new Date());
+            .test("isAfterNow", "Enter a date and time after now", (value: string | undefined, ctx) => {
+              return moment.tz(value, ctx.parent.timezone.value).isAfter(new Date());
             }),
         }),
         labels: Yup.array().max(20, "Enter less than 20 labels"),

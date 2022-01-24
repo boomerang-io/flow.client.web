@@ -14,7 +14,7 @@ import ScheduleEditor from "Components/ScheduleEditor";
 import SchedulePanelDetail from "Components/SchedulePanelDetail";
 import SchedulePanelList from "Components/SchedulePanelList";
 import isArray from "lodash/isArray";
-import moment from "moment";
+import moment from "moment-timezone";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
 import { allowedUserRoles, WorkflowScope } from "Constants";
@@ -444,8 +444,8 @@ function CalendarView(props: CalendarViewProps) {
         for (const date of calendarEntry.dates) {
           const newEntry = {
             resource: matchingSchedule,
-            start: new Date(date),
-            end: new Date(date),
+            start: moment.tz(date, matchingSchedule.timezone).toDate(),
+            end: moment.tz(date, matchingSchedule.timezone).toDate(),
             title: matchingSchedule.name,
           };
           calendarEvents.push(newEntry);

@@ -20,7 +20,7 @@ import moment from "moment-timezone";
 import { DATETIME_LOCAL_DISPLAY_FORMAT } from "Utils/dateHelper";
 import { scheduleStatusOptions, statusLabelMap, typeLabelMap } from "Constants/schedule";
 import { resolver } from "Config/servicesConfig";
-import { Add16, CircleFilled16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
+import { Add16, CircleFilled16, Information16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
 import { ScheduleUnion } from "Types";
 import styles from "./SchedulePanelList.module.scss";
 
@@ -168,9 +168,13 @@ function ScheduledListItem(props: ScheduledListItemProps) {
       </Tag>
     );
   }
-  const nextScheduledText = props.schedule.type === "runOnce" ? "Scheduled" : "Next Execution";
-  const nextScheduleData = moment(props.schedule.nextScheduleDate).format(DATETIME_LOCAL_DISPLAY_FORMAT);
   const scheduleDescription = props.schedule?.description ?? "---";
+  const nextScheduledText = props.schedule.type === "runOnce" ? "Scheduled Execution" : "Next Execution";
+  // Convert from UTC to configured timezone to get the correct offset, adjusting for daylight saving time
+  // Then convert to the local time of the users's browser
+  const nextScheduledDate = moment(
+    moment.tz(props.schedule.nextScheduleDate, props.schedule?.timezone).toISOString()
+  ).format(DATETIME_LOCAL_DISPLAY_FORMAT);
 
   /**
    * Delete schedule
@@ -274,12 +278,16 @@ function ScheduledListItem(props: ScheduledListItemProps) {
         </p>
         <dl style={{ display: "flex" }}>
           <div style={{ width: "50%" }}>
-            <dt>{nextScheduledText}</dt>
-            <dd>{nextScheduleData}</dd>
-          </div>
-          <div style={{ width: "50%" }}>
-            <dt>Time Zone</dt>
-            <dd>{props.schedule.timezone}</dd>
+            <dt>
+              {nextScheduledText}{" "}
+              <TooltipHover
+                direction="top"
+                tooltipText={"The execution date is shown in local time based on the time zone of your browser."}
+              >
+                <Information16 />
+              </TooltipHover>
+            </dt>
+            <dd>{nextScheduledDate}</dd>
           </div>
         </dl>
         <dl style={{ display: "flex" }}>

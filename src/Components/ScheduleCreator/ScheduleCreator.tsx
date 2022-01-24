@@ -2,6 +2,7 @@ import React from "react";
 import { useMutation, queryCache } from "react-query";
 import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import ScheduleManagerForm from "Components/ScheduleManagerForm";
+import moment from "moment-timezone";
 import { cronDayNumberMap } from "Utils/cronHelper";
 import { resolver } from "Config/servicesConfig";
 import {
@@ -80,7 +81,8 @@ export default function CreateSchedule(props: CreateScheduleProps) {
     };
 
     if (schedule.type === "runOnce") {
-      schedule["dateSchedule"] = new Date(dateTime).toISOString();
+      const timeZoneDate = moment.tz(dateTime, timezone.value);
+      schedule["dateSchedule"] = timeZoneDate.toISOString();
     }
 
     if (schedule.type === "cron") {
@@ -97,7 +99,7 @@ export default function CreateSchedule(props: CreateScheduleProps) {
       schedule["cronSchedule"] = cronSchedule;
     }
 
-    await handleCreateSchedule(schedule as ScheduleUnion);
+    return await handleCreateSchedule(schedule as ScheduleUnion);
   };
 
   return (

@@ -15,7 +15,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
-import { defaultTimeZone } from "Utils/dateHelper";
+import { timezoneOptions, defaultTimeZone, transformTimeZone } from "Utils/dateHelper";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./WorkflowTaskForm.module.scss";
@@ -162,8 +162,8 @@ function ConfigureInputsForm(props) {
 
   const handleOnSave = (values) => {
     props.node.taskName = values.taskName;
-    console.log({ values });
-    props.onSave(values);
+    const valuesToSave = { ...values, timezone: values.timezone.value };
+    props.onSave(valuesToSave);
     props.closeModal();
   };
 
@@ -226,11 +226,6 @@ function ConfigureInputsForm(props) {
     };
   };
 
-  //   const formatPropertiesForEdit = () => {
-  //     const { properties = [] } = workflow;
-  //     return properties.filter((property) => !property.readOnly);
-  //   };
-
   const takenTaskNames = taskNames.filter((name) => name !== node.taskName);
 
   const activeInputs = {};
@@ -248,7 +243,7 @@ function ConfigureInputsForm(props) {
       : "";
     return (
       <ComboBox
-        helperText="Workflow you want to execute in the future"
+        helperText={otherProps.helperText}
         id="workflow-select"
         onChange={({ selectedItem }) => {
           setFieldValue("workflowId", selectedItem?.value ?? "");
@@ -261,6 +256,8 @@ function ConfigureInputsForm(props) {
                 return property;
               })
             );
+          } else {
+            setActiveProperties([]);
           }
         }}
         items={workflowsMapped}
@@ -297,10 +294,37 @@ function ConfigureInputsForm(props) {
     );
   };
 
+  const TimeZoneInput = ({ formikProps, ...otherProps }) => {
+    const { errors, touched, values } = formikProps;
+    const error = errors[otherProps.id];
+    const hasBeenTouched = touched[otherProps.id];
+    if (values.futurePeriod === "minutes" || values.futurePeriod === "hours") {
+      return null;
+    }
+
+    return (
+      <ComboBox
+        helperText={otherProps.helperText}
+        id="timezone"
+        initialSelectedItem={values.timezone}
+        //@ts-ignore
+        items={timezoneOptions}
+        invalid={Boolean(error) && hasBeenTouched}
+        invalidText={error}
+        onChange={({ selectedItem }) => {
+          formikProps.setFieldValue("timezone", selectedItem);
+        }}
+        placeholder="e.g. US/Central (UTC -06:00)"
+        titleText="Time Zone"
+      />
+    );
+  };
+
   // Add the name and future inputs
   const inputs = [
     {
       key: "taskName",
+      id: "taskName",
       label: "Task Name",
       placeholder: "Enter a task name",
       type: "custom",
@@ -311,7 +335,7 @@ function ConfigureInputsForm(props) {
       key: "futureIn",
       id: "futureIn",
       label: "Interval",
-      helperText: "Length of the selected time period",
+      helperText: "Length of the selected interval period",
       placeholder: "e.g. 10",
       type: "number",
       required: true,
@@ -320,9 +344,8 @@ function ConfigureInputsForm(props) {
     {
       key: "futurePeriod",
       id: "futurePeriod",
-      label: "Time Period",
+      label: "Interval Period",
       placeholder: "e.g. Days",
-      helperText: "Type of time period",
       type: "select",
       options: [
         { key: "minutes", value: "Minutes" },
@@ -343,32 +366,52 @@ function ConfigureInputsForm(props) {
       customComponent: TimeInput,
     },
     {
+      key: "timezone",
+      id: "timezone",
+      required: true,
+      type: "custom",
+      helperText: "What time zone to execute in",
+      customComponent: TimeZoneInput,
+    },
+    {
       key: "workflowId",
+      id: "workflowId",
       type: "custom",
       required: true,
+      helperText: "When in the future you want the Workflow to execute",
       customComponent: WorkflowSelectionInput,
     },
     ...activeProperties,
   ];
 
-  const initTime = nodeConfig?.inputs?.time ? nodeConfig?.inputs?.time : "";
+  const initTime = nodeConfig?.inputs?.time ?? "";
+  const initTimeZone = transformTimeZone(nodeConfig?.inputs?.timezone ?? defaultTimeZone);
 
   return (
     <DynamicFormik
       allowCustomPropertySyntax
-      enableReinitialize
       validateOnMount
       validationSchemaExtension={Yup.object().shape({
-        time: Yup.string().when("period", {
-          is: "days" || "weeks" || "months",
-          then: Yup.string().required("Time is required"),
-        }),
-        futureIn: Yup.number().required("In is required ").min(1, "Must be at least one increment in future"),
-        futurePeriod: Yup.string().required("Period is required"),
+        futureIn: Yup.number().required("Interval is required ").min(1, "Must be at least one interval in future"),
+        futurePeriod: Yup.string().required("Interval period is required"),
         taskName: Yup.string()
           .required("Enter a task name")
           .notOneOf(takenTaskNames, "Enter a unique value for task name"),
-        timezone: Yup.string().required(),
+        time: Yup.string().test("timeRequired", "Time is required", (value, ctx) => {
+          const futurePeriod = ctx.parent.futurePeriod;
+          if (!value && (futurePeriod === "days" || futurePeriod === "weeks" || futurePeriod === "months")) {
+            return false;
+          } else {
+            return true;
+          }
+        }),
+        timezone: Yup.object().test("timeZoneRequired", "Time Zone is required", (value, ctx) => {
+          const futurePeriod = ctx.parent.futurePeriod;
+          if (!value.value && (futurePeriod === "days" || futurePeriod === "weeks" || futurePeriod === "months")) {
+            return false;
+          }
+          return true;
+        }),
         workflowId: Yup.string().required("Select a workflow"),
       })}
       initialValues={{
@@ -377,7 +420,7 @@ function ConfigureInputsForm(props) {
         ...activeInputs,
         ...nodeConfig.inputs,
         time: initTime,
-        timezone: defaultTimeZone,
+        timezone: initTimeZone,
       }}
       inputs={inputs}
       onSubmit={handleOnSave}
