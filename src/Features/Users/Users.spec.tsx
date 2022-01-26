@@ -2,11 +2,10 @@ import React from "react";
 import Users from ".";
 import { Route } from "react-router-dom";
 import { waitFor, screen, fireEvent } from "@testing-library/react";
-import { queryCaches } from "react-query";
 import { AppPath, appLink } from "Config/appConfig";
 import { startApiServer } from "ApiServer";
 
-let server;
+let server: any;
 
 beforeEach(() => {
   server = startApiServer();
@@ -14,13 +13,12 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 
 describe("Users --- Snapshot Test", () => {
   it("Capturing Snapshot of Users", async () => {
-    const { baseElement, findByText } = rtlContextRouterRender(
+    const { baseElement, findByText } = global.rtlContextRouterRender(
       <Route path={AppPath.UserList}>
         <Users />
       </Route>,
@@ -34,7 +32,7 @@ describe("Users --- Snapshot Test", () => {
 
 describe("Users --- RTL", () => {
   test("Change user role", async () => {
-    rtlContextRouterRender(
+    global.rtlContextRouterRender(
       <Route path={AppPath.UserList}>
         <Users />
       </Route>,
@@ -53,7 +51,7 @@ describe("Users --- RTL", () => {
   });
 
   test("View user details", async () => {
-    rtlContextRouterRender(
+    global.rtlContextRouterRender(
       <Route path={AppPath.UserList}>
         <Users />
       </Route>,

@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { EditorContextProvider } from "State/context";
 import { AxiosResponse } from "axios";
 import { History } from "history";
-import { MutateOptions, MutationResult, QueryResult } from "react-query";
+import { UseQueryResult, MutateFunction, UseMutateFunction } from "react-query";
 import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
 import { useAppContext, useIsModalOpen, useQuery } from "Hooks";
 import { useImmerReducer } from "use-immer";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Prompt, Route, Switch, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import { Loading, Error, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import ChangeLog from "./ChangeLog";
@@ -40,6 +40,7 @@ export default function EditorContainer() {
 
   const [revisionNumber, setRevisionNumber] = useState(0);
   const { workflowId }: { workflowId: string } = useParams();
+  const queryClient = useQueryClient();
 
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
@@ -57,17 +58,17 @@ export default function EditorContainer() {
   /**
    * Mutations
    */
-  const [mutateSummary, summaryMutation] = useMutation(resolver.patchUpdateWorkflowSummary, {
-    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
+  const { mutateAsync: mutateSummary, ...summaryMutation } = useMutation(resolver.patchUpdateWorkflowSummary, {
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeams()),
   });
-  const [mutateRevision, revisionMutation] = useMutation(resolver.postCreateWorkflowRevision, {
+  const { mutateAsync: mutateRevision, ...revisionMutation } = useMutation(resolver.postCreateWorkflowRevision, {
     onSuccess: () => {
-      queryCache.invalidateQueries(serviceUrl.getTeams());
-      queryCache.invalidateQueries(getSummaryUrl);
+      queryClient.invalidateQueries(serviceUrl.getTeams());
+      queryClient.invalidateQueries(getSummaryUrl);
     },
   });
-  const [parametersMutation] = useMutation(resolver.postWorkflowAvailableParameters, {
-    onSuccess: (response) => queryCache.setQueryData(serviceUrl.workflowAvailableParameters({workflowId}), response.data),
+  const { mutateAsync: parametersMutation } = useMutation(resolver.postWorkflowAvailableParameters, {
+    onSuccess: (response) => queryClient.setQueryData(serviceUrl.workflowAvailableParameters({workflowId}), response.data),
   });
 
   // Only show loading for the summary and task templates
@@ -105,22 +106,13 @@ export default function EditorContainer() {
 
 interface EditorStateContainerProps {
   availableParametersQueryData: Array<string>;
-  mutateRevision: (
-    variables: { workflowId: any; body: any },
-    options?: MutateOptions<AxiosResponse<any>, { workflowId: any; body: any }, Error> | undefined
-  ) => Promise<any>;
-  mutateSummary: (
-    variables: { body: any },
-    options?: MutateOptions<AxiosResponse<any>, { body: any }, Error> | undefined
-  ) => Promise<any>;
-  parametersMutation:(
-    variables: { workflowId: any; body: any; }, 
-    options?: MutateOptions<AxiosResponse<any>, { workflowId: any; body: any; }, Error, unknown> | undefined 
-  ) => Promise<any>;
-  revisionMutation: MutationResult<AxiosResponse<any>, Error>;
-  revisionQuery: QueryResult<WorkflowRevision, Error>;
+  mutateRevision: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>;
+  mutateSummary: MutateFunction<AxiosResponse<any, any>, unknown, { body: any; }, unknown>;
+  parametersMutation: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>;
+  revisionMutation: { data: undefined; error: null; isError: false; isIdle: true; isLoading: false; isSuccess: false; status: "idle"; mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>; variables: { workflowId: any; body: any; } | undefined; } | any;
+  revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
   summaryData: WorkflowSummary;
-  summaryMutation: MutationResult<AxiosResponse<any>, Error>;
+  summaryMutation: { data: undefined; error: null; isError: false; isIdle: true; isLoading: false; isSuccess: false; status: "idle"; mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>; variables: { workflowId: any; body: any; } | undefined; } | any;
   setRevisionNumber: (revisionNumber: number) => void;
   taskTemplatesData: Array<TaskModel>;
   workflowId: string;
@@ -147,6 +139,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   const match: { params: { workflowId: string } } = useRouteMatch();
   const { teams, quotas } = useAppContext();
   const isModalOpen = useIsModalOpen();
+  const queryClient = useQueryClient();
 
   const [workflowDagEngine, setWorkflowDagEngine] = useState<WorkflowDagEngine | null>(null);
   const [revisionState, revisionDispatch] = useImmerReducer(
@@ -215,8 +208,8 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         }
         revisionDispatch({ type: RevisionActionTypes.Set, data });
         setRevisionNumber(data.version);
-        queryCache.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
-        queryCache.removeQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
+        queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
+        queryClient.removeQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
       } catch (err) {
         notify(
           <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
@@ -225,6 +218,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     },
     [
       mutateRevision,
+      queryClient,
       revisionDispatch,
       revisionState.config,
       revisionState.markdown,
@@ -245,7 +239,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
       try {
         const { data } = await mutateSummary({ body: updatedWorkflow });
-        queryCache.setQueryData(serviceUrl.getWorkflowSummary({ workflowId }), data);
+        queryClient.setQueryData(serviceUrl.getWorkflowSummary({ workflowId }), data);
         notify(
           <ToastNotification kind="success" title="Workflow Updated" subtitle={`Successfully updated workflow`} />
         );
@@ -262,7 +256,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         );
       }
     },
-    [mutateSummary, summaryData, workflowId]
+    [mutateSummary, queryClient, summaryData, workflowId,]
   );
 
   const handleUpdateNotes = useCallback(

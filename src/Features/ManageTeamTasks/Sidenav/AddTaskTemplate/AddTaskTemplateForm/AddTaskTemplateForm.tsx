@@ -82,10 +82,12 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
   let taskTemplateNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
   const orderedIcons = orderBy(taskIcons, ["name"]);
 
-  const [
-    validateYamlMuatator,
-    { error: validateYamlError, isLoading: validateYamlIsLoading, reset: resetValidateYaml },
-  ] = useMutation(resolver.postValidateYaml);
+  const {
+    mutateAsync: validateYamlMuatator,
+    error: validateYamlError,
+    isLoading: validateYamlIsLoading,
+    reset: resetValidateYaml,
+  } = useMutation(resolver.postValidateYaml);
 
   const handleSubmit = async (values) => {
     const hasFile = values.file;

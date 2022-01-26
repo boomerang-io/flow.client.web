@@ -16,7 +16,7 @@ function TeamProperties() {
   const { data: propertiesData, isLoading, error: propertiesError } = useQuery(
     teamPropertiesUrl,
     resolver.query(teamPropertiesUrl),
-    { enabled: activeTeam?.id }
+    { enabled: Boolean(activeTeam?.id) }
   );
   return (
     <div className={styles.container}>

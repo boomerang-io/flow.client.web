@@ -3,7 +3,6 @@ import TeamDetailed from ".";
 import { Route } from "react-router-dom";
 import { waitFor, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { queryCaches } from "react-query";
 import { AppPath, appLink } from "Config/appConfig";
 import { startApiServer } from "ApiServer";
 
@@ -16,7 +15,6 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 

@@ -1,10 +1,5 @@
 import React from "react";
 import ActivityTable from "./index";
-import { queryCaches } from "react-query";
-
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
 
 const props = {
   activities: [],
@@ -21,7 +16,7 @@ const props = {
 
 describe("ActivityTable --- Snapshot", () => {
   it("Capturing Snapshot of ActivityTable", () => {
-    const { baseElement } = rtlRouterRender(<ActivityTable {...props} />);
+    const { baseElement } = global.rtlRouterRender(<ActivityTable {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });

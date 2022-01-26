@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, useQuery, queryCache } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Helmet } from "react-helmet";
 import { useAppContext } from "Hooks";
 import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -11,17 +11,18 @@ import styles from "./tokens.module.scss";
 function TeamTokensContainer() {
   const [activeTeam, setActiveTeam] = React.useState<FlowTeam|null>(null);
   const { teams, user } = useAppContext();
+  const queryClient = useQueryClient();
 
   const getTeamTokensUrl = serviceUrl.getTeamTokens({teamId: activeTeam?.id});
 
   const { data: tokensData, error: tokensError, isLoading: tokensIsLoading } = useQuery({
     queryKey: getTeamTokensUrl,
     queryFn: resolver.query(getTeamTokensUrl),
-    config: {enabled: activeTeam?.id},
+    enabled: Boolean(activeTeam?.id),
   });
 
-  const [deleteTokenMutator] = useMutation(resolver.deleteToken, {
-    onSuccess: () => queryCache.invalidateQueries([getTeamTokensUrl]),
+  const { mutateAsync: deleteTokenMutator } = useMutation(resolver.deleteToken, {
+    onSuccess: () => queryClient.invalidateQueries([getTeamTokensUrl]),
   });
 
   const deleteToken = async (tokenId: string) => {

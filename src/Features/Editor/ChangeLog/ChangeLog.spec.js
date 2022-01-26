@@ -2,7 +2,6 @@ import React from "react";
 import ChangeLog from ".";
 import { Route } from "react-router-dom";
 import { waitFor } from "@testing-library/react";
-import { queryCaches } from "react-query";
 import { AppPath, appLink } from "Config/appConfig";
 import { startApiServer } from "ApiServer";
 
@@ -14,7 +13,6 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 const props = {

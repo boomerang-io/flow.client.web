@@ -42,10 +42,11 @@ const handleOnMenuClick = (flowNavigationData: FlowNavigationItem[]) => ({
           if (item?.childLinks) {
             return (
               <SideNavMenu large title={item.name} renderIcon={itemIcon.Icon}>
-                {item.childLinks.map((childItem: any) => {
+                {item.childLinks.map((childItem: any, index: number) => {
                   let props = {
                     large: true,
                     renderIcon: itemIcon.Icon,
+                    key: index,
                   };
                   if (isInternalLink(childItem.link)) {
                     props.to = getRelativePath(childItem.link);

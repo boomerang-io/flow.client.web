@@ -19,7 +19,7 @@ import { appLink } from "Config/appConfig";
 import { QueryStatus } from "Constants";
 import { Add16, DocumentExport16 } from "@carbon/icons-react";
 import { AxiosResponse } from "axios";
-import { QueryResult, MutationResult } from "react-query";
+import { UseQueryResult, MutateFunction } from "react-query";
 import {
   ModalTriggerProps,
   ComposedModalChildProps,
@@ -34,9 +34,9 @@ interface DesignerHeaderProps {
   createRevision: (reason: string, callback?: () => any) => void;
   changeRevision: (revisionNumber: number) => void;
   isOnDesigner: boolean;
-  revisionMutation: MutationResult<AxiosResponse<any>, Error>;
+  revisionMutation: MutateFunction<AxiosResponse<any>, Error>;
   revisionState: WorkflowRevisionState;
-  revisionQuery: QueryResult<WorkflowRevision, Error>;
+  revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
   summaryData: WorkflowSummary;
 }
 
@@ -51,7 +51,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
 }) => {
   const {
     params: { workflowId },
-  } = useRouteMatch();
+  } : { params: { workflowId: string } } = useRouteMatch();
   const { revisionCount, name, scope } = summaryData;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;

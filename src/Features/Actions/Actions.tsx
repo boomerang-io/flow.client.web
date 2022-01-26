@@ -138,7 +138,7 @@ function Actions() {
   const { data: systemWorkflowsData, isLoading: systemWorkflowsIsLoading, error: SystemWorkflowsError } = useQuery({
     queryKey: systemUrl,
     queryFn: resolver.query(systemUrl),
-    config: { enabled: isSystemWorkflowsEnabled },
+    enabled: isSystemWorkflowsEnabled,
   });
 
   const { data: userWorkflowsData, isLoading: userWorkflowsIsLoading, isError: userWorkflowsIsError } = useQuery({

@@ -1,5 +1,4 @@
 import React from "react";
-import { queryCaches } from "react-query";
 import { Route } from "react-router-dom";
 import TaskTemplateOverview from "./index";
 import { startApiServer } from "ApiServer";
@@ -14,7 +13,6 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 const props = {

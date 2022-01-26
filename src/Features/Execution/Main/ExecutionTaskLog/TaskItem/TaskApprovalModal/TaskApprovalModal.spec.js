@@ -1,11 +1,6 @@
 import React from "react";
 import TaskApprovalModal from "./index";
 import { fireEvent } from "@testing-library/react";
-import { queryCaches } from "react-query";
-
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
 
 const props = {
   approvalId: "1",

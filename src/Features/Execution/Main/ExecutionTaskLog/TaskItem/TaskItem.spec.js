@@ -1,10 +1,5 @@
 import React from "react";
 import TaskItem from "./index";
-import { queryCaches } from "react-query";
-
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
 
 const props = {
   flowActivityId: "1",

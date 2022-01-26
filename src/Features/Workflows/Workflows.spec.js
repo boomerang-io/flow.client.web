@@ -2,7 +2,6 @@ import React from "react";
 import { Route } from "react-router-dom";
 import WorkflowsHome from "./index";
 import { startApiServer } from "ApiServer";
-import { queryCaches } from "react-query";
 import { teams, profile } from "ApiServer/fixtures";
 import { AppPath, appLink } from "Config/appConfig";
 import { AppContextProvider } from "State/context";
@@ -37,7 +36,6 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("WorkflowsHome --- Snapshot", () => {

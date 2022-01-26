@@ -1,5 +1,5 @@
 import React from "react";
-import { queryCache, useMutation } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 // import moment from "moment";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -32,8 +32,9 @@ type Props = {
 
 function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
   const cancelRequestRef = React.useRef<any>();
+  const queryClient = useQueryClient();
 
-  const [approvalMutator, { isLoading: approvalsIsLoading, error: approvalsError }] = useMutation(
+  const { mutateAsync: approvalMutator, isLoading: approvalsIsLoading, error: approvalsError } = useMutation(
     (args: { body: { id: string; approved: boolean; comments: string } }) => {
       const { promise, cancel } = resolver.putWorkflowAction(args);
       if (cancelRequestRef?.current) {
@@ -43,7 +44,7 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
     },
     {
       onSuccess: () => {
-        queryCache.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId }));
+        queryClient.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId }));
       },
     }
   );

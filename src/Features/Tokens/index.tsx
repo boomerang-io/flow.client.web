@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, useQuery, queryCache } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Helmet } from "react-helmet";
 import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -9,13 +9,15 @@ import styles from "./tokens.module.scss";
 const getGlobalTokensUrl = serviceUrl.getGlobalTokens();
 
 function GlobalTokensContainer() {
+  const queryClient = useQueryClient();
+
   const { data: tokensData, error: tokensError, isLoading: tokensIsLoading } = useQuery({
     queryKey: getGlobalTokensUrl,
     queryFn: resolver.query(getGlobalTokensUrl),
   });
 
-  const [deleteTokenMutator] = useMutation(resolver.deleteToken, {
-    onSuccess: () => queryCache.invalidateQueries([getGlobalTokensUrl]),
+  const { mutateAsync: deleteTokenMutator } = useMutation(resolver.deleteToken, {
+    onSuccess: () => queryClient.invalidateQueries([getGlobalTokensUrl]),
   });
 
   const deleteToken = async (tokenId: string) => {

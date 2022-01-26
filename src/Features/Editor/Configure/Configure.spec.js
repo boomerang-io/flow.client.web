@@ -1,6 +1,5 @@
 import React from "react";
 import Configure from "./index";
-import { queryCaches } from "react-query";
 import { teams, profile, summaries } from "ApiServer/fixtures";
 import { AppContextProvider } from "State/context";
 import { startApiServer } from "ApiServer";
@@ -25,8 +24,6 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("Inputs --- RTL", () => {

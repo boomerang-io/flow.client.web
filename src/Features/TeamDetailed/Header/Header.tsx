@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -29,10 +29,11 @@ interface TeamDetailedHeaderProps {
 }
 
 function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetailedHeaderProps) {
+  const queryClient = useQueryClient();
   const location = useLocation();
 
-  const [removeTeamMutator] = useMutation(resolver.putUpdateTeam, {
-    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id })),
+  const { mutateAsync: removeTeamMutator } = useMutation(resolver.putUpdateTeam, {
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id })),
   });
 
   const removeTeam = async () => {

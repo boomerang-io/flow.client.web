@@ -3,7 +3,6 @@ import WorkflowExecutionContainer from "./index";
 import { startApiServer } from "ApiServer";
 import { db } from "ApiServer/fixtures";
 import { Route } from "react-router-dom";
-import { queryCaches } from "react-query";
 import { waitFor } from "@testing-library/react";
 
 import { AppPath, appLink } from "Config/appConfig.js";
@@ -22,7 +21,6 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("Execution --- Snapshot", () => {

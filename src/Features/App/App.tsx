@@ -92,25 +92,19 @@ export default function App() {
   const navigationQuery = useQuery<PlatformConfig, string>({
     queryKey: getPlatformConfigUrl,
     queryFn: resolver.query(getPlatformConfigUrl),
-    config: {
-      enabled: Boolean(userQuery.data?.id),
-    },
+    enabled: Boolean(userQuery.data?.id),
   });
 
   const flowNavigationQuery = useQuery<Array<FlowNavigationItem>, string>({
     queryKey: getFlowNavigationUrl,
     queryFn: resolver.query(getFlowNavigationUrl),
-    config: {
-      enabled: Boolean(userQuery.data?.id),
-    },
+    enabled: Boolean(userQuery.data?.id),
   });
 
   const teamsQuery = useQuery<Array<FlowTeam>, string>({
     queryKey: getTeamsUrl,
     queryFn: resolver.query(getTeamsUrl),
-    config: {
-      enabled: Boolean(userQuery.data?.id),
-    },
+    enabled: Boolean(userQuery.data?.id),
   });
 
   const isLoading =

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useFeature } from "flagged";
 import { useQuery } from "Hooks";
-import { queryCache } from "react-query";
+import { useQueryClient } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect, useParams } from "react-router-dom";
 import { Box } from "reflexbox";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -22,6 +22,7 @@ const TaskTemplatesContainer: React.FC = () => {
   const params: { teamId: string } = useParams();
   const [activeTeam, setActiveTeam] = useState(params?.teamId ?? null);
   const match = useRouteMatch();
+  const queryClient = useQueryClient();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
     query: queryString.stringify({ teamId: params?.teamId, scope: "team" }),
   });
@@ -33,7 +34,7 @@ const TaskTemplatesContainer: React.FC = () => {
   const addTemplateInState = (newTemplate: TaskModel) => {
     const updatedTemplatesData = [...taskTemplatesData];
     updatedTemplatesData.push(newTemplate);
-    queryCache.setQueryData(getTaskTemplatesUrl, orderBy(updatedTemplatesData, "name", "asc"));
+    queryClient.setQueryData(getTaskTemplatesUrl, orderBy(updatedTemplatesData, "name", "asc"));
   };
   const updateTemplateInState = (updatedTemplate: TaskModel) => {
     const updatedTemplatesData = [...taskTemplatesData];
@@ -41,7 +42,7 @@ const TaskTemplatesContainer: React.FC = () => {
     // If we found it
     if (templateToUpdateIndex !== -1) {
       updatedTemplatesData.splice(templateToUpdateIndex, 1, updatedTemplate);
-      queryCache.setQueryData(getTaskTemplatesUrl, updatedTemplatesData);
+      queryClient.setQueryData(getTaskTemplatesUrl, updatedTemplatesData);
     }
   };
 

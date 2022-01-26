@@ -1,7 +1,6 @@
 import React from "react";
 import { fireEvent } from "@testing-library/react";
 import ExecutionTaskLog from "./index";
-import { queryCaches } from "react-query";
 
 const props = {
   workflowExecution: {
@@ -75,10 +74,6 @@ const props = {
     },
   },
 };
-
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
 
 describe("ExecutionTaskLog --- Snapshot", () => {
   it("Capturing Snapshot of ExecutionTaskLog", () => {

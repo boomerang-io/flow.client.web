@@ -3,7 +3,7 @@ import queryString from "query-string";
 import { notify, ToastNotification, ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import ImportWorkflowContent from "./ImportWorkflowContent";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { WorkflowExport } from "Types";
 import styles from "./updateWorkflow.module.scss";
 
@@ -16,8 +16,10 @@ interface UpdateWorkflowProps {
 }
 
 const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onCloseModal, scope, type }) => {
-  const [importWorkflowMutator, { isLoading: isPosting }] = useMutation(resolver.postImportWorkflow, {
-    onSuccess: async () => queryCache.invalidateQueries(serviceUrl.getTeams()),
+  const queryClient = useQueryClient();
+  
+  const { mutateAsync: importWorkflowMutator, isLoading: isPosting } = useMutation(resolver.postImportWorkflow, {
+    onSuccess: async () => queryClient.invalidateQueries(serviceUrl.getTeams()),
   });
   const handleImportWorkflow = async (data: WorkflowExport, closeModal: () => void) => {
     let query;

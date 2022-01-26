@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { waitFor } from "@testing-library/react";
 import CreateServiceTokenButton from "./index";
 
-let server;
+let server:any;
 
 beforeEach(() => {
   document.body.setAttribute("id", "app");
@@ -17,7 +17,7 @@ afterEach(() => {
 
 describe("CreateServiceTokenButton --- Snapshot", () => {
   it("Capturing Snapshot of CreateServiceTokenButton", async () => {
-    const { baseElement, findByText } = rtlRender(<CreateServiceTokenButton />);
+    const { baseElement, findByText } = global.rtlRender(<CreateServiceTokenButton />);
     await findByText(/Create Token/i);
     expect(baseElement).toMatchSnapshot();
   });
@@ -25,7 +25,7 @@ describe("CreateServiceTokenButton --- Snapshot", () => {
 
 describe("CreateServiceTokenButton --- RTL", () => {
   it("Open token creation modal", async () => {
-    const { getByTestId, getByText, queryByText } = rtlRender(
+    const { getByTestId, getByText, queryByText } = global.rtlRender(
       <CreateServiceTokenButton />
     );
     const button = getByTestId(/create-token-button/i);
@@ -35,7 +35,7 @@ describe("CreateServiceTokenButton --- RTL", () => {
   });
 
   it("Fill out form", async () => {
-    const { findByText, getByTestId, getByText, queryByText } = rtlRender(
+    const { findByText, getByTestId, getByText, queryByText } = global.rtlRender(
       <CreateServiceTokenButton />
     );
     const button = getByTestId(/create-token-button/i);

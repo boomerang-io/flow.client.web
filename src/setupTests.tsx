@@ -1,18 +1,29 @@
+//@ts-nocheck
 import React from "react";
 import { Router } from "react-router-dom";
 import { FlagsProvider } from "flagged";
 import { createMemoryHistory } from "history";
 import { render as rtlRender } from "@testing-library/react";
-import { ReactQueryConfigProvider, setConsole } from "react-query";
+import { QueryClient, QueryClientProvider, setLogger } from "react-query";
 import { AppContextProvider } from "State/context";
 import { featureFlags as featureFlagsFixture, teams as teamsFixture, profile as userFixture } from "ApiServer/fixtures";
 import "@testing-library/jest-dom/extend-expect";
 
-setConsole({
+setLogger({
   log: () => {},
   warn: () => {},
   error: () => {},
 });
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      rtlContextRouterRender: any;
+      rtlRouterRender: any;
+      rtlRender: any;
+    }
+  }
+}
 
 function rtlRouterRender(
   ui,
@@ -51,17 +62,25 @@ function rtlContextRouterRender(
     contextValue = {},
     initialState = {},
     route = "/",
+    queryConfig = {},
     history = createMemoryHistory({ initialEntries: [route] }),
     ...options
   } = {}
 ) {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { retry: 0 },
+      mutations: { throwOnError: true },
+      ...queryConfig,
+    },
+  }); 
   return {
     ...rtlRender(
       <FlagsProvider features={defaultFeatures}>
         <AppContextProvider value={{ ...defaultContextValue, ...contextValue }}>
-          <ReactQueryConfigProvider config={{ queries: { retry: 0 }, mutations: { throwOnError: true } }}>
+          <QueryClientProvider client={queryClient}>
             <Router history={history}>{ui}</Router>
-          </ReactQueryConfigProvider>
+          </QueryClientProvider>
         </AppContextProvider>
       </FlagsProvider>,
       options
@@ -103,11 +122,17 @@ const localStorageMock = {
   getItem: jest.fn(),
   setItem: jest.fn(),
   clear: jest.fn(),
+  length: 0,
+  key: jest.fn(),
+  removeItem: jest.fn(),
 };
 const sessionStorageMock = {
   getItem: jest.fn(),
   setItem: jest.fn(),
   clear: jest.fn(),
+  length: 0,
+  key: jest.fn(),
+  removeItem: jest.fn(),
 };
 global.localStorage = localStorageMock;
 global.sessionStorage = sessionStorageMock;

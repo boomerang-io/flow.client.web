@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAxios from "axios-hooks";
 import queryString from "query-string";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import {
   Button,
   Error,
@@ -37,11 +37,12 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
   const [selectedUsers, setSelectedUsers] = useState<FlowUser[]>([]);
   const [usersListOpen, setUsersListOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const queryClient = useQueryClient();
 
-  const [addMemberMutator, { isLoading: addMemberisLoading, error: addMemberError }] = useMutation(
+  const { mutateAsync: addMemberMutator, isLoading: addMemberisLoading, error: addMemberError } = useMutation(
     resolver.patchManageTeamUser,
     {
-      onSuccess: () => queryCache.invalidateQueries(serviceUrl.getManageTeam({ teamId })),
+      onSuccess: () => queryClient.invalidateQueries(serviceUrl.getManageTeam({ teamId })),
     }
   );
 

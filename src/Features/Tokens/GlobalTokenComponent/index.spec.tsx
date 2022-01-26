@@ -1,13 +1,19 @@
 import React from "react";
-import { act } from "react-dom/test-utils";
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { tokens } from "ApiServer/fixtures";
 import TokenComponent from "./index";
 
+const props = {
+  deleteToken: jest.fn(),
+  tokens: tokens,
+  hasError: false,
+  isLoading: false,
+};
+
 describe("TokenComponent --- Snapshot", () => {
   it("Capturing Snapshot of TokenComponent", () => {
-    const { baseElement } = rtlContextRouterRender(
-      <TokenComponent deleteToken={jest.fn()} tokens={tokens} />
+    const { baseElement } = global.rtlContextRouterRender(
+      <TokenComponent {...props} />
     );
     expect(baseElement).toMatchSnapshot();
   });
@@ -15,19 +21,20 @@ describe("TokenComponent --- Snapshot", () => {
 
 describe("TokenComponent --- RTL", () => {
   it("Displays created tokens", async () => {
-    const { queryAllByText } = rtlContextRouterRender(
-      <TokenComponent deleteToken={jest.fn()} tokens={tokens} />
+    global.rtlContextRouterRender(
+      <TokenComponent {...props} />
     );
-    expect(queryAllByText(/Test User/i).length).toBeGreaterThan(0);
+    expect(screen.queryAllByText(/Test User/i).length).toBeGreaterThan(0);
   });
 
   it("Open Create Modal", async () => {
-    const { getByText, queryByText, findByTestId } = rtlContextRouterRender(
-      <TokenComponent deleteToken={jest.fn()} tokens={tokens} />
+    global.rtlContextRouterRender(
+      <TokenComponent {...props} />
     );
-    const button = await findByTestId(/create-token-button/i);
-    expect(queryByText(/Create Global Token/i)).not.toBeInTheDocument();
-    await act(async () => fireEvent.click(button));
-    expect(getByText(/Create Global Token/i)).toBeInTheDocument();
+    const button = await screen.findByTestId(/create-token-button/i);
+    expect(screen.queryByText(/Create Global Token/i)).not.toBeInTheDocument();
+    // await waitFor(() => fireEvent.click(button));
+    fireEvent.click(button);
+    expect(screen.getByText(/Create Global Token/i)).toBeInTheDocument();
   });
 });

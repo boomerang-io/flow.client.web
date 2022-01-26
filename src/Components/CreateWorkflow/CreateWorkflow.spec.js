@@ -1,13 +1,8 @@
 import React from "react";
 import CreateWorkflow from ".";
 import { fireEvent } from "@testing-library/react";
-import { queryCaches } from "react-query";
 import { teams, profile } from "ApiServer/fixtures";
 import { AppContextProvider } from "State/context";
-
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
 
 const props = {
   team: teams[0],

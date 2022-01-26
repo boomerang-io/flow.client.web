@@ -1,7 +1,6 @@
 import React from "react";
 import Inputs from ".";
 import { fireEvent, waitFor } from "@testing-library/react";
-import { queryCaches } from "react-query";
 
 const initialState = {};
 
@@ -24,10 +23,6 @@ const props = {
 
 beforeEach(() => {
   document.body.setAttribute("id", "app");
-});
-
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("Inputs --- Snapshot Test", () => {

@@ -1,7 +1,6 @@
 import React from "react";
 import ImportWorkflow from ".";
 import { fireEvent } from "@testing-library/react";
-import { queryCaches } from "react-query";
 
 const mockfn = jest.fn();
 
@@ -13,10 +12,6 @@ const props = {
 
 beforeEach(() => {
   document.body.setAttribute("id", "app");
-});
-
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("ImportWorkflow --- Snapshot Test", () => {
