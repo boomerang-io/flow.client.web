@@ -118,7 +118,7 @@ describe("TokenComponent --- RTL", () => {
     );
     const teamsInput = await screen.findByTestId("team-tokens-combobox");
     userEvent.click(teamsInput);
-    userEvent.click(await screen.findByText(/essentials/i));
+    userEvent.click(await screen.findByText(/engineering/i));
 
     const button = await screen.findByTestId("create-token-button");
     expect(screen.queryByText(/Create Team Token/i)).not.toBeInTheDocument();

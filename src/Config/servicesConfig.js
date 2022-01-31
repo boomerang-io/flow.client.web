@@ -2,13 +2,20 @@ import portForwardMap from "../setupPortForwarding";
 import axios, { CancelToken } from "axios";
 import { HttpMethod } from "Constants";
 
-export const CORE_SERVICE_ENV_URL =
-  process.env.NODE_ENV === "production" ? window._SERVER_DATA && window._SERVER_DATA.CORE_SERVICE_ENV_URL : "/api";
+// Set defaults, change them if Cypress is NOT defined
+export let CORE_SERVICE_ENV_URL = "/api";
+let REACT_APP_PORT_FORWARD;
+
+if (typeof Cypress === "undefined") {
+  if (process.env.NODE_ENV === "production" && window._SERVER_DATA) {
+    CORE_SERVICE_ENV_URL = window._SERVER_DATA.CORE_SERVICE_ENV_URL;
+  }
+
+  REACT_APP_PORT_FORWARD = process.env.REACT_APP_PORT_FORWARD;
+}
 
 export const PRODUCT_SERVICE_ENV_URL =
   process.env.NODE_ENV === "production" ? window._SERVER_DATA && window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL : "/api";
-
-const REACT_APP_PORT_FORWARD = process.env.REACT_APP_PORT_FORWARD;
 
 /**
  * if port forwarding is enabled, then check to see if service is in config map

@@ -10,14 +10,14 @@ const props = {
 
 describe("TaskApprovalModal --- Snapshot", () => {
   it("Capturing Snapshot of TaskApprovalModal", () => {
-    const { baseElement } = rtlRender(<TaskApprovalModal {...props} />);
+    const { baseElement } = global.rtlQueryRender(<TaskApprovalModal {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
 
 describe("TaskApprovalModal --- RTL", () => {
   it("Formik form submission state", async () => {
-    const { getByText } = rtlRender(<TaskApprovalModal {...props} />);
+    const { getByText } = global.rtlQueryRender(<TaskApprovalModal {...props} />);
 
     const submissionButton = getByText("Submit decisions");
     expect(submissionButton).toBeDisabled();

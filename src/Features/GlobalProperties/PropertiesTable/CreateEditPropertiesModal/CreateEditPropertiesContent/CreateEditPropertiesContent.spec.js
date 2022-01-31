@@ -14,7 +14,7 @@ const props = {
 
 describe("CreateEditPropertiesContent --- Snapshot Test", () => {
   it("Capturing Snapshot of CreateEditPropertiesContent", () => {
-    const { baseElement } = rtlRender(<CreateEditPropertiesContent {...props} />);
+    const { baseElement } = global.rtlQueryRender(<CreateEditPropertiesContent {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });

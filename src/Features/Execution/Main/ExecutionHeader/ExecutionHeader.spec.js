@@ -23,7 +23,7 @@ const props = {
 
 describe("ExecutionHeader --- Snapshot", () => {
   it("Capturing Snapshot of ExecutionHeader", () => {
-    const { baseElement } = rtlRouterRender(
+    const { baseElement } = global.rtlContextRouterRender(
       <AppContextProvider
         value={{
           isTutorialActive: false,

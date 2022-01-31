@@ -25,7 +25,7 @@ afterEach(() => {
 
 describe("Execution --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowExecutionContainer", async () => {
-    const { baseElement, getByText } = rtlRouterRender(
+    const { baseElement, getByText } = rtlContextRouterRender(
       <AppContextProvider
         value={{
           isTutorialActive: false,

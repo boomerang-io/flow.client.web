@@ -21,8 +21,25 @@ declare global {
       rtlContextRouterRender: any;
       rtlRouterRender: any;
       rtlRender: any;
+      rtlQueryRender: any;
     }
   }
+}
+
+function rtlQueryRender(
+  ui,
+  { queryConfig = {}} = {}
+) {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { retry: 0 },
+      mutations: { throwOnError: true },
+      ...queryConfig,
+    },
+  });
+  return {
+    ...rtlRender(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>),
+  };
 }
 
 function rtlRouterRender(
@@ -117,6 +134,7 @@ console.warn = (message, ...rest) => {
 global.rtlRender = rtlRender;
 global.rtlRouterRender = rtlRouterRender;
 global.rtlContextRouterRender = rtlContextRouterRender;
+global.rtlQueryRender = rtlQueryRender;
 
 const localStorageMock = {
   getItem: jest.fn(),

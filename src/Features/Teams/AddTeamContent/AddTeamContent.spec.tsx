@@ -11,7 +11,7 @@ const props = {
 
 describe("AddTeamContent --- Snapshot Test", () => {
   it("Capturing Snapshot of AddTeamContent", async () => {
-    const { baseElement } = global.rtlRender(<AddTeamContent {...props} />);
+    const { baseElement } = global.rtlQueryRender(<AddTeamContent {...props} />);
     expect(baseElement).toMatchSnapshot();
     await waitFor(() => {});
   });

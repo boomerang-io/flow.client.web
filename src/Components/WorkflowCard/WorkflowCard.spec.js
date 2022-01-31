@@ -22,7 +22,7 @@ afterEach(() => {
 
 describe("WorkflowCard --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowCard", () => {
-    const { baseElement } = rtlRouterRender(
+    const { baseElement } = rtlContextRouterRender(
       <AppContextProvider
         value={{
           isTutorialActive: false,

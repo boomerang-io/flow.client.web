@@ -94,7 +94,7 @@ afterEach(() => {
 
 describe("CreateServiceTokenButton --- Snapshot", () => {
   it("Capturing Snapshot of CreateServiceTokenButton", async () => {
-    const { baseElement } = global.rtlRender(<CreateServiceTokenButton activeTeam={activeTeam} />);
+    const { baseElement } = global.rtlQueryRender(<CreateServiceTokenButton activeTeam={activeTeam} />);
     await screen.findByText(/Create Token/i);
     expect(baseElement).toMatchSnapshot();
   });
@@ -102,7 +102,7 @@ describe("CreateServiceTokenButton --- Snapshot", () => {
 
 describe("CreateServiceTokenButton --- RTL", () => {
   it("Open token creation modal", async () => {
-    global.rtlRender(
+    global.rtlQueryRender(
       <CreateServiceTokenButton activeTeam={activeTeam} />
     );
     const button = screen.getByTestId(/create-token-button/i);
@@ -112,7 +112,7 @@ describe("CreateServiceTokenButton --- RTL", () => {
   });
 
   it("Fill out form", async () => {
-    global.rtlRender(
+    global.rtlQueryRender(
       <CreateServiceTokenButton activeTeam={activeTeam} />
     );
     const button = screen.getByTestId(/create-token-button/i);

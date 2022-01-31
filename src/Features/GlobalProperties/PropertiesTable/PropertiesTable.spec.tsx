@@ -5,7 +5,7 @@ import config from "ApiServer/fixtures/config.js";
 
 describe("PropertiesTable --- Snapshot Test", () => {
   it("Capturing Snapshot of PropertiesTable", () => {
-    const { baseElement } = global.rtlRender(<PropertiesTable properties={config} />);
+    const { baseElement } = global.rtlQueryRender(<PropertiesTable properties={config} />);
     expect(baseElement).toMatchSnapshot();
   });
 });

@@ -18,7 +18,7 @@ const props = {
 
 describe("WorkflowsHeader --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowsHeader", () => {
-    const { baseElement } = rtlRouterRender(<WorkflowsHeader {...props} />);
+    const { baseElement } = rtlContextRouterRender(<WorkflowsHeader {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
