@@ -29,7 +29,7 @@
   "dependencies": {
     "@boomerang-io/carbon-addons-boomerang-react": "1.4.0-beta.7",
     "@boomerang-io/styles": "1.0.0",
-    "@boomerang-io/utils": "0.0.6",
+    "@boomerang-io/utils": "1.0.1",
     "@carbon/charts": "^0.16.24",
     "@carbon/charts-react": "^0.16.24",
     "@carbon/icons-react": "^10.12.0",
