@@ -111,12 +111,6 @@ const toggleProps = ({ input, formikProps }) => {
 export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfig, onSave, task }) {
   const currentTaskTemplateVersion = task.revisions.find((revision) => revision.version === nodeConfig.taskVersion);
   const newTaskTemplateVersion = task.revisions[task.revisions.length - 1];
-  console.log({
-    currentTaskTemplateVersion,
-    newTaskTemplateVersion,
-    nodeConfigVersion: nodeConfig.taskVersion,
-    revisions: task.revisions,
-  });
 
   // Handle edge case of not finding the versions for some reason
   if (!currentTaskTemplateVersion?.config || !newTaskTemplateVersion?.config) {
@@ -143,7 +137,7 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
     closeModal();
   };
   const formatInitialValues = {};
-  newTaskTemplateVersion.config.forEach(input => {
+  newTaskTemplateVersion.config.forEach((input) => {
     const initialValue = nodeConfig.inputs[input.key];
     formatInitialValues[input.key] = Boolean(initialValue) ? initialValue : input.defaultValue;
   });

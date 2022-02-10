@@ -31,7 +31,10 @@ interface ActionsTableProps {
   location: any;
   match: any;
   isSystemWorkflowsEnabled: boolean;
-  tableData: any;
+  tableData: {
+    pageable: { number: number; size: number; sort: [{ property: string; direction: string }]; totalElements: number };
+    records: any;
+  };
   updateHistorySearch: Function;
 }
 

@@ -1,3 +1,7 @@
+.container > * + * {
+  margin-top: 1rem;
+}
+
 .cronMessage {
   font-size: 0.75rem;
   margin-top: 0.125rem;
@@ -11,6 +15,7 @@
 
 .timezone {
   position: relative;
+  width: 23.5rem;
 }
 
 .cronContainer {
@@ -57,4 +62,8 @@
   font-weight: 400;
   letter-spacing: 0.32px;
   line-height: 1rem;
+}
+
+:global .bx--bmrg-creatable__colon {
+  margin-top: 2.215rem !important;
 }

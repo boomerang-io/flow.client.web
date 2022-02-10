@@ -28,7 +28,6 @@ const SwitchLinkExecution = React.memo(function SwitchLinkExecution({ diagramEng
     targetStep?.flowTaskStatus &&
     targetStep?.flowTaskStatus !== ExecutionStatus.NotStarted &&
     targetStep?.flowTaskStatus !== ExecutionStatus.Skipped;
-  console.log({ targetTaskHasStarted });
   const sourceTaskHasFinishedAndIsEndOfWorkflow =
     (sourceStep?.flowTaskStatus === ExecutionStatus.Completed ||
       sourceStep?.flowTaskStatus === ExecutionStatus.Failure) &&

@@ -14,6 +14,7 @@ import Header from "./Header";
 import Configure from "./Configure";
 import Designer from "./Designer";
 import Properties from "./Properties";
+import Schedule from "./Schedule";
 import sortBy from "lodash/sortBy";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
@@ -26,6 +27,7 @@ import SetStatusNodeModel from "Utils/dag/setStatusNode/setStatusNodeModel";
 import WaitNodeModel from "Utils/dag/waitNode/waitNodeModel";
 import AcquireLockNodeModel from "Utils/dag/acquireLockNode/AcquireLockNodeModel";
 import ReleaseLockNodeModel from "Utils/dag/releaseLockNode/ReleaseLockNodeModel";
+import RunScheduledWorkflowNodeModel from "Utils/dag/runScheduledWorkflowNode/RunScheduledWorkflowNodeModel";
 import RunWorkflowNodeModel from "Utils/dag/runWorkflowNode/RunWorkflowNodeModel";
 import ScriptNodeModel from "Utils/dag/scriptNode/ScriptNodeModel";
 
@@ -67,7 +69,8 @@ export default function EditorContainer() {
     },
   });
   const [parametersMutation] = useMutation(resolver.postWorkflowAvailableParameters, {
-    onSuccess: (response) => queryCache.setQueryData(serviceUrl.workflowAvailableParameters({workflowId}), response.data),
+    onSuccess: (response) =>
+      queryCache.setQueryData(serviceUrl.workflowAvailableParameters({ workflowId }), response.data),
   });
 
   // Only show loading for the summary and task templates
@@ -113,9 +116,9 @@ interface EditorStateContainerProps {
     variables: { body: any },
     options?: MutateOptions<AxiosResponse<any>, { body: any }, Error> | undefined
   ) => Promise<any>;
-  parametersMutation:(
-    variables: { workflowId: any; body: any; }, 
-    options?: MutateOptions<AxiosResponse<any>, { workflowId: any; body: any; }, Error, unknown> | undefined 
+  parametersMutation: (
+    variables: { workflowId: any; body: any },
+    options?: MutateOptions<AxiosResponse<any>, { workflowId: any; body: any }, Error, unknown> | undefined
   ) => Promise<any>;
   revisionMutation: MutationResult<AxiosResponse<any>, Error>;
   revisionQuery: QueryResult<WorkflowRevision, Error>;
@@ -154,7 +157,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     initRevisionReducerState(revisionQuery.data)
   );
 
-  const [revisionConfig, setRevisionConfig] = useState<WorkflowRevision>({...revisionState});
+  const [revisionConfig, setRevisionConfig] = useState<WorkflowRevision>({ ...revisionState });
   // Reset the reducer state if there is new data
   useEffect(() => {
     if (revisionQuery.data) {
@@ -167,7 +170,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   //Triggers the POST request for refresh availableParameters
   useEffect(() => {
-    if(JSON.stringify(revisionConfig) !== JSON.stringify(revisionState)) {
+    if (JSON.stringify(revisionConfig) !== JSON.stringify(revisionState)) {
       const normilzedConfig = Object.values(revisionState.config).map((config: any) => ({
         ...config,
         currentVersion: undefined,
@@ -180,7 +183,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         dag: revisionState.dag,
       };
       setRevisionConfig(revisionState);
-      parametersMutation({workflowId, body: revision})
+      parametersMutation({ workflowId, body: revision });
     }
   }, [parametersMutation, workflowId, revisionState, revisionConfig]);
 
@@ -330,6 +333,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         case NodeType.Releaselock:
           node = new ReleaseLockNodeModel(nodeObj);
           break;
+        case NodeType.RunScheduledWorkflow:
+          node = new RunScheduledWorkflowNodeModel(nodeObj);
+          break;
         case NodeType.RunWorkflow:
           node = new RunWorkflowNodeModel(nodeObj);
           break;
@@ -444,6 +450,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             </Route>
             <Route path={AppPath.EditorProperties}>
               <Properties summaryData={summaryData} />
+            </Route>
+            <Route path={AppPath.EditorSchedule}>
+              <Schedule summaryData={summaryData} />
             </Route>
             <Route path={AppPath.EditorChangelog}>
               <ChangeLog summaryData={summaryData} />
