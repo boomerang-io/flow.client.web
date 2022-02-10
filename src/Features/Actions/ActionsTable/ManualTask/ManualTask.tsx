@@ -12,15 +12,17 @@ import {
   notify,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import EmptyGraphic from "Components/EmptyState/EmptyGraphic";
 import { ApprovalStatus } from "Constants";
 import { resolver } from "Config/servicesConfig";
+import { Action, ComposedModalChildProps, ModalTriggerProps } from "Types";
 import styles from "./ManualTask.module.scss";
 import "Styles/markdown.css";
 
 type ManualTaskProps = {
-  action: any;
-  handleCloseModal?: (args?: any) => any;
-  modalTrigger: (args: any) => any;
+  action: Action;
+  handleCloseModal?: () => void;
+  modalTrigger: (args: ModalTriggerProps) => React.ReactNode;
   queryToRefetch: string;
 };
 
@@ -30,29 +32,26 @@ function ManualTask({ action, handleCloseModal, modalTrigger, queryToRefetch }: 
   return (
     <ComposedModal
       modalTrigger={modalTrigger}
-      composedModalProps={{ containerClassName: styles.actionManualTaskModalContainer, shouldCloseOnOverlayClick: true }}
+      composedModalProps={{
+        containerClassName: styles.actionManualTaskModalContainer,
+        shouldCloseOnOverlayClick: true,
+      }}
       modalHeaderProps={{ title: "Action Manual Task", subtitle: action?.taskName }}
       onCloseModal={() => {
         if (cancelRequestRef.current) cancelRequestRef.current();
         handleCloseModal && handleCloseModal();
       }}
     >
-      {(props: any) => (
-        <Form
-          action={action}
-          cancelRequestRef={cancelRequestRef}
-          queryToRefetch={queryToRefetch}
-          {...props}
-        />
+      {(props: ComposedModalChildProps) => (
+        <Form action={action} cancelRequestRef={cancelRequestRef} queryToRefetch={queryToRefetch} {...props} />
       )}
     </ComposedModal>
   );
-
 }
 
 type FormProps = {
-  action: any;
-  cancelRequestRef: any;
+  action: Action;
+  cancelRequestRef: React.MutableRefObject<any>;
   closeModal: () => void;
   queryToRefetch: string;
 };
@@ -75,10 +74,10 @@ function Form({ action, cancelRequestRef, closeModal, queryToRefetch }: FormProp
     }
   );
 
-  const handleSubmit = async (approvalValue: boolean) => {
+  const handleSubmit = async (isApproved: boolean) => {
     const body = {
       id,
-      approved: approvalValue,
+      approved: isApproved,
     };
     try {
       await approvalMutator({ body });
@@ -86,7 +85,7 @@ function Form({ action, cancelRequestRef, closeModal, queryToRefetch }: FormProp
         <ToastNotification
           kind="success"
           title="Manual Task"
-          subtitle={"Successfully submitted manual task completion request"}
+          subtitle="Successfully submitted manual task completion request"
         />
       );
       closeModal();
@@ -99,15 +98,18 @@ function Form({ action, cancelRequestRef, closeModal, queryToRefetch }: FormProp
     return (
       <ModalForm>
         <ModalBody>
-          <InlineNotification
-            style={{ marginBottom: "0.5rem" }}
-            lowContrast
-            kind="info"
-            title={`Manual task already ${status}.`}
-          />
+          <p>
+            Manual task was previously <strong>{status}</strong>. There's nothing to do here.
+          </p>
+          <EmptyGraphic style={{ width: "28rem" }} />
         </ModalBody>
+        <ModalFooter>
+          <Button kind="secondary" type="button" onClick={closeModal}>
+            Close
+          </Button>
+        </ModalFooter>
       </ModalForm>
-    )
+    );
   }
 
   return (
@@ -117,11 +119,11 @@ function Form({ action, cancelRequestRef, closeModal, queryToRefetch }: FormProp
         {instructions ? <ReactMarkdown className="markdown-body" source={instructions} /> : <p>No instructions.</p>}
         {Boolean(approvalsError) && (
           <InlineNotification
-            style={{ marginBottom: "0.5rem" }}
             lowContrast
             kind="error"
-            title={"Action Manual Task Failed"}
-            subtitle={"Something's Wrong"}
+            title="Something's Wrong"
+            subtitle="Failed to action manual task"
+            style={{ marginBottom: "0.5rem" }}
           />
         )}
       </ModalBody>
