@@ -5,14 +5,14 @@ const manualTasks = {
     sort: [
       {
         property: "creationDate",
-        direction: "ASC"
-      }
+        direction: "ASC",
+      },
     ],
     totalElements: 3,
     first: true,
     last: true,
     totalPages: 1,
-    numberOfElements: 3
+    numberOfElements: 3,
   },
   records: [
     {
@@ -28,7 +28,7 @@ const manualTasks = {
       taskName: "Manual 1",
       workflowName: "Test Action 1",
       teamName: null,
-      instructions: null
+      instructions: "# Do it\n - try this",
     },
     {
       id: "61300607db7b5f610be734asd",
@@ -43,7 +43,7 @@ const manualTasks = {
       taskName: "Manual 2",
       workflowName: "Test Action 2",
       teamName: null,
-      instructions: null
+      instructions: null,
     },
     {
       id: "61300607db7b5f610be734245",
@@ -58,9 +58,9 @@ const manualTasks = {
       taskName: "Manual 3",
       workflowName: "Test Action 3",
       teamName: null,
-      instructions: null
-    }
-  ]
+      instructions: null,
+    },
+  ],
 };
 
 export default manualTasks;
