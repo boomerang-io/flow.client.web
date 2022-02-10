@@ -6,7 +6,7 @@ export const APP_ROOT =
 export const CORE_ENV_URL =
   window._SERVER_DATA && window._SERVER_DATA.CORE_ENV_URL ? window._SERVER_DATA.CORE_ENV_URL : "";
 
-export const BASE_DOCUMENTATION_URL = "https://www.useboomerang.io/docs";
+export const BASE_DOCUMENTATION_URL = "https://www.useboomerang.io/docs/boomerang-flow";
 
 export const isDevEnv = process.env.NODE_ENV === "development";
 export const isTestEnv = process.env.NODE_ENV === "test";
