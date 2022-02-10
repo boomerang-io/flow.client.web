@@ -105,40 +105,61 @@ export const AppPath: Record<AppPathKey, string> = {
   UserList: "/admin/users",
 };
 
+interface WorkflowIdArg {
+  workflowId: string;
+}
+interface TeamIdArg {
+  teamId: string;
+}
+interface ManageTaskTemplateArgs {
+  teamId: string;
+  taskId: string;
+  version: string;
+}
+interface AdminTaskTemplateArgs {
+  id: string;
+  version: string;
+}
+interface ExecutionArgs {
+  executionId: string;
+  workflowId: string;
+}
+
 export const appLink: Record<string, (args?: any) => string> = {
   activity: () => `/activity`,
   actions: () => `/actions`,
   actionsApprovals: () => `/actions/approvals`,
   actionsManual: () => `/actions/manual`,
-  editorDesigner: ({ workflowId }) => `/editor/${workflowId}/workflow`,
-  editorConfigure: ({ workflowId }) => `/editor/${workflowId}/configure`,
-  editorChangelog: ({ workflowId }) => `/editor/${workflowId}/changelog`,
-  editorProperties: ({ workflowId }) => `/editor/${workflowId}/parameters`,
-  editorSchedule: ({ workflowId }) => `/editor/${workflowId}/schedule`,
-  execution: ({ executionId, workflowId }) => `/activity/${workflowId}/execution/${executionId}`,
+  editorDesigner: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/workflow`,
+  editorConfigure: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/configure`,
+  editorChangelog: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/changelog`,
+  editorProperties: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/parameters`,
+  editorSchedule: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/schedule`,
+  execution: ({ executionId, workflowId }: ExecutionArgs) => `/activity/${workflowId}/execution/${executionId}`,
   insights: () => "/insights",
-  manageTaskTemplates: ({ teamId }) => `/manage/task-templates/team/${teamId}`,
-  manageTaskTemplateEdit: ({ teamId, taskId, version }) => `/manage/task-templates/team/${teamId}/${taskId}/${version}`,
-  manageTaskTemplateYaml: ({ teamId, taskId, version }) =>
+  manageTaskTemplates: ({ teamId }: TeamIdArg) => `/manage/task-templates/team/${teamId}`,
+  manageTaskTemplateEdit: ({ teamId, taskId, version }: ManageTaskTemplateArgs) =>
+    `/manage/task-templates/team/${teamId}/${taskId}/${version}`,
+  manageTaskTemplateYaml: ({ teamId, taskId, version }: ManageTaskTemplateArgs) =>
     `/manage/task-templates/team/${teamId}/${taskId}/${version}/yaml-editor`,
   manageUsers: () => "/admin/users",
   properties: () => "/admin/parameters",
   quotas: () => "/admin/quotas",
-  quotasEdit: ({ teamId }) => `/admin/quotas/${teamId}`,
+  quotasEdit: ({ teamId }: TeamIdArg) => `/admin/quotas/${teamId}`,
   schedule: () => "/schedule",
   settings: () => "/admin/settings",
   systemWorkflows: () => "/admin/system-workflows",
   systemManagementWorkflows: () => "/admin/system-workflows/system",
   templateWorkflows: () => "/admin/system-workflows/templates",
   taskTemplates: () => "/admin/task-templates",
-  taskTemplateEdit: ({ id, version }) => `/admin/task-templates/${id}/${version}`,
-  taskTemplateYaml: ({ id, version }) => `/admin/task-templates/${id}/${version}/yaml-editor`,
+  taskTemplateEdit: ({ id, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${id}/${version}`,
+  taskTemplateYaml: ({ id, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${id}/${version}/yaml-editor`,
   teamApprovers: () => `/manage/approver-groups`,
   teamProperties: () => `/manage/team-parameters`,
   teamTaskTemplates: () => `/manage/task-templates`,
-  team: ({ teamId }) => `/admin/teams/${teamId}`,
-  teamWorkflows: ({ teamId }) => `/admin/teams/${teamId}/workflows`,
-  teamSettings: ({ teamId }) => `/admin/teams/${teamId}/settings`,
+  team: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}`,
+  teamWorkflows: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/workflows`,
+  teamSettings: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/settings`,
   teamList: () => "/admin/teams",
   teamTokens: () => `/manage/team-tokens`,
   tokens: () => `/admin/tokens`,
@@ -146,26 +167,26 @@ export const appLink: Record<string, (args?: any) => string> = {
   workflows: () => "/workflows",
   workflowsMine: () => "/workflows/mine",
   workflowsTeams: () => "/workflows/teams",
-  workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
+  workflowActivity: ({ workflowId }: WorkflowIdArg) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
   //external apps
   docsWorkflowEditor: () => `${BASE_DOCUMENTATION_URL}/how-to-guide/workflow-editor`,
 };
 
-export const queryStringOptions: StringifyOptions = { arrayFormat: "comma", skipEmptyString: true };
+/**
+ * new Feature Flags
+ */
+export enum FeatureFlag {
+  ActivityEnabled = "ActivityEnabled",
+  EditVerifiedTasksEnabled = "EditVerifiedTasksEnabled",
+  GlobalParametersEnabled = "GlobalParametersEnabled",
+  InsightsEnabled = "InsightsEnabled",
+  TeamManagementEnabled = "TeamManagementEnabled",
+  TeamParametersEnabled = "TeamParametersEnabled",
+  TeamTasksEnabled = "TeamTasksEnabled",
+  UserManagementEnabled = "UserManagementEnabled",
+  WorkflowQuotasEnabled = "WorkflowQuotasEnabled",
+  WorkflowTokensEnabled = "WorkflowTokensEnabled",
+  WorkflowTriggersEnabled = "WorkflowTriggersEnabled",
+}
 
-export const FeatureFlag: Record<string, string> = {
-  /**
-   * new Feature Flags
-   */
-  ActivityEnabled: "ActivityEnabled",
-  EditVerifiedTasksEnabled: "EditVerifiedTasksEnabled",
-  GlobalParametersEnabled: "GlobalParametersEnabled",
-  InsightsEnabled: "InsightsEnabled",
-  TeamManagementEnabled: "TeamManagementEnabled",
-  TeamParametersEnabled: "TeamParametersEnabled",
-  TeamTasksEnabled: "TeamTasksEnabled",
-  UserManagementEnabled: "UserManagementEnabled",
-  WorkflowQuotasEnabled: "WorkflowQuotasEnabled",
-  WorkflowTokensEnabled: "WorkflowTokensEnabled",
-  WorkflowTriggersEnabled: "WorkflowTriggersEnabled",
-};
+export const queryStringOptions: StringifyOptions = { arrayFormat: "comma", skipEmptyString: true };

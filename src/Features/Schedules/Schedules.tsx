@@ -63,8 +63,9 @@ function Schedule() {
     config: { enabled: isSystemWorkflowsEnabled },
   });
 
-  /** Get schedule and calendar data */
-
+  /**
+   * Get schedule and calendar data
+   */
   const { scopes, statuses = defaultStatusArray, workflowIds, teamIds } = queryString.parse(
     location.search,
     queryStringOptions

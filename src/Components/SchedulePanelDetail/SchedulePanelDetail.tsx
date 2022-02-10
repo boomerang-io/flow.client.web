@@ -110,7 +110,13 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
             </dl>
             <dl>
               <dt>Frequency </dt>
-              <dd>{schedule.type === "runOnce" ? "Run Once" : cronstrue.toString(schedule.cronSchedule)}</dd>
+              <dd>
+                {schedule.type === "runOnce"
+                  ? "Run Once"
+                  : schedule.cronSchedule
+                  ? cronstrue.toString(schedule.cronSchedule)
+                  : "---"}
+              </dd>
             </dl>
             <dl>
               <dt>Labels</dt>
@@ -121,7 +127,7 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
             <h2>Workflow Parameters</h2>
             <p style={{ marginBottom: "1rem" }}>Values for your workflow</p>
             <CodeSnippet light hideCopyButton type="multi">
-              {JSON.stringify(schedule?.parameters)}
+              {JSON.stringify(schedule?.parameters, null, 2)}
             </CodeSnippet>
           </section>
           <hr />

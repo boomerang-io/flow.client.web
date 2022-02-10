@@ -358,7 +358,7 @@ class CronJobConfig extends React.Component<Props, State> {
     super(props);
     this.state = {
       errorMessage: undefined,
-      message: props.formikProps.values.cronSchedule && cronstrue.toString(props.formikProps.values.cronSchedule),
+      message: props.formikProps.values?.cronSchedule && cronstrue.toString(props.formikProps.values.cronSchedule),
       isValidatingCron: false,
       hasValidated: true,
     };

@@ -105,7 +105,7 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
     <section className={styles.listContainer}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <h2>
-          {!props.schedulesQuery.isLoading ? `Existing Schedules (${schedules?.length ?? 0})` : "Loading Schedules"}
+          {!props.schedulesQuery.isLoading ? `Existing Schedules (${schedules?.length ?? 0})` : "Loading Schedules..."}
         </h2>
         <Button size="field" renderIcon={Add16} onClick={() => props.setIsCreatorOpen(true)} kind="ghost">
           Create a Schedule
@@ -293,7 +293,13 @@ function ScheduledListItem(props: ScheduledListItemProps) {
         <dl style={{ display: "flex" }}>
           <div>
             <dt>Frequency </dt>
-            <dd>{props.schedule.type === "runOnce" ? "Run Once" : cronstrue.toString(props.schedule.cronSchedule)}</dd>
+            <dd>
+              {props.schedule.type === "runOnce"
+                ? "Run Once"
+                : props.schedule?.cronSchedule
+                ? cronstrue.toString(props.schedule?.cronSchedule)
+                : "---"}
+            </dd>
           </div>
         </dl>
         <dl>

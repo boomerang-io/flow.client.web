@@ -94,7 +94,15 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
       );
 
-      this.get(serviceUrl.getWorkflowSchedules({ workflowId: ":workflowId" }), (schema, request) => {
+      this.get(serviceUrl.getSchedule({ query: null }), (schema) => {
+        return schema.db.workflowSchedules;
+      });
+
+      this.get(serviceUrl.getSchedules({ query: null }), (schema) => {
+        return schema.db.workflowSchedules;
+      });
+
+      this.get(serviceUrl.getWorkflowSchedules({ workflowId: ":workflowId" }), (schema) => {
         return schema.db.workflowSchedules;
       });
 
