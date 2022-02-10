@@ -4,26 +4,10 @@ import { StringifyOptions } from "query-string";
 export const APP_ROOT =
   window._SERVER_DATA && window._SERVER_DATA.APP_ROOT ? window._SERVER_DATA.APP_ROOT : "/BMRG_APP_ROOT_CONTEXT";
 
-export const PRODUCT_STANDALONE =
-  window._SERVER_DATA && window._SERVER_DATA.PRODUCT_STANDALONE
-    ? window._SERVER_DATA.PRODUCT_STANDALONE === "true"
-    : process.env.REACT_APP_PRODUCT_STANDALONE
-    ? true
-    : false;
-
-export const EMBEDDED_MODE =
-  window._SERVER_DATA && window._SERVER_DATA.EMBEDDED_MODE
-    ? window._SERVER_DATA.EMBEDDED_MODE === "true"
-    : process.env.REACT_APP_EMBEDDED_MODE
-    ? true
-    : true;
-
 export const CORE_ENV_URL =
   window._SERVER_DATA && window._SERVER_DATA.CORE_ENV_URL ? window._SERVER_DATA.CORE_ENV_URL : "";
 
-export const BASE_DOCUMENTATION_URL = PRODUCT_STANDALONE
-  ? "https://www.useboomerang.io/docs/boomerang-flow"
-  : `${CORE_ENV_URL}/docs/boomerang-flow`;
+export const BASE_DOCUMENTATION_URL = "https://www.useboomerang.io/docs";
 
 export const isDevEnv = process.env.NODE_ENV === "development";
 export const isTestEnv = process.env.NODE_ENV === "test";
