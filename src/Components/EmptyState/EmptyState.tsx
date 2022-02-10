@@ -2,7 +2,12 @@ import React from "react";
 import { ErrorPage } from "@boomerang-io/carbon-addons-boomerang-react";
 import EmptyGraphic from "./EmptyGraphic";
 
-const EmptyState: React.FC<any> = (props) => {
+interface EmptyStateProps {
+  message?: string;
+  title?: string;
+}
+
+const EmptyState: React.FC<any> = (props: EmptyStateProps) => {
   return (
     <ErrorPage
       graphic={<EmptyGraphic />}
