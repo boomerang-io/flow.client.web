@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import EditButton from "./EditButton";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
-import styles from "./WorkflowEditButton.module.scss";
+import styles from "./workflowEditButton.module.scss";
 
 WorkflowEditButton.propTypes = {
   alt: PropTypes.string,
@@ -15,7 +15,7 @@ export default function WorkflowEditButton({ alt = "Workflow edit button", class
   return (
     <EditButton
       alt={alt}
-      className={cx(styles.button, className)}
+      className={cx(styles.editButton, className)}
       onClick={onClick}
       onKeyDown={(e) => isAccessibleKeyboardEvent(e) && onClick(e)}
       role="button"

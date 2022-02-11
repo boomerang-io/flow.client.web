@@ -12,7 +12,7 @@ import {
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
-import styles from "./WorkflowTaskForm.module.scss";
+import styles from "./workflowTaskForm.module.scss";
 
 const AutoSuggestInput = (props) => {
   //number inputs doesn't support AutoSuggest setSelectionRange

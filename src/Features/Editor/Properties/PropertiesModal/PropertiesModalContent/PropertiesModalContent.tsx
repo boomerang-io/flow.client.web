@@ -16,7 +16,7 @@ import clonedeep from "lodash/cloneDeep";
 import { validateUrlWithProperties } from "Utils/urlPropertySyntaxHelper";
 import { InputProperty, InputType, InputTypeCopy, WorkflowPropertyUpdateType, PROPERTY_KEY_REGEX } from "Constants";
 import { DataDrivenInput, FormikSetFieldValue } from "Types";
-import styles from "./PropertiesModalContent.module.scss";
+import styles from "./propertiesModalContent.module.scss";
 
 const textInputItem = { label: InputTypeCopy[InputType.Text], value: InputType.Text };
 

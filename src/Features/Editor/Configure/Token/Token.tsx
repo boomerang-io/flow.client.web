@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import CopyToClipboard from "react-copy-to-clipboard";
 import { ConfirmModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl } from "Config/servicesConfig";
 import { CopyFile16, TrashCan16, ViewFilled16 } from "@carbon/icons-react";
-import CopyToClipboard from "react-copy-to-clipboard";
 import { ModalTriggerProps } from "Types";
-import styles from "./Token.module.scss";
+import styles from "./token.module.scss";
 
 interface TokenProps {
   token: {

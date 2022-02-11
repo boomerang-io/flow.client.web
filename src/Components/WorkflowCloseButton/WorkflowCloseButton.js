@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import CloseButton from "./CloseButton";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
-import styles from "./WorkflowCloseButton.module.scss";
+import styles from "./workflowCloseButton.module.scss";
 
 WorkflowCloseButton.propTypes = {
   alt: PropTypes.string,
@@ -15,7 +15,7 @@ export default function WorkflowCloseButton({ alt = "Workflow close button", cla
   return (
     <CloseButton
       alt={alt}
-      className={cx(styles.button, className)}
+      className={cx(styles.closeButton, className)}
       onClick={onClick}
       onKeyDown={(e) => isAccessibleKeyboardEvent(e) && onClick(e)}
       role="button"

@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import cx from "classnames";
 import { ChevronLeft16, ChevronRight16, PageFirst16, PageLast16 } from "@carbon/icons-react";
-import styles from "./VersionSwitcher.module.scss";
+import styles from "./versionSwitcher.module.scss";
 
 interface VersionSwitcherProps {
   currentRevision: number;

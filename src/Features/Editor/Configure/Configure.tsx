@@ -13,25 +13,24 @@ import {
   Toggle,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import ConfigureStorage from "./ConfigureStorage";
-import CronJobModal from "./CronJobModal";
 import cx from "classnames";
 import cronstrue from "cronstrue";
 import capitalize from "lodash/capitalize";
 import * as Yup from "yup";
-import { appLink, BASE_DOCUMENTATION_URL, FeatureFlag } from "Config/appConfig";
-import { QueryStatus } from "Constants";
-import { EventSchedule16, Save24 } from "@carbon/icons-react";
-import workflowIcons from "Assets/workflowIcons";
-import { WorkflowSummary } from "Types";
+import { useLocation } from "react-router-dom";
 import BuildWebhookModalContent from "./BuildWebhookModalContent";
+import ConfigureStorage from "./ConfigureStorage";
 import CreateToken from "./CreateToken";
+import CronJobModal from "./CronJobModal";
 //@ts-ignore
 import CustomLabel from "./CustomLabel";
 import Token from "./Token";
+import { EventSchedule16, Save24 } from "@carbon/icons-react";
+import { appLink, BASE_DOCUMENTATION_URL, FeatureFlag } from "Config/appConfig";
+import { QueryStatus } from "Constants";
+import workflowIcons from "Assets/workflowIcons";
+import { WorkflowSummary } from "Types";
 import styles from "./configure.module.scss";
-
-import { useLocation } from "react-router-dom";
 
 interface FormProps {
   description: string;

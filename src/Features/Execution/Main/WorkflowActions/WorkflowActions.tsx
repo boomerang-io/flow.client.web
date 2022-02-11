@@ -6,7 +6,7 @@ import { appLink } from "Config/appConfig";
 import { Edit32 } from "@carbon/icons-react";
 import { allowedUserRoles } from "Constants";
 import { WorkflowSummary } from "Types";
-import styles from "./WorkflowActions.module.scss";
+import styles from "./workflowActions.module.scss";
 
 type Props = {
   workflow: WorkflowSummary;

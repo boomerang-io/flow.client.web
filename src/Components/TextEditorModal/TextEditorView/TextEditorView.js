@@ -13,23 +13,19 @@ import {
   Button,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16 } from "@carbon/icons-react";
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/material.css";
-import "codemirror/mode/markdown/markdown";
-import "codemirror/mode/javascript/javascript";
-import "codemirror/mode/shell/shell";
-import "codemirror/mode/yaml/yaml";
-import "codemirror/addon/hint/show-hint";
-import "codemirror/addon/hint/javascript-hint";
-import "codemirror/addon/search/searchcursor";
-import "codemirror/addon/fold/foldgutter.css";
+import "codemirror/addon/comment/comment.js";
+import "codemirror/addon/fold/brace-fold.js";
+import "codemirror/addon/fold/comment-fold.js";
 import "codemirror/addon/fold/foldcode.js";
 import "codemirror/addon/fold/foldgutter.js";
-import "codemirror/addon/fold/brace-fold.js";
 import "codemirror/addon/fold/indent-fold.js";
-import "codemirror/addon/fold/comment-fold.js";
-import "codemirror/addon/comment/comment.js";
-import "./styles.scss";
+import "codemirror/addon/hint/javascript-hint";
+import "codemirror/addon/hint/show-hint";
+import "codemirror/addon/search/searchcursor";
+import "codemirror/mode/javascript/javascript";
+import "codemirror/mode/markdown/markdown";
+import "codemirror/mode/shell/shell";
+import "codemirror/mode/yaml/yaml";
 
 TextEditorView.propTypes = {
   closeModal: PropTypes.func.isRequired,

@@ -1,10 +1,10 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import qs from "query-string";
 import { useQuery } from "Hooks";
 import { DelayedRender, DataTableSkeleton, SearchSkeleton } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import ChangeLogTable from "./ChangeLogTable";
-import qs from "query-string";
 import { serviceUrl } from "Config/servicesConfig";
 import { WorkflowSummary } from "Types";
 import styles from "./changeLog.module.scss";

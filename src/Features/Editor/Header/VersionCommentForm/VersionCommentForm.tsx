@@ -1,5 +1,7 @@
 //@ts-nocheck
 import React, { Component } from "react";
+import { MutationResult } from "react-query";
+import { AxiosResponse } from "axios";
 import {
   Button,
   InlineNotification,
@@ -9,8 +11,6 @@ import {
   ModalForm,
   TextArea,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { AxiosResponse } from "axios";
-import { MutationResult } from "react-query";
 import { QueryStatus } from "Constants";
 
 interface VersionCommentFormProps {

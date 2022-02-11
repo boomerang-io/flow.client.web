@@ -5,6 +5,9 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import App from "Features/App";
 import ErrorBoundary from "Components/ErrorBoundary";
 import { APP_ROOT, isDevEnv, isTestEnv } from "Config/appConfig";
+import "codemirror/addon/fold/foldgutter.css";
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/material.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {

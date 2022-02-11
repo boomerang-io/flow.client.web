@@ -2,19 +2,18 @@ import React from "react";
 import { useHistory, useLocation, Redirect, Route, Switch } from "react-router-dom";
 import { useQuery } from "Hooks";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
+import CreateWorkflow from "Components/CreateWorkflow";
 import EmptyState from "Components/EmptyState";
 import ErrorDragon from "Components/ErrorDragon";
-
-import CreateWorkflow from "Components/CreateWorkflow";
-import WorkflowsHeader from "Components/WorkflowsHeader";
 import WorkflowCard from "Components/WorkflowCard";
+import WorkflowsHeader from "Components/WorkflowsHeader";
 import queryString from "query-string";
 import { serviceUrl } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { WorkflowSummary } from "Types";
 import { WorkflowScope } from "Constants";
 
-import styles from "./SystemWorkflows.module.scss";
+import styles from "./systemWorkflows.module.scss";
 
 export default function SystemWorkflows() {
   const history = useHistory();

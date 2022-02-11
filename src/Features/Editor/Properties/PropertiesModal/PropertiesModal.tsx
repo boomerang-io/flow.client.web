@@ -1,10 +1,10 @@
 import React from "react";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import PropertiesModalContent from "./PropertiesModalContent";
 import WorkflowEditButton from "Components/WorkflowEditButton";
+import PropertiesModalContent from "./PropertiesModalContent";
 import { Add32 } from "@carbon/icons-react";
 import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Types";
-import styles from "./PropertiesModal.module.scss";
+import styles from "./propertiesModal.module.scss";
 
 interface PropertiesModalProps {
   isEdit: boolean;

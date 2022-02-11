@@ -2,15 +2,15 @@
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Helmet } from "react-helmet";
-import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
-import WorkflowPropertiesModal from "./PropertiesModal";
-import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import capitalize from "lodash/capitalize";
+import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import WorkflowCloseButton from "Components/WorkflowCloseButton";
+import WorkflowPropertiesModal from "./PropertiesModal";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType, WorkflowPropertyUpdateType } from "Constants";
 import { DataDrivenInput, ModalTriggerProps, WorkflowSummary } from "Types";
 import { stringToPassword } from "Utils/stringHelper";
-import styles from "./Properties.module.scss";
+import styles from "./properties.module.scss";
 
 const formatDefaultValue = ({ type, value }: { type: string | undefined; value: string | undefined }) => {
   if (!value) {
