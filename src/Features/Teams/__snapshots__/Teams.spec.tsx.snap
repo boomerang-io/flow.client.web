@@ -274,6 +274,82 @@ exports[`Teams --- Snapshot Test Capturing Snapshot of Teams 1`] = `
                   </div>
                 </td>
               </tr>
+              <tr
+                class="tableRow"
+                data-testid="user-list-table-row"
+                tabindex="-1"
+              >
+                <td>
+                  IBM Services Engineering
+                </td>
+                <td>
+                  ---
+                </td>
+                <td>
+                  3
+                </td>
+                <td
+                  id="5e3a35ad8c222700018ccd39:isActive"
+                >
+                  <div
+                    class="bx--form-item bx--checkbox-wrapper"
+                  >
+                    <input
+                      class="bx--checkbox"
+                      id="check-5e3a35ad8c222700018ccd39:isActive"
+                      type="checkbox"
+                    />
+                    <label
+                      class="bx--checkbox-label"
+                      for="check-5e3a35ad8c222700018ccd39:isActive"
+                    >
+                      <span
+                        class="bx--checkbox-label-text bx--visually-hidden"
+                      >
+                        checkbox
+                      </span>
+                    </label>
+                  </div>
+                </td>
+              </tr>
+              <tr
+                class="tableRow"
+                data-testid="user-list-table-row"
+                tabindex="-1"
+              >
+                <td>
+                  IBM Services Essentials
+                </td>
+                <td>
+                  ---
+                </td>
+                <td>
+                  1
+                </td>
+                <td
+                  id="5e3a35ad8c222700018ccd38:isActive"
+                >
+                  <div
+                    class="bx--form-item bx--checkbox-wrapper"
+                  >
+                    <input
+                      class="bx--checkbox"
+                      id="check-5e3a35ad8c222700018ccd38:isActive"
+                      type="checkbox"
+                    />
+                    <label
+                      class="bx--checkbox-label"
+                      for="check-5e3a35ad8c222700018ccd38:isActive"
+                    >
+                      <span
+                        class="bx--checkbox-label-text bx--visually-hidden"
+                      >
+                        checkbox
+                      </span>
+                    </label>
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

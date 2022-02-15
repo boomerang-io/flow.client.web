@@ -29,7 +29,9 @@ interface TeamDetailedHeaderProps {
 }
 
 function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetailedHeaderProps) {
-  const location = useLocation();
+  const location: any = useLocation();
+
+  const backToUser = location?.state?.fromUser;
 
   const [removeTeamMutator] = useMutation(resolver.putUpdateTeam, {
     onSuccess: () => queryCache.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id })),
@@ -48,20 +50,33 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
 
   const canEdit = isActive && teamManagementEnabled;
 
+  const NavigationComponent = () => {
+    return Boolean(backToUser) ? (
+      <Breadcrumb noTrailingSlash>
+        <BreadcrumbItem>
+          <Link to={appLink.userList()}>Users</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <Link to={appLink.user({ userId: backToUser.id })}>{backToUser.name}</Link>
+        </BreadcrumbItem>
+      </Breadcrumb>
+    ) : (
+      <Breadcrumb noTrailingSlash>
+        <BreadcrumbItem>
+          <Link to={appLink.teamList()}>Teams</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <p>{team.name}</p>
+        </BreadcrumbItem>
+      </Breadcrumb>
+    );
+  };
+
   return (
     <Header
       includeBorder
       className={styles.container}
-      nav={
-        <Breadcrumb noTrailingSlash>
-          <BreadcrumbItem>
-            <Link to={appLink.teamList()}>Teams</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem isCurrentPage>
-            <p>{team.name}</p>
-          </BreadcrumbItem>
-        </Breadcrumb>
-      }
+      nav={<NavigationComponent />}
       header={
         <>
           <HeaderTitle>{team.name}</HeaderTitle>

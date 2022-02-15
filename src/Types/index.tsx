@@ -401,6 +401,8 @@ export interface FlowUser {
   flowTeams: string[];
   status: UserStatus;
   platformRole: string;
+  workflows?: WorkflowSummary[];
+  userTeams?: FlowTeam[];
 }
 
 export interface Property {

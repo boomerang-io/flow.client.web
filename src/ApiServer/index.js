@@ -436,6 +436,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return userData;
       });
 
+      this.get(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {
+        const { userId } = request.params;
+        const user = schema.manageUsers.first().attrs.records.find((user) => user.id === userId);
+        return user;
+      });
+
       this.patch(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {
         const { userId } = request.params;
         let body = JSON.parse(request.requestBody);

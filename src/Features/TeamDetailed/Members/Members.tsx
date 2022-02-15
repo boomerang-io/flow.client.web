@@ -98,7 +98,7 @@ const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, teamM
                     <Link
                       className={styles.viewMemberLink}
                       to={{
-                        pathname: appLink.manageUsers(),
+                        pathname: appLink.user({ userId: member.id }),
                         state: { fromTeam: { id: team.id, name: team.name } },
                       }}
                     >

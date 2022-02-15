@@ -38,7 +38,7 @@ export const serviceUrl = {
   getActionsSummary: ({ query }) => `${BASE_URL}/actions/summary${query ? "?" + query : ""}`,
   getActions: ({ query }) => `${BASE_URL}/actions${query ? "?" + query : ""}`,
   getDefaultQuotas: () => `${BASE_URL}/quotas/default`,
-  getCronValidation: ({expression}) => `${BASE_URL}/workflow/validate/cron?cron=${expression}`,
+  getCronValidation: ({ expression }) => `${BASE_URL}/workflow/validate/cron?cron=${expression}`,
   getFeatureFlags: () => `${BASE_URL}/features`,
   getFlowTeamUsers: ({ teamId }) => `${BASE_URL}/teams/${teamId}/members`,
   getFlowNavigation: ({ query }) => `${BASE_URL}/navigation${query}`,
@@ -66,6 +66,7 @@ export const serviceUrl = {
   getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
   // getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
   getUserProfile: () => `${BASE_URL}/users/profile`,
+  getUserProfileImage: ({ userEmail }) => `${BASE_CORE_USERS_URL}/image/${userEmail}`,
   getUserWorkflows: () => `${BASE_URL}/workflows/user`,
   getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
   getWorkflowChangelog: ({ workflowId, query }) =>
