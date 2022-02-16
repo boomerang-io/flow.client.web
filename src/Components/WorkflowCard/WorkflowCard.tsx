@@ -102,7 +102,13 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
         queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
       }
     } catch {
-      notify(<ToastNotification kind="error" title="Something's Wrong" subtitle={`Request to delete ${type.toLowerCase()} failed`} />);
+      notify(
+        <ToastNotification
+          kind="error"
+          title="Something's Wrong"
+          subtitle={`Request to delete ${type.toLowerCase()} failed`}
+        />
+      );
     }
   };
 
@@ -110,7 +116,11 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
     try {
       await duplicateWorkflowMutator({ workflowId: workflow.id });
       notify(
-        <ToastNotification kind="success" title={`Duplicate ${type}`} subtitle={`Successfully duplicated ${type.toLowerCase()}`} />
+        <ToastNotification
+          kind="success"
+          title={`Duplicate ${type}`}
+          subtitle={`Successfully duplicated ${type.toLowerCase()}`}
+        />
       );
       if (scope === WorkflowScope.System) {
         queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
@@ -124,7 +134,11 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
       return;
     } catch (e) {
       notify(
-        <ToastNotification kind="error" title="Something's Wrong" subtitle={`Request to duplicate ${type.toLowerCase()} failed`} />
+        <ToastNotification
+          kind="error"
+          title="Something's Wrong"
+          subtitle={`Request to duplicate ${type.toLowerCase()} failed`}
+        />
       );
       return;
     }
@@ -138,7 +152,9 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
         fileDownload(JSON.stringify(data, null, 4), `${workflow.name}.json`);
       })
       .catch((error) => {
-        notify(<ToastNotification kind="error" title="Something's Wrong" subtitle={`Export ${type.toLowerCase()} failed`} />);
+        notify(
+          <ToastNotification kind="error" title="Something's Wrong" subtitle={`Export ${type.toLowerCase()} failed`} />
+        );
       });
   };
 
@@ -147,7 +163,11 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
     try {
       const { data: execution } = await executeWorkflowMutator({ id: workflowId, properties });
       notify(
-        <ToastNotification kind="success" title={`Run ${type}`} subtitle={`Successfully started ${type.toLowerCase()} execution`} />
+        <ToastNotification
+          kind="success"
+          title={`Run ${type}`}
+          subtitle={`Successfully started ${type.toLowerCase()} execution`}
+        />
       );
       if (redirect) {
         history.push({
@@ -327,7 +347,10 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
       </section>
       {workflow.templateUpgradesAvailable && (
         <div className={styles.templatesWarningIcon}>
-          <TooltipIcon direction="top" tooltipText={`New version of a task available! To update, edit your ${type.toLowerCase()}.`}>
+          <TooltipIcon
+            direction="top"
+            tooltipText={`New version of a task available! To update, edit your ${type.toLowerCase()}.`}
+          >
             <WorkflowWarningButton />
           </TooltipIcon>
         </div>

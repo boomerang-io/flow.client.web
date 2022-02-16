@@ -1,6 +1,7 @@
 import React from "react";
 import { settings } from "carbon-components";
 import { useAppContext } from "Hooks";
+import { Link } from "react-router-dom";
 import {
   Button,
   DataTableSkeleton,
@@ -13,8 +14,10 @@ import queryString from "query-string";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import EmptyState from "Components/EmptyState";
 import ApproveRejectActions from "./ApproveRejectActions";
+import ManualTask from "./ManualTask";
 import { ApprovalStatus } from "Constants";
 import { Action } from "Types";
+import { appLink } from "Config/appConfig";
 import dateHelper from "Utils/dateHelper";
 import { CheckmarkOutline16, CloseOutline16, Help16, Warning16 } from "@carbon/icons-react";
 import styles from "./ActionsTable.module.scss";
@@ -28,7 +31,10 @@ interface ActionsTableProps {
   location: any;
   match: any;
   isSystemWorkflowsEnabled: boolean;
-  tableData: any;
+  tableData: {
+    pageable: { number: number; size: number; sort: [{ property: string; direction: string }]; totalElements: number };
+    records: any;
+  };
   updateHistorySearch: Function;
 }
 
@@ -52,6 +58,7 @@ const HeadersKey = {
   Approvals: "numberOfApprovals",
   TimeSubmitted: "creationDate",
   Status: "status",
+  ActivityLink: "activityLink",
 };
 
 const headers = [
@@ -84,6 +91,11 @@ const headers = [
     header: HeadersHeader.Status,
     key: HeadersKey.Status,
     sortable: true,
+  },
+  {
+    header: "",
+    key: HeadersKey.ActivityLink,
+    sortable: false,
   },
 ];
 
@@ -173,6 +185,7 @@ function ActionsTable(props: ActionsTableProps) {
     pageable: { number, size, sort, totalElements },
     records,
   } = props.tableData;
+
   const {
     TableContainer,
     Table,
@@ -216,6 +229,8 @@ function ActionsTable(props: ActionsTableProps) {
         }
       case HeadersKey.TimeSubmitted:
         return <time className={styles.tableTextarea}>{value ? dateHelper.humanizedSimpleTimeAgo(value) : "---"}</time>;
+      case HeadersKey.ActivityLink:
+        return <Link to={appLink.execution({ executionId: currentAction?.activityId, workflowId: currentAction?.workflowId })}>View Activity</Link>
       default:
         return <p className={styles.tableTextarea}>{value || "---"}</p>;
     }
@@ -354,19 +369,30 @@ function ActionsTable(props: ActionsTableProps) {
                             (user?.id && currentAction?.actioners?.map((user) => user.approverId).includes(user.id)) ||
                             currentAction?.status !== ApprovalStatus.Submitted;
                           return isManual ? (
-                            <TableRow
-                              key={row.id}
-                              className={`${styles.tableRow} ${styles[row.cells[row.cells.length - 1].value]}`}
-                              data-testid="configuration-property-table-row"
-                            >
-                              {row.cells.map((cell: any, cellIndex: number) => (
-                                <TableCell key={cell.id}>
-                                  <div className={styles.tableCell}>
-                                    {renderCell(headerList, cellIndex, cell.value, currentAction)}
-                                  </div>
-                                </TableCell>
-                              ))}
-                            </TableRow>
+                            <ManualTask
+                              action={currentAction}
+                              modalTrigger={({ openModal }: any) => (
+                                <TableRow
+                                  key={row.id}
+                                  className={`${styles.tableRow} ${styles[row.cells[row.cells.length - 1].value]}`}
+                                  data-testid="configuration-property-table-row"
+                                  onClick={openModal}
+                                  onKeyDown={(event: any) =>
+                                    isAccessibleKeyboardEvent(event) && openModal()
+                                  }
+                                  tabIndex={0}
+                                >
+                                  {row.cells.map((cell: any, cellIndex: number) => (
+                                    <TableCell key={cell.id}>
+                                      <div className={styles.tableCell}>
+                                        {renderCell(headerList, cellIndex, cell.value, currentAction)}
+                                      </div>
+                                    </TableCell>
+                                  ))}
+                                </TableRow>
+                              )}
+                              queryToRefetch={props.actionsQueryToRefetch}
+                            />
                           ) : (
                             <ApproveRejectActions
                               actions={getSelectedActions(row.id)}

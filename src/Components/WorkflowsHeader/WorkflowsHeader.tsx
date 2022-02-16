@@ -60,15 +60,17 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
         </>
       }
       footer={
-        !(scope === WorkflowScope.System || scope === WorkflowScope.Template)
-          ? (<Tabs>
-              <Tab label="My Workflows" to={appLink.workflowsMine()} />
-              <Tab label="Team Workflows" to={appLink.workflowsTeams()} />
-            </Tabs>)
-          :(<Tabs>
-              <Tab label="System" to={appLink.systemManagementWorkflows()} />
-              <Tab label="Templates" to={appLink.templateWorkflows()} />
-            </Tabs>)
+        !(scope === WorkflowScope.System || scope === WorkflowScope.Template) ? (
+          <Tabs>
+            <Tab label="My Workflows" to={appLink.workflowsMine()} />
+            <Tab label="Team Workflows" to={appLink.workflowsTeams()} />
+          </Tabs>
+        ) : (
+          <Tabs>
+            <Tab label="System" to={appLink.systemManagementWorkflows()} />
+            <Tab label="Templates" to={appLink.templateWorkflows()} />
+          </Tabs>
+        )
       }
       actions={
         <SearchFilterBar
@@ -117,13 +119,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
 
   return (
     <div className={styles.filterContainer}>
-      {
-        scope !== WorkflowScope.Template &&
-        <CreateTemplateWorkflow
-          teams={teams}
-          scope={scope}
-        />
-      }
+      {scope !== WorkflowScope.Template && <CreateTemplateWorkflow teams={teams} scope={scope} />}
       <div className={styles.search}>
         <Search
           disabled={scope === WorkflowScope.Team ? !hasTeams : false}
@@ -138,6 +134,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
       {teams && scope !== WorkflowScope.User && (
         <div className={styles.filter}>
           <MultiSelect.Filterable
+            light
             disabled={!hasTeams}
             id="b-search-filter__filter"
             invalid={false}
@@ -151,7 +148,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
             label={"Choose a team"}
             onChange={handleOnMultiSelectChange}
             placeholder={"Choose a team"}
-            titleText={"Filter by team"}
+            titleText={"Filter by Team"}
           />
         </div>
       )}

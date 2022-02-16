@@ -1,5 +1,5 @@
 import React from "react";
-import { FlowTeam, FlowUser, TaskModel, WorkflowRevision, WorkflowSummary } from "Types";
+import { FlowTeam, FlowUser, TaskModel, UserWorkflow, WorkflowRevision, WorkflowSummary } from "Types";
 
 export function createContext<ContextType>() {
   const context = React.createContext<ContextType | undefined>(undefined);
@@ -20,9 +20,10 @@ type AppContext = {
   quotas: {
     maxActivityStorageSize: string;
     maxWorkflowStorageSize: string;
-  }
+  };
   teams: FlowTeam[];
   user: FlowUser;
+  userWorkflows: UserWorkflow;
 };
 
 interface taskProvider {

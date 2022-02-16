@@ -18,6 +18,12 @@ const flowNavigation = [
     link: "/actions",
   },
   {
+    name: "Schedules",
+    type: "link",
+    icon: "CalendarHeatMap16",
+    link: "/schedules",
+  },
+  {
     name: "Insights",
     type: "link",
     icon: "ChartScatter16",
