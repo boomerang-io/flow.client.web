@@ -63,7 +63,7 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
           </>
         }
       />
-      <Box p="2rem">
+      <Box p="2rem" className={styles.content}>
         <>
           <Box mb="1rem" maxWidth="20rem">
             <Search
