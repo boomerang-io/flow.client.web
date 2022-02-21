@@ -438,6 +438,14 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return summary;
       });
 
+      this.patch(serviceUrl.getManageTeamLabels({ teamId: ":teamId" }), (schema, request) => {
+        let { teamId } = request.params;
+        let body = JSON.parse(request.requestBody);
+        let activeTeam = schema.manageTeamDetails.findBy({ id: teamId });
+        activeTeam.update({ labels: body });
+        return activeTeam;
+      });
+
       this.post(serviceUrl.getManageTeamsCreate(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         const teams = schema.manageTeams.first();

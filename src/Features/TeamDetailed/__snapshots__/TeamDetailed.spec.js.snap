@@ -53,8 +53,8 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
             >
               WDC2 ISE Dev
             </h1>
-            <p
-              class="bx--bmrg-feature-header-title subtitle"
+            <div
+              class="subtitle"
             >
               <div
                 class="status"
@@ -85,7 +85,7 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
               >
                 -
               </span>
-            </p>
+            </div>
           </div>
           <div
             class="bx--bmrg-feature-header__footer"
@@ -105,6 +105,12 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
                 href="/admin/teams/5e7cccb94bbc6e0001c51773/workflows"
               >
                 Workflows
+              </a>
+              <a
+                class="bx--bmrg-feature-nav-tab"
+                href="/admin/teams/5e7cccb94bbc6e0001c51773/labels"
+              >
+                Labels
               </a>
               <a
                 class="bx--bmrg-feature-nav-tab"

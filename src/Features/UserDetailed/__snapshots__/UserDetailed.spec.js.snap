@@ -64,8 +64,8 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
               >
                 Tim Bula
               </h1>
-              <p
-                class="bx--bmrg-feature-header-title headerSubtitle"
+              <div
+                class="headerSubtitle"
                 title="trbula@us.ibm.com"
               >
                 <div
@@ -98,7 +98,7 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
                   -
                 </span>
                 trbula@us.ibm.com
-              </p>
+              </div>
             </div>
             <div
               class="userDetailsContainer"
@@ -195,6 +195,12 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
                 href="/admin/users/5f170b3df6ab327e302cb0a5/teams"
               >
                 Teams
+              </a>
+              <a
+                class="bx--bmrg-feature-nav-tab"
+                href="/admin/users/5f170b3df6ab327e302cb0a5/labels"
+              >
+                Labels
               </a>
             </nav>
           </div>

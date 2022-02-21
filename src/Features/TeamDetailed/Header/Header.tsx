@@ -7,7 +7,6 @@ import {
   ConfirmModal,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
-  FeatureHeaderSubtitle as HeaderSubtitle,
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
   notify,
@@ -80,7 +79,7 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
       header={
         <>
           <HeaderTitle>{team.name}</HeaderTitle>
-          <HeaderSubtitle className={styles.subtitle}>
+          <div className={styles.subtitle}>
             <div className={styles.status}>
               {isActive ? <Checkmark16 style={{ fill: "#009d9a" }} /> : <Close16 style={{ fill: "#da1e28" }} />}
               <p className={styles.statusText}>{isActive ? "Active" : "Inactive"}</p>
@@ -90,7 +89,7 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
               Created on
               <p style={{ marginLeft: "0.3rem" }}>{moment(team.dateCreated).format("MMMM DD, YYYY")}</p>
             </div>*/}
-          </HeaderSubtitle>
+          </div>
         </>
       }
       footer={
@@ -101,6 +100,7 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
             label="Workflows"
             to={{ pathname: appLink.teamWorkflows({ teamId: team.id }), state: location.state }}
           />
+          <Tab exact label="Labels" to={{ pathname: appLink.teamLabels({ teamId: team.id }), state: location.state }} />
           <Tab
             exact
             label="Settings"

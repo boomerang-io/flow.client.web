@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import {
   Button,
@@ -35,7 +34,6 @@ const rolesList = [
 ];
 
 const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, user }) => {
-  const location = useLocation();
   const role = user?.type;
   const [selectedRole, setSelectedRole] = useState(null);
   const [error, setError] = useState();
@@ -53,7 +51,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
     {
       onSuccess: () => {
         closeModal();
-        queryCache.invalidateQueries(serviceUrl.getManageUsers({ query: location.search }));
+        queryCache.invalidateQueries(serviceUrl.resourceManageUser({ userId: user.id }));
       },
     }
   );

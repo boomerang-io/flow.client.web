@@ -49,6 +49,7 @@ export const serviceUrl = {
   getManageTeamsCreate: () => `${BASE_URL}/manage/teams`,
   getManageTeam: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}`,
   getManageTeamUser: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}/members`,
+  getManageTeamLabels: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}/labels`,
   getManageTeams: ({ query }) => `${BASE_URL}/manage/teams${query ? "?" + query : ""}`,
   getManageUsers: ({ query }) => `${BASE_URL}/manage/users${query ? "?" + query : ""}`,
   // getPlatformConfig: () => `${BASE_CORE_USERS_URL}/navigation`,
@@ -147,6 +148,7 @@ export const resolver = {
   patchGlobalPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethod.Patch }),
   patchManageTeamUser: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamUser({ teamId }), body),
+  patchManageTeamLabels: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamLabels({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
     cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethod.Patch }),
   patchSchedule: ({ scheduleId, body }) => axios.patch(serviceUrl.patchSchedule({ scheduleId }), body),

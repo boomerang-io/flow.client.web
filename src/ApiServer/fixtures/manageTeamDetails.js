@@ -247,6 +247,33 @@ const managageTeamDetails = [
     higherLevelGroupId: "5c41596cf32aa30001e9d444",
     id: "5e3a35ad8c222700018ccd39",
     name: "IBM Services Engineering",
+    isActive: true,
+    labels: [
+      {
+        key: "testing",
+        value: "defaultContainer",
+      },
+      {
+        key: "purpose",
+        value: "test",
+      },
+      {
+        key: "artifactoryusername",
+        value: "Artifactory_Username",
+      },
+      {
+        key: "blablablablablabla5eb2c4085a92d80001a16d875eb2c4085a92d80001a16d87",
+        value: "test",
+      },
+      {
+        key: "testing2",
+        value: "defaultContainer",
+      },
+      {
+        key: "testing3",
+        value: "defaultContainer",
+      },
+    ],
     workflows: [
       {
         properties: [

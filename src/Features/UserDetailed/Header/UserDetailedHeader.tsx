@@ -1,6 +1,5 @@
 import React from "react";
 import moment from "moment";
-import { useFeature } from "flagged";
 import { Link, useLocation } from "react-router-dom";
 import {
   Avatar,
@@ -10,13 +9,12 @@ import {
   ComposedModal,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
-  FeatureHeaderSubtitle as HeaderSubtitle,
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import ChangeRole from "./ChangeRole";
 import { UserRoleCopy } from "Constants";
-import { appLink, FeatureFlag } from "Config/appConfig";
+import { appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { emailIsValid } from "Utils";
 import { ComposedModalChildProps, FlowUser } from "Types";
@@ -27,10 +25,10 @@ interface UserDetailedHeaderProps {
   isError?: boolean;
   isLoading?: boolean;
   user?: FlowUser;
+  userManagementEnabled?: any;
 }
 
-function UserDetailedHeader({ isError, isLoading, user }: UserDetailedHeaderProps) {
-  const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
+function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }: UserDetailedHeaderProps) {
   const location: any = useLocation();
   const cancelRequestRef = React.useRef<{} | null>();
 
@@ -75,6 +73,11 @@ function UserDetailedHeader({ isError, isLoading, user }: UserDetailedHeaderProp
               label="Teams"
               to={{ pathname: appLink.userTeams({ userId: user?.id }), state: location.state }}
             />
+            <Tab
+              exact
+              label="Labels"
+              to={{ pathname: appLink.userLabels({ userId: user?.id }), state: location.state }}
+            />
           </Tabs>
         )
       }
@@ -89,14 +92,14 @@ function UserDetailedHeader({ isError, isLoading, user }: UserDetailedHeaderProp
           <HeaderTitle style={{ margin: "0 1rem 0 0" }} title={user?.name}>
             {user?.name ?? "---"}
           </HeaderTitle>
-          <HeaderSubtitle className={styles.headerSubtitle} title={user?.email}>
+          <div className={styles.headerSubtitle} title={user?.email}>
             <div className={styles.status}>
               {isActive ? <Checkmark16 style={{ fill: "#009d9a" }} /> : <Close16 style={{ fill: "#da1e28" }} />}
               <p className={styles.statusText}>{isActive ? "Active" : "Inactive"}</p>
             </div>
             <span className={styles.statusDivider}>-</span>
             {emailIsValid(user?.email) ? user?.email : "User's email is ofuscated"}
-          </HeaderSubtitle>
+          </div>
         </div>
         {!isError && user && (
           <div className={styles.userDetailsContainer}>

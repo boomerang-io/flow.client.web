@@ -1,14 +1,16 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
+import { useFeature } from "flagged";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { Box } from "reflexbox";
 import { ErrorMessage, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import Header from "./Header";
+import Labels from "./Labels";
 import Teams from "./Teams";
 import Workflows from "./Workflows";
 import { FlowUser } from "Types";
-import { AppPath } from "Config/appConfig";
+import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./UserDetailed.module.scss";
 
@@ -32,6 +34,7 @@ const FeatureLayout = ({ children, isLoading, isError }: FeatureLayoutProps) => 
 };
 
 function TeamDetailedContainer() {
+  const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
   const match: { params: { userId: string } } = useRouteMatch();
   const userId = match?.params?.userId;
 
@@ -58,13 +61,16 @@ function TeamDetailedContainer() {
   if (userDetailsData) {
     return (
       <div className={styles.container}>
-        <Header user={userDetailsData} />
+        <Header user={userDetailsData} userManagementEnabled={userManagementEnabled} />
         <Switch>
           <Route exact path={AppPath.User}>
             <Workflows user={userDetailsData} />
           </Route>
           <Route exact path={AppPath.UserTeams}>
             <Teams user={userDetailsData} />
+          </Route>
+          <Route exact path={AppPath.UserLabels}>
+            <Labels user={userDetailsData} userManagementEnabled={userManagementEnabled} />
           </Route>
         </Switch>
       </div>

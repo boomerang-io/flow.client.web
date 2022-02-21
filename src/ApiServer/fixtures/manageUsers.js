@@ -25,6 +25,32 @@ const manageUsers = {
       type: "admin",
       firstLoginDate: "2020-07-21T15:35:25.369+00:00",
       lastLoginDate: "2020-07-21T15:35:25.369+00:00",
+      labels: [
+        {
+          key: "testing",
+          value: "defaultContainer",
+        },
+        {
+          key: "purpose",
+          value: "test",
+        },
+        {
+          key: "artifactoryusername",
+          value: "Artifactory_Username",
+        },
+        {
+          key: "blablablablablabla5eb2c4085a92d80001a16d875eb2c4085a92d80001a16d87",
+          value: "test",
+        },
+        {
+          key: "testing2",
+          value: "defaultContainer",
+        },
+        {
+          key: "testing3",
+          value: "defaultContainer",
+        },
+      ],
       workflows: [
         {
           properties: [],
