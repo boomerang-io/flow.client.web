@@ -584,7 +584,7 @@ export interface FlowFeatures {
 
 //Schedule types
 
-export type ScheduleStatus = "active" | "inactive" | "deleted" | "trigger_disabled";
+export type ScheduleStatus = "active" | "inactive" | "deleted" | "trigger_disabled" | "error";
 export type ScheduleType = "runOnce" | "cron" | "advancedCron";
 
 export interface Schedule {
