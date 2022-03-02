@@ -10,7 +10,7 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType, WorkflowPropertyUpdateType } from "Constants";
 import { DataDrivenInput, ModalTriggerProps, WorkflowSummary } from "Types";
 import { stringToPassword } from "Utils/stringHelper";
-import styles from "./properties.module.scss";
+import styles from "./Properties.module.scss";
 
 const formatDefaultValue = ({ type, value }: { type: string | undefined; value: string | undefined }) => {
   if (!value) {

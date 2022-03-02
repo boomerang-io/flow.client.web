@@ -5,7 +5,7 @@ import { ConfirmModal, notify, ToastNotification, TooltipHover } from "@boomeran
 import { serviceUrl } from "Config/servicesConfig";
 import { CopyFile16, TrashCan16, ViewFilled16 } from "@carbon/icons-react";
 import { ModalTriggerProps } from "Types";
-import styles from "./token.module.scss";
+import styles from "./Token.module.scss";
 
 interface TokenProps {
   token: {

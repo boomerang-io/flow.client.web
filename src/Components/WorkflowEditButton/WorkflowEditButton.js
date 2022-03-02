@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import EditButton from "./EditButton";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
-import styles from "./workflowEditButton.module.scss";
+import styles from "./WorkflowEditButton.module.scss";
 
 WorkflowEditButton.propTypes = {
   alt: PropTypes.string,

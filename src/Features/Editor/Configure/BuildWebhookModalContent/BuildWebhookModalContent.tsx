@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { CodeSnippet, Dropdown, ModalBody, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import copy from "copy-to-clipboard";
 import { PRODUCT_SERVICE_ENV_URL } from "Config/servicesConfig";
-import styles from "./buildWebhookModalContent.module.scss";
+import styles from "./BuildWebhookModalContent.module.scss";
 
 interface FormProps {
   description: string;

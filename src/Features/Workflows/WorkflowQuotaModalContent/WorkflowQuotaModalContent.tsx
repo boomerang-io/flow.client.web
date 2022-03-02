@@ -4,7 +4,7 @@ import { ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
 import ProgressBar from "Components/ProgressBar";
 import { FlowTeamQuotas } from "Types";
 import { WorkflowScope } from "Constants";
-import styles from "./workflowQuotaModalContent.module.scss";
+import styles from "./WorkflowQuotaModalContent.module.scss";
 
 export default function WorkflowQuotaModalContent({
   closeModal,

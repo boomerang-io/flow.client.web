@@ -3,7 +3,7 @@ import cx from "classnames";
 import ReactMde from "react-mde";
 import ReactMarkdown from "react-markdown";
 import { ChevronRight16, DragHorizontal24, RequestQuote24 } from "@carbon/icons-react";
-import styles from "./notes.module.scss";
+import styles from "./Notes.module.scss";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import "Styles/markdown.css";
 

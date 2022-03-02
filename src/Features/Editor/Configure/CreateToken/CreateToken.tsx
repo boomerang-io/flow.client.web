@@ -17,7 +17,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl } from "Config/servicesConfig";
 
-import styles from "./createToken.module.scss";
+import styles from "./CreateToken.module.scss";
 
 interface CreateTokenProps {
   tokenData: [

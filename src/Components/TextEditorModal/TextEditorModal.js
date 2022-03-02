@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import { ComposedModal, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorView from "./TextEditorView";
-import styles from "./textEditorModal.module.scss";
+import styles from "./TextEditorModal.module.scss";
 
 const TextEditorModal = (props) => {
   const [value, setValue] = useState(props.initialValue);

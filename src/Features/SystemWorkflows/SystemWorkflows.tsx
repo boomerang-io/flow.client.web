@@ -13,7 +13,7 @@ import { AppPath } from "Config/appConfig";
 import { WorkflowSummary } from "Types";
 import { WorkflowScope } from "Constants";
 
-import styles from "./systemWorkflows.module.scss";
+import styles from "./SystemWorkflows.module.scss";
 
 export default function SystemWorkflows() {
   const history = useHistory();

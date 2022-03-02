@@ -4,7 +4,7 @@ import WorkflowEditButton from "Components/WorkflowEditButton";
 import PropertiesModalContent from "./PropertiesModalContent";
 import { Add32 } from "@carbon/icons-react";
 import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Types";
-import styles from "./propertiesModal.module.scss";
+import styles from "./PropertiesModal.module.scss";
 
 interface PropertiesModalProps {
   isEdit: boolean;

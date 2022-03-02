@@ -11,7 +11,7 @@ import {
   ModalForm,
   TextInput,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import styles from "./customLabel.module.scss";
+import styles from "./CustomLabel.module.scss";
 
 interface AddLabelProps {
   formikPropsSetFieldValue: Function;
