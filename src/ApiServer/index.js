@@ -438,6 +438,14 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return summary;
       });
 
+      this.patch(serviceUrl.getManageTeamLabels({ teamId: ":teamId" }), (schema, request) => {
+        let { teamId } = request.params;
+        let body = JSON.parse(request.requestBody);
+        let activeTeam = schema.manageTeamDetails.findBy({ id: teamId });
+        activeTeam.update({ labels: body });
+        return activeTeam;
+      });
+
       this.post(serviceUrl.getManageTeamsCreate(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         const teams = schema.manageTeams.first();
@@ -458,6 +466,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
             userData.records.filter((user) => user.name.includes(query) || user.email.includes(query)) ?? [];
         }
         return userData;
+      });
+
+      this.get(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {
+        const { userId } = request.params;
+        const user = schema.manageUsers.first().attrs.records.find((user) => user.id === userId);
+        return user;
       });
 
       this.patch(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {
