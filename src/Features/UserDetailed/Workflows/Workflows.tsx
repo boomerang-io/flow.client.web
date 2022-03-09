@@ -14,22 +14,24 @@ import EmptyState from "Components/EmptyState";
 import ms from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { appLink } from "Config/appConfig";
-import { FlowTeam } from "Types";
+import { FlowUser } from "Types";
 import styles from "./Workflows.module.scss";
 
-function Workflows({ team }: { team: FlowTeam }) {
+function Workflows({ user }: { user: FlowUser }) {
   const [searchQuery, setSearchQuery] = React.useState("");
-  const { workflows } = team;
-  const filteredWorkflowsList = searchQuery ? ms(workflows, searchQuery, { keys: ["name", "description"] }) : workflows;
+  const workflows = user.workflows ?? [];
+  const filteredWorkflowsList = searchQuery
+    ? ms(workflows, searchQuery, { keys: ["name", "shortDescription"] })
+    : workflows;
 
   return (
-    <section aria-label={`${team.name} Team Workflows`} className={styles.container}>
+    <section aria-label={`${user.name} Workflows`} className={styles.container}>
       <Helmet>
-        <title>{`Workflows - ${team.name}`}</title>
+        <title>{`Workflows - ${user.name}`}</title>
       </Helmet>
       <section className={styles.actionsContainer}>
         <div className={styles.leftActions}>
-          <p className={styles.featureDescription}>These are the workflows for this Team.</p>
+          <p className={styles.featureDescription}>{`These are ${user.name}'s workflows`}</p>
           <p className={styles.workflowCountText}>
             Showing {filteredWorkflowsList.length} workflow{filteredWorkflowsList.length !== 1 ? "s" : ""}
           </p>
@@ -70,7 +72,7 @@ function Workflows({ team }: { team: FlowTeam }) {
                       className={styles.viewWorkflowLink}
                       to={{
                         pathname: appLink.editorDesigner({ workflowId: workflow.id }),
-                        state: { fromTeam: { id: team.id, name: team.name } },
+                        state: { fromUser: { id: user.id, name: user.name } },
                       }}
                     >
                       View/edit
@@ -82,7 +84,7 @@ function Workflows({ team }: { team: FlowTeam }) {
                       to={{
                         pathname: appLink.activity(),
                         search: queryString.stringify({ page: 0, size: 10, workflowIds: workflow.id }),
-                        state: { fromTeam: { id: team.id, name: team.name } },
+                        state: { fromUser: { id: user.id, name: user.name } },
                       }}
                     >
                       Activity

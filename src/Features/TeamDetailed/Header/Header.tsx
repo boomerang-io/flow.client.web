@@ -7,7 +7,6 @@ import {
   ConfirmModal,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
-  FeatureHeaderSubtitle as HeaderSubtitle,
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
   notify,
@@ -29,7 +28,9 @@ interface TeamDetailedHeaderProps {
 }
 
 function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetailedHeaderProps) {
-  const location = useLocation();
+  const location: any = useLocation();
+
+  const backToUser = location?.state?.fromUser;
 
   const [removeTeamMutator] = useMutation(resolver.putUpdateTeam, {
     onSuccess: () => queryCache.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id })),
@@ -48,24 +49,37 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
 
   const canEdit = isActive && teamManagementEnabled;
 
+  const NavigationComponent = () => {
+    return Boolean(backToUser) ? (
+      <Breadcrumb noTrailingSlash>
+        <BreadcrumbItem>
+          <Link to={appLink.userList()}>Users</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <Link to={appLink.user({ userId: backToUser.id })}>{backToUser.name}</Link>
+        </BreadcrumbItem>
+      </Breadcrumb>
+    ) : (
+      <Breadcrumb noTrailingSlash>
+        <BreadcrumbItem>
+          <Link to={appLink.teamList()}>Teams</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <p>{team.name}</p>
+        </BreadcrumbItem>
+      </Breadcrumb>
+    );
+  };
+
   return (
     <Header
       includeBorder
       className={styles.container}
-      nav={
-        <Breadcrumb noTrailingSlash>
-          <BreadcrumbItem>
-            <Link to={appLink.teamList()}>Teams</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem isCurrentPage>
-            <p>{team.name}</p>
-          </BreadcrumbItem>
-        </Breadcrumb>
-      }
+      nav={<NavigationComponent />}
       header={
         <>
           <HeaderTitle>{team.name}</HeaderTitle>
-          <HeaderSubtitle className={styles.subtitle}>
+          <div className={styles.subtitle}>
             <div className={styles.status}>
               {isActive ? <Checkmark16 style={{ fill: "#009d9a" }} /> : <Close16 style={{ fill: "#da1e28" }} />}
               <p className={styles.statusText}>{isActive ? "Active" : "Inactive"}</p>
@@ -75,7 +89,7 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
               Created on
               <p style={{ marginLeft: "0.3rem" }}>{moment(team.dateCreated).format("MMMM DD, YYYY")}</p>
             </div>*/}
-          </HeaderSubtitle>
+          </div>
         </>
       }
       footer={
@@ -86,6 +100,7 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
             label="Workflows"
             to={{ pathname: appLink.teamWorkflows({ teamId: team.id }), state: location.state }}
           />
+          <Tab exact label="Labels" to={{ pathname: appLink.teamLabels({ teamId: team.id }), state: location.state }} />
           <Tab
             exact
             label="Settings"

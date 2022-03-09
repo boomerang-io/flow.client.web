@@ -1,38 +1,48 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { useFeature } from "flagged";
 import { useQuery } from "Hooks";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
 import {
-  ComposedModal,
   DataTable,
   DataTableSkeleton,
   ErrorMessage,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  OverflowMenu,
-  OverflowMenuItem,
   Pagination,
   Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import ChangeRole from "./ChangeRole";
+import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import EmptyState from "Components/EmptyState";
-import UserDetails from "./UserDetails";
+import UserDetailed from "Features/UserDetailed";
 import debounce from "lodash/debounce";
 import moment from "moment";
 import queryString from "query-string";
 import { CREATED_DATE_FORMAT, SortDirection } from "Constants";
-import { FeatureFlag } from "Config/appConfig";
+import { AppPath, appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { ComposedModalChildProps, FlowUser, PaginatedResponse } from "Types";
+import { FlowUser, PaginatedResponse } from "Types";
+import styles from "./Users.module.scss";
 
 const DEFAULT_ORDER = SortDirection.Desc;
 const DEFAULT_PAGE = 0;
 const DEFAULT_SIZE = 10;
 const DEFAULT_SORT = "name";
 const PAGE_SIZES = [DEFAULT_SIZE, 20, 50, 100];
+
+const UsersContainer: React.FC = () => {
+  return (
+    <Switch>
+      <Route path={AppPath.User}>
+        <UserDetailed />
+      </Route>
+      <Route path={AppPath.UserList}>
+        <UserList />
+      </Route>
+    </Switch>
+  );
+};
 
 interface FeatureLayoutProps {
   handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -53,7 +63,7 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
           </>
         }
       />
-      <Box p="2rem">
+      <Box p="2rem" className={styles.content}>
         <>
           <Box mb="1rem" maxWidth="20rem">
             <Search
@@ -75,6 +85,10 @@ const UserList: React.FC = () => {
   const location = useLocation();
 
   const usersQuery = useQuery(serviceUrl.getManageUsers({ query: location.search }));
+
+  function handleNavigateToUser(userId: string) {
+    history.push(appLink.user({ userId }));
+  }
 
   /**
    * Function that updates url search history to persist state
@@ -140,7 +154,12 @@ const UserList: React.FC = () => {
   }
   return (
     <FeatureLayout handleSearchChange={handleSearchChange}>
-      <UsersTable handlePaginationChange={handlePaginationChange} handleSort={handleSort} usersData={usersQuery.data} />
+      <UsersTable
+        handleNavigateToUser={handleNavigateToUser}
+        handlePaginationChange={handlePaginationChange}
+        handleSort={handleSort}
+        usersData={usersQuery.data}
+      />
     </FeatureLayout>
   );
 };
@@ -150,8 +169,8 @@ const TableHeaderKey = {
   Email: "email",
   Type: "type",
   Created: "firstLoginDate",
+  LastLogin: "lastLoginDate",
   Status: "status",
-  Action: "action",
 };
 
 const headers = [
@@ -176,37 +195,34 @@ const headers = [
     sortable: true,
   },
   {
+    header: "Last Login",
+    key: TableHeaderKey.LastLogin,
+    sortable: true,
+  },
+  {
     header: "Status",
     key: TableHeaderKey.Status,
     sortable: true,
   },
-  {
-    header: "",
-    key: TableHeaderKey.Action,
-  },
 ];
 
-export default UserList;
-
 interface UsersTableProps {
+  handleNavigateToUser: (userId: string) => void;
   handlePaginationChange: (pagination: { page: number; pageSize: number }) => void;
   handleSort: (e: React.SyntheticEvent, sort: { sortHeaderKey: string }) => void;
   usersData: PaginatedResponse<FlowUser>;
 }
 
-const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleSort, usersData }) => {
-  const [viewDetailsUserId, setViewDeatilsUserId] = React.useState(null);
-  const [changeRoleUserId, setChangeRoleUserId] = React.useState(null);
-  const cancelRequestRef = React.useRef<{} | null>();
-  const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
-
+const UsersTable: React.FC<UsersTableProps> = ({
+  handleNavigateToUser,
+  handlePaginationChange,
+  handleSort,
+  usersData,
+}) => {
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
   const { number: page, sort, totalElements, totalPages, records } = usersData;
 
-  const viewDetailsUser = records.find((user) => user.id === viewDetailsUserId);
-  const changeRoleUser = records.find((user) => user.id === changeRoleUserId);
-
-  return records.length > 0 ? (
+  return records?.length > 0 ? (
     <>
       <DataTable
         rows={records}
@@ -234,30 +250,20 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
               </TableHead>
               <TableBody>
                 {rows.map((row: any) => (
-                  <TableRow key={row.id}>
+                  <TableRow
+                    className={styles.tableRow}
+                    key={row.id}
+                    onClick={() => handleNavigateToUser(row.id)}
+                    onKeyDown={(e: React.SyntheticEvent) =>
+                      isAccessibleKeyboardEvent(e) && handleNavigateToUser(row.id)
+                    }
+                    tabIndex={-1}
+                  >
                     {row.cells.map((cell: any) => {
-                      if (cell.info.header === TableHeaderKey.Action) {
-                        return (
-                          <TableCell key={cell.id}>
-                            <OverflowMenu flipped data-testid="user-menu">
-                              {userManagementEnabled && (
-                                <OverflowMenuItem
-                                  itemText="Change role"
-                                  onClick={() => setChangeRoleUserId(row.id)}
-                                  data-testid="change-user-role"
-                                />
-                              )}
-                              <OverflowMenuItem
-                                itemText="View details"
-                                onClick={() => setViewDeatilsUserId(row.id)}
-                                data-testid="view-user-details"
-                              />
-                            </OverflowMenu>
-                          </TableCell>
-                        );
-                      }
-
-                      if (cell.info.header === TableHeaderKey.Created) {
+                      if (
+                        cell.info.header === TableHeaderKey.Created ||
+                        cell.info.header === TableHeaderKey.LastLogin
+                      ) {
                         return <TableCell key={cell.id}>{moment(cell.value).format(CREATED_DATE_FORMAT)}</TableCell>;
                       }
 
@@ -281,30 +287,10 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
         pageSizes={PAGE_SIZES}
         totalItems={totalElements}
       />
-      <ComposedModal
-        composedModalProps={{ shouldCloseOnOverlayClick: true }}
-        isOpen={Boolean(viewDetailsUserId)}
-        onCloseModal={() => setViewDeatilsUserId(null)}
-      >
-        {() => {
-          return <UserDetails user={viewDetailsUser} />;
-        }}
-      </ComposedModal>
-      <ComposedModal
-        composedModalProps={{ shouldCloseOnOverlayClick: true }}
-        isOpen={Boolean(changeRoleUserId)}
-        modalHeaderProps={{
-          title: "User Role",
-          subtitle: `Set ${changeRoleUser?.name ?? "user"}'s role in Flow. Admins can do more things.`,
-        }}
-        onCloseModal={() => setChangeRoleUserId(null)}
-      >
-        {({ closeModal }: ComposedModalChildProps) => {
-          return <ChangeRole closeModal={closeModal} cancelRequestRef={cancelRequestRef} user={changeRoleUser} />;
-        }}
-      </ComposedModal>
     </>
   ) : (
     <EmptyState />
   );
 };
+
+export default UsersContainer;
