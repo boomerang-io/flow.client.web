@@ -2894,7 +2894,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3009,7 +3009,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3125,7 +3125,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3240,7 +3240,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3356,7 +3356,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3421,7 +3421,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3487,7 +3487,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3602,7 +3602,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3718,7 +3718,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3833,7 +3833,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3949,7 +3949,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4064,7 +4064,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4180,7 +4180,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4295,7 +4295,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4411,7 +4411,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4527,7 +4527,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4644,7 +4644,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4760,7 +4760,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4877,7 +4877,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4992,7 +4992,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -5108,7 +5108,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -5224,7 +5224,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -5341,7 +5341,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -5456,7 +5456,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class="button"
+                          class="closeButton"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -5660,7 +5660,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   />
                   <svg
                     alt="Workflow edit button"
-                    class="button editButton"
+                    class="editButton editButton"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -5708,7 +5708,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class="button closeButton"
+                    class="closeButton closeButton"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -5808,7 +5808,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   />
                   <svg
                     alt="Workflow edit button"
-                    class="button editButton"
+                    class="editButton editButton"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -5856,7 +5856,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class="button closeButton"
+                    class="closeButton closeButton"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -5952,7 +5952,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   />
                   <svg
                     alt="Workflow edit button"
-                    class="button editButton"
+                    class="editButton editButton"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -6000,7 +6000,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class="button closeButton"
+                    class="closeButton closeButton"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -6100,7 +6100,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   />
                   <svg
                     alt="Workflow edit button"
-                    class="button editButton"
+                    class="editButton editButton"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -6148,7 +6148,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class="button closeButton"
+                    class="closeButton closeButton"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -6248,7 +6248,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   />
                   <svg
                     alt="Workflow edit button"
-                    class="button editButton"
+                    class="editButton editButton"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -6296,7 +6296,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class="button closeButton"
+                    class="closeButton closeButton"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -6392,7 +6392,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   />
                   <svg
                     alt="Workflow edit button"
-                    class="button editButton"
+                    class="editButton editButton"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -6440,7 +6440,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class="button closeButton"
+                    class="closeButton closeButton"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -6540,7 +6540,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   />
                   <svg
                     alt="Workflow edit button"
-                    class="button editButton"
+                    class="editButton editButton"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -6588,7 +6588,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class="button closeButton"
+                    class="closeButton closeButton"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -6684,7 +6684,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   />
                   <svg
                     alt="Workflow edit button"
-                    class="button editButton"
+                    class="editButton editButton"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -6732,7 +6732,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class="button closeButton"
+                    class="closeButton closeButton"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -6832,7 +6832,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   />
                   <svg
                     alt="Workflow edit button"
-                    class="button editButton"
+                    class="editButton editButton"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -6880,7 +6880,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class="button closeButton"
+                    class="closeButton closeButton"
                     height="26px"
                     role="button"
                     tabindex="0"

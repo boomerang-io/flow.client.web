@@ -17,15 +17,15 @@ afterEach(() => {
 
 describe("Users --- Snapshot Test", () => {
   it("Capturing Snapshot of Users", async () => {
-    const { baseElement, findByText } = global.rtlContextRouterRender(
+    const { baseElement } = global.rtlContextRouterRender(
       <Route path={AppPath.UserList}>
         <Users />
       </Route>,
       { route: appLink.userList() }
     );
-    await findByText("Tim Bula");
+    await screen.findByText("Tim Bula");
     expect(baseElement).toMatchSnapshot();
-    await waitFor(() => {});
+    await waitFor(() => null);
   });
 });
 
@@ -38,9 +38,9 @@ describe("Users --- RTL", () => {
       { route: appLink.userList() }
     );
     await screen.findByText(/^View and manage Flow users$/i);
-    const overflowMenuButtons = await screen.findAllByTestId(/^user-menu$/i);
-
-    fireEvent.click(overflowMenuButtons[0]);
+    fireEvent.click(await screen.findByText(/^Tim Bula$/i));
+    expect(await screen.findByText(/^These are Tim Bula's workflows/i)).toBeInTheDocument();
+    
     fireEvent.click(await screen.findByText(/^Change role$/i));
     expect(screen.getByText(/Admins can do more things/i)).toBeInTheDocument();
     expect(screen.getByText(/^Submit$/i)).toBeDisabled();
@@ -57,10 +57,7 @@ describe("Users --- RTL", () => {
       { route: appLink.userList() }
     );
     await screen.findByText(/^View and manage Flow users$/i);
-    const overflowMenuButtons = await screen.findAllByTestId(/^user-menu$/i);
-
-    fireEvent.click(overflowMenuButtons[0]);
-    fireEvent.click(await screen.findByText(/^View details$/i));
-    expect(screen.getByText(/^# of Flow Teams/i)).toBeInTheDocument();
+    fireEvent.click(await screen.findByText(/^Tim Bula$/i));
+    expect(await screen.findByText(/^These are Tim Bula's workflows/i)).toBeInTheDocument();
   });
 });

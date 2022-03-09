@@ -105,7 +105,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
         <svg
           alt="Workflow edit button"
           aria-label="Edit"
-          class="button editContainer"
+          class="editButton editContainer"
           data-testid="edit-parameter-button"
           role="button"
           style="will-change: auto;"
@@ -154,7 +154,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
         </svg>
         <svg
           alt="Workflow close button"
-          class="button deleteProperty"
+          class="closeButton deleteProperty"
           data-testid="workflow-delete-parameter-button"
           height="26px"
           role="button"
