@@ -5,7 +5,7 @@ import { db } from "ApiServer/fixtures";
 import { Route } from "react-router-dom";
 import { waitFor } from "@testing-library/react";
 
-import { AppPath, appLink } from "Config/appConfig.js";
+import { AppPath, appLink } from "Config/appConfig";
 import { teams, profile } from "ApiServer/fixtures";
 import { AppContextProvider } from "State/context";
 

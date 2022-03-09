@@ -96,7 +96,7 @@ export default function WorkflowInsights(location) {
           items={teamsList}
           initialSelectedItem={selectedTeam}
           onChange={handleChangeTeam}
-          titleText="Filter by team"
+          titleText="Filter by Team"
           itemToString={(team) => (team ? team.name : "")}
           label="Teams"
           placeholder="Teams"
@@ -134,7 +134,7 @@ export default function WorkflowInsights(location) {
       return <ErrorDragon />;
     }
 
-    if(teams.length === 0) {
+    if (teams.length === 0) {
       return <NoTeamsRedirectPrompt className={styles.noTeams} />;
     }
 

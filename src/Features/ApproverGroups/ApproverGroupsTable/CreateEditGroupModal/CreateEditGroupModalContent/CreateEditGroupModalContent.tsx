@@ -28,41 +28,49 @@ type RenderMembersListProps = {
   members: Approver[];
   approvers: Approver[];
   setFieldValue: (field: string, args: any) => void;
-}
+};
 
 function RenderMembersList({ members, approvers, setFieldValue }: RenderMembersListProps) {
-  const [searchQuery, setSearchQuery] = React.useState("");   
-  const filteredMembers = Boolean(searchQuery) ? matchSorter(members, searchQuery, {
-    keys: ["userName", "userEmail"],
-  }) : members;
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const filteredMembers = Boolean(searchQuery)
+    ? matchSorter(members, searchQuery, {
+        keys: ["userName", "userEmail"],
+      })
+    : members;
   const filteredMembersIds = filteredMembers.map((member: Approver) => member.userId);
   const currentApproversIds = approvers.map((approver: Approver) => approver.userId);
-  const allMembersChecked = filteredMembers.length !== 0 && filteredMembers.length === filteredMembers.filter((member: Approver) => currentApproversIds.includes(member.userId)).length;
+  const allMembersChecked =
+    filteredMembers.length !== 0 &&
+    filteredMembers.length ===
+      filteredMembers.filter((member: Approver) => currentApproversIds.includes(member.userId)).length;
 
   const handleSelectAllMembers = () => {
     if (!allMembersChecked) {
-      setFieldValue("approvers", [...approvers, ...filteredMembers.filter((member:Approver)=> !currentApproversIds.includes(member.userId))]);
-    }
-    else
-      setFieldValue("approvers", approvers.filter((approver: Approver) => !filteredMembersIds.includes(approver.userId)))
+      setFieldValue("approvers", [
+        ...approvers,
+        ...filteredMembers.filter((member: Approver) => !currentApproversIds.includes(member.userId)),
+      ]);
+    } else
+      setFieldValue(
+        "approvers",
+        approvers.filter((approver: Approver) => !filteredMembersIds.includes(approver.userId))
+      );
   };
 
-  const handleSelectMember = ({member, arrayHelpers}:{member: Approver, arrayHelpers: any}) => {
-    const memberIndex = approvers.findIndex(approver => approver.userId === member.userId);
-    if(memberIndex >= 0)
-      arrayHelpers.remove(memberIndex)
-    else
-      arrayHelpers.push({...member})
-  }
+  const handleSelectMember = ({ member, arrayHelpers }: { member: Approver; arrayHelpers: any }) => {
+    const memberIndex = approvers.findIndex((approver) => approver.userId === member.userId);
+    if (memberIndex >= 0) arrayHelpers.remove(memberIndex);
+    else arrayHelpers.push({ ...member });
+  };
 
   return (
     <div>
-      <div className={styles.divider}/>
+      <div className={styles.divider} />
       <Search
         labelText="member search"
         id="member-search"
         placeHolderText="Search for Team Members by name or email"
-        onChange={(e: any) => setSearchQuery(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
       />
       <p className={styles.selectedUsers}>{`${approvers.length} users selected`}</p>
       <ul>
@@ -75,20 +83,19 @@ function RenderMembersList({ members, approvers, setFieldValue }: RenderMembersL
         />
         <FieldArray
           name="approvers"
-          render={(arrayHelpers) => (
-              filteredMembers.map((member: Approver, index: number) => (
-                <li className={styles.userListCheckItem}>
-                  <Checkbox
-                    id={member.userId}
-                    labelText={member.userName}
-                    checked={currentApproversIds.includes(member.userId)}
-                    className={styles.userName}
-                    onChange={() => handleSelectMember({member, arrayHelpers})} 
-                  />
-                  <p className={styles.userEmail}>{member.userEmail}</p>
-                </li>
-              ))
-            )
+          render={(arrayHelpers) =>
+            filteredMembers.map((member: Approver, index: number) => (
+              <li className={styles.userListCheckItem}>
+                <Checkbox
+                  id={member.userId}
+                  labelText={member.userName}
+                  checked={currentApproversIds.includes(member.userId)}
+                  className={styles.userName}
+                  onChange={() => handleSelectMember({ member, arrayHelpers })}
+                />
+                <p className={styles.userEmail}>{member.userEmail}</p>
+              </li>
+            ))
           }
         />
       </ul>
@@ -100,48 +107,57 @@ type RenderEditMembersInGroupProps = {
   members: Approver[];
   title: string;
   isRemove?: boolean;
-}
+};
 
-function RenderEditMembersInGroup({ members, title, isRemove=false }: RenderEditMembersInGroupProps) {
-  const determineMemberIndex = (userId: string) => members.findIndex(approver => approver.userId === userId);
+function RenderEditMembersInGroup({ members, title, isRemove = false }: RenderEditMembersInGroupProps) {
+  const determineMemberIndex = (userId: string) => members.findIndex((approver) => approver.userId === userId);
   return (
     <div className={styles.membersContainer}>
       <p className={styles.listTitle}>{`${title} (${members.length})`}</p>
       <ul className={styles.userList}>
-        {
-          Boolean(members.length) ?
-            <FieldArray
-              name="approvers"
-              render={(arrayHelpers) => (
-                sortBy(members, ["userName"]).map((member) => (
-                  <li className={styles.userListItem}>
-                    <div className={styles.memberInfo}>
-                      <p className={styles.userName}>{member.userName}</p>
-                      <p className={styles.userEmail}>{member.userEmail}</p>
+        {Boolean(members.length) ? (
+          <FieldArray
+            name="approvers"
+            render={(arrayHelpers) =>
+              sortBy(members, ["userName"]).map((member) => (
+                <li className={styles.userListItem}>
+                  <div className={styles.memberInfo}>
+                    <p className={styles.userName}>{member.userName}</p>
+                    <p className={styles.userEmail}>{member.userEmail}</p>
+                  </div>
+                  {isRemove ? (
+                    <div
+                      role="button"
+                      onClick={() => arrayHelpers.remove(determineMemberIndex(member.userId))}
+                      onKeyDown={(e: any) =>
+                        isAccessibleKeyboardEvent(e) && arrayHelpers.remove(determineMemberIndex(member.userId))
+                      }
+                      tabIndex={0}
+                    >
+                      <SubtractAlt16 className={styles.actionIcon} />
                     </div>
-                    {
-                      
-                      isRemove ?
-                      <div role="button" onClick={() => arrayHelpers.remove(determineMemberIndex(member.userId))} onKeyDown={(e: any) => isAccessibleKeyboardEvent(e) && arrayHelpers.remove(determineMemberIndex(member.userId))} tabIndex={0} >
-                        <SubtractAlt16 className={styles.actionIcon}/>
-                      </div>
-                      :
-                      <div role="button" onClick={() => arrayHelpers.push(member)} onKeyDown={(e: any) => isAccessibleKeyboardEvent(e) && arrayHelpers.push(member)} tabIndex={0} >
-                        <AddAlt16 className={styles.actionIcon} />
-                      </div>
-
-                    }
-                  </li>
-                ))
-              )
+                  ) : (
+                    <div
+                      role="button"
+                      onClick={() => arrayHelpers.push(member)}
+                      onKeyDown={(e: any) => isAccessibleKeyboardEvent(e) && arrayHelpers.push(member)}
+                      tabIndex={0}
+                    >
+                      <AddAlt16 className={styles.actionIcon} />
+                    </div>
+                  )}
+                </li>
+              ))
             }
           />
-          :
+        ) : (
           <div className={styles.noMembers}>
             <p className={styles.noMembersTitle}>{isRemove ? "No group members" : "No team members"}</p>
-            <p className={styles.noMembersMessage}>{isRemove ? "Add members from the list below in order to save this group" : ""}</p>
+            <p className={styles.noMembersMessage}>
+              {isRemove ? "Add members from the list below in order to save this group" : ""}
+            </p>
           </div>
-        }
+        )}
       </ul>
     </div>
   );
@@ -159,7 +175,7 @@ type Props = {
 
 function CreateEditGroupModalContent({
   closeModal,
-  isEdit=false,
+  isEdit = false,
   approverGroup,
   approverGroups,
   team,
@@ -260,15 +276,30 @@ function CreateEditGroupModalContent({
       }}
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({
-        groupName: Yup.string().lowercase().required("Enter a group name").notOneOf(approverGroups, "Group name must be unique within the Team"),
+        groupName: Yup.string()
+          .lowercase()
+          .required("Enter a group name")
+          .notOneOf(approverGroups, "Group name must be unique within the Team"),
         approvers: Yup.array().min(1, "Groups should have at least 1 member"),
       })}
     >
       {(props) => {
-        const { dirty, values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
-        const currentGroupMembersIds = values.approvers.map(approver => approver.userId);
+        const {
+          dirty,
+          values,
+          touched,
+          errors,
+          isValid,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          setFieldValue,
+        } = props;
+        const currentGroupMembersIds = values.approvers.map((approver) => approver.userId);
         const sortedTeamMembers = sortBy(teamMembers, ["userName"]);
-        const eligibleMembers = teamMembers ? sortedTeamMembers.filter(teamMember => !currentGroupMembersIds.includes(teamMember.userId)) : [];
+        const eligibleMembers = teamMembers
+          ? sortedTeamMembers.filter((teamMember) => !currentGroupMembersIds.includes(teamMember.userId))
+          : [];
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
@@ -288,18 +319,20 @@ function CreateEditGroupModalContent({
                   invalidText={errors.groupName}
                 />
               </div>
-              {
-                Boolean(teamMembersError) ?
-                  <ErrorMessage />
-                  :
-                  isEdit ?
-                  <>
-                    <RenderEditMembersInGroup title="Group members" members={values.approvers} isRemove/>
-                    <RenderEditMembersInGroup title="Team members not in this group" members={eligibleMembers}/>
-                  </>
-                  :
-                  <RenderMembersList members={sortedTeamMembers??[]} approvers={values.approvers} setFieldValue={setFieldValue}/>
-              }
+              {Boolean(teamMembersError) ? (
+                <ErrorMessage />
+              ) : isEdit ? (
+                <>
+                  <RenderEditMembersInGroup title="Group members" members={values.approvers} isRemove />
+                  <RenderEditMembersInGroup title="Team members not in this group" members={eligibleMembers} />
+                </>
+              ) : (
+                <RenderMembersList
+                  members={sortedTeamMembers ?? []}
+                  approvers={values.approvers}
+                  setFieldValue={setFieldValue}
+                />
+              )}
               {hasError && <InlineNotification lowContrast kind="error" subtitle={subtitle} title={title} />}
             </ModalBody>
             <ModalFooter>

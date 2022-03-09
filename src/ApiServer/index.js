@@ -48,6 +48,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       teamProperties: Model,
       tokens: Model,
       flowNavigation: Model,
+      workflowCalendar: Model,
+      workflowSchedules: Model,
     },
 
     routes() {
@@ -82,11 +84,33 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.featureFlags[0];
       });
 
+      this.get(
+        serviceUrl.getWorkflowSchedulesCalendar({
+          workflowId: ":workflowId",
+          query: null,
+        }),
+        (schema) => {
+          return schema.db.workflowCalendar;
+        }
+      );
+
+      this.get(serviceUrl.getSchedule({ query: null }), (schema) => {
+        return schema.db.workflowSchedules;
+      });
+
+      this.get(serviceUrl.getSchedules({ query: null }), (schema) => {
+        return schema.db.workflowSchedules;
+      });
+
+      this.get(serviceUrl.getWorkflowSchedules({ workflowId: ":workflowId" }), (schema) => {
+        return schema.db.workflowSchedules;
+      });
+
       this.get(serviceUrl.workflowAvailableParameters({ workflowId: ":workflowId" }), (schema) => {
         return schema.db.availableParameters[0].data;
       });
 
-      this.get(serviceUrl.workflowTemplates(), (schema, request) => {
+      this.get(serviceUrl.workflowTemplates(), (schema) => {
         return schema.db.workflowTemplates;
       });
 
@@ -106,7 +130,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.manageTeams[0];
       });
 
-      this.post(serviceUrl.putActivationApp(), (schema) => {
+      this.post(serviceUrl.putActivationApp(), () => {
         return {};
       });
 
@@ -350,7 +374,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.get(serviceUrl.getActions({ query: null }), (schema, request) => {
         const { type } = request.queryParams;
         if (type === "approval") return schema.db.approvals[0];
-        if (type === "manual") return schema.db.manualTasks[0];
+        if (type === "task") return schema.db.manualTasks[0];
         return {};
       });
 
@@ -414,6 +438,14 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return summary;
       });
 
+      this.patch(serviceUrl.getManageTeamLabels({ teamId: ":teamId" }), (schema, request) => {
+        let { teamId } = request.params;
+        let body = JSON.parse(request.requestBody);
+        let activeTeam = schema.manageTeamDetails.findBy({ id: teamId });
+        activeTeam.update({ labels: body });
+        return activeTeam;
+      });
+
       this.post(serviceUrl.getManageTeamsCreate(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         const teams = schema.manageTeams.first();
@@ -434,6 +466,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
             userData.records.filter((user) => user.name.includes(query) || user.email.includes(query)) ?? [];
         }
         return userData;
+      });
+
+      this.get(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {
+        const { userId } = request.params;
+        const user = schema.manageUsers.first().attrs.records.find((user) => user.id === userId);
+        return user;
       });
 
       this.patch(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {

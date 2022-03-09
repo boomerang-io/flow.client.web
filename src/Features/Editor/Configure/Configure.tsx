@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
 import { useFeature } from "flagged";
 import { History } from "history";
 import { Formik, FormikProps, FieldArray } from "formik";
@@ -17,15 +18,13 @@ import cx from "classnames";
 import cronstrue from "cronstrue";
 import capitalize from "lodash/capitalize";
 import * as Yup from "yup";
-import { useLocation } from "react-router-dom";
 import BuildWebhookModalContent from "./BuildWebhookModalContent";
 import ConfigureStorage from "./ConfigureStorage";
 import CreateToken from "./CreateToken";
-import CronJobModal from "./CronJobModal";
 //@ts-ignore
 import CustomLabel from "./CustomLabel";
 import Token from "./Token";
-import { EventSchedule16, Save24 } from "@carbon/icons-react";
+import { Save24 } from "@carbon/icons-react";
 import { appLink, BASE_DOCUMENTATION_URL, FeatureFlag } from "Config/appConfig";
 import { QueryStatus } from "Constants";
 import workflowIcons from "Assets/workflowIcons";
@@ -86,7 +85,7 @@ interface ConfigureContainerProps {
   quotas: {
     maxActivityStorageSize: string;
     maxWorkflowStorageSize: string;
-  }
+  };
   summaryData: WorkflowSummary;
   summaryMutation: { status: string };
   teams: Array<{ id: string }>;
@@ -104,7 +103,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
 }) {
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
   const handleOnSubmit = (values: { selectedTeam: { id: null | string } }) => {
-      updateSummary({
+    updateSummary({
       values,
       callback: () => history.push(appLink.editorConfigure({ workflowId: params.workflowId })),
     });
@@ -167,12 +166,12 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           description: Yup.string().max(250, "Description must not be greater than 250 characters"),
           enableACCIntegration: Yup.boolean(),
           storage: Yup.object().shape({
-            activity: Yup.object().shape({ 
+            activity: Yup.object().shape({
               enabled: Yup.boolean().nullable(),
               size: Yup.number().required("Enter the storage size"),
               mountPath: Yup.string().nullable(),
             }),
-            workflow: Yup.object().shape({ 
+            workflow: Yup.object().shape({
               enabled: Yup.boolean().nullable(),
               size: Yup.number().required("Enter the storage size"),
               mountPath: Yup.string().nullable(),
@@ -363,7 +362,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
           <h2 className={styles.iconTitle}>Pick an icon (any icon)</h2>
           <div className={styles.icons}>
             {workflowIcons.map(({ name, Icon }, index) => (
-              <TooltipHover direction="top" tooltipText={capitalize(name)}>
+              <TooltipHover key={name} direction="top" tooltipText={capitalize(name)}>
                 <label
                   className={cx(styles.icon, {
                     [styles.active]: values.icon === name,
@@ -426,38 +425,16 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                             values.triggers.scheduler.timezone
                           }`}
                         </div>
-                        {/*<div className={styles.informationTimeZone}>
-                        {`${values.triggers.scheduler.timezone} Timezone`}
-                  </div>*/}
                       </div>
                     )}
-                  {values.triggers.scheduler.enable && (
-                    <ComposedModal
-                      modalHeaderProps={{
-                        title: "Change schedule",
-                      }}
-                      modalTrigger={({ openModal }: { openModal: () => void }) => (
-                        <button
-                          className={styles.regenerateText}
-                          type="button"
-                          onClick={openModal}
-                          data-testid="launchCronModal"
-                        >
-                          <p>Change schedule</p>
-                          <EventSchedule16 className={styles.scheduleIcon} fill={"#0072C3"} />
-                        </button>
-                      )}
-                    >
-                      {({ closeModal }: { closeModal: () => void }) => (
-                        <CronJobModal
-                          advancedCron={values.triggers.scheduler.advancedCron}
-                          closeModal={closeModal}
-                          cronExpression={values.triggers.scheduler.schedule}
-                          handleOnChange={this.handleOnToggleChange}
-                          timeZone={values.triggers.scheduler.timezone}
-                        />
-                      )}
-                    </ComposedModal>
+                  {values.triggers.scheduler.enable ? (
+                    <p>
+                      <b>All enabled</b> schedules will execute. Manage them in the Schedule tab.
+                    </p>
+                  ) : (
+                    <p>
+                      <b>No schedules</b> will execute, regardless of status. Manage them in the Schedule tab.
+                    </p>
                   )}
                 </div>
               </div>
@@ -545,7 +522,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             </div>
             <hr className={styles.delimiter} />
             <h1 className={styles.header}>Tokens</h1>
-            <p className={styles.subTitle}>Customize how you run your workflow</p>
+            <p className={styles.subTitle}>Customize how you run your Workflow</p>
             <div>
               <div className={styles.triggerSection}>
                 {values.tokens.map((token) => (
@@ -568,7 +545,10 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
         <section className={styles.smallCol}>
           <div className={styles.optionsContainer}>
             <h1 className={styles.header}>Workspaces</h1>
-            <p className={styles.subTitle}>Workspaces allow your workflow to declare storage options to be used at execution time. This will be limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum.</p>
+            <p className={styles.subTitle}>
+              Workspaces allow your workflow to declare storage options to be used at execution time. This will be
+              limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum.
+            </p>
             <div className={styles.storageToggle}>
               <div className={styles.toggleContainer}>
                 <Toggle
@@ -589,20 +569,29 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                       subtitle: (
                         <>
                           <p>
-                            The Workflow storage is persisted across workflow executions and allows you to share artifacts between workflows, such as maintaining a cache of files used every execution.
+                            The Workflow storage is persisted across workflow executions and allows you to share
+                            artifacts between workflows, such as maintaining a cache of files used every execution.
                           </p>
                           <p style={{ marginTop: "0.5rem" }}>
-                            Note: use with caution as this can lead to a collision if you are running many executions in parallel using the same artifact.
+                            Note: use with caution as this can lead to a collision if you are running many executions in
+                            parallel using the same artifact.
                           </p>
                         </>
                       ),
                     }}
-                    composedModalProps={{
-                      // containerClassName: styles.buildWebhookContainer,
-                      // shouldCloseOnOverlayClick: true,
-                    }}
+                    composedModalProps={
+                      {
+                        // containerClassName: styles.buildWebhookContainer,
+                        // shouldCloseOnOverlayClick: true,
+                      }
+                    }
                     modalTrigger={({ openModal }: { openModal: () => void }) => (
-                      <button className={styles.regenerateText} style={{marginBottom: "0.5rem"}} type="button" onClick={openModal}>
+                      <button
+                        className={styles.regenerateText}
+                        style={{ marginBottom: "0.5rem" }}
+                        type="button"
+                        onClick={openModal}
+                      >
                         <p>Configure</p>
                       </button>
                     )}
@@ -639,21 +628,25 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   <ComposedModal
                     modalHeaderProps={{
                       title: "Configure Workflow - Activity Persistent Storage",
-                      subtitle:(
+                      subtitle: (
                         <>
                           <p>
-                            The activity storage is persisted per workflow execution and allows you to share short-lived artifacts between tasks in the workflow.
+                            The activity storage is persisted per workflow execution and allows you to share short-lived
+                            artifacts between tasks in the workflow.
                           </p>
                           <p style={{ marginTop: "0.5rem" }}>
-                            Note: All artifacts will be deleted at the end of the workflow execution. If you want to persist long term use Workspace storage.
+                            Note: All artifacts will be deleted at the end of the workflow execution. If you want to
+                            persist long term use Workspace storage.
                           </p>
                         </>
                       ),
                     }}
-                    composedModalProps={{
-                      // containerClassName: styles.buildWebhookContainer,
-                      // shouldCloseOnOverlayClick: true,
-                    }}
+                    composedModalProps={
+                      {
+                        // containerClassName: styles.buildWebhookContainer,
+                        // shouldCloseOnOverlayClick: true,
+                      }
+                    }
                     modalTrigger={({ openModal }: { openModal: () => void }) => (
                       <button className={styles.regenerateText} type="button" onClick={openModal}>
                         <p>Configure</p>

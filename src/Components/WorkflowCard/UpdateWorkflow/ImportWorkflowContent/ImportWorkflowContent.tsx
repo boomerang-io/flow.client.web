@@ -21,19 +21,16 @@ function checkIsValidWorkflow(data, workflowId) {
   let isValid = true;
   requiredWorkflowProps.forEach((prop) => {
     if (!data.hasOwnProperty(prop)) {
-      console.log("PROP ERROR");
       isValid = false;
     }
   });
 
   if (data.id !== workflowId) {
-      console.log("ID ERROR");
-      isValid = false;
+    isValid = false;
   }
   //Validate if workflow has the latest structure for dag
   if (!data.latestRevision?.dag?.tasks) {
-      console.log("DAG ERROR");
-      isValid = false;
+    isValid = false;
   }
   return isValid;
 }
@@ -43,7 +40,6 @@ const createInvalidTextMessage = (message) => `Whoops! ${message}. Please choose
 const VALID_TEXT_MESSAGE = (type) => `All set! This ${type} is valid, and will fully replace the existing ${type}.`;
 
 class ImportWorkflowContent extends Component {
-
   static propTypes = {
     closeModal: PropTypes.func,
     confirmButtonText: PropTypes.string.isRequired,

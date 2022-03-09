@@ -15,6 +15,7 @@ import {
 import Header from "./Header";
 import Members from "./Members";
 import Settings from "./Settings";
+import Labels from "./Labels";
 import Workflows from "./Workflows";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -84,6 +85,9 @@ function TeamDetailedContainer() {
           </Route>
           <Route exact path={AppPath.TeamWorkflows}>
             <Workflows team={teamDetailsData} />
+          </Route>
+          <Route exact path={AppPath.TeamLabels}>
+            <Labels isActive={isActive} team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
           </Route>
           <Route exact path={AppPath.TeamSettings}>
             <Settings team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />

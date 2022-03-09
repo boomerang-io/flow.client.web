@@ -32,7 +32,7 @@ CustomTooltip.propTypes = {
 };
 
 CustomTooltip.defaultProps = {
-  dateFormat: "MMM DD - YYYY, HH:mm",
+  dateFormat: "MMMM DD - YYYY, HH:mm",
   type: "general",
 };
 

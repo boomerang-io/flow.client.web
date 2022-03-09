@@ -1,0 +1,425 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <div
+      class="container"
+    >
+      <header
+        class="bx--bmrg-feature-header container --bordered"
+      >
+        <section
+          class="bx--bmrg-feature-header__content"
+        >
+          <div
+            class="bx--bmrg-feature-header__nav"
+          >
+            <nav
+              aria-label="Breadcrumb"
+            >
+              <ol
+                class="bx--breadcrumb bx--breadcrumb--no-trailing-slash"
+              >
+                <li
+                  class="bx--breadcrumb-item"
+                >
+                  <a
+                    class="bx--link"
+                    href="/admin/users"
+                  >
+                    Users
+                  </a>
+                </li>
+                <li
+                  class="bx--breadcrumb-item bx--breadcrumb-item--current"
+                >
+                  <p
+                    class="bx--link"
+                  >
+                    Tim Bula
+                  </p>
+                </li>
+              </ol>
+            </nav>
+          </div>
+          <div
+            class="infoContainer"
+          >
+            <div
+              class="userContainer"
+            >
+              <img
+                alt="Avatar for undefined"
+                class="userAvatar --medium"
+                src="/api/users/image/trbula@us.ibm.com"
+                user="trbula@us.ibm.com"
+              />
+              <h1
+                class="bx--bmrg-feature-header-title"
+                style="margin: 0px 1rem 0px 0px;"
+                title="Tim Bula"
+              >
+                Tim Bula
+              </h1>
+              <div
+                class="headerSubtitle"
+                title="trbula@us.ibm.com"
+              >
+                <div
+                  class="status"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="fill: #009d9a;"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13 24L4 15 5.414 13.586 13 21.171 26.586 7.586 28 9 13 24z"
+                    />
+                  </svg>
+                  <p
+                    class="statusText"
+                  >
+                    Active
+                  </p>
+                </div>
+                <span
+                  class="statusDivider"
+                >
+                  -
+                </span>
+                trbula@us.ibm.com
+              </div>
+            </div>
+            <div
+              class="userDetailsContainer"
+            >
+              <section
+                class="subHeaderContainer"
+              >
+                <dl
+                  class="detailedInfoContainer"
+                >
+                  <dt
+                    class="dataTitle"
+                  >
+                    Platform Role
+                  </dt>
+                  <dd
+                    class="dataValue"
+                  >
+                    Admin
+                  </dd>
+                </dl>
+                <dl
+                  class="detailedInfoContainer"
+                >
+                  <dt
+                    class="dataTitle"
+                  >
+                    Date Joined
+                  </dt>
+                  <dd
+                    class="dataValue"
+                  >
+                    2020-01-01 12:00am
+                  </dd>
+                </dl>
+                <dl
+                  class="detailedInfoContainer"
+                >
+                  <dt
+                    class="dataTitle"
+                  >
+                    Last Login
+                  </dt>
+                  <dd
+                    class="dataValue"
+                  >
+                    2020-01-01 12:00am
+                  </dd>
+                </dl>
+              </section>
+              <section
+                class="actionButtonsContainer"
+              >
+                <button
+                  class="bx--btn bx--btn--field bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
+                >
+                  Change role
+                  <svg
+                    aria-hidden="true"
+                    class="bx--btn__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="24"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 32 32"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 4a5 5 0 11-5 5 5 5 0 015-5m0-2a7 7 0 107 7A7 7 0 0016 2zM26 30H24V25a5 5 0 00-5-5H13a5 5 0 00-5 5v5H6V25a7 7 0 017-7h6a7 7 0 017 7z"
+                    />
+                  </svg>
+                </button>
+              </section>
+            </div>
+          </div>
+          <div
+            class="bx--bmrg-feature-header__footer"
+          >
+            <nav
+              class="bx--bmrg-feature-nav-tabs"
+            >
+              <a
+                aria-current="page"
+                class="bx--bmrg-feature-nav-tab bx--bmrg-feature-nav-tab--active"
+                href="/admin/users/5f170b3df6ab327e302cb0a5"
+              >
+                Workflows
+              </a>
+              <a
+                class="bx--bmrg-feature-nav-tab"
+                href="/admin/users/5f170b3df6ab327e302cb0a5/teams"
+              >
+                Teams
+              </a>
+              <a
+                class="bx--bmrg-feature-nav-tab"
+                href="/admin/users/5f170b3df6ab327e302cb0a5/labels"
+              >
+                Labels
+              </a>
+            </nav>
+          </div>
+        </section>
+      </header>
+      <section
+        aria-label="Tim Bula Workflows"
+        class="container"
+      >
+        <section
+          class="actionsContainer"
+        >
+          <div
+            class="leftActions"
+          >
+            <p
+              class="featureDescription"
+            >
+              These are Tim Bula's workflows
+            </p>
+            <p
+              class="workflowCountText"
+            >
+              Showing 
+              2
+               workflow
+              s
+            </p>
+            <div
+              aria-labelledby="workflow-search-search"
+              class="bx--search bx--search--xl"
+              role="search"
+            >
+              <svg
+                aria-hidden="true"
+                class="bx--search-magnifier"
+                fill="currentColor"
+                focusable="false"
+                height="16"
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                />
+              </svg>
+              <label
+                class="bx--label"
+                for="workflow-search"
+                id="workflow-search-search"
+              >
+                workflow search
+              </label>
+              <input
+                autocomplete="off"
+                class="bx--search-input"
+                id="workflow-search"
+                placeholder="Search for a workflow"
+                role="searchbox"
+                type="text"
+              />
+              <button
+                aria-label="Clear search input"
+                class="bx--search-close bx--search-close--hidden"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 32 32"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+        <div
+          aria-label="Structured list section"
+          class="bx--structured-list"
+        >
+          <div
+            class="bx--structured-list-thead"
+          >
+            <div
+              class="bx--structured-list-row bx--structured-list-row--header-row"
+            >
+              <div
+                class="bx--structured-list-th"
+              >
+                Name
+              </div>
+              <div
+                class="bx--structured-list-th"
+              >
+                Summary
+              </div>
+              <div
+                class="bx--structured-list-th"
+              >
+                Revision Count
+              </div>
+              <div
+                class="bx--structured-list-th"
+              />
+              <div
+                class="bx--structured-list-th"
+              />
+            </div>
+          </div>
+          <div
+            class="bx--structured-list-tbody"
+          >
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <div
+                  class="workflowNameContainer"
+                >
+                  <p>
+                    Personal - Java - Build
+                  </p>
+                </div>
+              </div>
+              <div
+                class="bx--structured-list-td"
+              >
+                Java - Build
+              </div>
+              <div
+                class="bx--structured-list-td"
+              >
+                16
+              </div>
+              <div
+                class="bx--structured-list-td"
+              >
+                <a
+                  class="viewWorkflowLink"
+                  href="/editor/5e877d1f4bbc6e0001c51e12/workflow"
+                >
+                  View/edit
+                </a>
+              </div>
+              <div
+                class="bx--structured-list-td"
+              >
+                <a
+                  class="viewWorkflowLink"
+                  href="/activity?page=0&size=10&workflowIds=5e877d1f4bbc6e0001c51e12"
+                >
+                  Activity
+                </a>
+              </div>
+            </div>
+            <div
+              class="bx--structured-list-row"
+            >
+              <div
+                class="bx--structured-list-td"
+              >
+                <div
+                  class="workflowNameContainer"
+                >
+                  <p>
+                    Personal - ML Train – Bot Efficiency
+                  </p>
+                </div>
+              </div>
+              <div
+                class="bx--structured-list-td"
+              >
+                Train and store ML model for Bot Efficiency.
+              </div>
+              <div
+                class="bx--structured-list-td"
+              >
+                2
+              </div>
+              <div
+                class="bx--structured-list-td"
+              >
+                <a
+                  class="viewWorkflowLink"
+                  href="/editor/5eb2c4085a92d80001a16d87/workflow"
+                >
+                  View/edit
+                </a>
+              </div>
+              <div
+                class="bx--structured-list-td"
+              >
+                <a
+                  class="viewWorkflowLink"
+                  href="/activity?page=0&size=10&workflowIds=5eb2c4085a92d80001a16d87"
+                >
+                  Activity
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+</body>
+`;

@@ -49,9 +49,10 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   revisionQuery,
   summaryData,
 }) => {
+  const routeMatch: { params: { workflowId: string } } = useRouteMatch();
   const {
     params: { workflowId },
-  } : { params: { workflowId: string } } = useRouteMatch();
+  } = routeMatch;
   const { revisionCount, name, scope } = summaryData;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;
@@ -75,7 +76,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
               <Link to={appLink.workflowsTeams()}>Workflows</Link>
             ) : scope === WorkflowScope.Template ? (
               <Link to={appLink.templateWorkflows()}>Template Workflows</Link>
-            ): (
+            ) : (
               <Link to={appLink.workflowsMine()}>My Workflows</Link>
             )}
           </BreadcrumbItem>
@@ -90,6 +91,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
           <Tab label="Workflow" to={appLink.editorDesigner({ workflowId })} />
           <Tab label="Parameters" to={appLink.editorProperties({ workflowId })} />
           <Tab label="Configure" to={appLink.editorConfigure({ workflowId })} />
+          <Tab label="Schedule" to={appLink.editorSchedule({ workflowId })} />
           <Tab label="Change Log" to={appLink.editorChangelog({ workflowId })} />
         </Tabs>
       }

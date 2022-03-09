@@ -77,7 +77,11 @@ function Notes({ markdown, updateNotes }: NotesProps) {
       className={cx(styles.container, { [styles.collapsed]: !isSidenavOpen })}
       style={{ width: `${totalWidth / 16}rem` }}
     >
-      <button className={styles.resizerContainer} onMouseDown={isSidenavOpen ? startResize : () => {}}>
+      <button
+        disabled={!isSidenavOpen}
+        className={styles.resizerContainer}
+        onMouseDown={isSidenavOpen ? startResize : () => false}
+      >
         <button className={styles.collapseButton} onClick={resetNotesContainer}>
           <ChevronRight16 className={styles.chevron} />
           <RequestQuote24 className={styles.notesIcon} />

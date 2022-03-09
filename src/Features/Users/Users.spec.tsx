@@ -15,7 +15,6 @@ afterEach(() => {
   server.shutdown();
 });
 
-
 describe("Users --- Snapshot Test", () => {
   it("Capturing Snapshot of Users", async () => {
     const { baseElement, findByText } = global.rtlContextRouterRender(

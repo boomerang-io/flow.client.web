@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React from "react";
 import { Helmet } from "react-helmet";
 import { NavLink } from "react-router-dom";
@@ -12,7 +11,7 @@ import {
   UIShell,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { APP_ROOT } from "Config/appConfig";
-import { FlowNavigationItem, FlowUser, PlatformConfig } from "Types";
+import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, PlatformConfig } from "Types";
 import { navigationIcons } from "Utils/navigationIcons";
 import { FlowData16 } from "@carbon/icons-react";
 
@@ -41,25 +40,27 @@ const handleOnMenuClick = (flowNavigationData: FlowNavigationItem[]) => ({
           const itemIcon = navigationIcons.find((icon) => icon.name === item.icon) ?? FlowData16;
           if (item?.childLinks) {
             return (
-              <SideNavMenu large title={item.name} renderIcon={itemIcon.Icon}>
-                {item.childLinks.map((childItem: any, index: number) => {
-                  let props = {
-                    large: true,
-                    renderIcon: itemIcon.Icon,
-                    key: index,
-                  };
+              <SideNavMenu large key={item.name} title={item.name} renderIcon={itemIcon.Icon}>
+                {item.childLinks.map((childItem) => {
+                  let props: Omit<FlowNavigationItemChild, "link" | "name" | "renderIcon" | "large"> = {};
                   if (isInternalLink(childItem.link)) {
                     props.to = getRelativePath(childItem.link);
                     props.activeClassName = ACTIVE_CLASS_NAME;
                     props.element = NavLink;
                     props.onClick = onMenuClose;
-                  } else props.href = childItem.link;
-                  return <SideNavMenuItem {...props}>{childItem.name}</SideNavMenuItem>;
+                  } else {
+                    props.href = childItem.link;
+                  }
+                  return (
+                    <SideNavMenuItem key={childItem.name} {...props}>
+                      {childItem.name}
+                    </SideNavMenuItem>
+                  );
                 })}
               </SideNavMenu>
             );
           } else {
-            let props = {
+            let props: Omit<FlowNavigationItemChild, "link" | "name"> = {
               large: true,
               renderIcon: itemIcon.Icon,
             };
@@ -69,7 +70,11 @@ const handleOnMenuClick = (flowNavigationData: FlowNavigationItem[]) => ({
               props.element = NavLink;
               props.onClick = onMenuClose;
             } else props.href = item.link;
-            return <SideNavLink {...props}>{item.name}</SideNavLink>;
+            return (
+              <SideNavLink key={item.name} {...props}>
+                {item.name}
+              </SideNavLink>
+            );
           }
         })}
       </SideNavItems>
@@ -81,19 +86,19 @@ const skipToContentProps = {
   href: "#content",
 };
 
-interface NavbarContainerProps {
+interface NavbarProps {
   handleOnTutorialClick(): void;
   flowNavigationData: Array<FlowNavigationItem>;
   platformConfigData: PlatformConfig;
   userData: FlowUser;
 }
 
-export default function NavbarContainer({
+export default function Navbar({
   handleOnTutorialClick,
   flowNavigationData,
   platformConfigData,
   userData,
-}: NavbarContainerProps) {
+}: NavbarProps) {
   const defaultUIShellProps = {
     renderLogo: true,
   };

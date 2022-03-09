@@ -1,3 +1,18 @@
+declare global {
+  interface Window {
+    _SERVER_DATA: {
+      APP_ROOT: string;
+      CORE_ENV_URL: string;
+      CORE_SERVICE_ENV_URL: string;
+      EMBEDDED_MODE: string;
+      PRODUCT_ENV_URL: string;
+      PRODUCT_SERVICE_ENV_URL: string;
+      PRODUCT_STANDALONE: string;
+      [key: string]: string;
+    };
+  }
+}
+
 export enum PlatformRole {
   Admin = "admin",
   User = "user",
@@ -353,6 +368,7 @@ export interface FlowTeam {
   higherLevelGroupId: string;
   id: string;
   isActive: boolean;
+  labels?: { key: string; value: string }[];
   name: string;
   workflowQuotas: FlowTeamQuotas;
   users: FlowUser[];
@@ -403,9 +419,12 @@ export interface FlowUser {
   type: PlatformRole;
   firstLoginDate: string;
   lastLoginDate: string;
-  flowTeams: FlowTeam[];
+  flowTeams: string[];
   status: UserStatus;
   platformRole: string;
+  labels?: { key: string; value: string }[];
+  workflows?: WorkflowSummary[];
+  userTeams?: FlowTeam[];
 }
 
 export interface Property {
@@ -493,11 +512,24 @@ export interface UserWorkflow {
   workflows: WorkflowSummary[];
 }
 
+export interface FlowNavigationItemChild {
+  activeClassName?: string;
+  element?: React.ReactNode;
+  onClick?: (e: React.SyntheticEvent) => any;
+  href?: string;
+  large: boolean;
+  link: string;
+  name: string;
+  renderIcon: SVGElement;
+  to?: string;
+}
+
 export interface FlowNavigationItem {
   icon: string;
   name: string;
   link: string;
   type: string;
+  childLinks: [FlowNavigationItemChild];
 }
 
 export type PlatformFeatureKey =
@@ -554,3 +586,68 @@ export interface FlowFeatures {
     [k in FlowQuotaKey]: string;
   };
 }
+
+//Schedule types
+
+export type ScheduleStatus = "active" | "inactive" | "deleted" | "trigger_disabled" | "error";
+export type ScheduleType = "runOnce" | "cron" | "advancedCron";
+
+export interface Schedule {
+  id: string;
+  name: string;
+  description?: string;
+  labels?: Array<{ key: string; value: string }>;
+  nextScheduleDate: string;
+  parameters?: { [k: string]: any };
+  status: ScheduleStatus;
+  type: ScheduleType;
+  timezone: string;
+  workflowId: string;
+  workflow?: WorkflowSummary;
+}
+
+export interface ScheduleDate extends Schedule {
+  dateSchedule: string;
+  type: "runOnce";
+}
+
+export interface ScheduleCron extends Schedule {
+  cronSchedule: string;
+  type: "cron" | "advancedCron";
+}
+
+export type ScheduleUnion = ScheduleDate | ScheduleCron;
+
+export interface CalendarEntry {
+  scheduleId: string;
+  dates: Array<string>;
+}
+
+export interface CalendarEvent {
+  start: Date;
+  end: Date;
+  title: string;
+  resource: ScheduleUnion;
+  onClick?: () => void;
+}
+
+export type CalendarDateRange = { start: string | Date; end: string | Date } | Date[];
+
+export interface ScheduleManagerFormInputs {
+  advancedCron: boolean;
+  cronSchedule: string;
+  dateTime: string;
+  days: Array<DayOfWeekKey>;
+  description: string;
+  id: string;
+  labels: Array<string>;
+  name: string;
+  parameters: { [key: string]: any };
+  type: ScheduleType;
+  timezone: { label: string; value: string };
+  time: string;
+  workflow: WorkflowSummary;
+}
+
+export type DayOfWeekKey = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+export type DayOfWeekCronAbbreviation = "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";

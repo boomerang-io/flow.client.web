@@ -81,6 +81,12 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               </a>
               <a
                 class="bx--bmrg-feature-nav-tab"
+                href="/editor/5eb2c4085a92d80001a16d87/schedule"
+              >
+                Schedule
+              </a>
+              <a
+                class="bx--bmrg-feature-nav-tab"
                 href="/editor/5eb2c4085a92d80001a16d87/changelog"
               >
                 Change Log
@@ -291,7 +297,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
           >
             <div
               aria-labelledby="search-tasks-search"
-              class="bx--search bx--search--sm"
+              class="bx--search bx--search--sm bx--search--light"
               role="search"
             >
               <svg
@@ -351,7 +357,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               aria-expanded="false"
               aria-haspopup="true"
               aria-label="Menu"
-              class="bx--overflow-menu"
+              class="bx--overflow-menu bx--overflow-menu--sm"
               style="border-radius: 0.25rem;"
               type="button"
             >
@@ -360,11 +366,11 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--overflow-menu__icon"
                 fill="currentColor"
                 focusable="false"
-                height="20"
+                height="16"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
                 viewBox="0 0 32 32"
-                width="20"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -6928,6 +6934,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
         >
           <button
             class="resizerContainer"
+            disabled=""
           >
             <button
               class="collapseButton"

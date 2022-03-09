@@ -99,13 +99,9 @@ exports[`UserDetails --- Snapshot Test Capturing Snapshot of UserDetails 1`] = `
           <dt
             class="sectionHeader"
           >
-            # of Flow Teams
+            Teams (0)
           </dt>
-          <dd
-            class="sectionDetail"
-          >
-            ---
-          </dd>
+          ---
         </section>
       </dl>
     </div>

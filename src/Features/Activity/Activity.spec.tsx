@@ -57,7 +57,7 @@ describe("WorkflowActivity --- RTL", () => {
     const { history } = global.rtlContextRouterRender(<WorkflowActivity />);
     await screen.findByText(/This is all of the/i);
 
-    userEvent.click(screen.getByRole("button", { name: /Filter by team/i }));
+    userEvent.click(screen.getByRole("button", { name: /Filter by Team/i }));
     userEvent.click(screen.getAllByTitle(/IBM Services Engineering/i)[0]);
 
     await waitFor(() =>
@@ -71,8 +71,8 @@ describe("WorkflowActivity --- RTL", () => {
     const { history } = global.rtlContextRouterRender(<WorkflowActivity />);
     await screen.findByText(/This is all of the/i);
 
-    userEvent.click(screen.getByRole("button", { name: /Filter by workflow/i }));
-    userEvent.click(screen.getAllByText(/ML Train – Bot Efficiency \[IBM Services Engineering\]/i)[0]);
+    userEvent.click(screen.getByRole("button", { name: /Filter by Workflow/i }));
+    userEvent.click(await screen.findByText(/A system Workflow \(System\)/i));
 
     await waitFor(() =>
       expect(history.location.search).toBe(
@@ -86,10 +86,10 @@ describe("WorkflowActivity --- RTL", () => {
     await screen.findByText(/This is all of the/i);
 
     userEvent.click(screen.getByRole("button", { name: /Filter by trigger/i }));
-    userEvent.click(screen.getAllByText("cron")[0]);
+    userEvent.click(screen.getAllByText("Manual")[0]);
 
     await waitFor(() =>
-      expect(history.location.search).toBe("?" + queryString.stringify({ triggers: "cron", ...basicQuery }))
+      expect(history.location.search).toBe("?" + queryString.stringify({ triggers: "manual", ...basicQuery }))
     );
   });
 });

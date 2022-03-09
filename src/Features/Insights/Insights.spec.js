@@ -197,7 +197,7 @@ describe("WorkflowInsights --- Snapshot", () => {
 //       initialState:initialReduxState
 //     });
 //     await findByText(/Filter by Workflow/);
-//     const teamFilter = getByLabelText("Filter by team");
+//     const teamFilter = getByLabelText("Filter by Team");
 //     fireEvent.click(teamFilter);
 //     fireEvent.click(teamFilter.firstChild);
 //     await wait(() => {

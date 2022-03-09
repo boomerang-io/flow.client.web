@@ -256,6 +256,7 @@ function Actions() {
     if (!scopes || scopes?.includes(WorkflowScope.User)) {
       workflowsList = workflowsList.concat(userWorkflowsData);
     }
+
     let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
     return workflowsFilter;
   }
@@ -401,7 +402,7 @@ function Actions() {
                       items={teamsData}
                       itemToString={(team) => (team ? team.name : "")}
                       initialSelectedItems={selectedTeams}
-                      titleText="Filter by team"
+                      titleText="Filter by Team"
                     />
                   </div>
                 )}
@@ -414,13 +415,23 @@ function Actions() {
                     onChange={handleSelectWorkflows}
                     items={workflowsFilter}
                     itemToString={(workflow) => {
-                      const team = workflow ? teamsData.find((team) => team.id === workflow.flowTeamId) : undefined;
-                      return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                      if (workflow.scope === "team") {
+                        const team = workflow
+                          ? teamsData.find((team: FlowTeam) => team.id === workflow.flowTeamId)
+                          : undefined;
+                        if (team) {
+                          return workflow ? (team ? `${workflow.name} (${team.name})` : workflow.name) : "";
+                        }
+                      }
+                      if (workflow.scope === "system") {
+                        return `${workflow.name} (System)`;
+                      }
+                      return workflow.name;
                     }}
                     initialSelectedItems={workflowsFilter.filter((workflow) =>
                       Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
                     )}
-                    titleText="Filter by workflow"
+                    titleText="Filter by Workflow"
                   />
                 </div>
                 <div className={styles.dataFilter}>

@@ -1,0 +1,21 @@
+@import "Styles/animation";
+@import "Styles/mixins";
+
+.container {
+  display: flex;
+  height: calc(100vh - 12.25rem);
+}
+
+.calendarContainer {
+  flex-grow: 1;
+  padding: 1.5rem;
+  z-index: 0;
+  overflow: scroll;
+  &[data-is-loading="true"] {
+    opacity: 0.5;
+  }
+}
+
+.panelContainer {
+  margin-top: 12.125rem;
+}
