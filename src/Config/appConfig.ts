@@ -45,6 +45,7 @@ type AppPathKey =
   | "Team"
   | "TeamSettings"
   | "TeamWorkflows"
+  | "TeamLabels"
   | "TeamList"
   | "TeamApprovers"
   | "TeamProperties"
@@ -52,6 +53,8 @@ type AppPathKey =
   | "Tokens"
   | "User"
   | "UserList"
+  | "UserTeams"
+  | "UserLabels"
   | "Workflows"
   | "WorkflowsMine"
   | "WorkflowsTeams";
@@ -99,9 +102,12 @@ export const AppPath: Record<AppPathKey, string> = {
   Team: "/admin/teams/:teamId",
   TeamSettings: "/admin/teams/:teamId/settings",
   TeamWorkflows: "/admin/teams/:teamId/workflows",
+  TeamLabels: "/admin/teams/:teamId/Labels",
   TeamList: "/admin/teams",
   Tokens: "/admin/tokens",
   User: "/admin/users/:userId",
+  UserTeams: "/admin/users/:userId/teams",
+  UserLabels: "/admin/users/:userId/labels",
   UserList: "/admin/users",
 };
 
@@ -159,10 +165,14 @@ export const appLink: Record<string, (args?: any) => string> = {
   teamTaskTemplates: () => `/manage/task-templates`,
   team: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}`,
   teamWorkflows: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/workflows`,
+  teamLabels: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/labels`,
   teamSettings: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/settings`,
   teamList: () => "/admin/teams",
   teamTokens: () => `/manage/team-tokens`,
   tokens: () => `/admin/tokens`,
+  user: ({ userId }) => `/admin/users/${userId}`,
+  userTeams: ({ userId }) => `/admin/users/${userId}/teams`,
+  userLabels: ({ userId }) => `/admin/users/${userId}/labels`,
   userList: () => "/admin/users",
   workflows: () => "/workflows",
   workflowsMine: () => "/workflows/mine",

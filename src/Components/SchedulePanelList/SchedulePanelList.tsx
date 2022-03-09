@@ -245,7 +245,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
       },
     },
     {
-      disabled: props.schedule.status === "trigger_disabled",
+      disabled: props.schedule.status === "trigger_disabled" || props.schedule.status === "error",
       itemText: props.schedule.status === "inactive" ? "Enable" : "Disable",
       onClick: () => setIsToggleStatusModalOpen(true),
     },

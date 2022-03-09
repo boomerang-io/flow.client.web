@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import queryString from "query-string";
 import {
   Search,
   StructuredListWrapper,
@@ -79,7 +80,8 @@ function Workflows({ team }: { team: FlowTeam }) {
                     <Link
                       className={styles.viewWorkflowLink}
                       to={{
-                        pathname: appLink.workflowActivity({ workflowId: workflow.id }),
+                        pathname: appLink.activity(),
+                        search: queryString.stringify({ page: 0, size: 10, workflowIds: workflow.id }),
                         state: { fromTeam: { id: team.id, name: team.name } },
                       }}
                     >
