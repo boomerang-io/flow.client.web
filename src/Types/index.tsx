@@ -363,6 +363,7 @@ export interface FlowTeam {
   higherLevelGroupId: string;
   id: string;
   isActive: boolean;
+  labels?: { key: string; value: string }[];
   name: string;
   workflowQuotas: FlowTeamQuotas;
   users: FlowUser[];
@@ -413,9 +414,12 @@ export interface FlowUser {
   type: PlatformRole;
   firstLoginDate: string;
   lastLoginDate: string;
-  flowTeams: FlowTeam[];
+  flowTeams: string[];
   status: UserStatus;
   platformRole: string;
+  labels?: { key: string; value: string }[];
+  workflows?: WorkflowSummary[];
+  userTeams?: FlowTeam[];
 }
 
 export interface Property {
@@ -580,7 +584,7 @@ export interface FlowFeatures {
 
 //Schedule types
 
-export type ScheduleStatus = "active" | "inactive" | "deleted" | "trigger_disabled";
+export type ScheduleStatus = "active" | "inactive" | "deleted" | "trigger_disabled" | "error";
 export type ScheduleType = "runOnce" | "cron" | "advancedCron";
 
 export interface Schedule {
