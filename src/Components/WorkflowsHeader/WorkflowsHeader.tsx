@@ -46,15 +46,14 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
             {scope === WorkflowScope.System
               ? `System Workflows (${workflowsCount})`
               : scope === WorkflowScope.Template
-              ? `Template Workflows (${workflowsCount})`
-              : scope === WorkflowScope.Team
-              ? `Team Workflows (${workflowsCount})`
-              : `Workflows (${workflowsCount})`}
+                ? `Template Workflows (${workflowsCount})`
+                : scope === WorkflowScope.Team
+                  ? `Team Workflows (${workflowsCount})`
+                  : `Workflows (${workflowsCount})`}
           </HeaderTitle>
           {scope === WorkflowScope.User && (
             <HeaderSubtitle className={styles.headerMessage}>
-              Your personal playground to create and execute automation and work smarter. To collaborate on workflows,
-              create a team.
+              Your personal playground to create and execute automation and work smarter. Use teams to collaborate on workflows.
             </HeaderSubtitle>
           )}
         </>
