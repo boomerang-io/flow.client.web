@@ -289,7 +289,7 @@ const UsersTable: React.FC<UsersTableProps> = ({
       />
     </>
   ) : (
-    <EmptyState />
+    <EmptyState message="No users found" />
   );
 };
 
