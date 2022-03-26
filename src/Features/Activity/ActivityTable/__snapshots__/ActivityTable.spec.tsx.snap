@@ -23,11 +23,18 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                   <th
                     aria-sort="none"
                     class="tableHeadHeader teamName"
+                    id="teamName"
                     scope="col"
                   >
+                    <div
+                      id="table-sort-1"
+                      style="display: none;"
+                    >
+                      Click to sort rows by Team header in ascending order
+                    </div>
                     <button
+                      aria-describedby="table-sort-1"
                       class="tableHeadHeader teamName bx--table-sort"
-                      id="teamName"
                       type="button"
                     >
                       <span
@@ -39,13 +46,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                           Team
                         </div>
                         <svg
-                          aria-label="Sort rows by this header in ascending order"
+                          aria-hidden="true"
                           class="bx--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -55,13 +61,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                           />
                         </svg>
                         <svg
-                          aria-label="Sort rows by this header in ascending order"
+                          aria-hidden="true"
                           class="bx--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -87,11 +92,18 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                   <th
                     aria-sort="none"
                     class="tableHeadHeader workflowName"
+                    id="workflowName"
                     scope="col"
                   >
+                    <div
+                      id="table-sort-3"
+                      style="display: none;"
+                    >
+                      Click to sort rows by Workflow header in ascending order
+                    </div>
                     <button
+                      aria-describedby="table-sort-3"
                       class="tableHeadHeader workflowName bx--table-sort"
-                      id="workflowName"
                       type="button"
                     >
                       <span
@@ -103,13 +115,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                           Workflow
                         </div>
                         <svg
-                          aria-label="Sort rows by this header in ascending order"
+                          aria-hidden="true"
                           class="bx--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -119,13 +130,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                           />
                         </svg>
                         <svg
-                          aria-label="Sort rows by this header in ascending order"
+                          aria-hidden="true"
                           class="bx--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -352,16 +362,16 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
               class="bx--pagination__control-buttons"
             >
               <button
-                class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--tooltip--align-center"
+                class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--tooltip--hidden bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--btn--icon-only--top bx--tooltip--align-center"
                 disabled=""
                 tabindex="0"
                 type="button"
               >
-                <span
+                <div
                   class="bx--assistive-text"
                 >
                   Previous page
-                </span>
+                </div>
                 <svg
                   aria-hidden="true"
                   aria-label="Previous page"
@@ -381,16 +391,16 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                 </svg>
               </button>
               <button
-                class="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--tooltip--align-end"
+                class="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--tooltip--hidden bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--btn--icon-only--top bx--tooltip--align-end"
                 disabled=""
                 tabindex="0"
                 type="button"
               >
-                <span
+                <div
                   class="bx--assistive-text"
                 >
                   Next page
-                </span>
+                </div>
                 <svg
                   aria-hidden="true"
                   aria-label="Next page"

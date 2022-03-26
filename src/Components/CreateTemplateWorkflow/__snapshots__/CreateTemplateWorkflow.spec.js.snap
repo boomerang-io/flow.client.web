@@ -6,7 +6,7 @@ exports[`CreateTemplateWorkflow --- Snapshot Test Capturing Snapshot of CreateTe
 >
   <div>
     <button
-      class="bx--btn bx--btn--field bx--btn--ghost"
+      class="bx--btn bx--btn--md bx--btn--ghost"
       data-testid="workflows-create-workflow-template-button"
       tabindex="0"
       type="button"

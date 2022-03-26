@@ -204,7 +204,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
             class="workflowActionContainer"
           >
             <button
-              class="bx--btn bx--btn--field bx--btn--ghost"
+              class="bx--btn bx--btn--md bx--btn--ghost"
               style="display: none;"
               tabindex="0"
               type="button"
@@ -232,7 +232,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               </svg>
             </button>
             <button
-              class="bx--btn bx--btn--field bx--btn--ghost"
+              class="bx--btn bx--btn--md bx--btn--ghost"
               tabindex="0"
               type="button"
             >
@@ -300,21 +300,25 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               class="bx--search bx--search--sm bx--search--light"
               role="search"
             >
-              <svg
-                aria-hidden="true"
+              <div
                 class="bx--search-magnifier"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
-                />
-              </svg>
+                <svg
+                  aria-hidden="true"
+                  class="bx--search-magnifier-icon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                  />
+                </svg>
+              </div>
               <label
                 class="bx--label"
                 for="search-tasks"
@@ -356,7 +360,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
             <button
               aria-expanded="false"
               aria-haspopup="true"
-              aria-label="Menu"
+              aria-label="open and close list of options"
               class="bx--overflow-menu bx--overflow-menu--sm"
               style="border-radius: 0.25rem;"
               type="button"
@@ -400,13 +404,13 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
             class="content"
           >
             <ul
-              class="bx--accordion bx--accordion--end"
+              class="bx--accordion bx--accordion--end bx--accordion--md"
             >
               <li
                 class="bx--accordion__item bx--accordion__item--active taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-1"
+                  aria-controls="accordion-item-3"
                   aria-expanded="true"
                   class="bx--accordion__heading"
                   type="button"
@@ -428,13 +432,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     workflow (8)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-1"
+                  id="accordion-item-3"
                 >
                   <ul
                     class="taskSection"
@@ -913,7 +918,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-2"
+                  aria-controls="accordion-item-4"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -934,13 +939,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     Communication (1)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-2"
+                  id="accordion-item-4"
                 >
                   <ul
                     class="taskSection"
@@ -1012,7 +1018,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-3"
+                  aria-controls="accordion-item-5"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -1033,13 +1039,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     GitHub (2)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-3"
+                  id="accordion-item-5"
                 >
                   <ul
                     class="taskSection"
@@ -1169,7 +1176,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-4"
+                  aria-controls="accordion-item-6"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -1190,13 +1197,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     Github (2)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-4"
+                  id="accordion-item-6"
                 >
                   <ul
                     class="taskSection"
@@ -1330,7 +1338,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-5"
+                  aria-controls="accordion-item-7"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -1351,13 +1359,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     ServiceNow (2)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-5"
+                  id="accordion-item-7"
                 >
                   <ul
                     class="taskSection"
@@ -1487,7 +1496,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-6"
+                  aria-controls="accordion-item-8"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -1508,13 +1517,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     Test (1)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-6"
+                  id="accordion-item-8"
                 >
                   <ul
                     class="taskSection"
@@ -1571,7 +1581,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-7"
+                  aria-controls="accordion-item-9"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -1592,13 +1602,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     Utilities (1)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-7"
+                  id="accordion-item-9"
                 >
                   <ul
                     class="taskSection"
@@ -1667,7 +1678,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-8"
+                  aria-controls="accordion-item-10"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -1688,13 +1699,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     artifactory (2)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-8"
+                  id="accordion-item-10"
                 >
                   <ul
                     class="taskSection"
@@ -1820,7 +1832,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-9"
+                  aria-controls="accordion-item-11"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -1841,13 +1853,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     boomerang (2)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-9"
+                  id="accordion-item-11"
                 >
                   <ul
                     class="taskSection"
@@ -1979,7 +1992,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-10"
+                  aria-controls="accordion-item-12"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -2000,13 +2013,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     communication (4)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-10"
+                  id="accordion-item-12"
                 >
                   <ul
                     class="taskSection"
@@ -2237,7 +2251,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-11"
+                  aria-controls="accordion-item-13"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -2258,13 +2272,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     file utilities (6)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-11"
+                  id="accordion-item-13"
                 >
                   <ul
                     class="taskSection"
@@ -2606,7 +2621,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item taskCategory"
               >
                 <button
-                  aria-controls="accordion-item-12"
+                  aria-controls="accordion-item-14"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -2627,13 +2642,14 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <div
                     class="bx--accordion__title"
+                    dir="auto"
                   >
                     utilities (3)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-12"
+                  id="accordion-item-14"
                 >
                   <ul
                     class="taskSection"

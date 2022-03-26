@@ -38,21 +38,25 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
           class="bx--search bx--search--xl search"
           role="search"
         >
-          <svg
-            aria-hidden="true"
+          <div
             class="bx--search-magnifier"
-            fill="currentColor"
-            focusable="false"
-            height="16"
-            preserveAspectRatio="xMidYMid meet"
-            viewBox="0 0 16 16"
-            width="16"
-            xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
-            />
-          </svg>
+            <svg
+              aria-hidden="true"
+              class="bx--search-magnifier-icon"
+              fill="currentColor"
+              focusable="false"
+              height="16"
+              preserveAspectRatio="xMidYMid meet"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+              />
+            </svg>
+          </div>
           <label
             class="bx--label"
             for="parameters-table-search"
@@ -93,7 +97,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
           class="actions"
         >
           <button
-            class="bx--btn bx--btn--field bx--btn--primary"
+            class="bx--btn bx--btn--md bx--btn--primary"
             data-testid="create-global-parameter-button"
             style="width: 12rem;"
             tabindex="0"
@@ -136,11 +140,18 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                 <th
                   aria-sort="none"
                   class="tableHeadHeader label"
+                  id="label"
                   scope="col"
                 >
+                  <div
+                    id="table-sort-2"
+                    style="display: none;"
+                  >
+                    Click to sort rows by Label header in ascending order
+                  </div>
                   <button
+                    aria-describedby="table-sort-2"
                     class="tableHeadHeader label bx--table-sort"
-                    id="label"
                     type="button"
                   >
                     <span
@@ -152,13 +163,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                         Label
                       </div>
                       <svg
-                        aria-label="Sort rows by this header in ascending order"
+                        aria-hidden="true"
                         class="bx--table-sort__icon"
                         fill="currentColor"
                         focusable="false"
                         height="20"
                         preserveAspectRatio="xMidYMid meet"
-                        role="img"
                         viewBox="0 0 32 32"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -168,13 +178,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                         />
                       </svg>
                       <svg
-                        aria-label="Sort rows by this header in ascending order"
+                        aria-hidden="true"
                         class="bx--table-sort__icon-unsorted"
                         fill="currentColor"
                         focusable="false"
                         height="20"
                         preserveAspectRatio="xMidYMid meet"
-                        role="img"
                         viewBox="0 0 32 32"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -189,11 +198,18 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                 <th
                   aria-sort="none"
                   class="tableHeadHeader key"
+                  id="key"
                   scope="col"
                 >
+                  <div
+                    id="table-sort-3"
+                    style="display: none;"
+                  >
+                    Click to sort rows by Key header in ascending order
+                  </div>
                   <button
+                    aria-describedby="table-sort-3"
                     class="tableHeadHeader key bx--table-sort"
-                    id="key"
                     type="button"
                   >
                     <span
@@ -205,13 +221,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                         Key
                       </div>
                       <svg
-                        aria-label="Sort rows by this header in ascending order"
+                        aria-hidden="true"
                         class="bx--table-sort__icon"
                         fill="currentColor"
                         focusable="false"
                         height="20"
                         preserveAspectRatio="xMidYMid meet"
-                        role="img"
                         viewBox="0 0 32 32"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -221,13 +236,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                         />
                       </svg>
                       <svg
-                        aria-label="Sort rows by this header in ascending order"
+                        aria-hidden="true"
                         class="bx--table-sort__icon-unsorted"
                         fill="currentColor"
                         focusable="false"
                         height="20"
                         preserveAspectRatio="xMidYMid meet"
-                        role="img"
                         viewBox="0 0 32 32"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -242,11 +256,18 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                 <th
                   aria-sort="none"
                   class="tableHeadHeader description"
+                  id="description"
                   scope="col"
                 >
+                  <div
+                    id="table-sort-4"
+                    style="display: none;"
+                  >
+                    Click to sort rows by Description header in ascending order
+                  </div>
                   <button
+                    aria-describedby="table-sort-4"
                     class="tableHeadHeader description bx--table-sort"
-                    id="description"
                     type="button"
                   >
                     <span
@@ -258,13 +279,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                         Description
                       </div>
                       <svg
-                        aria-label="Sort rows by this header in ascending order"
+                        aria-hidden="true"
                         class="bx--table-sort__icon"
                         fill="currentColor"
                         focusable="false"
                         height="20"
                         preserveAspectRatio="xMidYMid meet"
-                        role="img"
                         viewBox="0 0 32 32"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -274,13 +294,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                         />
                       </svg>
                       <svg
-                        aria-label="Sort rows by this header in ascending order"
+                        aria-hidden="true"
                         class="bx--table-sort__icon-unsorted"
                         fill="currentColor"
                         focusable="false"
                         height="20"
                         preserveAspectRatio="xMidYMid meet"
-                        role="img"
                         viewBox="0 0 32 32"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -295,11 +314,18 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                 <th
                   aria-sort="none"
                   class="tableHeadHeader value"
+                  id="value"
                   scope="col"
                 >
+                  <div
+                    id="table-sort-5"
+                    style="display: none;"
+                  >
+                    Click to sort rows by Value header in ascending order
+                  </div>
                   <button
+                    aria-describedby="table-sort-5"
                     class="tableHeadHeader value bx--table-sort"
-                    id="value"
                     type="button"
                   >
                     <span
@@ -311,13 +337,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                         Value
                       </div>
                       <svg
-                        aria-label="Sort rows by this header in ascending order"
+                        aria-hidden="true"
                         class="bx--table-sort__icon"
                         fill="currentColor"
                         focusable="false"
                         height="20"
                         preserveAspectRatio="xMidYMid meet"
-                        role="img"
                         viewBox="0 0 32 32"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -327,13 +352,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                         />
                       </svg>
                       <svg
-                        aria-label="Sort rows by this header in ascending order"
+                        aria-hidden="true"
                         class="bx--table-sort__icon-unsorted"
                         fill="currentColor"
                         focusable="false"
                         height="20"
                         preserveAspectRatio="xMidYMid meet"
-                        role="img"
                         viewBox="0 0 32 32"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -348,11 +372,18 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                 <th
                   aria-sort="none"
                   class="tableHeadHeader secured"
+                  id="secured"
                   scope="col"
                 >
+                  <div
+                    id="table-sort-6"
+                    style="display: none;"
+                  >
+                    Click to sort rows by Secured header in ascending order
+                  </div>
                   <button
+                    aria-describedby="table-sort-6"
                     class="tableHeadHeader secured bx--table-sort"
-                    id="secured"
                     type="button"
                   >
                     <span
@@ -364,13 +395,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                         Secured
                       </div>
                       <svg
-                        aria-label="Sort rows by this header in ascending order"
+                        aria-hidden="true"
                         class="bx--table-sort__icon"
                         fill="currentColor"
                         focusable="false"
                         height="20"
                         preserveAspectRatio="xMidYMid meet"
-                        role="img"
                         viewBox="0 0 32 32"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -380,13 +410,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                         />
                       </svg>
                       <svg
-                        aria-label="Sort rows by this header in ascending order"
+                        aria-hidden="true"
                         class="bx--table-sort__icon-unsorted"
                         fill="currentColor"
                         focusable="false"
                         height="20"
                         preserveAspectRatio="xMidYMid meet"
-                        role="img"
                         viewBox="0 0 32 32"
                         width="20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -486,7 +515,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                       aria-expanded="false"
                       aria-haspopup="true"
                       aria-label="Overflow menu"
-                      class="bx--overflow-menu"
+                      class="bx--overflow-menu bx--overflow-menu--md"
                       data-testid="configuration-parameter-table-overflow-menu"
                       type="button"
                     >
@@ -602,7 +631,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                       aria-expanded="false"
                       aria-haspopup="true"
                       aria-label="Overflow menu"
-                      class="bx--overflow-menu"
+                      class="bx--overflow-menu bx--overflow-menu--md"
                       data-testid="configuration-parameter-table-overflow-menu"
                       type="button"
                     >
@@ -778,16 +807,16 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
             class="bx--pagination__control-buttons"
           >
             <button
-              class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--tooltip--align-center"
+              class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--tooltip--hidden bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--btn--icon-only--top bx--tooltip--align-center"
               disabled=""
               tabindex="0"
               type="button"
             >
-              <span
+              <div
                 class="bx--assistive-text"
               >
                 Previous page
-              </span>
+              </div>
               <svg
                 aria-hidden="true"
                 aria-label="Previous page"
@@ -807,16 +836,16 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
               </svg>
             </button>
             <button
-              class="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--tooltip--align-end"
+              class="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--tooltip--hidden bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--btn--icon-only--top bx--tooltip--align-end"
               disabled=""
               tabindex="0"
               type="button"
             >
-              <span
+              <div
                 class="bx--assistive-text"
               >
                 Next page
-              </span>
+              </div>
               <svg
                 aria-hidden="true"
                 aria-label="Next page"

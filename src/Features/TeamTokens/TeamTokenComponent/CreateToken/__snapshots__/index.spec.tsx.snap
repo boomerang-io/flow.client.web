@@ -6,7 +6,7 @@ exports[`CreateServiceTokenButton --- Snapshot Capturing Snapshot of CreateServi
 >
   <div>
     <button
-      class="bx--btn bx--btn--field bx--btn--primary"
+      class="bx--btn bx--btn--md bx--btn--primary"
       data-testid="create-token-button"
       style="width: 12rem;"
       tabindex="0"

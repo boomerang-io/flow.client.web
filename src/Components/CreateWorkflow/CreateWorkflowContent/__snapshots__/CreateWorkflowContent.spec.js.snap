@@ -34,7 +34,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
               class="bx--text-input__field-wrapper"
             >
               <input
-                class="bx--text-input bx--text__input"
+                class="bx--text-input bx--text-input--md"
                 id="name"
                 type="text"
                 value=""
@@ -68,7 +68,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
               class="bx--text-input__field-wrapper"
             >
               <input
-                class="bx--text-input bx--text__input"
+                class="bx--text-input bx--text-input--md"
                 id="summary"
                 type="text"
                 value=""
@@ -83,18 +83,22 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
         <div
           class="bx--form-item"
         >
-          <label
-            class="bx--label"
-            for="description"
+          <div
+            class="bx--text-area__label-wrapper"
           >
-            <div
-              style="display: flex;"
+            <label
+              class="bx--label"
+              for="description"
             >
-              <div>
-                Description
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Description
+                </div>
               </div>
-            </div>
-          </label>
+            </label>
+          </div>
           <div
             class="bx--text-area__wrapper"
           >

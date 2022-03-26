@@ -5,7 +5,7 @@ import userEvent from "@testing-library/user-event";
 import WorkflowActivity from "./index";
 import { startApiServer } from "ApiServer";
 
-const queryStringOptions:StringifyOptions = { arrayFormat: "comma", skipEmptyString: true };
+const queryStringOptions: StringifyOptions = { arrayFormat: "comma", skipEmptyString: true };
 
 jest.setTimeout(60000);
 
@@ -57,8 +57,8 @@ describe("WorkflowActivity --- RTL", () => {
     const { history } = global.rtlContextRouterRender(<WorkflowActivity />);
     await screen.findByText(/This is all of the/i);
 
-    userEvent.click(screen.getByRole("button", { name: /Filter by Team/i }));
-    userEvent.click(screen.getAllByTitle(/IBM Services Engineering/i)[0]);
+    userEvent.click(screen.getByRole("combobox", { name: /Filter by Team/i }));
+    userEvent.click(screen.getAllByText(/IBM Services Engineering/i)[0]);
 
     await waitFor(() =>
       expect(history.location.search).toBe(
@@ -71,7 +71,7 @@ describe("WorkflowActivity --- RTL", () => {
     const { history } = global.rtlContextRouterRender(<WorkflowActivity />);
     await screen.findByText(/This is all of the/i);
 
-    userEvent.click(screen.getByRole("button", { name: /Filter by Workflow/i }));
+    userEvent.click(screen.getByRole("combobox", { name: /Filter by Workflow/i }));
     userEvent.click(await screen.findByText(/A system Workflow \(System\)/i));
 
     await waitFor(() =>
@@ -85,7 +85,7 @@ describe("WorkflowActivity --- RTL", () => {
     const { history } = global.rtlContextRouterRender(<WorkflowActivity />);
     await screen.findByText(/This is all of the/i);
 
-    userEvent.click(screen.getByRole("button", { name: /Filter by trigger/i }));
+    userEvent.click(screen.getByRole("combobox", { name: /Filter by trigger/i }));
     userEvent.click(screen.getAllByText("Manual")[0]);
 
     await waitFor(() =>

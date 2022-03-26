@@ -125,11 +125,18 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
           class="teamButtons"
         >
           <button
-            class="bx--btn bx--btn--field bx--btn--danger"
+            aria-describedby="danger-description-1"
+            class="bx--btn bx--btn--md bx--btn--danger"
             data-testid="close-team"
             tabindex="0"
             type="button"
           >
+            <span
+              class="bx--visually-hidden"
+              id="danger-description-1"
+            >
+              danger
+            </span>
             Close Team
             <svg
               aria-hidden="true"
@@ -179,21 +186,25 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
               class="bx--search bx--search--xl"
               role="search"
             >
-              <svg
-                aria-hidden="true"
+              <div
                 class="bx--search-magnifier"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
-                />
-              </svg>
+                <svg
+                  aria-hidden="true"
+                  class="bx--search-magnifier-icon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                  />
+                </svg>
+              </div>
               <label
                 class="bx--label"
                 for="member-search"
@@ -235,7 +246,7 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
             class="rightActions"
           >
             <button
-              class="bx--btn bx--btn--field bx--btn--primary"
+              class="bx--btn bx--btn--md bx--btn--primary"
               data-testid="add-members-button"
               tabindex="0"
               type="button"
@@ -264,47 +275,59 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
         <div
           aria-label="Structured list section"
           class="bx--structured-list"
+          role="table"
         >
           <div
             class="bx--structured-list-thead"
+            role="rowgroup"
           >
             <div
               class="bx--structured-list-row bx--structured-list-row--header-row"
+              role="row"
             >
               <div
                 class="bx--structured-list-th"
+                role="columnheader"
               >
                 Name
               </div>
               <div
                 class="bx--structured-list-th"
+                role="columnheader"
               >
                 Email
               </div>
               <div
                 class="bx--structured-list-th"
+                role="columnheader"
               >
                 Added on
               </div>
               <div
                 class="bx--structured-list-th"
+                role="columnheader"
               />
               <div
                 class="bx--structured-list-th"
+                role="columnheader"
               />
               <div
                 class="bx--structured-list-th"
+                role="columnheader"
               />
             </div>
           </div>
           <div
             class="bx--structured-list-tbody"
+            role="rowgroup"
           >
             <div
               class="bx--structured-list-row"
+              role="row"
             >
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <div
                   class="memberNameContainer"
@@ -316,16 +339,19 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 mdroy@us.ibm.com
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 January 1, 2020
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <button
                   class="removeButton"
@@ -352,6 +378,7 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <a
                   class="viewMemberLink"
@@ -363,9 +390,11 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
             </div>
             <div
               class="bx--structured-list-row"
+              role="row"
             >
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <div
                   class="memberNameContainer"
@@ -377,16 +406,19 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 trbula@us.ibm.com
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 January 1, 2020
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <button
                   class="removeButton"
@@ -413,6 +445,7 @@ exports[`TeamDetailed --- Snapshot Test Capturing Snapshot of TeamDetailed 1`] =
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <a
                   class="viewMemberLink"

@@ -16,7 +16,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           class="bx--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="bx--form-item bx--text-input-wrapper bx--text-input-wrapper--readonly"
           >
             <label
               class="bx--label"
@@ -36,8 +36,24 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               <div
                 class="bx--text-input__field-wrapper"
               >
+                <svg
+                  aria-hidden="true"
+                  class="bx--text-input__readonly-icon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 32 32"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M30 28.6L3.4 2 2 3.4l10.1 10.1L4 21.6V28h6.4l8.1-8.1L28.6 30 30 28.6zM9.6 26H6v-3.6l7.5-7.5 3.6 3.6L9.6 26zM29.4 6.2L29.4 6.2l-3.6-3.6c-.8-.8-2-.8-2.8 0l0 0 0 0-8 8 1.4 1.4L20 8.4l3.6 3.6L20 15.6l1.4 1.4 8-8C30.2 8.2 30.2 7 29.4 6.2L29.4 6.2zM25 10.6L21.4 7l3-3L28 7.6 25 10.6z"
+                  />
+                </svg>
                 <input
-                  class="bx--text-input bx--text__input"
+                  aria-describedby="key-helper-text"
+                  class="bx--text-input bx--text-input--md"
                   id="key"
                   placeholder=".e.g. token"
                   readonly=""
@@ -48,6 +64,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               </div>
               <div
                 class="bx--form__helper-text"
+                id="key-helper-text"
               >
                 Reference value for parameter in workflow. It can't be changed after parameter creation.
               </div>
@@ -103,7 +120,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                   value="Text"
                 />
                 <div
-                  aria-label="Clear Selection"
+                  aria-label="Clear selected item"
                   class="bx--list-box__selection"
                   role="button"
                   tabindex="0"
@@ -176,7 +193,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   id="label"
                   placeholder="e.g. Token"
                   title="e.g. Token"
@@ -212,7 +229,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   id="description"
                   type="text"
                   value="Tim property"
@@ -246,7 +263,8 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  aria-describedby="jsonPath-helper-text"
+                  class="bx--text-input bx--text-input--md"
                   id="jsonPath"
                   placeholder="e.g. $.repository.image[2]"
                   title="e.g. $.repository.image[2]"
@@ -256,6 +274,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               </div>
               <div
                 class="bx--form__helper-text"
+                id="jsonPath-helper-text"
               >
                 Retrieves value matching dot notation path in the event payload
               </div>
@@ -336,7 +355,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   data-testid="text-input"
                   id="defaultValue"
                   placeholder="Default Value"
