@@ -40,7 +40,7 @@ describe("Users --- RTL", () => {
     await screen.findByText(/^View and manage Flow users$/i);
     fireEvent.click(await screen.findByText(/^Tim Bula$/i));
     expect(await screen.findByText(/^These are Tim Bula's workflows/i)).toBeInTheDocument();
-    
+
     fireEvent.click(await screen.findByText(/^Change role$/i));
     expect(screen.getByText(/Admins can do more things/i)).toBeInTheDocument();
     expect(screen.getByText(/^Submit$/i)).toBeDisabled();

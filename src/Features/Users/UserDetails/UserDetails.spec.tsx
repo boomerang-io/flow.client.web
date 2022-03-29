@@ -1,6 +1,5 @@
 import React from "react";
 import UserDetails from ".";
-import { waitFor } from "@testing-library/react";
 import { FlowUser, PlatformRole, UserStatus } from "Types";
 
 const user: FlowUser = {
@@ -18,8 +17,7 @@ const user: FlowUser = {
 
 describe("UserDetails --- Snapshot Test", () => {
   it("Capturing Snapshot of UserDetails", async () => {
-    const { baseElement } = global.rtlContextRouterRender(<UserDetails user={user}/>);
+    const { baseElement } = global.rtlContextRouterRender(<UserDetails user={user} />);
     expect(baseElement).toMatchSnapshot();
-    await waitFor(() => {});
   });
 });

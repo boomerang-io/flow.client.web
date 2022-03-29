@@ -1,8 +1,7 @@
 import React from "react";
 import GlobalPropertiesContainer from "./index";
-import { fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { startApiServer } from "ApiServer";
-import { act } from "react-dom/test-utils";
 
 let server;
 
@@ -16,8 +15,8 @@ afterEach(() => {
 
 describe("GlobalPropertiesContainer --- Snapshot Test", () => {
   it("Capturing Snapshot of GlobalPropertiesContainer", async () => {
-    const { baseElement, findByText } = global.rtlQueryRender(<GlobalPropertiesContainer />);
-    await findByText(/Set global parameters that are available for all Workflows/i);
+    const { baseElement } = global.rtlQueryRender(<GlobalPropertiesContainer />);
+    await screen.findByText(/Set global parameters that are available for all Workflows/i);
 
     expect(baseElement).toMatchSnapshot();
   });
@@ -25,67 +24,66 @@ describe("GlobalPropertiesContainer --- Snapshot Test", () => {
 
 describe("GlobalPropertiesContainer --- RTL", () => {
   it("rtlQueryRender the table and search correctly", async () => {
-    const { findByText, getByPlaceholderText, queryAllByText } = global.rtlQueryRender(<GlobalPropertiesContainer />);
-    await findByText(/Set global parameters that are available for all Workflows/i);
-    expect(queryAllByText(/Test parameter/i).length).toBe(1);
-    const searchProperty = getByPlaceholderText(/Search/i);
-    act(() => {
-      fireEvent.change(searchProperty, { target: { value: "2" } });
-    });
-    expect(queryAllByText(/Test parameter/i).length).toBe(0);
-    act(() => {
-      fireEvent.change(searchProperty, { target: { value: "Test" } });
-    });
-    expect(queryAllByText(/Test parameter/i).length).toBe(1);
+    global.rtlQueryRender(<GlobalPropertiesContainer />);
+    await screen.findByText(/Set global parameters that are available for all Workflows/i);
+    expect(screen.queryAllByText(/Test parameter/i).length).toBe(1);
+    const searchProperty = screen.getByPlaceholderText(/Search/i);
+
+    fireEvent.change(searchProperty, { target: { value: "2" } });
+
+    expect(screen.queryAllByText(/Test parameter/i).length).toBe(0);
+
+    fireEvent.change(searchProperty, { target: { value: "Test" } });
+
+    expect(screen.queryAllByText(/Test parameter/i).length).toBe(1);
   });
 
   it("Opens create parameter modal", async () => {
-    const { getByTestId, queryByText, findByText } = global.rtlQueryRender(<GlobalPropertiesContainer />);
-    await findByText(/Set global parameters that are available for all Workflows/i);
+    global.rtlQueryRender(<GlobalPropertiesContainer />);
+    await screen.findByText(/Set global parameters that are available for all Workflows/i);
 
-    expect(queryByText(/CREATE parameter/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/CREATE parameter/)).not.toBeInTheDocument();
 
-    const modalTrigger = getByTestId("create-global-parameter-button");
-    act(() => {
-      fireEvent.click(modalTrigger);
-    });
+    const modalTrigger = screen.getByTestId("create-global-parameter-button");
 
-    expect(queryByText(/Cancel/)).toBeInTheDocument();
+    fireEvent.click(modalTrigger);
+
+    expect(screen.getByText(/Cancel/)).toBeInTheDocument();
   });
 
   it("Opens edit parameter modal", async () => {
-    const { findByText, queryByText, getAllByTestId } = global.rtlQueryRender(<GlobalPropertiesContainer />);
-    await findByText(/Set global parameters that are available for all Workflows/i);
-    expect(queryByText(/EDIT TEST RTL/i)).not.toBeInTheDocument();
-    act(() => {
-      fireEvent.mouseOver(getAllByTestId("configuration-parameter-table-row")[0]);
-    });
-    const actionsMenu = getAllByTestId("configuration-parameter-table-overflow-menu")[0];
-    act(() => {
-      fireEvent.click(actionsMenu);
-    });
-    const modalTrigger = await findByText(/Edit/i);
-    act(() => {
-      fireEvent.click(modalTrigger);
-    });
-    expect(queryByText(/Edit Test parameter/i)).toBeInTheDocument();
+    global.rtlQueryRender(<GlobalPropertiesContainer />);
+    await screen.findByText(/Set global parameters that are available for all Workflows/i);
+    expect(screen.queryByText(/EDIT TEST RTL/i)).not.toBeInTheDocument();
+
+    fireEvent.mouseOver(screen.getAllByTestId("configuration-parameter-table-row")[0]);
+
+    const actionsMenu = screen.getAllByTestId("configuration-parameter-table-overflow-menu")[0];
+
+    fireEvent.click(actionsMenu);
+
+    const modalTrigger = await screen.findByText(/Edit/i);
+
+    fireEvent.click(modalTrigger);
+
+    expect(screen.getByText(/Edit Test parameter/i)).toBeInTheDocument();
   });
 
   it("Opens delete parameter modal", async () => {
-    const { findByText, queryByText, getAllByTestId } = global.rtlQueryRender(<GlobalPropertiesContainer />);
-    await findByText(/Set global parameters that are available for all Workflows/i);
-    expect(queryByText(/DELETE TEST RTL/i)).not.toBeInTheDocument();
-    act(() => {
-      fireEvent.mouseOver(getAllByTestId("configuration-parameter-table-row")[0]);
-    });
-    const actionsMenu = getAllByTestId("configuration-parameter-table-overflow-menu")[0];
-    act(() => {
-      fireEvent.click(actionsMenu);
-    });
-    const modalTrigger = await findByText(/Delete/i);
-    act(() => {
-      fireEvent.click(modalTrigger);
-    });
-    expect(queryByText(/Delete Test parameter?/i)).toBeInTheDocument();
+    global.rtlQueryRender(<GlobalPropertiesContainer />);
+    await screen.findByText(/Set global parameters that are available for all Workflows/i);
+    expect(screen.queryByText(/DELETE TEST RTL/i)).not.toBeInTheDocument();
+
+    fireEvent.mouseOver(screen.getAllByTestId("configuration-parameter-table-row")[0]);
+
+    const actionsMenu = screen.getAllByTestId("configuration-parameter-table-overflow-menu")[0];
+
+    fireEvent.click(actionsMenu);
+
+    const modalTrigger = await screen.findByText(/Delete/i);
+
+    fireEvent.click(modalTrigger);
+
+    expect(screen.getByText(/Delete Test parameter?/i)).toBeInTheDocument();
   });
 });

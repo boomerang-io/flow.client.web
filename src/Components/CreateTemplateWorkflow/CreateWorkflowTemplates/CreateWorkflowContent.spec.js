@@ -3,7 +3,7 @@ import React from "react";
 import CreateWorkflowTemplates from ".";
 import { tasktemplate, workflowTemplates } from "ApiServer/fixtures";
 
-// import { fireEvent } from "@testing-library/react";
+// import { screen, fireEvent } from "@testing-library/react";
 
 const mockfn = jest.fn();
 const props = {
@@ -14,7 +14,7 @@ const props = {
   requestNextStep: mockfn,
   workflowTemplates: workflowTemplates,
   templatesError: false,
-  taskTemplates: tasktemplate, 
+  taskTemplates: tasktemplate,
 };
 
 describe("CreateWorkflowTemplates --- Snapshot Test", () => {

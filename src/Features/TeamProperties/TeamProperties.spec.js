@@ -1,7 +1,6 @@
 import React from "react";
 import TeamProperties from "./index";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
 import { startApiServer } from "ApiServer";
 
 let server;
@@ -25,15 +24,13 @@ describe("TeamProperties --- RTL", () => {
   test("Selects team from dropdown and shows table data", async () => {
     rtlContextRouterRender(<TeamProperties />);
     const dropDown = await screen.findByPlaceholderText("Select a team");
-    act(() => {
-      fireEvent.click(dropDown);
-    });
+    fireEvent.click(dropDown);
     await waitFor(() => {
       screen.getByText("IBM Services Engineering");
     });
 
     fireEvent.click(screen.getByText("IBM Services Engineering"));
     const rowItem = await screen.findByText("for testing purpose");
-    expect(rowItem).toBeTruthy();
+    expect(rowItem).toBeInTheDocument();
   });
 });

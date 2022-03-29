@@ -1,6 +1,5 @@
 import React from "react";
 import ChangeRole from ".";
-import { waitFor } from "@testing-library/react";
 import { FlowUser, PlatformRole, UserStatus } from "Types";
 
 const user: FlowUser = {
@@ -18,8 +17,9 @@ const user: FlowUser = {
 
 describe("ChangeRole --- Snapshot Test", () => {
   it("Capturing Snapshot of ChangeRole", async () => {
-    const { baseElement } = global.rtlContextRouterRender(<ChangeRole user={user} cancelRequestRef={{}} closeModal={jest.fn()} />);
+    const { baseElement } = global.rtlContextRouterRender(
+      <ChangeRole user={user} cancelRequestRef={{}} closeModal={jest.fn()} />
+    );
     expect(baseElement).toMatchSnapshot();
-    await waitFor(() => {});
   });
 });

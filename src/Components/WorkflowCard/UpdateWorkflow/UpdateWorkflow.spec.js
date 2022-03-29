@@ -1,6 +1,6 @@
 import React from "react";
 import ImportWorkflow from ".";
-import { fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 
 const mockfn = jest.fn();
 
@@ -16,8 +16,8 @@ beforeEach(() => {
 
 describe("ImportWorkflow --- Snapshot Test", () => {
   it("Capturing Snapshot of ImportWorkflow", () => {
-    const { baseElement, getByText } = rtlContextRouterRender(<ImportWorkflow {...props} />);
-    fireEvent.click(getByText(/Choose a file or drag one here/i));
+    const { baseElement } = rtlContextRouterRender(<ImportWorkflow {...props} />);
+    fireEvent.click(screen.getByText(/Choose a file or drag one here/i));
     expect(baseElement).toMatchSnapshot();
   });
 });

@@ -1,7 +1,6 @@
 import React from "react";
 import Inputs from ".";
-import { fireEvent, waitFor } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
+import { screen, fireEvent } from "@testing-library/react";
 
 const mockfn = jest.fn();
 
@@ -29,81 +28,54 @@ describe("Inputs --- Snapshot Test", () => {
     const { baseElement } = rtlContextRouterRender(<Inputs {...props} />);
 
     expect(baseElement).toMatchSnapshot();
-    await waitFor(() => {});
   });
 });
 
 describe("Inputs --- RTL", () => {
   it("Change default value by type correctly", async () => {
-    const { getByText, queryByTestId, getByPlaceholderText } = rtlContextRouterRender(<Inputs {...props} />);
-    expect(queryByTestId("text-input")).toBeInTheDocument();
+    rtlContextRouterRender(<Inputs {...props} />);
+    expect(screen.getByTestId("text-input")).toBeInTheDocument();
 
-    const typeSelect = getByPlaceholderText("Select an item");
-    act(() => {
-      fireEvent.change(typeSelect, { target: { value: "b" } });
-    });
+    const typeSelect = screen.getByPlaceholderText("Select an item");
 
-    act(() => {
-      fireEvent.click(getByText(/boolean/i));
-    });
+    fireEvent.change(typeSelect, { target: { value: "b" } });
 
-    expect(queryByTestId("text-input")).not.toBeInTheDocument();
-    expect(queryByTestId("toggle")).toBeInTheDocument();
+    fireEvent.click(screen.getByText(/boolean/i));
 
-    act(() => {
-      fireEvent.change(typeSelect, { target: { value: "are" } });
-    });
+    expect(screen.queryByTestId("text-input")).not.toBeInTheDocument();
+    expect(screen.getByTestId("toggle")).toBeInTheDocument();
 
-    act(() => {
-      fireEvent.click(getByText(/text area/i));
-    });
+    fireEvent.change(typeSelect, { target: { value: "are" } });
 
-    expect(queryByTestId("toggle")).not.toBeInTheDocument();
-    expect(queryByTestId("text-area")).toBeInTheDocument();
+    fireEvent.click(screen.getByText(/text area/i));
 
-    act(() => {
-      fireEvent.change(typeSelect, { target: { value: "sel" } });
-    });
+    expect(screen.queryByTestId("toggle")).not.toBeInTheDocument();
+    expect(screen.getByTestId("text-area")).toBeInTheDocument();
 
-    act(() => {
-      fireEvent.click(getByText(/select/i));
-    });
+    fireEvent.change(typeSelect, { target: { value: "sel" } });
 
-    expect(queryByTestId("text-area")).not.toBeInTheDocument();
-    expect(queryByTestId("select")).toBeInTheDocument();
+    fireEvent.click(screen.getByText(/select/i));
 
-    await waitFor(() => {});
+    expect(screen.queryByTestId("text-area")).not.toBeInTheDocument();
+    expect(screen.getByTestId("select")).toBeInTheDocument();
   });
 
   it("Shouldn't save parameter without key, label and type defined", async () => {
-    const { findByRole, getByPlaceholderText, getByLabelText, getByText } = rtlContextRouterRender(
-      <Inputs {...props} isEdit={false} input={undefined} />
-    );
-    await waitFor(() => {});
+    rtlContextRouterRender(<Inputs {...props} isEdit={false} input={undefined} />);
 
-    const keyInput = getByLabelText("Key");
-    const labelInput = getByLabelText("Label");
-    const typeSelect = getByPlaceholderText("Select an item");
+    const keyInput = screen.getByLabelText("Key");
+    const labelInput = screen.getByLabelText("Label");
+    const typeSelect = screen.getByPlaceholderText("Select an item");
 
-    act(() => {
-      fireEvent.change(keyInput, { target: { value: "test" } });
-    });
+    fireEvent.change(keyInput, { target: { value: "test" } });
 
-    act(() => {
-      fireEvent.change(labelInput, { target: { value: "test" } });
-    });
+    fireEvent.change(labelInput, { target: { value: "test" } });
 
-    act(() => {
-      fireEvent.change(typeSelect, { target: { value: "b" } });
-    });
+    fireEvent.change(typeSelect, { target: { value: "b" } });
 
-    act(() => {
-      fireEvent.click(getByText(/boolean/i));
-    });
+    fireEvent.click(screen.getByText(/boolean/i));
 
-    const createButton = await findByRole("button", { name: /create/i });
+    const createButton = await screen.findByRole("button", { name: /create/i });
     expect(createButton).toBeEnabled();
-
-    await waitFor(() => {});
   });
 });

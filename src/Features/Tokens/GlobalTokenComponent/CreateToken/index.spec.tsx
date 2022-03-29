@@ -1,10 +1,10 @@
 import React from "react";
 import { startApiServer } from "ApiServer";
 import userEvent from "@testing-library/user-event";
-import { waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import CreateServiceTokenButton from "./index";
 
-let server:any;
+let server: any;
 
 beforeEach(() => {
   document.body.setAttribute("id", "app");
@@ -17,41 +17,36 @@ afterEach(() => {
 
 describe("CreateServiceTokenButton --- Snapshot", () => {
   it("Capturing Snapshot of CreateServiceTokenButton", async () => {
-    const { baseElement, findByText } = global.rtlQueryRender(<CreateServiceTokenButton />);
-    await findByText(/Create Token/i);
+    const { baseElement } = global.rtlQueryRender(<CreateServiceTokenButton />);
+    await screen.findByText(/Create Token/i);
     expect(baseElement).toMatchSnapshot();
   });
 });
 
 describe("CreateServiceTokenButton --- RTL", () => {
   it("Open token creation modal", async () => {
-    const { getByTestId, getByText, queryByText } = global.rtlQueryRender(
-      <CreateServiceTokenButton />
-    );
-    const button = getByTestId(/create-token-button/i);
-    expect(queryByText(/Create Global Token/i)).not.toBeInTheDocument();
+    global.rtlQueryRender(<CreateServiceTokenButton />);
+    const button = screen.getByTestId(/create-token-button/i);
+    expect(screen.queryByText(/Create Global Token/i)).not.toBeInTheDocument();
     userEvent.click(button);
-    expect(getByText(/Create Global Token/i)).toBeInTheDocument();
+    expect(screen.getByText(/Create Global Token/i)).toBeInTheDocument();
   });
 
   it("Fill out form", async () => {
-    const { findByText, getByTestId, getByText, queryByText } = global.rtlQueryRender(
-      <CreateServiceTokenButton />
-    );
-    const button = getByTestId(/create-token-button/i);
-    expect(queryByText(/Create Global Token/i)).not.toBeInTheDocument();
+    global.rtlQueryRender(<CreateServiceTokenButton />);
+    const button = screen.getByTestId(/create-token-button/i);
+    expect(screen.queryByText(/Create Global Token/i)).not.toBeInTheDocument();
     userEvent.click(button);
 
-    expect(getByText(/Create Global Token/i)).toBeInTheDocument();
+    expect(screen.getByText(/Create Global Token/i)).toBeInTheDocument();
 
-    const descriptionInput = getByTestId("token-description");
+    const descriptionInput = screen.getByTestId("token-description");
     userEvent.type(descriptionInput, "Token test description");
 
-    const createButton = getByTestId(/create-token-submit/i);
+    const createButton = screen.getByTestId(/create-token-submit/i);
 
-    await waitFor(() => {});
     expect(createButton).toBeEnabled();
     userEvent.click(createButton);
-    expect(await findByText(/Global token successfully created/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Global token successfully created/i)).toBeInTheDocument();
   });
 });

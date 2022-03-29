@@ -1,6 +1,6 @@
 import React from "react";
 import TeamPropertiesTable from ".";
-import { fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 
 const mockfn = jest.fn();
 const mockReduxTeamConfig = {
@@ -117,27 +117,27 @@ describe("TeamPropertiesTable --- Snapshot Test", () => {
 
 describe("TeamPropertiesTable --- RTL", () => {
   test("TeamPropertiesTable - ComboBox Functionality correctly", () => {
-    const { queryByPlaceholderText, getByText, queryAllByText } = global.rtlContextRouterRender(
-      <TeamPropertiesTable {...props} />
-    );
-    const comboBoxElement = queryByPlaceholderText(/Select a team/i);
+    global.rtlContextRouterRender(<TeamPropertiesTable {...props} />);
+    const comboBoxElement = screen.getByPlaceholderText(/Select a team/i);
     fireEvent.click(comboBoxElement);
 
-    const selection = getByText(/Allianz/i);
+    const selection = screen.getByText(/Allianz/i);
     fireEvent.click(selection);
 
-    expect(queryAllByText(/Please select a team to manage properties./i)).toHaveLength(0);
+    // eslint-disable-next-line jest-dom/prefer-in-document
+    expect(screen.queryAllByText(/Please select a team to manage properties./i)).toHaveLength(0);
   });
 
   test("TeamPropertiesTable -  test it renders table with data", async () => {
-    const { getByText, container } = global.rtlContextRouterRender(<TeamPropertiesTable {...propsWithProperties} />);
+    const { container } = global.rtlContextRouterRender(<TeamPropertiesTable {...propsWithProperties} />);
     const { data } = mockReduxTeamConfig.teamProperties;
+    // eslint-disable-next-line
     const unsecuredElement = container.querySelector(".unsecured");
 
-    expect(getByText(data[0].value)).toBeInTheDocument();
-    expect(getByText(data[0].label)).toBeInTheDocument();
-    expect(getByText(data[0].key)).toBeInTheDocument();
-    expect(getByText(data[0].description)).toBeInTheDocument();
+    expect(screen.getByText(data[0].value)).toBeInTheDocument();
+    expect(screen.getByText(data[0].label)).toBeInTheDocument();
+    expect(screen.getByText(data[0].key)).toBeInTheDocument();
+    expect(screen.getByText(data[0].description)).toBeInTheDocument();
     expect(unsecuredElement).toBeInTheDocument();
   });
 });

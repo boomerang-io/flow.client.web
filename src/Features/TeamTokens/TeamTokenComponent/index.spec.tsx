@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import TokenComponent from "./index";
 import { tokens } from "ApiServer/fixtures";
@@ -44,7 +44,7 @@ const teams: FlowTeam[] = [
           scheduler: { enable: false, schedule: "", timezone: "", advancedCron: false },
           webhook: { enable: false, token: "" },
           custom: { enable: false, topic: "" },
-          manual: { enable: false, },
+          manual: { enable: false },
         },
         enableACCIntegration: false,
         revisionCount: 2,
@@ -63,7 +63,7 @@ const teams: FlowTeam[] = [
         },
         labels: [],
         scope: "user",
-        tokens: [{ token: "1", label: "test", }],
+        tokens: [{ token: "1", label: "test" }],
       },
     ],
     workflowQuotas: {
@@ -81,7 +81,7 @@ const teams: FlowTeam[] = [
     },
     isActive: true,
     users: [],
-  }
+  },
 ];
 
 const props = {
@@ -97,25 +97,19 @@ const props = {
 
 describe("TokenComponent --- Snapshot", () => {
   it("Capturing Snapshot of TokenComponent", () => {
-    const { baseElement } = global.rtlContextRouterRender(
-      <TokenComponent {...props} />
-    );
+    const { baseElement } = global.rtlContextRouterRender(<TokenComponent {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
 
 describe("TokenComponent --- RTL", () => {
   it("Displays created tokens", async () => {
-    global.rtlContextRouterRender(
-      <TokenComponent {...props} />
-    );
+    global.rtlContextRouterRender(<TokenComponent {...props} />);
     expect(screen.queryAllByText(/Test User/i).length).toBeGreaterThan(0);
   });
 
   it("Open Create Modal", async () => {
-    global.rtlContextRouterRender(
-      <TokenComponent {...props} />
-    );
+    global.rtlContextRouterRender(<TokenComponent {...props} />);
     const teamsInput = await screen.findByTestId("team-tokens-combobox");
     userEvent.click(teamsInput);
     userEvent.click(await screen.findByText(/engineering/i));

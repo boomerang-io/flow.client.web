@@ -1,11 +1,11 @@
 import React from "react";
 import { startApiServer } from "ApiServer";
 import userEvent from "@testing-library/user-event";
-import { waitFor, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { FlowTeam } from "Types";
 import CreateServiceTokenButton from "./index";
 
-let server:any;
+let server: any;
 const activeTeam: FlowTeam = {
   higherLevelGroupId: "5c41596cf32aa30001e9d444",
   id: "5e3a35ad8c222700018ccd39",
@@ -44,7 +44,7 @@ const activeTeam: FlowTeam = {
         scheduler: { enable: false, schedule: "", timezone: "", advancedCron: false },
         webhook: { enable: false, token: "" },
         custom: { enable: false, topic: "" },
-        manual: { enable: false, },
+        manual: { enable: false },
       },
       enableACCIntegration: false,
       revisionCount: 2,
@@ -63,7 +63,7 @@ const activeTeam: FlowTeam = {
       },
       labels: [],
       scope: "user",
-      tokens: [{ token: "1", label: "test", }],
+      tokens: [{ token: "1", label: "test" }],
     },
   ],
   workflowQuotas: {
@@ -102,9 +102,7 @@ describe("CreateServiceTokenButton --- Snapshot", () => {
 
 describe("CreateServiceTokenButton --- RTL", () => {
   it("Open token creation modal", async () => {
-    global.rtlQueryRender(
-      <CreateServiceTokenButton activeTeam={activeTeam} />
-    );
+    global.rtlQueryRender(<CreateServiceTokenButton activeTeam={activeTeam} />);
     const button = screen.getByTestId(/create-token-button/i);
     expect(screen.queryByText(/Create Team Token/i)).not.toBeInTheDocument();
     userEvent.click(button);
@@ -112,9 +110,7 @@ describe("CreateServiceTokenButton --- RTL", () => {
   });
 
   it("Fill out form", async () => {
-    global.rtlQueryRender(
-      <CreateServiceTokenButton activeTeam={activeTeam} />
-    );
+    global.rtlQueryRender(<CreateServiceTokenButton activeTeam={activeTeam} />);
     const button = screen.getByTestId(/create-token-button/i);
     expect(screen.queryByText(/Create Team Token/i)).not.toBeInTheDocument();
     userEvent.click(button);
@@ -126,7 +122,6 @@ describe("CreateServiceTokenButton --- RTL", () => {
 
     const createButton = screen.getByTestId(/create-token-submit/i);
 
-    await waitFor(() => {});
     expect(createButton).toBeEnabled();
     userEvent.click(createButton);
     expect(await screen.findByText(/Team token successfully created/i)).toBeInTheDocument();

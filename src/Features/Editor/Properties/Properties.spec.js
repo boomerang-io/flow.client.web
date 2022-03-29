@@ -1,6 +1,6 @@
 import React from "react";
 import Inputs from ".";
-import { fireEvent, waitFor } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 
 const initialState = {};
 
@@ -29,39 +29,35 @@ describe("Inputs --- Snapshot Test", () => {
   it("Capturing Snapshot of Inputs", async () => {
     const { baseElement } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
     expect(baseElement).toMatchSnapshot();
-    await waitFor(() => {});
   });
 });
 
 describe("Inputs --- RTL", () => {
   it("Render inputs correctly", async () => {
-    const { queryByText } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
-    expect(queryByText("tim-parameter")).toBeInTheDocument();
-    await waitFor(() => {});
+    rtlContextRouterRender(<Inputs {...props} />, { initialState });
+    expect(screen.getByText("tim-parameter")).toBeInTheDocument();
   });
 
   it("Opens create new parameter modal", async () => {
-    const { queryByText, getByTestId } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
+    rtlContextRouterRender(<Inputs {...props} />, { initialState });
 
     //expect(queryByText(/Create a new parameter/i)).not.toBeInTheDocument();
 
-    //const modalTrigger = getByText(/Create a new parameter/i);
-    const modalTrigger = getByTestId("create-parameter-button");
+    //const modalTrigger = screen.getByText(/Create a new parameter/i);
+    const modalTrigger = screen.getByTestId("create-parameter-button");
     fireEvent.click(modalTrigger);
 
-    expect(queryByText(/Create a new parameter/i)).toBeInTheDocument();
-    await waitFor(() => {});
+    expect(screen.getByText(/Create a new parameter/i)).toBeInTheDocument();
   });
 
   it("Opens edit parameter modal", async () => {
-    const { getByLabelText, queryByText } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
+    rtlContextRouterRender(<Inputs {...props} />, { initialState });
 
     //expect(queryByText(/Let's update it/i)).not.toBeInTheDocument();
 
-    const modalTrigger = getByLabelText(/Edit/i);
+    const modalTrigger = screen.getByLabelText(/Edit/i);
     fireEvent.click(modalTrigger);
 
-    expect(queryByText(/Let's change some stuff/i)).toBeInTheDocument();
-    await waitFor(() => {});
+    expect(screen.getByText(/Let's change some stuff/i)).toBeInTheDocument();
   });
 });

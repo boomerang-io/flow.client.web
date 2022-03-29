@@ -1,4 +1,5 @@
 import React from "react";
+import { screen } from "@testing-library/react";
 import Configure from "./index";
 import { teams, profile, summaries } from "ApiServer/fixtures";
 import { AppContextProvider } from "State/context";
@@ -28,7 +29,7 @@ afterEach(() => {
 
 describe("Inputs --- RTL", () => {
   it("Main Sections Render", async () => {
-    const { findByText, getByText } = rtlContextRouterRender(
+    rtlContextRouterRender(
       <FlagsProvider
         features={{
           TeamManagementEnabled: true,
@@ -59,10 +60,10 @@ describe("Inputs --- RTL", () => {
       </FlagsProvider>,
       { route: appLink.editorConfigure({ workflowId: "5eb2c4085a92d80001a16d87" }) }
     );
-    await findByText(/General info/i);
-    expect(getByText(/General info/i)).toBeInTheDocument();
+    await screen.findByText(/General info/i);
+    expect(screen.getByText(/General info/i)).toBeInTheDocument();
     expect(
-      getByText(
+      screen.getByText(
         /Workspaces allow your workflow to declare storage options to be used at execution time. This will be limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum./
       )
     ).toBeInTheDocument();

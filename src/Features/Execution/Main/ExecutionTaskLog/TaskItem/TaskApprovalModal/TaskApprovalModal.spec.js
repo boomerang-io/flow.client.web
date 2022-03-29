@@ -1,6 +1,6 @@
 import React from "react";
 import TaskApprovalModal from "./index";
-import { fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 
 const props = {
   approvalId: "1",
@@ -17,11 +17,11 @@ describe("TaskApprovalModal --- Snapshot", () => {
 
 describe("TaskApprovalModal --- RTL", () => {
   it("Formik form submission state", async () => {
-    const { getByText } = global.rtlQueryRender(<TaskApprovalModal {...props} />);
+    global.rtlQueryRender(<TaskApprovalModal {...props} />);
 
-    const submissionButton = getByText("Submit decisions");
+    const submissionButton = screen.getByText("Submit decisions");
     expect(submissionButton).toBeDisabled();
-    const approvalButton = getByText("Approve");
+    const approvalButton = screen.getByText("Approve");
     fireEvent.click(approvalButton);
     expect(submissionButton).toBeEnabled();
   });
