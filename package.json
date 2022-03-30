@@ -1,6 +1,6 @@
 {
   "name": "boomerang.app.flow",
-  "version": "0.0.1",
+  "version": "3.7.0",
   "private": true,
   "homepage": "https://useboomerang.io",
   "scripts": {
@@ -36,8 +36,8 @@
     "@projectstorm/react-diagrams": "^5.3.2",
     "axios": "^0.26.0",
     "axios-hooks": "^3.0.1",
-    "carbon-components": "10.55.2",
-    "carbon-components-react": "7.55.2",
+    "carbon-components": "10.56.0",
+    "carbon-components-react": "7.56.0",
     "classnames": "^2.2.6",
     "closest": "0.0.1",
     "codemirror": "^5.58.2",
@@ -125,6 +125,7 @@
     "prettier": "2.0.5",
     "react-test-renderer": "^16.13.1",
     "start-server-and-test": "^1.10.11",
+    "ts-loader": "^9.2.8",
     "typescript": "^4.5.4",
     "typescript-plugin-css-modules": "^3.4.0",
     "uuid": "^8.3.2"
