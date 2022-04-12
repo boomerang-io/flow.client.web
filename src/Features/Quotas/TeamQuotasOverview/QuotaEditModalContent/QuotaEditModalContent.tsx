@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import {
   Button,
   Loading,
@@ -45,8 +45,9 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
   teamQuotasData,
 }) => {
   const cancelRequestRef = React.useRef<{} | null>();
+  const queryClient = useQueryClient();
 
-  const [putQuotaMutator, { isLoading, error }] = useMutation(
+  const { mutateAsync: putQuotaMutator, isLoading, error } = useMutation(
     (args: { body: {}; id: string }) => {
       const { promise, cancel } = resolver.putTeamQuotas(args);
       if (cancelRequestRef?.current) {
@@ -56,8 +57,8 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
     },
     {
       onSuccess: () => {
-        queryCache.invalidateQueries(serviceUrl.getTeamQuotas({ id: teamId }));
-        queryCache.invalidateQueries(serviceUrl.getTeams());
+        queryClient.invalidateQueries(serviceUrl.getTeamQuotas({ id: teamId }));
+        queryClient.invalidateQueries(serviceUrl.getTeams());
       },
     }
   );

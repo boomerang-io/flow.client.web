@@ -15,7 +15,7 @@ function ApproverGroups() {
   const { data, isLoading, error } = useQuery({
     queryKey: ApproverGroupsUrl,
     queryFn: resolver.query(ApproverGroupsUrl),
-    config: { enabled: activeTeam?.id }
+    enabled: Boolean(activeTeam?.id),
   });
 
   const userCanEdit = true;

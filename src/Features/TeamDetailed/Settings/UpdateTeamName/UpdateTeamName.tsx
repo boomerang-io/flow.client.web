@@ -1,5 +1,5 @@
 import React from "react";
-import { queryCache, useMutation } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
 import { Button } from "carbon-components-react";
 import {
@@ -24,8 +24,9 @@ interface UpdateTeamNameProps {
 }
 
 const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamNameList }) => {
-  const [updateTeamMutator, { isLoading, error }] = useMutation(resolver.putUpdateTeam, {
-    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id })),
+  const queryClient = useQueryClient();
+  const { mutateAsync: updateTeamMutator, isLoading, error } = useMutation(resolver.putUpdateTeam, {
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id })),
   });
 
   const updateTeamName = async (values: { name: string }) => {
@@ -93,6 +94,7 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamN
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
+              {/* @ts-ignore */}
               <Button disabled={errors.name || isLoading} onClick={handleSubmit} data-testid="save-team-name">
                 {buttonText}
               </Button>

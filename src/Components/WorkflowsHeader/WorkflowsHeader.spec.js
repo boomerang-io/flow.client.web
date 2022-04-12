@@ -1,6 +1,5 @@
 import React from "react";
 import WorkflowsHeader from "./index";
-import { queryCaches } from "react-query";
 
 const mockfn = jest.fn();
 
@@ -17,13 +16,9 @@ const props = {
   ],
 };
 
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
-
 describe("WorkflowsHeader --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowsHeader", () => {
-    const { baseElement } = rtlRouterRender(<WorkflowsHeader {...props} />);
+    const { baseElement } = rtlContextRouterRender(<WorkflowsHeader {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });

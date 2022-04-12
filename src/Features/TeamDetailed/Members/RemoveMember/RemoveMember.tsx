@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Delete16 } from "@carbon/icons-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -14,8 +14,9 @@ interface RemoveMemberProps {
   userId: string;
 }
 const RemoveMember: React.FC<RemoveMemberProps> = ({ member, memberIdList, teamId, teamName, userId }) => {
-  const [leaveTeamMutator, { isLoading }] = useMutation(resolver.patchManageTeamUser, {
-    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getManageTeam({ teamId })),
+  const queryClient = useQueryClient();
+  const { mutateAsync: leaveTeamMutator, isLoading } = useMutation(resolver.patchManageTeamUser, {
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getManageTeam({ teamId })),
   });
 
   async function handleCreateLeaveTeamRequest() {

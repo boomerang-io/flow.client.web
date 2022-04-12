@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SkeletonPlaceholder, TooltipIcon } from "@boomerang-io/carbon-addons-boomerang-react";
-import { QueryIdleResult, QueryLoadingResult, QuerySuccessResult } from "react-query";
+import { UseQueryResult } from "react-query";
 import TaskItem from "./TaskItem";
 import orderBy from "lodash/orderBy";
 import { getSimplifiedDuration } from "Utils/timeHelper";
@@ -10,7 +10,7 @@ import { ArrowsVertical32, ChevronLeft32 } from "@carbon/icons-react";
 import styles from "./executionTaskLog.module.scss";
 
 type Props = {
-  workflowExecution: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
+  workflowExecution: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
 };
 
 function ExecutionTaskLog({ workflowExecution }: Props) {

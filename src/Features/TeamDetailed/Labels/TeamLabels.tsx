@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import ms from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { Formik, FieldArray } from "formik";
@@ -34,11 +34,12 @@ interface Label {
 }
 
 function TeamLabels({ isActive, team, teamManagementEnabled }: TeamLabelsProps) {
+  const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = React.useState("");
 
-  const [updateTeamLabelsMutator, { isLoading }] = useMutation(resolver.patchManageTeamLabels, {
+  const { mutateAsync: updateTeamLabelsMutator, isLoading } = useMutation(resolver.patchManageTeamLabels, {
     onSuccess: () => {
-      queryCache.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id }));
+      queryClient.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id }));
     },
   });
 

@@ -60,7 +60,7 @@ function Schedule() {
   const systemWorkflowsQuery = useQuery<Array<WorkflowSummary>, string>({
     queryKey: systemUrl,
     queryFn: resolver.query(systemUrl),
-    config: { enabled: isSystemWorkflowsEnabled },
+    enabled: isSystemWorkflowsEnabled,
   });
 
   /**
@@ -432,7 +432,7 @@ function CalendarView(props: CalendarViewProps) {
   const calendarQuery = useQuery<Array<CalendarEntry>, string>({
     queryKey: props.getCalendarUrl,
     queryFn: resolver.query(props.getCalendarUrl),
-    config: { enabled: props.hasScheduleData },
+    enabled: props.hasScheduleData,
   });
 
   const calendarEvents: Array<CalendarEvent> = [];

@@ -1,7 +1,6 @@
 import React from "react";
 import TeamPropertiesTable from ".";
-import { fireEvent } from "@testing-library/react";
-import { queryCaches } from "react-query";
+import { screen, fireEvent } from "@testing-library/react";
 
 const mockfn = jest.fn();
 const mockReduxTeamConfig = {
@@ -14,6 +13,7 @@ const mockReduxTeamConfig = {
         description: "description",
         label: "Mail Accdasdount",
         type: "text",
+        readOnly: false,
       },
     ],
   },
@@ -27,6 +27,23 @@ const props = {
       label: "Allianz PoC",
       name: "Allianz",
       value: "allianz-poc",
+      higherLevelGroupId: "",
+      isActive: false,
+      workflowQuotas: {
+        maxWorkflowCount: 3,
+        maxWorkflowExecutionMonthly: 3,
+        currentWorkflowExecutionMonthly: 3,
+        currentWorkflowCount: 3,
+        maxWorkflowStorage: 3,
+        maxConcurrentWorkflows: 3,
+        maxWorkflowExecutionTime: 3,
+        monthlyResetDate: "",
+        currentConcurrentWorkflows: 3,
+        currentAverageExecutionTime: 3,
+        currentWorkflowsPersistentStorage: 3,
+      },
+      users: [],
+      workflows: [],
     },
     {
       boomerangTeamName: "AT&T MIL Mobile@Scale",
@@ -35,9 +52,25 @@ const props = {
       label: "AT&T MIL Mobile@Scale",
       name: "ATT",
       value: "ms-att-mil",
+      higherLevelGroupId: "",
+      isActive: false,
+      workflowQuotas: {
+        maxWorkflowCount: 3,
+        maxWorkflowExecutionMonthly: 3,
+        currentWorkflowExecutionMonthly: 3,
+        currentWorkflowCount: 3,
+        maxWorkflowStorage: 3,
+        maxConcurrentWorkflows: 3,
+        maxWorkflowExecutionTime: 3,
+        monthlyResetDate: "",
+        currentConcurrentWorkflows: 3,
+        currentAverageExecutionTime: 3,
+        currentWorkflowsPersistentStorage: 3,
+      },
+      users: [],
+      workflows: [],
     },
   ],
-
   setActiveTeam: mockfn,
   properties: [],
   propertiesAreLoading: false,
@@ -49,6 +82,23 @@ const props = {
     label: "Allianz PoC",
     name: "Allianz",
     value: "allianz-poc",
+    higherLevelGroupId: "",
+    isActive: false,
+    workflowQuotas: {
+      maxWorkflowCount: 3,
+      maxWorkflowExecutionMonthly: 3,
+      currentWorkflowExecutionMonthly: 3,
+      currentWorkflowCount: 3,
+      maxWorkflowStorage: 3,
+      maxConcurrentWorkflows: 3,
+      maxWorkflowExecutionTime: 3,
+      monthlyResetDate: "",
+      currentConcurrentWorkflows: 3,
+      currentAverageExecutionTime: 3,
+      currentWorkflowsPersistentStorage: 3,
+    },
+    users: [],
+    workflows: [],
   },
 };
 
@@ -58,40 +108,36 @@ beforeEach(() => {
   document.body.setAttribute("id", "app");
 });
 
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
-
 describe("TeamPropertiesTable --- Snapshot Test", () => {
   test("Capturing Snapshot of TeamPropertiesTable", () => {
-    const { baseElement } = rtlContextRouterRender(<TeamPropertiesTable {...props} />);
+    const { baseElement } = global.rtlContextRouterRender(<TeamPropertiesTable {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
 
 describe("TeamPropertiesTable --- RTL", () => {
   test("TeamPropertiesTable - ComboBox Functionality correctly", () => {
-    const { queryByPlaceholderText, getByText, queryAllByText } = rtlContextRouterRender(
-      <TeamPropertiesTable {...props} />
-    );
-    const comboBoxElement = queryByPlaceholderText(/Select a team/i);
+    global.rtlContextRouterRender(<TeamPropertiesTable {...props} />);
+    const comboBoxElement = screen.getByPlaceholderText(/Select a team/i);
     fireEvent.click(comboBoxElement);
 
-    const selection = getByText(/Allianz/i);
+    const selection = screen.getByText(/Allianz/i);
     fireEvent.click(selection);
 
-    expect(queryAllByText(/Please select a team to manage properties./i)).toHaveLength(0);
+    // eslint-disable-next-line jest-dom/prefer-in-document
+    expect(screen.queryAllByText(/Please select a team to manage properties./i)).toHaveLength(0);
   });
 
   test("TeamPropertiesTable -  test it renders table with data", async () => {
-    const { getByText, container } = rtlContextRouterRender(<TeamPropertiesTable {...propsWithProperties} />);
+    const { container } = global.rtlContextRouterRender(<TeamPropertiesTable {...propsWithProperties} />);
     const { data } = mockReduxTeamConfig.teamProperties;
+    // eslint-disable-next-line
     const unsecuredElement = container.querySelector(".unsecured");
 
-    expect(getByText(data[0].value)).toBeInTheDocument();
-    expect(getByText(data[0].label)).toBeInTheDocument();
-    expect(getByText(data[0].key)).toBeInTheDocument();
-    expect(getByText(data[0].description)).toBeInTheDocument();
+    expect(screen.getByText(data[0].value)).toBeInTheDocument();
+    expect(screen.getByText(data[0].label)).toBeInTheDocument();
+    expect(screen.getByText(data[0].key)).toBeInTheDocument();
+    expect(screen.getByText(data[0].description)).toBeInTheDocument();
     expect(unsecuredElement).toBeInTheDocument();
   });
 });

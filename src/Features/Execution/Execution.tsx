@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { QueryIdleResult, QueryLoadingResult, QuerySuccessResult } from "react-query";
+import { UseQueryResult } from "react-query";
 import { ExecutionContextProvider } from "State/context";
 import { Box } from "reflexbox";
 import { useQuery } from "Hooks";
@@ -64,8 +64,8 @@ export default function ExecutionContainer() {
 }
 
 type RevisionProps = {
-  executionQuery: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
-  summaryQuery: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
+  executionQuery: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
+  summaryQuery: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
   taskTemplatesData: TaskModel[];
   workflowId: string;
 };

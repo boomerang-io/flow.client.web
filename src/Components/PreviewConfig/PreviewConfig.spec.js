@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import PreviewConfig from "./index";
 
 const props = {
@@ -26,8 +26,8 @@ const props = {
 
 describe("PreviewConfig --- Snapshot", () => {
   it("Capturing Snapshot of Task Templates", async () => {
-    const { baseElement, getByText } = rtlContextRouterRender(<PreviewConfig {...props} />);
-    fireEvent.click(getByText("Preview"));
+    const { baseElement } = rtlContextRouterRender(<PreviewConfig {...props} />);
+    fireEvent.click(screen.getByText("Preview"));
     expect(baseElement).toMatchSnapshot();
   });
 });

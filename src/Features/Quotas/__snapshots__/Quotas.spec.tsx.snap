@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Quotas --- Snapshot Capturing Snapshot of Quotas 1`] = `
+<body
+  id="app"
+>
+  <div />
+</body>
+`;

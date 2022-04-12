@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, queryCache, useQuery } from "react-query";
+import { useMutation, useQueryClient, useQuery } from "react-query";
 import { Formik, FieldArray } from "formik";
 import * as Yup from "yup";
 import sortBy from "lodash/sortBy";
@@ -18,7 +18,7 @@ import {
   TextInput,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { formatErrorMessage, isAccessibleEvent } from "@boomerang-io/utils";
+import { formatErrorMessage, isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AddAlt16, SubtractAlt16 } from "@carbon/icons-react";
 import { FlowTeam, Approver, ApproverGroup } from "Types";
@@ -130,7 +130,7 @@ function RenderEditMembersInGroup({ members, title, isRemove = false }: RenderEd
                       role="button"
                       onClick={() => arrayHelpers.remove(determineMemberIndex(member.userId))}
                       onKeyDown={(e: any) =>
-                        isAccessibleEvent(e) && arrayHelpers.remove(determineMemberIndex(member.userId))
+                        isAccessibleKeyboardEvent(e) && arrayHelpers.remove(determineMemberIndex(member.userId))
                       }
                       tabIndex={0}
                     >
@@ -140,7 +140,7 @@ function RenderEditMembersInGroup({ members, title, isRemove = false }: RenderEd
                     <div
                       role="button"
                       onClick={() => arrayHelpers.push(member)}
-                      onKeyDown={(e: any) => isAccessibleEvent(e) && arrayHelpers.push(member)}
+                      onKeyDown={(e: any) => isAccessibleKeyboardEvent(e) && arrayHelpers.push(member)}
                       tabIndex={0}
                     >
                       <AddAlt16 className={styles.actionIcon} />
@@ -181,37 +181,38 @@ function CreateEditGroupModalContent({
   team,
   cancelRequestRef,
 }: Props) {
+  const queryClient = useQueryClient();
   const flowTeamUsersUrl = serviceUrl.getFlowTeamUsers({ teamId: team?.id });
 
   const { data: teamMembers, isLoading: teamMembersIsLoading, error: teamMembersError } = useQuery({
     queryKey: flowTeamUsersUrl,
     queryFn: resolver.query(flowTeamUsersUrl),
-    config: { enabled: team?.id },
+    enabled: Boolean(team?.id),
   });
 
   const approverGroupsUrl = serviceUrl.resourceApproverGroups({ teamId: team?.id, groupId: undefined });
 
   /** Add Approver Group */
-  const [addTeamApproverGroupMutation, { isLoading: addIsLoading, error: addError }] = useMutation(
+  const { mutateAsync: addTeamApproverGroupMutation, isLoading: addIsLoading, error: addError } = useMutation(
     (args: { teamId: string | undefined; body: ApproverGroup }) => {
       const { promise, cancel } = resolver.postApproverGroupRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries(approverGroupsUrl),
+      onSuccess: () => queryClient.invalidateQueries(approverGroupsUrl),
     }
   );
 
   /** Update Approver Group */
-  const [updateTeamApproverGroupMutation, { isLoading: updateIsLoading, error: updateError }] = useMutation(
+  const { mutateAsync: updateTeamApproverGroupMutation, isLoading: updateIsLoading, error: updateError } = useMutation(
     (args: { teamId: string | undefined; body: ApproverGroup }) => {
       const { promise, cancel } = resolver.putApproverGroupRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries(approverGroupsUrl),
+      onSuccess: () => queryClient.invalidateQueries(approverGroupsUrl),
     }
   );
 

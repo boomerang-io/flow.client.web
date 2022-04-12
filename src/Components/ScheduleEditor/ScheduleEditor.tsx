@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import ScheduleManagerForm from "Components/ScheduleManagerForm";
 import moment from "moment-timezone";
@@ -20,10 +20,11 @@ interface ScheduleEditorProps {
 }
 
 function ScheduleEditor(props: ScheduleEditorProps) {
+  const queryClient = useQueryClient();
   /**
    * Update schedule
    */
-  const [updateScheduleMutator, editScheduleMutation] = useMutation(resolver.patchSchedule, {});
+  const  { mutateAsync: updateScheduleMutator, ...editScheduleMutation } = useMutation(resolver.patchSchedule, {});
 
   const handleUpdateSchedule = async (updatedSchedule: ScheduleUnion) => {
     if (props.schedule) {
@@ -36,8 +37,8 @@ function ScheduleEditor(props: ScheduleEditorProps) {
           subtitle={`Successfully updated schedule ${props.schedule.name} `}
         />
       );
-      queryCache.invalidateQueries(props.getCalendarUrl);
-      queryCache.invalidateQueries(props.getSchedulesUrl);
+      queryClient.invalidateQueries(props.getCalendarUrl);
+      queryClient.invalidateQueries(props.getSchedulesUrl);
       return;
     }
   };

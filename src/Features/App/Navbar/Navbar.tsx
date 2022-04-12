@@ -100,6 +100,7 @@ export default function Navbar({
   userData,
 }: NavbarProps) {
   const defaultUIShellProps = {
+    baseServiceUrl: "",
     renderLogo: true,
   };
   const appTitle = `${BOOMERANG_FALLBACK} Flow`;
@@ -109,14 +110,14 @@ export default function Navbar({
       <Helmet defaultTitle={appTitle} titleTemplate={`%s - ${appTitle}`} />
       <UIShell
         {...defaultUIShellProps}
-        renderFlowDocs
-        onMenuClick={handleOnMenuClick(flowNavigationData)}
-        headerConfig={platformConfigData}
-        onTutorialClick={handleOnTutorialClick}
-        user={userData}
-        skipToContentProps={skipToContentProps}
-        appName="Flow"
         isFlowApp
+        renderFlowDocs
+        appName="Flow"
+        headerConfig={platformConfigData}
+        onMenuClick={handleOnMenuClick(flowNavigationData)}
+        onTutorialClick={handleOnTutorialClick}
+        skipToContentProps={skipToContentProps}
+        user={userData}
       />
     </>
   );

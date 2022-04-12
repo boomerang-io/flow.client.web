@@ -12,7 +12,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 12.x
+          node-version: 16.x
           cache: "npm"
       - run: npm ci
       - run: npm run test --if-present

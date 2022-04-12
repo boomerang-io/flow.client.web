@@ -220,7 +220,7 @@ exports[`Header --- Snapshot Capturing Snapshot of Task Templates 1`] = `
           </div>
         </div>
         <button
-          class="resetButton bx--btn bx--btn--field bx--btn--ghost bx--btn--disabled"
+          class="resetButton bx--btn bx--btn--md bx--btn--ghost bx--btn--disabled"
           disabled=""
           tabindex="0"
           type="button"
@@ -244,7 +244,7 @@ exports[`Header --- Snapshot Capturing Snapshot of Task Templates 1`] = `
           </svg>
         </button>
         <button
-          class="mainActionButton bx--btn bx--btn--field bx--btn--primary bx--btn--disabled"
+          class="mainActionButton bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
           disabled=""
           tabindex="0"
           type="button"

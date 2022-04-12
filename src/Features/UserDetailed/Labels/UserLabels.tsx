@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import ms from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { Formik, FieldArray } from "formik";
@@ -34,13 +34,14 @@ interface Label {
 }
 
 function UserLabels({ user, userManagementEnabled }: UserLabelsProps) {
+  const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = React.useState("");
 
-  const [changeUserMutator, { isLoading }] = useMutation(
+  const { mutateAsync: changeUserMutator, isLoading } = useMutation(
     ({ userId, body }: any) => axios.patch(serviceUrl.resourceManageUser({ userId }), body),
     {
       onSuccess: () => {
-        queryCache.invalidateQueries(serviceUrl.resourceManageUser({ userId: user.id }));
+        queryClient.invalidateQueries(serviceUrl.resourceManageUser({ userId: user.id }));
       },
     }
   );

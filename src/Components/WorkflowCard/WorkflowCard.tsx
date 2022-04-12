@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useAppContext } from "Hooks";
 import { useFeature } from "flagged";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Link, useHistory } from "react-router-dom";
 import {
   Button,
@@ -41,6 +41,7 @@ type FunctionAnyReturn = () => any;
 
 const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, workflow }) => {
   const { teams } = useAppContext();
+  const queryClient = useQueryClient();
   const type = scope === WorkflowScope.Template ? "Template" : "Workflow";
   const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -51,9 +52,9 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
   const history = useHistory();
   const [errorMessage, seterrorMessage] = useState(null);
 
-  const [deleteWorkflowMutator, { isLoading: isDeleting }] = useMutation(resolver.deleteWorkflow, {});
+  const { mutateAsync: deleteWorkflowMutator, isLoading: isDeleting } = useMutation(resolver.deleteWorkflow, {});
 
-  const [executeWorkflowMutator, { error: executeError, isLoading: isExecuting }] = useMutation(
+  const { mutateAsync: executeWorkflowMutator, error: executeError, isLoading: isExecuting } = useMutation(
     (args: { id: string; properties: {} }) => {
       const { promise, cancel } = resolver.postExecuteWorkflow(args);
       cancelRequestRef.current = cancel;
@@ -61,7 +62,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
     }
   );
 
-  const [duplicateWorkflowMutator, { isLoading: duplicateWorkflowIsLoading }] = useMutation(
+  const { mutateAsync: duplicateWorkflowMutator, isLoading: duplicateWorkflowIsLoading } = useMutation(
     resolver.postDuplicateWorkflow
   );
 
@@ -92,14 +93,14 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
         const newTeamWorkflows = specificTeam?.workflows.filter((workflow) => workflow.id !== workflowId);
         // @ts-ignore
         teams[specificTeamIndex].workflows = newTeamWorkflows;
-        queryCache.setQueryData(serviceUrl.getTeams(), teams);
-        queryCache.invalidateQueries(serviceUrl.getTeams());
+        queryClient.setQueryData(serviceUrl.getTeams(), teams);
+        queryClient.invalidateQueries(serviceUrl.getTeams());
       } else if (scope === WorkflowScope.System) {
-        queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+        queryClient.invalidateQueries(serviceUrl.getSystemWorkflows());
       } else if (scope === WorkflowScope.Template) {
-        queryCache.invalidateQueries(serviceUrl.workflowTemplates());
+        queryClient.invalidateQueries(serviceUrl.workflowTemplates());
       } else {
-        queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
+        queryClient.invalidateQueries(serviceUrl.getUserWorkflows());
       }
     } catch {
       notify(
@@ -123,13 +124,13 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
         />
       );
       if (scope === WorkflowScope.System) {
-        queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+        queryClient.invalidateQueries(serviceUrl.getSystemWorkflows());
       } else if (scope === WorkflowScope.Team) {
-        queryCache.invalidateQueries(serviceUrl.getTeams());
+        queryClient.invalidateQueries(serviceUrl.getTeams());
       } else if (scope === WorkflowScope.Template) {
-        queryCache.invalidateQueries(serviceUrl.workflowTemplates());
+        queryClient.invalidateQueries(serviceUrl.workflowTemplates());
       } else {
-        queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
+        queryClient.invalidateQueries(serviceUrl.getUserWorkflows());
       }
       return;
     } catch (e) {
@@ -176,11 +177,11 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
         });
       } else {
         if (scope === WorkflowScope.System) {
-          queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+          queryClient.invalidateQueries(serviceUrl.getSystemWorkflows());
         } else if (scope === WorkflowScope.Team) {
-          queryCache.invalidateQueries(serviceUrl.getTeams());
+          queryClient.invalidateQueries(serviceUrl.getTeams());
         } else {
-          queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
+          queryClient.invalidateQueries(serviceUrl.getUserWorkflows());
         }
         closeModal();
       }

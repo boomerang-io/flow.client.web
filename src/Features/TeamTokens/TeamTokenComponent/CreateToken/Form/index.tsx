@@ -14,7 +14,7 @@ import {
   Loading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { TeamTokenRequest, FlowTeam } from "Types";
 import styles from "./form.module.scss";
@@ -41,14 +41,15 @@ function CreateServiceTokenForm({
   cancelRequestRef,
   activeTeam,
 }: CreateServiceTokenFormProps | any) {
-  const [postTeamTokenRequestMutator, { isLoading: postTeamTokenIsLoading, error: postTeamTokenError }] = useMutation(
+  const queryClient = useQueryClient();
+  const { mutateAsync: postTeamTokenRequestMutator, isLoading: postTeamTokenIsLoading, error: postTeamTokenError } = useMutation(
     (args: { body: TeamTokenRequest }) => {
       const { promise, cancel } = resolver.postTeamToken(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTeamTokens({ teamId: activeTeam.id })]),
+      onSuccess: () => queryClient.invalidateQueries([serviceUrl.getTeamTokens({ teamId: activeTeam.id })]),
     }
   );
 

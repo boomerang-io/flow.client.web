@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Helmet } from "react-helmet";
 import { withRouter } from "react-router-dom";
-import { QueryIdleResult, QueryLoadingResult, QuerySuccessResult } from "react-query";
+import { UseQueryResult } from "react-query";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import ExecutionHeader from "./ExecutionHeader";
@@ -15,8 +15,8 @@ import styles from "./main.module.scss";
 
 type Props = {
   dag: WorkflowDag;
-  workflow: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
-  workflowExecution: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
+  workflow: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
+  workflowExecution: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
   version: number;
   history: any;
   location: any;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import matchSorter from "match-sorter";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import {
   DataTable,
   FeatureHeader as Header,
@@ -38,13 +38,15 @@ const defaultProperty = {
   type: "",
 };
 function PropertiesTable({ properties }: { properties: Property[] }) {
+  const queryClient = useQueryClient();
+
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [searchQuery, setSearchQuery] = useState("");
 
   /** Delete Property */
-  const [deleteGlobalPropertyMutation] = useMutation(resolver.deleteGlobalPropertyRequest, {
-    onSuccess: () => queryCache.invalidateQueries(configUrl),
+  const { mutateAsync: deleteGlobalPropertyMutation } = useMutation(resolver.deleteGlobalPropertyRequest, {
+    onSuccess: () => queryClient.invalidateQueries(configUrl),
   });
 
   const headers = [

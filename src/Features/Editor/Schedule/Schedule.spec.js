@@ -1,6 +1,5 @@
 import React from "react";
 import Schedule from "./index";
-import { waitFor } from "@testing-library/react";
 
 const initialState = {};
 
@@ -25,6 +24,5 @@ describe("Schedule --- Snapshot Test", () => {
   it("Capturing Snapshot of Inputs", async () => {
     const { baseElement } = rtlContextRouterRender(<Schedule {...props} />, { initialState });
     expect(baseElement).toMatchSnapshot();
-    await waitFor(() => {});
   });
 });

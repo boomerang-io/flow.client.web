@@ -44,11 +44,11 @@ export default function WorkflowInsights(location) {
   const [insightsQuery, setinsightsQuery] = useState(getFetchQuery(selectedTimeframe, selectedTeam));
 
   const insightsUrl = serviceUrl.getInsights({ query: insightsQuery });
-  const { data: insightsData, isLoading: isUpdatingInsights, error: insightsError } = useQuery(
-    insightsUrl,
-    resolver.query(insightsUrl),
-    { enabled: insightsQuery }
-  );
+  const { data: insightsData, isLoading: isUpdatingInsights, error: insightsError } = useQuery({
+    queryKey: insightsUrl,
+    queryFn: resolver.query(insightsUrl),
+    enabled: Boolean(insightsQuery),
+  });
 
   let executionList = [];
 

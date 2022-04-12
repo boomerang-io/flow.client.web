@@ -37,7 +37,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   data-testid="create-parameter-key"
                   id="key"
                   name="key"
@@ -73,7 +73,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   data-testid="create-parameter-label"
                   id="label"
                   name="label"
@@ -109,7 +109,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   data-testid="create-parameter-description"
                   id="description"
                   name="description"
@@ -145,7 +145,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   data-testid="create-parameter-value"
                   id="value"
                   name="value"

@@ -293,6 +293,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
               aria-describedby="sort-tooltip"
               class="bx--tooltip__trigger bx--tooltip--a11y taskbarButton bx--tooltip--top bx--tooltip--align-center"
               data-testid="taskbar-button"
+              style="cursor: pointer;"
               type="button"
             >
               <span
@@ -802,7 +803,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 Read-only
               </p>
               <button
-                class="bx--btn bx--btn--field bx--btn--ghost"
+                class="bx--btn bx--btn--md bx--btn--ghost"
                 tabindex="0"
                 type="button"
               >

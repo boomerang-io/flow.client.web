@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import { useEditorContext } from "Hooks";
 import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
+import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import styles from "./SwitchNodeDesigner.module.scss";
 
 const SwitchNodeDesigner = React.memo(function SwitchNodeDesigner({ diagramEngine, node: designerNode }) {

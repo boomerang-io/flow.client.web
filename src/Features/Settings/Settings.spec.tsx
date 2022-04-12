@@ -5,11 +5,10 @@ import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { Response } from "miragejs";
 import { startApiServer } from "ApiServer";
 import { serviceUrl } from "Config/servicesConfig";
-import { queryCaches } from "react-query";
 
 jest.setTimeout(60000);
 
-let server;
+let server: any;
 
 beforeEach(() => {
   server = startApiServer();
@@ -17,19 +16,18 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("Settings --- Snapshot", () => {
   test("Capturing Snapshot of Settings", () => {
-    const { baseElement } = rtlContextRouterRender(<Settings />);
+    const { baseElement } = global.rtlContextRouterRender(<Settings />);
     expect(baseElement).toMatchSnapshot();
   });
 });
 
 describe("Settings --- RTL", () => {
   test("Loads and opens section", async () => {
-    rtlContextRouterRender(<Settings />);
+    global.rtlContextRouterRender(<Settings />);
     expect(screen.getByRole("heading", { name: /^Settings$/i })).toBeInTheDocument();
     const section = await screen.findByRole("heading", { name: "Workers" });
     fireEvent.click(section);
@@ -43,7 +41,7 @@ describe("Settings --- RTL", () => {
     });
   });
   test("Shows error message on request failure", async () => {
-    rtlContextRouterRender(<Settings />);
+    global.rtlContextRouterRender(<Settings />);
     expect(screen.getByRole("heading", { name: /^Settings$/i })).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.getByText("Oops, something went wrong.")).toBeInTheDocument();

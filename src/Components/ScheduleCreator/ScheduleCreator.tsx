@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import ScheduleManagerForm from "Components/ScheduleManagerForm";
 import moment from "moment-timezone";
@@ -27,10 +27,11 @@ interface CreateScheduleProps {
 }
 
 export default function CreateSchedule(props: CreateScheduleProps) {
+  const queryClient = useQueryClient();
   /**
    * Create schedule
    */
-  const [createScheduleMutator, createScheduleMutation] = useMutation(resolver.postSchedule, {});
+  const { mutateAsync: createScheduleMutator, ...createScheduleMutation } = useMutation(resolver.postSchedule, {});
 
   const handleCreateSchedule = async (schedule: ScheduleUnion) => {
     // intentionally don't handle error so it can be done by the ScheduleManagerForm
@@ -42,8 +43,8 @@ export default function CreateSchedule(props: CreateScheduleProps) {
         subtitle={`Successfully created schedule ${schedule.name} `}
       />
     );
-    queryCache.invalidateQueries(props.getCalendarUrl);
-    queryCache.invalidateQueries(props.getSchedulesUrl);
+    queryClient.invalidateQueries(props.getCalendarUrl);
+    queryClient.invalidateQueries(props.getSchedulesUrl);
     return;
   };
 

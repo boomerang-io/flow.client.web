@@ -15,7 +15,7 @@ export default function WorkflowCloseButton({ alt = "Workflow close button", cla
   return (
     <CloseButton
       alt={alt}
-      className={cx(styles.button, className)}
+      className={cx(styles.closeButton, className)}
       onClick={onClick}
       onKeyDown={(e) => isAccessibleKeyboardEvent(e) && onClick(e)}
       role="button"

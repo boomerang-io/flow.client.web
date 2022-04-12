@@ -1,15 +1,15 @@
 import React from "react";
-import queryString from "query-string";
-import { queryStringOptions } from "Config/appConfig";
+import queryString, { StringifyOptions } from "query-string";
 import { waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import WorkflowActivity from "./index";
 import { startApiServer } from "ApiServer";
-import { queryCaches } from "react-query";
+
+const queryStringOptions: StringifyOptions = { arrayFormat: "comma", skipEmptyString: true };
 
 jest.setTimeout(60000);
 
-let server;
+let server: any;
 
 beforeEach(() => {
   server = startApiServer();
@@ -17,12 +17,11 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("WorkflowActivity --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowActivity", () => {
-    const { baseElement } = rtlContextRouterRender(<WorkflowActivity />);
+    const { baseElement } = global.rtlContextRouterRender(<WorkflowActivity />);
     expect(baseElement).toMatchSnapshot();
   });
 });
@@ -31,8 +30,8 @@ describe("WorkflowActivity --- RTL", () => {
   const basicQuery = { order: "DESC", page: 0, size: 10, sort: "creationDate" };
   it("Select status tab correctly", async () => {
     window.HTMLElement.prototype.scrollIntoView = function () {};
-    const { history, findByText } = rtlContextRouterRender(<WorkflowActivity />);
-    await findByText(/This is all of the/i);
+    const { history } = global.rtlContextRouterRender(<WorkflowActivity />);
+    await screen.findByText(/This is all of the/i);
 
     userEvent.click(screen.getByRole("tab", { name: /in progress/i }));
     await waitFor(() =>
@@ -54,12 +53,12 @@ describe("WorkflowActivity --- RTL", () => {
     );
   });
 
-  it("Filter by Team", async () => {
-    const { history, findByText } = rtlContextRouterRender(<WorkflowActivity />);
-    await findByText(/This is all of the/i);
+  it("Filter by team", async () => {
+    const { history } = global.rtlContextRouterRender(<WorkflowActivity />);
+    await screen.findByText(/This is all of the/i);
 
-    userEvent.click(screen.getByRole("button", { name: /Filter by Team/i }));
-    userEvent.click(screen.getAllByTitle(/IBM Services Engineering/i)[0]);
+    userEvent.click(screen.getByRole("combobox", { name: /Filter by Team/i }));
+    userEvent.click(screen.getAllByText(/IBM Services Engineering/i)[0]);
 
     await waitFor(() =>
       expect(history.location.search).toBe(
@@ -68,11 +67,11 @@ describe("WorkflowActivity --- RTL", () => {
     );
   });
 
-  it("Filter by Workflow", async () => {
-    const { history, findByText } = rtlContextRouterRender(<WorkflowActivity />);
-    await findByText(/This is all of the/i);
+  it("Filter by workflow", async () => {
+    const { history } = global.rtlContextRouterRender(<WorkflowActivity />);
+    await screen.findByText(/This is all of the/i);
 
-    userEvent.click(screen.getByRole("button", { name: /Filter by Workflow/i }));
+    userEvent.click(screen.getByRole("combobox", { name: /Filter by Workflow/i }));
     userEvent.click(await screen.findByText(/A system Workflow \(System\)/i));
 
     await waitFor(() =>
@@ -83,10 +82,10 @@ describe("WorkflowActivity --- RTL", () => {
   });
 
   it("Filter by trigger", async () => {
-    const { history, findByText } = rtlContextRouterRender(<WorkflowActivity />);
-    await findByText(/This is all of the/i);
+    const { history } = global.rtlContextRouterRender(<WorkflowActivity />);
+    await screen.findByText(/This is all of the/i);
 
-    userEvent.click(screen.getByRole("button", { name: /Filter by trigger/i }));
+    userEvent.click(screen.getByRole("combobox", { name: /Filter by trigger/i }));
     userEvent.click(screen.getAllByText("Manual")[0]);
 
     await waitFor(() =>

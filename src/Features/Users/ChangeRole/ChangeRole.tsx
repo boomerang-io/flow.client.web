@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import {
   Button,
   Loading,
@@ -35,6 +35,7 @@ const rolesList = [
 ];
 
 const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, user }) => {
+  const queryClient = useQueryClient();
   const location = useLocation();
   const role = user?.type;
   const [selectedRole, setSelectedRole] = useState(null);
@@ -44,7 +45,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
     setSelectedRole(role);
   }, [role]);
 
-  const [changeUserMutator, { isLoading }] = useMutation(
+  const { mutateAsync: changeUserMutator, isLoading } = useMutation(
     (args) => {
       const { promise, cancel } = resolver.patchManageUser(args);
       cancelRequestRef.current = cancel;
@@ -53,7 +54,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
     {
       onSuccess: () => {
         closeModal();
-        queryCache.invalidateQueries(serviceUrl.getManageUsers({ query: location.search }));
+        queryClient.invalidateQueries(serviceUrl.getManageUsers({ query: location.search }));
       },
     }
   );

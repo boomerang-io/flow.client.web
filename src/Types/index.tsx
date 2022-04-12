@@ -70,6 +70,8 @@ export interface DataDrivenInput {
   defaultValue?: string;
   description?: string;
   helperText?: string;
+  language?: string;
+  disabled?: boolean;
   key: string;
   label?: string;
   onChange?: (args: any) => void;
@@ -81,6 +83,8 @@ export interface DataDrivenInput {
   value: string;
   values?: [string] | [{ key: string; value: string }];
   type?: string;
+  min?: number;
+  max?: number;
 }
 
 export interface ResultParameter {
@@ -160,7 +164,8 @@ export interface WorkflowSummary {
   name: string;
   labels: Array<{ key: string; value: string }>;
   revisionCount: number;
-  scope: "team" | "user" | "system";
+  status?: string;
+  scope: "system" | "team" | "user" | "template";
   shortDescription: string;
   properties: [DataDrivenInput];
   triggers: {

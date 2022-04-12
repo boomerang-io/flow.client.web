@@ -39,7 +39,8 @@ exports[`AddTeamContent --- Snapshot Test Capturing Snapshot of AddTeamContent 1
                   class="bx--text-input__field-wrapper"
                 >
                   <input
-                    class="bx--text-input bx--text__input"
+                    aria-describedby="team-update-name-id-helper-text"
+                    class="bx--text-input bx--text-input--md"
                     data-testid="text-input-team-name"
                     id="team-update-name-id"
                     type="text"
@@ -48,6 +49,7 @@ exports[`AddTeamContent --- Snapshot Test Capturing Snapshot of AddTeamContent 1
                 </div>
                 <div
                   class="bx--form__helper-text"
+                  id="team-update-name-id-helper-text"
                 >
                   Must be unique
                 </div>
