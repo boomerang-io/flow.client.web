@@ -12,8 +12,15 @@ import moment from "moment-timezone";
 import queryString from "query-string";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { SlotInfo } from "react-big-calendar";
-import { CalendarDateRange, CalendarEvent, CalendarEntry, ScheduleDate, ScheduleUnion, WorkflowSummary } from "Types";
+import type { SlotInfo } from "react-big-calendar";
+import type {
+  CalendarDateRange,
+  CalendarEvent,
+  CalendarEntry,
+  ScheduleDate,
+  ScheduleUnion,
+  WorkflowSummary,
+} from "Types";
 import styles from "./Schedule.module.scss";
 
 interface ScheduleProps {

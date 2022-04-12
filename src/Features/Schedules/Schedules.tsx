@@ -21,8 +21,8 @@ import { allowedUserRoles, WorkflowScope } from "Constants";
 import { scheduleStatusOptions } from "Constants/schedule";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { SlotInfo } from "react-big-calendar";
-import {
+import type { SlotInfo } from "react-big-calendar";
+import type {
   CalendarDateRange,
   CalendarEntry,
   CalendarEvent,
@@ -42,7 +42,7 @@ const defaultToDate = moment().endOf("month").unix();
 
 const systemUrl = serviceUrl.getSystemWorkflows();
 
-function Schedule() {
+export default function Schedules() {
   const history = useHistory();
   const location = useLocation();
   const { teams, user, userWorkflows } = useAppContext();
@@ -490,5 +490,3 @@ function CalendarView(props: CalendarViewProps) {
     </section>
   );
 }
-
-export default Schedule;

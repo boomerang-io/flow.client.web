@@ -24,6 +24,8 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, UserWorkflow } from "Types";
 import styles from "./app.module.scss";
 
+// import directly bc of webpack chunking error
+import Schedules from "Features/Schedules";
 const AppActivation = lazy(() => import(/* webpackChunkName: "App Activation" */ "./AppActivation"));
 const Activity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/Activity"));
 const Actions = lazy(() => import(/* webpackChunkName: "Actions" */ "Features/Actions"));
@@ -34,7 +36,7 @@ const GlobalProperties = lazy(() => import(/* webpackChunkName: "GlobalPropertie
 const Tokens = lazy(() => import(/* webpackChunkName: "Tokens" */ "Features/Tokens"));
 const Insights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
 const Quotas = lazy(() => import(/* webpackChunkName: "Quotas" */ "Features/Quotas"));
-const Schedule = lazy(() => import(/* webpackChunkName: "Schedules" */ "Features/Schedules"));
+//const Schedules = lazy(() => import(/* webpackChunkName: "Schedules" */ "Features/Schedules"));
 const Settings = lazy(() => import(/* webpackChunkName: "Settings" */ "Features/Settings"));
 const SystemWorkflows = lazy(() => import(/* webpackChunkName: "SystemWorkflows" */ "Features/SystemWorkflows"));
 const TaskTemplates = lazy(() => import(/* webpackChunkName: "TaskTemplates" */ "Features/TaskTemplates"));
@@ -45,7 +47,6 @@ const ManageTeamTasks = lazy(() => import(/* webpackChunkName: "ManageTeamTasks"
 const ManageTeamTasksContainer = lazy(() =>
   import(/* webpackChunkName: "ManageTeamTasksContainer" */ "Features/ManageTeamTasksContainer")
 );
-
 const Users = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/Users"));
 const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Features/Workflows"));
 
@@ -371,7 +372,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             <Editor />
           </Route>
           <Route path={AppPath.Schedules}>
-            <Schedule />
+            <Schedules />
           </Route>
           <Route path={AppPath.TeamList}>
             <Teams />
