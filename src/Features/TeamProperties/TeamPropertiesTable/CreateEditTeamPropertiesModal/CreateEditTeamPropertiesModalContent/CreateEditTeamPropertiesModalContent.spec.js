@@ -1,8 +1,6 @@
 import React from "react";
 import CreateEditTeamPropertiesModalContent from "../CreateEditTeamPropertiesModalContent";
-import { fireEvent, waitFor } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
-import { queryCaches } from "react-query";
+import { screen, fireEvent } from "@testing-library/react";
 
 const mockfn = jest.fn();
 const props = {
@@ -16,10 +14,6 @@ const props = {
   },
 };
 
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
-
 describe("CreateEditTeamPropertiesModalContent --- Snapshot Test", () => {
   test("Capturing Snapshot of CreateEditTeamPropertiesModalContent", () => {
     const { baseElement } = rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...props} />);
@@ -30,76 +24,64 @@ describe("CreateEditTeamPropertiesModalContent --- Snapshot Test", () => {
 describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
   test("CreateEditTeamPropertiesModalContent - test if the isActive Toggle appears", () => {
     const newProps = { ...props, isEdit: false };
-    const { queryByText } = rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...newProps} />);
+    rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...newProps} />);
 
-    expect(queryByText(/active/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/active/i)).not.toBeInTheDocument();
   });
 
   test("CreateEditTeamPropertiesModalContent - test the Submit Button state", async () => {
     const newProps = { ...props, isEdit: false };
 
-    const { getByLabelText, getByTestId } = rtlContextRouterRender(
-      <CreateEditTeamPropertiesModalContent {...newProps} />
-    );
-    const valueInputText = getByLabelText(/value/i);
-    const labelInputText = getByLabelText(/label/i);
-    const keyInputText = getByLabelText(/key/i);
+    rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...newProps} />);
+    const valueInputText = screen.getByLabelText(/value/i);
+    const labelInputText = screen.getByLabelText(/label/i);
+    const keyInputText = screen.getByLabelText(/key/i);
 
-    act(() => {
-      fireEvent.change(valueInputText, { target: { value: "testing for value" } });
-      fireEvent.change(labelInputText, { target: { value: "testing for label" } });
-      fireEvent.change(keyInputText, { target: { value: "rtlTestingKeyTest" } });
-    });
+    fireEvent.change(valueInputText, { target: { value: "testing for value" } });
+    fireEvent.change(labelInputText, { target: { value: "testing for label" } });
+    fireEvent.change(keyInputText, { target: { value: "rtlTestingKeyTest" } });
 
-    expect(getByTestId("team-parameter-create-edit-submission-button")).toBeEnabled();
-    await waitFor(() => {});
+    expect(screen.getByTestId("team-parameter-create-edit-submission-button")).toBeEnabled();
   });
 
   test("CreateEditTeamPropertiesModalContent - test if the form submits", async () => {
-    const { getByLabelText, getByTestId } = rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...props} />);
-    const valueInputText = getByLabelText(/value/i);
-    const labelInputText = getByLabelText(/label/i);
-    const keyInputText = getByLabelText(/key/i);
+    rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...props} />);
+    const valueInputText = screen.getByLabelText(/value/i);
+    const labelInputText = screen.getByLabelText(/label/i);
+    const keyInputText = screen.getByLabelText(/key/i);
 
     expect(valueInputText).toBeInTheDocument();
     expect(labelInputText).toBeInTheDocument();
     expect(keyInputText).toBeInTheDocument();
 
-    act(() => {
-      fireEvent.change(valueInputText, { target: { value: "Value Test" } });
-      fireEvent.change(labelInputText, { target: { value: "Label Test" } });
-      fireEvent.change(keyInputText, { target: { value: "rtlTestingKey" } });
-      fireEvent.click(getByTestId("team-parameter-create-edit-submission-button"));
-    });
-
-    await waitFor(() => {});
+    fireEvent.change(valueInputText, { target: { value: "Value Test" } });
+    fireEvent.change(labelInputText, { target: { value: "Label Test" } });
+    fireEvent.change(keyInputText, { target: { value: "rtlTestingKey" } });
+    fireEvent.click(screen.getByTestId("team-parameter-create-edit-submission-button"));
   });
 
   test("CreateEditTeamPropertiesModalContent - test form reqired validations", async () => {
-    const { getByLabelText, findByText, queryByText } = rtlContextRouterRender(
-      <CreateEditTeamPropertiesModalContent {...props} />
-    );
-    const valueInputText = getByLabelText(/value/i);
-    const labelInputText = getByLabelText(/label/i);
-    const keyInputText = getByLabelText(/key/i);
+    rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...props} />);
+    const valueInputText = screen.getByLabelText(/value/i);
+    const labelInputText = screen.getByLabelText(/label/i);
+    const keyInputText = screen.getByLabelText(/key/i);
 
-    expect(queryByText(/Enter a value/i)).toBeNull();
+    expect(screen.queryByText(/Enter a value/i)).not.toBeInTheDocument();
     fireEvent.change(valueInputText, { target: { value: "" } });
     fireEvent.blur(valueInputText);
-    const mandatoryValueErr = await findByText(/Enter a value/i);
+    const mandatoryValueErr = await screen.findByText(/Enter a value/i);
     expect(mandatoryValueErr).toBeInTheDocument();
 
-    expect(queryByText(/Enter a label/i)).toBeNull();
+    expect(screen.queryByText(/Enter a label/i)).not.toBeInTheDocument();
     fireEvent.change(labelInputText, { target: { value: "" } });
     fireEvent.blur(labelInputText);
-    const mandatoryLabelErr = await findByText(/Enter a label/i);
+    const mandatoryLabelErr = await screen.findByText(/Enter a label/i);
     expect(mandatoryLabelErr).toBeInTheDocument();
 
-    expect(queryByText(/Enter a key/i)).toBeNull();
+    expect(screen.queryByText(/Enter a key/i)).not.toBeInTheDocument();
     fireEvent.change(keyInputText, { target: { value: "" } });
     fireEvent.blur(keyInputText);
-    const mandatoryKeyErr = await findByText(/Enter a key/i);
+    const mandatoryKeyErr = await screen.findByText(/Enter a key/i);
     expect(mandatoryKeyErr).toBeInTheDocument();
-    await waitFor(() => {});
   });
 });

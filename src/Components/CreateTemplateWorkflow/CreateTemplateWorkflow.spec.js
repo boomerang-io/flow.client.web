@@ -2,7 +2,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import CreateTemplateWorkflow from ".";
-import { queryCaches } from "react-query";
 import { AppPath, appLink } from "Config/appConfig";
 import { startApiServer } from "ApiServer";
 
@@ -42,7 +41,6 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 const props = {
@@ -71,13 +69,13 @@ describe("CreateTemplateWorkflow --- Snapshot Test", () => {
 //       </Route>,
 //       { route: appLink.workflowsTeams() }
 //     );
-//     fireEvent.click(getByText(/Templates/));
+//     fireEvent.click(screen.getByText(/Templates/));
 //     await findByTestId("initial-template-screen");
-//     expect(await findByText("Next")).toBeDisabled();
-//     fireEvent.click(getByText(/Test name/));
-//     expect(getByText("Next")).toBeEnabled();
-//     fireEvent.click(getByText(/Next/));
-//     fireEvent.click(getByText(/^Create$/i));
-//     expect(await findByText("Successfully created workflow from template")).toBeInTheDocument();
+//     expect(await screen.findByText("Next")).toBeDisabled();
+//     fireEvent.click(screen.getByText(/Test name/));
+//     expect(screen.getByText("Next")).toBeEnabled();
+//     fireEvent.click(screen.getByText(/Next/));
+//     fireEvent.click(screen.getByText(/^Create$/i));
+//     expect(await screen.findByText("Successfully created workflow from template")).toBeInTheDocument();
 //   });
 // });

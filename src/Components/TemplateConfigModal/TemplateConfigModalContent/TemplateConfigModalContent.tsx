@@ -10,9 +10,9 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
-import TextEditorModal from "Components/TextEditorModal";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
+import TextEditorModal from "Components/TextEditorModal";
 import { InputProperty, InputType, PROPERTY_KEY_REGEX } from "Constants";
 import { validateUrlWithProperties } from "Utils/urlPropertySyntaxHelper";
 import { FormikProps } from "formik";

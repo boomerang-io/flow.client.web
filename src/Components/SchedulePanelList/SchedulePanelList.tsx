@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, queryCache, QueryResult } from "react-query";
+import { useMutation, useQueryClient, UseQueryResult } from "react-query";
 import {
   Button,
   ConfirmModal,
@@ -33,7 +33,7 @@ interface SchedulePanelListProps {
     | ((schedule: ScheduleUnion) => void);
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsCreatorOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  schedulesQuery: QueryResult<ScheduleUnion[], Error>;
+  schedulesQuery: UseQueryResult<ScheduleUnion[], any>;
 }
 
 export default function SchedulePanelList(props: SchedulePanelListProps) {
@@ -65,13 +65,13 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
           })
         : schedules;
 
-      const sortedSchedules = filteredSchedules.sort((a, b) => {
+      const sortedSchedules = filteredSchedules.sort((a: any, b: any) => {
         return a.name.localeCompare(b.name);
       });
 
       let selectedSchedules = sortedSchedules;
       if (selectedStatuses.length && props.includeStatusFilter) {
-        selectedSchedules = sortedSchedules.filter((schedule) => {
+        selectedSchedules = sortedSchedules.filter((schedule: ScheduleUnion) => {
           return selectedStatuses.includes(schedule.status);
         });
       }
@@ -82,7 +82,7 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
 
       return (
         <ul>
-          {selectedSchedules.map((schedule) => (
+          {selectedSchedules.map((schedule: ScheduleUnion) => (
             <ScheduledListItem
               key={schedule.id}
               getCalendarUrl={props.getCalendarUrl}
@@ -155,6 +155,7 @@ interface ScheduledListItemProps {
 }
 
 function ScheduledListItem(props: ScheduledListItemProps) {
+  const queryClient = useQueryClient();
   const [isToggleStatusModalOpen, setIsToggleStatusModalOpen] = React.useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
 
@@ -179,7 +180,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   /**
    * Delete schedule
    */
-  const [deleteScheduleMutator, deleteScheduleMutation] = useMutation(resolver.deleteSchedule, {});
+  const { mutateAsync: deleteScheduleMutator, ...deleteScheduleMutation } = useMutation(resolver.deleteSchedule, {});
 
   const handleDeleteSchedule = async () => {
     try {
@@ -191,8 +192,8 @@ function ScheduledListItem(props: ScheduledListItemProps) {
           subtitle={`Successfully deleted schedule ${props.schedule.name}`}
         />
       );
-      queryCache.invalidateQueries(props.getSchedulesUrl);
-      queryCache.invalidateQueries(props.getCalendarUrl);
+      queryClient.invalidateQueries(props.getSchedulesUrl);
+      queryClient.invalidateQueries(props.getCalendarUrl);
     } catch (e) {
       notify(
         <ToastNotification
@@ -208,7 +209,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   /**
    * Disable schedule
    */
-  const [toggleScheduleStatusMutator, toggleStatusMutation] = useMutation(resolver.patchSchedule, {});
+  const { mutateAsync: toggleScheduleStatusMutator, ...toggleStatusMutation } = useMutation(resolver.patchSchedule, {});
 
   const handleToggleStatus = async () => {
     const body = { ...props.schedule, status: isActive ? "inactive" : "active" };
@@ -221,8 +222,8 @@ function ScheduledListItem(props: ScheduledListItemProps) {
           subtitle={`Successfully ${isActive ? "disabled" : "enabled"} schedule ${props.schedule.name} `}
         />
       );
-      queryCache.invalidateQueries(props.getSchedulesUrl);
-      queryCache.invalidateQueries(props.getCalendarUrl);
+      queryClient.invalidateQueries(props.getSchedulesUrl);
+      queryClient.invalidateQueries(props.getCalendarUrl);
     } catch (e) {
       notify(
         <ToastNotification

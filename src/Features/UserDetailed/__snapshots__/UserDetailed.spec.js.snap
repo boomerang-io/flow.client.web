@@ -153,7 +153,7 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
                 class="actionButtonsContainer"
               >
                 <button
-                  class="bx--btn bx--btn--field bx--btn--ghost"
+                  class="bx--btn bx--btn--md bx--btn--ghost"
                   tabindex="0"
                   type="button"
                 >
@@ -234,21 +234,25 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
               class="bx--search bx--search--xl"
               role="search"
             >
-              <svg
-                aria-hidden="true"
+              <div
                 class="bx--search-magnifier"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
-                />
-              </svg>
+                <svg
+                  aria-hidden="true"
+                  class="bx--search-magnifier-icon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                  />
+                </svg>
+              </div>
               <label
                 class="bx--label"
                 for="workflow-search"
@@ -290,44 +294,55 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
         <div
           aria-label="Structured list section"
           class="bx--structured-list"
+          role="table"
         >
           <div
             class="bx--structured-list-thead"
+            role="rowgroup"
           >
             <div
               class="bx--structured-list-row bx--structured-list-row--header-row"
+              role="row"
             >
               <div
                 class="bx--structured-list-th"
+                role="columnheader"
               >
                 Name
               </div>
               <div
                 class="bx--structured-list-th"
+                role="columnheader"
               >
                 Summary
               </div>
               <div
                 class="bx--structured-list-th"
+                role="columnheader"
               >
                 Revision Count
               </div>
               <div
                 class="bx--structured-list-th"
+                role="columnheader"
               />
               <div
                 class="bx--structured-list-th"
+                role="columnheader"
               />
             </div>
           </div>
           <div
             class="bx--structured-list-tbody"
+            role="rowgroup"
           >
             <div
               class="bx--structured-list-row"
+              role="row"
             >
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <div
                   class="workflowNameContainer"
@@ -339,16 +354,19 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 Java - Build
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 16
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <a
                   class="viewWorkflowLink"
@@ -359,6 +377,7 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <a
                   class="viewWorkflowLink"
@@ -370,9 +389,11 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
             </div>
             <div
               class="bx--structured-list-row"
+              role="row"
             >
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <div
                   class="workflowNameContainer"
@@ -384,16 +405,19 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 Train and store ML model for Bot Efficiency.
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 2
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <a
                   class="viewWorkflowLink"
@@ -404,6 +428,7 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
               </div>
               <div
                 class="bx--structured-list-td"
+                role="cell"
               >
                 <a
                   class="viewWorkflowLink"

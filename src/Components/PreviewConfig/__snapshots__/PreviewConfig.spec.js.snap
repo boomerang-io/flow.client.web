@@ -13,7 +13,7 @@ exports[`PreviewConfig --- Snapshot Capturing Snapshot of Task Templates 1`] = `
   />
   <div>
     <button
-      class="bx--btn bx--btn--field bx--btn--ghost"
+      class="bx--btn bx--btn--md bx--btn--ghost"
       style="width: 6.25rem;"
       tabindex="0"
       type="button"
@@ -56,11 +56,11 @@ exports[`PreviewConfig --- Snapshot Capturing Snapshot of Task Templates 1`] = `
         <div
           class="bx--modal-header"
         >
-          <p
+          <h3
             class="bx--modal-header__heading bx--type-beta"
           >
             [Preview] Test template
-          </p>
+          </h3>
           <p
             class="bx--bmrg-modal-composed-subtitle"
           >
@@ -125,7 +125,8 @@ exports[`PreviewConfig --- Snapshot Capturing Snapshot of Task Templates 1`] = `
                       class="bx--text-input__field-wrapper"
                     >
                       <input
-                        class="bx--text-input bx--text__input"
+                        aria-describedby=""
+                        class="bx--text-input bx--text-input--md"
                         id="['path']"
                         name="['path']"
                         placeholder=""
@@ -163,7 +164,8 @@ exports[`PreviewConfig --- Snapshot Capturing Snapshot of Task Templates 1`] = `
                       class="bx--text-input__field-wrapper"
                     >
                       <input
-                        class="bx--text-input bx--text__input"
+                        aria-describedby=""
+                        class="bx--text-input bx--text-input--md"
                         id="['propertyName']"
                         name="['propertyName']"
                         placeholder=""

@@ -37,7 +37,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   id="key"
                   name="key"
                   placeholder="Key"
@@ -74,7 +74,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   id="label"
                   name="label"
                   placeholder="Label"
@@ -111,7 +111,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   id="description"
                   name="description"
                   placeholder="Description"
@@ -148,7 +148,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   id="value"
                   name="value"
                   placeholder="Value"

@@ -1,6 +1,5 @@
 import React from "react";
 import CreateEditPropertiesContent from ".";
-import { queryCaches } from "react-query";
 
 const mockfn = jest.fn();
 const props = {
@@ -13,13 +12,9 @@ const props = {
   cancelRequestRef: { current: null },
 };
 
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
-
 describe("CreateEditPropertiesContent --- Snapshot Test", () => {
   it("Capturing Snapshot of CreateEditPropertiesContent", () => {
-    const { baseElement } = rtlRender(<CreateEditPropertiesContent {...props} />);
+    const { baseElement } = global.rtlQueryRender(<CreateEditPropertiesContent {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });

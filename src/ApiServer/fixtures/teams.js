@@ -221,8 +221,11 @@ const teams = [
       currentConcurrentWorkflows: 0,
       currentWorkflowExecutionMonthly: 10,
       currentAverageExecutionTime: 2,
-      monthlymonthlyResetDate: "August 1, 2020",
+      monthlyResetDate: "August 1, 2020",
+      currentWorkflowsPersistentStorage: 0,
     },
+    isActive: true,
+    users: [],
   },
   {
     higherLevelGroupId: "5c41596cf32aa30001e9d443",
@@ -387,7 +390,10 @@ const teams = [
       currentWorkflowExecutionMonthly: 99,
       currentAverageExecutionTime: 2,
       monthlymonthlyResetDate: "August 1, 2020",
+      currentWorkflowsPersistentStorage: 0,
     },
+    isActive: true,
+    users: [],
   },
 ];
 

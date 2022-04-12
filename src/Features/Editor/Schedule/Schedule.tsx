@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, QueryResult } from "react-query";
+import { useQuery, UseQueryResult } from "react-query";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import ScheduleCalendar from "Components/ScheduleCalendar";
@@ -142,7 +142,7 @@ interface CalendarViewProps {
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPanelOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setNewSchedule: React.Dispatch<React.SetStateAction<Pick<ScheduleDate, "dateSchedule" | "type"> | undefined>>;
-  workflowCalendarQuery: QueryResult<Array<CalendarEntry>, Error>;
+  workflowCalendarQuery: UseQueryResult<Array<CalendarEntry>, any>;
   workflowSchedules: Array<ScheduleUnion>;
 }
 

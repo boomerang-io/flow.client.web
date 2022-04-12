@@ -26,23 +26,26 @@ exports[`TaskApprovalModal --- Snapshot Capturing Snapshot of TaskApprovalModal 
                 <div
                   class="bx--form-item"
                 >
-                  <label
-                    class="bx--label"
-                    for="comment"
+                  <div
+                    class="bx--text-area__label-wrapper"
                   >
-                    <div
-                      style="display: flex;"
+                    <label
+                      class="bx--label"
+                      for="comment"
                     >
-                      <div>
-                        Comments (optional)
+                      <div
+                        style="display: flex;"
+                      >
+                        <div>
+                          Comments (optional)
+                        </div>
                       </div>
-                    </div>
-                  </label>
+                    </label>
+                  </div>
                   <div
                     class="bx--text-area__wrapper"
                   >
                     <textarea
-                      aria-placeholder="Add some reasoning for your decision"
                       class="bx--text-area commentArea"
                       cols="50"
                       id="comment"

@@ -1,5 +1,4 @@
 import React from "react";
-import { queryCaches } from "react-query";
 import { startApiServer } from "ApiServer";
 import { teams, profile } from "ApiServer/fixtures";
 import { AppContextProvider } from "State/context";
@@ -18,13 +17,12 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
   server.shutdown();
 });
 
 describe("WorkflowCard --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowCard", () => {
-    const { baseElement } = rtlRouterRender(
+    const { baseElement } = rtlContextRouterRender(
       <AppContextProvider
         value={{
           isTutorialActive: false,

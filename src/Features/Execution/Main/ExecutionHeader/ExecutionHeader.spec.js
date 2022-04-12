@@ -1,6 +1,5 @@
 import React from "react";
 import ExecutionHeader from "./index";
-import { queryCaches } from "react-query";
 import { teams, profile } from "ApiServer/fixtures";
 import { AppContextProvider } from "State/context";
 const props = {
@@ -22,13 +21,9 @@ const props = {
   },
 };
 
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
-
 describe("ExecutionHeader --- Snapshot", () => {
   it("Capturing Snapshot of ExecutionHeader", () => {
-    const { baseElement } = rtlRouterRender(
+    const { baseElement } = global.rtlContextRouterRender(
       <AppContextProvider
         value={{
           isTutorialActive: false,

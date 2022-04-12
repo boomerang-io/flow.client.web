@@ -20,7 +20,7 @@ AddTaskTemplate.propTypes = {
 function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location }) {
   const cancelRequestRef = React.useRef();
 
-  const [CreateTaskTemplateMutation, { isLoading }] = useMutation((args) => {
+  const { mutateAsync: CreateTaskTemplateMutation, isLoading } = useMutation((args) => {
     const { promise, cancel } = resolver.postCreateTaskTemplate(args);
     cancelRequestRef.current = cancel;
     return promise;

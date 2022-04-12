@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
-    "jsx": "react",
+    "jsx": "react-jsx",
     "module": "esnext",
     "target": "es2020",
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "es2020"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -15,10 +20,20 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ],
     "noFallthroughCasesInSwitch": true
   },
-
-  "exclude": ["dist", "node_modules", "public", "server"],
-  "include": ["src"]
+  "exclude": [
+    "dist",
+    "node_modules",
+    "public",
+    "server"
+  ],
+  "include": [
+    "src"
+  ]
 }

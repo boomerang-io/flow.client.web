@@ -42,7 +42,7 @@ export default AppActivation;
 
 const Form: React.FC<PlatformActivationProps> = ({ setActivationCode }) => {
   const [code, setCode] = React.useState("");
-  const [validateActivationCodeMutator, { isLoading, error }] = useMutation(resolver.putActivationApp);
+  const { mutateAsync: validateActivationCodeMutator, isLoading, error } = useMutation(resolver.putActivationApp);
 
   const handleValidateCode = async (e: React.SyntheticEvent) => {
     e.preventDefault();

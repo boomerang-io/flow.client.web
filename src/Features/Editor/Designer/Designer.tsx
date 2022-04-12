@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { Helmet } from "react-helmet";
+import { UseQueryResult } from "react-query";
+import cx from "classnames";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import { DelayedRender, Error, SkeletonPlaceholder, SkeletonText } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowZoom from "Components/WorkflowZoom";
 import Notes from "./Notes";
 import Tasks from "./Tasks";
-import cx from "classnames";
 import { TaskTemplateStatus, QueryStatus } from "Constants";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
-import { QueryResult } from "react-query";
 import { TaskModel, WorkflowRevision } from "Types";
 import styles from "./designer.module.scss";
 
@@ -17,7 +17,7 @@ interface DesignerContainerProps {
   isModalOpen: boolean;
   notes: string;
   updateNotes: ({ markdown }: { markdown: string }) => void;
-  revisionQuery: QueryResult<WorkflowRevision, Error>;
+  revisionQuery:  UseQueryResult<WorkflowRevision, unknown>;
   tasks: Array<TaskModel>;
   workflowDagEngine: WorkflowDagEngine | null;
   workflowName: string;

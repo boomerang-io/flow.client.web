@@ -3,8 +3,7 @@ import WorkflowExecutionContainer from "./index";
 import { startApiServer } from "ApiServer";
 import { db } from "ApiServer/fixtures";
 import { Route } from "react-router-dom";
-import { queryCaches } from "react-query";
-import { waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 import { AppPath, appLink } from "Config/appConfig";
 import { teams, profile } from "ApiServer/fixtures";
@@ -22,12 +21,11 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("Execution --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowExecutionContainer", async () => {
-    const { baseElement, getByText } = rtlRouterRender(
+    const { baseElement } = rtlContextRouterRender(
       <AppContextProvider
         value={{
           isTutorialActive: false,
@@ -40,7 +38,7 @@ describe("Execution --- Snapshot", () => {
       </AppContextProvider>,
       { route: appLink.execution({ workflowId, executionId }) }
     );
-    await waitFor(() => expect(getByText(/Workflow run detail/i)).toBeInTheDocument());
+    await screen.findByText(/Workflow run detail/i);
 
     expect(baseElement).toMatchSnapshot();
   });

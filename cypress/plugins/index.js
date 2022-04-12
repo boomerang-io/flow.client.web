@@ -10,32 +10,34 @@
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
+// This function is called when a project is opened or re-opened (e.g. due to
+// the project's config changing)
 const path = require("path");
-const findWebpack = require("find-webpack");
 const webpackPreprocessor = require("@cypress/webpack-preprocessor");
 
-module.exports = (on, config) => {
-  // find the Webpack config used by react-scripts
-  const webpackOptions = findWebpack.getWebpackOptions();
-
-  if (!webpackOptions) {
-    throw new Error("Could not find Webpack in this project 😢");
-  }
-
-  const cleanOptions = {
-    reactScripts: true,
-  };
-
-  findWebpack.cleanForCypress(cleanOptions, webpackOptions);
-
-  const options = {
-    webpackOptions,
-    watchOptions: {},
-  };
+const options = webpackPreprocessor.defaultOptions;
+module.exports = (on) => {
+  options.webpackOptions.module.rules.push({
+    test: /\.tsx?$/,
+    exclude: [/node_modules/],
+    use: [
+      {
+        loader: "ts-loader",
+        options: {
+          transpileOnly: true,
+        },
+      },
+    ],
+  });
 
   // Define your alias(es) here:
-  options.webpackOptions.resolve.alias.src = path.resolve(process.cwd(), "src/apiServer");
-  options.webpackOptions.resolve.alias.config = path.resolve(process.cwd(), "src/config");
-
+  options.webpackOptions["resolve"] = {
+    extensions: [".tsx", ".ts", ".js", ".jsx"],
+    alias: {
+      ApiServer: path.resolve(process.cwd(), "src/ApiServer"),
+      Config: path.resolve(process.cwd(), "src/Config"),
+      Constants: path.resolve(process.cwd(), "src/Constants"),
+    },
+  };
   on("file:preprocessor", webpackPreprocessor(options));
 };

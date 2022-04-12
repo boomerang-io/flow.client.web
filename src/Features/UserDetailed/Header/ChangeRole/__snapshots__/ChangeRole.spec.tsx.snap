@@ -17,7 +17,7 @@ exports[`ChangeRole --- Snapshot Test Capturing Snapshot of ChangeRole 1`] = `
           <div
             class="bx--form-item"
           >
-            <div
+            <fieldset
               class="bx--radio-button-group bx--radio-button-group--vertical bx--radio-button-group--label-right"
             >
               <div
@@ -39,6 +39,7 @@ exports[`ChangeRole --- Snapshot Test Capturing Snapshot of ChangeRole 1`] = `
                   />
                   <span
                     class=""
+                    dir="auto"
                   >
                     Admin
                   </span>
@@ -63,12 +64,13 @@ exports[`ChangeRole --- Snapshot Test Capturing Snapshot of ChangeRole 1`] = `
                   />
                   <span
                     class=""
+                    dir="auto"
                   >
                     User
                   </span>
                 </label>
               </div>
-            </div>
+            </fieldset>
           </div>
         </div>
       </div>

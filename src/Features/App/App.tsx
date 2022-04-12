@@ -100,33 +100,25 @@ export default function App() {
   const navigationQuery = useQuery<PlatformConfig, string>({
     queryKey: getPlatformConfigUrl,
     queryFn: resolver.query(getPlatformConfigUrl),
-    config: {
-      enabled: Boolean(userQuery.data?.id),
-    },
+    enabled: Boolean(userQuery.data?.id),
   });
 
   const flowNavigationQuery = useQuery<Array<FlowNavigationItem>, string>({
     queryKey: serviceUrl.getFlowNavigation({ query: "" }),
     queryFn: resolver.query(getFlowNavigationUrl),
-    config: {
-      enabled: Boolean(userQuery.data?.id),
-    },
+    enabled: Boolean(userQuery.data?.id),
   });
 
   const teamsQuery = useQuery<Array<FlowTeam>, string>({
     queryKey: getTeamsUrl,
     queryFn: resolver.query(getTeamsUrl),
-    config: {
-      enabled: Boolean(userQuery.data?.id),
-    },
+    enabled: Boolean(userQuery.data?.id),
   });
 
   const userWorkflowsQuery = useQuery<UserWorkflow, string>({
     queryKey: getUserWorkflows,
     queryFn: resolver.query(getUserWorkflows),
-    config: {
-      enabled: Boolean(userQuery.data?.id),
-    },
+    enabled: Boolean(userQuery.data?.id),
   });
 
   const isLoading =
@@ -295,16 +287,16 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
       >
         <Switch>
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={["*"]}
             component={<Execution />}
             path={AppPath.Execution}
-            userRole={activityEnabled}
+            userRole={activityEnabled ? "*" : ""}
           />
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={["*"]}
             component={<Activity />}
             path={AppPath.Activity}
-            userRole={activityEnabled}
+            userRole={activityEnabled ? "*" : ""}
           />
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
@@ -313,22 +305,22 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             userRole={platformRole}
           />
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={["*"]}
             component={<Insights />}
             path={AppPath.Insights}
-            userRole={insightsEnabled}
+            userRole={insightsEnabled ? "*" : "none"}
           />
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={["*"]}
             component={<ManageTeamTasks />}
             path={AppPath.ManageTaskTemplatesTeam}
-            userRole={teamTasksEnabled}
+            userRole={teamTasksEnabled ? "*" : ""}
           />
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={["*"]}
             component={<ManageTeamTasksContainer />}
             path={AppPath.ManageTaskTemplates}
-            userRole={teamTasksEnabled}
+            userRole={teamTasksEnabled ? "*" : ""}
           />
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
@@ -355,13 +347,13 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             userRole={platformRole}
           />
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={["*"]}
             component={<TeamProperties />}
             path={AppPath.TeamProperties}
-            userRole={teamPropertiesEnabled}
+            userRole={teamPropertiesEnabled ? "*" : ""}
           />
           {/* {<ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={["*"]}
             component={<TeamTokens />}
             path={AppPath.TeamTokens}
             userRole={teamTokensEnabled}

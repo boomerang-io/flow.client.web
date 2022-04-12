@@ -2,7 +2,7 @@ import React from "react";
 // @ts-ignore
 import cx from "classnames";
 import { settings } from "carbon-components";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import sortBy from "lodash/sortBy";
 import {
   Button,
@@ -66,12 +66,13 @@ function ApproverGroupsTable({
   isLoading,
   error,
 }: ApproverGroupsTableProps) {
+  const queryClient = useQueryClient();
   const [sortKey, setSortKey] = React.useState("groupName");
   const [sortDirection, setSortDirection] = React.useState("ASC");
 
   /** Delete Team Approver Group */
-  const [deleteApproverGroupMutation] = useMutation(resolver.deleteApproverGroup, {
-    onSuccess: () => queryCache.invalidateQueries(serviceUrl.resourceApproverGroups({ teamId: activeTeam?.id, groupId: undefined })),
+  const { mutateAsync: deleteApproverGroupMutation } = useMutation(resolver.deleteApproverGroup, {
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.resourceApproverGroups({ teamId: activeTeam?.id, groupId: undefined })),
   });
 
   const headers = [

@@ -1,13 +1,8 @@
 import React from "react";
 import CreateWorkflow from ".";
-import { fireEvent } from "@testing-library/react";
-import { queryCaches } from "react-query";
+import { screen, fireEvent } from "@testing-library/react";
 import { teams, profile } from "ApiServer/fixtures";
 import { AppContextProvider } from "State/context";
-
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
 
 const props = {
   team: teams[0],
@@ -16,7 +11,7 @@ const props = {
 
 describe("CreateWorkflow --- Snapshot Test", () => {
   test("Capturing Snapshot of CreateWorkflow", () => {
-    const { baseElement, getByText } = rtlContextRouterRender(
+    const { baseElement } = rtlContextRouterRender(
       <AppContextProvider
         value={{
           isTutorialActive: false,
@@ -28,7 +23,7 @@ describe("CreateWorkflow --- Snapshot Test", () => {
         <CreateWorkflow {...props} />{" "}
       </AppContextProvider>
     );
-    fireEvent.click(getByText(/Create a new workflow/i));
+    fireEvent.click(screen.getByText(/Create a new workflow/i));
     expect(baseElement).toMatchSnapshot();
   });
 });

@@ -12,7 +12,7 @@ import {
   notify,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { Reset16 } from "@carbon/icons-react";
 import { ModalTriggerProps, FlowTeam, ComposedModalChildProps, FlowTeamQuotas } from "Types";
@@ -81,8 +81,9 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({
   teamId,
 }) => {
   const cancelRequestRef = React.useRef<{} | null>();
+  const queryClient = useQueryClient();
 
-  const [defaultQuotasMutator, { isLoading, error }] = useMutation(
+  const { mutateAsync: defaultQuotasMutator, isLoading, error } = useMutation(
     (args: { id: string }) => {
       const { promise, cancel } = resolver.putTeamQuotasDefault(args);
       if (cancelRequestRef?.current) {
@@ -92,8 +93,8 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({
     },
     {
       onSuccess: () => {
-        queryCache.invalidateQueries(serviceUrl.getTeamQuotas({ id: teamId }));
-        queryCache.invalidateQueries(serviceUrl.getTeams());
+        queryClient.invalidateQueries(serviceUrl.getTeamQuotas({ id: teamId }));
+        queryClient.invalidateQueries(serviceUrl.getTeams());
       },
     }
   );

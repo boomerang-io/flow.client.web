@@ -86,7 +86,7 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
                     value="Allianz"
                   />
                   <div
-                    aria-label="Clear Selection"
+                    aria-label="Clear selected item"
                     class="bx--list-box__selection"
                     role="button"
                     tabindex="0"
@@ -136,7 +136,7 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
           </div>
         </div>
         <button
-          class="bx--btn bx--btn--field bx--btn--primary"
+          class="bx--btn bx--btn--md bx--btn--primary"
           data-testid="create-team-parameter-button"
           style="min-width: 9rem;"
           tabindex="0"

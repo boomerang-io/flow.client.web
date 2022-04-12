@@ -14,7 +14,7 @@ import {
   Loading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { TokenRequest } from "Types";
 import styles from "./form.module.scss";
@@ -39,17 +39,19 @@ function CreateServiceTokenForm({
   setIsTokenCreated,
   cancelRequestRef,
 }: CreateServiceTokenFormProps | any) {
-  const [
-    postGlobalTokenRequestMutator,
-    { isLoading: postGlobalTokenIsLoading, error: postGlobalTokenError },
-  ] = useMutation(
+  const queryClient = useQueryClient();
+  const {
+    mutateAsync: postGlobalTokenRequestMutator,
+    isLoading: postGlobalTokenIsLoading,
+    error: postGlobalTokenError,
+  } = useMutation(
     (args: { body: TokenRequest }) => {
       const { promise, cancel } = resolver.postGlobalToken(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries([serviceUrl.getGlobalTokens()]),
+      onSuccess: () => queryClient.invalidateQueries([serviceUrl.getGlobalTokens()]),
     }
   );
 

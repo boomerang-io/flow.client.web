@@ -1,7 +1,7 @@
 /* eslint-disable jest/expect-expect */
 
 import { startApiServer } from "ApiServer";
-import { appLink } from "Config/appConfig";
+import { appLink } from "Config/appConfig.ts";
 
 let server;
 

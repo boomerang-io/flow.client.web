@@ -1,8 +1,8 @@
 /* eslint-disable jest/no-commented-out-tests */
 import React from "react";
+import { screen } from "@testing-library/react";
 import WorkflowInsights from "./index";
 import { startApiServer } from "ApiServer";
-import { queryCaches } from "react-query";
 
 jest.mock("@carbon/charts-react", () => ({
   ...jest.requireActual("@carbon/charts-react"),
@@ -54,15 +54,16 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("WorkflowInsights --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowInsights", async () => {
-    const { baseElement, findByTestId } = rtlContextRouterRender(<WorkflowInsights />);
-    await findByTestId("completed-insights");
+    const { baseElement } = rtlContextRouterRender(<WorkflowInsights />);
+    await screen.findByTestId("completed-insights");
+    // eslint-disable-next-line testing-library/no-node-access
     const a11yElement = baseElement.querySelector("#a11y-status-message");
     if (baseElement.contains(a11yElement)) {
+      // eslint-disable-next-line testing-library/no-node-access
       a11yElement.parentNode.removeChild(a11yElement);
     }
     expect(baseElement).toMatchSnapshot();
@@ -186,7 +187,7 @@ describe("WorkflowInsights --- Snapshot", () => {
 //     const { baseElement, findByText } = rtlContextRouterRender(<WorkflowInsights {...props} />,{
 //       initialState:initialReduxState
 //     });
-//     await findByText(/Filter by Workflow/);
+//     await screen.findByText(/Filter by Workflow/);
 //     expect(baseElement).toMatchSnapshot();
 //   });
 // });
@@ -198,16 +199,16 @@ describe("WorkflowInsights --- Snapshot", () => {
 //     const { findByText, getByText, getByLabelText, getAllByText, getByTestId} = rtlContextRouterRender(<WorkflowInsights {...props} />,{
 //       initialState:initialReduxState
 //     });
-//     await findByText(/Filter by Workflow/);
-//     const teamFilter = getByLabelText("Filter by Team");
+//     await screen.findByText(/Filter by Workflow/);
+//     const teamFilter = screen.getByLabelText("Filter by Team");
 //     fireEvent.click(teamFilter);
 //     fireEvent.click(teamFilter.firstChild);
 //     await wait(() => {
 //       expect(mockAxios.history.get.length).toBe(2);
 //     });
-//     const periodFilter = getByLabelText("Time period");
+//     const periodFilter = screen.getByLabelText("Time period");
 //     fireEvent.click(periodFilter);
-//     fireEvent.click(getByText(/1 day/));
+//     fireEvent.click(screen.getByText(/1 day/));
 //     await wait(() => {
 //       expect(mockAxios.history.get.length).toBe(3);
 //     });

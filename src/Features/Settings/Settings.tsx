@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { useQuery, useMutation, queryCache } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { Box } from "reflexbox";
 import {
   Accordion,
@@ -49,13 +49,15 @@ const FeatureLayout: React.FC = ({ children }) => {
 };
 
 const Settings: React.FC = () => {
+  const queryClient = useQueryClient();
+
   const { data, error, isLoading } = useQuery({
     queryKey: platformSettingsUrl,
     queryFn: resolver.query(platformSettingsUrl),
   });
 
-  const [updateSettingMutator] = useMutation(resolver.putPlatformSettings, {
-    onSuccess: () => queryCache.invalidateQueries(platformSettingsUrl),
+  const { mutateAsync: updateSettingMutator } = useMutation(resolver.putPlatformSettings, {
+    onSuccess: () => queryClient.invalidateQueries(platformSettingsUrl),
   });
 
   const handleOnSave = async (

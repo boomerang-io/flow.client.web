@@ -1,7 +1,7 @@
 //@ts-nocheck
 import React from "react";
 import { useFeature } from "flagged";
-import { useMutation, queryCache, useQuery } from "react-query";
+import { useMutation, useQueryClient, useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 import { Button, ModalFlow, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateWorkflowContent from "./CreateWorkflowContent";
@@ -21,6 +21,7 @@ interface CreateTemplateWorkflowProps {
 }
 
 const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams, scope }) => {
+  const queryClient = useQueryClient();
   const history = useHistory();
   const { teams: teamsIds } = queryString.parse(history.location.search);
   const initialSelectedTeam = teams && teamsIds?.length ? teams.find((team) => teamsIds.includes(team.id)) : null;
@@ -49,10 +50,9 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams, 
     queryFn: resolver.query(getTaskTemplatesUrl),
   });
 
-  const [
-    createTemplateWorkflowMutator,
-    { isLoading: createTemplateWorkflowIsLoading, error: createTemplateWorkflowError },
-  ] = useMutation(resolver.postTemplateWorkflow);
+  const { mutateAsync: createTemplateWorkflowMutator, isLoading: createTemplateWorkflowIsLoading, error: createTemplateWorkflowError } = useMutation(
+    resolver.postTemplateWorkflow
+  );
 
   const handleCreateWorkflow = async (selectedTemplateId: string, requestBody: any) => {
     try {
@@ -71,11 +71,11 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams, 
         />
       );
       if (scope === WorkflowScope.System) {
-        queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+        queryClient.invalidateQueries(serviceUrl.getSystemWorkflows());
       } else if (scope === WorkflowScope.Team) {
-        queryCache.invalidateQueries(serviceUrl.getTeams());
+        queryClient.invalidateQueries(serviceUrl.getTeams());
       } else {
-        queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
+        queryClient.invalidateQueries(serviceUrl.getUserWorkflows());
       }
 
       return;

@@ -1,5 +1,5 @@
 import React from "react";
-import { queryCache, useMutation } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 import ReactMarkdown from "react-markdown";
 import {
   Button,
@@ -57,9 +57,10 @@ type FormProps = {
 };
 
 function Form({ action, cancelRequestRef, closeModal, queryToRefetch }: FormProps) {
+  const queryClient = useQueryClient();
   const { id, instructions, status } = action ?? {};
 
-  const [approvalMutator, { isLoading: approvalsIsLoading, error: approvalsError }] = useMutation(
+  const { mutateAsync: approvalMutator, isLoading: approvalsIsLoading, error: approvalsError } = useMutation(
     (args: { body: { id: string; approved: boolean } }) => {
       const { promise, cancel } = resolver.putWorkflowAction(args);
       if (cancelRequestRef?.current) {
@@ -69,7 +70,7 @@ function Form({ action, cancelRequestRef, closeModal, queryToRefetch }: FormProp
     },
     {
       onSuccess: () => {
-        queryCache.invalidateQueries(queryToRefetch);
+        queryClient.invalidateQueries(queryToRefetch);
       },
     }
   );

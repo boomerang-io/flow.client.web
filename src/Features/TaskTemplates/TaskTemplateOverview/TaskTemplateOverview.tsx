@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import { Formik } from "formik";
 import axios from "axios";
 import { useParams, useHistory, Prompt, matchPath } from "react-router-dom";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import {
   Button,
   ConfirmModal,
@@ -233,16 +233,17 @@ export function TaskTemplateOverview({
   editVerifiedTasksEnabled,
 }: TaskTemplateOverviewProps) {
   const cancelRequestRef = React.useRef();
+  const queryClient = useQueryClient();
 
   const params = useParams();
   const history = useHistory();
 
   const invalidateQueries = () => {
-    queryCache.invalidateQueries(serviceUrl.getTaskTemplates({ query: null }));
-    queryCache.invalidateQueries(serviceUrl.getFeatureFlags());
+    queryClient.invalidateQueries(serviceUrl.getTaskTemplates({ query: null }));
+    queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
   };
 
-  const [uploadTaskTemplateMutation, { isLoading }] = useMutation(
+  const { mutateAsync: uploadTaskTemplateMutation, isLoading } = useMutation(
     (args) => {
       const { promise, cancel } = resolver.putCreateTaskTemplate(args);
       cancelRequestRef.current = cancel;
@@ -252,13 +253,13 @@ export function TaskTemplateOverview({
       onSuccess: invalidateQueries,
     }
   );
-  const [archiveTaskTemplateMutation, { isLoading: archiveIsLoading }] = useMutation(
+  const { mutateAsync: archiveTaskTemplateMutation, isLoading: archiveIsLoading } = useMutation(
     resolver.deleteArchiveTaskTemplate,
     {
       onSuccess: invalidateQueries,
     }
   );
-  const [restoreTaskTemplateMutation, { isLoading: restoreIsLoading }] = useMutation(resolver.putRestoreTaskTemplate, {
+  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(resolver.putRestoreTaskTemplate, {
     onSuccess: invalidateQueries,
   });
 

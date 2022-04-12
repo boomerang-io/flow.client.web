@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -29,27 +29,28 @@ type Props = {
 const configUrl = serviceUrl.getGlobalConfiguration();
 
 function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKeys, cancelRequestRef }: Props) {
+  const queryClient = useQueryClient();
   /** Add property */
-  const [addGlobalPropertyMutation, { isLoading: addLoading, error: addError }] = useMutation(
+  const { mutateAsync: addGlobalPropertyMutation, isLoading: addLoading, error: addError } = useMutation(
     (args: { body: Property }) => {
       const { promise, cancel } = resolver.postGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries(configUrl),
+      onSuccess: () => queryClient.invalidateQueries(configUrl),
     }
   );
 
   /** Update property */
-  const [updateGlobalPropertyMutation, { isLoading: updateLoading, error: updateError }] = useMutation(
+  const { mutateAsync: updateGlobalPropertyMutation, isLoading: updateLoading, error: updateError } = useMutation(
     (args: { id: string; body: Property }) => {
       const { promise, cancel } = resolver.patchGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries(configUrl),
+      onSuccess: () => queryClient.invalidateQueries(configUrl),
     }
   );
 

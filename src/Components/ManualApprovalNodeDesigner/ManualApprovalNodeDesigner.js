@@ -43,7 +43,7 @@ const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigne
   const { data: approverGroupsData } = useQuery({
     queryKey: ApproverGroupsUrl,
     queryFn: resolver.query(ApproverGroupsUrl),
-    config: { enabled: flowTeamId && isTeamScope },
+    enabled: Boolean(flowTeamId && isTeamScope),
   });
 
   // Get the taskNames names from the nodes on the model

@@ -20,7 +20,7 @@ exports[`UserDetails --- Snapshot Test Capturing Snapshot of UserDetails 1`] = `
           <dd
             class="sectionDetail"
           >
-            ---
+            Test User
           </dd>
         </section>
         <section
@@ -34,7 +34,7 @@ exports[`UserDetails --- Snapshot Test Capturing Snapshot of UserDetails 1`] = `
           <dd
             class="sectionDetail"
           >
-            ---
+            test@testemail.com
           </dd>
         </section>
         <section
@@ -48,7 +48,7 @@ exports[`UserDetails --- Snapshot Test Capturing Snapshot of UserDetails 1`] = `
           <dd
             class="sectionDetail"
           >
-            ---
+            Admin
           </dd>
         </section>
         <section
@@ -62,7 +62,7 @@ exports[`UserDetails --- Snapshot Test Capturing Snapshot of UserDetails 1`] = `
           <dd
             class="sectionDetail"
           >
-            ---
+            January 01, 2020
           </dd>
         </section>
         <section
@@ -76,7 +76,7 @@ exports[`UserDetails --- Snapshot Test Capturing Snapshot of UserDetails 1`] = `
           <dd
             class="sectionDetail"
           >
-            ---
+            January 01, 2020
           </dd>
         </section>
         <section
@@ -90,7 +90,7 @@ exports[`UserDetails --- Snapshot Test Capturing Snapshot of UserDetails 1`] = `
           <dd
             class="sectionDetail"
           >
-            ---
+            active
           </dd>
         </section>
         <section

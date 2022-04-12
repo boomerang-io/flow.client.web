@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppContext } from "Hooks";
-import { useMutation, queryCache, QueryIdleResult, QueryLoadingResult, QuerySuccessResult } from "react-query";
+import { useMutation, useQueryClient, UseQueryResult } from "react-query";
 import { withRouter, Link, useParams } from "react-router-dom";
 import CopyToClipboard from "react-copy-to-clipboard";
 import moment from "moment";
@@ -33,8 +33,8 @@ type Props = {
   history: any;
   location: any;
   match: any;
-  workflow: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
-  workflowExecution: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
+  workflow: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
+  workflowExecution: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
   version: number;
 };
 
@@ -43,14 +43,15 @@ const cancelSatusTypes = [ExecutionStatus.NotStarted, ExecutionStatus.Waiting, E
 function ExecutionHeader({ history, workflow, workflowExecution, version }: Props) {
   const { state } = history.location;
   const { user } = useAppContext();
+  const queryClient = useQueryClient();
 
   const { platformRole } = user;
   const systemWorkflowsEnabled = allowedUserRoles.includes(platformRole);
   const { teamName, initiatedByUserName, trigger, creationDate, scope, status, id } = workflowExecution.data;
   const displayCancelButton = cancelSatusTypes.includes(status);
 
-  const [deleteCancelWorkflowMutation] = useMutation(resolver.deleteCancelWorkflow, {
-    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId: id })),
+  const { mutateAsync: deleteCancelWorkflowMutation } = useMutation(resolver.deleteCancelWorkflow, {
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId: id })),
   });
 
   const handleCancelWorkflow = async () => {

@@ -1,7 +1,6 @@
 import React from "react";
-import { fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import ExecutionTaskLog from "./index";
-import { queryCaches } from "react-query";
 
 const props = {
   workflowExecution: {
@@ -76,10 +75,6 @@ const props = {
   },
 };
 
-afterEach(() => {
-  queryCaches.forEach((queryCache) => queryCache.clear());
-});
-
 describe("ExecutionTaskLog --- Snapshot", () => {
   it("Capturing Snapshot of ExecutionTaskLog", () => {
     const { baseElement } = rtlRouterRender(<ExecutionTaskLog {...props} />);
@@ -89,15 +84,15 @@ describe("ExecutionTaskLog --- Snapshot", () => {
 
 describe("ExecutionTaskLog --- RTL", () => {
   it("Sort tasks", () => {
-    const { getByTestId, getAllByTestId } = rtlRouterRender(<ExecutionTaskLog {...props} />);
+    rtlRouterRender(<ExecutionTaskLog {...props} />);
 
-    const sortButton = getByTestId("taskbar-button");
-    let taskItems = getAllByTestId("taskitem-name");
+    const sortButton = screen.getByTestId("taskbar-button");
+    let taskItems = screen.getAllByTestId("taskitem-name");
     expect(taskItems[0]).toHaveTextContent("Email");
     expect(taskItems[1]).toHaveTextContent("Slack");
 
     fireEvent.click(sortButton);
-    taskItems = getAllByTestId("taskitem-name");
+    taskItems = screen.getAllByTestId("taskitem-name");
     expect(taskItems[0]).toHaveTextContent("Slack");
     expect(taskItems[1]).toHaveTextContent("Email");
   });

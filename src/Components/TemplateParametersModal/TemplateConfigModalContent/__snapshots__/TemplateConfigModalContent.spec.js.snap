@@ -37,7 +37,7 @@ exports[`TemplateConfigModalContent --- Snapshot Capturing Snapshot of Task Temp
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   id="name"
                   type="text"
                   value="test"
@@ -71,7 +71,7 @@ exports[`TemplateConfigModalContent --- Snapshot Capturing Snapshot of Task Temp
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   id="description"
                   type="text"
                   value="test description"

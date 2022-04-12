@@ -1,11 +1,11 @@
 // @ts-nocheck
 import React from "react";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Helmet } from "react-helmet";
-import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
-import WorkflowPropertiesModal from "./PropertiesModal";
-import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import capitalize from "lodash/capitalize";
+import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import WorkflowCloseButton from "Components/WorkflowCloseButton";
+import WorkflowPropertiesModal from "./PropertiesModal";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType, WorkflowPropertyUpdateType } from "Constants";
 import { DataDrivenInput, ModalTriggerProps, WorkflowSummary } from "Types";
@@ -55,11 +55,12 @@ interface PropertiesProps {
 }
 
 const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
-  const [mutateProperties, { isLoading: mutatePropertiesIsLoading }] = useMutation(
+  const queryClient = useQueryClient();
+  const { mutateAsync: mutateProperties, isLoading: mutatePropertiesIsLoading } = useMutation(
     resolver.patchUpdateWorkflowProperties,
     {
       onSuccess: () => {
-        queryCache.invalidateQueries(serviceUrl.workflowAvailableParameters({ workflowId: summaryData.id }));
+        queryClient.invalidateQueries(serviceUrl.workflowAvailableParameters({ workflowId: summaryData.id }));
       },
     }
   );
@@ -89,7 +90,7 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
           subtitle={`Successfully performed operation`}
         />
       );
-      queryCache.setQueryData(serviceUrl.getWorkflowSummary({ workflowId: summaryData.id }), data);
+      queryClient.setQueryData(serviceUrl.getWorkflowSummary({ workflowId: summaryData.id }), data);
     } catch (e) {
       notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} parameter`} />);
     }

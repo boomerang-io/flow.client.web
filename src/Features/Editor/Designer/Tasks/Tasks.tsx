@@ -1,6 +1,9 @@
 // @ts-nocheck
 import React, { Component } from "react";
 import cx from "classnames";
+import matchSorter from "match-sorter";
+import uniqBy from "lodash/uniqBy";
+import { sortByProp } from "@boomerang-io/utils";
 import {
   AccordionItem,
   Checkbox,
@@ -11,9 +14,6 @@ import {
 import Accordion from "carbon-components-react/lib/components/Accordion";
 import Task from "./Task";
 import { taskIcons } from "Utils/taskIcons";
-import matchSorter from "match-sorter";
-import uniqBy from "lodash/uniqBy";
-import { sortByProp } from "@boomerang-io/utils";
 import { ChevronLeft32, SettingsAdjust16, Recommend16 } from "@carbon/icons-react";
 import { TaskModel } from "Types";
 import styles from "./tasks.module.scss";

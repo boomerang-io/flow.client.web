@@ -31,11 +31,11 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
         <div
           class="bx--modal-header"
         >
-          <p
+          <h3
             class="bx--modal-header__heading bx--type-beta"
           >
             Update undefined
-          </p>
+          </h3>
           <button
             aria-label="Close"
             class="bx--modal-close"
@@ -84,16 +84,16 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
                   role="button"
                 >
                   Choose a file or drag one here
-                  <input
-                    accept=".json"
-                    class="bx--file-input"
-                    id="id1"
-                    name="Workflow"
-                    tabindex="-1"
-                    type="file"
-                  />
                 </div>
               </label>
+              <input
+                accept=".json"
+                class="bx--file-input"
+                id="id1"
+                name="Workflow"
+                tabindex="-1"
+                type="file"
+              />
             </div>
           </div>
           <div

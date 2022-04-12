@@ -1,5 +1,5 @@
 import React from "react";
-import { queryCache, useMutation } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
 import { Button } from "carbon-components-react";
 import {
@@ -28,7 +28,8 @@ export default function AddTeamContent({
   teamRecords: FlowTeam[];
   currentQuery: string;
 }) {
-  const [createTeamMutator, { isLoading, error }] = useMutation(
+  const queryClient = useQueryClient();
+  const { mutateAsync: createTeamMutator, isLoading, error } = useMutation(
     (args: { body: {} }) => {
       const { promise, cancel } = resolver.postCreateTeam(args);
       if (cancelRequestRef?.current) {
@@ -38,7 +39,7 @@ export default function AddTeamContent({
     },
     {
       onSuccess: () => {
-        queryCache.invalidateQueries(serviceUrl.getManageTeams({ query: currentQuery }));
+        queryClient.invalidateQueries(serviceUrl.getManageTeams({ query: currentQuery }));
       },
     }
   );
@@ -110,6 +111,7 @@ export default function AddTeamContent({
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
+              {/* @ts-ignore */}
               <Button disabled={!dirty || errors.name || isLoading} onClick={handleSubmit} data-testid="save-team-name">
                 {buttonText}
               </Button>

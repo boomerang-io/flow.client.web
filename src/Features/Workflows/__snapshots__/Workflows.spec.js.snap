@@ -150,7 +150,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
           class="filterContainer"
         >
           <button
-            class="bx--btn bx--btn--field bx--btn--ghost"
+            class="bx--btn bx--btn--md bx--btn--ghost"
             data-testid="workflows-create-workflow-template-button"
             tabindex="0"
             type="button"
@@ -199,21 +199,25 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
               class="bx--search bx--search--xl"
               role="search"
             >
-              <svg
-                aria-hidden="true"
+              <div
                 class="bx--search-magnifier"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
-                />
-              </svg>
+                <svg
+                  aria-hidden="true"
+                  class="bx--search-magnifier-icon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                  />
+                </svg>
+              </div>
               <label
                 class="bx--label"
                 for="search-team-workflows"
@@ -261,49 +265,45 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             >
               <label
                 class="bx--label"
-                for="b-search-filter__filter"
+                for="b-search-filter__filter-input"
                 id="b-search-filter__filter-label"
               >
                 Filter by Team
               </label>
               <div
-                aria-expanded="false"
-                aria-haspopup="listbox"
-                aria-labelledby="b-search-filter__filter-label"
                 class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box bx--list-box--light"
-                role="combobox"
               >
                 <div
-                  aria-haspopup="true"
-                  aria-labelledby="b-search-filter__filter-label"
                   class="bx--list-box__field"
-                  data-toggle="true"
-                  id="b-search-filter__filter"
-                  role="button"
-                  tabindex="-1"
-                  type="button"
                 >
                   <input
                     aria-autocomplete="list"
-                    aria-labelledby="b-search-filter__filter-label"
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
                     autocomplete="off"
                     class="bx--text-input bx--text-input--empty bx--text-input--light"
                     id="b-search-filter__filter-input"
                     placeholder="Choose a team"
+                    role="combobox"
                     value=""
                   />
                   
-                  <div
+                  <button
+                    aria-haspopup="true"
+                    aria-label="Open"
                     class="bx--list-box__menu-icon"
+                    data-toggle="true"
+                    role="button"
+                    tabindex="-1"
+                    title="Open"
+                    type="button"
                   >
                     <svg
-                      aria-label="Open menu"
+                      aria-hidden="true"
                       fill="currentColor"
                       focusable="false"
                       height="16"
-                      name="chevron--down"
                       preserveAspectRatio="xMidYMid meet"
-                      role="img"
                       viewBox="0 0 16 16"
                       width="16"
                       xmlns="http://www.w3.org/2000/svg"
@@ -311,11 +311,8 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                       <path
                         d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
                       />
-                      <title>
-                        Open menu
-                      </title>
                     </svg>
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -351,7 +348,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 </p>
               </div>
               <button
-                class="bx--btn bx--btn--field bx--btn--ghost"
+                class="bx--btn bx--btn--md bx--btn--ghost"
                 tabindex="0"
                 type="button"
               >
@@ -417,7 +414,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 class="launch"
               >
                 <button
-                  class="bx--btn bx--btn--field bx--btn--primary bx--btn--disabled"
+                  class="bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
                   disabled=""
                   tabindex="0"
                   type="button"
@@ -452,7 +449,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-label="Overflow card menu"
-                class="bx--overflow-menu"
+                class="bx--overflow-menu bx--overflow-menu--md"
                 style="position: absolute; right: 0px;"
                 type="button"
               >
@@ -542,7 +539,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 class="launch"
               >
                 <button
-                  class="bx--btn bx--btn--field bx--btn--primary"
+                  class="bx--btn bx--btn--md bx--btn--primary"
                   tabindex="0"
                   type="button"
                 >
@@ -576,7 +573,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-label="Overflow card menu"
-                class="bx--overflow-menu"
+                class="bx--overflow-menu bx--overflow-menu--md"
                 style="position: absolute; right: 0px;"
                 type="button"
               >
@@ -638,10 +635,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M4 16H16V18H4zM2 11H12V13H2z"
-                      />
-                      <path
-                        d="M29.9189,16.6064l-3-7A.9985.9985,0,0,0,26,9H23V7a1,1,0,0,0-1-1H6V8H21V20.5562A3.9924,3.9924,0,0,0,19.1421,23H12.8579a4,4,0,1,0,0,2h6.2842a3.9806,3.9806,0,0,0,7.7158,0H29a1,1,0,0,0,1-1V17A.9965.9965,0,0,0,29.9189,16.6064ZM9,26a2,2,0,1,1,2-2A2.0023,2.0023,0,0,1,9,26ZM23,11h2.3408l2.1431,5H23Zm0,15a2,2,0,1,1,2-2A2.0023,2.0023,0,0,1,23,26Zm5-3H26.8579A3.9954,3.9954,0,0,0,23,20V18h5Z"
+                        d="M29.92,16.61l-3-7A1,1,0,0,0,26,9H23V7a1,1,0,0,0-1-1H3A1,1,0,0,0,2,7V24a1,1,0,0,0,1,1H5.14a4,4,0,0,0,7.72,0h6.28a4,4,0,0,0,7.72,0H29a1,1,0,0,0,1-1V17A1,1,0,0,0,29.92,16.61ZM23,11h2.34l2.14,5H23ZM9,26a2,2,0,1,1,2-2A2,2,0,0,1,9,26Zm10.14-3H12.86a4,4,0,0,0-7.72,0H4V8H21V20.56A4,4,0,0,0,19.14,23ZM23,26a2,2,0,1,1,2-2A2,2,0,0,1,23,26Zm5-3H26.86A4,4,0,0,0,23,20V18h5Z"
                       />
                     </svg>
                   </div>
@@ -668,7 +662,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 class="launch"
               >
                 <button
-                  class="bx--btn bx--btn--field bx--btn--primary"
+                  class="bx--btn bx--btn--md bx--btn--primary"
                   tabindex="0"
                   type="button"
                 >
@@ -704,6 +698,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 <button
                   aria-describedby="icon-tooltip-1"
                   class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--tooltip--align-center"
+                  style="cursor: default;"
                   type="button"
                 >
                   <span
@@ -749,7 +744,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-label="Overflow card menu"
-                class="bx--overflow-menu"
+                class="bx--overflow-menu bx--overflow-menu--md"
                 style="position: absolute; right: 0px;"
                 type="button"
               >
@@ -837,7 +832,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 </p>
               </div>
               <button
-                class="bx--btn bx--btn--field bx--btn--ghost"
+                class="bx--btn bx--btn--md bx--btn--ghost"
                 tabindex="0"
                 type="button"
               >
@@ -912,7 +907,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 class="launch"
               >
                 <button
-                  class="bx--btn bx--btn--field bx--btn--primary bx--btn--disabled"
+                  class="bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
                   disabled=""
                   tabindex="0"
                   type="button"
@@ -947,7 +942,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-label="Overflow card menu"
-                class="bx--overflow-menu"
+                class="bx--overflow-menu bx--overflow-menu--md"
                 style="position: absolute; right: 0px;"
                 type="button"
               >

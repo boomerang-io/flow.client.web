@@ -15,7 +15,7 @@ export default function WorkflowEditButton({ alt = "Workflow edit button", class
   return (
     <EditButton
       alt={alt}
-      className={cx(styles.button, className)}
+      className={cx(styles.editButton, className)}
       onClick={onClick}
       onKeyDown={(e) => isAccessibleKeyboardEvent(e) && onClick(e)}
       role="button"

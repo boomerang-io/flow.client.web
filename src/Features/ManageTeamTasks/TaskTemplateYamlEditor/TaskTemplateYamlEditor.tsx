@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 import { Formik } from "formik";
 import axios from "axios";
 import { useParams, useHistory, Prompt, matchPath } from "react-router-dom";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { InlineNotification, Loading, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ChevronRight32 } from "@carbon/icons-react";
 import EmptyState from "Components/EmptyState";
@@ -50,6 +50,7 @@ export function TaskTemplateYamlEditor({
   updateTemplateInState,
 }: TaskTemplateYamlEditorProps) {
   const cancelRequestRef = React.useRef();
+  const queryClient = useQueryClient();
 
   const params = useParams();
   const history = useHistory();
@@ -61,17 +62,17 @@ export function TaskTemplateYamlEditor({
   );
 
   const invalidateQueries = () => {
-    queryCache.invalidateQueries(
+    queryClient.invalidateQueries(
       serviceUrl.getTaskTemplates({ query: queryString.stringify({ teamId: params?.teamId, scope: "team" }) })
     );
-    queryCache.invalidateQueries(serviceUrl.getFeatureFlags());
+    queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
   };
 
   const invalidateYaml = () => {
-    queryCache.invalidateQueries(serviceUrl.getTaskTemplateYaml({ id: params.taskId, revision: params.version }));
+    queryClient.invalidateQueries(serviceUrl.getTaskTemplateYaml({ id: params.taskId, revision: params.version }));
   };
 
-  const [uploadTaskYamlMutation, { isLoading: yamlUploadIsLoading }] = useMutation(
+  const { mutateAsync: uploadTaskYamlMutation, isLoading: yamlUploadIsLoading } = useMutation(
     (args) => {
       const { promise, cancel } = resolver.putCreateTaskYaml(args);
       cancelRequestRef.current = cancel;
@@ -82,7 +83,7 @@ export function TaskTemplateYamlEditor({
     }
   );
 
-  const [uploadTaskTemplateMutation, { isLoading }] = useMutation(
+  const { mutateAsync: uploadTaskTemplateMutation, isLoading } = useMutation(
     (args) => {
       const { promise, cancel } = resolver.putCreateTaskTemplate(args);
       cancelRequestRef.current = cancel;
@@ -93,7 +94,7 @@ export function TaskTemplateYamlEditor({
     }
   );
 
-  const [restoreTaskTemplateMutation, { isLoading: restoreIsLoading }] = useMutation(resolver.putRestoreTaskTemplate, {
+  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(resolver.putRestoreTaskTemplate, {
     onSuccess: invalidateQueries,
   });
 

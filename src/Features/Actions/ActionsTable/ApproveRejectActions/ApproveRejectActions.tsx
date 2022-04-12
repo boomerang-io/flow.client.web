@@ -1,5 +1,5 @@
 import React from "react";
-import { queryCache, useMutation } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useAppContext } from "Hooks";
@@ -113,11 +113,12 @@ function Form({
   type,
 }: FormProps) {
   const { user } = useAppContext();
+  const queryClient = useQueryClient();
   const [approveLoading, setApproveLoading] = React.useState(false);
   const [rejectLoading, setRejectLoading] = React.useState(false);
 
   /** Update actions */
-  const [actionsMutation, { isLoading: actionsIsLoading, isError: actionsPutError }] = useMutation(
+  const { mutateAsync: actionsMutation, isLoading: actionsIsLoading, isError: actionsPutError } = useMutation(
     (args: { body: any }) => {
       const { promise, cancel } = resolver.putWorkflowAction(args);
       cancelRequestRef.current = cancel;
@@ -143,7 +144,7 @@ function Form({
       await actionsMutation({ body: request });
       typeof setLoading === "function" && setLoading(false);
       onSuccessfulApprovalRejection();
-      queryCache.invalidateQueries(queryToRefetch);
+      queryClient.invalidateQueries(queryToRefetch);
       notify(<ToastNotification kind="success" subtitle={notificationSubtitle} title={notificationTitle} />);
       closeModal();
     } catch (err) {

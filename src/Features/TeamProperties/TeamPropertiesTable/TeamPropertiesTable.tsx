@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Box } from "reflexbox";
 import {
   ComboBox,
@@ -77,14 +77,15 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
   setActiveTeam,
   teams,
 }) => {
+  const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
 
   const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: activeTeam?.id });
 
   /** Delete Team Property */
-  const [deleteTeamPropertyMutation] = useMutation(resolver.deleteTeamPropertyRequest, {
-    onSuccess: () => queryCache.invalidateQueries([teamPropertiesUrl]),
+  const { mutateAsync: deleteTeamPropertyMutation } = useMutation(resolver.deleteTeamPropertyRequest, {
+    onSuccess: () => queryClient.invalidateQueries([teamPropertiesUrl]),
   });
 
   const deleteTeamProperty = async (component: Property) => {

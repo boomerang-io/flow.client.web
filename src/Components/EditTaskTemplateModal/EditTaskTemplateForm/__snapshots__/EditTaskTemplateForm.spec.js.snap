@@ -37,7 +37,8 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  aria-describedby="name-helper-text"
+                  class="bx--text-input bx--text-input--md"
                   id="name"
                   placeholder="Enter a name"
                   title="Enter a name"
@@ -47,6 +48,7 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
               </div>
               <div
                 class="bx--form__helper-text"
+                id="name-helper-text"
               >
                 Must be unique
               </div>
@@ -78,7 +80,8 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  aria-describedby="category-helper-text"
+                  class="bx--text-input bx--text-input--md"
                   id="category"
                   placeholder="e.g. communication"
                   title="e.g. communication"
@@ -88,6 +91,7 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
               </div>
               <div
                 class="bx--form__helper-text"
+                id="category-helper-text"
               >
                 Categories have strict matching, type as you want to see it
               </div>
@@ -191,18 +195,22 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
             <div
               class="bx--form-item"
             >
-              <label
-                class="bx--label"
-                for="description"
+              <div
+                class="bx--text-area__label-wrapper"
               >
-                <div
-                  style="display: flex;"
+                <label
+                  class="bx--label"
+                  for="description"
                 >
-                  <div>
-                    Description
+                  <div
+                    style="display: flex;"
+                  >
+                    <div>
+                      Description
+                    </div>
                   </div>
-                </div>
-              </label>
+                </label>
+              </div>
               <div
                 class="bx--text-area__wrapper"
               >
@@ -243,7 +251,8 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  aria-describedby="image-helper-text"
+                  class="bx--text-input bx--text-input--md"
                   id="image"
                   name="image"
                   type="text"
@@ -252,6 +261,7 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
               </div>
               <div
                 class="bx--form__helper-text"
+                id="image-helper-text"
               >
                 Path to container image
               </div>
@@ -264,18 +274,22 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
           <div
             class="bx--form-item"
           >
-            <label
-              class="bx--label"
-              for="command"
+            <div
+              class="bx--text-area__label-wrapper"
             >
-              <div
-                style="display: flex;"
+              <label
+                class="bx--label"
+                for="command"
               >
-                <div>
-                  Command (optional)
+                <div
+                  style="display: flex;"
+                >
+                  <div>
+                    Command (optional)
+                  </div>
                 </div>
-              </div>
-            </label>
+              </label>
+            </div>
             <div
               class="bx--text-area__wrapper"
             >
@@ -300,23 +314,26 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
           <div
             class="bx--form-item"
           >
-            <label
-              class="bx--label"
-              for="arguments"
+            <div
+              class="bx--text-area__label-wrapper"
             >
-              <div
-                style="display: flex;"
+              <label
+                class="bx--label"
+                for="arguments"
               >
-                <div>
-                  Arguments (optional)
+                <div
+                  style="display: flex;"
+                >
+                  <div>
+                    Arguments (optional)
+                  </div>
                 </div>
-              </div>
-            </label>
+              </label>
+            </div>
             <div
               class="bx--text-area__wrapper"
             >
               <textarea
-                aria-placeholder="e.g. system sleep"
                 class="bx--text-area"
                 cols="50"
                 id="arguments"
@@ -340,18 +357,22 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
           <div
             class="bx--form-item"
           >
-            <label
-              class="bx--label"
-              for="script"
+            <div
+              class="bx--text-area__label-wrapper"
             >
-              <div
-                style="display: flex;"
+              <label
+                class="bx--label"
+                for="script"
               >
-                <div>
-                  Script (optional)
+                <div
+                  style="display: flex;"
+                >
+                  <div>
+                    Script (optional)
+                  </div>
                 </div>
-              </div>
-            </label>
+              </label>
+            </div>
             <div
               class="bx--text-area__wrapper"
             >
@@ -389,7 +410,7 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
                 class="bx--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text__input"
+                  class="bx--text-input bx--text-input--md"
                   id="workingDir"
                   type="text"
                   value=""
@@ -423,7 +444,7 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
                     class="bx--text-input__field-wrapper"
                   >
                     <input
-                      class="bx--text-input bx--text__input"
+                      class="bx--text-input bx--text-input--md"
                       id="envs-key"
                       style="margin-bottom: 0rem; margin-top: 0px;"
                       type="text"
@@ -448,7 +469,7 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
                     class="bx--text-input__field-wrapper"
                   >
                     <input
-                      class="bx--text-input bx--text__input"
+                      class="bx--text-input bx--text-input--md"
                       id="envs-value"
                       style="margin-bottom: 0rem; margin-top: 1.5rem;"
                       type="text"
@@ -459,7 +480,7 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
               </div>
             </div>
             <button
-              class="bx--bmrg-creatable__button bx--btn bx--btn--field bx--btn--primary bx--btn--disabled"
+              class="bx--bmrg-creatable__button bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
               disabled=""
               tabindex="0"
               type="button"

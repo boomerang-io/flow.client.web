@@ -51,7 +51,8 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
         class="launch"
       >
         <button
-          class="bx--btn bx--btn--field bx--btn--primary"
+          class="bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
+          disabled=""
           tabindex="0"
           type="button"
         >
@@ -85,7 +86,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
         aria-expanded="false"
         aria-haspopup="true"
         aria-label="Overflow card menu"
-        class="bx--overflow-menu"
+        class="bx--overflow-menu bx--overflow-menu--md"
         style="position: absolute; right: 0px;"
         type="button"
       >

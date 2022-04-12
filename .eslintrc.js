@@ -7,7 +7,7 @@ module.exports = {
     "plugin:jsx-a11y/recommended",
     "plugin:testing-library/react",
   ],
-  plugins: ["jest", "jest-dom", "jsx-a11y", "testing-library"],
+  plugins: ["jest", "jest-dom", "jsx-a11y", "react-hooks", "testing-library"],
   env: {
     "jest/globals": true,
     "cypress/globals": true,
@@ -21,13 +21,5 @@ module.exports = {
     rtlRouterRender: true,
     rtlContextRouterRender: true,
   },
-  overrides: [
-    {
-      files: ["cypress/**/*.spec.js"],
-      rules: {
-        "jest/expect-expect": "off",
-        "testing-library/await-async-query": "off",
-      },
-    },
-  ],
+  ignorePatterns: ["public/*", "cypress/*"],
 };

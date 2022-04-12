@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, queryCache } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -27,28 +27,29 @@ type Props = {
 
 function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, propertyKeys, team, cancelRequestRef }: Props) {
   const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: team.id });
+  const queryClient = useQueryClient();
 
   /** Add Team Property */
-  const [addTeamPropertyMutation, { isLoading: addIsLoading, error: addError }] = useMutation(
+  const { mutateAsync: addTeamPropertyMutation, isLoading: addIsLoading, error: addError } = useMutation(
     (args: { id: string; body: Property }) => {
       const { promise, cancel } = resolver.postTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries(teamPropertiesUrl),
+      onSuccess: () => queryClient.invalidateQueries(teamPropertiesUrl),
     }
   );
 
   /** Update Team Property */
-  const [updateTeamPropertyMutation, { isLoading: updateIsLoading, error: updateError }] = useMutation(
+  const { mutateAsync: updateTeamPropertyMutation, isLoading: updateIsLoading, error: updateError } = useMutation(
     (args: { teamId: string; configurationId: string; body: Property; }) => {
       const { promise, cancel } = resolver.patchTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries(teamPropertiesUrl),
+      onSuccess: () => queryClient.invalidateQueries(teamPropertiesUrl),
     }
   );
 

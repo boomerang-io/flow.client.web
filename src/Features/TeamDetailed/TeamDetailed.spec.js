@@ -1,9 +1,8 @@
 import React from "react";
 import TeamDetailed from ".";
 import { Route } from "react-router-dom";
-import { waitFor, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { queryCaches } from "react-query";
 import { AppPath, appLink } from "Config/appConfig";
 import { startApiServer } from "ApiServer";
 
@@ -16,21 +15,18 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
-  queryCaches.forEach((queryCache) => queryCache.clear());
 });
-
 
 describe("TeamDetailed --- Snapshot Test", () => {
   it("Capturing Snapshot of TeamDetailed", async () => {
-    const { baseElement, findByText } = rtlContextRouterRender(
+    const { baseElement } = rtlContextRouterRender(
       <Route path={AppPath.Team}>
         <TeamDetailed />
       </Route>,
-      { route: appLink.team({teamId: "5e7cccb94bbc6e0001c51773"}) }
+      { route: appLink.team({ teamId: "5e7cccb94bbc6e0001c51773" }) }
     );
-    await findByText("These are the people who have access to workflows for this Team.");
+    await screen.findByText("These are the people who have access to workflows for this Team.");
     expect(baseElement).toMatchSnapshot();
-    await waitFor(() => {});
   });
 });
 
@@ -40,7 +36,7 @@ describe("TeamDetailed --- RTL", () => {
       <Route path={AppPath.Team}>
         <TeamDetailed />
       </Route>,
-      { route: appLink.team({teamId: "5e7cccb94bbc6e0001c51773"}) }
+      { route: appLink.team({ teamId: "5e7cccb94bbc6e0001c51773" }) }
     );
     //Members tab
     await screen.findByText("These are the people who have access to workflows for this Team.");
@@ -69,6 +65,5 @@ describe("TeamDetailed --- RTL", () => {
     userEvent.type(screen.getByLabelText("Name"), " test name");
     fireEvent.click(screen.getByText("Save"));
     expect(await (await screen.findAllByText("WDC2 ISE Dev test name")).length).toBe(3);
-    await waitFor(() => {});
   });
 });

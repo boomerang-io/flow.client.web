@@ -84,7 +84,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                       value="IBM Services Engineering"
                     />
                     <div
-                      aria-label="Clear Selection"
+                      aria-label="Clear selected item"
                       class="bx--list-box__selection"
                       role="button"
                       tabindex="0"
@@ -134,7 +134,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
             </div>
           </div>
           <button
-            class="bx--btn bx--btn--field bx--btn--primary"
+            class="bx--btn bx--btn--md bx--btn--primary"
             data-testid="create-token-button"
             style="width: 12rem;"
             tabindex="0"
@@ -176,11 +176,18 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   <th
                     aria-sort="none"
                     class="tableHeadHeader creatorName"
+                    id="creatorName"
                     scope="col"
                   >
+                    <div
+                      id="table-sort-2"
+                      style="display: none;"
+                    >
+                      Click to sort rows by Created By header in ascending order
+                    </div>
                     <button
+                      aria-describedby="table-sort-2"
                       class="tableHeadHeader creatorName bx--table-sort"
-                      id="creatorName"
                       type="button"
                     >
                       <span
@@ -192,13 +199,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                           Created By
                         </div>
                         <svg
-                          aria-label="Sort rows by this header in ascending order"
+                          aria-hidden="true"
                           class="bx--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -208,13 +214,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                           />
                         </svg>
                         <svg
-                          aria-label="Sort rows by this header in ascending order"
+                          aria-hidden="true"
                           class="bx--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -229,11 +234,18 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   <th
                     aria-sort="none"
                     class="tableHeadHeader description"
+                    id="description"
                     scope="col"
                   >
+                    <div
+                      id="table-sort-3"
+                      style="display: none;"
+                    >
+                      Click to sort rows by Description header in ascending order
+                    </div>
                     <button
+                      aria-describedby="table-sort-3"
                       class="tableHeadHeader description bx--table-sort"
-                      id="description"
                       type="button"
                     >
                       <span
@@ -245,13 +257,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                           Description
                         </div>
                         <svg
-                          aria-label="Sort rows by this header in ascending order"
+                          aria-hidden="true"
                           class="bx--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -261,13 +272,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                           />
                         </svg>
                         <svg
-                          aria-label="Sort rows by this header in ascending order"
+                          aria-hidden="true"
                           class="bx--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -282,11 +292,18 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   <th
                     aria-sort="descending"
                     class="tableHeadHeader creationDate"
+                    id="creationDate"
                     scope="col"
                   >
+                    <div
+                      id="table-sort-4"
+                      style="display: none;"
+                    >
+                      Click to unsort rows by Date Created header
+                    </div>
                     <button
+                      aria-describedby="table-sort-4"
                       class="tableHeadHeader creationDate bx--table-sort bx--table-sort--active bx--table-sort--ascending"
-                      id="creationDate"
                       type="button"
                     >
                       <span
@@ -298,13 +315,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                           Date Created
                         </div>
                         <svg
-                          aria-label="Unsort rows by this header"
+                          aria-hidden="true"
                           class="bx--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -314,13 +330,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                           />
                         </svg>
                         <svg
-                          aria-label="Unsort rows by this header"
+                          aria-hidden="true"
                           class="bx--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -335,11 +350,18 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   <th
                     aria-sort="none"
                     class="tableHeadHeader expiryDate"
+                    id="expiryDate"
                     scope="col"
                   >
+                    <div
+                      id="table-sort-5"
+                      style="display: none;"
+                    >
+                      Click to sort rows by Expires (UTC) header in ascending order
+                    </div>
                     <button
+                      aria-describedby="table-sort-5"
                       class="tableHeadHeader expiryDate bx--table-sort"
-                      id="expiryDate"
                       type="button"
                     >
                       <span
@@ -351,13 +373,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                           Expires (UTC)
                         </div>
                         <svg
-                          aria-label="Sort rows by this header in ascending order"
+                          aria-hidden="true"
                           class="bx--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -367,13 +388,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                           />
                         </svg>
                         <svg
-                          aria-label="Sort rows by this header in ascending order"
+                          aria-hidden="true"
                           class="bx--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
-                          role="img"
                           viewBox="0 0 32 32"
                           width="20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -454,7 +474,42 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   >
                     <div
                       class="tableCell"
-                    />
+                    >
+                      <button
+                        aria-describedby="danger-description-7"
+                        class="button bx--btn bx--btn--sm bx--btn--danger--ghost"
+                        data-testid="delete-token-button-12"
+                        tabindex="0"
+                        type="button"
+                      >
+                        <span
+                          class="bx--visually-hidden"
+                          id="danger-description-7"
+                        >
+                          danger
+                        </span>
+                        <svg
+                          aria-hidden="true"
+                          aria-label="deleteToken"
+                          class="bx--btn__icon"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          role="img"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 12H14V24H12zM18 12H20V24H18z"
+                          />
+                          <path
+                            d="M4 6V8H6V28a2 2 0 002 2H24a2 2 0 002-2V8h2V6zM8 28V8H24V28zM12 2H20V4H12z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -515,7 +570,42 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   >
                     <div
                       class="tableCell"
-                    />
+                    >
+                      <button
+                        aria-describedby="danger-description-8"
+                        class="button bx--btn bx--btn--sm bx--btn--danger--ghost"
+                        data-testid="delete-token-button-11"
+                        tabindex="0"
+                        type="button"
+                      >
+                        <span
+                          class="bx--visually-hidden"
+                          id="danger-description-8"
+                        >
+                          danger
+                        </span>
+                        <svg
+                          aria-hidden="true"
+                          aria-label="deleteToken"
+                          class="bx--btn__icon"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          role="img"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 12H14V24H12zM18 12H20V24H18z"
+                          />
+                          <path
+                            d="M4 6V8H6V28a2 2 0 002 2H24a2 2 0 002-2V8h2V6zM8 28V8H24V28zM12 2H20V4H12z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -661,16 +751,16 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
               class="bx--pagination__control-buttons"
             >
               <button
-                class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--tooltip--align-center"
+                class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--tooltip--hidden bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--btn--icon-only--top bx--tooltip--align-center"
                 disabled=""
                 tabindex="0"
                 type="button"
               >
-                <span
+                <div
                   class="bx--assistive-text"
                 >
                   Previous page
-                </span>
+                </div>
                 <svg
                   aria-hidden="true"
                   aria-label="Previous page"
@@ -690,16 +780,16 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                 </svg>
               </button>
               <button
-                class="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--tooltip--align-end"
+                class="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--tooltip--hidden bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--btn--icon-only--top bx--tooltip--align-end"
                 disabled=""
                 tabindex="0"
                 type="button"
               >
-                <span
+                <div
                   class="bx--assistive-text"
                 >
                   Next page
-                </span>
+                </div>
                 <svg
                   aria-hidden="true"
                   aria-label="Next page"
@@ -724,6 +814,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
       </div>
     </div>
   </div>
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+  <div
+    class="bx--bmrg-modal-portal"
+  />
   <div
     class="bx--bmrg-modal-portal"
   />

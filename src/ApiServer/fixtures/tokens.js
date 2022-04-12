@@ -10,7 +10,7 @@ const tokens = [
   {
     id: "12",
     creationDate: "2021-07-07T15:17:19.282+00:00",
-    expiryDate: null,
+    expiryDate: "",
     creatorId: "2",
     description: "test token 2",
     creatorName: "Test User", 
