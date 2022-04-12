@@ -66,9 +66,11 @@ function ScheduleEditor(props: ScheduleEditorProps) {
         return { key, value };
       });
     }
+
+    // Undo the namespacing of parameter keys and add to parameter object
     const resetParameters: { [key: string]: any } = {};
     Object.keys(parameters).forEach((paramKey) => {
-      resetParameters[paramKey.replace("$property:", "")] = parameters[paramKey];
+      resetParameters[paramKey.replace("$parameter:", "")] = parameters[paramKey];
     });
 
     const schedule: Partial<ScheduleUnion> = {
@@ -100,8 +102,6 @@ function ScheduleEditor(props: ScheduleEditorProps) {
     if (schedule.type === "advancedCron") {
       schedule["cronSchedule"] = cronSchedule;
     }
-
-    console.log({ schedule });
 
     return await handleUpdateSchedule(schedule as ScheduleUnion);
   };
