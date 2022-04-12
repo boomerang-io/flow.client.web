@@ -74,8 +74,8 @@ export default function AddTeamContent({
       validationSchema={Yup.object().shape({
         name: Yup.string()
           .required("Enter a team name")
-          .matches(/^[a-zA-Z0-9 ]+$/, "Team name must only contains alphanumeric characters or spaces")
-          .notOneOf(teamNameList, "Please try again, select a team name that is not already in use"),
+          .max(100, "Enter team name that is at most 100 characters in length")
+          .notOneOf(teamNameList, "Please try again, enter a team name that is not already in use"),
       })}
     >
       {(formikProps) => {
