@@ -50,11 +50,13 @@ export default function CreateSchedule(props: CreateScheduleProps) {
 
   const handleSubmit = async (values: ScheduleManagerFormInputs) => {
     const {
-      name,
-      description,
+      advancedCron,
       cronSchedule,
       dateTime,
+      description,
+      id,
       labels,
+      name,
       timezone,
       type,
       days,
@@ -70,14 +72,19 @@ export default function CreateSchedule(props: CreateScheduleProps) {
         return { key, value };
       });
     }
-    let scheduleType = type;
+
+    const resetParameters: { [key: string]: any } = {};
+    Object.keys(parameters).forEach((paramKey) => {
+      resetParameters[paramKey.replace("$property:", "")] = parameters[paramKey];
+    });
+
     const schedule: Partial<ScheduleUnion> = {
       name,
       description,
-      type: scheduleType,
+      type,
       timezone: timezone.value,
       labels: scheduleLabels,
-      parameters,
+      parameters: resetParameters,
       workflowId: workflow.id,
     };
 

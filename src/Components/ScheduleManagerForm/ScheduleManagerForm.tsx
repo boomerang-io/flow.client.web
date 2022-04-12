@@ -51,7 +51,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   const { teams } = useAppContext();
 
   const [workflowProperties, setWorkflowProperties] = React.useState<Array<DataDrivenInput> | undefined>(
-    props.workflow?.properties
+    props.workflow?.properties.map((property) => ({ ...property, key: `$property:${property.key}` }))
   );
   let initFormValues: Partial<ScheduleManagerFormInputs> = {
     id: props.schedule?.id,
@@ -63,8 +63,18 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     workflow: props.workflow,
     days: [],
     labels: [],
-    ...props.schedule?.parameters,
   };
+
+  /**
+   * Namespace parameter values if they exist
+   */
+  if (props.schedule?.parameters && Object.keys(props.schedule?.parameters ?? {}).length > 0) {
+    const parameterKeys = Object.keys(props.schedule?.parameters);
+    for (const key of parameterKeys) {
+      //@ts-ignore
+      initFormValues[`$property:${key}`] = props.schedule.parameters[key];
+    }
+  }
 
   /**
    * Handle creating it from calendar click
@@ -177,166 +187,172 @@ export default function CreateEditForm(props: CreateEditFormProps) {
         timezone: Yup.object().shape({ label: Yup.string(), value: Yup.string() }),
       })}
     >
-      {({ inputs, formikProps }: any) => (
-        <ModalForm noValidate onSubmit={formikProps.handleSubmit}>
-          <ModalBody>
-            {props.isLoading && <Loading />}
-            <p>
-              <b>About</b>
-            </p>
-            {props.includeWorkflowDropdown && (
-              <ComboBox
-                helperText="Workflow for this Schedule to execute"
-                id="workflow"
-                initialSelectedItem={formikProps.values.workflow}
-                items={props.workflowOptions}
-                itemToString={(workflow: WorkflowSummary) => {
-                  if (workflow?.scope === "team") {
-                    const team = workflow ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId) : undefined;
-                    if (team) {
-                      return workflow ? (team ? `${workflow.name} (${team.name})` : workflow.name) : "";
-                    }
-                  }
-                  if (workflow?.scope === "system") {
-                    return `${workflow.name} (System)`;
-                  }
-                  return workflow?.name ?? "";
-                }}
-                onChange={({ selectedItem }: { selectedItem: WorkflowSummary }) => {
-                  formikProps.setFieldValue("workflow", selectedItem);
-                  if (selectedItem?.id) {
-                    setWorkflowProperties(selectedItem.properties);
-                  }
-                }}
-                placeholder="e.g. Number 1 Workflow"
-                titleText="Workflow"
-              />
-            )}
-            <TextInput
-              id="name"
-              invalidText={formikProps.errors.name}
-              invalid={formikProps.errors.name && formikProps.touched.name}
-              labelText="Name"
-              onBlur={formikProps.handleBlur}
-              onChange={formikProps.handleChange}
-              placeholder="e.g. Daily task"
-              value={formikProps.values.name}
-            />
-            <TextArea
-              id="description"
-              invalid={formikProps.errors.description && formikProps.touched.description}
-              invalidText={formikProps.errors.description}
-              labelText="Description (optional)"
-              onBlur={formikProps.handleBlur}
-              onChange={formikProps.handleChange}
-              placeholder="e.g. Runs very important daily task."
-              value={formikProps.values.description}
-            />
-            <Creatable
-              createKeyValuePair
-              keyLabelText="Label key"
-              keyPlaceholder="level"
-              valueLabelText="Label value"
-              valuePlaceholder="important"
-              value={formikProps.values.labels}
-              onChange={(labels: string) => formikProps.setFieldValue("labels", labels)}
-            />
-            <p>
-              <b>Schedule</b>
-            </p>
-            <section>
-              <p>What type of Schedule do you want to create?</p>
-              <RadioButtonGroup
-                id="type"
-                labelPosition="right"
-                name="type"
-                onChange={(type: string) => formikProps.setFieldValue("type", type)}
-                orientation="horizontal"
-                valueSelected={formikProps.values["type"]}
-              >
-                <RadioButton key={"runOnce"} id={"runOnce"} labelText={typeLabelMap["runOnce"]} value={"runOnce"} />
-                <RadioButton key={"cron"} id={"cron"} labelText={typeLabelMap["cron"]} value={"cron"} />
-                <RadioButton
-                  id={"advanced-cron"}
-                  key={"advanced-cron"}
-                  labelText={typeLabelMap["advancedCron"]}
-                  value={"advancedCron"}
-                />
-              </RadioButtonGroup>
-            </section>
-            {formikProps.values["type"] === "runOnce" ? (
-              <>
-                <div style={{ width: "23.5rem" }}>
-                  <TextInput
-                    helperText="When you want it to execute"
-                    id="dateTime"
-                    invalid={formikProps.errors.dateTime && formikProps.touched.dateTime}
-                    invalidText={formikProps.errors.dateTime}
-                    labelText="Date and Time"
-                    min={moment().format(DATETIME_LOCAL_INPUT_FORMAT)}
-                    name="dateTime"
-                    onBlur={formikProps.handleBlur}
-                    onChange={formikProps.handleChange}
-                    type="datetime-local"
-                    value={formikProps.values.dateTime ?? ""}
-                  />
-                </div>
-                <div style={{ width: "23.5rem" }}>
-                  <ComboBox
-                    helperText="What time zone do you want to use"
-                    id="timezone"
-                    initialSelectedItem={formikProps.values.timezone}
-                    items={timezoneOptions}
-                    onChange={({ selectedItem }: { selectedItem: { label: string; value: string } }) => {
-                      const item = selectedItem ?? { label: "", value: "" };
-                      formikProps.setFieldValue("timezone", item);
-                    }}
-                    placeholder="e.g. US/Central (UTC -06:00)"
-                    titleText="Time Zone"
-                  />
-                </div>
-              </>
-            ) : (
-              <CronJobConfig formikProps={formikProps} timezoneOptions={timezoneOptions} />
-            )}
-
-            <>
+      {({ inputs, formikProps }: any) =>
+        //@ts-ignore
+        console.log({ inputs }) || (
+          <ModalForm noValidate onSubmit={formikProps.handleSubmit}>
+            <ModalBody>
+              {props.isLoading && <Loading />}
               <p>
-                <b>Workflow Parameters</b>
+                <b>About</b>
               </p>
-              {formikProps.values.workflow && inputs.length ? (
-                inputs
-              ) : (
-                <div>No parameters to configure for this Workflow</div>
+              {props.includeWorkflowDropdown && (
+                <ComboBox
+                  helperText="Workflow for this Schedule to execute"
+                  id="workflow"
+                  initialSelectedItem={formikProps.values.workflow}
+                  items={props.workflowOptions}
+                  itemToString={(workflow: WorkflowSummary) => {
+                    if (workflow?.scope === "team") {
+                      const team = workflow
+                        ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId)
+                        : undefined;
+                      if (team) {
+                        return workflow ? (team ? `${workflow.name} (${team.name})` : workflow.name) : "";
+                      }
+                    }
+                    if (workflow?.scope === "system") {
+                      return `${workflow.name} (System)`;
+                    }
+                    return workflow?.name ?? "";
+                  }}
+                  onChange={({ selectedItem }: { selectedItem: WorkflowSummary }) => {
+                    formikProps.setFieldValue("workflow", selectedItem);
+                    if (selectedItem?.id) {
+                      setWorkflowProperties(
+                        selectedItem.properties.map((property) => ({ ...property, key: `$property:${property.key}` }))
+                      );
+                    }
+                  }}
+                  placeholder="e.g. Number 1 Workflow"
+                  titleText="Workflow"
+                />
               )}
-            </>
-            {props.isError && (
-              <InlineNotification
-                lowContrast
-                kind="error"
-                title="Something's Wrong"
-                subtitle={`Request to ${props.type} Schedule failed`}
+              <TextInput
+                id="name"
+                invalidText={formikProps.errors.name}
+                invalid={formikProps.errors.name && formikProps.touched.name}
+                labelText="Name"
+                onBlur={formikProps.handleBlur}
+                onChange={formikProps.handleChange}
+                placeholder="e.g. Daily task"
+                value={formikProps.values.name}
               />
-            )}
-          </ModalBody>
-          <ModalFooter>
-            <Button kind="secondary" onClick={props.modalProps.closeModal}>
-              Cancel
-            </Button>
-            <Button disabled={!formikProps.isValid || props.isLoading} type="submit">
-              {props.isError
-                ? "Try again"
-                : props.type === "create"
-                ? props.isLoading
-                  ? "Creating..."
-                  : "Create"
-                : props.isLoading
-                ? "Updating..."
-                : "Update"}
-            </Button>
-          </ModalFooter>
-        </ModalForm>
-      )}
+              <TextArea
+                id="description"
+                invalid={formikProps.errors.description && formikProps.touched.description}
+                invalidText={formikProps.errors.description}
+                labelText="Description (optional)"
+                onBlur={formikProps.handleBlur}
+                onChange={formikProps.handleChange}
+                placeholder="e.g. Runs very important daily task."
+                value={formikProps.values.description}
+              />
+              <Creatable
+                createKeyValuePair
+                keyLabelText="Label key"
+                keyPlaceholder="level"
+                valueLabelText="Label value"
+                valuePlaceholder="important"
+                value={formikProps.values.labels}
+                onChange={(labels: string) => formikProps.setFieldValue("labels", labels)}
+              />
+              <p>
+                <b>Schedule</b>
+              </p>
+              <section>
+                <p>What type of Schedule do you want to create?</p>
+                <RadioButtonGroup
+                  id="type"
+                  labelPosition="right"
+                  name="type"
+                  onChange={(type: string) => formikProps.setFieldValue("type", type)}
+                  orientation="horizontal"
+                  valueSelected={formikProps.values["type"]}
+                >
+                  <RadioButton key={"runOnce"} id={"runOnce"} labelText={typeLabelMap["runOnce"]} value={"runOnce"} />
+                  <RadioButton key={"cron"} id={"cron"} labelText={typeLabelMap["cron"]} value={"cron"} />
+                  <RadioButton
+                    id={"advanced-cron"}
+                    key={"advanced-cron"}
+                    labelText={typeLabelMap["advancedCron"]}
+                    value={"advancedCron"}
+                  />
+                </RadioButtonGroup>
+              </section>
+              {formikProps.values["type"] === "runOnce" ? (
+                <>
+                  <div style={{ width: "23.5rem" }}>
+                    <TextInput
+                      helperText="When you want it to execute"
+                      id="dateTime"
+                      invalid={formikProps.errors.dateTime && formikProps.touched.dateTime}
+                      invalidText={formikProps.errors.dateTime}
+                      labelText="Date and Time"
+                      min={moment().format(DATETIME_LOCAL_INPUT_FORMAT)}
+                      name="dateTime"
+                      onBlur={formikProps.handleBlur}
+                      onChange={formikProps.handleChange}
+                      type="datetime-local"
+                      value={formikProps.values.dateTime ?? ""}
+                    />
+                  </div>
+                  <div style={{ width: "23.5rem" }}>
+                    <ComboBox
+                      helperText="What time zone do you want to use"
+                      id="timezone"
+                      initialSelectedItem={formikProps.values.timezone}
+                      items={timezoneOptions}
+                      onChange={({ selectedItem }: { selectedItem: { label: string; value: string } }) => {
+                        const item = selectedItem ?? { label: "", value: "" };
+                        formikProps.setFieldValue("timezone", item);
+                      }}
+                      placeholder="e.g. US/Central (UTC -06:00)"
+                      titleText="Time Zone"
+                    />
+                  </div>
+                </>
+              ) : (
+                <CronJobConfig formikProps={formikProps} timezoneOptions={timezoneOptions} />
+              )}
+              <>
+                <p>
+                  <b>Workflow Parameters</b>
+                </p>
+                {formikProps.values.workflow && inputs.length ? (
+                  inputs
+                ) : (
+                  <div>No parameters to configure for this Workflow</div>
+                )}
+              </>
+              {props.isError && (
+                <InlineNotification
+                  lowContrast
+                  kind="error"
+                  title="Something's Wrong"
+                  subtitle={`Request to ${props.type} Schedule failed`}
+                />
+              )}
+            </ModalBody>
+            <ModalFooter>
+              <Button kind="secondary" onClick={props.modalProps.closeModal}>
+                Cancel
+              </Button>
+              <Button disabled={!formikProps.isValid || props.isLoading} type="submit">
+                {props.isError
+                  ? "Try again"
+                  : props.type === "create"
+                  ? props.isLoading
+                    ? "Creating..."
+                    : "Create"
+                  : props.isLoading
+                  ? "Updating..."
+                  : "Update"}
+              </Button>
+            </ModalFooter>
+          </ModalForm>
+        )
+      }
     </DynamicFormik>
   );
 }

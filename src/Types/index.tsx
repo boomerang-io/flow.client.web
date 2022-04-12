@@ -642,11 +642,11 @@ export interface ScheduleManagerFormInputs {
   id: string;
   labels: Array<string>;
   name: string;
-  parameters: { [key: string]: any };
   type: ScheduleType;
   timezone: { label: string; value: string };
   time: string;
   workflow: WorkflowSummary;
+  [key: string]: any;
 }
 
 export type DayOfWeekKey = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
