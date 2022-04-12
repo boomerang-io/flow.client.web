@@ -82,7 +82,11 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
           {workflow?.data && (
             <ComposedModal
               composedModalProps={{ shouldCloseOnOverlayClick: true }}
-              modalHeaderProps={{ title: "Advanced Detail" }}
+              modalHeaderProps={{
+                title: "Advanced Detail",
+                subtitle:
+                  "Use the following to dive deeper and debug the execution. Tip: copy the commands into your local terminal and add the namespace.",
+              }}
               modalTrigger={({ openModal }: { openModal: () => void }) => (
                 <TooltipHover direction="right" content="Advanced Detail">
                   <button className={styles.workflowAdvancedDetailTrigger} onClick={openModal}>
@@ -216,9 +220,11 @@ function WorkflowAdvancedDetail({ workflow }: { workflow: WorkflowSummary }) {
   }
 
   const kubernetesCommand = `kubectl get pods -l ${labelTexts.join(",")}`;
+  const tektonCommand = `tkn tr list --label ${labelTexts.join(",")}`;
 
   return (
     <ModalBody>
+      <div>Use this information to debug the execution using the Tekton CLI.</div>
       <h1 className={styles.detailHeading} style={{ marginTop: "0rem" }}>
         Labels
       </h1>
@@ -229,7 +235,28 @@ function WorkflowAdvancedDetail({ workflow }: { workflow: WorkflowSummary }) {
           </Tag>
         ))}
       </div>
+      <h1 className={styles.detailHeading}>Tekton Information</h1>
+      <div>Use this information to debug the execution using the Tekton CLI.</div>
+      <div className={styles.kubernetes}>
+        <TextArea readOnly value={tektonCommand} />
+        <TooltipHover direction="top" content={copyTokenText} hideOnClick={false}>
+          <div className={styles.kubernetesCopyContainer}>
+            <CopyToClipboard text={tektonCommand}>
+              <Button
+                className={styles.kubernetesCopy}
+                iconDescription="copy-kubernetes"
+                kind="ghost"
+                onClick={() => setCopyTokenText("Copied!")}
+                onMouseLeave={() => setCopyTokenText("Copy")}
+                renderIcon={CopyFile16}
+                size="small"
+              />
+            </CopyToClipboard>
+          </div>
+        </TooltipHover>
+      </div>
       <h1 className={styles.detailHeading}>Kubernetes Information</h1>
+      <div>Use this information to debug the execution using the Kubernetes CLI.</div>
       <div className={styles.kubernetes}>
         <TextArea readOnly value={kubernetesCommand} />
         <TooltipHover direction="top" content={copyTokenText} hideOnClick={false}>
