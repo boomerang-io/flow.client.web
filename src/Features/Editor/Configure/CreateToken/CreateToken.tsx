@@ -121,7 +121,7 @@ const CreateTokenModalContent: React.FC<CreateTokenModalContentProps> = ({
       onSubmit={generateToken}
       validationSchema={Yup.object().shape({
         label: Yup.string()
-          .required("Enter a team name")
+          .required("Enter a token label")
           .min(4, "Token label must be at least four characters")
           .max(80, "Token label must be 80 characters or less")
           .matches(/^[a-zA-Z0-9 ]+$/, "Token label must only contain ASCII alphanumeric characters and spaces")
