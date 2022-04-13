@@ -120,7 +120,7 @@
     "lint-staged": "10.1.1",
     "miragejs": "^0.1.40",
     "ncp": "^2.0.0",
-    "node-sass": "^7.0.1",
+    "node-sass": "^6.0.1",
     "npm-run-all": "4.1.5",
     "prettier": "2.0.5",
     "react-test-renderer": "^16.13.1",
