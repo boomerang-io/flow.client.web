@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { Helmet } from "react-helmet";
 import capitalize from "lodash/capitalize";
 import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
-import WorkflowCloseButton from "Components/WorkflowCloseButton";
+import WorkflowCloseButton from "./WorkflowCloseButton";
 import WorkflowPropertiesModal from "./PropertiesModal";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType, WorkflowPropertyUpdateType } from "Constants";

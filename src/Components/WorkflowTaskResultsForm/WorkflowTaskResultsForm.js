@@ -12,7 +12,7 @@ import {
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
-import styles from "./WorkflowTaskForm.module.scss";
+import styles from "./WorkflowTaskFormResults.module.scss";
 
 const AutoSuggestInput = (props) => {
   //number inputs doesn't support AutoSuggest setSelectionRange
@@ -107,7 +107,7 @@ function formatAutoSuggestProperties(inputProperties) {
   }));
 }
 
-class WorkflowTaskForm extends Component {
+class WorkflowTaskResultsForm extends Component {
   static propTypes = {
     closeModal: PropTypes.func,
     inputProperties: PropTypes.array,
@@ -271,4 +271,4 @@ class WorkflowTaskForm extends Component {
   }
 }
 
-export default WorkflowTaskForm;
+export default WorkflowTaskResultsForm;
