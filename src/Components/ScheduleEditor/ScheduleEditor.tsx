@@ -24,7 +24,7 @@ function ScheduleEditor(props: ScheduleEditorProps) {
   /**
    * Update schedule
    */
-  const  { mutateAsync: updateScheduleMutator, ...editScheduleMutation } = useMutation(resolver.patchSchedule, {});
+  const { mutateAsync: updateScheduleMutator, ...editScheduleMutation } = useMutation(resolver.patchSchedule, {});
 
   const handleUpdateSchedule = async (updatedSchedule: ScheduleUnion) => {
     if (props.schedule) {
@@ -66,15 +66,21 @@ function ScheduleEditor(props: ScheduleEditorProps) {
         return { key, value };
       });
     }
-    let scheduleType = type;
+
+    // Undo the namespacing of parameter keys and add to parameter object
+    const resetParameters: { [key: string]: any } = {};
+    Object.keys(parameters).forEach((paramKey) => {
+      resetParameters[paramKey.replace("$parameter:", "")] = parameters[paramKey];
+    });
+
     const schedule: Partial<ScheduleUnion> = {
-      name,
       description,
-      type: scheduleType,
-      timezone: timezone.value,
+      name,
+      type,
       labels: scheduleLabels,
+      timezone: timezone.value,
+      parameters: resetParameters,
       workflowId: workflow.id || props.workflow?.id,
-      parameters,
     };
 
     if (schedule.type === "runOnce") {

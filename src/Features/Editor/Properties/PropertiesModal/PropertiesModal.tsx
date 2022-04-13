@@ -1,6 +1,6 @@
 import React from "react";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import WorkflowEditButton from "Components/WorkflowEditButton";
+import WorkflowEditButton from "./WorkflowEditButton";
 import PropertiesModalContent from "./PropertiesModalContent";
 import { Add32 } from "@carbon/icons-react";
 import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Types";

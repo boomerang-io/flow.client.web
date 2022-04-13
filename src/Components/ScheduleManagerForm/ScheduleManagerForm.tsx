@@ -51,7 +51,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   const { teams } = useAppContext();
 
   const [workflowProperties, setWorkflowProperties] = React.useState<Array<DataDrivenInput> | undefined>(
-    props.workflow?.properties
+    props.workflow?.properties.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
   );
   let initFormValues: Partial<ScheduleManagerFormInputs> = {
     id: props.schedule?.id,
@@ -63,8 +63,18 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     workflow: props.workflow,
     days: [],
     labels: [],
-    ...props.schedule?.parameters,
   };
+
+  /**
+   * Namespace parameter values if they exist
+   */
+  if (props.schedule?.parameters && Object.keys(props.schedule?.parameters ?? {}).length > 0) {
+    const parameterKeys = Object.keys(props.schedule?.parameters);
+    for (const key of parameterKeys) {
+      //@ts-ignore
+      initFormValues[`$parameter:${key}`] = props.schedule.parameters[key];
+    }
+  }
 
   /**
    * Handle creating it from calendar click
@@ -205,7 +215,9 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                 onChange={({ selectedItem }: { selectedItem: WorkflowSummary }) => {
                   formikProps.setFieldValue("workflow", selectedItem);
                   if (selectedItem?.id) {
-                    setWorkflowProperties(selectedItem.properties);
+                    setWorkflowProperties(
+                      selectedItem.properties.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
+                    );
                   }
                 }}
                 placeholder="e.g. Number 1 Workflow"
@@ -299,7 +311,6 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             ) : (
               <CronJobConfig formikProps={formikProps} timezoneOptions={timezoneOptions} />
             )}
-
             <>
               <p>
                 <b>Workflow Parameters</b>

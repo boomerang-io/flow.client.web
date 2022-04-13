@@ -5,13 +5,13 @@ import matchSorter from "match-sorter";
 import uniqBy from "lodash/uniqBy";
 import { sortByProp } from "@boomerang-io/utils";
 import {
+  Accordion,
   AccordionItem,
   Checkbox,
   CheckboxList,
   OverflowMenu,
   Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import Accordion from "carbon-components-react/lib/components/Accordion";
 import Task from "./Task";
 import { taskIcons } from "Utils/taskIcons";
 import { ChevronLeft32, SettingsAdjust16, Recommend16 } from "@carbon/icons-react";
