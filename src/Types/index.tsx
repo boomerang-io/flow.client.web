@@ -428,13 +428,23 @@ export interface FlowUser {
 }
 
 export interface Property {
-  value: string;
+  value: string | null;
   readOnly: boolean;
   id: string;
   description: string;
   key: string;
   label: string;
   type: string;
+}
+
+export interface PatchProperty {
+  value?: string;
+  readOnly?: boolean;
+  id?: string;
+  description?: string;
+  key?: string;
+  label?: string;
+  type?: string;
 }
 
 export interface Token {

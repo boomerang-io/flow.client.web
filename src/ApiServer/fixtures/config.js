@@ -9,7 +9,7 @@ const config = [
     type: "text",
   },
   {
-    value: "ben.value",
+    value: null,
     readOnly: false,
     id: "5ebda5350f99fc00010d06d7",
     description: "",

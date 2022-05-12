@@ -13,8 +13,8 @@ import {
 import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType, PROPERTY_KEY_REGEX } from "Constants";
-import { Property, FlowTeam } from "Types";
-import styles from "./createEditTeamPropertiesModalContent.module.scss";
+import { PatchProperty, Property, FlowTeam } from "Types";
+import { updatedDiff } from "deep-object-diff";
 
 type Props = {
   closeModal: () => void;
@@ -25,7 +25,21 @@ type Props = {
   cancelRequestRef: any;
 };
 
-function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, propertyKeys, team, cancelRequestRef }: Props) {
+function CreateEditTeamPropertiesModalContent({
+  closeModal,
+  isEdit,
+  property,
+  propertyKeys,
+  team,
+  cancelRequestRef,
+}: Props) {
+  const initialState = {
+    label: property?.label ?? "",
+    description: property?.description ?? "",
+    key: property?.key ?? "",
+    value: property?.value ?? "",
+    secured: property?.type === InputType.Password ?? false,
+  };
   const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: team.id });
   const queryClient = useQueryClient();
 
@@ -43,7 +57,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
 
   /** Update Team Property */
   const { mutateAsync: updateTeamPropertyMutation, isLoading: updateIsLoading, error: updateError } = useMutation(
-    (args: { teamId: string; configurationId: string; body: Property; }) => {
+    (args: { teamId: string; configurationId: string; body: PatchProperty }) => {
       const { promise, cancel } = resolver.patchTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
@@ -61,11 +75,12 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
     delete newTeamProperty.secured;
 
     if (isEdit) {
+      const updatedFields = updatedDiff(initialState, newTeamProperty);
       try {
         const response = await updateTeamPropertyMutation({
           teamId: team.id,
           configurationId: newTeamProperty.id,
-          body: newTeamProperty,
+          body: updatedFields,
         });
         notify(
           <ToastNotification
@@ -102,14 +117,9 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
 
   return (
     <Formik
-      initialValues={{
-        value: property && property.value ? property.value : "",
-        key: property && property.key ? property.key : "",
-        label: property && property.label ? property.label : "",
-        description: property && property.description ? property.description : "",
-        secured: property ? property.type === InputType.Password : false,
-      }}
+      initialValues={initialState}
       onSubmit={handleSubmit}
+      validateOnMount
       validationSchema={Yup.object().shape({
         label: Yup.string().required("Enter a label"),
         key: Yup.string()
@@ -121,7 +131,11 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
             "Only alphanumeric, hyphen and underscore characters allowed. Must begin with a letter or underscore",
             validateKey
           ),
-        value: Yup.string().required("Enter a value"),
+        value: Yup.string().when("secured", {
+          is: (value: boolean) => value && isEdit,
+          then: Yup.string(),
+          otherwise: Yup.string().required("Enter a value"),
+        }),
         description: Yup.string(),
         secured: Yup.boolean(),
       })}
@@ -131,7 +145,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
-            <ModalBody aria-label="inputs" className={styles.formBody}>
+            <ModalBody aria-label="inputs">
               {loading && <Loading />}
               <TextInput
                 id="key"
@@ -157,7 +171,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
               />
               <TextInput
                 id="description"
-                labelText="Description"
+                labelText="Description (optional)"
                 placeholder="Description"
                 name="description"
                 value={values.description}
@@ -175,15 +189,22 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                 invalid={errors.value && touched.value}
                 invalidText={errors.value}
                 type={values.secured ? "password" : "text"}
+                helperText={
+                  isEdit && values.secured
+                    ? "Secure values are stored in our database. You can provide a new value to override"
+                    : null
+                }
               />
               <Toggle
                 id="secured-team-parameters-toggle"
                 data-testid="secured-team-parameters-toggle"
+                disabled={isEdit}
                 labelText="Secured"
                 name="secured"
                 onChange={handleChange}
                 orientation="vertical"
                 toggled={values.secured}
+                helperText="Once a parameter is created, secured state will not be able to be updated"
               />
               {addError && (
                 <InlineNotification
