@@ -172,7 +172,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 data-testid="create-parameter-value"
                 id="value"
                 labelText="Value"
-                placeholder="Value"
+                placeholder={isEdit && values.secured ? "******" : "Value"}
                 name="value"
                 value={values.value}
                 onBlur={handleBlur}

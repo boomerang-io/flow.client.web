@@ -181,7 +181,7 @@ function CreateEditTeamPropertiesModalContent({
               <TextInput
                 id="value"
                 labelText="Value"
-                placeholder="Value"
+                placeholder={isEdit && values.secured ? "******" : "Value"}
                 name="value"
                 value={values.value}
                 onBlur={handleBlur}
