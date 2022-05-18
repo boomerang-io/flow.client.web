@@ -166,7 +166,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
     const { id: workflowId } = workflow;
     let newProperties = properties;
     if (Object.values(properties).includes("")) {
-      let newProperties = cloneDeep(properties);
+      newProperties = cloneDeep(properties);
       swapValue(newProperties);
     }
     try {

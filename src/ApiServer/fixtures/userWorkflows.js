@@ -59,7 +59,7 @@ const userWorkflows = {
           maxValueLength: null,
           options: null,
           helperText: null,
-          hiddenValue: false,
+          hiddenValue: true,
         },
       ],
       description: "",
