@@ -169,9 +169,14 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
             labelText="Default Value"
             onBlur={handleBlur}
             onChange={handleChange}
-            placeholder="Default Value"
+            placeholder={this.props.isEdit && values.type.value === InputType.Password ? "******" : "Default Value"}
             type={values.type.value}
             value={values.defaultValue || ""}
+            helperText={
+              values.type.value === InputType.Password
+                ? "Password Values are saved securely in our Database. To overwrite this, provide a new default value"
+                : null
+            }
           />
         );
     }
