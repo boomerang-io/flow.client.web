@@ -214,7 +214,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
             class="bx--form__helper-text"
             style="margin-bottom: 0px;"
           >
-            Once a parameter is created, secured state will not be able to be updated
+            Once a parameter is securely created - you will not be able to make it unsecure
           </div>
         </div>
       </div>

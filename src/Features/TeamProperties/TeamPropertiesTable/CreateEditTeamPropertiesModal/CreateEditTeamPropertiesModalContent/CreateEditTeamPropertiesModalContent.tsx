@@ -204,7 +204,7 @@ function CreateEditTeamPropertiesModalContent({
                 onChange={handleChange}
                 orientation="vertical"
                 toggled={values.secured}
-                helperText="Once a parameter is created, secured state will not be able to be updated"
+                helperText="Once a parameter is securely created - you will not be able to make it unsecure"
               />
               {addError && (
                 <InlineNotification
