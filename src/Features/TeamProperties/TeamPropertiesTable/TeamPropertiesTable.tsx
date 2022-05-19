@@ -18,9 +18,8 @@ import ActionsMenu from "./ActionsMenu";
 import EmptyState from "Components/EmptyState";
 import NoTeamsRedirectPrompt from "Components/NoTeamsRedirectPrompt";
 import WombatMessage from "Components/WombatMessage";
-import { InputType } from "Constants";
+import { InputType, PASSWORD_CONSTANT } from "Constants";
 import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
-import { stringToPassword } from "Utils/stringHelper";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, Property } from "Types";
 import { Checkmark32, Close32 } from "@carbon/icons-react";
@@ -124,7 +123,7 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
       case "value":
         const determineValue = value
           ? property && property.type === InputType.Password
-            ? stringToPassword(value)
+            ? PASSWORD_CONSTANT
             : value
           : "---";
         return <p className={styles.tableTextarea}>{determineValue}</p>;

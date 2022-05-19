@@ -2,7 +2,7 @@ import React from "react";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DynamicFormik, ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./workflowInputModalContent.module.scss";
-import { InputProperty, InputType } from "Constants";
+import { InputProperty, InputType, PASSWORD_CONSTANT } from "Constants";
 
 interface WorkflowInputModalContentProps {
   closeModal: () => void;
@@ -31,7 +31,7 @@ const WorkflowInputModalContent: React.FC<WorkflowInputModalContentProps> = ({
         ...input,
         required: false,
         helperText: "To use your secure default value, leave this input blank",
-        placeholder: "*****",
+        placeholder: PASSWORD_CONSTANT,
       };
     } else return input;
   });

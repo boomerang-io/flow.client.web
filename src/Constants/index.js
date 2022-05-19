@@ -5,6 +5,7 @@ import { CloseOutline32, CheckmarkOutline32, Error32, InProgress32, Timer32 } fr
  */
 export const CREATED_DATE_FORMAT = "MMMM DD, YYYY";
 export const PROPERTY_KEY_REGEX = /^[a-zA-Z_]([a-zA-Z0-9-_])*$/;
+export const PASSWORD_CONSTANT = "******";
 
 /**
  * Enums

@@ -12,7 +12,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { InputType, PROPERTY_KEY_REGEX } from "Constants";
+import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { PatchProperty, Property, FlowTeam } from "Types";
 import { updatedDiff } from "deep-object-diff";
 
@@ -181,7 +181,7 @@ function CreateEditTeamPropertiesModalContent({
               <TextInput
                 id="value"
                 labelText="Value"
-                placeholder={isEdit && values.secured ? "******" : "Value"}
+                placeholder={isEdit && values.secured ? PASSWORD_CONSTANT : "Value"}
                 name="value"
                 value={values.value}
                 onBlur={handleBlur}

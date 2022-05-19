@@ -14,7 +14,7 @@ import {
   TextInput,
   Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { InputType, PROPERTY_KEY_REGEX } from "Constants";
+import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Property, PatchProperty } from "Types";
 import { updatedDiff } from "deep-object-diff";
@@ -172,7 +172,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 data-testid="create-parameter-value"
                 id="value"
                 labelText="Value"
-                placeholder={isEdit && values.secured ? "******" : "Value"}
+                placeholder={isEdit && values.secured ? PASSWORD_CONSTANT : "Value"}
                 name="value"
                 value={values.value}
                 onBlur={handleBlur}
