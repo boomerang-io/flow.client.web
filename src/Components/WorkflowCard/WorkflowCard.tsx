@@ -19,7 +19,7 @@ import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import UpdateWorkflow from "./UpdateWorkflow";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
-import cloneDeep from "clone-deep";
+import cloneDeep from "lodash/cloneDeep";
 import fileDownload from "js-file-download";
 import { formatErrorMessage } from "@boomerang-io/utils";
 import { appLink, FeatureFlag } from "Config/appConfig";
