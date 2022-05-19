@@ -183,7 +183,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
             value={values.defaultValue || ""}
             helperText={
               values.type.value === InputType.Password
-                ? "Password Values are saved securely in our Database. To overwrite this, provide a new default value"
+                ? "Passwords are saved securely in our database. To update the saved value, provide a new default value."
                 : null
             }
           />
