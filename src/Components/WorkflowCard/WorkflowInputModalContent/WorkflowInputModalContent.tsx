@@ -2,12 +2,13 @@ import React from "react";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DynamicFormik, ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./workflowInputModalContent.module.scss";
+import { InputProperty, InputType, PASSWORD_CONSTANT } from "Constants";
 
 interface WorkflowInputModalContentProps {
   closeModal: () => void;
   executeError: any;
   executeWorkflow: (closeModal: () => void, redirect: boolean, properties: {}) => Promise<void>;
-  inputs: {}[];
+  inputs: Array<typeof InputProperty>;
   isExecuting: boolean;
 }
 
@@ -19,11 +20,27 @@ const WorkflowInputModalContent: React.FC<WorkflowInputModalContentProps> = ({
   isExecuting,
 }) => {
   const [isRedirectEnabled, setIsRedirectEnabled] = React.useState(false);
+
+  //edit inputs to handle secure values
+  const secureInputs = inputs.map((input: typeof InputProperty) => {
+    /* @ts-ignore-next-line */
+    if (input[InputProperty.Type] === InputType.Password && input?.hiddenValue) {
+      //if the input type is secure and there is a default value we are going to manipulate the object
+      return {
+        //allow the user to submit null
+        ...input,
+        required: false,
+        helperText: "To use your secure default value, leave this input blank",
+        placeholder: PASSWORD_CONSTANT,
+      };
+    } else return input;
+  });
+
   return (
     <DynamicFormik
       allowCustomPropertySyntax
       validateOnMount
-      inputs={inputs}
+      inputs={secureInputs}
       toggleProps={() => ({
         orientation: "vertical",
       })}

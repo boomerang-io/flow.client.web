@@ -19,6 +19,7 @@ import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import UpdateWorkflow from "./UpdateWorkflow";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
+import cloneDeep from "lodash/cloneDeep";
 import fileDownload from "js-file-download";
 import { formatErrorMessage } from "@boomerang-io/utils";
 import { appLink, FeatureFlag } from "Config/appConfig";
@@ -29,6 +30,8 @@ import workflowIcons from "Assets/workflowIcons";
 import { ComposedModalChildProps, FlowTeamQuotas, ModalTriggerProps, WorkflowSummary } from "Types";
 import { WorkflowScope } from "Constants";
 import styles from "./workflowCard.module.scss";
+// @ts-ignore:next-line
+import { swapValue } from "Utils";
 
 interface WorkflowCardProps {
   scope: string;
@@ -161,8 +164,14 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
 
   const handleExecuteWorkflow = async (closeModal: () => void, redirect: boolean = false, properties: {} = {}) => {
     const { id: workflowId } = workflow;
+    let newProperties = properties;
+    if (Object.values(properties).includes("")) {
+      newProperties = cloneDeep(properties);
+      swapValue(newProperties);
+    }
     try {
-      const { data: execution } = await executeWorkflowMutator({ id: workflowId, properties });
+      // @ts-ignore:next-line
+      const { data: execution } = await executeWorkflowMutator({ id: workflowId, properties: newProperties });
       notify(
         <ToastNotification
           kind="success"
@@ -311,6 +320,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
                 executeError={executeError}
                 executeWorkflow={handleExecuteWorkflow}
                 isExecuting={isExecuting}
+                /* @ts-ignore-next-line */
                 inputs={formattedProperties}
               />
             )}

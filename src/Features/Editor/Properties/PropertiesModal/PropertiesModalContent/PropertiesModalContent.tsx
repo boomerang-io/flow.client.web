@@ -14,7 +14,14 @@ import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
 import { validateUrlWithProperties } from "Utils/urlPropertySyntaxHelper";
-import { InputProperty, InputType, InputTypeCopy, WorkflowPropertyUpdateType, PROPERTY_KEY_REGEX } from "Constants";
+import {
+  InputProperty,
+  InputType,
+  InputTypeCopy,
+  WorkflowPropertyUpdateType,
+  PROPERTY_KEY_REGEX,
+  PASSWORD_CONSTANT,
+} from "Constants";
 import { DataDrivenInput, FormikSetFieldValue } from "Types";
 import styles from "./PropertiesModalContent.module.scss";
 
@@ -169,9 +176,16 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
             labelText="Default Value"
             onBlur={handleBlur}
             onChange={handleChange}
-            placeholder="Default Value"
+            placeholder={
+              this.props.isEdit && values.type.value === InputType.Password ? PASSWORD_CONSTANT : "Default Value"
+            }
             type={values.type.value}
             value={values.defaultValue || ""}
+            helperText={
+              values.type.value === InputType.Password
+                ? "Passwords are saved securely in our database. To update the saved value, provide a new default value."
+                : null
+            }
           />
         );
     }

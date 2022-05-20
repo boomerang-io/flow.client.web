@@ -14,9 +14,10 @@ import {
   TextInput,
   Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { InputType, PROPERTY_KEY_REGEX } from "Constants";
+import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { Property } from "Types";
+import { Property, PatchProperty } from "Types";
+import { updatedDiff } from "deep-object-diff";
 
 type Props = {
   closeModal: () => void;
@@ -29,6 +30,14 @@ type Props = {
 const configUrl = serviceUrl.getGlobalConfiguration();
 
 function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKeys, cancelRequestRef }: Props) {
+  const initialState = {
+    label: property?.label ?? "",
+    description: property?.description ?? "",
+    key: property?.key ?? "",
+    value: property?.value ?? "",
+    secured: property?.type === InputType.Password ?? false,
+  };
+
   const queryClient = useQueryClient();
   /** Add property */
   const { mutateAsync: addGlobalPropertyMutation, isLoading: addLoading, error: addError } = useMutation(
@@ -44,7 +53,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
 
   /** Update property */
   const { mutateAsync: updateGlobalPropertyMutation, isLoading: updateLoading, error: updateError } = useMutation(
-    (args: { id: string; body: Property }) => {
+    (args: { id: string; body: PatchProperty }) => {
       const { promise, cancel } = resolver.patchGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
@@ -62,8 +71,9 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
     delete newProperty.secured;
 
     if (isEdit) {
+      const updatedFields = updatedDiff(initialState, newProperty);
       try {
-        await updateGlobalPropertyMutation({ id: newProperty.id, body: newProperty });
+        await updateGlobalPropertyMutation({ id: newProperty.id, body: updatedFields });
         notify(
           <ToastNotification
             kind="success"
@@ -97,14 +107,9 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
 
   return (
     <Formik
-      initialValues={{
-        label: property && property.label ? property.label : "",
-        description: property && property.description ? property.description : "",
-        key: property && property.key ? property.key : "",
-        value: property && property.value ? property.value : "",
-        secured: property ? property.type === InputType.Password : false,
-      }}
+      initialValues={initialState}
       onSubmit={handleSubmit}
+      validateOnMount
       validationSchema={Yup.object().shape({
         label: Yup.string().required("Enter a label"),
         key: Yup.string()
@@ -116,7 +121,11 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
             "Only alphanumeric, hyphen and underscore characters allowed. Must begin with a letter or underscore",
             validateKey
           ),
-        value: Yup.string().required("Enter a value"),
+        value: Yup.string().when("secured", {
+          is: (value: boolean) => value && isEdit,
+          then: Yup.string(),
+          otherwise: Yup.string().required("Enter a value"),
+        }),
         description: Yup.string(),
         secured: Yup.boolean(),
       })}
@@ -153,7 +162,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
               <TextInput
                 data-testid="create-parameter-description"
                 id="description"
-                labelText="Description"
+                labelText="Description (optional)"
                 name="description"
                 value={values.description}
                 onBlur={handleBlur}
@@ -163,7 +172,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 data-testid="create-parameter-value"
                 id="value"
                 labelText="Value"
-                placeholder="Value"
+                placeholder={isEdit && values.secured ? PASSWORD_CONSTANT : "Value"}
                 name="value"
                 value={values.value}
                 onBlur={handleBlur}
@@ -171,16 +180,24 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 invalid={errors.value && touched.value}
                 invalidText={errors.value}
                 type={values.secured ? "password" : "text"}
+                helperText={
+                  isEdit && values.secured
+                    ? "Secure values are stored in our database. You can provide a new value to override"
+                    : null
+                }
               />
               <Toggle
                 id="secured-global-parameters-toggle"
+                disabled={isEdit}
                 labelText="Secured"
                 name="secured"
                 onChange={handleChange}
                 orientation="vertical"
                 toggled={values.secured}
                 data-testid="secured-global-parameters-toggle"
+                helperText="Once a parameter is created, secured state will not be able to be updated"
               />
+
               {addError && (
                 <InlineNotification
                   lowContrast

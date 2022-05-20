@@ -14,8 +14,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import ActionsMenu from "./ActionsMenu";
 import CreateEditPropertiesModal from "./CreateEditPropertiesModal";
-import { stringToPassword } from "Utils/stringHelper";
-import { InputType } from "Constants";
+import { InputType, PASSWORD_CONSTANT } from "Constants";
 import { formatErrorMessage } from "@boomerang-io/utils";
 import EmptyState from "Components/EmptyState";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -126,7 +125,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
       case "value":
         const determineValue = value
           ? property && property.type === InputType.Password
-            ? stringToPassword(value)
+            ? PASSWORD_CONSTANT
             : value
           : "---";
         return <p className={styles.tableTextarea}>{determineValue}</p>;
@@ -137,7 +136,9 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
           <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
         );
       case "actions":
-        return <ActionsMenu deleteProperty={deleteProperty} property={property ?? defaultProperty} properties={properties} />;
+        return (
+          <ActionsMenu deleteProperty={deleteProperty} property={property ?? defaultProperty} properties={properties} />
+        );
       default:
         return <p className={styles.tableTextarea}>{value || "---"}</p>;
     }
