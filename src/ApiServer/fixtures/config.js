@@ -15,7 +15,7 @@ const config = [
     description: "",
     key: "ben.key",
     label: "ben.label",
-    type: "password",
+    type: "secured",
   },
 ];
 

@@ -15,7 +15,7 @@ import styles from "./Properties.module.scss";
 const formatDefaultValue = ({ type, value }: { type: string | undefined; value: string | undefined }) => {
   if (!value) {
     return "---";
-  } else if (type === InputType.Password) {
+  } else if (type === InputType.Secured) {
     return stringToPassword(value);
   } else {
     return value;

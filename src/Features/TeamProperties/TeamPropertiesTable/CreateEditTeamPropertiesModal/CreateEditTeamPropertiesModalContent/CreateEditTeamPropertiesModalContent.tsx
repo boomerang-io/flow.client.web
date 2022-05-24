@@ -38,7 +38,7 @@ function CreateEditTeamPropertiesModalContent({
     description: property?.description ?? "",
     key: property?.key ?? "",
     value: property?.value ?? "",
-    secured: property?.type === InputType.Password ?? false,
+    secured: property?.type === InputType.Secured ?? false,
   };
   const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: team.id });
   const queryClient = useQueryClient();
@@ -70,7 +70,7 @@ function CreateEditTeamPropertiesModalContent({
   const loading = addIsLoading || updateIsLoading;
 
   const handleSubmit = async (values: any) => {
-    const type = values.secured ? InputType.Password : InputType.Text;
+    const type = values.secured ? InputType.Secured : InputType.Text;
     const newTeamProperty = isEdit ? { ...values, type, id: property.id } : { ...values, type };
     delete newTeamProperty.secured;
 
@@ -191,7 +191,7 @@ function CreateEditTeamPropertiesModalContent({
                 type={values.secured ? "password" : "text"}
                 helperText={
                   isEdit && values.secured
-                    ? "Secure values are stored in our database. You can provide a new value to override"
+                    ? "Default values are stored securely and cannot be viewed once created. To update, provide a new default value."
                     : null
                 }
               />
@@ -204,7 +204,7 @@ function CreateEditTeamPropertiesModalContent({
                 onChange={handleChange}
                 orientation="vertical"
                 toggled={values.secured}
-                helperText="Once a parameter is securely created - you will not be able to make it unsecure"
+                helperText="Once a parameter is securely created - you will not be able to view it or make it unsecure."
               />
               {addError && (
                 <InlineNotification

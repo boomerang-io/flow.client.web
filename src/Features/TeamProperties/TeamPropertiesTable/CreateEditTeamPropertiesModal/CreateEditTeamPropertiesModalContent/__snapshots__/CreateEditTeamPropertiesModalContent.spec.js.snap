@@ -214,7 +214,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
             class="bx--form__helper-text"
             style="margin-bottom: 0px;"
           >
-            Once a parameter is securely created - you will not be able to make it unsecure
+            Once a parameter is securely created - you will not be able to view it or make it unsecure.
           </div>
         </div>
       </div>
