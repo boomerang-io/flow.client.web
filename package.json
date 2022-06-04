@@ -30,7 +30,7 @@
     "@boomerang-io/carbon-addons-boomerang-react": "2.0.2",
     "@boomerang-io/styles": "1.0.0",
     "@boomerang-io/utils": "1.0.3",
-    "@carbon/charts": "^0.16.24",
+    "@carbon/charts": "^0.57.1",
     "@carbon/charts-react": "^0.16.24",
     "@carbon/icons-react": "10.49.0",
     "@projectstorm/react-diagrams": "^5.3.2",
