@@ -43,7 +43,7 @@
     "codemirror": "^5.58.2",
     "copy-to-clipboard": "^3.3.1",
     "cronstrue": "^1.122.0",
-    "d3": "<=5.9.2",
+    "d3": "7.4.4",
     "deep-object-diff": "^1.1.7",
     "detect-browser": "^4.0.3",
     "flagged": "^2.0.1",
