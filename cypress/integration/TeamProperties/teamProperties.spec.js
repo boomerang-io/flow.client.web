@@ -30,7 +30,7 @@ describe("Team Parameters", function () {
     cy.get("[data-testid=create-team-parameter-button]").click();
     cy.findByLabelText("Key").type("newKey");
     cy.findByLabelText("Label").type("new label");
-    cy.findByLabelText("Description").type("new description");
+    cy.findByLabelText("Description (optional)").type("new description");
     cy.findByLabelText("Value").type("new value");
     cy.get("[data-testid=team-parameter-create-edit-submission-button]").click();
     cy.wait(1000);
