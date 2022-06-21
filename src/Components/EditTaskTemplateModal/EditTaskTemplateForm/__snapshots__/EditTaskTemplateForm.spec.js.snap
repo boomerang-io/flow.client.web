@@ -453,12 +453,12 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
                   </div>
                 </div>
               </div>
-              <p
+              <span
                 class="bx--bmrg-creatable__colon"
                 style="margin-top: 1.75rem;"
               >
                 :
-              </p>
+              </span>
               <div
                 class="bx--form-item bx--text-input-wrapper"
               >
