@@ -143,7 +143,7 @@ export default function App() {
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
     setShowActivatePlatform(false);
-    queryClient.invalidateQueries(serviceUrl.getUserProfile());
+    queryClient.invalidateQueries(getUserUrl);
   };
 
   if (isLoading) {
