@@ -2,7 +2,7 @@ import React, { lazy, useState, Suspense } from "react";
 import axios from "axios";
 import { FlagsProvider, useFeature } from "flagged";
 import { AppContextProvider } from "State/context";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import {
   DelayedRender,
@@ -61,6 +61,7 @@ const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
 export default function App() {
   const location = useLocation();
+  const queryClient = useQueryClient();
   const teamIds = queryString.parse(location.search).teams;
   const teamIdsArray = teamIds === null || teamIds === undefined ? [] : teamIds.toString().split(",");
   const query = teamIdsArray.length === 1 ? `?teamId=${teamIdsArray[0]}` : "";
@@ -71,7 +72,7 @@ export default function App() {
   );
   const [isTutorialActive, setIsTutorialActive] = useState(false);
   const [showActivatePlatform, setShowActivatePlatform] = React.useState(false);
-  const [activationCode, setActivationCode] = React.useState("");
+  const [activationCode, setActivationCode] = React.useState<string>();
 
   const fetchUserResolver = async () => {
     try {
@@ -142,6 +143,7 @@ export default function App() {
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
     setShowActivatePlatform(false);
+    queryClient.invalidateQueries(serviceUrl.getUserProfile());
   };
 
   if (isLoading) {
