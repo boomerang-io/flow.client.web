@@ -105,7 +105,7 @@ export default function Navbar({
   const { platform } = platformConfigData;
   const appTitle = getAppTitle(platform);
   const appName = platform.appName || "Flow";
-  const platformName = platform.name || platform.platformName;
+  const platformName = platform.platformName || "Boomerang";
 
   return (
     <>
