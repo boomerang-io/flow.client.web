@@ -661,3 +661,12 @@ export interface ScheduleManagerFormInputs {
 
 export type DayOfWeekKey = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
 export type DayOfWeekCronAbbreviation = "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";
+
+export type MultiSelectItem = {
+  label: string;
+  value: string;
+};
+
+export interface MultiSelectItems<Type = MultiSelectItem> {
+  selectedItems: Array<Type>;
+}

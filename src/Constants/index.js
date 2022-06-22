@@ -203,7 +203,7 @@ export const ApprovalStatus = {
   Submitted: "submitted",
 };
 
-export const allowedUserRoles = [UserType.Admin, UserType.Operator];
+export const elevatedUserRoles = [UserType.Admin, UserType.Operator];
 
 export const yamlInstructions = `  # Getting started with a Task
   Tasks in Boomerang Flow follow the [Tekton Task model](https://tekton.dev/docs/pipelines/tasks/#configuring-a-task) along with Kubernetes standards and allow you to define what you want to happen at the execution of the task as well as parameters that are needed.

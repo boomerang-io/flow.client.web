@@ -32,6 +32,8 @@ export const statusOptions = [
   { label: "Failed", value: "failure" },
   { label: "Invalid", value: "invalid" },
   { label: "In Progress", value: "inProgress" },
+  { label: "Waiting", value: "waiting" },
+  { label: "Cancelled", value: "cancelled" },
 ];
 
 export const approvalStatusOptions = [
@@ -39,8 +41,3 @@ export const approvalStatusOptions = [
   { label: "Rejected", value: "rejected" },
   { label: "Submitted", value: "submitted" },
 ];
-
-export const ALL_OPTIONS = {
-  TEAMS: { id: "none", name: "All Teams" },
-  WORKFLOWS: { id: "none", name: "All Workflows" },
-};

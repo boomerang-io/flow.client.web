@@ -25,7 +25,7 @@ import ActionsTable from "./ActionsTable";
 import HeaderWidget from "Components/HeaderWidget";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
-import { allowedUserRoles, ActionType, WorkflowScope } from "Constants";
+import { elevatedUserRoles, ActionType, WorkflowScope } from "Constants";
 import { approvalStatusOptions } from "Constants/filterOptions";
 import { ArrowUpRight32 } from "@carbon/icons-react";
 import styles from "./Actions.module.scss";
@@ -52,7 +52,7 @@ function Actions() {
   const match = useRouteMatch();
 
   /** Define constants */
-  const isSystemWorkflowsEnabled = allowedUserRoles.includes(user.type);
+  const isSystemWorkflowsEnabled = elevatedUserRoles.includes(user.type);
   const actionType = location.pathname.includes("/manual") ? ActionType.Task : ActionType.Approval;
 
   /** Get today's numbers data */

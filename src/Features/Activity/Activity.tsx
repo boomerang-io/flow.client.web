@@ -13,7 +13,7 @@ import { sortByProp } from "@boomerang-io/utils";
 import ErrorDragon from "Components/ErrorDragon";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { executionStatusList, QueryStatus, allowedUserRoles, WorkflowScope } from "Constants";
+import { executionStatusList, QueryStatus, elevatedUserRoles, WorkflowScope } from "Constants";
 import { executionOptions } from "Constants/filterOptions";
 import styles from "./Activity.module.scss";
 
@@ -36,7 +36,7 @@ function WorkflowActivity() {
   const match = useRouteMatch();
 
   const { type: platformRole }: { type: string } = user;
-  const isSystemWorkflowsEnabled = allowedUserRoles.includes(platformRole);
+  const isSystemWorkflowsEnabled = elevatedUserRoles.includes(platformRole);
 
   const {
     order = DEFAULT_ORDER,

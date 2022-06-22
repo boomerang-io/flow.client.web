@@ -23,7 +23,7 @@ import {
 import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
 import ErrorModal from "Components/ErrorModal";
 import { appLink } from "Config/appConfig";
-import { allowedUserRoles, QueryStatus, ExecutionStatus } from "Constants";
+import { elevatedUserRoles, QueryStatus, ExecutionStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Catalog16, CopyFile16, StopOutline16, Warning16 } from "@carbon/icons-react";
 import { WorkflowSummary } from "Types";
@@ -46,7 +46,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
   const queryClient = useQueryClient();
 
   const { platformRole } = user;
-  const systemWorkflowsEnabled = allowedUserRoles.includes(platformRole);
+  const systemWorkflowsEnabled = elevatedUserRoles.includes(platformRole);
   const { teamName, initiatedByUserName, trigger, creationDate, scope, status, id } = workflowExecution.data;
   const displayCancelButton = cancelSatusTypes.includes(status);
 
