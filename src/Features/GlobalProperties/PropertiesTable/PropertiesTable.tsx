@@ -124,13 +124,13 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
     switch (column.key) {
       case "value":
         const determineValue = value
-          ? property && property.type === InputType.Password
+          ? property && property.type === InputType.Secured
             ? PASSWORD_CONSTANT
             : value
           : "---";
         return <p className={styles.tableTextarea}>{determineValue}</p>;
       case "secured":
-        return property && property.type === InputType.Password ? (
+        return property && property.type === InputType.Secured ? (
           <Checkmark32 alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
         ) : (
           <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />

@@ -24,7 +24,7 @@ const WorkflowInputModalContent: React.FC<WorkflowInputModalContentProps> = ({
   //edit inputs to handle secure values
   const secureInputs = inputs.map((input: typeof InputProperty) => {
     /* @ts-ignore-next-line */
-    if (input[InputProperty.Type] === InputType.Password && input?.hiddenValue) {
+    if (input[InputProperty.Type] === InputType.Secured && input?.hiddenValue) {
       //if the input type is secure and there is a default value we are going to manipulate the object
       return {
         //allow the user to submit null

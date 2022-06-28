@@ -31,7 +31,7 @@ const inputTypeItems = [
   { label: InputTypeCopy[InputType.Boolean], value: InputType.Boolean },
   { label: InputTypeCopy[InputType.Email], value: InputType.Email },
   { label: InputTypeCopy[InputType.Number], value: InputType.Number },
-  { label: InputTypeCopy[InputType.Password], value: InputType.Password },
+  { label: InputTypeCopy[InputType.Secured], value: InputType.Secured },
   { label: InputTypeCopy[InputType.Select], value: InputType.Select },
   { label: InputTypeCopy[InputType.Text], value: InputType.Text },
   { label: InputTypeCopy[InputType.TextArea], value: InputType.TextArea },
@@ -177,13 +177,13 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
             onBlur={handleBlur}
             onChange={handleChange}
             placeholder={
-              this.props.isEdit && values.type.value === InputType.Password ? PASSWORD_CONSTANT : "Default Value"
+              this.props.isEdit && values.type.value === InputType.Secured ? PASSWORD_CONSTANT : "Default Value"
             }
-            type={values.type.value}
+            type={values.type.value === InputType.Secured ? "password" : values.type.value}
             value={values.defaultValue || ""}
             helperText={
-              values.type.value === InputType.Password
-                ? "Passwords are saved securely in our database. To update the saved value, provide a new default value."
+              values.type.value === InputType.Secured
+                ? "Default values are stored securely and cannot be viewed once created. To update, provide a new default value."
                 : null
             }
           />
@@ -195,7 +195,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
     switch (defaultType) {
       case InputType.Text:
       case InputType.TextArea:
-      case InputType.Password:
+      case InputType.Secured:
         return Yup.string();
       case InputType.Boolean:
         return Yup.boolean();
