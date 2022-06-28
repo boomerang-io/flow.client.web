@@ -1,6 +1,5 @@
 import React from "react";
 import { LineChart } from "@carbon/charts-react";
-import "@carbon/charts/styles.css";
 import { chartInfo } from "../constants";
 
 const lineTimeSeriesOptions = {
@@ -14,9 +13,7 @@ const lineTimeSeriesOptions = {
       primary: true
     }
   },
-  curve: "curveMonotoneX",
-  height: 350,
-  width: 620
+  curve: "curveMonotoneX"
 };
 
 const CarbonLineChart = ({ data }) => {

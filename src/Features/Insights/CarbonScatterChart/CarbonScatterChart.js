@@ -1,4 +1,3 @@
-import React from "react";
 import { ScatterChart } from "@carbon/charts-react";
 import "@carbon/charts/styles.css";
 // import CustomTooltip from "./CustomTooltip";
@@ -28,9 +27,7 @@ const scatterSeriesOptions = {
         DISABLED: true
       }
     }
-  },
-  height: 350,
-  width: 620
+  }
 };
 
 const CarbonScatterChart = ({ data }) => {

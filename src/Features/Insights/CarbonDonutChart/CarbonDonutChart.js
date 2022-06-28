@@ -7,25 +7,16 @@ const CarbonDonutChart = ({ data }) => {
       <DonutChart
         fixedDataLabels={false}
         data={{
-          labels: ["Success", "Failed", "Invalid", "In Progress"],
+          labels: ["Success", "Failed", "Invalid", "Cancelled"],
           datasets: data
         }}
         options={{
-          accessibility: false,
-          // tooltip: {
-          //   formatter: tooltipValue => `${tooltipValue * 100}%`
-          // },
-          // pie:{
-          //   padAngle: "40"
-          // },
           legend: {
             position: "right",
             items: {
               verticalSpace: 30
             }
           },
-          height: 250,
-          width: 400
         }}
       />
     </div>

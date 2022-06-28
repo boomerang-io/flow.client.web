@@ -57,7 +57,7 @@
 }
 
 .dataFilters {
-  align-items: flex-start;
+  align-items: flex-end;
   display: flex;
   flex-flow: row wrap;
   gap: 1rem;
@@ -142,4 +142,12 @@
 }
 .insightsCards {
   display: flex;
+}
+
+.timeFilters {
+  margin-left: auto;
+}
+
+:global .bx--cc--donut {
+  overflow: visible !important;
 }

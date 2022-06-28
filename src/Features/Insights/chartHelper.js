@@ -8,7 +8,7 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
   let dateName = [];
   let failure = [];
   let success = [];
-  let inprogress = [];
+  let cancelled = [];
   let invalid = [];
   let finalData = [];
 
@@ -17,7 +17,7 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
 
   let failureData = [];
   let successData = [];
-  let inprogressData = [];
+  let cancelledData = [];
   let invalidData = [];
   let totalData = [];
   let teamWorkflows = [];
@@ -34,8 +34,8 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
     if (item.status === ExecutionStatus.Failure) {
       failure.push(item);
     }
-    if (item.status === ExecutionStatus.InProgress || item.status === undefined) {
-      inprogress.push(item);
+    if (item.status === ExecutionStatus.Cancelled || item.status === undefined) {
+      cancelled.push(item);
     }
     if (item.status === ExecutionStatus.Invalid || item.status === null) {
       invalid.push(item);
@@ -49,7 +49,7 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
     success: successData,
     failed: failureData,
     invalid: invalidData,
-    inProgress: inprogressData,
+    cancelled: cancelledData,
     total: totalData,
   };
 
@@ -61,7 +61,7 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
     let succeeded = success.filter(
       (item) => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY")
     ).length;
-    let inProgress = inprogress.filter(
+    let inProgress = cancelled.filter(
       (item) => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY")
     ).length;
     let invalidStatus = invalid.filter(
@@ -71,7 +71,7 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
       date: parseInt(moment(date).format("x"), 10),
       failed: fail,
       success: succeeded,
-      inProgress,
+      cancelled: inProgress,
       invalid: invalidStatus,
       total: fail + succeeded + inProgress + invalidStatus,
     });
@@ -94,7 +94,7 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
   finalData.forEach((data) => {
     failureData.push({ date: new Date(data.date), value: data.failed });
     successData.push({ date: new Date(data.date), value: data.success });
-    inprogressData.push({ date: new Date(data.date), value: data.inProgress });
+    cancelledData.push({ date: new Date(data.date), value: data.inProgress });
     invalidData.push({ date: new Date(data.date), value: data.invalid });
     totalData.push({ date: new Date(data.date), value: data.total });
   });
@@ -117,7 +117,7 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
     {
       label: "Status",
       fillColors: [chartColors.SUCCESS, chartColors.FAILED, chartColors.INVALID, chartColors.IN_PROGRESS],
-      data: [success.length, failure.length, invalid.length, inprogress.length],
+      data: [success.length, failure.length, invalid.length, cancelled.length],
     },
   ];
   const executionsByTeam = !hasSelectedTeam

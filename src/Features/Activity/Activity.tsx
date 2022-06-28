@@ -399,7 +399,6 @@ function WorkflowActivity() {
             <DatePicker
               id="activity-date-picker"
               className={styles.timeFilters}
-              dateFormat="m/d/Y"
               datePickerType="range"
               maxDate={maxDate}
               onChange={handleSelectDate}
@@ -410,14 +409,14 @@ function WorkflowActivity() {
                 id="activity-date-picker-start"
                 labelText="Start date"
                 placeholder="mm/dd/yyyy"
-                value={fromDate && moment.unix(fromDate).format("YYYY-MM-DD")}
+                value={fromDate && moment.unix(fromDate).format("MM/DD/YYYY")}
               />
               <DatePickerInput
                 autoComplete="off"
                 id="activity-date-picker-end"
                 labelText="End date"
                 placeholder="mm/dd/yyyy"
-                value={toDate && moment.unix(toDate).format("YYYY-MM-DD")}
+                value={toDate && moment.unix(toDate).format("MM/DD/YYYY")}
               />
             </DatePicker>
           </div>

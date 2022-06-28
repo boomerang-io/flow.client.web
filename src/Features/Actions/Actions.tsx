@@ -35,10 +35,12 @@ const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
 const DEFAULT_SIZE = 10;
 const DEFAULT_SORT = "creationDate";
+const DEFAULT_FROM_DATE = moment(new Date()).subtract("24", "hours").unix();
+const DEFAULT_TO_DATE = moment(new Date()).unix();
 
 const summaryQuery = queryString.stringify({
-  fromDate: moment(new Date()).subtract("24", "hours").unix(),
-  toDate: moment(new Date()).unix(),
+  fromDate: DEFAULT_FROM_DATE,
+  toDate: DEFAULT_TO_DATE
 });
 
 const actionsSummaryUrl = serviceUrl.getActionsSummary({ query: summaryQuery });
@@ -84,7 +86,7 @@ function Actions() {
     statuses,
     teamIds,
     fromDate,
-    toDate,
+    toDate
   } = queryString.parse(location.search, queryStringOptions);
 
   const actionsUrlQuery = queryString.stringify(
@@ -453,7 +455,6 @@ function Actions() {
               <DatePicker
                 id="actions-date-picker"
                 className={styles.timeFilters}
-                dateFormat="m/d/Y"
                 datePickerType="range"
                 maxDate={maxDate}
                 onChange={handleSelectDate}
@@ -464,14 +465,14 @@ function Actions() {
                   id="actions-date-picker-start"
                   labelText="Start date"
                   placeholder="mm/dd/yyyy"
-                  value={fromDate && moment.unix(fromDate).format("YYYY-MM-DD")}
+                  value={fromDate && moment.unix(fromDate).format("MM/DD/YYYY")}
                 />
                 <DatePickerInput
                   autoComplete="off"
                   id="actions-date-picker-end"
                   labelText="End date"
                   placeholder="mm/dd/yyyy"
-                  value={toDate && moment.unix(toDate).format("YYYY-MM-DD")}
+                  value={toDate && moment.unix(toDate).format("MM/DD/YYYY")}
                 />
               </DatePicker>
             </div>
