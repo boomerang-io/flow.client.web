@@ -1,87 +1,87 @@
 import { sortBy, orderBy } from "lodash";
-import moment from "moment";
 import { ExecutionStatus } from "Constants";
 import { timeSecondsToTimeUnit } from "Utils/timeSecondsToTimeUnit";
-import { chartInfo, chartColors } from "./constants";
+import { chartInfo } from "./constants";
 
-export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflow) => {
-  let dateName = [];
-  let failure = [];
-  let success = [];
-  let cancelled = [];
-  let invalid = [];
-  let finalData = [];
+export const parseChartsData = (data) => {
+  let executionPerWorkflowMap = {};
+  let executionDateMap = {};
 
-  let scatterData = [];
+  let cancelledList = [];
+  let failureList = [];
+  let inProgressList = [];
+  let invalidList = [];
+  let successList = [];
+  let waitingList = [];
+
+  let scatterPlotData = [];
   let sumDuration = 0;
 
-  let failureData = [];
-  let successData = [];
-  let cancelledData = [];
-  let invalidData = [];
-  let totalData = [];
-  let teamWorkflows = [];
-
   data.forEach((item) => {
-    scatterData.push({
-      value: parseInt(item.duration / 1000, 10),
-      date: new Date(item.creationDate),
+    // Get execution count
+    if (!executionPerWorkflowMap[item.workflowId]) {
+      executionPerWorkflowMap[item.workflowId] = { label: item.workflowName, value: 1 };
+    } else {
+      executionPerWorkflowMap[item.workflowId].value += 1;
+    }
+
+    const executionDate = new Date(item.creationDate);
+    const executionDateString = executionDate.toLocaleDateString("en-us", {
+      day: "numeric",
+      year: "numeric",
+      month: "numeric",
     });
+
+    // Summation of all durations
     sumDuration += item.duration;
-    if (item.status === ExecutionStatus.Completed) {
-      success.push(item);
-    }
-    if (item.status === ExecutionStatus.Failure) {
-      failure.push(item);
-    }
-    if (item.status === ExecutionStatus.Cancelled || item.status === undefined) {
-      cancelled.push(item);
-    }
-    if (item.status === ExecutionStatus.Invalid || item.status === null) {
-      invalid.push(item);
-    }
-    if (!dateName.find((date) => moment(date).format("DD-MM-YY") === moment(item.creationDate).format("DD-MM-YY")))
-      dateName.push(item.creationDate);
-    if (hasSelectedTeam && !teamWorkflows.find((worflow) => worflow.id === item.workflowId))
-      teamWorkflows.push({ id: item.workflowId, name: item.workflowName });
-  });
-  const dataByStatus = {
-    success: successData,
-    failed: failureData,
-    invalid: invalidData,
-    cancelled: cancelledData,
-    total: totalData,
-  };
 
-  const dataByDuration = sortBy(data, ({ duration }) => duration || "");
-  dateName.forEach((date) => {
-    let fail = failure.filter(
-      (item) => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY")
-    ).length;
-    let succeeded = success.filter(
-      (item) => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY")
-    ).length;
-    let inProgress = cancelled.filter(
-      (item) => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY")
-    ).length;
-    let invalidStatus = invalid.filter(
-      (item) => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY")
-    ).length;
-    finalData.push({
-      date: parseInt(moment(date).format("x"), 10),
-      failed: fail,
-      success: succeeded,
-      cancelled: inProgress,
-      invalid: invalidStatus,
-      total: fail + succeeded + inProgress + invalidStatus,
+    // Build scatter plot data
+    scatterPlotData.push({
+      value: parseInt(item.duration / 1000, 10),
+      date: executionDate,
+      group: item.workflowName,
     });
+
+    // Group by status for pie chart
+    switch (item.status) {
+      case ExecutionStatus.Completed:
+        successList.push(item);
+        break;
+      case ExecutionStatus.Failure:
+        failureList.push(item);
+        break;
+      case ExecutionStatus.Cancelled:
+        cancelledList.push(item);
+        break;
+      case ExecutionStatus.Invalid:
+        invalidList.push(item);
+        break;
+      case ExecutionStatus.InProgress:
+        inProgressList.push(item);
+        break;
+      case ExecutionStatus.Waiting:
+        waitingList.push(item);
+        break;
+      default:
+      // no-op
+    }
+
+    // Group by execution date for line chart
+    if (!executionDateMap[executionDateString]) {
+      executionDateMap[executionDateString] = {};
+    }
+
+    if (!executionDateMap[executionDateString][item.status]) {
+      executionDateMap[executionDateString][item.status] = 1;
+    } else {
+      executionDateMap[executionDateString][item.status] += 1;
+    }
   });
 
-  const dataByTeams = teams.reduce((acc, team) => {
-    const teamData = data.filter((item) => item.teamName === team);
-    return acc.concat({ label: team, value: teamData.length });
-  }, []);
+  // Calculate status
   const totalExecutions = data.length;
+  const duration = data.filter((execution) => execution.duration > 0);
+  const dataByDuration = sortBy(duration, ({ duration }) => duration || "");
   const averageDuration = parseInt(sumDuration / totalExecutions, 10);
   const medianDuration = dataByDuration[parseInt((data.length - 1) / 2, 10)]
     ? dataByDuration[parseInt((data.length - 1) / 2, 10)].duration
@@ -91,52 +91,49 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
     : 0;
   const minimumDuration = dataByDuration[0] ? dataByDuration[0].duration || 0 : 0;
 
-  finalData.forEach((data) => {
-    failureData.push({ date: new Date(data.date), value: data.failed });
-    successData.push({ date: new Date(data.date), value: data.success });
-    cancelledData.push({ date: new Date(data.date), value: data.inProgress });
-    invalidData.push({ date: new Date(data.date), value: data.invalid });
-    totalData.push({ date: new Date(data.date), value: data.total });
-  });
+  const executionsByDayByType = {
+    completed: [],
+    failure: [],
+    invalid: [],
+    cancelled: [],
+    inProgress: [],
+    waiting: [],
+  };
 
-  const carbonLineData = chartInfo.map((chart) => {
+  for (const [dateStr, statusMap] of Object.entries(executionDateMap)) {
+    for (const [status, value] of Object.entries(statusMap)) {
+      if (Array.isArray(executionsByDayByType[status])) {
+        executionsByDayByType[status].push({ date: new Date(dateStr), value });
+      }
+    }
+  }
+
+  const lineChartData = chartInfo.map((chart) => {
     return {
+      color: chart.color,
       label: chart.label,
-      fillColors: [chart.color],
-      data: dataByStatus[chart.value],
+      data: executionsByDayByType[chart.value] ?? [],
     };
   });
-  const carbonScatterData = [
+
+  const donutData = [
     {
-      label: "Duration",
-      fillColors: [chartColors.TOTAL],
-      data: scatterData,
+      data: [successList.length, failureList.length, invalidList.length, cancelledList.length, inProgressList.length, waitingList.length],
     },
   ];
-  const carbonDonutData = [
-    {
-      label: "Status",
-      fillColors: [chartColors.SUCCESS, chartColors.FAILED, chartColors.INVALID, chartColors.IN_PROGRESS],
-      data: [success.length, failure.length, invalid.length, cancelled.length],
-    },
-  ];
-  const executionsByTeam = !hasSelectedTeam
-    ? []
-    : teamWorkflows.map((workflow) => {
-        const workflowExecutions = data.filter((item) => item.workflowId === workflow.id).length;
-        return { value: workflowExecutions, label: workflow.name };
-      });
+
+  const executionsByTeam = Object.values(executionPerWorkflowMap);
+
   return {
-    carbonLineData,
-    carbonScatterData,
-    carbonDonutData,
+    lineChartData,
+    scatterPlotData,
+    donutData,
     durationData: [
       { value: timeSecondsToTimeUnit(parseInt(minimumDuration / 1000, 10)), label: "Minimum" },
       { value: timeSecondsToTimeUnit(parseInt(maximumDuration / 1000, 10)), label: "Maximum" },
       { value: timeSecondsToTimeUnit(parseInt(averageDuration / 1000, 10)), label: "Average" },
     ],
     medianDuration: parseInt(medianDuration / 1000, 10),
-    dataByTeams: orderBy(dataByTeams, ["value"], ["desc"]),
     executionsByTeam: orderBy(executionsByTeam, ["value"], ["desc"]),
   };
 };

@@ -6,8 +6,8 @@
   padding: 1.875rem 1.5rem 10rem;
   width: 100%;
 
-  :global .bx--bmrg-select {
-    width: auto;
+  :global svg:not(:root) {
+    overflow: visible  !important;
   }
 
   :global .recharts-cartesian-axis.recharts-yAxis {
@@ -17,12 +17,7 @@
       transform-origin: -4% -9%;
     }
   }
-  // :global .recharts-cartesian-axis-tick {
-  //   font-size: 0.875rem;
-  // }
-  :global .c-legend {
-    margin-top: 1rem;
-  }
+
   :global .bx--list-box {
     cursor: pointer;
     height: 2.5rem;
@@ -50,6 +45,15 @@
   :global .bx--list-box__menu-item--highlighted {
     text-decoration: none;
   }
+
+  :global .c-legend {
+    margin-top: 1rem;
+  }
+
+  :global .bx--cc--title > p.title {
+    font-size: 0.875rem;
+    font-weight: 300;
+  }
 }
 
 .navigation {
@@ -61,6 +65,10 @@
   display: flex;
   flex-flow: row wrap;
   gap: 1rem;
+}
+
+.timeFilters {
+  margin-left: auto;
 }
 
 .noTeams {
@@ -85,15 +93,10 @@
 
 .donut {
   background-color: var(--cds-ui-01);
-  padding: 1.25rem;
+  padding: 0.625rem 1.25rem 1.25rem;
+  height: 24rem;
   width: 26.25rem;
   @include border-radius();
-}
-
-@media (max-width: 50rem) {
-  .graphsWidgets {
-    justify-content: initial;
-  }
 }
 
 .statsLabel,
@@ -103,7 +106,7 @@
   width: 23rem;
   justify-content: center;
   align-items: center;
-  color: var(--cds-text-01);
+  color: var(--cds-text-02);
   font-size: 5rem;
   font-weight: 500;
   line-height: 6.5rem;
@@ -116,47 +119,24 @@
   }
 }
 
-.dropdownPlaceholderContainer {
-  :global .bx--form-item {
-    margin-right: 1rem;
-  }
-}
-
-.dropdownPlaceholder {
-  margin-right: 1rem;
-  width: 30%;
-}
-
 .cardPlaceholderContainer {
   display: flex;
   gap: 2rem;
-  margin: 2.5rem 0rem 2rem;
+  margin: 3.375rem 0rem 2rem;
 }
 
 .cardPlaceholder {
-  min-height: 22.375rem;
-  min-width: 15.625rem;
+  height: 24rem;
+  width: 18rem;
 
   &.wide {
-    min-width: 25.625rem;
+    min-width: 26.25rem;
   }
 }
 
 .graphPlaceholder {
   max-width: 86rem;
-  min-height: 25rem;
+  height: 27rem;
   width: 100%;
-}
-
-.insightsCards {
-  display: flex;
-  gap: 2rem;
-}
-
-:global #insights-date-picker {
-  gap: 1rem;
-}
-
-:global .bx--cc--donut {
-  overflow: visible !important;
+  margin-bottom: 2rem;
 }

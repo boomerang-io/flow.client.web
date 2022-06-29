@@ -1,4 +1,4 @@
-import React from "react";
+// @ts-nocheck
 import { LineChart } from "@carbon/charts-react";
 import { chartInfo } from "../constants";
 
@@ -6,15 +6,19 @@ const lineTimeSeriesOptions = {
   height: "400px",
   axes: {
     left: {
-      secondary: true,
       title: "Executions",
+      secondary: true,
     },
     bottom: {
+      title: "Date",
       scaleType: "time",
       primary: true,
     },
   },
   curve: "curveMonotoneX",
+  tooltip: {
+    groupLabel: "Status"
+  }
 };
 
 const CarbonLineChart = ({ data, title = "Line Chart" }) => {

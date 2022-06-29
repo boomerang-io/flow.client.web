@@ -7,9 +7,10 @@ export const chartColors = {
 };
 
 export const chartInfo = [
-  { color: "#009C98", label: "Success", value: "success" },
-  { color: "#FFA4A9", label: "Failed", value: "failed" },
-  { color: "#B9BFC7", label: "Invalid", value: "invalid" },
-  { color: "#50565B", label: "Cancelled", value: "cancelled" },
-  { color: "#0072C3", label: "Total", value: "total" }
+  { label: "Succeeded", value: "completed" },
+  { label: "Failed", value: "failure" },
+  { label: "Cancelled", value: "cancelled" },
+  { label: "Invalid", value: "invalid" },
+  { label: "In Progress", value: "inProgress" },
+  { label: "Waiting", value: "waiting" },
 ];

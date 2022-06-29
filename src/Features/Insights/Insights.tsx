@@ -20,7 +20,7 @@ import InsightsTile from "./InsightsTile";
 import CarbonDonutChart from "./CarbonDonutChart";
 import CarbonLineChart from "./CarbonLineChart";
 import CarbonScatterChart from "./CarbonScatterChart";
-import { executionStatusList, elevatedUserRoles, WorkflowScope } from "Constants";
+import { elevatedUserRoles, ExecutionStatusCopy, WorkflowScope } from "Constants";
 import { executionOptions, statusOptions } from "Constants/filterOptions";
 import { parseChartsData } from "./chartHelper";
 import { queryStringOptions } from "Config/appConfig";
@@ -30,12 +30,13 @@ import styles from "./workflowInsights.module.scss";
 
 const MultiSelect = Select.Filterable;
 const systemWorkflowsUrl = serviceUrl.getSystemWorkflows();
-const maxDate = moment().format("MM/DD/YYYY");
+const now = moment();
+const maxDate = now.format("MM/DD/YYYY");
 const defaultFromDate = moment().startOf("month").valueOf();
-const defaultToDate = moment().endOf("month").valueOf();
+const defaultToDate = now.valueOf();
 
 export default function Insights() {
-  const { user, teams } = useAppContext();
+  const { user } = useAppContext();
   const history = useHistory();
   const location = useLocation();
   const isSystemWorkflowsEnabled = elevatedUserRoles.includes(user.type);
@@ -114,7 +115,7 @@ export default function Insights() {
   return (
     <InsightsContainer>
       <Selects systemWorkflowsQuery={systemWorkflowsQuery} updateHistorySearch={updateHistorySearch} />
-      <Graphs data={insightsQuery.data} teams={teams} />
+      <Graphs data={insightsQuery.data} statuses={statuses} />
     </InsightsContainer>
   );
 }
@@ -149,20 +150,15 @@ function Selects(props: SelectsProps) {
   const { teams, user, userWorkflows } = useAppContext();
   const isSystemWorkflowsEnabled = elevatedUserRoles.includes(user.type);
 
-  const {
-    scopes,
-    //statuses,
-    workflowIds,
-    teamIds,
-    triggers,
-    fromDate,
-    toDate,
-  } = queryString.parse(location.search, queryStringOptions);
+  const { scopes, statuses, workflowIds, teamIds, triggers, fromDate, toDate } = queryString.parse(
+    location.search,
+    queryStringOptions
+  );
 
   const selectedScopes = typeof scopes === "string" ? [scopes] : scopes;
   const selectedTeamIds = typeof teamIds === "string" ? [teamIds] : teamIds;
   const selectedWorkflowIds = typeof workflowIds === "string" ? [workflowIds] : workflowIds;
-  //const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
+  const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
   const selectedTriggers = typeof triggers === "string" ? [triggers] : triggers;
   const selectedFromDate = Array.isArray(fromDate)
     ? Number.parseInt(fromDate[0])
@@ -228,12 +224,12 @@ function Selects(props: SelectsProps) {
     return;
   }
 
-  // function handleSelectStatuses({ selectedItems }: MultiSelectItems) {
-  //   //@ts-ignore next-line
-  //   const statuses = selectedItems.length > 0 ? selectedItems.map((status) => status.value) : undefined;
-  //   props.updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses });
-  //   return;
-  // }
+  function handleSelectStatuses({ selectedItems }: MultiSelectItems) {
+    //@ts-ignore next-line
+    const statuses = selectedItems.length > 0 ? selectedItems.map((status) => status.value) : undefined;
+    props.updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses });
+    return;
+  }
 
   function handleSelectTriggers({ selectedItems }: MultiSelectItems) {
     //@ts-ignore next-line
@@ -252,24 +248,6 @@ function Selects(props: SelectsProps) {
     props.updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), fromDate, toDate });
     return;
   }
-
-  // const handleCloseSelectDate = (dates: any) => {
-  //   console.log({ dates, type: "handleCloseSelectDate" });
-  //   let [fromDateObj, toDateObj] = dates as [Date, Date];
-  //   if (!toDateObj) {
-  //     return;
-  //   }
-  //   const selectedFromDate = moment(fromDateObj).valueOf();
-  //   const selectedToDate = moment(toDateObj).valueOf();
-  //   props.updateHistorySearch({
-  //     ...queryString.parse(location.search, queryStringOptions),
-  //     fromDate: selectedFromDate === selectedToDate ? fromDate : selectedFromDate,
-  //     toDate: selectedToDate,
-  //   });
-  //   return;
-  // };
-
-  //console.log({ selectedFromDate, selectedToDate });
 
   return (
     <div className={styles.dataFilters}>
@@ -323,19 +301,6 @@ function Selects(props: SelectsProps) {
         )}
         titleText="Filter by Workflow"
       />
-      {/* <MultiSelect
-        id="insights-statuses-select"
-        label="Choose status(es)"
-        placeholder="Choose status(es)"
-        invalid={false}
-        onChange={handleSelectStatuses}
-        items={statusOptions}
-        itemToString={(item: MultiSelectItem) => (item ? item.label : "")}
-        initialSelectedItems={executionOptions.filter((option) =>
-          Boolean(selectedTriggers?.find((trigger: string) => trigger === option.value))
-        )}
-        titleText="Filter by status"
-      /> */}
       <MultiSelect
         id="insights-triggers-select"
         label="Choose trigger type(s)"
@@ -348,6 +313,19 @@ function Selects(props: SelectsProps) {
           Boolean(selectedTriggers?.find((trigger: string) => trigger === option.value))
         )}
         titleText="Filter by trigger"
+      />
+      <MultiSelect
+        id="insights-statuses-select"
+        label="Choose status(es)"
+        placeholder="Choose status(es)"
+        invalid={false}
+        onChange={handleSelectStatuses}
+        items={statusOptions}
+        itemToString={(item: MultiSelectItem) => (item ? item.label : "")}
+        initialSelectedItems={statusOptions.filter((option) =>
+          Boolean(selectedStatuses?.find((status: string) => status === option.value))
+        )}
+        titleText="Filter by status"
       />
       <div className={styles.timeFilters}>
         <DatePicker id="insights-date-picker" datePickerType="range" maxDate={maxDate} onChange={handleSelectDate}>
@@ -374,46 +352,46 @@ interface GraphsProps {
 }
 
 function Graphs(props: GraphsProps) {
-  const { data, teams } = props;
+  const { data, statuses } = props;
+  console.log({ statuses });
   const {
-    carbonLineData,
-    carbonScatterData,
-    carbonDonutData,
+    donutData,
     durationData,
+    lineChartData,
+    scatterPlotData,
     medianDuration,
     executionsByTeam,
-  } = parseChartsData(
-    data.executions,
-    teams.map((team: FlowTeam) => team.name)
-  );
-
-  console.log({ carbonLineData });
+  } = React.useMemo(() => parseChartsData(data.executions), [data.executions]);
 
   const totalExecutions = data.totalActivitiesExecuted;
   return (
     <>
       <div className={styles.statsWidgets} data-testid="completed-insights">
-        <div className={styles.insightsCards} style={{ flexDirection: "row" }}>
-          <InsightsTile
-            title="Executions"
-            type="runs"
-            totalCount={totalExecutions}
-            infoList={executionsByTeam.slice(0, 5)}
-          />
-          <InsightsTile
-            title="Duration (median)"
-            type=""
-            totalCount={timeSecondsToTimeUnit(medianDuration)}
-            infoList={durationData}
-            valueWidth="7rem"
-          />
-          <div className={styles.donut}>
-            {totalExecutions === 0 ? (
-              <p className={`${styles.statsLabel} --no-data`}>No Data</p>
-            ) : (
-              <CarbonDonutChart data={carbonDonutData} title="Status" />
-            )}
-          </div>
+        <InsightsTile
+          title="Executions"
+          type="runs"
+          totalCount={totalExecutions}
+          infoList={executionsByTeam.slice(0, 5)}
+        />
+        <InsightsTile
+          title="Duration (median)"
+          type=""
+          totalCount={timeSecondsToTimeUnit(medianDuration)}
+          infoList={durationData}
+          valueWidth="7rem"
+        />
+        <div className={styles.donut}>
+          {totalExecutions === 0 ? (
+            <p className={`${styles.statsLabel} --no-data`}>No Data</p>
+          ) : (
+            <CarbonDonutChart
+              data={donutData}
+              title="Status"
+              labels={
+                Array.isArray(statuses) ? statuses.map((status: string) => ExecutionStatusCopy[status]) : undefined
+              }
+            />
+          )}
         </div>
       </div>
       <div className={styles.graphsWidgets}>
@@ -421,14 +399,14 @@ function Graphs(props: GraphsProps) {
           {totalExecutions === 0 ? (
             <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
           ) : (
-            <CarbonLineChart data={carbonLineData} title="Executions" />
+            <CarbonLineChart data={lineChartData} title="Executions" />
           )}
         </ChartsTile>
         <ChartsTile>
           {totalExecutions === 0 ? (
             <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
           ) : (
-            <CarbonScatterChart data={carbonScatterData} title="Execution Time" />
+            <CarbonScatterChart data={scatterPlotData} title="Execution Time" />
           )}
         </ChartsTile>
       </div>

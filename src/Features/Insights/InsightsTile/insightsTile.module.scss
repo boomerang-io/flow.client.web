@@ -5,7 +5,9 @@
   background-color: var(--cds-ui-01);
   display: flex;
   flex-direction: column;
+  height: 24rem;
   padding: 1.25rem;
+  width: 18rem;
   @include border-radius();
 }
 
@@ -39,7 +41,7 @@
   margin-top: 1rem;
 }
 .itemLabel {
-  color: var(--cds-text-03);
+  color: var(--cds-text-02);
   font-size: 0.75rem;
 }
 .itemValue {
