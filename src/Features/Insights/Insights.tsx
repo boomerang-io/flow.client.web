@@ -350,26 +350,20 @@ function Selects(props: SelectsProps) {
         titleText="Filter by trigger"
       />
       <div className={styles.timeFilters}>
-      <DatePicker
-        id="actions-date-picker"
-        
-        datePickerType="range"
-        maxDate={maxDate}
-        onChange={handleSelectDate}
-      >
-        <DatePickerInput
-          autoComplete="off"
-          id="actions-date-picker-start"
-          labelText="Start date"
-          value={moment(selectedFromDate).format("MM/DD/YYYY")}
-        />
-        <DatePickerInput
-          autoComplete="off"
-          id="actions-date-picker-end"
-          labelText="End date"
-          value={moment(selectedToDate).format("MM/DD/YYYY")}
-        />
-      </DatePicker>
+        <DatePicker id="insights-date-picker" datePickerType="range" maxDate={maxDate} onChange={handleSelectDate}>
+          <DatePickerInput
+            autoComplete="off"
+            id="insights-date-picker-start"
+            labelText="Start date"
+            value={moment(selectedFromDate).format("MM/DD/YYYY")}
+          />
+          <DatePickerInput
+            autoComplete="off"
+            id="insights-date-picker-end"
+            labelText="End date"
+            value={moment(selectedToDate).format("MM/DD/YYYY")}
+          />
+        </DatePicker>
       </div>
     </div>
   );
@@ -380,7 +374,7 @@ interface GraphsProps {
 }
 
 function Graphs(props: GraphsProps) {
-  const { data, teams } = props
+  const { data, teams } = props;
   const {
     carbonLineData,
     carbonScatterData,
@@ -390,12 +384,12 @@ function Graphs(props: GraphsProps) {
     executionsByTeam,
   } = parseChartsData(
     data.executions,
-    teams.map((team: FlowTeam) => team.name),
+    teams.map((team: FlowTeam) => team.name)
   );
 
   console.log({ carbonLineData });
 
-  const totalExecutions = data.totalActivitiesExecuted
+  const totalExecutions = data.totalActivitiesExecuted;
   return (
     <>
       <div className={styles.statsWidgets} data-testid="completed-insights">
@@ -404,9 +398,7 @@ function Graphs(props: GraphsProps) {
             title="Executions"
             type="runs"
             totalCount={totalExecutions}
-            infoList={  
-             executionsByTeam.slice(0, 5)
-            }
+            infoList={executionsByTeam.slice(0, 5)}
           />
           <InsightsTile
             title="Duration (median)"
@@ -414,30 +406,29 @@ function Graphs(props: GraphsProps) {
             totalCount={timeSecondsToTimeUnit(medianDuration)}
             infoList={durationData}
             valueWidth="7rem"
-            tileMaxHeight="22.375rem"
           />
+          <div className={styles.donut}>
+            {totalExecutions === 0 ? (
+              <p className={`${styles.statsLabel} --no-data`}>No Data</p>
+            ) : (
+              <CarbonDonutChart data={carbonDonutData} title="Status" />
+            )}
+          </div>
         </div>
-        <ChartsTile title="Status" tileWidth="33rem" tileMaxHeight="22.375rem" totalCount="" type="">
-          {totalExecutions === 0 ? (
-            <p className={`${styles.statsLabel} --no-data`}>No Data</p>
-          ) : (
-            <CarbonDonutChart data={carbonDonutData} />
-          )}
-        </ChartsTile>
       </div>
       <div className={styles.graphsWidgets}>
-        <ChartsTile title="Execution" totalCount="" type="" tileWidth="45vw">
+        <ChartsTile>
           {totalExecutions === 0 ? (
             <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
           ) : (
-            <CarbonLineChart data={carbonLineData} />
+            <CarbonLineChart data={carbonLineData} title="Executions" />
           )}
         </ChartsTile>
-        <ChartsTile title="Execution Time" totalCount="" type="" tileWidth="45vw">
+        <ChartsTile>
           {totalExecutions === 0 ? (
             <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
           ) : (
-            <CarbonScatterChart data={carbonScatterData} />
+            <CarbonScatterChart data={carbonScatterData} title="Execution Time" />
           )}
         </ChartsTile>
       </div>

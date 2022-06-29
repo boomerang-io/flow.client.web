@@ -12,9 +12,9 @@ InsightsTile.propTypes = {
   description: PropTypes.string,
 };
 
-function InsightsTile({ title, type, totalCount, infoList, valueWidth = "2rem", tileMaxHeight = "none" }) {
+function InsightsTile({ title, type, totalCount, infoList, valueWidth = "2rem" }) {
   return (
-    <Tile className={styles.container} style={{ maxHeight: tileMaxHeight }}>
+    <Tile className={styles.container}>
       <div>
         <h3 className={styles.title}>{title}</h3>
         <div className={styles.totalCountContainer}>

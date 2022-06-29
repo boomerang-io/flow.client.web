@@ -3,7 +3,7 @@
 .container {
   height: 100%;
   overflow-y: auto;
-  padding: 1.875rem 1.5rem 1.5rem;
+  padding: 1.875rem 1.5rem 10rem;
   width: 100%;
 
   :global .bx--bmrg-select {
@@ -72,16 +72,22 @@
 .statsWidgets {
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
-  margin-left: -1.25rem;
-  margin-top: 2rem;
+  margin-top: 3.375rem;
+  gap: 2rem;
 }
+
 .graphsWidgets {
-  align-items: center;
   display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  margin-left: -1.25rem;
+  flex-direction: column;
+  margin-top: 2rem;
+  gap: 2rem;
+}
+
+.donut {
+  background-color: var(--cds-ui-01);
+  padding: 1.25rem;
+  width: 26.25rem;
+  @include border-radius();
 }
 
 @media (max-width: 50rem) {
@@ -123,13 +129,13 @@
 
 .cardPlaceholderContainer {
   display: flex;
+  gap: 2rem;
+  margin: 2.5rem 0rem 2rem;
 }
 
 .cardPlaceholder {
   min-height: 22.375rem;
   min-width: 15.625rem;
-  margin: 2.5rem 0rem;
-  margin-right: 1.5rem;
 
   &.wide {
     min-width: 25.625rem;
@@ -137,15 +143,18 @@
 }
 
 .graphPlaceholder {
-  width: 50vw;
+  max-width: 86rem;
   min-height: 25rem;
-}
-.insightsCards {
-  display: flex;
+  width: 100%;
 }
 
-.timeFilters {
-  margin-left: auto;
+.insightsCards {
+  display: flex;
+  gap: 2rem;
+}
+
+:global #insights-date-picker {
+  gap: 1rem;
 }
 
 :global .bx--cc--donut {

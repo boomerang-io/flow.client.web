@@ -2,15 +2,13 @@
 
 .container {
   background-color: var(--cds-ui-01);
-  margin: 1rem;
-  min-height: 30rem;
-  min-width: 30rem; 
+  max-width: 86rem;
   padding: 1.25rem;
   @include border-radius();
 }
 .title {
   font-size: 0.875rem;
-  font-weight: 300;
+  font-weight: 600;
 }
 .totalCountContainer {
   align-items: flex-end;

@@ -3,28 +3,29 @@ import { LineChart } from "@carbon/charts-react";
 import { chartInfo } from "../constants";
 
 const lineTimeSeriesOptions = {
+  height: "400px",
   axes: {
     left: {
       secondary: true,
-      title: "Executions"
+      title: "Executions",
     },
     bottom: {
       scaleType: "time",
-      primary: true
-    }
+      primary: true,
+    },
   },
-  curve: "curveMonotoneX"
+  curve: "curveMonotoneX",
 };
 
-const CarbonLineChart = ({ data }) => {
+const CarbonLineChart = ({ data, title = "Line Chart" }) => {
   return (
     <div className="CarbonTimeLineChart">
       <LineChart
         data={{
-          labels: chartInfo.map(chart => chart.label),
-          datasets: data
+          labels: chartInfo.map((chart) => chart.label),
+          datasets: data,
         }}
-        options={lineTimeSeriesOptions}
+        options={{ ...lineTimeSeriesOptions, title }}
       />
     </div>
   );

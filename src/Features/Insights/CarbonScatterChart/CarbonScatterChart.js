@@ -3,6 +3,7 @@ import "@carbon/charts/styles.css";
 // import CustomTooltip from "./CustomTooltip";
 
 const scatterSeriesOptions = {
+  height: "400px",
   axes: {
     left: {
       secondary: true,
@@ -30,7 +31,7 @@ const scatterSeriesOptions = {
   }
 };
 
-const CarbonScatterChart = ({ data }) => {
+const CarbonScatterChart = ({ data, title="Scatter Chart" }) => {
   return (
     <div className="CarbonTimeScatterChart">
       <ScatterChart
@@ -38,7 +39,7 @@ const CarbonScatterChart = ({ data }) => {
           labels: [""],
           datasets: data
         }}
-        options={scatterSeriesOptions}
+        options={{...scatterSeriesOptions, title}}
       />
     </div>
   );
