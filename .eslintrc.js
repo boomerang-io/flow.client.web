@@ -22,4 +22,9 @@ module.exports = {
     rtlContextRouterRender: true,
   },
   ignorePatterns: ["public/*", "cypress/*"],
+  settings: {
+    jest: {
+      version: 27,
+    },
+  },
 };
