@@ -104,8 +104,8 @@ export default function Navbar({
 
   const { platform } = platformConfigData;
   const appTitle = getAppTitle(platform);
-  const appName = platform.appName || "Flow";
-  const platformName = platform.platformName || "Boomerang";
+  const appName = platform.appName;
+  const platformName = platform.platformName;
 
   return (
     <>
@@ -127,14 +127,10 @@ export default function Navbar({
 }
 
 function getAppTitle(platformData: PlatformConfig["platform"]) {
-  let appTitle = "Boomerang Flow";
+  let appTitle = platformData.platformName;
 
   if (platformData.appName) {
-    appTitle = platformData.appName;
-  }
-
-  if (platformData.platformName) {
-    appTitle = `${appTitle} - ${platformData.platformName}`;
+    appTitle = `${platformData.appName} - ${platformData.platformName}`;
   }
 
   return appTitle;
