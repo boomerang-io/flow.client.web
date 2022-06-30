@@ -27,7 +27,7 @@
     "upgradePackage": "react-scripts upgradePackage"
   },
   "dependencies": {
-    "@boomerang-io/carbon-addons-boomerang-react": "2.0.2",
+    "@boomerang-io/carbon-addons-boomerang-react": "2.0.5",
     "@boomerang-io/styles": "1.0.0",
     "@boomerang-io/utils": "1.0.3",
     "@carbon/charts": "^0.58.2",
@@ -73,7 +73,7 @@
     "react-mde": "11.5.0",
     "react-query": "^3.34.12",
     "react-router-dom": "5.3.0",
-    "react-scripts": "^5.0.0",
+    "react-scripts": "^5.0.1",
     "react-sliding-pane": "^7.1.0",
     "react-transition-group": "^4.4.2",
     "reflexbox": "^4.0.6",
@@ -109,7 +109,7 @@
     "@types/yup": "^0.29.3",
     "commitizen": "^4.2.4",
     "cross-env": "7.0.2",
-    "cypress": "^9.2.0",
+    "cypress": "^9.7.0",
     "cz-conventional-changelog": "3.1.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-jest": "^25.3.4",

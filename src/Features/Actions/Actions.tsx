@@ -306,12 +306,12 @@ function Actions() {
         <Switch>
           <Route exact path={AppPath.ActionsApprovals}>
             <Helmet>
-              <title>Actions - Approvals</title>
+              <title>Approvals - Actions</title>
             </Helmet>
           </Route>
           <Route exact path={AppPath.ActionsManual}>
             <Helmet>
-              <title>Actions - Manual Tasks</title>
+              <title>Manual - Actions</title>
             </Helmet>
           </Route>
           <Redirect exact from={AppPath.Actions} to={AppPath.ActionsApprovals} />

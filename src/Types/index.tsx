@@ -567,11 +567,13 @@ export interface PlatformConfig {
   };
   navigation: Array<{ name: string; url: string }>;
   platform: {
+    appName?: string;
     baseEnvUrl?: string;
     baseServicesUrl?: string;
     communityUrl?: string;
     displayLogo: boolean;
     name: string;
+    platformName: string;
     privateTeams: boolean;
     sendMail: boolean;
     signOutUrl: string;
