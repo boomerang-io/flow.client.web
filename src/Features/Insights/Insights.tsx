@@ -5,7 +5,7 @@ import moment from "moment";
 import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { DatePicker, DatePickerInput, MultiSelect as Select, SkeletonPlaceholder } from "carbon-components-react";
+import { DatePicker, DatePickerInput, FilterableMultiSelect, SkeletonPlaceholder } from "carbon-components-react";
 import {
   FeatureHeader as Header,
   FeatureHeaderSubtitle as HeaderSubtitle,
@@ -20,15 +20,29 @@ import InsightsTile from "./InsightsTile";
 import CarbonDonutChart from "./CarbonDonutChart";
 import CarbonLineChart from "./CarbonLineChart";
 import CarbonScatterChart from "./CarbonScatterChart";
-import { elevatedUserRoles, ExecutionStatusCopy, WorkflowScope } from "Constants";
+import { elevatedUserRoles, WorkflowScope } from "Constants";
 import { executionOptions, statusOptions } from "Constants/filterOptions";
-import { parseChartsData } from "./chartHelper";
+import { parseChartsData } from "./utils/formatData";
 import { queryStringOptions } from "Config/appConfig";
 import { timeSecondsToTimeUnit } from "Utils/timeSecondsToTimeUnit";
-import type { FlowTeam, MultiSelectItem, MultiSelectItems, WorkflowSummary } from "Types";
+import type { ExecutionStatus, FlowTeam, MultiSelectItem, MultiSelectItems, WorkflowSummary } from "Types";
 import styles from "./workflowInsights.module.scss";
 
-const MultiSelect = Select.Filterable;
+export interface InsightsExecution {
+  activityId: string;
+  creationDate: string;
+  duration: number;
+  status: ExecutionStatus;
+  teamName: string;
+  workflowId: string;
+  workflowName: string;
+}
+interface WorkflowInsightsRes {
+  medianExecutionTime: number;
+  totalActivitiesExecuted: number;
+  executions: Array<InsightsExecution>;
+}
+
 const systemWorkflowsUrl = serviceUrl.getSystemWorkflows();
 const now = moment();
 const maxDate = now.format("MM/DD/YYYY");
@@ -77,7 +91,7 @@ export default function Insights() {
   );
 
   const insightsUrl = serviceUrl.getInsights({ query: insightsSearchParams });
-  const insightsQuery = useQuery({
+  const insightsQuery = useQuery<WorkflowInsightsRes>({
     queryKey: insightsUrl,
     queryFn: resolver.query(insightsUrl),
   });
@@ -112,12 +126,16 @@ export default function Insights() {
     );
   }
 
-  return (
-    <InsightsContainer>
-      <Selects systemWorkflowsQuery={systemWorkflowsQuery} updateHistorySearch={updateHistorySearch} />
-      <Graphs data={insightsQuery.data} statuses={statuses} />
-    </InsightsContainer>
-  );
+  if (insightsQuery.data) {
+    return (
+      <InsightsContainer>
+        <Selects systemWorkflowsQuery={systemWorkflowsQuery} updateHistorySearch={updateHistorySearch} />
+        <Graphs data={insightsQuery.data} statuses={statuses as ExecutionStatus | Array<ExecutionStatus> | null} />
+      </InsightsContainer>
+    );
+  }
+
+  return null;
 }
 
 function InsightsContainer(props: { children: React.ReactNode }) {
@@ -176,9 +194,9 @@ function Selects(props: SelectsProps) {
 
   const workflowOptions = getWorkflowOptions({
     isSystemWorkflowsEnabled,
-    scopes,
-    teams,
+    selectedScopes,
     selectedTeams,
+    teams,
     systemWorkflowsData: props.systemWorkflowsQuery.data,
     userWorkflowsData: userWorkflows.workflows,
   });
@@ -251,7 +269,7 @@ function Selects(props: SelectsProps) {
 
   return (
     <div className={styles.dataFilters}>
-      <MultiSelect
+      <FilterableMultiSelect
         id="actions-scopes-select"
         label="Choose scope(s)"
         placeholder="Choose scope(s)"
@@ -264,7 +282,7 @@ function Selects(props: SelectsProps) {
         )}
         titleText="Filter by scope"
       />
-      <MultiSelect
+      <FilterableMultiSelect
         disabled={disableTeamsDropdown}
         key={disableTeamsDropdown ? "teams-disabled" : "teams-enabeld"}
         id="insights-teams-select"
@@ -277,7 +295,7 @@ function Selects(props: SelectsProps) {
         initialSelectedItems={selectedTeams}
         titleText="Filter by Team"
       />
-      <MultiSelect
+      <FilterableMultiSelect
         id="insights-workflows-select"
         label="Choose workflow(s)"
         placeholder="Choose workflow(s)"
@@ -301,7 +319,7 @@ function Selects(props: SelectsProps) {
         )}
         titleText="Filter by Workflow"
       />
-      <MultiSelect
+      <FilterableMultiSelect
         id="insights-triggers-select"
         label="Choose trigger type(s)"
         placeholder="Choose trigger type(s)"
@@ -314,7 +332,7 @@ function Selects(props: SelectsProps) {
         )}
         titleText="Filter by trigger"
       />
-      <MultiSelect
+      <FilterableMultiSelect
         id="insights-statuses-select"
         label="Choose status(es)"
         placeholder="Choose status(es)"
@@ -348,22 +366,19 @@ function Selects(props: SelectsProps) {
 }
 
 interface GraphsProps {
-  [k: string]: any;
+  data: WorkflowInsightsRes;
+  statuses: ExecutionStatus | ExecutionStatus[] | null;
 }
 
 function Graphs(props: GraphsProps) {
   const { data, statuses } = props;
-  console.log({ statuses });
-  const {
-    donutData,
-    durationData,
-    lineChartData,
-    scatterPlotData,
-    medianDuration,
-    executionsByTeam,
-  } = React.useMemo(() => parseChartsData(data.executions), [data.executions]);
+  const { donutData, durationData, lineChartData, scatterPlotData, executionsCountList } = React.useMemo(
+    () => parseChartsData(data.executions, statuses),
+    [data.executions, statuses]
+  );
 
   const totalExecutions = data.totalActivitiesExecuted;
+  const medianExecutionTime = Math.round(data.medianExecutionTime / 1000);
   return (
     <>
       <div className={styles.statsWidgets} data-testid="completed-insights">
@@ -371,12 +386,12 @@ function Graphs(props: GraphsProps) {
           title="Executions"
           type="runs"
           totalCount={totalExecutions}
-          infoList={executionsByTeam.slice(0, 5)}
+          infoList={executionsCountList.slice(0, 5)}
         />
         <InsightsTile
           title="Duration (median)"
           type=""
-          totalCount={timeSecondsToTimeUnit(medianDuration)}
+          totalCount={timeSecondsToTimeUnit(medianExecutionTime)}
           infoList={durationData}
           valueWidth="7rem"
         />
@@ -384,13 +399,7 @@ function Graphs(props: GraphsProps) {
           {totalExecutions === 0 ? (
             <p className={`${styles.statsLabel} --no-data`}>No Data</p>
           ) : (
-            <CarbonDonutChart
-              data={donutData}
-              title="Status"
-              labels={
-                Array.isArray(statuses) ? statuses.map((status: string) => ExecutionStatusCopy[status]) : undefined
-              }
-            />
+            <CarbonDonutChart data={donutData} title="Status" />
           )}
         </div>
       </div>
@@ -416,7 +425,7 @@ function Graphs(props: GraphsProps) {
 
 interface GetWorkflowOptionsArgs {
   isSystemWorkflowsEnabled: boolean;
-  scopes: string | Array<string> | null;
+  selectedScopes: Array<string> | null;
   selectedTeams: Array<FlowTeam>;
   systemWorkflowsData?: Array<WorkflowSummary>;
   teams: Array<FlowTeam>;
@@ -425,14 +434,15 @@ interface GetWorkflowOptionsArgs {
 
 function getWorkflowOptions({
   isSystemWorkflowsEnabled,
-  scopes,
   teams,
+  selectedScopes,
   selectedTeams,
   systemWorkflowsData = [],
   userWorkflowsData = [],
 }: GetWorkflowOptionsArgs) {
+  
   let workflowsList: Array<WorkflowSummary> = [];
-  if (!scopes || (Array.isArray(scopes) && scopes?.includes(WorkflowScope.Team))) {
+  if (!selectedScopes || (Array.isArray(selectedScopes) && selectedScopes?.includes(WorkflowScope.Team))) {
     if (selectedTeams.length === 0 && teams) {
       workflowsList = teams.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
         acc.push(...team.workflows);
@@ -445,10 +455,10 @@ function getWorkflowOptions({
       }, []);
     }
   }
-  if ((!scopes || scopes?.includes(WorkflowScope.System)) && isSystemWorkflowsEnabled) {
+  if ((!selectedScopes || selectedScopes?.includes(WorkflowScope.System)) && isSystemWorkflowsEnabled) {
     workflowsList.push(...systemWorkflowsData);
   }
-  if (!scopes || scopes?.includes(WorkflowScope.User)) {
+  if (!selectedScopes || selectedScopes?.includes(WorkflowScope.User)) {
     workflowsList.push(...userWorkflowsData);
   }
   let workflowsFilter = sortByProp(workflowsList, "name", "ASC");

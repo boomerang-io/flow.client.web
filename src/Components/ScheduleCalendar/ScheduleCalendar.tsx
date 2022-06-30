@@ -2,7 +2,7 @@ import React from "react";
 import { Calendar, CalendarProps, EventProps, Event, momentLocalizer } from "react-big-calendar";
 import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import moment from "moment";
-import { statusLabelMap } from "Constants/schedule";
+import { scheduleStatusLabelMap } from "Constants";
 import { CircleFilled16, RadioButton16 } from "@carbon/icons-react";
 import { CalendarEvent } from "Types";
 import styles from "./ScheduleCalendar.module.scss";
@@ -59,7 +59,7 @@ function CustomEvent(props: LocalEventProps) {
   const hour = moment(event.start).format("h:mm a");
   return (
     <button className={styles.eventContentContainer} data-status={schedule.status} onClick={event.onClick}>
-      <TooltipHover direction="top" tooltipText={statusLabelMap[schedule.status] ?? "---"}>
+      <TooltipHover direction="top" tooltipText={scheduleStatusLabelMap[schedule.status] ?? "---"}>
         {schedule.status === "inactive" ? (
           <RadioButton16 className={styles.statusCircle} data-status={schedule.status} />
         ) : (

@@ -1,38 +1,40 @@
-// @ts-nocheck
 import { LineChart } from "@carbon/charts-react";
-import { chartInfo } from "../constants";
+import { ScaleTypes } from "@carbon/charts/interfaces";
 
-const lineTimeSeriesOptions = {
-  height: "400px",
-  axes: {
-    left: {
-      title: "Executions",
-      secondary: true,
-    },
-    bottom: {
-      title: "Date",
-      scaleType: "time",
-      primary: true,
-    },
-  },
-  curve: "curveMonotoneX",
-  tooltip: {
-    groupLabel: "Status"
-  }
-};
+interface CarbonLineChartProps {
+  data: any;
+  title?: string;
+}
 
-const CarbonLineChart = ({ data, title = "Line Chart" }) => {
+function CarbonLineChart(props: CarbonLineChartProps) {
+  const { data, title = "Line Chart" } = props;
   return (
-    <div className="CarbonTimeLineChart">
-      <LineChart
-        data={{
-          labels: chartInfo.map((chart) => chart.label),
-          datasets: data,
-        }}
-        options={{ ...lineTimeSeriesOptions, title }}
-      />
-    </div>
+    <LineChart
+      data={data}
+      options={{
+        title,
+        curve: "curveMonotoneX",
+        height: "400px",
+        axes: {
+          left: {
+            title: "Executions",
+          },
+          bottom: {
+            title: "Date",
+            scaleType: ScaleTypes.TIME,
+          },
+        },
+        tooltip: {
+          groupLabel: "Status",
+        },
+        zoomBar: {
+          top: {
+            enabled: false,
+          },
+        },
+      }}
+    />
   );
-};
+}
 
 export default CarbonLineChart;

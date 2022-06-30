@@ -1,18 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
 import { Tile } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./insightsTile.module.scss";
 
-InsightsTile.propTypes = {
-  type: PropTypes.string,
-  totalCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  infoList: PropTypes.array,
-  valueWidth: PropTypes.string,
-  title: PropTypes.string,
-  description: PropTypes.string,
-};
+interface InsightsTileProps {
+  infoList: Array<{ label: string; value: string | number }>;
+  title: string;
+  totalCount: string | number;
+  type: string;
+  valueWidth?: string;
+}
 
-function InsightsTile({ title, type, totalCount, infoList, valueWidth = "2rem" }) {
+function InsightsTile(props: InsightsTileProps) {
+  const { title, type, totalCount, infoList, valueWidth = "2rem" } = props;
   return (
     <Tile className={styles.container}>
       <div>

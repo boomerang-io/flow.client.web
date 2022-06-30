@@ -1,38 +1,35 @@
-// @ts-nocheck
 import { DonutChart } from "@carbon/charts-react";
+import { Alignments, LegendPositions } from "@carbon/charts/interfaces";
 
-const CarbonDonutChart = ({
-  data,
-  title = "Donut Chart",
-  labels = ["Succeeded", "Failed", "Invalid", "Cancelled", "In Progress", "Waiting"],
-}) => {
+interface CarbonDonutChartProps {
+  data: any;
+  title?: string;
+}
+
+function CarbonDonutChart(props: CarbonDonutChartProps) {
+  const { data, title = "Donut Chart" } = props;
   return (
     <div className="CarbonDonutChart">
       <DonutChart
-        resizable
-        fixedDataLabels={false}
-        data={{
-          labels,
-          datasets: data,
-        }}
+        data={data}
         options={{
           title,
           resizable: true,
           height: "350px",
           donut: {
-            alignment: "center",
+            alignment: Alignments.CENTER,
             center: {
               label: "Executions",
             },
           },
           legend: {
-            alignment: "left",
-            position: "bottom",
+            alignment: Alignments.CENTER,
+            position: LegendPositions.BOTTOM,
           },
         }}
       />
     </div>
   );
-};
+}
 
 export default CarbonDonutChart;

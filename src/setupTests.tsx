@@ -1,12 +1,11 @@
 //@ts-nocheck
-import React from "react";
 import { Router } from "react-router-dom";
 import { FlagsProvider } from "flagged";
 import { createMemoryHistory } from "history";
 import { render as rtlRender } from "@testing-library/react";
 import { QueryClient, QueryClientProvider, setLogger } from "react-query";
 import { AppContextProvider } from "State/context";
-import { featureFlags as featureFlagsFixture, teams as teamsFixture, profile as userFixture } from "ApiServer/fixtures";
+import { featureFlags as featureFlagsFixture, teams as teamsFixture, profile as userFixture, userWorkflows as userWorkflowsFixture } from "ApiServer/fixtures";
 import "@testing-library/jest-dom/extend-expect";
 
 setLogger({
@@ -55,6 +54,7 @@ function rtlRouterRender(
 const defaultContextValue = {
   user: userFixture,
   teams: teamsFixture,
+  userWorkflows: userWorkflowsFixture
 };
 
 const feature = featureFlagsFixture.features;

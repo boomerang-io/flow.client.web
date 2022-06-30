@@ -1,4 +1,5 @@
 import { CloseOutline32, CheckmarkOutline32, Error32, InProgress32, Timer32 } from "@carbon/icons-react";
+import { ScheduleStatus, ScheduleType } from "Types";
 
 /**
  * Primitve constants
@@ -10,15 +11,15 @@ export const PASSWORD_CONSTANT = "******";
 /**
  * Enums
  */
-export const HttpMethod = {
+export const HttpMethod = Object.freeze({
   Post: "post",
   Put: "put",
   Patch: "patch",
   Delete: "delete",
   Get: "get",
-};
+});
 
-export const ExecutionStatus = {
+export const ExecutionStatus = Object.freeze({
   Cancelled: "cancelled",
   Completed: "completed",
   Failure: "failure",
@@ -27,9 +28,9 @@ export const ExecutionStatus = {
   NotStarted: "notstarted",
   Skipped: "skipped",
   Waiting: "waiting",
-};
+});
 
-export const ExecutionStatusCopy = {
+export const ExecutionStatusCopy = Object.freeze({
   [ExecutionStatus.Cancelled]: "Cancelled",
   [ExecutionStatus.Completed]: "Succeeded",
   [ExecutionStatus.Failure]: "Failed",
@@ -38,9 +39,9 @@ export const ExecutionStatusCopy = {
   [ExecutionStatus.Invalid]: "Invalid",
   [ExecutionStatus.Skipped]: "Skipped",
   [ExecutionStatus.Waiting]: "Waiting",
-};
+});
 
-export const InputProperty = {
+export const InputProperty = Object.freeze({
   DefaultValue: "defaultValue",
   Description: "description",
   HelperText: "helperText",
@@ -52,9 +53,9 @@ export const InputProperty = {
   Required: "required",
   Type: "type",
   JsonPath: "jsonPath",
-};
+});
 
-export const InputType = {
+export const InputType = Object.freeze({
   Boolean: "boolean",
   Email: "email",
   Number: "number",
@@ -68,9 +69,9 @@ export const InputType = {
   TextEditorShell: "texteditor::shell",
   TextEditorYaml: "texteditor::yaml",
   URL: "url",
-};
+});
 
-export const InputTypeCopy = {
+export const InputTypeCopy = Object.freeze({
   [InputType.Boolean]: "Boolean",
   [InputType.Email]: "Email",
   [InputType.Number]: "Number",
@@ -79,9 +80,9 @@ export const InputTypeCopy = {
   [InputType.TextArea]: "Text Area",
   [InputType.Text]: "Text",
   [InputType.URL]: "URL",
-};
+});
 
-export const NodeType = {
+export const NodeType = Object.freeze({
   Approval: "approval",
   CustomTask: "customTask",
   Decision: "decision",
@@ -97,76 +98,119 @@ export const NodeType = {
   RunWorkflow: "runworkflow",
   Script: "script",
   SetStatus: "setwfstatus",
-};
+});
 
-export const QueryStatus = {
+export const QueryStatus = Object.freeze({
   Idle: "idle",
   Loading: "loading",
   Error: "error",
   Success: "success",
-};
+});
 
-export const TaskTemplateStatus = {
+export const scheduleStatusOptions: Array<{ label: string; value: ScheduleStatus }> = [
+  { label: "Enabled", value: "active" },
+  { label: "Disabled", value: "inactive" },
+  { label: "Trigger Disabled", value: "trigger_disabled" },
+  { label: "Error", value: "error" },
+];
+
+export const scheduleStatusLabelMap: Record<ScheduleStatus, string> = Object.freeze({
+  active: "Enabled",
+  inactive: "Disabled",
+  trigger_disabled: "Trigger Disabled",
+  deleted: "Deleted",
+  error: "Error",
+});
+
+export const scheduleTypeLabelMap: Record<ScheduleType, string> = Object.freeze({
+  runOnce: "Run Once",
+  cron: "Recurring",
+  advancedCron: "Recurring via cron expression",
+});
+
+export const TaskTemplateStatus = Object.freeze({
   Active: "active",
   Inactive: "inactive",
   Archived: "archived",
-};
+});
 
-export const UserType = {
+export const UserType = Object.freeze({
   Admin: "admin",
   Operator: "operator",
   User: "user",
-};
+});
 
-export const UserTypeCopy = {
+export const UserTypeCopy = Object.freeze({
   [UserType.Admin]: "Admin",
   [UserType.User]: "User",
-};
+});
 
-export const WorkflowDagEngineMode = {
+export const WorkflowDagEngineMode = Object.freeze({
   Editor: "editor",
   Viewer: "viewer",
   Executor: "executor",
-};
+});
 
-export const WorkflowPropertyUpdateType = {
+export const WorkflowPropertyUpdateType = Object.freeze({
   Create: "create",
   Update: "update",
   Delete: "delete",
-};
+});
 
-export const WorkflowScope = {
+export const WorkflowScope = Object.freeze({
   System: "system",
   Team: "team",
   User: "user",
   Template: "template",
-};
+});
 
-export const SortDirection = {
+export const SortDirection = Object.freeze({
   Asc: "ASC",
   Desc: "DESC",
-};
+});
 
-export const UserRole = {
+export const UserRole = Object.freeze({
   Admin: "admin",
   Auditor: "auditor",
   Operator: "operator",
   Author: "author",
   User: "user",
-};
+});
 
-export const UserRoleCopy = {
+export const UserRoleDisplay = Object.freeze({
   [UserRole.Admin]: "Admin",
   [UserRole.Auditor]: "Auditor",
   [UserRole.Operator]: "Operator",
   [UserRole.Author]: "Author",
   [UserRole.User]: "User",
-};
+});
+
+export const UserRoleCopy = Object.freeze({
+  [UserRole.Admin]: "Admin",
+  [UserRole.Auditor]: "Auditor",
+  [UserRole.Operator]: "Operator",
+  [UserRole.Author]: "Author",
+  [UserRole.User]: "User",
+});
+
+export const REQUEST_TYPES = Object.freeze({
+  JOIN_TEAM: "joingroup",
+  CREATE_TEAM: "creategroup",
+  LEAVE_TEAM: "leavegroup",
+  REMOVE_TEAM: "removegroup",
+});
+
+export const REQUEST_TYPES_TO_DISPLAY = Object.freeze({
+  [REQUEST_TYPES.JOIN_TEAM]: "Join a Team",
+  [REQUEST_TYPES.CREATE_TEAM]: "Create a Team",
+  [REQUEST_TYPES.LEAVE_TEAM]: "Leave a Team",
+  [REQUEST_TYPES.REMOVE_TEAM]: "Remove a Team",
+});
 
 /**
  * Complex objects
  */
-export const executionStatusIcon = {
+export const executionStatusIcon = Object.freeze({
   [ExecutionStatus.Cancelled]: CloseOutline32,
   [ExecutionStatus.Completed]: CheckmarkOutline32,
   [ExecutionStatus.Failure]: CloseOutline32,
@@ -175,7 +219,7 @@ export const executionStatusIcon = {
   [ExecutionStatus.Invalid]: Error32,
   [ExecutionStatus.Skipped]: Error32,
   [ExecutionStatus.Waiting]: InProgress32,
-};
+});
 
 export const executionStatusList = [
   ExecutionStatus.InProgress,
@@ -186,22 +230,22 @@ export const executionStatusList = [
   ExecutionStatus.Cancelled,
 ];
 
-export const ActionType = {
+export const ActionType = Object.freeze({
   Approval: "approval",
   Task: "task",
-};
+});
 
-export const ApprovalInputRequired = {
+export const ApprovalInputRequired = Object.freeze({
   Optional: "optional",
   Required: "required",
   None: "none",
-};
+});
 
-export const ApprovalStatus = {
+export const ApprovalStatus = Object.freeze({
   Approved: "approved",
   Rejected: "rejected",
   Submitted: "submitted",
-};
+});
 
 export const elevatedUserRoles = [UserType.Admin, UserType.Operator];
 

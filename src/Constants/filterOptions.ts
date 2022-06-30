@@ -1,4 +1,5 @@
 import moment from "moment";
+import { ExecutionStatus } from "Types";
 
 const oneMonthAgo = moment().subtract(1, "month");
 const monthAgoInDays = moment().diff(oneMonthAgo, "days");
@@ -27,13 +28,13 @@ export const executionOptions = [
   { label: "Webhook", value: "webhook" },
 ];
 
-export const statusOptions = [
-  { label: "Succeeded", value: "completed" },
-  { label: "Failed", value: "failure" },
-  { label: "Invalid", value: "invalid" },
-  { label: "In Progress", value: "inProgress" },
-  { label: "Waiting", value: "waiting" },
-  { label: "Cancelled", value: "cancelled" },
+export const statusOptions: Array<{ label: string, value: ExecutionStatus}> = [
+  { label: "Succeeded", value: ExecutionStatus.Completed },
+  { label: "Failed", value: ExecutionStatus.Failure},
+  { label: "Invalid", value: ExecutionStatus.Invalid },
+  { label: "In Progress", value: ExecutionStatus.InProgress },
+  { label: "Waiting", value: ExecutionStatus.Waiting },
+  { label: "Cancelled", value: ExecutionStatus.Cancelled },
 ];
 
 export const approvalStatusOptions = [

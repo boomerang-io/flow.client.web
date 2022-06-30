@@ -18,7 +18,7 @@ import moment from "moment-timezone";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
 import { elevatedUserRoles, WorkflowScope } from "Constants";
-import { scheduleStatusOptions } from "Constants/schedule";
+import { scheduleStatusOptions } from "Constants";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import type { SlotInfo } from "react-big-calendar";

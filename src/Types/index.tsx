@@ -504,6 +504,17 @@ export interface WorkflowTemplate {
   triggers: { [key: string]: any };
 }
 
+export enum ExecutionStatus {
+  Cancelled = "cancelled",
+  Completed = "completed",
+  Failure = "failure",
+  InProgress = "inProgress",
+  Invalid = "invalid",
+  NotStarted = "notstarted",
+  Skipped = "skipped",
+  Waiting = "waiting",
+}
+
 export interface UserQuotas {
   maxWorkflowCount: number;
   maxWorkflowExecutionMonthly: number;
