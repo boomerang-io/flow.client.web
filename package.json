@@ -24,7 +24,9 @@
     "test:ci-cypress": "start-server-and-test http://localhost:3000 cypress:run",
     "test:cypress": "$(npm bin)/cypress run --config video=false",
     "test:staged": "cross-env TZ=UTC CI=true react-scripts test --passWithNoTests --findRelatedTests --bail",
-    "upgradePackage": "react-scripts upgradePackage"
+    "upgradePackage": "node scripts/upgradePackage",
+    "prepare": "husky install",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@boomerang-io/carbon-addons-boomerang-react": "2.0.2",
@@ -116,7 +118,7 @@
     "eslint-plugin-testing-library": "5.0.1",
     "find-webpack": "^2.0.0",
     "http-proxy-middleware": "^0.20.0",
-    "husky": "^4.2.5",
+    "husky": "^8.0.0",
     "jest-axe": "^3.4.0",
     "lint-staged": "10.1.1",
     "miragejs": "^0.1.40",
