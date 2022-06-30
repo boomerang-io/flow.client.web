@@ -90,7 +90,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
       }}
       onSubmit={handleOnSubmit}
       validationSchema={Yup.object().shape({
-        name: Yup.mixed().required(),
+        quotaFormValue: Yup.number().required("Value is required"),
       })}
     >
       {(formikProps) => {
@@ -117,7 +117,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                     invalid={errors.quotaFormValue && !touched.quotaFormValue}
                     invalidText={errors.quotaFormValue}
                   />
-                  {inputUnits && <h5 className={styles.inputUnits}>{inputUnits}</h5>}
+                  {inputUnits && <span className={styles.inputUnits}>{inputUnits}</span>}
                 </div>
                 {error && (
                   <InlineNotification

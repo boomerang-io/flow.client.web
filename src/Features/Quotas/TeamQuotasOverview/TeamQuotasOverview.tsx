@@ -66,6 +66,7 @@ export function TeamQuotasOverview({ teams }) {
           detailedTitle="Current Usage"
           detailedData={`${teamQuotasData.currentWorkflowCount}/${teamQuotasData.maxWorkflowCount}`}
           inputLabel="Maximum Workflows"
+          inputUnits="Workflows"
           stepValue={1}
           teamId={teamId}
           quotaProperty="maxWorkflowCount"
@@ -80,7 +81,6 @@ export function TeamQuotasOverview({ teams }) {
           />
           <p className={styles.detailedSmallText}>{`Current usage: ${teamQuotasData.currentWorkflowCount}`}</p>
         </QuotaCard>
-
         <QuotaCard
           subtitle="Number of executions per month across all Workflows for this Team"
           title="Number of Executions"
@@ -90,6 +90,7 @@ export function TeamQuotasOverview({ teams }) {
           detailedTitle="Current Usage"
           detailedData={`${teamQuotasData.currentWorkflowExecutionMonthly}/${teamQuotasData.maxWorkflowExecutionMonthly}`}
           inputLabel="Maximum executions"
+          inputUnits="executions"
           stepValue={1}
           teamId={teamId}
           quotaProperty="maxWorkflowExecutionMonthly"
