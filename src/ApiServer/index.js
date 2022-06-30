@@ -130,7 +130,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.manageTeams[0];
       });
 
-      this.post(serviceUrl.putActivationApp(), () => {
+      this.put(serviceUrl.putActivationApp(), () => {
         return {};
       });
 
