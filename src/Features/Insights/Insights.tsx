@@ -46,8 +46,8 @@ interface WorkflowInsightsRes {
 const systemWorkflowsUrl = serviceUrl.getSystemWorkflows();
 const now = moment();
 const maxDate = now.format("MM/DD/YYYY");
-const defaultFromDate = moment().startOf("month").valueOf();
-const defaultToDate = now.valueOf();
+const defaultFromDate = now.subtract(3, "months").startOf("day");
+const defaultToDate = now.endOf("day").valueOf();
 
 export default function Insights() {
   const { user } = useAppContext();
@@ -261,8 +261,8 @@ function Selects(props: SelectsProps) {
     if (!toDateObj) {
       return;
     }
-    const fromDate = moment(fromDateObj).valueOf();
-    const toDate = moment(toDateObj).valueOf();
+    const fromDate = moment(fromDateObj).startOf("day").valueOf();
+    const toDate = moment(toDateObj).endOf("day").valueOf();
     props.updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), fromDate, toDate });
     return;
   }
@@ -440,7 +440,6 @@ function getWorkflowOptions({
   systemWorkflowsData = [],
   userWorkflowsData = [],
 }: GetWorkflowOptionsArgs) {
-  
   let workflowsList: Array<WorkflowSummary> = [];
   if (!selectedScopes || (Array.isArray(selectedScopes) && selectedScopes?.includes(WorkflowScope.Team))) {
     if (selectedTeams.length === 0 && teams) {

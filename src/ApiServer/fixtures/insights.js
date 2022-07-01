@@ -23,7 +23,16 @@ const insights = {
     {
       activityId: "5c491c201e22c4000107b83a",
       duration: 30000,
-      status: "succeeded",
+      status: "completed",
+      creationDate: 1548295200006,
+      teamName: "IBM Services Engineering",
+      workflowName: "Tim Testing Slacks",
+      workflowId: "5c3cf9ffbc521b00011b70aa",
+    },
+    {
+      activityId: "5c491c201e22c4000107b83a",
+      duration: 30000,
+      status: "idk",
       creationDate: 1548295200006,
       teamName: "IBM Services Engineering",
       workflowName: "Tim Testing Slacks",

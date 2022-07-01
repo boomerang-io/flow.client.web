@@ -1,4 +1,4 @@
-export const timeSecondsToTimeUnit = seconds => {
+export const timeSecondsToTimeUnit = (seconds) => {
   if (!seconds) return "0 secs";
   const hoursCount = Math.floor(seconds / 3600);
   const minutesCount = Math.floor((seconds % 3600) / 60);
@@ -8,5 +8,13 @@ export const timeSecondsToTimeUnit = seconds => {
   const minutesText = minutesCount > 1 ? `${minutesCount} mins` : minutesCount === 1 ? `1 min` : "";
   const secondsText = secondsCount > 1 ? `${secondsCount} secs` : secondsCount === 1 ? `1 sec` : "";
 
-  return `${hoursText} ${minutesText} ${secondsText}`;
+  if (hoursText) {
+    return `${hoursText} ${minutesText}`;
+  }
+
+  if (minutesText) {
+    return `${minutesText} ${secondsText}`;
+  }
+
+  return secondsText;
 };

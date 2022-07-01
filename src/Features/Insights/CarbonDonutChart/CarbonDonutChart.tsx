@@ -1,8 +1,8 @@
 import { DonutChart } from "@carbon/charts-react";
-import { Alignments, LegendPositions } from "@carbon/charts/interfaces";
+import { Alignments, ChartTabularData, LegendPositions } from "@carbon/charts/interfaces";
 
 interface CarbonDonutChartProps {
-  data: any;
+  data: ChartTabularData;
   title?: string;
 }
 
@@ -15,7 +15,7 @@ function CarbonDonutChart(props: CarbonDonutChartProps) {
         options={{
           title,
           resizable: true,
-          height: "350px",
+          height: "355px",
           donut: {
             alignment: Alignments.CENTER,
             center: {

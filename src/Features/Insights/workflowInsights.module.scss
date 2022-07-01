@@ -7,7 +7,7 @@
   width: 100%;
 
   :global svg:not(:root) {
-    overflow: visible  !important;
+    overflow: visible !important;
   }
 
   :global .recharts-cartesian-axis.recharts-yAxis {
@@ -95,7 +95,7 @@
   background-color: var(--cds-ui-01);
   padding: 0.625rem 1.25rem 1.25rem;
   height: 24rem;
-  width: 26.25rem;
+  width: 24.5rem;
   @include border-radius();
 }
 

@@ -104,7 +104,9 @@ export const parseChartsData = (
   for (const [dateStr, statusMap] of Object.entries(executionDateMap)) {
     for (let [status, value] of Object.entries(statusMap)) {
       const typedStatus: ExecutionStatus = status as ExecutionStatus;
-      lineChartData.push({ date: new Date(dateStr), value, group: ExecutionStatusCopy[typedStatus] });
+      if (ExecutionStatusCopy[typedStatus]) {
+        lineChartData.push({ date: new Date(dateStr), value, group: ExecutionStatusCopy[typedStatus] });
+      }
     }
   }
 

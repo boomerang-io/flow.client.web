@@ -28,13 +28,13 @@ export const executionOptions = [
   { label: "Webhook", value: "webhook" },
 ];
 
-export const statusOptions: Array<{ label: string, value: ExecutionStatus}> = [
+export const statusOptions: Array<{ label: string; value: ExecutionStatus }> = [
   { label: "Succeeded", value: ExecutionStatus.Completed },
-  { label: "Failed", value: ExecutionStatus.Failure},
-  { label: "Invalid", value: ExecutionStatus.Invalid },
+  { label: "Failed", value: ExecutionStatus.Failure },
   { label: "In Progress", value: ExecutionStatus.InProgress },
-  { label: "Waiting", value: ExecutionStatus.Waiting },
   { label: "Cancelled", value: ExecutionStatus.Cancelled },
+  { label: "Invalid", value: ExecutionStatus.Invalid },
+  { label: "Waiting", value: ExecutionStatus.Waiting },
 ];
 
 export const approvalStatusOptions = [

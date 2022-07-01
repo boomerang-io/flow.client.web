@@ -1,13 +1,14 @@
 import { LineChart } from "@carbon/charts-react";
-import { ScaleTypes } from "@carbon/charts/interfaces";
+import { ChartTabularData, ScaleTypes } from "@carbon/charts/interfaces";
 
 interface CarbonLineChartProps {
-  data: any;
+  data: ChartTabularData;
   title?: string;
 }
 
 function CarbonLineChart(props: CarbonLineChartProps) {
   const { data, title = "Line Chart" } = props;
+  console.log({ data });
   return (
     <LineChart
       data={data}

@@ -110,7 +110,19 @@ const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigne
             })),
           },
         ]
-      : [];
+      : [
+          {
+            disabled: true,
+            placeholder:
+              "This will be assigned to you as the approver to Action. Approver Groups and multiple approvers are a Team Workflows concept.",
+            description: "",
+            required: false,
+            key: "message",
+            label: "Nothing to configure",
+            type: "textarea",
+            helperText: "",
+          },
+        ];
 
   const renderConfigureTask = () => {
     return (
