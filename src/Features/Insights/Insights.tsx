@@ -46,8 +46,8 @@ interface WorkflowInsightsRes {
 const systemWorkflowsUrl = serviceUrl.getSystemWorkflows();
 const now = moment();
 const maxDate = now.format("MM/DD/YYYY");
-const defaultFromDate = now.subtract(3, "months").startOf("day");
-const defaultToDate = now.endOf("day").valueOf();
+const defaultFromDate = now.subtract(3, "months").valueOf();
+const defaultToDate = moment().endOf("day").valueOf();
 
 export default function Insights() {
   const { user } = useAppContext();
