@@ -504,6 +504,17 @@ export interface WorkflowTemplate {
   triggers: { [key: string]: any };
 }
 
+export enum ExecutionStatus {
+  Cancelled = "cancelled",
+  Completed = "completed",
+  Failure = "failure",
+  InProgress = "inProgress",
+  Invalid = "invalid",
+  NotStarted = "notstarted",
+  Skipped = "skipped",
+  Waiting = "waiting",
+}
+
 export interface UserQuotas {
   maxWorkflowCount: number;
   maxWorkflowExecutionMonthly: number;
@@ -556,11 +567,13 @@ export interface PlatformConfig {
   };
   navigation: Array<{ name: string; url: string }>;
   platform: {
+    appName?: string;
     baseEnvUrl?: string;
     baseServicesUrl?: string;
     communityUrl?: string;
     displayLogo: boolean;
     name: string;
+    platformName: string;
     privateTeams: boolean;
     sendMail: boolean;
     signOutUrl: string;
@@ -661,3 +674,12 @@ export interface ScheduleManagerFormInputs {
 
 export type DayOfWeekKey = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
 export type DayOfWeekCronAbbreviation = "MON" | "TUE" | "WED" | "THU" | "FRI" | "SAT" | "SUN";
+
+export type MultiSelectItem = {
+  label: string;
+  value: string;
+};
+
+export interface MultiSelectItems<Type = MultiSelectItem> {
+  selectedItems: Array<Type>;
+}

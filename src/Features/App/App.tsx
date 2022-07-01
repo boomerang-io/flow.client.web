@@ -2,7 +2,7 @@ import React, { lazy, useState, Suspense } from "react";
 import axios from "axios";
 import { FlagsProvider, useFeature } from "flagged";
 import { AppContextProvider } from "State/context";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import {
   DelayedRender,
@@ -19,7 +19,7 @@ import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
 import queryString from "query-string";
-import { allowedUserRoles } from "Constants";
+import { elevatedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, UserWorkflow } from "Types";
@@ -61,6 +61,7 @@ const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
 export default function App() {
   const location = useLocation();
+  const queryClient = useQueryClient();
   const teamIds = queryString.parse(location.search).teams;
   const teamIdsArray = teamIds === null || teamIds === undefined ? [] : teamIds.toString().split(",");
   const query = teamIdsArray.length === 1 ? `?teamId=${teamIdsArray[0]}` : "";
@@ -71,7 +72,7 @@ export default function App() {
   );
   const [isTutorialActive, setIsTutorialActive] = useState(false);
   const [showActivatePlatform, setShowActivatePlatform] = React.useState(false);
-  const [activationCode, setActivationCode] = React.useState("");
+  const [activationCode, setActivationCode] = React.useState<string>();
 
   const fetchUserResolver = async () => {
     try {
@@ -142,6 +143,7 @@ export default function App() {
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
     setShowActivatePlatform(false);
+    queryClient.invalidateQueries(getUserUrl);
   };
 
   if (isLoading) {
@@ -301,7 +303,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             userRole={activityEnabled ? "*" : ""}
           />
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<GlobalProperties />}
             path={AppPath.Properties}
             userRole={platformRole}
@@ -325,25 +327,25 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             userRole={teamTasksEnabled ? "*" : ""}
           />
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<Quotas />}
             path={AppPath.Quotas}
             userRole={platformRole}
           />
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<Settings />}
             path={AppPath.Settings}
             userRole={platformRole}
           />
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<SystemWorkflows />}
             path={AppPath.SystemWorkflows}
             userRole={platformRole}
           />
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<TaskTemplates />}
             path={AppPath.TaskTemplates}
             userRole={platformRole}
@@ -361,7 +363,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             userRole={teamTokensEnabled}
           />} */}
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<Tokens />}
             path={AppPath.Tokens}
             userRole={platformRole}

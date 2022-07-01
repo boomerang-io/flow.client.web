@@ -13,7 +13,7 @@ import { sortByProp } from "@boomerang-io/utils";
 import ErrorDragon from "Components/ErrorDragon";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { executionStatusList, QueryStatus, allowedUserRoles, WorkflowScope } from "Constants";
+import { executionStatusList, QueryStatus, elevatedUserRoles, WorkflowScope } from "Constants";
 import { executionOptions } from "Constants/filterOptions";
 import styles from "./Activity.module.scss";
 
@@ -36,7 +36,7 @@ function WorkflowActivity() {
   const match = useRouteMatch();
 
   const { type: platformRole }: { type: string } = user;
-  const isSystemWorkflowsEnabled = allowedUserRoles.includes(platformRole);
+  const isSystemWorkflowsEnabled = elevatedUserRoles.includes(platformRole);
 
   const {
     order = DEFAULT_ORDER,
@@ -399,7 +399,6 @@ function WorkflowActivity() {
             <DatePicker
               id="activity-date-picker"
               className={styles.timeFilters}
-              dateFormat="m/d/Y"
               datePickerType="range"
               maxDate={maxDate}
               onChange={handleSelectDate}
@@ -410,14 +409,14 @@ function WorkflowActivity() {
                 id="activity-date-picker-start"
                 labelText="Start date"
                 placeholder="mm/dd/yyyy"
-                value={fromDate && moment.unix(fromDate).format("YYYY-MM-DD")}
+                value={fromDate && moment.unix(fromDate).format("MM/DD/YYYY")}
               />
               <DatePickerInput
                 autoComplete="off"
                 id="activity-date-picker-end"
                 labelText="End date"
                 placeholder="mm/dd/yyyy"
-                value={toDate && moment.unix(toDate).format("YYYY-MM-DD")}
+                value={toDate && moment.unix(toDate).format("MM/DD/YYYY")}
               />
             </DatePicker>
           </div>

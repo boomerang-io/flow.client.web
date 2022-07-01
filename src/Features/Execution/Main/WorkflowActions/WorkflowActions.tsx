@@ -4,7 +4,7 @@ import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useHistory } from "react-router-dom";
 import { appLink } from "Config/appConfig";
 import { Edit32 } from "@carbon/icons-react";
-import { allowedUserRoles } from "Constants";
+import { elevatedUserRoles } from "Constants";
 import { WorkflowSummary } from "Types";
 import styles from "./WorkflowActions.module.scss";
 
@@ -17,7 +17,7 @@ function WorkflowActions({ workflow }: Props) {
   const { id, scope } = workflow;
   const { user } = useAppContext();
   const { type } = user;
-  const systemWorkflowsEnabled = allowedUserRoles.includes(type);
+  const systemWorkflowsEnabled = elevatedUserRoles.includes(type);
 
   //don't show the edit workflow button if the workflow has system scope and the user doesn't have permission
   const showEditWorkflow = scope === "team" || (scope === "system" && systemWorkflowsEnabled);

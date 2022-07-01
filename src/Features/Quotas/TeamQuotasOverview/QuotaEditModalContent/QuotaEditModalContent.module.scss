@@ -19,16 +19,11 @@
 .inputContainer {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
+  width: 20rem;
 
-  :global .bx--form-item {
-    width: 7.5rem;
-    flex: 0;
-  }
-
-  input {
-    min-width: 0 !important;
-    width: 7.5rem !important;
+  :global .bx--number__control-btn {
+    border-bottom: none;
   }
 }
 
@@ -38,4 +33,5 @@
   letter-spacing: 0.01rem;
   line-height: 1.25rem;
   margin-left: 0.5rem;
+  margin-top: 0.25rem;
 }

@@ -16,7 +16,6 @@ import { navigationIcons } from "Utils/navigationIcons";
 import { FlowData16 } from "@carbon/icons-react";
 
 const ACTIVE_CLASS_NAME = "bx--side-nav__link--current";
-const BOOMERANG_FALLBACK = "Boomerang";
 
 function isInternalLink(navUrl: string) {
   return navUrl.includes(APP_ROOT);
@@ -101,9 +100,12 @@ export default function Navbar({
 }: NavbarProps) {
   const defaultUIShellProps = {
     baseServiceUrl: "",
-    renderLogo: true,
   };
-  const appTitle = `${BOOMERANG_FALLBACK} Flow`;
+
+  const { platform } = platformConfigData;
+  const appTitle = getAppTitle(platform);
+  const appName = platform.appName;
+  const platformName = platform.platformName;
 
   return (
     <>
@@ -112,13 +114,24 @@ export default function Navbar({
         {...defaultUIShellProps}
         isFlowApp
         renderFlowDocs
-        appName="Flow"
+        appName={appName}
         headerConfig={platformConfigData}
         onMenuClick={handleOnMenuClick(flowNavigationData)}
         onTutorialClick={handleOnTutorialClick}
+        platformName={platformName}
         skipToContentProps={skipToContentProps}
         user={userData}
       />
     </>
   );
+}
+
+function getAppTitle(platformData: PlatformConfig["platform"]) {
+  let appTitle = platformData.platformName;
+
+  if (platformData.appName) {
+    appTitle = `${platformData.appName} - ${platformData.platformName}`;
+  }
+
+  return appTitle;
 }

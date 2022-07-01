@@ -5,7 +5,7 @@ import cronstrue from "cronstrue";
 import cx from "classnames";
 import moment from "moment-timezone";
 import { DATETIME_LOCAL_DISPLAY_FORMAT } from "Utils/dateHelper";
-import { statusLabelMap, typeLabelMap } from "Constants/schedule";
+import { scheduleStatusLabelMap, scheduleTypeLabelMap } from "Constants";
 import {
   CircleFilled16,
   Information16,
@@ -72,14 +72,14 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
             <dl>
               <dt>Type</dt>
               <dd style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
-                {typeLabelMap[schedule.type]}
+                {scheduleTypeLabelMap[schedule.type]}
                 {schedule.type === "runOnce" ? <RepeatOne16 /> : <Repeat16 />}
               </dd>
             </dl>
             <dl>
               <dt>Status</dt>
               <dd style={{ display: "flex", gap: "0.25rem", alignItems: "center" }}>
-                {statusLabelMap[schedule.status]}
+                {scheduleStatusLabelMap[schedule.status]}
                 {schedule.status === "inactive" ? (
                   <RadioButton16 className={styles.statusCircle} data-status={schedule.status} />
                 ) : (
