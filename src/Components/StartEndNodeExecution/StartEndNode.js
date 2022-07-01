@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useExecutionContext } from "Hooks";
 import { PortWidget } from "@projectstorm/react-diagrams";
-import { ExecutionStatus } from "Constants";
+import { ExecutionStatusMap } from "Constants";
 import cx from "classnames";
 import "./styles.scss";
 
@@ -18,7 +18,7 @@ const StartEndNode = React.memo(function StartEndNode({ isLocked, node }) {
           isLocked &&
           workflowExecution &&
           workflowExecution.status &&
-          workflowExecution.status === ExecutionStatus.InProgress,
+          workflowExecution.status === ExecutionStatusMap.InProgress,
       })}
     >
       <div className="b-startEnd-node__title"> {passedName} </div>

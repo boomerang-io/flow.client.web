@@ -4,7 +4,7 @@ import cx from "classnames";
 import WorkflowLink from "Components/WorkflowLink";
 import { useExecutionContext } from "Hooks";
 import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
-import { ExecutionStatus } from "Constants";
+import { ExecutionStatusMap } from "Constants";
 import { NodeType } from "Constants";
 import { EXECUTION_CONDITIONS } from "Utils/taskLinkIcons";
 import styles from "./TaskLink.module.scss";
@@ -16,17 +16,17 @@ const TaskLinkExecution = React.memo(function TaskLinkExecution({ diagramEngine,
 
   const targetNodeType = model?.targetPort?.parent?.type;
 
-  const sourceStep = workflowExecution.steps?.find((step) => step.taskId === sourceNodeId);
-  const targetStep = workflowExecution.steps?.find((step) => step.taskId === targetNodeId);
+  const sourceStep = workflowExecution?.steps?.find((step) => step.taskId === sourceNodeId);
+  const targetStep = workflowExecution?.steps?.find((step) => step.taskId === targetNodeId);
 
   const targetTaskHasStarted =
     targetStep?.flowTaskStatus &&
-    targetStep?.flowTaskStatus !== ExecutionStatus.NotStarted &&
-    targetStep?.flowTaskStatus !== ExecutionStatus.Skipped;
+    targetStep?.flowTaskStatus !== ExecutionStatusMap.NotStarted &&
+    targetStep?.flowTaskStatus !== ExecutionStatusMap.Skipped;
 
   const sourceTaskHasFinishedAndIsEndOfWorkflow =
-    (sourceStep?.flowTaskStatus === ExecutionStatus.Completed ||
-      sourceStep?.flowTaskStatus === ExecutionStatus.Failure) &&
+    (sourceStep?.flowTaskStatus === ExecutionStatusMap.Completed ||
+      sourceStep?.flowTaskStatus === ExecutionStatusMap.Failure) &&
     targetNodeType === NodeType.StartEnd;
 
   const executionCondition = EXECUTION_CONDITIONS.find(

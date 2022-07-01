@@ -1,13 +1,12 @@
-import React from "react";
 import { Helmet } from "react-helmet";
 import { UseQueryResult } from "react-query";
-import { ExecutionContextProvider } from "State/context";
-import { Box } from "reflexbox";
-import { useQuery } from "Hooks";
 import { useParams } from "react-router-dom";
+import { Box } from "reflexbox";
 import { Loading, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
+import { useQuery } from "Hooks";
+import { ExecutionContextProvider } from "State/context";
 import Main from "./Main";
-import { TaskModel } from "Types";
+import { TaskModel, WorkflowExecution, WorkflowSummary } from "Types";
 import { serviceUrl } from "Config/servicesConfig";
 
 export default function ExecutionContainer() {
@@ -19,13 +18,13 @@ export default function ExecutionContainer() {
   /**
    * Queries
    */
-  const summaryQuery = useQuery(getSummaryUrl);
-  const executionQuery = useQuery(getExecutionUrl, {
+  const summaryQuery = useQuery<WorkflowSummary>(getSummaryUrl);
+  const executionQuery = useQuery<WorkflowExecution>(getExecutionUrl, {
     refetchInterval: 5000,
   });
-  const { data: taskTemplatesData, error: taskTemplatesError, isLoading: taskTempaltesAreLoading } = useQuery(
-    getTaskTemplatesUrl
-  );
+  const { data: taskTemplatesData, error: taskTemplatesError, isLoading: taskTempaltesAreLoading } = useQuery<
+    TaskModel[]
+  >(getTaskTemplatesUrl);
 
   if (taskTempaltesAreLoading || summaryQuery.isLoading) {
     return (
@@ -64,8 +63,8 @@ export default function ExecutionContainer() {
 }
 
 type RevisionProps = {
-  executionQuery: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
-  summaryQuery: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
+  executionQuery: UseQueryResult<WorkflowExecution, Error>;
+  summaryQuery: UseQueryResult<WorkflowSummary, Error>;
   taskTemplatesData: TaskModel[];
   workflowId: string;
 };

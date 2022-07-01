@@ -9,14 +9,14 @@ import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
 import WorkflowZoom from "Components/WorkflowZoom";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
-import { ExecutionStatus, QueryStatus, WorkflowDagEngineMode } from "Constants";
-import { WorkflowDag } from "Types";
+import { QueryStatus, WorkflowDagEngineMode } from "Constants";
+import { ExecutionStatus, WorkflowDag, WorkflowExecution, WorkflowExecutionStep, WorkflowSummary } from "Types";
 import styles from "./main.module.scss";
 
 type Props = {
   dag: WorkflowDag;
-  workflow: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
-  workflowExecution: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
+  workflow: UseQueryResult<WorkflowSummary>;
+  workflowExecution: UseQueryResult<WorkflowExecution, Error>;
   version: number;
   history: any;
   location: any;
@@ -54,13 +54,18 @@ class Main extends Component<Props, State> {
 
   render() {
     const { workflow, workflowExecution, version } = this.props;
-    const { status, steps } = workflowExecution.data;
+    let hasFinished = false;
+    let hasStarted = false;
 
-    const hasFinished = [ExecutionStatus.Completed, ExecutionStatus.Invalid, ExecutionStatus.Failure].includes(status);
+    if (workflowExecution.data) {
+      const { status, steps } = workflowExecution.data;
+      hasFinished = [ExecutionStatus.Completed, ExecutionStatus.Invalid, ExecutionStatus.Failure].includes(status);
+      hasStarted = steps
+        ? Boolean(steps.find((step: WorkflowExecutionStep) => step.flowTaskStatus !== ExecutionStatus.NotStarted))
+        : false;
+    }
 
-    const hasStarted = steps && steps.find((step: any) => step.flowTaskStatus !== ExecutionStatus.NotStarted);
-
-    const isDiagramLoading =
+    const isDiagramLoaded =
       workflow.status === QueryStatus.Success &&
       workflowExecution.status === QueryStatus.Success &&
       (hasStarted || hasFinished);
@@ -68,14 +73,14 @@ class Main extends Component<Props, State> {
     return (
       <div className={styles.container}>
         <Helmet>
-          <title>{`${workflow.data.name} - Activity`}</title>
+          <title>{workflow.data ? `${workflow.data.name} - Activity` : `Activity`}</title>
         </Helmet>
         <ExecutionHeader workflow={workflow} workflowExecution={workflowExecution} version={version} />
         <section aria-label="Executions" className={styles.executionResultContainer}>
           <ExecutionTaskLog workflowExecution={workflowExecution} />
           <div className={styles.executionDesignerContainer} ref={this.diagramRef}>
             <div className={styles.executionWorkflowActions}>
-              <WorkflowActions workflow={workflow.data} />
+              {workflow.data && <WorkflowActions workflow={workflow.data} />}
               <WorkflowZoom
                 workflowDagBoundingClientRect={this.state.workflowDagBoundingClientRect}
                 workflowDagEngine={this.workflowDagEngine}
@@ -90,7 +95,7 @@ class Main extends Component<Props, State> {
               diagramEngine={this.workflowDagEngine.getDiagramEngine()}
               maxNumberPointsPerLink={0}
             />
-            {!isDiagramLoading && (
+            {!isDiagramLoaded && (
               <div className={styles.diagramLoading}>
                 <Loading withOverlay={false} />
               </div>

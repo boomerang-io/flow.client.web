@@ -13,9 +13,8 @@ import {
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import EmptyGraphic from "Components/EmptyState/EmptyGraphic";
-import { ApprovalStatus } from "Constants";
 import { resolver } from "Config/servicesConfig";
-import { Action, ComposedModalChildProps, ModalTriggerProps } from "Types";
+import { Action, ApprovalStatus, ComposedModalChildProps, ModalTriggerProps } from "Types";
 import styles from "./ManualTask.module.scss";
 import "Styles/markdown.css";
 

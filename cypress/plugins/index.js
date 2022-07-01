@@ -37,6 +37,7 @@ module.exports = (on) => {
       ApiServer: path.resolve(process.cwd(), "src/ApiServer"),
       Config: path.resolve(process.cwd(), "src/Config"),
       Constants: path.resolve(process.cwd(), "src/Constants"),
+      Types: path.resolve(process.cwd(), "src/Types"),
     },
   };
   on("file:preprocessor", webpackPreprocessor(options));

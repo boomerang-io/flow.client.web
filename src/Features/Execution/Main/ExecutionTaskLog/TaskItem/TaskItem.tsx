@@ -9,8 +9,8 @@ import TaskApprovalModal from "./TaskApprovalModal";
 import TaskExecutionLog from "./TaskExecutionLog";
 import moment from "moment";
 import dateHelper from "Utils/dateHelper";
-import { ApprovalStatus, ExecutionStatus, executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
-import { WorkflowExecutionStep } from "Types";
+import { executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
+import { ApprovalStatus, ExecutionStatus, WorkflowExecutionStep } from "Types";
 import styles from "./taskItem.module.scss";
 
 import { appLink } from "Config/appConfig";
@@ -27,19 +27,19 @@ type Props = {
 
 function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
   const {
+    approval,
     duration,
     flowTaskStatus,
     id,
     results,
+    runWorkflowActivityId,
+    runWorkflowActivityStatus,
+    runWorkflowId,
     startTime,
     taskId,
     taskName,
-    approval,
     taskType,
     switchValue,
-    runWorkflowActivityId,
-    runWorkflowId,
-    runWorkflowActivityStatus,
     error,
   } = task;
   // const Icon = executionStatusIcon[flowTaskStatus];

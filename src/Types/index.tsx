@@ -260,11 +260,17 @@ export interface WorkflowRevisionState extends WorkflowRevision {
   hasUnsavedUpdates: boolean;
 }
 
+export enum ApprovalStatus {
+  Approved = "approved",
+  Rejected = "rejected",
+  Submitted = "submitted",
+}
+
 export interface WorkflowExecutionStep {
   activityId: string;
   approval: {
     id: string;
-    status: string;
+    status: ApprovalStatus;
     instructions: string;
     audit: {
       approverId: string;
@@ -276,7 +282,7 @@ export interface WorkflowExecutionStep {
     };
   };
   duration: number;
-  flowTaskStatus: string;
+  flowTaskStatus: ExecutionStatus;
   id: string;
   order: number;
   startTime: string;
@@ -286,7 +292,7 @@ export interface WorkflowExecutionStep {
   preApproved: boolean;
   runWorkflowActivityId: string;
   runWorkflowId: string;
-  runWorkflowActivityStatus: string;
+  runWorkflowActivityStatus: ExecutionStatus;
   switchValue: string;
   outputs: {
     [key: string]: string;
@@ -305,9 +311,10 @@ export interface WorkflowExecution {
   creationDate: string;
   duration: number;
   id: string;
-  status: string;
+  status: ExecutionStatus;
   workflowId: string;
   workflowRevisionid: string;
+  workflowRevisionVersion: string;
   trigger: string;
   properties: (
     | {

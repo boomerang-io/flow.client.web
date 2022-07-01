@@ -13,13 +13,13 @@ type Props = {
 };
 
 function WorkflowActions({ workflow }: Props) {
-  let history = useHistory();
   const { id, scope } = workflow;
+  const history = useHistory();
   const { user } = useAppContext();
   const { type } = user;
   const systemWorkflowsEnabled = elevatedUserRoles.includes(type);
 
-  //don't show the edit workflow button if the workflow has system scope and the user doesn't have permission
+  // Don't show the edit workflow button if the workflow has system scope and the user doesn't have permission
   const showEditWorkflow = scope === "team" || (scope === "system" && systemWorkflowsEnabled);
 
   return (

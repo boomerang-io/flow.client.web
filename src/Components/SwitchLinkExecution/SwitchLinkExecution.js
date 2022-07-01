@@ -5,7 +5,7 @@ import WorkflowLink from "Components/WorkflowLink";
 import SwitchLinkExecutionConditionButton from "Components/SwitchLinkExecutionConditionButton";
 import cx from "classnames";
 import { NodeType } from "Constants";
-import { ExecutionStatus } from "Constants";
+import { ExecutionStatusMap } from "Constants";
 import styles from "./SwitchLink.module.scss";
 
 const SwitchLinkExecution = React.memo(function SwitchLinkExecution({ diagramEngine, model, path }) {
@@ -21,16 +21,16 @@ const SwitchLinkExecution = React.memo(function SwitchLinkExecution({ diagramEng
 
   const targetNodeType = model?.targetPort?.parent?.type;
 
-  const sourceStep = workflowExecution.steps?.find((step) => step.taskId === sourceNodeId);
-  const targetStep = workflowExecution.steps?.find((step) => step.taskId === targetNodeId);
+  const sourceStep = workflowExecution?.steps?.find((step) => step.taskId === sourceNodeId);
+  const targetStep = workflowExecution?.steps?.find((step) => step.taskId === targetNodeId);
 
   const targetTaskHasStarted =
     targetStep?.flowTaskStatus &&
-    targetStep?.flowTaskStatus !== ExecutionStatus.NotStarted &&
-    targetStep?.flowTaskStatus !== ExecutionStatus.Skipped;
+    targetStep?.flowTaskStatus !== ExecutionStatusMap.NotStarted &&
+    targetStep?.flowTaskStatus !== ExecutionStatusMap.Skipped;
   const sourceTaskHasFinishedAndIsEndOfWorkflow =
-    (sourceStep?.flowTaskStatus === ExecutionStatus.Completed ||
-      sourceStep?.flowTaskStatus === ExecutionStatus.Failure) &&
+    (sourceStep?.flowTaskStatus === ExecutionStatusMap.Completed ||
+      sourceStep?.flowTaskStatus === ExecutionStatusMap.Failure) &&
     targetNodeType === NodeType.START_END;
 
   return (
