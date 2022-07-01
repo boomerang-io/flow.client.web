@@ -1,5 +1,5 @@
 import { CloseOutline32, CheckmarkOutline32, Error32, InProgress32, Timer32 } from "@carbon/icons-react";
-import { ScheduleStatus, ScheduleType } from "Types";
+import { ExecutionStatus, ScheduleStatus, ScheduleType } from "Types";
 
 /**
  * Primitve constants
@@ -19,7 +19,7 @@ export const HttpMethod = Object.freeze({
   Get: "get",
 });
 
-export const ExecutionStatus = Object.freeze({
+export const ExecutionStatusMap = {
   Cancelled: "cancelled",
   Completed: "completed",
   Failure: "failure",
@@ -28,9 +28,9 @@ export const ExecutionStatus = Object.freeze({
   NotStarted: "notstarted",
   Skipped: "skipped",
   Waiting: "waiting",
-});
+};
 
-export const ExecutionStatusCopy = Object.freeze({
+export const ExecutionStatusCopy: Record<ExecutionStatus, string> = Object.freeze({
   [ExecutionStatus.Cancelled]: "Cancelled",
   [ExecutionStatus.Completed]: "Succeeded",
   [ExecutionStatus.Failure]: "Failed",
@@ -210,7 +210,7 @@ export const REQUEST_TYPES_TO_DISPLAY = Object.freeze({
 /**
  * Complex objects
  */
-export const executionStatusIcon = Object.freeze({
+export const executionStatusIcon: Record<ExecutionStatus, React.FC<{ [k: string]: any }>> = Object.freeze({
   [ExecutionStatus.Cancelled]: CloseOutline32,
   [ExecutionStatus.Completed]: CheckmarkOutline32,
   [ExecutionStatus.Failure]: CloseOutline32,
@@ -239,12 +239,6 @@ export const ApprovalInputRequired = Object.freeze({
   Optional: "optional",
   Required: "required",
   None: "none",
-});
-
-export const ApprovalStatus = Object.freeze({
-  Approved: "approved",
-  Rejected: "rejected",
-  Submitted: "submitted",
 });
 
 export const elevatedUserRoles = [UserType.Admin, UserType.Operator];

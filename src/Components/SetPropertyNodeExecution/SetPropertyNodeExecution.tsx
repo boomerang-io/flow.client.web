@@ -2,8 +2,8 @@ import React from "react";
 // import PropTypes from "prop-types";
 import cx from "classnames";
 import { useExecutionContext } from "Hooks";
-import { ExecutionStatus } from "Constants";
 import WorkflowNode from "Components/WorkflowNode";
+import { ExecutionStatus } from "Types";
 import styles from "./SetPropertyNodeExecution.module.scss";
 
 import SetPropertyNodeModel from "Utils/dag/setPropertyNode/setPropertyNodeModel";
@@ -18,20 +18,19 @@ const CustomTaskNodeExecution: React.FC<SetPropertyExecutionProps> = (props) => 
   const { id, taskId, taskName } = props.node;
   const task = tasks.find((task) => task.id === taskId);
   // const { steps } = workflowExecution;
-  const stepTaskStatus = Array.isArray(workflowExecution.steps)
-    ? workflowExecution.steps.find((step) => step.taskId === id)?.flowTaskStatus
+  const stepTaskStatus = Array.isArray(workflowExecution?.steps)
+    ? workflowExecution?.steps.find((step) => step.taskId === id)?.flowTaskStatus
     : null;
   // const flowTaskStatus = stepTaskStatus ?? ExecutionStatus.Skipped;
   const flowTaskStatus = stepTaskStatus ? stepTaskStatus : ExecutionStatus.Skipped;
 
   const scrollToTask = () => {
     const taskLogItem = document.getElementById(`task-${id}`);
-    if(taskLogItem){
+    if (taskLogItem) {
       taskLogItem.scrollIntoView();
       taskLogItem.focus();
     }
-  }
-
+  };
 
   return (
     <WorkflowNode

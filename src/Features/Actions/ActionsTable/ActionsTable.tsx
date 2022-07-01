@@ -15,8 +15,7 @@ import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import EmptyState from "Components/EmptyState";
 import ApproveRejectActions from "./ApproveRejectActions";
 import ManualTask from "./ManualTask";
-import { ApprovalStatus } from "Constants";
-import { Action } from "Types";
+import { Action, ApprovalStatus } from "Types";
 import { appLink } from "Config/appConfig";
 import dateHelper from "Utils/dateHelper";
 import { CheckmarkOutline16, CloseOutline16, Help16, Warning16 } from "@carbon/icons-react";
@@ -230,7 +229,13 @@ function ActionsTable(props: ActionsTableProps) {
       case HeadersKey.TimeSubmitted:
         return <time className={styles.tableTextarea}>{value ? dateHelper.humanizedSimpleTimeAgo(value) : "---"}</time>;
       case HeadersKey.ActivityLink:
-        return <Link to={appLink.execution({ executionId: currentAction?.activityId, workflowId: currentAction?.workflowId })}>View Activity</Link>
+        return (
+          <Link
+            to={appLink.execution({ executionId: currentAction?.activityId, workflowId: currentAction?.workflowId })}
+          >
+            View Activity
+          </Link>
+        );
       default:
         return <p className={styles.tableTextarea}>{value || "---"}</p>;
     }
@@ -377,9 +382,7 @@ function ActionsTable(props: ActionsTableProps) {
                                   className={`${styles.tableRow} ${styles[row.cells[row.cells.length - 1].value]}`}
                                   data-testid="configuration-property-table-row"
                                   onClick={openModal}
-                                  onKeyDown={(event: any) =>
-                                    isAccessibleKeyboardEvent(event) && openModal()
-                                  }
+                                  onKeyDown={(event: any) => isAccessibleKeyboardEvent(event) && openModal()}
                                   tabIndex={0}
                                 >
                                   {row.cells.map((cell: any, cellIndex: number) => (

@@ -1,5 +1,5 @@
 import moment from "moment";
-import { ExecutionStatus } from "Types";
+import { ApprovalStatus, ExecutionStatus } from "Types";
 
 const oneMonthAgo = moment().subtract(1, "month");
 const monthAgoInDays = moment().diff(oneMonthAgo, "days");
@@ -38,7 +38,7 @@ export const statusOptions: Array<{ label: string; value: ExecutionStatus }> = [
 ];
 
 export const approvalStatusOptions = [
-  { label: "Approved", value: "approved" },
-  { label: "Rejected", value: "rejected" },
-  { label: "Submitted", value: "submitted" },
+  { label: "Approved", value: ApprovalStatus.Approved },
+  { label: "Rejected", value: ApprovalStatus.Rejected },
+  { label: "Submitted", value: ApprovalStatus.Submitted },
 ];

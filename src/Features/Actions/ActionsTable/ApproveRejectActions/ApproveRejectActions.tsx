@@ -20,9 +20,8 @@ import {
   TextArea,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ApprovalStatus } from "Constants";
 import { resolver } from "Config/servicesConfig";
-import { Action } from "Types";
+import { Action, ApprovalStatus } from "Types";
 import dateHelper from "Utils/dateHelper";
 import styles from "./ApproveRejectActions.module.scss";
 

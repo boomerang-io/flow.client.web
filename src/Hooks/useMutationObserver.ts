@@ -19,7 +19,7 @@ const config = {
  * @param {MutationCallback} callback Function that needs to be fired on mutation
  * @param {MutationObserverInit} options
  */
-function useMutationObserver(ref, callback, options = config) {
+function useMutationObserver(ref: React.RefObject<any>, callback: (args: any) => any, options = config) {
   useEffect(() => {
     // Create an observer instance linked to the callback function
     if (ref.current) {
