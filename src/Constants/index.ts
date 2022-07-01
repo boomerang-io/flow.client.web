@@ -19,7 +19,7 @@ export const HttpMethod = Object.freeze({
   Get: "get",
 });
 
-export const ExecutionStatus = Object.freeze({
+export const ExecutionStatus = {
   Cancelled: "cancelled",
   Completed: "completed",
   Failure: "failure",
@@ -28,7 +28,7 @@ export const ExecutionStatus = Object.freeze({
   NotStarted: "notstarted",
   Skipped: "skipped",
   Waiting: "waiting",
-});
+};
 
 export const ExecutionStatusCopy = Object.freeze({
   [ExecutionStatus.Cancelled]: "Cancelled",
