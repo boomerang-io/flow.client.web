@@ -38,7 +38,7 @@
     "axios": "^0.26.0",
     "axios-hooks": "^3.0.1",
     "carbon-components": "10.56.0",
-    "carbon-components-react": "7.56.0",
+    "carbon-components-react": "8.5.0",
     "carbon-icons": "^7.0.7",
     "classnames": "^2.2.6",
     "closest": "0.0.1",
