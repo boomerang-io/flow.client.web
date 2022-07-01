@@ -34,7 +34,7 @@
     "@carbon/charts": "^0.58.2",
     "@carbon/charts-react": "^0.58.2",
     "@carbon/icons-react": "10.49.0",
-    "@projectstorm/react-diagrams": "^5.3.2",
+    "@projectstorm/react-diagrams": "^6.7.4",
     "axios": "^0.26.0",
     "axios-hooks": "^3.0.1",
     "carbon-components": "10.56.0",
