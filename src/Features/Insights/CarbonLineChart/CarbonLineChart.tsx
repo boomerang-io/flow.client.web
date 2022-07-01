@@ -8,7 +8,6 @@ interface CarbonLineChartProps {
 
 function CarbonLineChart(props: CarbonLineChartProps) {
   const { data, title = "Line Chart" } = props;
-  console.log({ data });
   return (
     <LineChart
       data={data}

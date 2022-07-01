@@ -3,8 +3,9 @@
   "version": "3.7.0",
   "private": true,
   "homepage": "https://useboomerang.io",
+  "sideEffects": false,
   "scripts": {
-    "analyze": "source-map-explorer server/build/static/js/*.js",
+    "analyze": "source-map-explorer build/static/js/*.js",
     "build": "react-scripts build",
     "build:rewriteAssetPaths": "cross-env APP_ROOT=/local node server/scripts/rewriteAssetPaths.js",
     "postbuild": "ncp build server/build",

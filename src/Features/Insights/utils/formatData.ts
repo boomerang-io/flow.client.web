@@ -1,4 +1,5 @@
-import { sortBy, orderBy } from "lodash";
+import sortBy from "lodash/sortBy";
+import orderBy from "lodash/orderBy";
 import { ExecutionStatusCopy } from "Constants";
 import { timeSecondsToTimeUnit } from "Utils/timeSecondsToTimeUnit";
 import { InsightsExecution } from "../Insights";

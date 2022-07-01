@@ -442,7 +442,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 class="itemValue"
                 style="width: 2rem;"
               >
-                3
+                4
               </p>
               <p
                 class="itemLabel"
@@ -467,7 +467,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
               <p
                 class="totalCount"
               >
-                 1 min 7 secs
+                1 min 7 secs
               </p>
               <p
                 class="type"
@@ -484,7 +484,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 class="itemValue"
                 style="width: 7rem;"
               >
-                  10 secs
+                10 secs
               </p>
               <p
                 class="itemLabel"
@@ -499,7 +499,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 class="itemValue"
                 style="width: 7rem;"
               >
-                  30 secs
+                30 secs
               </p>
               <p
                 class="itemLabel"
@@ -514,7 +514,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 class="itemValue"
                 style="width: 7rem;"
               >
-                  20 secs
+                23 secs
               </p>
               <p
                 class="itemLabel"
