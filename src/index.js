@@ -13,7 +13,7 @@ import "Styles/styles.scss";
       routes() {
         let methods = ["get", "put", "patch", "post", "delete"];
         methods.forEach((method) => {
-          this[method]("/*", async (schema, request) => {
+          this[method]("/*", async (_, request) => {
             let [status, headers, body] = await window.handleFromCypress(request);
             return new Response(status, headers, body);
           });

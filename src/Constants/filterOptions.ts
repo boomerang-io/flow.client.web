@@ -1,4 +1,5 @@
 import moment from "moment";
+import { ExecutionStatus } from "Types";
 
 const oneMonthAgo = moment().subtract(1, "month");
 const monthAgoInDays = moment().diff(oneMonthAgo, "days");
@@ -27,11 +28,13 @@ export const executionOptions = [
   { label: "Webhook", value: "webhook" },
 ];
 
-export const statusOptions = [
-  { label: "Succeeded", value: "completed" },
-  { label: "Failed", value: "failure" },
-  { label: "Invalid", value: "invalid" },
-  { label: "In Progress", value: "inProgress" },
+export const statusOptions: Array<{ label: string; value: ExecutionStatus }> = [
+  { label: "Succeeded", value: ExecutionStatus.Completed },
+  { label: "Failed", value: ExecutionStatus.Failure },
+  { label: "In Progress", value: ExecutionStatus.InProgress },
+  { label: "Cancelled", value: ExecutionStatus.Cancelled },
+  { label: "Invalid", value: ExecutionStatus.Invalid },
+  { label: "Waiting", value: ExecutionStatus.Waiting },
 ];
 
 export const approvalStatusOptions = [
@@ -39,8 +42,3 @@ export const approvalStatusOptions = [
   { label: "Rejected", value: "rejected" },
   { label: "Submitted", value: "submitted" },
 ];
-
-export const ALL_OPTIONS = {
-  TEAMS: { id: "none", name: "All Teams" },
-  WORKFLOWS: { id: "none", name: "All Workflows" },
-};

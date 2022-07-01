@@ -22,7 +22,7 @@ import moment from "moment-timezone";
 import * as Yup from "yup";
 import { cronToDateTime, daysOfWeekCronList } from "Utils/cronHelper";
 import { DATETIME_LOCAL_INPUT_FORMAT, defaultTimeZone, timezoneOptions, transformTimeZone } from "Utils/dateHelper";
-import { typeLabelMap } from "Constants/schedule";
+import { scheduleTypeLabelMap } from "Constants";
 import {
   ComposedModalChildProps,
   DataDrivenInput,
@@ -266,12 +266,12 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                 orientation="horizontal"
                 valueSelected={formikProps.values["type"]}
               >
-                <RadioButton key={"runOnce"} id={"runOnce"} labelText={typeLabelMap["runOnce"]} value={"runOnce"} />
-                <RadioButton key={"cron"} id={"cron"} labelText={typeLabelMap["cron"]} value={"cron"} />
+                <RadioButton key={"runOnce"} id={"runOnce"} labelText={scheduleTypeLabelMap["runOnce"]} value={"runOnce"} />
+                <RadioButton key={"cron"} id={"cron"} labelText={scheduleTypeLabelMap["cron"]} value={"cron"} />
                 <RadioButton
                   id={"advanced-cron"}
                   key={"advanced-cron"}
-                  labelText={typeLabelMap["advancedCron"]}
+                  labelText={scheduleTypeLabelMap["advancedCron"]}
                   value={"advancedCron"}
                 />
               </RadioButtonGroup>

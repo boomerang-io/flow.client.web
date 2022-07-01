@@ -17,8 +17,8 @@ import isArray from "lodash/isArray";
 import moment from "moment-timezone";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
-import { allowedUserRoles, WorkflowScope } from "Constants";
-import { scheduleStatusOptions } from "Constants/schedule";
+import { elevatedUserRoles, WorkflowScope } from "Constants";
+import { scheduleStatusOptions } from "Constants";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import type { SlotInfo } from "react-big-calendar";
@@ -27,6 +27,8 @@ import type {
   CalendarEntry,
   CalendarEvent,
   FlowTeam,
+  MultiSelectItem,
+  MultiSelectItems,
   ScheduleDate,
   ScheduleUnion,
   WorkflowSummary,
@@ -36,11 +38,9 @@ import styles from "./Schedules.module.scss";
 const MultiSelect = Select.Filterable;
 
 const defaultStatusArray = scheduleStatusOptions.map((statusObj) => statusObj.value);
-
 const defaultFromDate = moment().startOf("month").unix();
 const defaultToDate = moment().endOf("month").unix();
-
-const systemUrl = serviceUrl.getSystemWorkflows();
+const systemWorkflowsUrl = serviceUrl.getSystemWorkflows();
 
 export default function Schedules() {
   const history = useHistory();
@@ -51,15 +51,14 @@ export default function Schedules() {
   const [isPanelOpen, setIsPanelOpen] = React.useState(false);
   const [isEditorOpen, setIsEditorOpen] = React.useState(false);
   const [isCreatorOpen, setIsCreatorOpen] = React.useState(false);
-
-  const isSystemWorkflowsEnabled = allowedUserRoles.includes(user.type);
+  const isSystemWorkflowsEnabled = elevatedUserRoles.includes(user.type);
 
   /**
-   * Get worfklow data for calendar and schedule queries
+   * Get workflow data for calendar and schedule queries
    */
   const systemWorkflowsQuery = useQuery<Array<WorkflowSummary>, string>({
-    queryKey: systemUrl,
-    queryFn: resolver.query(systemUrl),
+    queryKey: systemWorkflowsUrl,
+    queryFn: resolver.query(systemWorkflowsUrl),
     enabled: isSystemWorkflowsEnabled,
   });
 
@@ -122,15 +121,6 @@ export default function Schedules() {
     const queryStr = `?${queryString.stringify({ ...props }, queryStringOptions)}`;
     history.push({ search: queryStr });
     return;
-  }
-
-  type MultiSelectItem = {
-    label: string;
-    value: string;
-  };
-
-  interface MultiSelectItems<Type = MultiSelectItem> {
-    selectedItems: Array<Type>;
   }
 
   function handleSelectScopes({ selectedItems }: MultiSelectItems) {
@@ -196,42 +186,6 @@ export default function Schedules() {
     setActiveSchedule({ ...schedule, workflow });
   }
 
-  interface GetWorkflowFilterArgs {
-    selectedTeams: Array<FlowTeam>;
-    systemWorkflowsData?: Array<WorkflowSummary>;
-    teams: Array<FlowTeam>;
-    userWorkflowsData: Array<WorkflowSummary>;
-  }
-
-  function getWorkflowFilter({
-    teams,
-    selectedTeams,
-    systemWorkflowsData = [],
-    userWorkflowsData = [],
-  }: GetWorkflowFilterArgs) {
-    let workflowsList: Array<WorkflowSummary> = [];
-    if (!scopes || scopes?.includes(WorkflowScope.Team)) {
-      if (selectedTeams.length === 0 && teams) {
-        workflowsList = teams.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
-          acc.push(...team.workflows);
-          return acc;
-        }, []);
-      } else if (selectedTeams) {
-        workflowsList = selectedTeams.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
-          acc.push(...team.workflows);
-          return acc;
-        }, []);
-      }
-    }
-    if ((!scopes || scopes?.includes(WorkflowScope.System)) && isSystemWorkflowsEnabled) {
-      workflowsList.push(...systemWorkflowsData);
-    }
-    if (!scopes || scopes?.includes(WorkflowScope.User)) {
-      workflowsList.push(...userWorkflowsData);
-    }
-    let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
-    return workflowsFilter;
-  }
 
   if (teams || systemWorkflowsQuery.data || userWorkflows.workflows) {
     const { workflowIds = "", scopes = "", statuses = "", teamIds = "" } = queryString.parse(
@@ -247,7 +201,9 @@ export default function Schedules() {
     const selectedTeams =
       teams && teams.filter((team: FlowTeam) => selectedTeamIds?.find((id: string) => id === team.id));
 
-    const workflowsFilter = getWorkflowFilter({
+    const workflowOptions = getWorkflowOptions({
+      isSystemWorkflowsEnabled,
+      scopes,
       teams,
       selectedTeams,
       systemWorkflowsData: systemWorkflowsQuery.data,
@@ -281,7 +237,7 @@ export default function Schedules() {
               <div className={styles.dataFilter}>
                 <MultiSelect
                   light
-                  id="actions-scopes-select"
+                  id="schedules-scopes-select"
                   label="Choose scope(s)"
                   placeholder="Choose scope(s)"
                   invalid={false}
@@ -299,7 +255,7 @@ export default function Schedules() {
                   light
                   disabled={disableTeamsDropdown}
                   key={disableTeamsDropdown ? "teams-disabled" : "teams-enabeld"}
-                  id="actions-teams-select"
+                  id="schedules-teams-select"
                   label="Choose team(s)"
                   placeholder="Choose team(s)"
                   invalid={false}
@@ -313,12 +269,12 @@ export default function Schedules() {
               <div className={styles.dataFilter}>
                 <MultiSelect
                   light
-                  id="actions-workflows-select"
+                  id="schedules-workflows-select"
                   label="Choose workflow(s)"
                   placeholder="Choose workflow(s)"
                   invalid={false}
                   onChange={handleSelectWorkflows}
-                  items={workflowsFilter}
+                  items={workflowOptions}
                   itemToString={(workflow: WorkflowSummary) => {
                     if (workflow.scope === "team") {
                       const team = workflow
@@ -333,7 +289,7 @@ export default function Schedules() {
                     }
                     return workflow.name;
                   }}
-                  initialSelectedItems={workflowsFilter.filter((workflow: WorkflowSummary) =>
+                  initialSelectedItems={workflowOptions.filter((workflow: WorkflowSummary) =>
                     Boolean(selectedWorkflowIds?.find((id) => id === workflow.id))
                   )}
                   titleText="Filter by Workflow"
@@ -342,7 +298,7 @@ export default function Schedules() {
               <div className={styles.dataFilter}>
                 <MultiSelect
                   light
-                  id="actions-statuses-select"
+                  id="schedules-statuses-select"
                   label="Choose status(es)"
                   placeholder="Choose status(es)"
                   invalid={false}
@@ -395,7 +351,7 @@ export default function Schedules() {
               isModalOpen={isCreatorOpen}
               onCloseModal={() => setIsCreatorOpen(false)}
               schedule={newSchedule}
-              workflowOptions={workflowsFilter}
+              workflowOptions={workflowOptions}
             />
             <ScheduleEditor
               getCalendarUrl={getCalendarUrl}
@@ -404,7 +360,7 @@ export default function Schedules() {
               isModalOpen={isEditorOpen}
               onCloseModal={() => setIsEditorOpen(false)}
               schedule={activeSchedule}
-              workflowOptions={workflowsFilter}
+              workflowOptions={workflowOptions}
             />
           </div>
         </div>
@@ -458,7 +414,7 @@ function CalendarView(props: CalendarViewProps) {
   return (
     <section className={styles.calendarContainer} data-is-loading={calendarQuery.isLoading}>
       <Calendar
-        heightOffset={210}
+        heightOffset={220}
         //@ts-ignore
         onSelectEvent={(data: CalendarEvent) => {
           props.setIsPanelOpen(true);
@@ -490,3 +446,46 @@ function CalendarView(props: CalendarViewProps) {
     </section>
   );
 }
+
+interface GetWorkflowOptionsArgs {
+  isSystemWorkflowsEnabled: boolean;
+  scopes: string | Array<string> | null;
+  selectedTeams: Array<FlowTeam>;
+  systemWorkflowsData?: Array<WorkflowSummary>;
+  teams: Array<FlowTeam>;
+  userWorkflowsData: Array<WorkflowSummary>;
+}
+
+
+function getWorkflowOptions({
+  isSystemWorkflowsEnabled,
+  scopes,
+  teams,
+  selectedTeams,
+  systemWorkflowsData = [],
+  userWorkflowsData = [],
+}: GetWorkflowOptionsArgs) {
+  let workflowsList: Array<WorkflowSummary> = [];
+  if (!scopes || (Array.isArray(scopes) && scopes?.includes(WorkflowScope.Team))) {
+    if (selectedTeams.length === 0 && teams) {
+      workflowsList = teams.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
+        acc.push(...team.workflows);
+        return acc;
+      }, []);
+    } else if (selectedTeams) {
+      workflowsList = selectedTeams.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
+        acc.push(...team.workflows);
+        return acc;
+      }, []);
+    }
+  }
+  if ((!scopes || scopes?.includes(WorkflowScope.System)) && isSystemWorkflowsEnabled) {
+    workflowsList.push(...systemWorkflowsData);
+  }
+  if (!scopes || scopes?.includes(WorkflowScope.User)) {
+    workflowsList.push(...userWorkflowsData);
+  }
+  let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
+  return workflowsFilter;
+}
+

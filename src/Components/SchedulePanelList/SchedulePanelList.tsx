@@ -18,7 +18,7 @@ import cronstrue from "cronstrue";
 import matchSorter from "match-sorter";
 import moment from "moment-timezone";
 import { DATETIME_LOCAL_DISPLAY_FORMAT } from "Utils/dateHelper";
-import { scheduleStatusOptions, statusLabelMap, typeLabelMap } from "Constants/schedule";
+import { scheduleStatusOptions, scheduleStatusLabelMap, scheduleTypeLabelMap } from "Constants";
 import { resolver } from "Config/servicesConfig";
 import { Add16, CircleFilled16, Information16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
 import { ScheduleUnion } from "Types";
@@ -263,10 +263,10 @@ function ScheduledListItem(props: ScheduledListItemProps) {
       <Tile className={styles.listItem}>
         <div className={styles.listItemTitle}>
           <h3 title={props.schedule.name}>{props.schedule.name}</h3>
-          <TooltipHover direction="top" tooltipText={typeLabelMap[props.schedule.type] ?? "---"}>
+          <TooltipHover direction="top" tooltipText={scheduleTypeLabelMap[props.schedule.type] ?? "---"}>
             {props.schedule.type === "runOnce" ? <RepeatOne16 /> : <Repeat16 />}
           </TooltipHover>
-          <TooltipHover direction="top" tooltipText={statusLabelMap[props.schedule.status]}>
+          <TooltipHover direction="top" tooltipText={scheduleStatusLabelMap[props.schedule.status]}>
             {props.schedule.status === "inactive" ? (
               <RadioButton16 className={styles.statusCircle} data-status={props.schedule.status} />
             ) : (

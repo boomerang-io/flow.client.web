@@ -19,7 +19,7 @@ import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
 import queryString from "query-string";
-import { allowedUserRoles } from "Constants";
+import { elevatedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, UserWorkflow } from "Types";
@@ -303,7 +303,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             userRole={activityEnabled ? "*" : ""}
           />
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<GlobalProperties />}
             path={AppPath.Properties}
             userRole={platformRole}
@@ -327,25 +327,25 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             userRole={teamTasksEnabled ? "*" : ""}
           />
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<Quotas />}
             path={AppPath.Quotas}
             userRole={platformRole}
           />
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<Settings />}
             path={AppPath.Settings}
             userRole={platformRole}
           />
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<SystemWorkflows />}
             path={AppPath.SystemWorkflows}
             userRole={platformRole}
           />
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<TaskTemplates />}
             path={AppPath.TaskTemplates}
             userRole={platformRole}
@@ -363,7 +363,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             userRole={teamTokensEnabled}
           />} */}
           <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
+            allowedUserRoles={elevatedUserRoles}
             component={<Tokens />}
             path={AppPath.Tokens}
             userRole={platformRole}
