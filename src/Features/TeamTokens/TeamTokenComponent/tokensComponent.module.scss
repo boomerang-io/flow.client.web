@@ -1,4 +1,4 @@
-@import "~@boomerang-io/styles/lib/colors";
+@import "@boomerang-io/styles/lib/colors";
 
 .container {
   background: var(--cds-ui-background);
@@ -41,7 +41,7 @@
   }
 }
 
-.buttonSkeleton{
+.buttonSkeleton {
   align-self: flex-end;
   margin-bottom: 1rem;
   margin-top: -1rem;

@@ -38,6 +38,7 @@ function vitePlugin(on, config) {
           { find: "Config", replacement: path.resolve(projectRootDir, "./src/Config") },
           { find: "Constants", replacement: path.resolve(projectRootDir, "./src/Constants") },
           { find: "Features", replacement: path.resolve(projectRootDir, "./src/Features") },
+          { find: "Types", replacement: path.resolve(projectRootDir, "./src/Types") },
           { find: "Utils", replacement: path.resolve(projectRootDir, "./src/Utils") },
         ],
       },

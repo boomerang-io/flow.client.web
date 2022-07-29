@@ -9,7 +9,7 @@ module.exports = {
     {
       files: ["**/*.spec.js"],
       rules: {
-        "cypress/no-unnecessary-waiting": "on",
+        "cypress/no-unnecessary-waiting": 0,
       },
     },
   ],
