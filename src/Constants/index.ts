@@ -1,6 +1,13 @@
 import { CloseOutline32, CheckmarkOutline32, Error32, InProgress32, Timer32 } from "@carbon/icons-react";
 import { ExecutionStatus, ScheduleStatus, ScheduleType } from "Types";
 
+export const Envs = Object.freeze({
+  Dev: "development",
+  Test: "test",
+  Prod: "production",
+  PortForward: "portforward",
+})
+
 /**
  * Primitve constants
  */

@@ -2,14 +2,11 @@ module.exports = {
   extends: [
     "react-app",
     "plugin:cypress/recommended",
-    "plugin:jest/recommended",
-    "plugin:jest-dom/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:testing-library/react",
   ],
-  plugins: ["jest", "jest-dom", "jsx-a11y", "react-hooks", "testing-library"],
+  plugins: ["jsx-a11y", "react-hooks", "testing-library"],
   env: {
-    "jest/globals": true,
     "cypress/globals": true,
   },
   globals: {
@@ -21,10 +18,5 @@ module.exports = {
     rtlRouterRender: true,
     rtlContextRouterRender: true,
   },
-  ignorePatterns: ["public/*", "cypress/*"],
-  settings: {
-    jest: {
-      version: 27,
-    },
-  },
+  ignorePatterns: ["public/*", "cypress/*"]
 };

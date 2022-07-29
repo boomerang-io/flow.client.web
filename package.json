@@ -1,36 +1,37 @@
 {
   "name": "boomerang.app.flow",
-  "version": "3.7.0",
+  "version": "3.10.0",
   "private": true,
   "homepage": "https://useboomerang.io",
   "sideEffects": false,
   "scripts": {
-    "analyze": "source-map-explorer build/static/js/*.js",
-    "build": "react-scripts build",
-    "build:rewriteAssetPaths": "cross-env APP_ROOT=/local node server/scripts/rewriteAssetPaths.js",
-    "postbuild": "ncp build server/build",
-    "cm": "git cz",
-    "cypress": "cypress open",
-    "docker": "cross-env NODE_ENV=test run-s docker:build docker:run",
+    "analyze": "source-map-explorer build/assets/*.js",
+    "build": "run-s build:vite build:move",
+    "build:vite": "vite build",
+    "build:move": "ncp build server/build",
+    "cypress": "cypress open --e2e",
+    "cypress:run": "$(npm bin)/cypress run --e2e --config video=false",
+    "docker": "run-s build docker:build docker:run",
     "docker:build": "docker build -t webapp .",
-    "docker:run": "docker run -i -t -p 3000:3000 -e APP_ROOT=/app -e CORE_SERVICE_ENV_URL=http://localhost:8000 -e APP_ROOT=/local webapp",
-    "eject": "react-scripts eject",
-    "lint": "eslint -o lint-report.json ./src",
+    "docker:run": "docker run -i -t -p 3000:3000 -e APP_ROOT=/app -e BASE_SERVICE_ENV_URL=http://localhost:8000 webapp",
+    "lint": "eslint -f json -o lint-report.json ./src",
     "lint:staged": "eslint ./src",
-    "start": "react-scripts start",
-    "start:pf": "cross-env REACT_APP_PORT_FORWARD=true react-scripts start",
-    "prod": "run-s prod:rewriteAssetPaths prod:serve",
-    "prod:serve": "npm run-script dev --prefix server",
-    "test": "cross-env TZ=UTC react-scripts test --coverage",
-    "test:ci-cypress": "start-server-and-test http://localhost:3000 cypress:run",
-    "test:cypress": "$(npm bin)/cypress run --config video=false",
-    "test:staged": "cross-env TZ=UTC CI=true react-scripts test --passWithNoTests --findRelatedTests --bail",
+    "prod": "run-s build prod:rewriteAssetPaths prod:server",
+    "prod:rewriteAssetPaths": "cross-env APP_ROOT=/local node server/scripts/rewriteAssetPaths.js",
+    "prod:server": "cd server && pnpm dev",
+    "start": "vite",
+    "start:pf": "vite --mode portforward",
+    "test": "cross-env TZ=UTC vitest",
+    "test:ci": "cross-env TZ=UTC vitest --coverage",
+    "test:ci-cypress": "start-server-and-test start http://localhost:3000 cypress:run",
+    "test:staged": "cross-env TZ=UTC CI=true vitest related --changed --passWithNoTests",
     "upgradePackage": "node scripts/upgradePackage",
+    "preview": "vite preview",
     "prepare": "husky install",
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@boomerang-io/carbon-addons-boomerang-react": "2.0.5",
+    "@boomerang-io/carbon-addons-boomerang-react": "2.0.10",
     "@boomerang-io/styles": "1.0.0",
     "@boomerang-io/utils": "1.0.3",
     "@carbon/charts": "^0.58.2",
@@ -51,49 +52,47 @@
     "deep-object-diff": "^1.1.7",
     "detect-browser": "^4.0.3",
     "flagged": "^2.0.1",
-    "formik": "^2.1.4",
+    "formik": "^2.2.9",
     "immer": "^9.0.6",
-    "js-file-download": "^0.4.4",
+    "js-file-download": "^0.4.12",
     "match-sorter": "^2.3.0",
-    "moment-timezone": "^0.5.23",
+    "moment-timezone": "^0.5.34",
     "pathfinding": "^0.4.18",
     "paths-js": "^0.4.10",
     "postcss-flexbugs-fixes": "^5.0.2",
     "prop-types": "15.8.1",
     "query-string": "^6.14.1",
     "react": "^16.14.0",
-    "react-beautiful-dnd": "^9.0.2",
+    "react-beautiful-dnd": "^13.1.0",
     "react-big-calendar": "^0.38.4",
     "react-codemirror2": "^6.0.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.14.0",
     "react-dropzone": "^10.1.10",
     "react-error-boundary": "^2.3.1",
-    "react-helmet": "^6.0.0",
+    "react-helmet": "^6.1.0",
     "react-json-view": "^1.19.1",
     "react-lazylog": "4.5.2",
-    "react-markdown": "^5.0.2",
+    "react-markdown": "^8.0.3",
     "react-mde": "11.5.0",
     "react-query": "^3.34.12",
     "react-router-dom": "5.3.0",
-    "react-scripts": "^5.0.1",
     "react-sliding-pane": "^7.1.0",
     "react-transition-group": "^4.4.2",
     "reflexbox": "^4.0.6",
-    "typeface-ibm-plex-sans": "0.0.75",
-    "use-immer": "^0.4.0",
+    "typeface-ibm-plex-sans": "1.1.13",
+    "use-immer": "^0.7.0",
     "validator": "^10.7.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@commitlint/cli": "12.1.1",
-    "@commitlint/config-conventional": "8.1.0",
-    "@cypress/webpack-preprocessor": "^5.4.2",
-    "@testing-library/cypress": "^8.0.3",
-    "@testing-library/jest-dom": "^5.10.1",
-    "@testing-library/react": "^10.2.1",
-    "@testing-library/react-hooks": "^3.3.0",
-    "@testing-library/user-event": "^12.0.2",
+    "@commitlint/cli": "17.0.3",
+    "@commitlint/config-conventional": "17.0.3",
+    "@testing-library/cypress": "^8.0.2",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^13.5.0",
     "@types/carbon-components-react": "^7.49.0",
     "@types/classnames": "^2.2.10",
     "@types/jest": "^26.0.9",
@@ -110,31 +109,34 @@
     "@types/reflexbox": "^4.0.1",
     "@types/validator": "^13.1.0",
     "@types/yup": "^0.29.3",
-    "commitizen": "^4.2.4",
+    "@vitejs/plugin-react": "^2.0.0",
+    "c8": "^7.11.3",
     "cross-env": "7.0.2",
-    "cypress": "^9.7.0",
-    "cz-conventional-changelog": "3.1.0",
+    "cypress": "^10.3.1",
+    "cz-conventional-changelog": "3.3.0",
+    "eslint": "^8.17.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-cypress": "^2.12.1",
-    "eslint-plugin-jest": "^25.3.4",
-    "eslint-plugin-jest-dom": "4.0.1",
     "eslint-plugin-testing-library": "5.0.1",
-    "find-webpack": "^2.0.0",
-    "http-proxy-middleware": "^0.20.0",
     "husky": "^8.0.0",
     "jest-axe": "^3.4.0",
     "lint-staged": "10.1.1",
-    "miragejs": "^0.1.40",
+    "miragejs": "^0.1.45",
     "ncp": "^2.0.0",
     "npm-run-all": "4.1.5",
-    "prettier": "2.0.5",
+    "prettier": "2.7.1",
     "react-test-renderer": "^16.13.1",
-    "sass": "^1.50.0",
-    "source-map-explorer": "^2.4.2",
-    "start-server-and-test": "^1.10.11",
-    "ts-loader": "^9.2.8",
-    "typescript": "^4.5.4",
+    "sass": "^1.54.0",
+    "source-map-explorer": "^2.5.2",
+    "start-server-and-test": "^1.14.0",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.7.4",
     "typescript-plugin-css-modules": "^3.4.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "vite": "^3.0.2",
+    "vite-plugin-eslint": "^1.7.0",
+    "vite-plugin-svgr": "^2.2.0",
+    "vitest": "^0.19.1"
   },
   "browserslist": {
     "production": [
@@ -148,41 +150,18 @@
       "last 1 safari version"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,scss,css,md}": [
       "prettier --print-width 120 --write"
     ],
     "src/**/*.{js,jsx,ts,tsx}": [
-      "npm run-script lint:staged",
-      "npm run-script test:staged"
+      "pnpm lint:staged",
+      "pnpm test:staged"
     ]
   },
-  "jest": {
-    "collectCoverageFrom": [
-      "!**/*.spec.{js,jsx}",
-      "!**/Assets/**",
-      "!**/ApiServer/**",
-      "**/src/Components/**/*.{js,jsx}",
-      "**/src/Features/**/*.{js,jsx}",
-      "**/src/Hooks/**/*.{js,jsx}",
-      "**/src/State/**/*.{js,jsx}",
-      "**/src/Utils/**/*.{js,jsx}"
-    ]
+  "pnpm": {
+    "patchedDependencies": {
+      "react-virtualized@9.22.3": "patches/react-virtualized@9.22.3.patch"
+    }
   }
 }

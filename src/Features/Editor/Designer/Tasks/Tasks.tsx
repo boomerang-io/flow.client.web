@@ -49,7 +49,7 @@ export default class Tasks extends Component<TaskProps> {
 
   handleOnSearchInputChange = (e) => {
     const searchQuery = e.target.value;
-    if (searchQuery === "" && this.state.activeFilters === []) {
+    if (searchQuery === "") {
       this.setState({
         searchQuery,
         tasksToDisplay: this.props.tasks,
