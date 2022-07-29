@@ -1,6 +1,6 @@
 import React from "react";
 
-const SvgComponent = props => (
+const SvgComponent = (props) => (
   <svg width="26px" height="26px" viewBox="0 0 26 26" {...props}>
     <title>{"logic-proceed"}</title>
     <desc>{"Created with Sketch."}</desc>

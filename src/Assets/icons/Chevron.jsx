@@ -34,7 +34,7 @@ const Chevron = ({ className, ...rest }) => {
 };
 
 Chevron.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default Chevron;

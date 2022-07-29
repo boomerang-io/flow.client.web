@@ -23,7 +23,7 @@ const CloseIcon = ({ className }) => {
 };
 
 CloseIcon.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default CloseIcon;

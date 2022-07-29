@@ -1,10 +1,5 @@
 module.exports = {
-  extends: [
-    "react-app",
-    "plugin:cypress/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:testing-library/react",
-  ],
+  extends: ["react-app", "plugin:cypress/recommended", "plugin:jsx-a11y/recommended", "plugin:testing-library/react"],
   plugins: ["jsx-a11y", "react-hooks", "testing-library"],
   env: {
     "cypress/globals": true,
@@ -18,5 +13,5 @@ module.exports = {
     rtlRouterRender: true,
     rtlContextRouterRender: true,
   },
-  ignorePatterns: ["public/*", "cypress/*"]
+  ignorePatterns: ["public/*", "cypress/*"],
 };
