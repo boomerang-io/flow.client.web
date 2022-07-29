@@ -1,4 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
+
+exports[`Quotas --- Snapshot > Capturing Snapshot of Quotas 1`] = `
+<body
+  id="app"
+>
+  <div />
+</body>
+`;
 
 exports[`Quotas --- Snapshot Capturing Snapshot of Quotas 1`] = `
 <body

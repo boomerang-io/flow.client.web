@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-commented-out-tests */
 import React from "react";
 import { Route } from "react-router-dom";
 import CreateTemplateWorkflow from ".";

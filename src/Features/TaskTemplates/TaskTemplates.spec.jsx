@@ -1,12 +1,10 @@
-import React from "react";
+import { vi } from "vitest";
 import { Route } from "react-router-dom";
 import TaskTemplateManager from "./index";
 import { startApiServer } from "ApiServer";
 import { AppPath, appLink } from "Config/appConfig";
 import { screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
-jest.setTimeout(60000);
 
 let server;
 

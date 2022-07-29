@@ -1,0 +1,9 @@
+// Vitest Snapshot v1
+
+exports[`Schedule --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
+<body
+  id="app"
+>
+  <div />
+</body>
+`;

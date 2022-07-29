@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`ChangeRole --- Snapshot Test Capturing Snapshot of ChangeRole 1`] = `
+exports[`ChangeRole --- Snapshot Test > Capturing Snapshot of ChangeRole 1`] = `
 <body
   id="app"
 >
@@ -11,9 +11,7 @@ exports[`ChangeRole --- Snapshot Test Capturing Snapshot of ChangeRole 1`] = `
       <div
         class="bx--modal-content"
       >
-        <div
-          class="gridContainer"
-        >
+        <div>
           <div
             class="bx--form-item"
           >

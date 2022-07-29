@@ -1,7 +1,7 @@
-import React from "react";
+import { vi } from "vitest";
 import CreateEditPropertiesContent from ".";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 const props = {
   isEdit: true,
   property: { id: "1", key: "test.key", value: "testing" },

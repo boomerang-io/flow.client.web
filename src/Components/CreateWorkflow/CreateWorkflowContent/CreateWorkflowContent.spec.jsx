@@ -1,10 +1,9 @@
-/* eslint-disable jest/no-commented-out-tests */
-import React from "react";
+import { vi } from "vitest";
 import CreateWorkflowContent from "../CreateWorkflowContent";
 
 // import { screen, fireEvent } from "@testing-library/react";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 const props = {
   createWorkflow: mockfn,
   isCreating: false,

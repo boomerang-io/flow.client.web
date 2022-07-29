@@ -1,8 +1,8 @@
-import React from "react";
+import { vi } from "vitest";
 import CreateEditTeamPropertiesModalContent from "../CreateEditTeamPropertiesModalContent";
 import { screen, fireEvent } from "@testing-library/react";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 const props = {
   closeModal: mockfn,
   cancelRequestRef: { current: mockfn },

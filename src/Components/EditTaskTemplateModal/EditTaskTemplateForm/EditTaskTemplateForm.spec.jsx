@@ -1,7 +1,7 @@
-import React from "react";
+import { vi } from "vitest";
 import EditTaskTemplateForm from "./index";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 const mockRevision = {
   name: "Test name",
   arguments: ["slack"],

@@ -1,4 +1,4 @@
-import React from "react";
+import { vi } from "vitest";
 import queryString, { StringifyOptions } from "query-string";
 import { waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -6,8 +6,6 @@ import WorkflowActivity from "./index";
 import { startApiServer } from "ApiServer";
 
 const queryStringOptions: StringifyOptions = { arrayFormat: "comma", skipEmptyString: true };
-
-jest.setTimeout(60000);
 
 let server: any;
 

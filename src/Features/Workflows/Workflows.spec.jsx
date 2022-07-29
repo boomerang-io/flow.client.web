@@ -1,4 +1,4 @@
-import React from "react";
+import { vi } from "vitest";
 import { Route } from "react-router-dom";
 import WorkflowsHome from "./index";
 import { startApiServer } from "ApiServer";
@@ -6,8 +6,8 @@ import { teams, profile } from "ApiServer/fixtures";
 import { AppPath, appLink } from "Config/appConfig";
 import { AppContextProvider } from "State/context";
 
-jest.mock("@boomerang-io/carbon-addons-boomerang-react", () => ({
-  ...jest.requireActual("@boomerang-io/carbon-addons-boomerang-react"),
+vi.mock("@boomerang-io/carbon-addons-boomerang-react", () => ({
+  ...vi.importActual("@boomerang-io/carbon-addons-boomerang-react"),
   LoadingAnimation: "LoadingAnimation",
   notify: "notify",
   Notification: "Notification",

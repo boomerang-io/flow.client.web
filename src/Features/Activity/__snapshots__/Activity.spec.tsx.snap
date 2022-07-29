@@ -1,4 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
+
+exports[`WorkflowActivity --- Snapshot > Capturing Snapshot of WorkflowActivity 1`] = `
+<body
+  id="app"
+>
+  <div />
+</body>
+`;
 
 exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`] = `
 <body

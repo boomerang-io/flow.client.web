@@ -1,7 +1,7 @@
-import React from "react";
+import { vi } from "vitest";
 import TemplateConfigModalContent from "./index";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 const mockResultParam = {
   name: "test",
   description: "test description",

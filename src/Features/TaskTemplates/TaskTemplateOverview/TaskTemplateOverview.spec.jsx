@@ -1,4 +1,4 @@
-import React from "react";
+import { vi } from "vitest";
 import { Route } from "react-router-dom";
 import { screen } from "@testing-library/react";
 import TaskTemplateOverview from "./index";
@@ -18,7 +18,7 @@ afterEach(() => {
 
 const props = {
   taskTemplates: tasktemplate,
-  updateTemplateInState: jest.fn(),
+  updateTemplateInState: vi.fn(),
   editVerifiedTasksEnabled: true,
 };
 

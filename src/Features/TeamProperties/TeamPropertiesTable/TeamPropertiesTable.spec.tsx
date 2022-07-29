@@ -1,8 +1,8 @@
-import React from "react";
+import { vi } from "vitest";
 import TeamPropertiesTable from ".";
 import { screen, fireEvent } from "@testing-library/react";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 const mockReduxTeamConfig = {
   teamProperties: {
     data: [
@@ -124,7 +124,6 @@ describe("TeamPropertiesTable --- RTL", () => {
     const selection = screen.getByText(/Allianz/i);
     fireEvent.click(selection);
 
-    // eslint-disable-next-line jest-dom/prefer-in-document
     expect(screen.queryAllByText(/Please select a team to manage properties./i)).toHaveLength(0);
   });
 

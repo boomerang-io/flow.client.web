@@ -1,7 +1,7 @@
-import React from "react";
+import { vi } from "vitest";
 import WorkflowsHeader from "./index";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 
 const props = {
   workflowsLength: 1,

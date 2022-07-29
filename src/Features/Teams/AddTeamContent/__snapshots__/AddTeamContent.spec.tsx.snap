@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`AddTeamContent --- Snapshot Test Capturing Snapshot of AddTeamContent 1`] = `
+exports[`AddTeamContent --- Snapshot Test > Capturing Snapshot of AddTeamContent 1`] = `
 <body
   id="app"
 >
@@ -11,9 +11,7 @@ exports[`AddTeamContent --- Snapshot Test Capturing Snapshot of AddTeamContent 1
       <div
         class="bx--modal-content"
       >
-        <div
-          class="modalInputContainer"
-        >
+        <div>
           <div
             class="bx--bmrg-text-input"
           >

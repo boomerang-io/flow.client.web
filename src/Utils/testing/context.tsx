@@ -1,8 +1,9 @@
 //@ts-nocheck
+import { vi } from "vitest";
 import { EditorContextProvider } from "State/context";
 import { summaries, revisions } from "ApiServer/fixtures";
 
-const revisionDispatch = jest.mock();
+const revisionDispatch = vi.mock();
 
 export function EditorContextRender({ children, value }) {
   return (

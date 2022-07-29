@@ -71,7 +71,7 @@ export default defineConfig(({ mode }) => {
       css: false,
       globals: true,
       environment: "jsdom",
-      setupFiles: "./src/setupTests.jsx",
+      setupFiles: "./src/setupTests.tsx",
       coverage: {
         reporter: ["json"],
         include: [

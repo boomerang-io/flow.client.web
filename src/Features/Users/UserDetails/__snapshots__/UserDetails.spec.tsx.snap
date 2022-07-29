@@ -1,4 +1,73 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
+
+exports[`UserDetails --- Snapshot Test > Capturing Snapshot of UserDetails 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <div
+      class="bx--modal-content"
+    >
+      <dl>
+        <section>
+          <dt>
+            Name
+          </dt>
+          <dd>
+            Test User
+          </dd>
+        </section>
+        <section>
+          <dt>
+            Email
+          </dt>
+          <dd>
+            test@testemail.com
+          </dd>
+        </section>
+        <section>
+          <dt>
+            Type
+          </dt>
+          <dd>
+            Admin
+          </dd>
+        </section>
+        <section>
+          <dt>
+            Created
+          </dt>
+          <dd>
+            July 21, 2020
+          </dd>
+        </section>
+        <section>
+          <dt>
+            Last Login
+          </dt>
+          <dd>
+            July 21, 2020
+          </dd>
+        </section>
+        <section>
+          <dt>
+            Status
+          </dt>
+          <dd>
+            active
+          </dd>
+        </section>
+        <section>
+          <dt>
+            Teams (0)
+          </dt>
+          ---
+        </section>
+      </dl>
+    </div>
+  </div>
+</body>
+`;
 
 exports[`UserDetails --- Snapshot Test Capturing Snapshot of UserDetails 1`] = `
 <body

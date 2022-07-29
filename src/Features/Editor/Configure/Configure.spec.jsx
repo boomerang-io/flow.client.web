@@ -1,4 +1,4 @@
-import React from "react";
+import { vi } from "vitest";
 import { screen } from "@testing-library/react";
 import Configure from "./index";
 import { teams, profile, summaries } from "ApiServer/fixtures";
@@ -7,7 +7,7 @@ import { startApiServer } from "ApiServer";
 import { appLink } from "Config/appConfig";
 import { FlagsProvider } from "flagged";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 
 const props = {
   history: {},

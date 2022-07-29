@@ -6,8 +6,13 @@ import { render as rtlRender } from "@testing-library/react";
 import { QueryClient, QueryClientProvider, setLogger } from "react-query";
 import { vi } from "vitest";
 import { AppContextProvider } from "State/context";
-import { featureFlags as featureFlagsFixture, teams as teamsFixture, profile as userFixture, userWorkflows as userWorkflowsFixture } from "ApiServer/fixtures";
-import "@testing-library/vi-dom/extend-expect";
+import {
+  featureFlags as featureFlagsFixture,
+  teams as teamsFixture,
+  profile as userFixture,
+  userWorkflows as userWorkflowsFixture,
+} from "ApiServer/fixtures";
+import "@testing-library/jest-dom/extend-expect";
 
 setLogger({
   log: () => {},
@@ -26,10 +31,7 @@ declare global {
   }
 }
 
-function rtlQueryRender(
-  ui,
-  { queryConfig = {}} = {}
-) {
+function rtlQueryRender(ui, { queryConfig = {} } = {}) {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: 0 },
@@ -55,7 +57,7 @@ function rtlRouterRender(
 const defaultContextValue = {
   user: userFixture,
   teams: teamsFixture,
-  userWorkflows: userWorkflowsFixture
+  userWorkflows: userWorkflowsFixture,
 };
 
 const feature = featureFlagsFixture.features;
@@ -91,7 +93,7 @@ function rtlContextRouterRender(
       mutations: { throwOnError: true },
       ...queryConfig,
     },
-  }); 
+  });
   return {
     ...rtlRender(
       <FlagsProvider features={defaultFeatures}>
@@ -158,12 +160,12 @@ global.sessionStorage = sessionStorageMock;
 
 // Dates
 const moment = vi.importActual("moment-timezone");
-vi.doMock("moment", () => {
+vi.importMock("moment", () => {
   moment.tz.setDefault("UTC");
   moment.tz.guess(false);
   const DATE_TO_USE = new Date("Jan 1 2020 00:00:00 UTC");
+  vi.setSystemTime(DATE_TO_USE);
   const mom = () => vi.importActual("moment")(DATE_TO_USE);
   mom.utc = vi.importActual("moment").utc;
-  mom.fromNow = vi.importActual("moment").fromNow;
   return mom;
 });

@@ -1,0 +1,20 @@
+// Vitest Snapshot v1
+
+exports[`TaskExecutionLog --- Snapshot > Capturing Snapshot of TaskExecutionLog 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <button
+      class="bx--btn bx--btn--sm bx--btn--ghost"
+      tabindex="0"
+      type="button"
+    >
+      View Log
+    </button>
+  </div>
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+</body>
+`;

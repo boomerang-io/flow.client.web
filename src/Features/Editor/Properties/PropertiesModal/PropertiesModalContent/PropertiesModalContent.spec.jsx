@@ -1,8 +1,8 @@
-import React from "react";
+import { vi } from "vitest";
 import Inputs from ".";
 import { screen, fireEvent } from "@testing-library/react";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 
 const props = {
   isEdit: true,

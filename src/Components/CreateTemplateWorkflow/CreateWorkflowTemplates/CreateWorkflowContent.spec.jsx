@@ -1,11 +1,10 @@
-/* eslint-disable jest/no-commented-out-tests */
-import React from "react";
+import { vi } from "vitest";
 import CreateWorkflowTemplates from ".";
 import { tasktemplate, workflowTemplates } from "ApiServer/fixtures";
 
 // import { screen, fireEvent } from "@testing-library/react";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 const props = {
   closeModal: mockfn,
   saveValues: mockfn,

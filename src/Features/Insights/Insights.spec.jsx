@@ -1,19 +1,18 @@
-/* eslint-disable jest/no-commented-out-tests */
-import React from "react";
+import { vi } from "vitest";
 import { screen } from "@testing-library/react";
 import WorkflowInsights from "./index";
 import { startApiServer } from "ApiServer";
 
-jest.mock("@carbon/charts-react", () => ({
+vi.mock("@carbon/charts-react", () => ({
   DonutChart: () => <div>DonutChart</div>,
   LineChart: () => <div>LineChart</div>,
-  ScatterChart: () => <div>ScatterChart</div>
+  ScatterChart: () => <div>ScatterChart</div>,
 }));
 
-jest.mock("@carbon/charts/interfaces", () => ({
+vi.mock("@carbon/charts/interfaces", () => ({
   Alignments: {},
   LegendPositions: {},
-  ScaleTypes: {}
+  ScaleTypes: {},
 }));
 
 let server;

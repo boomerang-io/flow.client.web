@@ -1,4 +1,4 @@
-import React from "react";
+import { vi } from "vitest";
 import TeamDetailed from ".";
 import { Route } from "react-router-dom";
 import { screen, fireEvent } from "@testing-library/react";
@@ -6,7 +6,6 @@ import userEvent from "@testing-library/user-event";
 import { AppPath, appLink } from "Config/appConfig";
 import { startApiServer } from "ApiServer";
 
-jest.setTimeout(60000);
 let server;
 
 beforeEach(() => {

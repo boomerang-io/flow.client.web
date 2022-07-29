@@ -1,11 +1,9 @@
-import React from "react";
 import UserDetailed from ".";
 import { Route } from "react-router-dom";
 import { waitFor, screen } from "@testing-library/react";
 import { AppPath, appLink } from "Config/appConfig";
 import { startApiServer } from "ApiServer";
 
-jest.setTimeout(60000);
 let server;
 
 beforeEach(() => {

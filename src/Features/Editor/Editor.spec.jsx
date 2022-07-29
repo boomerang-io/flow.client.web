@@ -1,4 +1,4 @@
-import React from "react";
+import { vi } from "vitest";
 import Editor from "./index";
 import { screen } from "@testing-library/react";
 import { Route } from "react-router-dom";
@@ -9,7 +9,7 @@ import { AppPath, appLink } from "Config/appConfig";
 let server;
 
 beforeEach(() => {
-  window.focus = jest.fn();
+  window.focus = vi.fn();
   server = startApiServer();
   server.db.loadData(db);
 });

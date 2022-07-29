@@ -1,12 +1,10 @@
 /* eslint-disable */
-import React from "react";
+import { vi } from "vitest";
 import Settings from "./Settings";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { Response } from "miragejs";
 import { startApiServer } from "ApiServer";
 import { serviceUrl } from "Config/servicesConfig";
-
-jest.setTimeout(60000);
 
 let server: any;
 

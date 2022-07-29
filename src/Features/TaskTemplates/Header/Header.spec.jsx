@@ -1,11 +1,11 @@
-import React from "react";
+import { vi } from "vitest";
 import Header from "./index";
 import { tasktemplate } from "ApiServer/fixtures";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 
 const props = {
-  editVerifiedTasksEnabled:true,
+  editVerifiedTasksEnabled: true,
   formikProps: {},
   selectedTaskTemplate: tasktemplate[0],
   currentRevision: { version: 1 },
@@ -18,8 +18,7 @@ const props = {
 
 describe("Header --- Snapshot", () => {
   it("Capturing Snapshot of Task Templates", async () => {
-    const { baseElement } = rtlContextRouterRender(<Header {...props}/>);
+    const { baseElement } = rtlContextRouterRender(<Header {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
-
