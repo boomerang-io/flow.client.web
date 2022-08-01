@@ -7,11 +7,3 @@ exports[`WorkflowActivity --- Snapshot > Capturing Snapshot of WorkflowActivity 
   <div />
 </body>
 `;
-
-exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`] = `
-<body
-  id="app"
->
-  <div />
-</body>
-`;

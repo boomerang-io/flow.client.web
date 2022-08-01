@@ -1,3 +1,4 @@
+import { screen } from "@testing-library/react";
 import { vi } from "vitest";
 import { Route } from "react-router-dom";
 import WorkflowsHome from "./index";
@@ -39,7 +40,7 @@ afterEach(() => {
 });
 
 describe("WorkflowsHome --- Snapshot", () => {
-  it("Capturing Snapshot of WorkflowsHome", () => {
+  it("Capturing Snapshot of WorkflowsHome", async () => {
     const { baseElement } = rtlContextRouterRender(
       <AppContextProvider
         value={{
@@ -56,6 +57,7 @@ describe("WorkflowsHome --- Snapshot", () => {
       </AppContextProvider>,
       { route: appLink.workflowsTeams() }
     );
+    await screen.findByText("These are your");
     expect(baseElement).toMatchSnapshot();
   });
 });

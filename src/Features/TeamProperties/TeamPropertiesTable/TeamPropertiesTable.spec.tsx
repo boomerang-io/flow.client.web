@@ -128,15 +128,12 @@ describe("TeamPropertiesTable --- RTL", () => {
   });
 
   test("TeamPropertiesTable -  test it renders table with data", async () => {
-    const { container } = global.rtlContextRouterRender(<TeamPropertiesTable {...propsWithProperties} />);
+    global.rtlContextRouterRender(<TeamPropertiesTable {...propsWithProperties} />);
     const { data } = mockReduxTeamConfig.teamProperties;
     // eslint-disable-next-line
-    const unsecuredElement = container.querySelector(".unsecured");
-
     expect(screen.getByText(data[0].value)).toBeInTheDocument();
     expect(screen.getByText(data[0].label)).toBeInTheDocument();
     expect(screen.getByText(data[0].key)).toBeInTheDocument();
     expect(screen.getByText(data[0].description)).toBeInTheDocument();
-    expect(unsecuredElement).toBeInTheDocument();
   });
 });

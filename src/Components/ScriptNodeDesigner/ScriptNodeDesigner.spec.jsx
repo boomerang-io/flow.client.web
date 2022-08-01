@@ -1,4 +1,3 @@
-import React from "react";
 import ScriptNodeDesigner from "./ScriptNodeDesigner";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import { EditorContextRender } from "Utils/testing/context";

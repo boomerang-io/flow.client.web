@@ -335,7 +335,7 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
                     id="insights-date-picker-start"
                     pattern="\\\\d{1,2}\\\\/\\\\d{1,2}\\\\/\\\\d{4}"
                     type="text"
-                    value="04/29/2022"
+                    value="05/01/2022"
                   />
                   <svg
                     aria-hidden="true"
@@ -374,7 +374,7 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
                     id="insights-date-picker-end"
                     pattern="\\\\d{1,2}\\\\/\\\\d{1,2}\\\\/\\\\d{4}"
                     type="text"
-                    value="07/29/2022"
+                    value="08/01/2022"
                   />
                   <svg
                     aria-hidden="true"
@@ -549,7 +549,7 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
           <span
             class="cur-month"
           >
-            April
+            May
           </span>
           <div
             class="numInputWrapper"
@@ -658,291 +658,259 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
             class="dayContainer"
           >
             <span
-              aria-label="June 26, 2022"
-              class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              26
-            </span>
-            <span
-              aria-label="June 27, 2022"
-              class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              27
-            </span>
-            <span
-              aria-label="June 28, 2022"
-              class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              28
-            </span>
-            <span
-              aria-label="June 29, 2022"
-              class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              29
-            </span>
-            <span
-              aria-label="June 30, 2022"
-              class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              30
-            </span>
-            <span
-              aria-label="July 1, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              1
-            </span>
-            <span
-              aria-label="July 2, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              2
-            </span>
-            <span
-              aria-label="July 3, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              3
-            </span>
-            <span
-              aria-label="July 4, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              4
-            </span>
-            <span
-              aria-label="July 5, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              5
-            </span>
-            <span
-              aria-label="July 6, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              6
-            </span>
-            <span
-              aria-label="July 7, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              7
-            </span>
-            <span
-              aria-label="July 8, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              8
-            </span>
-            <span
-              aria-label="July 9, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              9
-            </span>
-            <span
-              aria-label="July 10, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              10
-            </span>
-            <span
-              aria-label="July 11, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              11
-            </span>
-            <span
-              aria-label="July 12, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              12
-            </span>
-            <span
-              aria-label="July 13, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              13
-            </span>
-            <span
-              aria-label="July 14, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              14
-            </span>
-            <span
-              aria-label="July 15, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              15
-            </span>
-            <span
-              aria-label="July 16, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              16
-            </span>
-            <span
-              aria-label="July 17, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              17
-            </span>
-            <span
-              aria-label="July 18, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              18
-            </span>
-            <span
-              aria-label="July 19, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              19
-            </span>
-            <span
-              aria-label="July 20, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              20
-            </span>
-            <span
-              aria-label="July 21, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              21
-            </span>
-            <span
-              aria-label="July 22, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              22
-            </span>
-            <span
-              aria-label="July 23, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              23
-            </span>
-            <span
-              aria-label="July 24, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              24
-            </span>
-            <span
-              aria-label="July 25, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              25
-            </span>
-            <span
-              aria-label="July 26, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              26
-            </span>
-            <span
-              aria-label="July 27, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              27
-            </span>
-            <span
-              aria-label="July 28, 2022"
-              class="flatpickr-day inRange bx--date-picker__day"
-              tabindex="-1"
-            >
-              28
-            </span>
-            <span
-              aria-current="date"
-              aria-label="July 29, 2022"
-              class="flatpickr-day today selected endRange bx--date-picker__day no-border"
-              tabindex="-1"
-            >
-              29
-            </span>
-            <span
-              aria-label="July 30, 2022"
-              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
-            >
-              30
-            </span>
-            <span
               aria-label="July 31, 2022"
-              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+              class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
+              tabindex="-1"
             >
               31
             </span>
             <span
+              aria-current="date"
               aria-label="August 1, 2022"
-              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+              class="flatpickr-day today selected endRange bx--date-picker__day no-border"
+              tabindex="-1"
             >
               1
             </span>
             <span
               aria-label="August 2, 2022"
-              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               2
             </span>
             <span
               aria-label="August 3, 2022"
-              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               3
             </span>
             <span
               aria-label="August 4, 2022"
-              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               4
             </span>
             <span
               aria-label="August 5, 2022"
-              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               5
             </span>
             <span
               aria-label="August 6, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              6
+            </span>
+            <span
+              aria-label="August 7, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              7
+            </span>
+            <span
+              aria-label="August 8, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              8
+            </span>
+            <span
+              aria-label="August 9, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              9
+            </span>
+            <span
+              aria-label="August 10, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              10
+            </span>
+            <span
+              aria-label="August 11, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              11
+            </span>
+            <span
+              aria-label="August 12, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              12
+            </span>
+            <span
+              aria-label="August 13, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              13
+            </span>
+            <span
+              aria-label="August 14, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              14
+            </span>
+            <span
+              aria-label="August 15, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              15
+            </span>
+            <span
+              aria-label="August 16, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              16
+            </span>
+            <span
+              aria-label="August 17, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              17
+            </span>
+            <span
+              aria-label="August 18, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              18
+            </span>
+            <span
+              aria-label="August 19, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              19
+            </span>
+            <span
+              aria-label="August 20, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              20
+            </span>
+            <span
+              aria-label="August 21, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              21
+            </span>
+            <span
+              aria-label="August 22, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              22
+            </span>
+            <span
+              aria-label="August 23, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              23
+            </span>
+            <span
+              aria-label="August 24, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              24
+            </span>
+            <span
+              aria-label="August 25, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              25
+            </span>
+            <span
+              aria-label="August 26, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              26
+            </span>
+            <span
+              aria-label="August 27, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              27
+            </span>
+            <span
+              aria-label="August 28, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              28
+            </span>
+            <span
+              aria-label="August 29, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              29
+            </span>
+            <span
+              aria-label="August 30, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              30
+            </span>
+            <span
+              aria-label="August 31, 2022"
+              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+            >
+              31
+            </span>
+            <span
+              aria-label="September 1, 2022"
+              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+            >
+              1
+            </span>
+            <span
+              aria-label="September 2, 2022"
+              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+            >
+              2
+            </span>
+            <span
+              aria-label="September 3, 2022"
+              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+            >
+              3
+            </span>
+            <span
+              aria-label="September 4, 2022"
+              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+            >
+              4
+            </span>
+            <span
+              aria-label="September 5, 2022"
+              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+            >
+              5
+            </span>
+            <span
+              aria-label="September 6, 2022"
               class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
             >
               6
+            </span>
+            <span
+              aria-label="September 7, 2022"
+              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+            >
+              7
+            </span>
+            <span
+              aria-label="September 8, 2022"
+              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+            >
+              8
+            </span>
+            <span
+              aria-label="September 9, 2022"
+              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+            >
+              9
+            </span>
+            <span
+              aria-label="September 10, 2022"
+              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
+            >
+              10
             </span>
           </div>
         </div>
