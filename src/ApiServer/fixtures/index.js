@@ -31,3 +31,4 @@ export { default as workflowCalendar } from "./workflowCalendar";
 export { default as workflowExecution } from "./workflowExecution";
 export { default as workflowSchedules } from "./workflowSchedules";
 export { default as workflowTemplates } from "./workflowTemplates";
+export { default as taskTemplateValidate } from "./taskTemplateValidate";
