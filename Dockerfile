@@ -1,8 +1,4 @@
-FROM node:16.15.0-alpine
-
-ARG ART_USER
-ARG ART_PASSWORD
-ARG ART_URL
+FROM node:16
 ENV BMRG_HOME=/opt/boomerang/server
 
 WORKDIR $BMRG_HOME
@@ -17,4 +13,4 @@ RUN chmod -R u+x $BMRG_HOME \
 USER 2000
 
 EXPOSE 3000
-ENTRYPOINT node scripts/rewriteAssetPaths && npm start
+ENTRYPOINT node scripts/rewriteAssetPaths && node_modules/.bin/boomerang-webapp-server serve
