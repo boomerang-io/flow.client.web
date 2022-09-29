@@ -103,8 +103,14 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       script: values.script,
       workingDir: values.workingDir,
       envs: newEnvs,
-      config: hasFile && Boolean(values.currentRevision) ? values.currentRevision.config : [],
-      results: hasFile && Boolean(values.currentRevision) ? values.currentRevision.results : [],
+      config:
+        hasFile && Boolean(values.currentRevision) && Boolean(values.currentRevision.config)
+          ? values.currentRevision.config
+          : [],
+      results:
+        hasFile && Boolean(values.currentRevision) && Boolean(values.currentRevision.results)
+          ? values.currentRevision.results
+          : [],
       changelog: { reason: "" },
     };
     const body = {
@@ -148,7 +154,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
             })
           : [];
         setFieldValue("envs", formattedEnvs);
-        setFieldValue("workingDir", currentRevision?.workingDir);
+        setFieldValue("workingDir", currentRevision?.workingDir ?? "");
         setFieldValue("currentRevision", currentRevision);
         setFieldValue("fileData", fileData);
       }
