@@ -13,7 +13,7 @@
     }
   ],
   "dependencies": {
-    "@boomerang-io/webapp-spa-server": "1.1.0",
+    "@boomerang-io/webapp-spa-server": "1.1.1-beta.1",
     "replace-in-file": "^6.3.2"
   }
 }
