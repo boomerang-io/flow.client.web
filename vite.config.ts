@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
       outDir: "build",
     },
     css: {
-      devSourcemap: false,
+      devSourcemap: mode !== "test",
       preprocessorOptions: {
         scss: {
           quietDeps: true,

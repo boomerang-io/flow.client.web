@@ -5,11 +5,15 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
   id="app"
 >
   <div>
-    <div>
-      <div>
+    <div
+      class="_container_b75634"
+    >
+      <div
+        class="_tableContainer_468963"
+      >
         <div
           aria-labelledby="change-log-table-search-search"
-          class="bx--search bx--search--xl"
+          class="bx--search bx--search--xl _search_468963"
           role="search"
         >
           <div
@@ -311,34 +315,51 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
               </thead>
               <tbody
                 aria-live="polite"
+                class="_tableBody_468963"
               >
                 <tr
                   data-testid="change-log-table-row"
                 >
                   <td>
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_468963"
+                    >
+                      <p
+                        class="_tableText_468963"
+                      >
                         2
                       </p>
                     </div>
                   </td>
                   <td>
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_468963"
+                    >
+                      <p
+                        class="_tableText_468963"
+                      >
                         Boomerang/chicago/ibm Boomerang/chicago/ibm
                       </p>
                     </div>
                   </td>
                   <td>
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_468963"
+                    >
+                      <p
+                        class="_tableText_468963"
+                      >
                         Sorry. Removing changes.
                       </p>
                     </div>
                   </td>
                   <td>
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_468963"
+                    >
+                      <p
+                        class="_tableText_468963"
+                      >
                         2020-05-28 07:32 PM
                       </p>
                     </div>
@@ -348,29 +369,45 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
                   data-testid="change-log-table-row"
                 >
                   <td>
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_468963"
+                    >
+                      <p
+                        class="_tableText_468963"
+                      >
                         1
                       </p>
                     </div>
                   </td>
                   <td>
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_468963"
+                    >
+                      <p
+                        class="_tableText_468963"
+                      >
                         Boomerang/chicago/ibm Boomerang/chicago/ibm
                       </p>
                     </div>
                   </td>
                   <td>
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_468963"
+                    >
+                      <p
+                        class="_tableText_468963"
+                      >
                         hello sir
                       </p>
                     </div>
                   </td>
                   <td>
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_468963"
+                    >
+                      <p
+                        class="_tableText_468963"
+                      >
                         2020-05-28 05:42 PM
                       </p>
                     </div>

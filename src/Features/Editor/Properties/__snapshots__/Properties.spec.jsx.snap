@@ -7,64 +7,105 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
   <div>
     <div
       aria-label="Parameters"
+      class="_container_8d0faa"
       role="region"
     >
-      <section>
-        <div>
-          <h1>
+      <section
+        class="_property_8d0faa"
+      >
+        <div
+          class="_headerContainer_8d0faa"
+        >
+          <h1
+            class="_label_8d0faa"
+          >
             Tim parameter
           </h1>
-          <p>
+          <p
+            class="_description_8d0faa"
+          >
             Tim parameter
           </p>
         </div>
-        <dl>
-          <dt>
+        <dl
+          class="_fieldContainer_8d0faa"
+        >
+          <dt
+            class="_fieldKey_8d0faa"
+          >
             Key
           </dt>
-          <dd>
+          <dd
+            class="_fieldValue_8d0faa"
+          >
             tim-parameter
           </dd>
         </dl>
-        <dl>
-          <dt>
+        <dl
+          class="_fieldContainer_8d0faa"
+        >
+          <dt
+            class="_fieldKey_8d0faa"
+          >
             Type
           </dt>
-          <dd>
+          <dd
+            class="_fieldValue_8d0faa"
+          >
             select
           </dd>
         </dl>
-        <dl>
-          <dt>
+        <dl
+          class="_fieldContainer_8d0faa"
+        >
+          <dt
+            class="_fieldKey_8d0faa"
+          >
             Event Payload JsonPath
           </dt>
-          <dd>
+          <dd
+            class="_fieldValue_8d0faa"
+          >
             ---
           </dd>
         </dl>
-        <dl>
-          <dt>
+        <dl
+          class="_fieldContainer_8d0faa"
+        >
+          <dt
+            class="_fieldKey_8d0faa"
+          >
             Default value
           </dt>
-          <dd>
+          <dd
+            class="_fieldValue_8d0faa"
+          >
             pandas
           </dd>
         </dl>
-        <dl>
-          <dt>
+        <dl
+          class="_fieldContainer_8d0faa"
+        >
+          <dt
+            class="_fieldKey_8d0faa"
+          >
             Options
           </dt>
-          <dd>
+          <dd
+            class="_fieldValue_8d0faa"
+          >
             ---
           </dd>
         </dl>
-        <p>
+        <p
+          class="_required_8d0faa"
+        >
           Required
         </p>
         <svg
           alt="Workflow edit button"
           aria-label="Edit"
-          class=""
+          class="_editButton_2e20d1 _editContainer_e352bd"
           data-testid="edit-parameter-button"
           role="button"
           style="will-change: auto;"
@@ -113,7 +154,7 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
         </svg>
         <svg
           alt="Workflow close button"
-          class=""
+          class="_closeButton_4ddf2b _deleteProperty_8d0faa"
           data-testid="workflow-delete-parameter-button"
           height="26px"
           role="button"
@@ -158,11 +199,15 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
         </svg>
       </section>
       <button
+        class="_createPropertyCard_e352bd"
         data-testid="create-parameter-button"
       >
-        <div>
+        <div
+          class="_createContainer_e352bd"
+        >
           <svg
             aria-label="Add"
+            class="_createIcon_e352bd"
             fill="currentColor"
             focusable="false"
             height="32"
@@ -176,7 +221,9 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
               d="M17 15L17 8 15 8 15 15 8 15 8 17 15 17 15 24 17 24 17 17 24 17 24 15z"
             />
           </svg>
-          <p>
+          <p
+            class="_createText_e352bd"
+          >
             Create a new parameter
           </p>
         </div>

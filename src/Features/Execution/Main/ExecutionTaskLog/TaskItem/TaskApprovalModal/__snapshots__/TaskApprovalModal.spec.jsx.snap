@@ -9,11 +9,17 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
       class="bx--bmrg-modal-form"
     >
       <div
-        class="bx--modal-content"
+        class="bx--modal-content _modalBody_7e51d1"
       >
-        <section>
-          <div>
-            <div>
+        <section
+          class="_approval_7e51d1"
+        >
+          <div
+            class="_inputs_7e51d1"
+          >
+            <div
+              class="_comment_7e51d1"
+            >
               <div
                 class="bx--bmrg-text-area"
               >
@@ -40,7 +46,7 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
                     class="bx--text-area__wrapper"
                   >
                     <textarea
-                      class="bx--text-area"
+                      class="bx--text-area _commentArea_7e51d1"
                       cols="50"
                       id="comment"
                       placeholder="Add some reasoning for your decision"
@@ -49,7 +55,9 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
                   </div>
                 </div>
               </div>
-              <p>
+              <p
+                class="_commentLength_7e51d1"
+              >
                 0/200
               </p>
             </div>
@@ -60,7 +68,7 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
                 class="bx--form-item"
               >
                 <div
-                  class="bx--radio-button-group"
+                  class="bx--radio-button-group _decisionButtons_7e51d1"
                 >
                   <label
                     class="bx--bmrg-decision-button-wrapper"

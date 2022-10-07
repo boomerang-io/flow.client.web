@@ -5,9 +5,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
   id="app"
 >
   <div>
-    <div>
+    <div
+      class="_container_e789f0"
+    >
       <header
-        class="bx--bmrg-feature-header --bordered"
+        class="bx--bmrg-feature-header _container_58bfae --bordered"
       >
         <section
           class="bx--bmrg-feature-header__content"
@@ -15,7 +17,9 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
           <div
             class="bx--bmrg-feature-header__nav"
           >
-            <div>
+            <div
+              class="_headerNav_58bfae"
+            >
               <nav
                 aria-label="Breadcrumb"
               >
@@ -43,7 +47,9 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                   </li>
                 </ol>
               </nav>
-              <button>
+              <button
+                class="_workflowAdvancedDetailTrigger_58bfae"
+              >
                 <svg
                   aria-hidden="true"
                   fill="currentColor"
@@ -76,7 +82,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 Workflow run detail
               </h1>
               <button
-                class="bx--btn bx--btn--sm bx--btn--ghost"
+                class="_workflowErrorTrigger_58bfae bx--btn bx--btn--sm bx--btn--ghost"
                 tabindex="0"
                 type="button"
               >
@@ -103,8 +109,12 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
             </div>
           </div>
         </section>
-        <div>
-          <div>
+        <div
+          class="_content_58bfae"
+        >
+          <div
+            class="_workflowOutputLog_58bfae"
+          >
             <button
               class="bx--btn bx--btn--sm bx--btn--ghost"
               tabindex="0"
@@ -113,24 +123,40 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
               View Parameters
             </button>
           </div>
-          <dl>
-            <dt>
+          <dl
+            class="_data_58bfae"
+          >
+            <dt
+              class="_dataTitle_58bfae"
+            >
               Team
             </dt>
-            <dd>
+            <dd
+              class="_dataValue_58bfae"
+            >
               AMHTest2
             </dd>
           </dl>
-          <dl>
-            <dt>
+          <dl
+            class="_data_58bfae"
+          >
+            <dt
+              class="_dataTitle_58bfae"
+            >
               Version
             </dt>
-            <dd>
+            <dd
+              class="_dataValue_58bfae"
+            >
               2
             </dd>
           </dl>
-          <dl>
-            <dt>
+          <dl
+            class="_data_58bfae"
+          >
+            <dt
+              class="_dataTitle_58bfae"
+            >
               Initiated by
             </dt>
             <dd
@@ -141,49 +167,77 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
               🤖
             </dd>
           </dl>
-          <dl>
-            <dt>
+          <dl
+            class="_data_58bfae"
+          >
+            <dt
+              class="_dataTitle_58bfae"
+            >
               Trigger
             </dt>
-            <dd>
+            <dd
+              class="_dataValue_58bfae"
+            >
               webhook
             </dd>
           </dl>
-          <dl>
-            <dt>
+          <dl
+            class="_data_58bfae"
+          >
+            <dt
+              class="_dataTitle_58bfae"
+            >
               Start time
             </dt>
-            <dd>
+            <dd
+              class="_dataValue_58bfae"
+            >
               2020-10-19 10:57 PM
             </dd>
           </dl>
-          <dl />
+          <dl
+            class="_dataButton_58bfae"
+          />
         </div>
       </header>
       <section
         aria-label="Executions"
+        class="_executionResultContainer_e789f0"
       >
         <aside
-          class="undefined "
+          class="_container_bbdcfb "
         >
           <section
-            class="undefined undefined"
+            class="_statusBlock_bbdcfb _completed_bbdcfb"
           >
-            <div>
-              <p>
+            <div
+              class="_duration_bbdcfb"
+            >
+              <p
+                class="_title_bbdcfb"
+              >
                 Duration
               </p>
-              <time>
+              <time
+                class="_value_bbdcfb"
+              >
                 31s
               </time>
             </div>
-            <div>
-              <p>
+            <div
+              class="_status_bbdcfb"
+            >
+              <p
+                class="_title_bbdcfb"
+              >
                 Status
               </p>
-              <div>
+              <div
+                class="_statusData_bbdcfb"
+              >
                 <svg
                   aria-label="completed"
+                  class="_statusIcon_bbdcfb"
                   fill="currentColor"
                   focusable="false"
                   height="32"
@@ -200,14 +254,19 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
                   />
                 </svg>
-                <p>
+                <p
+                  class="_value_bbdcfb"
+                >
                   Succeeded
                 </p>
               </div>
             </div>
-            <button>
+            <button
+              class="_collapseButton_bbdcfb"
+            >
               <svg
                 aria-hidden="true"
+                class="_chevron_bbdcfb"
                 fill="currentColor"
                 focusable="false"
                 height="32"
@@ -222,13 +281,17 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
               </svg>
             </button>
           </section>
-          <section>
-            <p>
+          <section
+            class="_taskbar_bbdcfb"
+          >
+            <p
+              class="_taskbarTitle_bbdcfb"
+            >
               Task log
             </p>
             <button
               aria-describedby="sort-tooltip"
-              class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--tooltip--align-center"
+              class="bx--tooltip__trigger bx--tooltip--a11y _taskbarButton_bbdcfb bx--tooltip--top bx--tooltip--align-center"
               data-testid="taskbar-button"
               style="cursor: pointer;"
               type="button"
@@ -241,6 +304,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
               </span>
               <svg
                 aria-hidden="true"
+                class="_taskbarArrows_bbdcfb"
                 fill="currentColor"
                 focusable="false"
                 height="32"
@@ -255,17 +319,26 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
               </svg>
             </button>
           </section>
-          <ul>
+          <ul
+            class="_tasklog_bbdcfb"
+          >
             <li
-              class="undefined undefined"
+              class="_taskitem_1bda0d _completed_1bda0d"
               id="task-ecececb3-5334-41d1-bd02-449733f5d8f3"
               tabindex="0"
             >
-              <div />
-              <section>
-                <div>
+              <div
+                class="_progressBar_1bda0d"
+              />
+              <section
+                class="_header_1bda0d"
+              >
+                <div
+                  class="_title_1bda0d"
+                >
                   <svg
                     aria-label="completed"
+                    class="_taskIcon_1bda0d"
                     fill="currentColor"
                     focusable="false"
                     height="32"
@@ -290,10 +363,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                   </p>
                 </div>
                 <div
-                  class="undefined undefined"
+                  class="_status_1bda0d _completed_1bda0d"
                 >
                   <svg
                     aria-label="completed"
+                    class="_statusIcon_1bda0d"
                     fill="currentColor"
                     focusable="false"
                     height="32"
@@ -315,36 +389,59 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                   </p>
                 </div>
               </section>
-              <section>
-                <div>
-                  <p>
+              <section
+                class="_data_1bda0d"
+              >
+                <div
+                  class="_time_1bda0d"
+                >
+                  <p
+                    class="_timeTitle_1bda0d"
+                  >
                     Start time
                   </p>
-                  <time>
+                  <time
+                    class="_timeValue_1bda0d"
+                  >
                     10:58:21 PM
                   </time>
                 </div>
-                <div>
-                  <p>
+                <div
+                  class="_time_1bda0d"
+                >
+                  <p
+                    class="_timeTitle_1bda0d"
+                  >
                     Duration
                   </p>
-                  <time>
+                  <time
+                    class="_timeValue_1bda0d"
+                  >
                     63 ms
                   </time>
                 </div>
               </section>
-              <section />
+              <section
+                class="_data_1bda0d"
+              />
             </li>
             <li
-              class="undefined undefined"
+              class="_taskitem_1bda0d _completed_1bda0d"
               id="task-225e86b9-e187-4d09-9e5f-a6f4d5778868"
               tabindex="0"
             >
-              <div />
-              <section>
-                <div>
+              <div
+                class="_progressBar_1bda0d"
+              />
+              <section
+                class="_header_1bda0d"
+              >
+                <div
+                  class="_title_1bda0d"
+                >
                   <svg
                     aria-label="completed"
+                    class="_taskIcon_1bda0d"
                     fill="currentColor"
                     focusable="false"
                     height="32"
@@ -369,10 +466,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                   </p>
                 </div>
                 <div
-                  class="undefined undefined"
+                  class="_status_1bda0d _completed_1bda0d"
                 >
                   <svg
                     aria-label="completed"
+                    class="_statusIcon_1bda0d"
                     fill="currentColor"
                     focusable="false"
                     height="32"
@@ -394,27 +492,43 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                   </p>
                 </div>
               </section>
-              <section>
-                <div>
-                  <p>
+              <section
+                class="_data_1bda0d"
+              >
+                <div
+                  class="_time_1bda0d"
+                >
+                  <p
+                    class="_timeTitle_1bda0d"
+                  >
                     Start time
                   </p>
-                  <time>
+                  <time
+                    class="_timeValue_1bda0d"
+                  >
                     10:58:17 PM
                   </time>
                 </div>
-                <div>
-                  <p>
+                <div
+                  class="_time_1bda0d"
+                >
+                  <p
+                    class="_timeTitle_1bda0d"
+                  >
                     Duration
                   </p>
-                  <time>
+                  <time
+                    class="_timeValue_1bda0d"
+                  >
                     3 secs
                   </time>
                 </div>
               </section>
-              <section>
+              <section
+                class="_data_1bda0d"
+              >
                 <button
-                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  class="_trigger_d45153 bx--btn bx--btn--sm bx--btn--ghost"
                   tabindex="0"
                   type="button"
                 >
@@ -430,15 +544,22 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
               </section>
             </li>
             <li
-              class="undefined undefined"
+              class="_taskitem_1bda0d _completed_1bda0d"
               id="task-ea1b88d6-2c85-416f-b45e-50f4f5fa3a94"
               tabindex="0"
             >
-              <div />
-              <section>
-                <div>
+              <div
+                class="_progressBar_1bda0d"
+              />
+              <section
+                class="_header_1bda0d"
+              >
+                <div
+                  class="_title_1bda0d"
+                >
                   <svg
                     aria-label="completed"
+                    class="_taskIcon_1bda0d"
                     fill="currentColor"
                     focusable="false"
                     height="32"
@@ -463,10 +584,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                   </p>
                 </div>
                 <div
-                  class="undefined undefined"
+                  class="_status_1bda0d _completed_1bda0d"
                 >
                   <svg
                     aria-label="completed"
+                    class="_statusIcon_1bda0d"
                     fill="currentColor"
                     focusable="false"
                     height="32"
@@ -488,27 +610,43 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                   </p>
                 </div>
               </section>
-              <section>
-                <div>
-                  <p>
+              <section
+                class="_data_1bda0d"
+              >
+                <div
+                  class="_time_1bda0d"
+                >
+                  <p
+                    class="_timeTitle_1bda0d"
+                  >
                     Start time
                   </p>
-                  <time>
+                  <time
+                    class="_timeValue_1bda0d"
+                  >
                     10:58:03 PM
                   </time>
                 </div>
-                <div>
-                  <p>
+                <div
+                  class="_time_1bda0d"
+                >
+                  <p
+                    class="_timeTitle_1bda0d"
+                  >
                     Duration
                   </p>
-                  <time>
+                  <time
+                    class="_timeValue_1bda0d"
+                  >
                     14 secs
                   </time>
                 </div>
               </section>
-              <section>
+              <section
+                class="_data_1bda0d"
+              >
                 <button
-                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  class="_trigger_d45153 bx--btn bx--btn--sm bx--btn--ghost"
                   tabindex="0"
                   type="button"
                 >
@@ -524,15 +662,22 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
               </section>
             </li>
             <li
-              class="undefined undefined"
+              class="_taskitem_1bda0d _completed_1bda0d"
               id="task-fe6a167c-4c2b-429d-ae68-9d1e3d030b37"
               tabindex="0"
             >
-              <div />
-              <section>
-                <div>
+              <div
+                class="_progressBar_1bda0d"
+              />
+              <section
+                class="_header_1bda0d"
+              >
+                <div
+                  class="_title_1bda0d"
+                >
                   <svg
                     aria-label="completed"
+                    class="_taskIcon_1bda0d"
                     fill="currentColor"
                     focusable="false"
                     height="32"
@@ -557,10 +702,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                   </p>
                 </div>
                 <div
-                  class="undefined undefined"
+                  class="_status_1bda0d _completed_1bda0d"
                 >
                   <svg
                     aria-label="completed"
+                    class="_statusIcon_1bda0d"
                     fill="currentColor"
                     focusable="false"
                     height="32"
@@ -582,27 +728,43 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                   </p>
                 </div>
               </section>
-              <section>
-                <div>
-                  <p>
+              <section
+                class="_data_1bda0d"
+              >
+                <div
+                  class="_time_1bda0d"
+                >
+                  <p
+                    class="_timeTitle_1bda0d"
+                  >
                     Start time
                   </p>
-                  <time>
+                  <time
+                    class="_timeValue_1bda0d"
+                  >
                     10:57:50 PM
                   </time>
                 </div>
-                <div>
-                  <p>
+                <div
+                  class="_time_1bda0d"
+                >
+                  <p
+                    class="_timeTitle_1bda0d"
+                  >
                     Duration
                   </p>
-                  <time>
+                  <time
+                    class="_timeValue_1bda0d"
+                  >
                     12 secs
                   </time>
                 </div>
               </section>
-              <section>
+              <section
+                class="_data_1bda0d"
+              >
                 <button
-                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  class="_trigger_d45153 bx--btn bx--btn--sm bx--btn--ghost"
                   tabindex="0"
                   type="button"
                 >
@@ -626,10 +788,18 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
             </li>
           </ul>
         </aside>
-        <div>
-          <div>
-            <div>
-              <p>
+        <div
+          class="_executionDesignerContainer_e789f0"
+        >
+          <div
+            class="_executionWorkflowActions_e789f0"
+          >
+            <div
+              class="_container_a7ddc5"
+            >
+              <p
+                class="_messageText_a7ddc5"
+              >
                 Read-only
               </p>
               <button
@@ -655,10 +825,15 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 </svg>
               </button>
             </div>
-            <div>
-              <button>
+            <div
+              class="_zoomIcons_e10b08"
+            >
+              <button
+                class="_zoomButton_e10b08"
+              >
                 <svg
                   aria-hidden="true"
+                  class="_zoomIcon_e10b08"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -675,9 +850,12 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                   />
                 </svg>
               </button>
-              <button>
+              <button
+                class="_zoomButton_e10b08"
+              >
                 <svg
                   aria-hidden="true"
+                  class="_zoomIcon_e10b08"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -697,7 +875,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
             </div>
           </div>
           <div
-            class="srd-diagram "
+            class="srd-diagram _diagram_e789f0 "
           >
             <svg
               class="srd-link-layer "
@@ -709,13 +887,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _failure_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -760,7 +938,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -774,13 +952,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _failure_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -825,7 +1003,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -840,13 +1018,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _always_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -891,7 +1069,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -905,13 +1083,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _always_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -956,7 +1134,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -971,11 +1149,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_started_05f0c3 _locked_bc76f7"
                     >
                       <g />
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -989,11 +1167,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_started_05f0c3 _locked_bc76f7"
                     >
                       <g />
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1008,13 +1186,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _always_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1059,7 +1237,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1073,13 +1251,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _always_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1124,7 +1302,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1139,13 +1317,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _always_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1190,7 +1368,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1204,13 +1382,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _always_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1255,7 +1433,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1270,13 +1448,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _always_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1321,7 +1499,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1335,13 +1513,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _always_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1386,7 +1564,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1401,13 +1579,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _failure_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1452,7 +1630,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1466,13 +1644,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _failure_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1517,7 +1695,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1532,13 +1710,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _success_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1584,7 +1762,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1598,13 +1776,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _success_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1650,7 +1828,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1665,13 +1843,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _success_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1717,7 +1895,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1731,13 +1909,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _success_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1783,7 +1961,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1798,13 +1976,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _always_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1849,7 +2027,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1863,13 +2041,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _always_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1914,7 +2092,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1929,13 +2107,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _success_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -1981,7 +2159,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -1995,13 +2173,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _success_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -2047,7 +2225,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -2062,13 +2240,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 <g>
                   <g>
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _failure_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -2113,7 +2291,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -2127,13 +2305,13 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                     stroke-width="20"
                   >
                     <svg
-                      class=""
+                      class="_locked_bc76f7"
                     >
                       <g
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _execution_8e3247 _failure_8e3247"
                           height="26px"
                           viewBox="0 0 26 26"
                           width="26px"
@@ -2178,7 +2356,7 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                         </svg>
                       </g>
                       <path
-                        class="undefined"
+                        class="_path_bc76f7 _locked_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -2242,9 +2420,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 style="top: 396.30159063226193px; left: 588.7271929824564px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8 _skipped_c055db"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type download"
                       aria-hidden="true"
@@ -2262,28 +2442,31 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Artifactory File Download"
                     >
                       Artifactory File Download
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Download Train Samples"
                   >
                     Download Train Samples
                   </p>
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _left_dff5bb _execution_dff5bb "
                     data-name="left"
                     data-nodeid="23201b45-6f91-4bc4-9129-37eb3dcc981f"
                   />
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _right_dff5bb _execution_dff5bb "
                     data-name="right"
                     data-nodeid="23201b45-6f91-4bc4-9129-37eb3dcc981f"
                   />
-                  <div />
+                  <div
+                    class="_progressBar_c055db"
+                  />
                 </div>
               </div>
               <div
@@ -2292,9 +2475,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 style="top: 540.5152367209439px; left: 2441.4174405167087px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8 _skipped_c055db"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
@@ -2316,28 +2501,31 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Execute Shell"
                     >
                       Execute Shell
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Print Persistence Folder"
                   >
                     Print Persistence Folder
                   </p>
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _left_dff5bb _execution_dff5bb "
                     data-name="left"
                     data-nodeid="0821727a-b336-48ac-b42e-34f7b062dd8c"
                   />
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _right_dff5bb _execution_dff5bb "
                     data-name="right"
                     data-nodeid="0821727a-b336-48ac-b42e-34f7b062dd8c"
                   />
-                  <div />
+                  <div
+                    class="_progressBar_c055db"
+                  />
                 </div>
               </div>
               <div
@@ -2346,9 +2534,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 style="top: 396.4666787931217px; left: 965.9297863121px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8 _skipped_c055db"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type download"
                       aria-hidden="true"
@@ -2366,28 +2556,31 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Artifactory File Download"
                     >
                       Artifactory File Download
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Download Latest Published Version"
                   >
                     Download Latest Published Version
                   </p>
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _left_dff5bb _execution_dff5bb "
                     data-name="left"
                     data-nodeid="997213d5-f1ec-4fa9-9d95-719fa4db7253"
                   />
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _right_dff5bb _execution_dff5bb "
                     data-name="right"
                     data-nodeid="997213d5-f1ec-4fa9-9d95-719fa4db7253"
                   />
-                  <div />
+                  <div
+                    class="_progressBar_c055db"
+                  />
                 </div>
               </div>
               <div
@@ -2396,9 +2589,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 style="top: 396.3056611764126px; left: 1344.6179538804047px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8 _skipped_c055db"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
@@ -2420,28 +2615,31 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Execute Shell"
                     >
                       Execute Shell
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Check Version File Type"
                   >
                     Check Version File Type
                   </p>
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _left_dff5bb _execution_dff5bb "
                     data-name="left"
                     data-nodeid="5d1f2eaf-790e-456e-b278-cf4a52ea829a"
                   />
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _right_dff5bb _execution_dff5bb "
                     data-name="right"
                     data-nodeid="5d1f2eaf-790e-456e-b278-cf4a52ea829a"
                   />
-                  <div />
+                  <div
+                    class="_progressBar_c055db"
+                  />
                 </div>
               </div>
               <div
@@ -2450,9 +2648,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 style="top: 273.8076847036865px; left: 1722.2744351364279px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8 _skipped_c055db"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
@@ -2474,28 +2674,31 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Execute Shell"
                     >
                       Execute Shell
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Create New Version File"
                   >
                     Create New Version File
                   </p>
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _left_dff5bb _execution_dff5bb "
                     data-name="left"
                     data-nodeid="62f77206-e48e-4e0d-aeb8-5db0607eeb03"
                   />
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _right_dff5bb _execution_dff5bb "
                     data-name="right"
                     data-nodeid="62f77206-e48e-4e0d-aeb8-5db0607eeb03"
                   />
-                  <div />
+                  <div
+                    class="_progressBar_c055db"
+                  />
                 </div>
               </div>
               <div
@@ -2504,9 +2707,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 style="top: 395.94258425847954px; left: 2068.0136269066384px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8 _skipped_c055db"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type upload"
                       aria-hidden="true"
@@ -2524,28 +2729,31 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Artifactory File Upload"
                     >
                       Artifactory File Upload
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Upload Incremented Version"
                   >
                     Upload Incremented Version
                   </p>
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _left_dff5bb _execution_dff5bb "
                     data-name="left"
                     data-nodeid="9f00063f-8235-48e4-b38b-c43361ee8990"
                   />
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _right_dff5bb _execution_dff5bb "
                     data-name="right"
                     data-nodeid="9f00063f-8235-48e4-b38b-c43361ee8990"
                   />
-                  <div />
+                  <div
+                    class="_progressBar_c055db"
+                  />
                 </div>
               </div>
               <div
@@ -2554,9 +2762,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 style="top: 396.56172278306974px; left: 2441.0579354956567px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8 _skipped_e32579"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type code"
                       aria-hidden="true"
@@ -2578,34 +2788,43 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Run Custom Task"
                     >
                       Run Custom Task
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Train Machine Learning Model"
                   >
                     Train Machine Learning Model
                   </p>
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _left_dff5bb _execution_dff5bb "
                     data-name="left"
                     data-nodeid="bcd28f73-7215-4159-a27f-0d49658d3d79"
                   />
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _right_dff5bb _execution_dff5bb "
                     data-name="right"
                     data-nodeid="bcd28f73-7215-4159-a27f-0d49658d3d79"
                   />
-                  <div />
-                  <div>
-                    <p>
+                  <div
+                    class="_progressBar_e32579"
+                  />
+                  <div
+                    class="_badgeContainer_e32579"
+                  >
+                    <p
+                      class="_badgeText_e32579"
+                    >
                       Custom
                     </p>
                   </div>
-                  <div />
+                  <div
+                    class="_progressBar_e32579"
+                  />
                 </div>
               </div>
               <div
@@ -2614,9 +2833,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 style="top: 395.95530479161073px; left: 2835.255333668321px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8 _skipped_c055db"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type upload"
                       aria-hidden="true"
@@ -2634,28 +2855,31 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Artifactory File Upload"
                     >
                       Artifactory File Upload
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Artifactory File Upload 2"
                   >
                     Artifactory File Upload 2
                   </p>
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _left_dff5bb _execution_dff5bb "
                     data-name="left"
                     data-nodeid="19116efd-a273-46c8-9b9c-879a9f5cfcb1"
                   />
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _right_dff5bb _execution_dff5bb "
                     data-name="right"
                     data-nodeid="19116efd-a273-46c8-9b9c-879a9f5cfcb1"
                   />
-                  <div />
+                  <div
+                    class="_progressBar_c055db"
+                  />
                 </div>
               </div>
               <div
@@ -2664,9 +2888,11 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                 style="top: 275.81965061249633px; left: 2836.318481050438px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8 _skipped_c055db"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
@@ -2688,28 +2914,31 @@ exports[`Execution --- Snapshot > Capturing Snapshot of WorkflowExecutionContain
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Execute Shell"
                     >
                       Execute Shell
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Log Persistence Folder"
                   >
                     Log Persistence Folder
                   </p>
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _left_dff5bb _execution_dff5bb "
                     data-name="left"
                     data-nodeid="11189d82-e4c4-4774-b28d-93f248a857ba"
                   />
                   <div
-                    class="port srd-port undefined "
+                    class="port srd-port _port_dff5bb _right_dff5bb _execution_dff5bb "
                     data-name="right"
                     data-nodeid="11189d82-e4c4-4774-b28d-93f248a857ba"
                   />
-                  <div />
+                  <div
+                    class="_progressBar_c055db"
+                  />
                 </div>
               </div>
             </div>

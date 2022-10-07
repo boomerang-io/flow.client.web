@@ -9,56 +9,96 @@ exports[`UserDetails --- Snapshot Test > Capturing Snapshot of UserDetails 1`] =
       class="bx--modal-content"
     >
       <dl>
-        <section>
-          <dt>
+        <section
+          class="_sectionContainer_aec184"
+        >
+          <dt
+            class="_sectionHeader_aec184"
+          >
             Name
           </dt>
-          <dd>
+          <dd
+            class="_sectionDetail_aec184"
+          >
             Test User
           </dd>
         </section>
-        <section>
-          <dt>
+        <section
+          class="_sectionContainer_aec184"
+        >
+          <dt
+            class="_sectionHeader_aec184"
+          >
             Email
           </dt>
-          <dd>
+          <dd
+            class="_sectionDetail_aec184"
+          >
             test@testemail.com
           </dd>
         </section>
-        <section>
-          <dt>
+        <section
+          class="_sectionContainer_aec184"
+        >
+          <dt
+            class="_sectionHeader_aec184"
+          >
             Type
           </dt>
-          <dd>
+          <dd
+            class="_sectionDetail_aec184"
+          >
             Admin
           </dd>
         </section>
-        <section>
-          <dt>
+        <section
+          class="_sectionContainer_aec184"
+        >
+          <dt
+            class="_sectionHeader_aec184"
+          >
             Created
           </dt>
-          <dd>
+          <dd
+            class="_sectionDetail_aec184"
+          >
             July 21, 2020
           </dd>
         </section>
-        <section>
-          <dt>
+        <section
+          class="_sectionContainer_aec184"
+        >
+          <dt
+            class="_sectionHeader_aec184"
+          >
             Last Login
           </dt>
-          <dd>
+          <dd
+            class="_sectionDetail_aec184"
+          >
             July 21, 2020
           </dd>
         </section>
-        <section>
-          <dt>
+        <section
+          class="_sectionContainer_aec184"
+        >
+          <dt
+            class="_sectionHeader_aec184"
+          >
             Status
           </dt>
-          <dd>
+          <dd
+            class="_sectionDetail_aec184"
+          >
             active
           </dd>
         </section>
-        <section>
-          <dt>
+        <section
+          class="_sectionContainer_aec184"
+        >
+          <dt
+            class="_sectionHeader_aec184"
+          >
             Teams (0)
           </dt>
           ---

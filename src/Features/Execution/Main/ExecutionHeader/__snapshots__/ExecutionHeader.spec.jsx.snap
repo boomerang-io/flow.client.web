@@ -6,7 +6,7 @@ exports[`ExecutionHeader --- Snapshot > Capturing Snapshot of ExecutionHeader 1`
 >
   <div>
     <header
-      class="bx--bmrg-feature-header --bordered"
+      class="bx--bmrg-feature-header _container_58bfae --bordered"
     >
       <section
         class="bx--bmrg-feature-header__content"
@@ -14,7 +14,9 @@ exports[`ExecutionHeader --- Snapshot > Capturing Snapshot of ExecutionHeader 1`
         <div
           class="bx--bmrg-feature-header__nav"
         >
-          <div>
+          <div
+            class="_headerNav_58bfae"
+          >
             <nav
               aria-label="Breadcrumb"
             >
@@ -42,7 +44,9 @@ exports[`ExecutionHeader --- Snapshot > Capturing Snapshot of ExecutionHeader 1`
                 </li>
               </ol>
             </nav>
-            <button>
+            <button
+              class="_workflowAdvancedDetailTrigger_58bfae"
+            >
               <svg
                 aria-hidden="true"
                 fill="currentColor"
@@ -77,48 +81,82 @@ exports[`ExecutionHeader --- Snapshot > Capturing Snapshot of ExecutionHeader 1`
           </div>
         </div>
       </section>
-      <div>
-        <dl>
-          <dt>
+      <div
+        class="_content_58bfae"
+      >
+        <dl
+          class="_data_58bfae"
+        >
+          <dt
+            class="_dataTitle_58bfae"
+          >
             Team
           </dt>
-          <dd>
+          <dd
+            class="_dataValue_58bfae"
+          >
             CAI Offerings
           </dd>
         </dl>
-        <dl>
-          <dt>
+        <dl
+          class="_data_58bfae"
+        >
+          <dt
+            class="_dataTitle_58bfae"
+          >
             Version
           </dt>
-          <dd>
+          <dd
+            class="_dataValue_58bfae"
+          >
             ---
           </dd>
         </dl>
-        <dl>
-          <dt>
+        <dl
+          class="_data_58bfae"
+        >
+          <dt
+            class="_dataTitle_58bfae"
+          >
             Initiated by
           </dt>
-          <dd>
+          <dd
+            class="_dataValue_58bfae"
+          >
             Tim Bula
           </dd>
         </dl>
-        <dl>
-          <dt>
+        <dl
+          class="_data_58bfae"
+        >
+          <dt
+            class="_dataTitle_58bfae"
+          >
             Trigger
           </dt>
-          <dd>
+          <dd
+            class="_dataValue_58bfae"
+          >
             manual
           </dd>
         </dl>
-        <dl>
-          <dt>
+        <dl
+          class="_data_58bfae"
+        >
+          <dt
+            class="_dataTitle_58bfae"
+          >
             Start time
           </dt>
-          <dd>
+          <dd
+            class="_dataValue_58bfae"
+          >
             2019-09-03 03:00 PM
           </dd>
         </dl>
-        <dl />
+        <dl
+          class="_dataButton_58bfae"
+        />
       </div>
     </header>
   </div>

@@ -5,19 +5,31 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
   id="app"
 >
   <div>
-    <div>
+    <div
+      class="_container_25b96a"
+    >
       <div
-        class="bx--bmrg-feature-sidenav-container --right-border"
+        class="bx--bmrg-feature-sidenav-container _container_f7e8ef --right-border"
       >
-        <h1>
+        <h1
+          class="_title_f7e8ef"
+        >
           Task manager
         </h1>
-        <p>
+        <p
+          class="_description_f7e8ef"
+        >
           Create and import tasks to add to the Flow Editor task list
         </p>
-        <div>
-          <div>
-            <p>
+        <div
+          class="_tasksContainer_f7e8ef"
+        >
+          <div
+            class="_addTaskContainer_f7e8ef"
+          >
+            <p
+              class="_existingTasks_f7e8ef"
+            >
               Existing Tasks (34)
             </p>
             <button
@@ -45,7 +57,9 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </svg>
             </button>
           </div>
-          <section>
+          <section
+            class="_tools_f7e8ef"
+          >
             <div
               aria-labelledby="task-templates-search-search"
               class="bx--search bx--search--sm"
@@ -137,11 +151,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </svg>
             </button>
           </section>
-          <div>
-            <p>
+          <div
+            class="_tasksInfo_f7e8ef"
+          >
+            <p
+              class="_info_f7e8ef"
+            >
               Showing 34 tasks
             </p>
-            <button>
+            <button
+              class="_expandCollapse_f7e8ef"
+            >
               Expand all
             </button>
           </div>
@@ -153,7 +173,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
             class="bx--accordion bx--accordion--end bx--accordion--md"
           >
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-2"
@@ -213,11 +233,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Send Custom Slack Message
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -239,7 +263,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-3"
@@ -296,11 +320,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Find Repositories in Org
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -346,11 +374,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Make Repositories Private
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -372,7 +404,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-4"
@@ -433,11 +465,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Find Issues and Label
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -483,11 +519,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Find Issues and Remove
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -509,7 +549,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-5"
@@ -566,11 +606,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Get Incidents
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -616,11 +660,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Update Incidents
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -642,7 +690,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-6"
@@ -702,7 +750,9 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         TestInput
                       </p>
@@ -712,7 +762,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-7"
@@ -769,11 +819,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Json Path To Property
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -795,7 +849,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-8"
@@ -852,11 +906,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Artifactory File Download
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -898,11 +956,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Artifactory File Upload
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -924,7 +986,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-9"
@@ -984,11 +1046,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Send Platform Email
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1033,11 +1099,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Send Platform Notification
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1059,7 +1129,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-10"
@@ -1119,7 +1189,9 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Send Simple Slack Message
                       </p>
@@ -1152,11 +1224,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Send Slack Message with File Contents
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1198,11 +1274,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Slack User Look Up
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1244,11 +1324,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Upload Slack File with Message
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1270,7 +1354,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-11"
@@ -1327,11 +1411,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Check File Contains String
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1373,11 +1461,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Check File or Folder Exists
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1422,11 +1514,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Create File
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1468,11 +1564,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Read File to Property
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1514,11 +1614,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Read Properties From File
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1560,7 +1664,9 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Replace String in File
                       </p>
@@ -1570,7 +1676,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-12"
@@ -1627,11 +1733,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Execute HTTP Call
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1677,11 +1787,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Execute Shell
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1726,11 +1840,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Sleep
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1752,7 +1870,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item"
+              class="bx--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-13"
@@ -1809,11 +1927,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Manual Approval
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1855,11 +1977,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Manual Task
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1905,11 +2031,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Run Custom Task
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -1955,11 +2085,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Run Workflow
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -2001,11 +2135,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Set Output Property
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -2047,11 +2185,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Set Output Status
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -2093,11 +2235,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Switch
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -2142,11 +2288,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   <div
                     class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    <div>
+                    <div
+                      class="_task_f7e8ef"
+                    >
                       <p>
                         Wait For Event
                       </p>
-                      <div>
+                      <div
+                        class="_iconContainer_f7e8ef"
+                      >
                         <svg
                           aria-hidden="true"
                           fill="currentColor"
@@ -2174,7 +2324,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
         class="css-1xvapcp"
       >
         <div
-          class="css-vurnku"
+          class="_wombat_25b96a css-vurnku"
         >
           <div
             class="bx--bmrg-error-page"

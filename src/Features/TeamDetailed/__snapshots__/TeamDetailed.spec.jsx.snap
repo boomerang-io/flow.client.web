@@ -5,9 +5,11 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
   id="app"
 >
   <div>
-    <div>
+    <div
+      class="_container_1b3db8"
+    >
       <header
-        class="bx--bmrg-feature-header --bordered"
+        class="bx--bmrg-feature-header _container_0b651a --bordered"
       >
         <section
           class="bx--bmrg-feature-header__content"
@@ -51,8 +53,12 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
             >
               WDC2 ISE Dev
             </h1>
-            <div>
-              <div>
+            <div
+              class="_subtitle_0b651a"
+            >
+              <div
+                class="_status_0b651a"
+              >
                 <svg
                   aria-hidden="true"
                   fill="currentColor"
@@ -68,11 +74,15 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                     d="M13 24L4 15 5.414 13.586 13 21.171 26.586 7.586 28 9 13 24z"
                   />
                 </svg>
-                <p>
+                <p
+                  class="_statusText_0b651a"
+                >
                   Active
                 </p>
               </div>
-              <span>
+              <span
+                class="_statusDivider_0b651a"
+              >
                 -
               </span>
             </div>
@@ -111,7 +121,9 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
             </nav>
           </div>
         </section>
-        <section>
+        <section
+          class="_teamButtons_0b651a"
+        >
           <button
             aria-describedby="danger-description-1"
             class="bx--btn bx--btn--md bx--btn--danger"
@@ -148,13 +160,22 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
       </header>
       <section
         aria-label="WDC2 ISE Dev Team Members"
+        class="_container_72f9b4"
       >
-        <section>
-          <div>
-            <p>
+        <section
+          class="_actionsContainer_72f9b4"
+        >
+          <div
+            class="_leftActions_72f9b4"
+          >
+            <p
+              class="_featureDescription_72f9b4"
+            >
               These are the people who have access to workflows for this Team.
             </p>
-            <p>
+            <p
+              class="_memberCountText_72f9b4"
+            >
               Showing 
               2
                member
@@ -221,7 +242,9 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
               </button>
             </div>
           </div>
-          <div>
+          <div
+            class="_rightActions_72f9b4"
+          >
             <button
               class="bx--btn bx--btn--md bx--btn--primary"
               data-testid="add-members-button"
@@ -306,7 +329,9 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                 class="bx--structured-list-td"
                 role="cell"
               >
-                <div>
+                <div
+                  class="_memberNameContainer_72f9b4"
+                >
                   <p>
                     Marcus Roy
                   </p>
@@ -328,7 +353,9 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                 class="bx--structured-list-td"
                 role="cell"
               >
-                <button>
+                <button
+                  class="_removeButton_aa92f0"
+                >
                   Remove from Team
                   <svg
                     aria-hidden="true"
@@ -354,6 +381,7 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                 role="cell"
               >
                 <a
+                  class="_viewMemberLink_72f9b4"
                   href="/admin/users/kg3p380ad09662744c240e47"
                 >
                   View user
@@ -368,7 +396,9 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                 class="bx--structured-list-td"
                 role="cell"
               >
-                <div>
+                <div
+                  class="_memberNameContainer_72f9b4"
+                >
                   <p>
                     Tim Bula
                   </p>
@@ -390,7 +420,9 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                 class="bx--structured-list-td"
                 role="cell"
               >
-                <button>
+                <button
+                  class="_removeButton_aa92f0"
+                >
                   Remove from Team
                   <svg
                     aria-hidden="true"
@@ -416,6 +448,7 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                 role="cell"
               >
                 <a
+                  class="_viewMemberLink_72f9b4"
                   href="/admin/users/5f17380ad09662744c240e47"
                 >
                   View user

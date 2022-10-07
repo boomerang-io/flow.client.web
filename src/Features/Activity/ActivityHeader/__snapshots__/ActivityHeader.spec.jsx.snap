@@ -6,7 +6,7 @@ exports[`ActivityHeader --- Snapshot > Capturing Snapshot of ActivityHeader 1`] 
 >
   <div>
     <header
-      class="bx--bmrg-feature-header"
+      class="bx--bmrg-feature-header _container_76bf80"
     >
       <section
         class="bx--bmrg-feature-header__content"
@@ -26,17 +26,28 @@ exports[`ActivityHeader --- Snapshot > Capturing Snapshot of ActivityHeader 1`] 
           </h1>
         </div>
       </section>
-      <section>
-        <p>
+      <section
+        class="_content_76bf80"
+      >
+        <p
+          class="_text_76bf80"
+        >
           Today's numbers
         </p>
-        <div>
-          <div>
-            <p>
+        <div
+          class="_container_87f8c4"
+        >
+          <div
+            class="_valueAndIcon_87f8c4"
+          >
+            <p
+              class="_value_87f8c4"
+            >
               25
             </p>
             <svg
               aria-label="Runs"
+              class="_icon_87f8c4"
               fill="currentColor"
               focusable="false"
               height="32"
@@ -51,17 +62,26 @@ exports[`ActivityHeader --- Snapshot > Capturing Snapshot of ActivityHeader 1`] 
               />
             </svg>
           </div>
-          <p>
+          <p
+            class="_text_87f8c4"
+          >
             Runs
           </p>
         </div>
-        <div>
-          <div>
-            <p>
+        <div
+          class="_container_87f8c4"
+        >
+          <div
+            class="_valueAndIcon_87f8c4"
+          >
+            <p
+              class="_value_87f8c4"
+            >
               13
             </p>
             <svg
               aria-label="Successes"
+              class="_icon_87f8c4"
               fill="currentColor"
               focusable="false"
               height="32"
@@ -76,17 +96,26 @@ exports[`ActivityHeader --- Snapshot > Capturing Snapshot of ActivityHeader 1`] 
               />
             </svg>
           </div>
-          <p>
+          <p
+            class="_text_87f8c4"
+          >
             Successes
           </p>
         </div>
-        <div>
-          <div>
-            <p>
+        <div
+          class="_container_87f8c4"
+        >
+          <div
+            class="_valueAndIcon_87f8c4"
+          >
+            <p
+              class="_value_87f8c4"
+            >
               10
             </p>
             <svg
               aria-label="Failures"
+              class="_icon_87f8c4"
               fill="currentColor"
               focusable="false"
               height="32"
@@ -101,24 +130,35 @@ exports[`ActivityHeader --- Snapshot > Capturing Snapshot of ActivityHeader 1`] 
               />
             </svg>
           </div>
-          <p>
+          <p
+            class="_text_87f8c4"
+          >
             Failures
           </p>
         </div>
-        <div>
-          <div>
-            <p>
+        <div
+          class="_container_87f8c4"
+        >
+          <div
+            class="_valueAndIcon_87f8c4"
+          >
+            <p
+              class="_value_87f8c4"
+            >
               52%
             </p>
             <span
               aria-hidden="false"
               aria-label="Success rate"
+              class="_emoji_87f8c4"
               role="img"
             >
               😮
             </span>
           </div>
-          <p>
+          <p
+            class="_text_87f8c4"
+          >
             Success rate
           </p>
         </div>

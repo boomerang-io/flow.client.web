@@ -27,8 +27,12 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
         </div>
       </section>
     </header>
-    <div>
-      <div>
+    <div
+      class="_container_3e2bc7"
+    >
+      <div
+        class="_dataFilters_3e2bc7"
+      >
         <div
           class="bx--multi-select__wrapper bx--list-box__wrapper"
         >
@@ -309,7 +313,9 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
             </div>
           </div>
         </div>
-        <div>
+        <div
+          class="_timeFilters_3e2bc7"
+        >
           <div
             class="bx--form-item"
           >
@@ -335,7 +341,7 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
                     id="insights-date-picker-start"
                     pattern="\\\\d{1,2}\\\\/\\\\d{1,2}\\\\/\\\\d{4}"
                     type="text"
-                    value="05/01/2022"
+                    value="07/07/2022"
                   />
                   <svg
                     aria-hidden="true"
@@ -374,7 +380,7 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
                     id="insights-date-picker-end"
                     pattern="\\\\d{1,2}\\\\/\\\\d{1,2}\\\\/\\\\d{4}"
                     type="text"
-                    value="08/01/2022"
+                    value="10/07/2022"
                   />
                   <svg
                     aria-hidden="true"
@@ -399,85 +405,128 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
         </div>
       </div>
       <div
+        class="_statsWidgets_3e2bc7"
         data-testid="completed-insights"
       >
         <div
-          class="bx--tile"
+          class="bx--tile _container_fe2025"
         >
           <div>
-            <h3>
+            <h3
+              class="_title_fe2025"
+            >
               Executions
             </h3>
-            <div>
-              <p>
+            <div
+              class="_totalCountContainer_fe2025"
+            >
+              <p
+                class="_totalCount_fe2025"
+              >
                 1088
               </p>
-              <p>
+              <p
+                class="_type_fe2025"
+              >
                 runs
               </p>
             </div>
           </div>
-          <ul>
-            <li>
+          <ul
+            class="_list_fe2025"
+          >
+            <li
+              class="_row_fe2025"
+            >
               <p
+                class="_itemValue_fe2025"
                 style="width: 2rem;"
               >
                 4
               </p>
-              <p>
+              <p
+                class="_itemLabel_fe2025"
+              >
                 Tim Testing Slacks
               </p>
             </li>
           </ul>
         </div>
         <div
-          class="bx--tile"
+          class="bx--tile _container_fe2025"
         >
           <div>
-            <h3>
+            <h3
+              class="_title_fe2025"
+            >
               Duration (median)
             </h3>
-            <div>
-              <p>
+            <div
+              class="_totalCountContainer_fe2025"
+            >
+              <p
+                class="_totalCount_fe2025"
+              >
                 1 min 7 secs
               </p>
-              <p />
+              <p
+                class="_type_fe2025"
+              />
             </div>
           </div>
-          <ul>
-            <li>
+          <ul
+            class="_list_fe2025"
+          >
+            <li
+              class="_row_fe2025"
+            >
               <p
+                class="_itemValue_fe2025"
                 style="width: 7rem;"
               >
                 10 secs
               </p>
-              <p>
+              <p
+                class="_itemLabel_fe2025"
+              >
                 Minimum
               </p>
             </li>
-            <li>
+            <li
+              class="_row_fe2025"
+            >
               <p
+                class="_itemValue_fe2025"
                 style="width: 7rem;"
               >
                 30 secs
               </p>
-              <p>
+              <p
+                class="_itemLabel_fe2025"
+              >
                 Maximum
               </p>
             </li>
-            <li>
+            <li
+              class="_row_fe2025"
+            >
               <p
+                class="_itemValue_fe2025"
                 style="width: 7rem;"
               >
                 23 secs
               </p>
-              <p>
+              <p
+                class="_itemLabel_fe2025"
+              >
                 Average
               </p>
             </li>
           </ul>
         </div>
-        <div>
+        <div
+          class="_donut_3e2bc7"
+        >
           <div
             class="CarbonDonutChart"
           >
@@ -487,16 +536,18 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
           </div>
         </div>
       </div>
-      <div>
+      <div
+        class="_graphsWidgets_3e2bc7"
+      >
         <div
-          class="bx--tile"
+          class="bx--tile _container_082b99"
         >
           <div>
             LineChart
           </div>
         </div>
         <div
-          class="bx--tile"
+          class="bx--tile _container_082b99"
         >
           <div>
             ScatterChart
@@ -549,7 +600,7 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
           <span
             class="cur-month"
           >
-            May
+            July
           </span>
           <div
             class="numInputWrapper"
@@ -658,259 +709,270 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
             class="dayContainer"
           >
             <span
-              aria-label="July 31, 2022"
+              aria-label="September 25, 2022"
               class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
               tabindex="-1"
             >
-              31
+              25
             </span>
             <span
-              aria-current="date"
-              aria-label="August 1, 2022"
-              class="flatpickr-day today selected endRange bx--date-picker__day no-border"
+              aria-label="September 26, 2022"
+              class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
+              tabindex="-1"
+            >
+              26
+            </span>
+            <span
+              aria-label="September 27, 2022"
+              class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
+              tabindex="-1"
+            >
+              27
+            </span>
+            <span
+              aria-label="September 28, 2022"
+              class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
+              tabindex="-1"
+            >
+              28
+            </span>
+            <span
+              aria-label="September 29, 2022"
+              class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
+              tabindex="-1"
+            >
+              29
+            </span>
+            <span
+              aria-label="September 30, 2022"
+              class="flatpickr-day prevMonthDay inRange bx--date-picker__day"
+              tabindex="-1"
+            >
+              30
+            </span>
+            <span
+              aria-label="October 1, 2022"
+              class="flatpickr-day inRange bx--date-picker__day"
               tabindex="-1"
             >
               1
             </span>
             <span
-              aria-label="August 2, 2022"
-              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+              aria-label="October 2, 2022"
+              class="flatpickr-day inRange bx--date-picker__day"
+              tabindex="-1"
             >
               2
             </span>
             <span
-              aria-label="August 3, 2022"
-              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+              aria-label="October 3, 2022"
+              class="flatpickr-day inRange bx--date-picker__day"
+              tabindex="-1"
             >
               3
             </span>
             <span
-              aria-label="August 4, 2022"
-              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+              aria-label="October 4, 2022"
+              class="flatpickr-day inRange bx--date-picker__day"
+              tabindex="-1"
             >
               4
             </span>
             <span
-              aria-label="August 5, 2022"
-              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+              aria-label="October 5, 2022"
+              class="flatpickr-day inRange bx--date-picker__day"
+              tabindex="-1"
             >
               5
             </span>
             <span
-              aria-label="August 6, 2022"
-              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+              aria-label="October 6, 2022"
+              class="flatpickr-day inRange bx--date-picker__day"
+              tabindex="-1"
             >
               6
             </span>
             <span
-              aria-label="August 7, 2022"
-              class="flatpickr-day flatpickr-disabled bx--date-picker__day"
+              aria-current="date"
+              aria-label="October 7, 2022"
+              class="flatpickr-day today selected endRange bx--date-picker__day no-border"
+              tabindex="-1"
             >
               7
             </span>
             <span
-              aria-label="August 8, 2022"
+              aria-label="October 8, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               8
             </span>
             <span
-              aria-label="August 9, 2022"
+              aria-label="October 9, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               9
             </span>
             <span
-              aria-label="August 10, 2022"
+              aria-label="October 10, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               10
             </span>
             <span
-              aria-label="August 11, 2022"
+              aria-label="October 11, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               11
             </span>
             <span
-              aria-label="August 12, 2022"
+              aria-label="October 12, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               12
             </span>
             <span
-              aria-label="August 13, 2022"
+              aria-label="October 13, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               13
             </span>
             <span
-              aria-label="August 14, 2022"
+              aria-label="October 14, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               14
             </span>
             <span
-              aria-label="August 15, 2022"
+              aria-label="October 15, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               15
             </span>
             <span
-              aria-label="August 16, 2022"
+              aria-label="October 16, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               16
             </span>
             <span
-              aria-label="August 17, 2022"
+              aria-label="October 17, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               17
             </span>
             <span
-              aria-label="August 18, 2022"
+              aria-label="October 18, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               18
             </span>
             <span
-              aria-label="August 19, 2022"
+              aria-label="October 19, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               19
             </span>
             <span
-              aria-label="August 20, 2022"
+              aria-label="October 20, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               20
             </span>
             <span
-              aria-label="August 21, 2022"
+              aria-label="October 21, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               21
             </span>
             <span
-              aria-label="August 22, 2022"
+              aria-label="October 22, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               22
             </span>
             <span
-              aria-label="August 23, 2022"
+              aria-label="October 23, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               23
             </span>
             <span
-              aria-label="August 24, 2022"
+              aria-label="October 24, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               24
             </span>
             <span
-              aria-label="August 25, 2022"
+              aria-label="October 25, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               25
             </span>
             <span
-              aria-label="August 26, 2022"
+              aria-label="October 26, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               26
             </span>
             <span
-              aria-label="August 27, 2022"
+              aria-label="October 27, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               27
             </span>
             <span
-              aria-label="August 28, 2022"
+              aria-label="October 28, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               28
             </span>
             <span
-              aria-label="August 29, 2022"
+              aria-label="October 29, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               29
             </span>
             <span
-              aria-label="August 30, 2022"
+              aria-label="October 30, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               30
             </span>
             <span
-              aria-label="August 31, 2022"
+              aria-label="October 31, 2022"
               class="flatpickr-day flatpickr-disabled bx--date-picker__day"
             >
               31
             </span>
             <span
-              aria-label="September 1, 2022"
+              aria-label="November 1, 2022"
               class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
             >
               1
             </span>
             <span
-              aria-label="September 2, 2022"
+              aria-label="November 2, 2022"
               class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
             >
               2
             </span>
             <span
-              aria-label="September 3, 2022"
+              aria-label="November 3, 2022"
               class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
             >
               3
             </span>
             <span
-              aria-label="September 4, 2022"
+              aria-label="November 4, 2022"
               class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
             >
               4
             </span>
             <span
-              aria-label="September 5, 2022"
+              aria-label="November 5, 2022"
               class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
             >
               5
-            </span>
-            <span
-              aria-label="September 6, 2022"
-              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
-            >
-              6
-            </span>
-            <span
-              aria-label="September 7, 2022"
-              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
-            >
-              7
-            </span>
-            <span
-              aria-label="September 8, 2022"
-              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
-            >
-              8
-            </span>
-            <span
-              aria-label="September 9, 2022"
-              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
-            >
-              9
-            </span>
-            <span
-              aria-label="September 10, 2022"
-              class="flatpickr-day nextMonthDay flatpickr-disabled bx--date-picker__day"
-            >
-              10
             </span>
           </div>
         </div>

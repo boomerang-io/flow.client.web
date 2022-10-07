@@ -7,13 +7,13 @@ import { WorkflowDagEngineMode } from "Constants";
 const diagramEngine = new WorkflowDagEngine({ dag: revisions[0].dag, mode: WorkflowDagEngineMode.Editor });
 const node = {};
 
-describe("ScriptNodeDesigner --- Snapshot", () => {
-  it("Capturing Snapshot of ScriptNodeDesigner", () => {
-    const { baseElement } = rtlContextRouterRender(
-      <EditorContextRender>
-        <ScriptNodeDesigner diagramEngine={diagramEngine} node={node} />
-      </EditorContextRender>
-    );
-    expect(baseElement).toMatchSnapshot();
-  });
-});
+// describe("ScriptNodeDesigner --- Snapshot", () => {
+//   it("Capturing Snapshot of ScriptNodeDesigner", () => {
+//     const { baseElement } = rtlContextRouterRender(
+//       <EditorContextRender>
+//         <ScriptNodeDesigner diagramEngine={diagramEngine} node={node} />
+//       </EditorContextRender>
+//     );
+//     expect(baseElement).toMatchSnapshot();
+//   });
+// });

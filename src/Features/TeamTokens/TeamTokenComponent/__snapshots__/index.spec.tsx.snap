@@ -5,9 +5,11 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
   id="app"
 >
   <div>
-    <div>
+    <div
+      class="_container_0d6de6"
+    >
       <header
-        class="bx--bmrg-feature-header"
+        class="bx--bmrg-feature-header _header_0d6de6"
       >
         <section
           class="bx--bmrg-feature-header__content"
@@ -16,16 +18,22 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
             class="bx--bmrg-feature-header__header"
           >
             <h1
-              class="bx--bmrg-feature-header-title"
+              class="bx--bmrg-feature-header-title _headerTitle_0d6de6"
             >
               Team Tokens
             </h1>
           </div>
         </section>
       </header>
-      <div>
-        <div>
-          <div>
+      <div
+        class="_content_0d6de6"
+      >
+        <div
+          class="_tokenContainer_0d6de6"
+        >
+          <div
+            class="_dropdown_0d6de6"
+          >
             <div
               class="bx--bmrg-select"
             >
@@ -162,10 +170,12 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
               class="bx--data-table bx--data-table--sort bx--data-table--no-border"
             >
               <thead>
-                <tr>
+                <tr
+                  class="_tableHeadRow_0d6de6"
+                >
                   <th
                     aria-sort="none"
-                    class="undefined undefined"
+                    class="_tableHeadHeader_0d6de6 _creatorName_0d6de6"
                     id="creatorName"
                     scope="col"
                   >
@@ -177,7 +187,7 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                     </div>
                     <button
                       aria-describedby="table-sort-2"
-                      class="undefined undefined bx--table-sort"
+                      class="_tableHeadHeader_0d6de6 _creatorName_0d6de6 bx--table-sort"
                       type="button"
                     >
                       <span
@@ -223,7 +233,7 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   </th>
                   <th
                     aria-sort="none"
-                    class="undefined undefined"
+                    class="_tableHeadHeader_0d6de6 _description_0d6de6"
                     id="description"
                     scope="col"
                   >
@@ -235,7 +245,7 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                     </div>
                     <button
                       aria-describedby="table-sort-3"
-                      class="undefined undefined bx--table-sort"
+                      class="_tableHeadHeader_0d6de6 _description_0d6de6 bx--table-sort"
                       type="button"
                     >
                       <span
@@ -281,7 +291,7 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   </th>
                   <th
                     aria-sort="descending"
-                    class="undefined undefined"
+                    class="_tableHeadHeader_0d6de6 _creationDate_0d6de6"
                     id="creationDate"
                     scope="col"
                   >
@@ -293,7 +303,7 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                     </div>
                     <button
                       aria-describedby="table-sort-4"
-                      class="undefined undefined bx--table-sort bx--table-sort--active bx--table-sort--ascending"
+                      class="_tableHeadHeader_0d6de6 _creationDate_0d6de6 bx--table-sort bx--table-sort--active bx--table-sort--ascending"
                       type="button"
                     >
                       <span
@@ -339,7 +349,7 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   </th>
                   <th
                     aria-sort="none"
-                    class="undefined undefined"
+                    class="_tableHeadHeader_0d6de6 _expiryDate_0d6de6"
                     id="expiryDate"
                     scope="col"
                   >
@@ -351,7 +361,7 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                     </div>
                     <button
                       aria-describedby="table-sort-5"
-                      class="undefined undefined bx--table-sort"
+                      class="_tableHeadHeader_0d6de6 _expiryDate_0d6de6 bx--table-sort"
                       type="button"
                     >
                       <span
@@ -396,7 +406,7 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                     </button>
                   </th>
                   <th
-                    class="undefined undefined"
+                    class="_tableHeadHeader_0d6de6 _delete_0d6de6"
                     id="delete"
                     scope="col"
                   />
@@ -404,13 +414,18 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
               </thead>
               <tbody
                 aria-live="polite"
+                class="_tableBody_0d6de6"
               >
                 <tr>
                   <td
                     style="padding: 0px;"
                   >
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_0d6de6"
+                    >
+                      <p
+                        class="_tableTextarea_0d6de6"
+                      >
                         Test User
                       </p>
                     </div>
@@ -418,8 +433,12 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   <td
                     style="padding: 0px;"
                   >
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_0d6de6"
+                    >
+                      <p
+                        class="_tableTextarea_0d6de6"
+                      >
                         test token 2
                       </p>
                     </div>
@@ -427,8 +446,12 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   <td
                     style="padding: 0px;"
                   >
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_0d6de6"
+                    >
+                      <p
+                        class="_tableTextarea_0d6de6"
+                      >
                         July 07, 2021
                       </p>
                     </div>
@@ -436,8 +459,12 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   <td
                     style="padding: 0px;"
                   >
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_0d6de6"
+                    >
+                      <p
+                        class="_tableTextarea_0d6de6"
+                      >
                         ---
                       </p>
                     </div>
@@ -445,10 +472,12 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   <td
                     style="padding: 0px;"
                   >
-                    <div>
+                    <div
+                      class="_tableCell_0d6de6"
+                    >
                       <button
                         aria-describedby="danger-description-7"
-                        class="bx--btn bx--btn--sm bx--btn--danger--ghost"
+                        class="_button_396177 bx--btn bx--btn--sm bx--btn--danger--ghost"
                         data-testid="delete-token-button-12"
                         tabindex="0"
                         type="button"
@@ -487,8 +516,12 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   <td
                     style="padding: 0px;"
                   >
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_0d6de6"
+                    >
+                      <p
+                        class="_tableTextarea_0d6de6"
+                      >
                         Test User
                       </p>
                     </div>
@@ -496,8 +529,12 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   <td
                     style="padding: 0px;"
                   >
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_0d6de6"
+                    >
+                      <p
+                        class="_tableTextarea_0d6de6"
+                      >
                         test token
                       </p>
                     </div>
@@ -505,8 +542,12 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   <td
                     style="padding: 0px;"
                   >
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_0d6de6"
+                    >
+                      <p
+                        class="_tableTextarea_0d6de6"
+                      >
                         June 07, 2021
                       </p>
                     </div>
@@ -514,8 +555,12 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   <td
                     style="padding: 0px;"
                   >
-                    <div>
-                      <p>
+                    <div
+                      class="_tableCell_0d6de6"
+                    >
+                      <p
+                        class="_tableTextarea_0d6de6"
+                      >
                         June 07, 2022
                       </p>
                     </div>
@@ -523,10 +568,12 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
                   <td
                     style="padding: 0px;"
                   >
-                    <div>
+                    <div
+                      class="_tableCell_0d6de6"
+                    >
                       <button
                         aria-describedby="danger-description-8"
-                        class="bx--btn bx--btn--sm bx--btn--danger--ghost"
+                        class="_button_396177 bx--btn bx--btn--sm bx--btn--danger--ghost"
                         data-testid="delete-token-button-11"
                         tabindex="0"
                         type="button"

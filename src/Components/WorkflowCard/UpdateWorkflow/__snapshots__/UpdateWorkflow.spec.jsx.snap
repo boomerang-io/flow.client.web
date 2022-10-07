@@ -24,7 +24,7 @@ exports[`ImportWorkflow --- Snapshot Test > Capturing Snapshot of ImportWorkflow
     >
       <div
         aria-modal="true"
-        class="bx--bmrg-modal-container bx--bmrg-modal-flow-container bx--modal-container modal-container-fix-width"
+        class="bx--bmrg-modal-container bx--bmrg-modal-flow-container bx--modal-container modal-container-fix-width _container_fe4e61"
         role="dialog"
         tabindex="-1"
       >

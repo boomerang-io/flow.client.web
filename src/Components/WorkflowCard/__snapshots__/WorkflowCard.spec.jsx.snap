@@ -5,15 +5,22 @@ exports[`WorkflowCard --- Snapshot > Capturing Snapshot of WorkflowCard 1`] = `
   id="app"
 >
   <div>
-    <div>
+    <div
+      class="_container_483afa"
+    >
       <a
         href="/editor/undefined/workflow"
       >
-        <section>
-          <div>
+        <section
+          class="_details_483afa"
+        >
+          <div
+            class="_iconContainer_483afa"
+          >
             <svg
               alt="undefined"
               aria-hidden="true"
+              class="_icon_483afa"
               fill="currentColor"
               focusable="false"
               height="20"
@@ -27,15 +34,22 @@ exports[`WorkflowCard --- Snapshot > Capturing Snapshot of WorkflowCard 1`] = `
               />
             </svg>
           </div>
-          <div>
+          <div
+            class="_descriptionContainer_483afa"
+          >
             <h1
+              class="_name_483afa"
               data-testid="workflow-card-title"
             />
-            <p />
+            <p
+              class="_description_483afa"
+            />
           </div>
         </section>
       </a>
-      <section>
+      <section
+        class="_launch_483afa"
+      >
         <button
           class="bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
           disabled=""

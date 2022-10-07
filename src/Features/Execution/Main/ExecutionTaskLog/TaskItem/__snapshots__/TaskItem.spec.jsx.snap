@@ -6,15 +6,22 @@ exports[`TaskItem --- Snapshot > Capturing Snapshot of TaskItem 1`] = `
 >
   <div>
     <li
-      class="undefined undefined"
+      class="_taskitem_1bda0d _completed_1bda0d"
       id="task-515c8b05-ceb0-470a-a58e-b8740b332a6a"
       tabindex="0"
     >
-      <div />
-      <section>
-        <div>
+      <div
+        class="_progressBar_1bda0d"
+      />
+      <section
+        class="_header_1bda0d"
+      >
+        <div
+          class="_title_1bda0d"
+        >
           <svg
             aria-label="completed"
+            class="_taskIcon_1bda0d"
             fill="currentColor"
             focusable="false"
             height="32"
@@ -39,10 +46,11 @@ exports[`TaskItem --- Snapshot > Capturing Snapshot of TaskItem 1`] = `
           </p>
         </div>
         <div
-          class="undefined undefined"
+          class="_status_1bda0d _completed_1bda0d"
         >
           <svg
             aria-label="completed"
+            class="_statusIcon_1bda0d"
             fill="currentColor"
             focusable="false"
             height="32"
@@ -64,25 +72,41 @@ exports[`TaskItem --- Snapshot > Capturing Snapshot of TaskItem 1`] = `
           </p>
         </div>
       </section>
-      <section>
-        <div>
-          <p>
+      <section
+        class="_data_1bda0d"
+      >
+        <div
+          class="_time_1bda0d"
+        >
+          <p
+            class="_timeTitle_1bda0d"
+          >
             Start time
           </p>
-          <time>
+          <time
+            class="_timeValue_1bda0d"
+          >
             03:00:00 PM
           </time>
         </div>
-        <div>
-          <p>
+        <div
+          class="_time_1bda0d"
+        >
+          <p
+            class="_timeTitle_1bda0d"
+          >
             Duration
           </p>
-          <time>
+          <time
+            class="_timeValue_1bda0d"
+          >
             5 mins
           </time>
         </div>
       </section>
-      <section />
+      <section
+        class="_data_1bda0d"
+      />
     </li>
   </div>
 </body>

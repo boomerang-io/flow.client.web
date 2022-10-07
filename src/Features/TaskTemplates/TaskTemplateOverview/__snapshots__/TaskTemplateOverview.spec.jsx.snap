@@ -5,17 +5,23 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
   id="app"
 >
   <div>
-    <div>
+    <div
+      class="_container_734922"
+    >
       <header
-        class="bx--bmrg-feature-header --bordered"
+        class="bx--bmrg-feature-header _featureHeader_4b0ee6 --bordered"
       >
         <section
           class="bx--bmrg-feature-header__content"
         >
-          <p>
+          <p
+            class="_category_4b0ee6"
+          >
             communication
           </p>
-          <div>
+          <div
+            class="_infoContainer_4b0ee6"
+          >
             <svg
               alt="Task node type get, read"
               aria-hidden="true"
@@ -33,11 +39,14 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
               />
             </svg>
             <h1
+              class="_taskName_4b0ee6"
               title="Slack User Look Up"
             >
               Slack User Look Up
             </h1>
-            <button>
+            <button
+              class="_button_61c4b8"
+            >
               <svg
                 aria-hidden="true"
                 fill="currentColor"
@@ -57,6 +66,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
               </svg>
             </button>
             <a
+              class="_exportYaml_4b0ee6"
               download="Slack User Look Up.yaml"
               href="/api/workflow/tasktemplate/5e670a1e2d5e6a302de4f41d/yaml/1"
               rel="noopener noreferrer"
@@ -78,7 +88,9 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
               </svg>
             </a>
           </div>
-          <p>
+          <p
+            class="_lastUpdate_4b0ee6"
+          >
             Version created Apr 30, 2020 by ---
           </p>
           <div
@@ -103,17 +115,26 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
             </nav>
           </div>
         </section>
-        <div>
-          <div>
-            <div>
-              <div>
+        <div
+          class="_buttons_4b0ee6"
+        >
+          <div
+            class="_container_b033d1"
+          >
+            <div
+              class="_buttonListContainer_b033d1"
+            >
+              <div
+                class="_buttonList_b033d1"
+              >
                 <button
+                  class="_button_b033d1"
                   disabled=""
                 >
                   <svg
                     alt="first version"
                     aria-hidden="true"
-                    class="undefined"
+                    class="_icon_b033d1 _disabled_b033d1"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -128,12 +149,13 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
                   </svg>
                 </button>
                 <button
+                  class="_button_b033d1"
                   disabled=""
                 >
                   <svg
                     alt="back one version"
                     aria-hidden="true"
-                    class="undefined"
+                    class="_icon_b033d1 _disabled_b033d1"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -148,17 +170,22 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
                   </svg>
                 </button>
               </div>
-              <p>
+              <p
+                class="_versionText_b033d1"
+              >
                 Version 1
               </p>
-              <div>
+              <div
+                class="_buttonList_b033d1"
+              >
                 <button
+                  class="_button_b033d1"
                   disabled=""
                 >
                   <svg
                     alt="forward one version"
                     aria-hidden="true"
-                    class="undefined"
+                    class="_icon_b033d1 _disabled_b033d1"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -173,12 +200,13 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
                   </svg>
                 </button>
                 <button
+                  class="_button_b033d1"
                   disabled=""
                 >
                   <svg
                     alt="last version"
                     aria-hidden="true"
-                    class="undefined"
+                    class="_icon_b033d1 _disabled_b033d1"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -196,7 +224,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
             </div>
           </div>
           <button
-            class="bx--btn bx--btn--md bx--btn--ghost bx--btn--disabled"
+            class="_resetButton_4b0ee6 bx--btn bx--btn--md bx--btn--ghost bx--btn--disabled"
             disabled=""
             tabindex="0"
             type="button"
@@ -220,7 +248,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
             </svg>
           </button>
           <button
-            class="bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
+            class="_mainActionButton_4b0ee6 bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
             disabled=""
             tabindex="0"
             type="button"
@@ -246,13 +274,19 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
           </button>
         </div>
       </header>
-      <div>
-        <section>
-          <p>
+      <div
+        class="_content_734922"
+      >
+        <section
+          class="_taskActionsSection_734922"
+        >
+          <p
+            class="_description_734922"
+          >
             Build the definition requirements for this task.
           </p>
           <button
-            class="bx--btn bx--btn--md bx--btn--ghost"
+            class="_archive_734922 bx--btn bx--btn--md bx--btn--ghost"
             tabindex="0"
             type="button"
           >
@@ -279,11 +313,15 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
             </svg>
           </button>
         </section>
-        <div>
+        <div
+          class="_detailCardsContainer_734922"
+        >
           <div
-            class="bx--tile"
+            class="bx--tile _editDetailsCard_734922"
           >
-            <section>
+            <section
+              class="_editTitle_734922"
+            >
               <h1>
                 Basics
               </h1>
@@ -311,32 +349,50 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
                 </svg>
               </button>
             </section>
-            <dl>
-              <section>
-                <dt>
+            <dl
+              class="_detailsDataList_734922"
+            >
+              <section
+                class="_infoSection_734922"
+              >
+                <dt
+                  class="_label_734922"
+                >
                   Name
                 </dt>
                 <dd
+                  class="_value_734922"
                   data-testid="Name"
                 >
                   Slack User Look Up
                 </dd>
               </section>
-              <section>
-                <dt>
+              <section
+                class="_infoSection_734922"
+              >
+                <dt
+                  class="_label_734922"
+                >
                   Category
                 </dt>
                 <dd
+                  class="_value_734922"
                   data-testid="Category"
                 >
                   communication
                 </dd>
               </section>
-              <section>
-                <dt>
+              <section
+                class="_infoSection_734922"
+              >
+                <dt
+                  class="_label_734922"
+                >
                   Icon
                 </dt>
-                <div>
+                <div
+                  class="_basicIcon_734922"
+                >
                   <svg
                     alt="Task node type get, read"
                     aria-hidden="true"
@@ -353,36 +409,53 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
                       d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                     />
                   </svg>
-                  <p>
+                  <p
+                    class="_value_734922"
+                  >
                     Search
                   </p>
                 </div>
               </section>
-              <section>
-                <dt>
+              <section
+                class="_infoSection_734922"
+              >
+                <dt
+                  class="_label_734922"
+                >
                   Description
                 </dt>
                 <dd
+                  class="_value_734922"
                   data-testid="Description"
                 >
                   Look up Slack user by email address
                 </dd>
               </section>
-              <section>
-                <dt>
+              <section
+                class="_infoSection_734922"
+              >
+                <dt
+                  class="_label_734922"
+                >
                   Image
                 </dt>
                 <dd
+                  class="_noValue_734922"
                   data-testid="Image"
                 >
                   Not defined yet
                 </dd>
               </section>
-              <section>
-                <dt>
+              <section
+                class="_infoSection_734922"
+              >
+                <dt
+                  class="_label_734922"
+                >
                   Command
                 </dt>
                 <dd
+                  class="_value_734922"
                   data-testid="Command"
                 >
                   npm start
@@ -390,53 +463,81 @@ run test
 cd ..
                 </dd>
               </section>
-              <section>
-                <dt>
+              <section
+                class="_infoSection_734922"
+              >
+                <dt
+                  class="_label_734922"
+                >
                   Arguments
                 </dt>
                 <dd
+                  class="_value_734922"
                   data-testid="Arguments"
                 >
                   slack
 lookUpUser
                 </dd>
               </section>
-              <section>
-                <dt>
+              <section
+                class="_infoSection_734922"
+              >
+                <dt
+                  class="_label_734922"
+                >
                   Script
                 </dt>
                 <dd
+                  class="_noValue_734922"
                   data-testid="Script"
                 >
                   Not defined yet
                 </dd>
               </section>
-              <section>
-                <dt>
+              <section
+                class="_infoSection_734922"
+              >
+                <dt
+                  class="_label_734922"
+                >
                   Working Directory
                 </dt>
                 <dd
+                  class="_noValue_734922"
                   data-testid="Working Directory"
                 >
                   Not defined yet
                 </dd>
               </section>
-              <section>
-                <dt>
+              <section
+                class="_infoSection_734922"
+              >
+                <dt
+                  class="_label_734922"
+                >
                   Envs
                 </dt>
                 <dd
+                  class="_noValue_734922"
                   data-testid="Envs"
                 >
                   Not defined yet
                 </dd>
               </section>
-              <section>
-                <dt>
+              <section
+                class="_infoSection_734922"
+              >
+                <dt
+                  class="_label_734922"
+                >
                   Contribution level
                 </dt>
-                <div>
-                  <p>
+                <div
+                  class="_basicIcon_734922"
+                >
+                  <p
+                    class="_value_734922"
+                  >
                     Verified task
                   </p>
                   <svg
@@ -459,18 +560,26 @@ lookUpUser
             </dl>
           </div>
           <div
-            class="bx--tile"
+            class="bx--tile _editFieldsCard_734922"
           >
-            <section>
-              <hgroup>
+            <section
+              class="_editTitle_734922"
+            >
+              <hgroup
+                class="_fieldsTitle_734922"
+              >
                 <h1>
                   Definition fields
                 </h1>
-                <h2>
+                <h2
+                  class="_fieldDesc_734922"
+                >
                   Drag to reorder the fields
                 </h2>
               </hgroup>
-              <div>
+              <div
+                class="_fieldActions_734922"
+              >
                 <button
                   class="bx--btn bx--btn--md bx--btn--ghost"
                   style="width: 6.25rem;"
@@ -526,13 +635,17 @@ lookUpUser
                 </button>
               </div>
             </section>
-            <div>
+            <div
+              class="_fieldsContainer_734922"
+            >
               <section
+                class="_fieldSection_734922"
                 data-rbd-draggable-context-id="0"
                 data-rbd-draggable-id="0"
               >
                 <div
                   aria-describedby="rbd-hidden-text-0-hidden-text-0"
+                  class="_iconContainer_734922"
                   data-rbd-drag-handle-context-id="0"
                   data-rbd-drag-handle-draggable-id="0"
                   draggable="false"
@@ -542,6 +655,7 @@ lookUpUser
                 >
                   <svg
                     aria-hidden="true"
+                    class="_dragabble_734922"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -556,12 +670,15 @@ lookUpUser
                   </svg>
                 </div>
                 <dd
+                  class="_value_734922"
                   data-testid="Token"
                   style="margin-left: 0px;"
                 >
                   Text | Token - token
                 </dd>
-                <div>
+                <div
+                  class="_actions_734922"
+                >
                   <button
                     class="bx--btn bx--btn--md bx--btn--ghost"
                     tabindex="0"
@@ -586,7 +703,7 @@ lookUpUser
                     </svg>
                   </button>
                   <button
-                    class="bx--btn bx--btn--md bx--btn--ghost"
+                    class="_delete_734922 bx--btn bx--btn--md bx--btn--ghost"
                     tabindex="0"
                     type="button"
                   >
@@ -614,11 +731,13 @@ lookUpUser
                 </div>
               </section>
               <section
+                class="_fieldSection_734922"
                 data-rbd-draggable-context-id="0"
                 data-rbd-draggable-id="1"
               >
                 <div
                   aria-describedby="rbd-hidden-text-0-hidden-text-0"
+                  class="_iconContainer_734922"
                   data-rbd-drag-handle-context-id="0"
                   data-rbd-drag-handle-draggable-id="1"
                   draggable="false"
@@ -628,6 +747,7 @@ lookUpUser
                 >
                   <svg
                     aria-hidden="true"
+                    class="_dragabble_734922"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -642,12 +762,15 @@ lookUpUser
                   </svg>
                 </div>
                 <dd
+                  class="_value_734922"
                   data-testid="Email Address"
                   style="margin-left: 0px;"
                 >
                   Text | Email Address - emailAddress
                 </dd>
-                <div>
+                <div
+                  class="_actions_734922"
+                >
                   <button
                     class="bx--btn bx--btn--md bx--btn--ghost"
                     tabindex="0"
@@ -672,7 +795,7 @@ lookUpUser
                     </svg>
                   </button>
                   <button
-                    class="bx--btn bx--btn--md bx--btn--ghost"
+                    class="_delete_734922 bx--btn bx--btn--md bx--btn--ghost"
                     tabindex="0"
                     type="button"
                   >
@@ -702,9 +825,11 @@ lookUpUser
             </div>
           </div>
           <div
-            class="bx--tile"
+            class="bx--tile _editFieldsCard_734922"
           >
-            <section>
+            <section
+              class="_editTitleParameters_734922"
+            >
               <h1>
                 Result Parameters
               </h1>
@@ -734,15 +859,25 @@ lookUpUser
                 </svg>
               </button>
             </section>
-            <div>
-              <div>
-                <p>
+            <div
+              class="_fieldsContainer_734922"
+            >
+              <div
+                class="_noFieldsContainer_734922"
+              >
+                <p
+                  class="_noFieldsTitle_734922"
+                >
                   No Result Paramaters (yet)
                 </p>
-                <p>
+                <p
+                  class="_noFieldsText_734922"
+                >
                   Result Parameters map to the output of a task. Provide the name and description for the variables that will be output as a results of this task.
                 </p>
-                <p>
+                <p
+                  class="_noFieldsText_734922"
+                >
                   Add a result paramater above to get started.
                 </p>
               </div>

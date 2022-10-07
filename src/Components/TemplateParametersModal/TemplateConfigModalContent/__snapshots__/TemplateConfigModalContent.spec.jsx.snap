@@ -10,7 +10,7 @@ exports[`TemplateConfigModalContent --- Snapshot > Capturing Snapshot of Task Te
     >
       <div
         aria-label="inputs"
-        class="bx--modal-content"
+        class="bx--modal-content _container_625b3b"
       >
         <div
           class="bx--bmrg-text-input"

@@ -6,26 +6,39 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
 >
   <div>
     <aside
-      class="undefined "
+      class="_container_bbdcfb "
     >
       <section
-        class="undefined undefined"
+        class="_statusBlock_bbdcfb _completed_bbdcfb"
       >
-        <div>
-          <p>
+        <div
+          class="_duration_bbdcfb"
+        >
+          <p
+            class="_title_bbdcfb"
+          >
             Duration
           </p>
-          <time>
+          <time
+            class="_value_bbdcfb"
+          >
             15min
           </time>
         </div>
-        <div>
-          <p>
+        <div
+          class="_status_bbdcfb"
+        >
+          <p
+            class="_title_bbdcfb"
+          >
             Status
           </p>
-          <div>
+          <div
+            class="_statusData_bbdcfb"
+          >
             <svg
               aria-label="completed"
+              class="_statusIcon_bbdcfb"
               fill="currentColor"
               focusable="false"
               height="32"
@@ -42,14 +55,19 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
                 d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
               />
             </svg>
-            <p>
+            <p
+              class="_value_bbdcfb"
+            >
               Succeeded
             </p>
           </div>
         </div>
-        <button>
+        <button
+          class="_collapseButton_bbdcfb"
+        >
           <svg
             aria-hidden="true"
+            class="_chevron_bbdcfb"
             fill="currentColor"
             focusable="false"
             height="32"
@@ -64,13 +82,17 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
           </svg>
         </button>
       </section>
-      <section>
-        <p>
+      <section
+        class="_taskbar_bbdcfb"
+      >
+        <p
+          class="_taskbarTitle_bbdcfb"
+        >
           Task log
         </p>
         <button
           aria-describedby="sort-tooltip"
-          class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--tooltip--align-center"
+          class="bx--tooltip__trigger bx--tooltip--a11y _taskbarButton_bbdcfb bx--tooltip--top bx--tooltip--align-center"
           data-testid="taskbar-button"
           style="cursor: pointer;"
           type="button"
@@ -83,6 +105,7 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
           </span>
           <svg
             aria-hidden="true"
+            class="_taskbarArrows_bbdcfb"
             fill="currentColor"
             focusable="false"
             height="32"
@@ -97,17 +120,26 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
           </svg>
         </button>
       </section>
-      <ul>
+      <ul
+        class="_tasklog_bbdcfb"
+      >
         <li
-          class="undefined undefined"
+          class="_taskitem_1bda0d _inProgress_1bda0d"
           id="task-ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84"
           tabindex="0"
         >
-          <div />
-          <section>
-            <div>
+          <div
+            class="_progressBar_1bda0d"
+          />
+          <section
+            class="_header_1bda0d"
+          >
+            <div
+              class="_title_1bda0d"
+            >
               <svg
                 aria-label="inProgress"
+                class="_taskIcon_1bda0d"
                 fill="currentColor"
                 focusable="false"
                 height="32"
@@ -132,10 +164,11 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
               </p>
             </div>
             <div
-              class="undefined undefined"
+              class="_status_1bda0d _inProgress_1bda0d"
             >
               <svg
                 aria-label="inProgress"
+                class="_statusIcon_1bda0d"
                 fill="currentColor"
                 focusable="false"
                 height="32"
@@ -157,36 +190,59 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
               </p>
             </div>
           </section>
-          <section>
-            <div>
-              <p>
+          <section
+            class="_data_1bda0d"
+          >
+            <div
+              class="_time_1bda0d"
+            >
+              <p
+                class="_timeTitle_1bda0d"
+              >
                 Start time
               </p>
-              <time>
+              <time
+                class="_timeValue_1bda0d"
+              >
                 03:01:00 PM
               </time>
             </div>
-            <div>
-              <p>
+            <div
+              class="_time_1bda0d"
+            >
+              <p
+                class="_timeTitle_1bda0d"
+              >
                 Duration
               </p>
-              <time>
+              <time
+                class="_timeValue_1bda0d"
+              >
                 5 mins
               </time>
             </div>
           </section>
-          <section />
+          <section
+            class="_data_1bda0d"
+          />
         </li>
         <li
-          class="undefined undefined"
+          class="_taskitem_1bda0d _completed_1bda0d"
           id="task-d53a65a5-be1b-4e58-b0e5-0173c5aabe47"
           tabindex="0"
         >
-          <div />
-          <section>
-            <div>
+          <div
+            class="_progressBar_1bda0d"
+          />
+          <section
+            class="_header_1bda0d"
+          >
+            <div
+              class="_title_1bda0d"
+            >
               <svg
                 aria-label="completed"
+                class="_taskIcon_1bda0d"
                 fill="currentColor"
                 focusable="false"
                 height="32"
@@ -211,10 +267,11 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
               </p>
             </div>
             <div
-              class="undefined undefined"
+              class="_status_1bda0d _completed_1bda0d"
             >
               <svg
                 aria-label="completed"
+                class="_statusIcon_1bda0d"
                 fill="currentColor"
                 focusable="false"
                 height="32"
@@ -236,25 +293,41 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
               </p>
             </div>
           </section>
-          <section>
-            <div>
-              <p>
+          <section
+            class="_data_1bda0d"
+          >
+            <div
+              class="_time_1bda0d"
+            >
+              <p
+                class="_timeTitle_1bda0d"
+              >
                 Start time
               </p>
-              <time>
+              <time
+                class="_timeValue_1bda0d"
+              >
                 03:00:00 PM
               </time>
             </div>
-            <div>
-              <p>
+            <div
+              class="_time_1bda0d"
+            >
+              <p
+                class="_timeTitle_1bda0d"
+              >
                 Duration
               </p>
-              <time>
+              <time
+                class="_timeValue_1bda0d"
+              >
                 5 mins
               </time>
             </div>
           </section>
-          <section />
+          <section
+            class="_data_1bda0d"
+          />
         </li>
       </ul>
     </aside>

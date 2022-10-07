@@ -5,9 +5,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
   id="app"
 >
   <div>
-    <div>
+    <div
+      class="_container_189893"
+    >
       <header
-        class="bx--bmrg-feature-header --bordered"
+        class="bx--bmrg-feature-header _container_e3db26 --bordered"
       >
         <section
           class="bx--bmrg-feature-header__content"
@@ -92,16 +94,25 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
             </nav>
           </div>
         </section>
-        <section>
+        <section
+          class="_workflowButtons_e3db26"
+        >
           <div
-            class=""
+            class="_container_6bf745"
           >
-            <div>
-              <div>
-                <button>
+            <div
+              class="_buttonListContainer_6bf745"
+            >
+              <div
+                class="_buttonList_6bf745"
+              >
+                <button
+                  class="_button_6bf745"
+                >
                   <svg
                     alt="first version"
                     aria-hidden="true"
+                    class="_icon_6bf745"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -115,10 +126,13 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                 </button>
-                <button>
+                <button
+                  class="_button_6bf745"
+                >
                   <svg
                     alt="back one version"
                     aria-hidden="true"
+                    class="_icon_6bf745"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -133,17 +147,22 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   </svg>
                 </button>
               </div>
-              <p>
+              <p
+                class="_versionText_6bf745"
+              >
                 Version 2
               </p>
-              <div>
+              <div
+                class="_buttonList_6bf745"
+              >
                 <button
+                  class="_button_6bf745"
                   disabled=""
                 >
                   <svg
                     alt="forward one version"
                     aria-hidden="true"
-                    class="undefined"
+                    class="_icon_6bf745 _disabled_6bf745"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -158,12 +177,13 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   </svg>
                 </button>
                 <button
+                  class="_button_6bf745"
                   disabled=""
                 >
                   <svg
                     alt="last version"
                     aria-hidden="true"
-                    class="undefined"
+                    class="_icon_6bf745 _disabled_6bf745"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -180,7 +200,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
               </div>
             </div>
           </div>
-          <div>
+          <div
+            class="_workflowActionContainer_e3db26"
+          >
             <button
               class="bx--btn bx--btn--md bx--btn--ghost"
               style="display: none;"
@@ -236,17 +258,26 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
           </div>
         </section>
       </header>
-      <div>
+      <div
+        class="_container_9eb3aa"
+      >
         <aside
-          class=""
+          class="_container_542829"
         >
-          <header>
-            <h1>
+          <header
+            class="_header_542829"
+          >
+            <h1
+              class="_heading_542829"
+            >
               Add a task
             </h1>
-            <button>
+            <button
+              class="_collapseButton_542829"
+            >
               <svg
                 aria-hidden="true"
+                class="_collapseButtonImg_542829"
                 fill="currentColor"
                 focusable="false"
                 height="32"
@@ -261,7 +292,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
               </svg>
             </button>
           </header>
-          <section>
+          <section
+            class="_tasks_542829"
+          >
             <div
               aria-labelledby="search-tasks-search"
               class="bx--search bx--search--sm bx--search--light"
@@ -353,20 +386,28 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
               </svg>
             </button>
           </section>
-          <section>
-            <h3>
+          <section
+            class="_detail_542829"
+          >
+            <h3
+              class="_totalCount_542829"
+            >
               Showing 34 tasks
             </h3>
-            <button>
+            <button
+              class="_expandButton_542829"
+            >
               Expand all
             </button>
           </section>
-          <section>
+          <section
+            class="_content_542829"
+          >
             <ul
               class="bx--accordion bx--accordion--end bx--accordion--md"
             >
               <li
-                class="bx--accordion__item bx--accordion__item--active"
+                class="bx--accordion__item bx--accordion__item--active _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-3"
@@ -400,20 +441,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-3"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type edit"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -427,7 +475,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Manual Approval
                                
@@ -454,16 +504,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type edit"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -477,7 +532,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Manual Task
                                
@@ -504,16 +561,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type code"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -531,7 +593,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 transform="rotate(-75 15.996 16)"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Run Custom Task
                                
@@ -558,16 +622,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type automated task"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -585,7 +654,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M17,30a1,1,0,0,1-.37-.07,1,1,0,0,1-.62-.79l-1-7,2-.28.75,5.27L21,24.52V17a1,1,0,0,1,.29-.71l4.07-4.07A8.94,8.94,0,0,0,28,5.86V4H26.14a8.94,8.94,0,0,0-6.36,2.64l-4.07,4.07A1,1,0,0,1,15,11H7.48L4.87,14.26l5.27.75-.28,2-7-1a1,1,0,0,1-.79-.62,1,1,0,0,1,.15-1l4-5A1,1,0,0,1,7,9h7.59l3.77-3.78A10.92,10.92,0,0,1,26.14,2H28a2,2,0,0,1,2,2V5.86a10.92,10.92,0,0,1-3.22,7.78L23,17.41V25a1,1,0,0,1-.38.78l-5,4A1,1,0,0,1,17,30Z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Run Workflow
                                
@@ -612,16 +683,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type edit"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -635,7 +711,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Set Output Property
                                
@@ -662,16 +740,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type edit"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -685,7 +768,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Set Output Status
                                
@@ -712,16 +797,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type switch"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -735,7 +825,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M26,18a3.9962,3.9962,0,0,0-3.8579,3H17V11h5.1421a4,4,0,1,0,0-2H17a2.002,2.002,0,0,0-2,2v4H9.8579a4,4,0,1,0,0,2H15v4a2.002,2.002,0,0,0,2,2h5.1421A3.9934,3.9934,0,1,0,26,18ZM26,8a2,2,0,1,1-2,2A2.002,2.002,0,0,1,26,8ZM6,18a2,2,0,1,1,2-2A2.002,2.002,0,0,1,6,18Zm20,6a2,2,0,1,1,2-2A2.002,2.002,0,0,1,26,24Z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Switch
                                
@@ -762,16 +854,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type power on/off"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -788,7 +885,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M7.5 1H8.5V8H7.5z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Wait For Event
                                
@@ -816,7 +915,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item"
+                class="bx--accordion__item _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-4"
@@ -849,20 +948,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-4"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type message"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -879,7 +985,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M8 10H24V12H8zM8 16H18V18H8z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Send Custom Slack Message
                                
@@ -907,7 +1015,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item"
+                class="bx--accordion__item _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-5"
@@ -940,20 +1048,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-5"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type API/HTTP call"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -967,7 +1082,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M26,22a3.86,3.86,0,0,0-2,.57l-3.09-3.1a6,6,0,0,0,0-6.94L24,9.43A3.86,3.86,0,0,0,26,10a4,4,0,1,0-4-4,3.86,3.86,0,0,0,.57,2l-3.1,3.09a6,6,0,0,0-6.94,0L9.43,8A3.86,3.86,0,0,0,10,6a4,4,0,1,0-4,4,3.86,3.86,0,0,0,2-.57l3.09,3.1a6,6,0,0,0,0,6.94L8,22.57A3.86,3.86,0,0,0,6,22a4,4,0,1,0,4,4,3.86,3.86,0,0,0-.57-2l3.1-3.09a6,6,0,0,0,6.94,0L22.57,24A3.86,3.86,0,0,0,22,26a4,4,0,1,0,4-4ZM26,4a2,2,0,1,1-2,2A2,2,0,0,1,26,4ZM4,6A2,2,0,1,1,6,8,2,2,0,0,1,4,6ZM6,28a2,2,0,1,1,2-2A2,2,0,0,1,6,28Zm10-8a4,4,0,1,1,4-4A4,4,0,0,1,16,20Zm10,8a2,2,0,1,1,2-2A2,2,0,0,1,26,28Z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Find Repositories in Org
                                
@@ -994,16 +1111,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type automated task"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1021,7 +1143,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M17,30a1,1,0,0,1-.37-.07,1,1,0,0,1-.62-.79l-1-7,2-.28.75,5.27L21,24.52V17a1,1,0,0,1,.29-.71l4.07-4.07A8.94,8.94,0,0,0,28,5.86V4H26.14a8.94,8.94,0,0,0-6.36,2.64l-4.07,4.07A1,1,0,0,1,15,11H7.48L4.87,14.26l5.27.75-.28,2-7-1a1,1,0,0,1-.79-.62,1,1,0,0,1,.15-1l4-5A1,1,0,0,1,7,9h7.59l3.77-3.78A10.92,10.92,0,0,1,26.14,2H28a2,2,0,0,1,2,2V5.86a10.92,10.92,0,0,1-3.22,7.78L23,17.41V25a1,1,0,0,1-.38.78l-5,4A1,1,0,0,1,17,30Z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Make Repositories Private
                                
@@ -1049,7 +1173,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item"
+                class="bx--accordion__item _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-6"
@@ -1082,20 +1206,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-6"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type automated task"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1113,7 +1244,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M17,30a1,1,0,0,1-.37-.07,1,1,0,0,1-.62-.79l-1-7,2-.28.75,5.27L21,24.52V17a1,1,0,0,1,.29-.71l4.07-4.07A8.94,8.94,0,0,0,28,5.86V4H26.14a8.94,8.94,0,0,0-6.36,2.64l-4.07,4.07A1,1,0,0,1,15,11H7.48L4.87,14.26l5.27.75-.28,2-7-1a1,1,0,0,1-.79-.62,1,1,0,0,1,.15-1l4-5A1,1,0,0,1,7,9h7.59l3.77-3.78A10.92,10.92,0,0,1,26.14,2H28a2,2,0,0,1,2,2V5.86a10.92,10.92,0,0,1-3.22,7.78L23,17.41V25a1,1,0,0,1-.38.78l-5,4A1,1,0,0,1,17,30Z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Find Issues and Label
                                
@@ -1140,16 +1273,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type automated task"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1167,7 +1305,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M17,30a1,1,0,0,1-.37-.07,1,1,0,0,1-.62-.79l-1-7,2-.28.75,5.27L21,24.52V17a1,1,0,0,1,.29-.71l4.07-4.07A8.94,8.94,0,0,0,28,5.86V4H26.14a8.94,8.94,0,0,0-6.36,2.64l-4.07,4.07A1,1,0,0,1,15,11H7.48L4.87,14.26l5.27.75-.28,2-7-1a1,1,0,0,1-.79-.62,1,1,0,0,1,.15-1l4-5A1,1,0,0,1,7,9h7.59l3.77-3.78A10.92,10.92,0,0,1,26.14,2H28a2,2,0,0,1,2,2V5.86a10.92,10.92,0,0,1-3.22,7.78L23,17.41V25a1,1,0,0,1-.38.78l-5,4A1,1,0,0,1,17,30Z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Find Issues and Remove
                                
@@ -1195,7 +1335,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item"
+                class="bx--accordion__item _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-7"
@@ -1228,20 +1368,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-7"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type API/HTTP call"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1255,7 +1402,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M26,22a3.86,3.86,0,0,0-2,.57l-3.09-3.1a6,6,0,0,0,0-6.94L24,9.43A3.86,3.86,0,0,0,26,10a4,4,0,1,0-4-4,3.86,3.86,0,0,0,.57,2l-3.1,3.09a6,6,0,0,0-6.94,0L9.43,8A3.86,3.86,0,0,0,10,6a4,4,0,1,0-4,4,3.86,3.86,0,0,0,2-.57l3.09,3.1a6,6,0,0,0,0,6.94L8,22.57A3.86,3.86,0,0,0,6,22a4,4,0,1,0,4,4,3.86,3.86,0,0,0-.57-2l3.1-3.09a6,6,0,0,0,6.94,0L22.57,24A3.86,3.86,0,0,0,22,26a4,4,0,1,0,4-4ZM26,4a2,2,0,1,1-2,2A2,2,0,0,1,26,4ZM4,6A2,2,0,1,1,6,8,2,2,0,0,1,4,6ZM6,28a2,2,0,1,1,2-2A2,2,0,0,1,6,28Zm10-8a4,4,0,1,1,4-4A4,4,0,0,1,16,20Zm10,8a2,2,0,1,1,2-2A2,2,0,0,1,26,28Z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Get Incidents
                                
@@ -1282,16 +1431,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type automated task"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1309,7 +1463,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M17,30a1,1,0,0,1-.37-.07,1,1,0,0,1-.62-.79l-1-7,2-.28.75,5.27L21,24.52V17a1,1,0,0,1,.29-.71l4.07-4.07A8.94,8.94,0,0,0,28,5.86V4H26.14a8.94,8.94,0,0,0-6.36,2.64l-4.07,4.07A1,1,0,0,1,15,11H7.48L4.87,14.26l5.27.75-.28,2-7-1a1,1,0,0,1-.79-.62,1,1,0,0,1,.15-1l4-5A1,1,0,0,1,7,9h7.59l3.77-3.78A10.92,10.92,0,0,1,26.14,2H28a2,2,0,0,1,2,2V5.86a10.92,10.92,0,0,1-3.22,7.78L23,17.41V25a1,1,0,0,1-.38.78l-5,4A1,1,0,0,1,17,30Z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Update Incidents
                                
@@ -1337,7 +1493,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item"
+                class="bx--accordion__item _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-8"
@@ -1370,20 +1526,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-8"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type validate"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1400,7 +1563,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M25,5H22V4a2,2,0,0,0-2-2H12a2,2,0,0,0-2,2V5H7A2,2,0,0,0,5,7V28a2,2,0,0,0,2,2H25a2,2,0,0,0,2-2V7A2,2,0,0,0,25,5ZM12,4h8V8H12ZM25,28H7V7h3v3H22V7h3Z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               TestInput
                                
@@ -1413,7 +1578,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item"
+                class="bx--accordion__item _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-9"
@@ -1446,20 +1611,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-9"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type filter"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1473,7 +1645,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M18,28H14a2,2,0,0,1-2-2V18.41L4.59,11A2,2,0,0,1,4,9.59V6A2,2,0,0,1,6,4H26a2,2,0,0,1,2,2V9.59A2,2,0,0,1,27.41,11L20,18.41V26A2,2,0,0,1,18,28ZM6,6V9.59l8,8V26h4V17.59l8-8V6Z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Json Path To Property
                                
@@ -1501,7 +1675,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item"
+                class="bx--accordion__item _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-10"
@@ -1534,20 +1708,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-10"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type download"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1561,7 +1742,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M13 7L12.3 6.3 8.5 10.1 8.5 1 7.5 1 7.5 10.1 3.7 6.3 3 7 8 12zM13 12v2H3v-2H2v2l0 0c0 .6.4 1 1 1h10c.6 0 1-.4 1-1l0 0v-2H13z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Artifactory File Download
                                
@@ -1588,16 +1771,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type upload"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1611,7 +1799,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M3 9L3.7 9.7 7.5 5.9 7.5 15 8.5 15 8.5 5.9 12.3 9.7 13 9 8 4zM3 4V2h10v2h1V2c0-.6-.4-1-1-1H3C2.4 1 2 1.4 2 2v2H3z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Artifactory File Upload
                                
@@ -1639,7 +1829,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item"
+                class="bx--accordion__item _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-11"
@@ -1672,20 +1862,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-11"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type message"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1702,7 +1899,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M8 10H24V12H8zM8 16H18V18H8z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Send Platform Email
                                
@@ -1729,16 +1928,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type message"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1755,7 +1959,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M8 10H24V12H8zM8 16H18V18H8z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Send Platform Notification
                                
@@ -1783,7 +1989,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item"
+                class="bx--accordion__item _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-12"
@@ -1816,20 +2022,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-12"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type message"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1846,7 +2059,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M8 10H24V12H8zM8 16H18V18H8z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Send Simple Slack Message
                                
@@ -1858,16 +2073,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type message"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1884,7 +2104,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M8 10H24V12H8zM8 16H18V18H8z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Send Slack Message with File Contents
                                
@@ -1911,16 +2133,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type get, read"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1934,7 +2161,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Slack User Look Up
                                
@@ -1961,16 +2190,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type upload"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -1984,7 +2218,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M3 9L3.7 9.7 7.5 5.9 7.5 15 8.5 15 8.5 5.9 12.3 9.7 13 9 8 4zM3 4V2h10v2h1V2c0-.6-.4-1-1-1H3C2.4 1 2 1.4 2 2v2H3z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Upload Slack File with Message
                                
@@ -2012,7 +2248,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item"
+                class="bx--accordion__item _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-13"
@@ -2045,20 +2281,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-13"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type get, read"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -2072,7 +2315,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Check File Contains String
                                
@@ -2099,16 +2344,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type get, read"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -2122,7 +2372,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Check File or Folder Exists
                                
@@ -2149,16 +2401,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type add"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -2175,7 +2432,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M24 15L17 15 17 8 15 8 15 15 8 15 8 17 15 17 15 24 17 24 17 17 24 17z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Create File
                                
@@ -2202,16 +2461,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type get, read"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -2225,7 +2489,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Read File to Property
                                
@@ -2252,16 +2518,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type get, read"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -2275,7 +2546,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Read Properties From File
                                
@@ -2302,16 +2575,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type edit"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -2325,7 +2603,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Replace String in File
                                
@@ -2338,7 +2618,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item"
+                class="bx--accordion__item _taskCategory_542829"
               >
                 <button
                   aria-controls="accordion-item-14"
@@ -2371,20 +2651,27 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="bx--accordion__content"
                   id="accordion-item-14"
                 >
-                  <ul>
+                  <ul
+                    class="_taskSection_542829"
+                  >
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type API/HTTP call"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -2398,7 +2685,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M26,22a3.86,3.86,0,0,0-2,.57l-3.09-3.1a6,6,0,0,0,0-6.94L24,9.43A3.86,3.86,0,0,0,26,10a4,4,0,1,0-4-4,3.86,3.86,0,0,0,.57,2l-3.1,3.09a6,6,0,0,0-6.94,0L9.43,8A3.86,3.86,0,0,0,10,6a4,4,0,1,0-4,4,3.86,3.86,0,0,0,2-.57l3.09,3.1a6,6,0,0,0,0,6.94L8,22.57A3.86,3.86,0,0,0,6,22a4,4,0,1,0,4,4,3.86,3.86,0,0,0-.57-2l3.1-3.09a6,6,0,0,0,6.94,0L22.57,24A3.86,3.86,0,0,0,22,26a4,4,0,1,0,4-4ZM26,4a2,2,0,1,1-2,2A2,2,0,0,1,26,4ZM4,6A2,2,0,1,1,6,8,2,2,0,0,1,4,6ZM6,28a2,2,0,1,1,2-2A2,2,0,0,1,6,28Zm10-8a4,4,0,1,1,4-4A4,4,0,0,1,16,20Zm10,8a2,2,0,1,1,2-2A2,2,0,0,1,26,28Z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Execute HTTP Call
                                
@@ -2425,16 +2714,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type terminal"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="20"
@@ -2452,7 +2746,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M10.76 16.18L13.58 19.01 10.76 21.84 12.17 23.25 16.41 19.01 12.17 14.77 10.76 16.18z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Execute Shell
                                
@@ -2479,16 +2775,21 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile undefined"
+                        class="bx--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
                       >
-                        <div>
-                          <div>
+                        <div
+                          class="_columnContainer_fa1251"
+                        >
+                          <div
+                            class="_rowContainer_fa1251"
+                          >
                             <svg
                               alt="Task node type power on/off"
                               aria-hidden="true"
+                              class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
                               height="16"
@@ -2505,7 +2806,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                                 d="M7.5 1H8.5V8H7.5z"
                               />
                             </svg>
-                            <p>
+                            <p
+                              class="_taskName_fa1251"
+                            >
                                
                               Sleep
                                
@@ -2536,12 +2839,18 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
           </section>
         </aside>
         <div
+          class="_workflowContainer_9eb3aa"
           id="workflow-dag-designer"
         >
-          <div>
-            <button>
+          <div
+            class="_zoomIcons_e10b08"
+          >
+            <button
+              class="_zoomButton_e10b08"
+            >
               <svg
                 aria-hidden="true"
+                class="_zoomIcon_e10b08"
                 fill="currentColor"
                 focusable="false"
                 height="16"
@@ -2558,9 +2867,12 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 />
               </svg>
             </button>
-            <button>
+            <button
+              class="_zoomButton_e10b08"
+            >
               <svg
                 aria-hidden="true"
+                class="_zoomIcon_e10b08"
                 fill="currentColor"
                 focusable="false"
                 height="16"
@@ -2579,7 +2891,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
             </button>
           </div>
           <div
-            class="srd-diagram "
+            class="srd-diagram _diagram_9eb3aa "
           >
             <svg
               class="srd-link-layer "
@@ -2598,7 +2910,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -2645,7 +2957,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _failure_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -2692,7 +3004,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -2713,7 +3025,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -2760,7 +3072,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _failure_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -2807,7 +3119,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -2829,7 +3141,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -2876,7 +3188,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _always_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -2923,7 +3235,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -2944,7 +3256,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -2991,7 +3303,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _always_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3038,7 +3350,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -3060,7 +3372,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3104,7 +3416,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -3125,7 +3437,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3169,7 +3481,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -3191,7 +3503,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3238,7 +3550,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _always_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3285,7 +3597,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -3306,7 +3618,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3353,7 +3665,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _always_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3400,7 +3712,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -3422,7 +3734,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3469,7 +3781,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _always_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3516,7 +3828,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -3537,7 +3849,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3584,7 +3896,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _always_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3631,7 +3943,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -3653,7 +3965,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3700,7 +4012,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _always_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3747,7 +4059,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -3768,7 +4080,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3815,7 +4127,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _always_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3862,7 +4174,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -3884,7 +4196,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3931,7 +4243,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _failure_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -3978,7 +4290,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -3999,7 +4311,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4046,7 +4358,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _failure_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4093,7 +4405,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -4115,7 +4427,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4162,7 +4474,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _success_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4210,7 +4522,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -4231,7 +4543,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4278,7 +4590,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _success_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4326,7 +4638,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -4348,7 +4660,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4395,7 +4707,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _success_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4443,7 +4755,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -4464,7 +4776,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4511,7 +4823,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _success_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4559,7 +4871,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -4581,7 +4893,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4628,7 +4940,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _always_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4675,7 +4987,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -4696,7 +5008,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4743,7 +5055,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _always_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4790,7 +5102,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -4812,7 +5124,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4859,7 +5171,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _success_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4907,7 +5219,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -4928,7 +5240,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -4975,7 +5287,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _success_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -5023,7 +5335,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -5045,7 +5357,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -5092,7 +5404,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _failure_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -5139,7 +5451,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -5160,7 +5472,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       >
                         <svg
                           alt="Workflow close button"
-                          class=""
+                          class="_closeButton_8685e5"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -5207,7 +5519,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         transform="translate(NaN, NaN)"
                       >
                         <svg
-                          class=""
+                          class="_container_8e3247 _designer_8e3247 _failure_8e3247"
                           height="26px"
                           role="button"
                           tabindex="0"
@@ -5254,7 +5566,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </g>
                       <path
-                        class=""
+                        class="_path_bc76f7"
                         d="MNaN,NaN C NaN,NaN
     NaN,NaN NaN,NaN"
                         stroke-width="3"
@@ -5318,9 +5630,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 style="top: 396.30159063226193px; left: 588.7271929824564px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type download"
                       aria-hidden="true"
@@ -5338,30 +5652,31 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Artifactory File Download"
                     >
                       Artifactory File Download
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Download Train Samples"
                   >
                     Download Train Samples
                   </p>
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _left_dff5bb "
                     data-name="left"
                     data-nodeid="23201b45-6f91-4bc4-9129-37eb3dcc981f"
                   />
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _right_dff5bb "
                     data-name="right"
                     data-nodeid="23201b45-6f91-4bc4-9129-37eb3dcc981f"
                   />
                   <svg
                     alt="Workflow edit button"
-                    class=""
+                    class="_editButton_c58181 _editButton_e619a5"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -5409,7 +5724,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class=""
+                    class="_closeButton_8685e5 _closeButton_e619a5"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -5459,9 +5774,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 style="top: 540.5152367209439px; left: 2441.4174405167087px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
@@ -5483,30 +5800,31 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Execute Shell"
                     >
                       Execute Shell
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Print Persistence Folder"
                   >
                     Print Persistence Folder
                   </p>
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _left_dff5bb "
                     data-name="left"
                     data-nodeid="0821727a-b336-48ac-b42e-34f7b062dd8c"
                   />
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _right_dff5bb "
                     data-name="right"
                     data-nodeid="0821727a-b336-48ac-b42e-34f7b062dd8c"
                   />
                   <svg
                     alt="Workflow edit button"
-                    class=""
+                    class="_editButton_c58181 _editButton_e619a5"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -5554,7 +5872,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class=""
+                    class="_closeButton_8685e5 _closeButton_e619a5"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -5604,9 +5922,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 style="top: 396.4666787931217px; left: 965.9297863121px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type download"
                       aria-hidden="true"
@@ -5624,30 +5944,31 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Artifactory File Download"
                     >
                       Artifactory File Download
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Download Latest Published Version"
                   >
                     Download Latest Published Version
                   </p>
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _left_dff5bb "
                     data-name="left"
                     data-nodeid="997213d5-f1ec-4fa9-9d95-719fa4db7253"
                   />
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _right_dff5bb "
                     data-name="right"
                     data-nodeid="997213d5-f1ec-4fa9-9d95-719fa4db7253"
                   />
                   <svg
                     alt="Workflow edit button"
-                    class=""
+                    class="_editButton_c58181 _editButton_e619a5"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -5695,7 +6016,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class=""
+                    class="_closeButton_8685e5 _closeButton_e619a5"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -5745,9 +6066,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 style="top: 396.3056611764126px; left: 1344.6179538804047px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
@@ -5769,30 +6092,31 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Execute Shell"
                     >
                       Execute Shell
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Check Version File Type"
                   >
                     Check Version File Type
                   </p>
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _left_dff5bb "
                     data-name="left"
                     data-nodeid="5d1f2eaf-790e-456e-b278-cf4a52ea829a"
                   />
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _right_dff5bb "
                     data-name="right"
                     data-nodeid="5d1f2eaf-790e-456e-b278-cf4a52ea829a"
                   />
                   <svg
                     alt="Workflow edit button"
-                    class=""
+                    class="_editButton_c58181 _editButton_e619a5"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -5840,7 +6164,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class=""
+                    class="_closeButton_8685e5 _closeButton_e619a5"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -5890,9 +6214,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 style="top: 273.8076847036865px; left: 1722.2744351364279px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
@@ -5914,30 +6240,31 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Execute Shell"
                     >
                       Execute Shell
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Create New Version File"
                   >
                     Create New Version File
                   </p>
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _left_dff5bb "
                     data-name="left"
                     data-nodeid="62f77206-e48e-4e0d-aeb8-5db0607eeb03"
                   />
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _right_dff5bb "
                     data-name="right"
                     data-nodeid="62f77206-e48e-4e0d-aeb8-5db0607eeb03"
                   />
                   <svg
                     alt="Workflow edit button"
-                    class=""
+                    class="_editButton_c58181 _editButton_e619a5"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -5985,7 +6312,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class=""
+                    class="_closeButton_8685e5 _closeButton_e619a5"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -6035,9 +6362,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 style="top: 395.94258425847954px; left: 2068.0136269066384px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type upload"
                       aria-hidden="true"
@@ -6055,30 +6384,31 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Artifactory File Upload"
                     >
                       Artifactory File Upload
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Upload Incremented Version"
                   >
                     Upload Incremented Version
                   </p>
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _left_dff5bb "
                     data-name="left"
                     data-nodeid="9f00063f-8235-48e4-b38b-c43361ee8990"
                   />
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _right_dff5bb "
                     data-name="right"
                     data-nodeid="9f00063f-8235-48e4-b38b-c43361ee8990"
                   />
                   <svg
                     alt="Workflow edit button"
-                    class=""
+                    class="_editButton_c58181 _editButton_e619a5"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -6126,7 +6456,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class=""
+                    class="_closeButton_8685e5 _closeButton_e619a5"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -6176,9 +6506,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 style="top: 396.56172278306974px; left: 2441.0579354956567px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type code"
                       aria-hidden="true"
@@ -6200,30 +6532,31 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Run Custom Task"
                     >
                       Run Custom Task
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Train Machine Learning Model"
                   >
                     Train Machine Learning Model
                   </p>
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _left_dff5bb "
                     data-name="left"
                     data-nodeid="bcd28f73-7215-4159-a27f-0d49658d3d79"
                   />
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _right_dff5bb "
                     data-name="right"
                     data-nodeid="bcd28f73-7215-4159-a27f-0d49658d3d79"
                   />
                   <svg
                     alt="Workflow edit button"
-                    class=""
+                    class="_editButton_c58181 _editButton_080f95"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -6271,7 +6604,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class=""
+                    class="_closeButton_8685e5 _closeButton_080f95"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -6321,9 +6654,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 style="top: 395.95530479161073px; left: 2835.255333668321px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type upload"
                       aria-hidden="true"
@@ -6341,30 +6676,31 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Artifactory File Upload"
                     >
                       Artifactory File Upload
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Artifactory File Upload 2"
                   >
                     Artifactory File Upload 2
                   </p>
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _left_dff5bb "
                     data-name="left"
                     data-nodeid="19116efd-a273-46c8-9b9c-879a9f5cfcb1"
                   />
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _right_dff5bb "
                     data-name="right"
                     data-nodeid="19116efd-a273-46c8-9b9c-879a9f5cfcb1"
                   />
                   <svg
                     alt="Workflow edit button"
-                    class=""
+                    class="_editButton_c58181 _editButton_e619a5"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -6412,7 +6748,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class=""
+                    class="_closeButton_8685e5 _closeButton_e619a5"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -6462,9 +6798,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 style="top: 275.81965061249633px; left: 2836.318481050438px;"
               >
                 <div
-                  class=""
+                  class="_node_1250a8"
                 >
-                  <header>
+                  <header
+                    class="_header_1250a8"
+                  >
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
@@ -6486,30 +6824,31 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       />
                     </svg>
                     <h1
+                      class="_title_1250a8"
                       title="Execute Shell"
                     >
                       Execute Shell
                     </h1>
                   </header>
                   <p
-                    class=""
+                    class="_subtitle_1250a8"
                     title="Log Persistence Folder"
                   >
                     Log Persistence Folder
                   </p>
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _left_dff5bb "
                     data-name="left"
                     data-nodeid="11189d82-e4c4-4774-b28d-93f248a857ba"
                   />
                   <div
-                    class="port srd-port "
+                    class="port srd-port _port_dff5bb _right_dff5bb "
                     data-name="right"
                     data-nodeid="11189d82-e4c4-4774-b28d-93f248a857ba"
                   />
                   <svg
                     alt="Workflow edit button"
-                    class=""
+                    class="_editButton_c58181 _editButton_e619a5"
                     role="button"
                     style="will-change: auto;"
                     tabindex="0"
@@ -6557,7 +6896,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   </svg>
                   <svg
                     alt="Workflow close button"
-                    class=""
+                    class="_closeButton_8685e5 _closeButton_e619a5"
                     height="26px"
                     role="button"
                     tabindex="0"
@@ -6605,16 +6944,20 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
           </div>
         </div>
         <aside
-          class="undefined"
+          class="_container_d06b72 _collapsed_d06b72"
           id="notes_container"
           style="width: 40rem;"
         >
           <button
+            class="_resizerContainer_d06b72"
             disabled=""
           >
-            <button>
+            <button
+              class="_collapseButton_d06b72"
+            >
               <svg
                 aria-hidden="true"
+                class="_chevron_d06b72"
                 fill="currentColor"
                 focusable="false"
                 height="16"
@@ -6629,6 +6972,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
               </svg>
               <svg
                 aria-hidden="true"
+                class="_notesIcon_d06b72"
                 fill="currentColor"
                 focusable="false"
                 height="24"
@@ -6646,12 +6990,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
               </svg>
             </button>
           </button>
-          <div>
-            <h1>
+          <div
+            class="_notesContainer_d06b72"
+          >
+            <h1
+              class="_notesHeading_d06b72"
+            >
               Notes
             </h1>
             <div
-              class="react-mde react-mde-tabbed-layout"
+              class="react-mde react-mde-tabbed-layout _reactMde_d06b72"
             >
               <div
                 class="mde-header"
@@ -6660,13 +7008,13 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="mde-tabs"
                 >
                   <button
-                    class=""
+                    class="_tabButton_d06b72"
                     type="button"
                   >
                     Write
                   </button>
                   <button
-                    class="undefined"
+                    class="_tabButton_d06b72 _selected_d06b72"
                     type="button"
                   >
                     Preview
@@ -6952,7 +7300,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   class="mde-textarea-wrapper"
                 >
                   <textarea
-                    class="mde-text"
+                    class="mde-text _reactMdeTextArea_d06b72"
                     data-testid="text-area"
                     style="height: 200px;"
                   >
@@ -6963,7 +7311,7 @@ Hello World!
                 </div>
               </div>
               <div
-                class="mde-preview"
+                class="mde-preview _reactMdePreview_d06b72"
                 data-testid="mde-preview"
                 style="min-height: 210px;"
               >

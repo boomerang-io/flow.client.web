@@ -11,7 +11,9 @@ exports[`AddTeamContent --- Snapshot Test > Capturing Snapshot of AddTeamContent
       <div
         class="bx--modal-content"
       >
-        <div>
+        <div
+          class="_modalInputContainer_36e9f5"
+        >
           <div
             class="bx--bmrg-text-input"
           >

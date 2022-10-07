@@ -10,7 +10,7 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
     >
       <div
         aria-label="inputs"
-        class="bx--modal-content"
+        class="bx--modal-content _container_4e189b"
       >
         <div
           class="bx--bmrg-text-input"

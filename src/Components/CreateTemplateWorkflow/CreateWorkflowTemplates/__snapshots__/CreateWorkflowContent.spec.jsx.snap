@@ -10,17 +10,20 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
     >
       <div
         aria-label="inputs"
-        class="bx--modal-content"
+        class="bx--modal-content _formBody_90cb6e"
       >
-        <aside>
+        <aside
+          class="_templates_90cb6e"
+        >
           <button
-            class="bx--btn bx--btn--sm bx--btn--ghost"
+            class="_template_90cb6e bx--btn bx--btn--sm bx--btn--ghost"
             tabindex="0"
             type="button"
           >
             <svg
               alt="bot"
               aria-hidden="true"
+              class="_icon_90cb6e"
               fill="currentColor"
               focusable="false"
               height="16"
@@ -36,18 +39,21 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
                 d="M26,20H21V18h1a2.0023,2.0023,0,0,0,2-2V12h2V10H24V8a2.0023,2.0023,0,0,0-2-2H20V2H18V6H14V2H12V6H10A2.0023,2.0023,0,0,0,8,8v2H6v2H8v4a2.0023,2.0023,0,0,0,2,2h1v2H6a2.0023,2.0023,0,0,0-2,2v8H6V22H26v8h2V22A2.0023,2.0023,0,0,0,26,20ZM10,8H22v8H10Zm3,10h6v2H13Z"
               />
             </svg>
-            <p>
+            <p
+              class="_buttonText_90cb6e"
+            >
               Test name
             </p>
           </button>
           <button
-            class="bx--btn bx--btn--sm bx--btn--ghost"
+            class="_template_90cb6e bx--btn bx--btn--sm bx--btn--ghost"
             tabindex="0"
             type="button"
           >
             <svg
               alt="power"
               aria-hidden="true"
+              class="_icon_90cb6e"
               fill="currentColor"
               focusable="false"
               height="16"
@@ -63,7 +69,9 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
                 d="M7.5 1H8.5V8H7.5z"
               />
             </svg>
-            <p>
+            <p
+              class="_buttonText_90cb6e"
+            >
               Test Template Isa
             </p>
           </button>
@@ -72,7 +80,7 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
           class="css-1ktgdul"
         >
           <div
-            class="css-vurnku"
+            class="_wombat_90cb6e css-vurnku"
           >
             <div
               class="bx--bmrg-error-page"

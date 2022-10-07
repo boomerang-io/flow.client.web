@@ -6,15 +6,19 @@ exports[`Header --- Snapshot > Capturing Snapshot of Task Templates 1`] = `
 >
   <div>
     <header
-      class="bx--bmrg-feature-header --bordered"
+      class="bx--bmrg-feature-header _featureHeader_4b0ee6 --bordered"
     >
       <section
         class="bx--bmrg-feature-header__content"
       >
-        <p>
+        <p
+          class="_category_4b0ee6"
+        >
           communication
         </p>
-        <div>
+        <div
+          class="_infoContainer_4b0ee6"
+        >
           <svg
             alt="Task node type get, read"
             aria-hidden="true"
@@ -32,11 +36,14 @@ exports[`Header --- Snapshot > Capturing Snapshot of Task Templates 1`] = `
             />
           </svg>
           <h1
+            class="_taskName_4b0ee6"
             title="Slack User Look Up"
           >
             Slack User Look Up
           </h1>
-          <button>
+          <button
+            class="_button_61c4b8"
+          >
             <svg
               aria-hidden="true"
               fill="currentColor"
@@ -56,6 +63,7 @@ exports[`Header --- Snapshot > Capturing Snapshot of Task Templates 1`] = `
             </svg>
           </button>
           <a
+            class="_exportYaml_4b0ee6"
             download="Slack User Look Up.yaml"
             href="/api/workflow/tasktemplate/undefined/yaml"
             rel="noopener noreferrer"
@@ -77,7 +85,9 @@ exports[`Header --- Snapshot > Capturing Snapshot of Task Templates 1`] = `
             </svg>
           </a>
         </div>
-        <p>
+        <p
+          class="_lastUpdate_4b0ee6"
+        >
           Version created Apr 30, 2020 by ---
         </p>
         <div
@@ -101,17 +111,26 @@ exports[`Header --- Snapshot > Capturing Snapshot of Task Templates 1`] = `
           </nav>
         </div>
       </section>
-      <div>
-        <div>
-          <div>
-            <div>
+      <div
+        class="_buttons_4b0ee6"
+      >
+        <div
+          class="_container_b033d1"
+        >
+          <div
+            class="_buttonListContainer_b033d1"
+          >
+            <div
+              class="_buttonList_b033d1"
+            >
               <button
+                class="_button_b033d1"
                 disabled=""
               >
                 <svg
                   alt="first version"
                   aria-hidden="true"
-                  class="undefined"
+                  class="_icon_b033d1 _disabled_b033d1"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -126,12 +145,13 @@ exports[`Header --- Snapshot > Capturing Snapshot of Task Templates 1`] = `
                 </svg>
               </button>
               <button
+                class="_button_b033d1"
                 disabled=""
               >
                 <svg
                   alt="back one version"
                   aria-hidden="true"
-                  class="undefined"
+                  class="_icon_b033d1 _disabled_b033d1"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -146,17 +166,22 @@ exports[`Header --- Snapshot > Capturing Snapshot of Task Templates 1`] = `
                 </svg>
               </button>
             </div>
-            <p>
+            <p
+              class="_versionText_b033d1"
+            >
               Version 1
             </p>
-            <div>
+            <div
+              class="_buttonList_b033d1"
+            >
               <button
+                class="_button_b033d1"
                 disabled=""
               >
                 <svg
                   alt="forward one version"
                   aria-hidden="true"
-                  class="undefined"
+                  class="_icon_b033d1 _disabled_b033d1"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -171,12 +196,13 @@ exports[`Header --- Snapshot > Capturing Snapshot of Task Templates 1`] = `
                 </svg>
               </button>
               <button
+                class="_button_b033d1"
                 disabled=""
               >
                 <svg
                   alt="last version"
                   aria-hidden="true"
-                  class="undefined"
+                  class="_icon_b033d1 _disabled_b033d1"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -194,7 +220,7 @@ exports[`Header --- Snapshot > Capturing Snapshot of Task Templates 1`] = `
           </div>
         </div>
         <button
-          class="bx--btn bx--btn--md bx--btn--ghost bx--btn--disabled"
+          class="_resetButton_4b0ee6 bx--btn bx--btn--md bx--btn--ghost bx--btn--disabled"
           disabled=""
           tabindex="0"
           type="button"
@@ -218,7 +244,7 @@ exports[`Header --- Snapshot > Capturing Snapshot of Task Templates 1`] = `
           </svg>
         </button>
         <button
-          class="bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
+          class="_mainActionButton_4b0ee6 bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
           disabled=""
           tabindex="0"
           type="button"

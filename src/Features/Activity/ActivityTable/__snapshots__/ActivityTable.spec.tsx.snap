@@ -6,7 +6,9 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
 >
   <div>
     <section>
-      <div>
+      <div
+        class="_tableContainer_8eafaf"
+      >
         <div
           class="bx--data-table-container"
         >
@@ -20,7 +22,7 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
                 <tr>
                   <th
                     aria-sort="none"
-                    class="undefined undefined"
+                    class="_tableHeadHeader_8eafaf _teamName_8eafaf"
                     id="teamName"
                     scope="col"
                   >
@@ -32,7 +34,7 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
                     </div>
                     <button
                       aria-describedby="table-sort-1"
-                      class="undefined undefined bx--table-sort"
+                      class="_tableHeadHeader_8eafaf _teamName_8eafaf bx--table-sort"
                       type="button"
                     >
                       <span
@@ -77,7 +79,7 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
                     </button>
                   </th>
                   <th
-                    class="undefined undefined"
+                    class="_tableHeadHeader_8eafaf _scope_8eafaf"
                     id="scope"
                     scope="col"
                   >
@@ -89,7 +91,7 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
                   </th>
                   <th
                     aria-sort="none"
-                    class="undefined undefined"
+                    class="_tableHeadHeader_8eafaf _workflowName_8eafaf"
                     id="workflowName"
                     scope="col"
                   >
@@ -101,7 +103,7 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
                     </div>
                     <button
                       aria-describedby="table-sort-3"
-                      class="undefined undefined bx--table-sort"
+                      class="_tableHeadHeader_8eafaf _workflowName_8eafaf bx--table-sort"
                       type="button"
                     >
                       <span
@@ -146,7 +148,7 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
                     </button>
                   </th>
                   <th
-                    class="undefined undefined"
+                    class="_tableHeadHeader_8eafaf _trigger_8eafaf"
                     id="trigger"
                     scope="col"
                   >
@@ -157,7 +159,7 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
                     </div>
                   </th>
                   <th
-                    class="undefined undefined"
+                    class="_tableHeadHeader_8eafaf _initiatedByUserName_8eafaf"
                     id="initiatedByUserName"
                     scope="col"
                   >
@@ -168,7 +170,7 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
                     </div>
                   </th>
                   <th
-                    class="undefined undefined"
+                    class="_tableHeadHeader_8eafaf _creationDate_8eafaf"
                     id="creationDate"
                     scope="col"
                   >
@@ -179,7 +181,7 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
                     </div>
                   </th>
                   <th
-                    class="undefined undefined"
+                    class="_tableHeadHeader_8eafaf _duration_8eafaf"
                     id="duration"
                     scope="col"
                   >
@@ -190,7 +192,7 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
                     </div>
                   </th>
                   <th
-                    class="undefined undefined"
+                    class="_tableHeadHeader_8eafaf _status_8eafaf"
                     id="status"
                     scope="col"
                   >
@@ -204,6 +206,7 @@ exports[`ActivityTable --- Snapshot > Capturing Snapshot of ActivityTable 1`] = 
               </thead>
               <tbody
                 aria-live="polite"
+                class="_tableBody_8eafaf"
               />
             </table>
           </div>

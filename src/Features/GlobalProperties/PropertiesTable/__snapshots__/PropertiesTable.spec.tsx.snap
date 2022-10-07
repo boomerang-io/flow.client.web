@@ -6,7 +6,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
 >
   <div>
     <header
-      class="bx--bmrg-feature-header"
+      class="bx--bmrg-feature-header _header_9e7615"
     >
       <section
         class="bx--bmrg-feature-header__content"
@@ -15,7 +15,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
           class="bx--bmrg-feature-header__header"
         >
           <h1
-            class="bx--bmrg-feature-header-title"
+            class="bx--bmrg-feature-header-title _headerTitle_9e7615"
           >
             Parameters
           </h1>
@@ -27,11 +27,15 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
         </div>
       </section>
     </header>
-    <div>
-      <div>
+    <div
+      class="_tableContainer_9e7615"
+    >
+      <div
+        class="_tableHeader_9e7615"
+      >
         <div
           aria-labelledby="parameters-table-search-search"
-          class="bx--search bx--search--xl"
+          class="bx--search bx--search--xl _search_9e7615"
           role="search"
         >
           <div
@@ -89,7 +93,9 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
             </svg>
           </button>
         </div>
-        <div>
+        <div
+          class="_actions_9e7615"
+        >
           <button
             class="bx--btn bx--btn--md bx--btn--primary"
             data-testid="create-global-parameter-button"
@@ -128,10 +134,12 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
             class="bx--data-table bx--data-table--sort bx--data-table--no-border"
           >
             <thead>
-              <tr>
+              <tr
+                class="_tableHeadRow_9e7615"
+              >
                 <th
                   aria-sort="none"
-                  class="undefined undefined"
+                  class="_tableHeadHeader_9e7615 _label_9e7615"
                   id="label"
                   scope="col"
                 >
@@ -143,7 +151,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                   </div>
                   <button
                     aria-describedby="table-sort-2"
-                    class="undefined undefined bx--table-sort"
+                    class="_tableHeadHeader_9e7615 _label_9e7615 bx--table-sort"
                     type="button"
                   >
                     <span
@@ -189,7 +197,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                 </th>
                 <th
                   aria-sort="none"
-                  class="undefined undefined"
+                  class="_tableHeadHeader_9e7615 _key_9e7615"
                   id="key"
                   scope="col"
                 >
@@ -201,7 +209,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                   </div>
                   <button
                     aria-describedby="table-sort-3"
-                    class="undefined undefined bx--table-sort"
+                    class="_tableHeadHeader_9e7615 _key_9e7615 bx--table-sort"
                     type="button"
                   >
                     <span
@@ -247,7 +255,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                 </th>
                 <th
                   aria-sort="none"
-                  class="undefined undefined"
+                  class="_tableHeadHeader_9e7615 _description_9e7615"
                   id="description"
                   scope="col"
                 >
@@ -259,7 +267,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                   </div>
                   <button
                     aria-describedby="table-sort-4"
-                    class="undefined undefined bx--table-sort"
+                    class="_tableHeadHeader_9e7615 _description_9e7615 bx--table-sort"
                     type="button"
                   >
                     <span
@@ -305,7 +313,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                 </th>
                 <th
                   aria-sort="none"
-                  class="undefined undefined"
+                  class="_tableHeadHeader_9e7615 _value_9e7615"
                   id="value"
                   scope="col"
                 >
@@ -317,7 +325,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                   </div>
                   <button
                     aria-describedby="table-sort-5"
-                    class="undefined undefined bx--table-sort"
+                    class="_tableHeadHeader_9e7615 _value_9e7615 bx--table-sort"
                     type="button"
                   >
                     <span
@@ -363,7 +371,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                 </th>
                 <th
                   aria-sort="none"
-                  class="undefined undefined"
+                  class="_tableHeadHeader_9e7615 _secured_9e7615"
                   id="secured"
                   scope="col"
                 >
@@ -375,7 +383,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                   </div>
                   <button
                     aria-describedby="table-sort-6"
-                    class="undefined undefined bx--table-sort"
+                    class="_tableHeadHeader_9e7615 _secured_9e7615 bx--table-sort"
                     type="button"
                   >
                     <span
@@ -420,7 +428,7 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                   </button>
                 </th>
                 <th
-                  class="undefined undefined"
+                  class="_tableHeadHeader_9e7615 _actions_9e7615"
                   id="actions"
                   scope="col"
                 />
@@ -428,44 +436,63 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
             </thead>
             <tbody
               aria-live="polite"
+              class="_tableBody_9e7615"
             >
               <tr
                 data-testid="configuration-parameter-table-row"
               >
                 <td>
-                  <div>
-                    <p>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
+                    <p
+                      class="_tableTextarea_9e7615"
+                    >
                       Test parameter
                     </p>
                   </div>
                 </td>
                 <td>
-                  <div>
-                    <p>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
+                    <p
+                      class="_tableTextarea_9e7615"
+                    >
                       test.key
                     </p>
                   </div>
                 </td>
                 <td>
-                  <div>
-                    <p>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
+                    <p
+                      class="_tableTextarea_9e7615"
+                    >
                       adding a test description
                     </p>
                   </div>
                 </td>
                 <td>
-                  <div>
-                    <p>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
+                    <p
+                      class="_tableTextarea_9e7615"
+                    >
                       Test value
                     </p>
                   </div>
                 </td>
                 <td>
-                  <div>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
                     <svg
                       alt="unsecured"
                       aria-hidden="true"
-                      class="undefined undefined"
+                      class="_tableSecured_9e7615 _unsecured_9e7615"
                       fill="currentColor"
                       focusable="false"
                       height="32"
@@ -481,7 +508,9 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                   </div>
                 </td>
                 <td>
-                  <div>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
                     <button
                       aria-expanded="false"
                       aria-haspopup="true"
@@ -529,39 +558,57 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                 data-testid="configuration-parameter-table-row"
               >
                 <td>
-                  <div>
-                    <p>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
+                    <p
+                      class="_tableTextarea_9e7615"
+                    >
                       ben.label
                     </p>
                   </div>
                 </td>
                 <td>
-                  <div>
-                    <p>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
+                    <p
+                      class="_tableTextarea_9e7615"
+                    >
                       ben.key
                     </p>
                   </div>
                 </td>
                 <td>
-                  <div>
-                    <p>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
+                    <p
+                      class="_tableTextarea_9e7615"
+                    >
                       ---
                     </p>
                   </div>
                 </td>
                 <td>
-                  <div>
-                    <p>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
+                    <p
+                      class="_tableTextarea_9e7615"
+                    >
                       ---
                     </p>
                   </div>
                 </td>
                 <td>
-                  <div>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
                     <svg
                       alt="secured"
                       aria-hidden="true"
-                      class="undefined undefined"
+                      class="_tableSecured_9e7615 _secured_9e7615"
                       fill="currentColor"
                       focusable="false"
                       height="32"
@@ -577,7 +624,9 @@ exports[`PropertiesTable --- Snapshot Test > Capturing Snapshot of PropertiesTab
                   </div>
                 </td>
                 <td>
-                  <div>
+                  <div
+                    class="_tableCell_9e7615"
+                  >
                     <button
                       aria-expanded="false"
                       aria-haspopup="true"

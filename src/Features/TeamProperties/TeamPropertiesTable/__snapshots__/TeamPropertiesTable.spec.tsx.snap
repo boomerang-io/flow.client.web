@@ -6,7 +6,7 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
 >
   <div>
     <header
-      class="bx--bmrg-feature-header"
+      class="bx--bmrg-feature-header _header_d292d6"
     >
       <section
         class="bx--bmrg-feature-header__content"
@@ -15,7 +15,7 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
           class="bx--bmrg-feature-header__header"
         >
           <h1
-            class="bx--bmrg-feature-header-title"
+            class="bx--bmrg-feature-header-title _headerTitle_d292d6"
           >
             Team Parameters
           </h1>
@@ -27,9 +27,15 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
         </div>
       </section>
     </header>
-    <div>
-      <div>
-        <div>
+    <div
+      class="_tableContainer_d292d6"
+    >
+      <div
+        class="_tableHeader_d292d6"
+      >
+        <div
+          class="_dropdown_d292d6"
+        >
           <div
             class="bx--bmrg-select"
           >

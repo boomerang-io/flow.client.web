@@ -29,7 +29,7 @@ exports[`Teams --- Snapshot Test > Capturing Snapshot of Teams 1`] = `
       </section>
     </header>
     <div
-      class="css-1aaedcz"
+      class="_content_861edb css-1aaedcz"
     >
       <div
         class="css-2o893x"
@@ -96,7 +96,7 @@ exports[`Teams --- Snapshot Test > Capturing Snapshot of Teams 1`] = `
         </div>
       </div>
       <button
-        class="bx--btn bx--btn--md bx--btn--primary"
+        class="_createTeamTrigger_861edb bx--btn bx--btn--md bx--btn--primary"
         tabindex="0"
         type="button"
       >
@@ -206,6 +206,7 @@ exports[`Teams --- Snapshot Test > Capturing Snapshot of Teams 1`] = `
               aria-live="polite"
             >
               <tr
+                class="_tableRow_861edb"
                 data-testid="user-list-table-row"
                 tabindex="-1"
               >
@@ -245,6 +246,7 @@ exports[`Teams --- Snapshot Test > Capturing Snapshot of Teams 1`] = `
                 </td>
               </tr>
               <tr
+                class="_tableRow_861edb"
                 data-testid="user-list-table-row"
                 tabindex="-1"
               >
@@ -284,6 +286,7 @@ exports[`Teams --- Snapshot Test > Capturing Snapshot of Teams 1`] = `
                 </td>
               </tr>
               <tr
+                class="_tableRow_861edb"
                 data-testid="user-list-table-row"
                 tabindex="-1"
               >
@@ -322,6 +325,7 @@ exports[`Teams --- Snapshot Test > Capturing Snapshot of Teams 1`] = `
                 </td>
               </tr>
               <tr
+                class="_tableRow_861edb"
                 data-testid="user-list-table-row"
                 tabindex="-1"
               >

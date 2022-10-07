@@ -180,8 +180,12 @@ exports[`EditTaskTemplateForm --- Snapshot > Capturing Snapshot of Task Template
             </div>
           </div>
         </div>
-        <div>
-          <p>
+        <div
+          class="_description_923547"
+        >
+          <p
+            class="_descriptionLength_923547"
+          >
             16
             /200
           </p>
