@@ -18,7 +18,7 @@ const props = {
 
 describe("CreateWorkflowTemplates --- Snapshot Test", () => {
   test("Capturing Snapshot of CreateWorkflowTemplates", () => {
-    const { baseElement } = rtlRender(<CreateWorkflowTemplates {...props} />);
+    const { baseElement } = global.rtlRender(<CreateWorkflowTemplates {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });

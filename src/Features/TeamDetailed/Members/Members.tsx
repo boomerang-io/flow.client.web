@@ -49,7 +49,7 @@ const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, teamM
           <Search
             labelText="member search"
             id="member-search"
-            placeHolderText="Search for a member"
+            placeholder="Search for a member"
             onChange={(e: React.FormEvent<HTMLInputElement>) => setSearchQuery(e.currentTarget.value)}
           />
         </div>

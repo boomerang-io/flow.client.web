@@ -121,7 +121,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
             size="sm"
             labelText="Search for a task"
             onChange={handleOnSearchInputChange}
-            placeHolderText="Search for a task"
+            placeholder="Search for a task"
             value={searchQuery}
           />
           <OverflowMenu

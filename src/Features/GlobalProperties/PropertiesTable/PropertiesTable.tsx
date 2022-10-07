@@ -170,7 +170,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
             className={styles.search}
             id="parameters-table-search"
             labelText="Search"
-            placeHolderText="Search"
+            placeholder="Search"
             onChange={handleSearchChange}
           />
           <div className={styles.actions}>

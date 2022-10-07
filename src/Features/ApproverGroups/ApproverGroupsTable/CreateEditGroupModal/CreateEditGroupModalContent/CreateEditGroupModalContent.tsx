@@ -69,7 +69,7 @@ function RenderMembersList({ members, approvers, setFieldValue }: RenderMembersL
       <Search
         labelText="member search"
         id="member-search"
-        placeHolderText="Search for Team Members by name or email"
+        placeholder="Search for Team Members by name or email"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
       />
       <p className={styles.selectedUsers}>{`${approvers.length} users selected`}</p>

@@ -202,7 +202,7 @@ export default class Tasks extends Component<TaskProps> {
                 size="sm"
                 labelText="Search"
                 onChange={this.handleOnSearchInputChange}
-                placeHolderText="Search for a task"
+                placeholder="Search for a task"
                 value={this.state.searchQuery}
               />
               <OverflowMenu

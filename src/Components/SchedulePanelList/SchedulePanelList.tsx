@@ -117,7 +117,7 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
             light
             id="schedules-filter"
             labelText="Filter Schedules"
-            placeHolderText="Search Schedules"
+            placeholder="Search Schedules"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterQuery(e.target.value)}
           />
         </div>

@@ -9,7 +9,7 @@ const props = {
 
 describe("TaskExecutionLog --- Snapshot", () => {
   it("Capturing Snapshot of TaskExecutionLog", () => {
-    const { baseElement } = rtlRender(<TaskExecutionLog {...props} />);
+    const { baseElement } = global.rtlRender(<TaskExecutionLog {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });

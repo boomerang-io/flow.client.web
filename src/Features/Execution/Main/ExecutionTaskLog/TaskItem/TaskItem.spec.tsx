@@ -23,7 +23,7 @@ const props = {
 
 describe("TaskItem --- Snapshot", () => {
   it("Capturing Snapshot of TaskItem", () => {
-    const { baseElement } = rtlRender(<TaskItem {...props} />);
+    const { baseElement } = global.rtlRender(<TaskItem {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });

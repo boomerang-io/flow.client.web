@@ -38,7 +38,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ teams }) => {
             size="sm"
             labelText="Search"
             onChange={handleOnSearchInputChange}
-            placeHolderText="Search"
+            placeholder="Search"
             value={searchQuery}
           />
         </section>

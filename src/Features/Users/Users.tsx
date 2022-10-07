@@ -69,7 +69,7 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
             <Search
               id="flow-users"
               labelText="Search users"
-              placeHolderText="Search users"
+              placeholder="Search users"
               onChange={handleSearchChange}
             />
           </Box>

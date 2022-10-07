@@ -7,13 +7,6 @@ import { teams, profile } from "ApiServer/fixtures";
 import { AppPath, appLink } from "Config/appConfig";
 import { AppContextProvider } from "State/context";
 
-vi.mock("@boomerang-io/carbon-addons-boomerang-react", () => ({
-  ...vi.importActual("@boomerang-io/carbon-addons-boomerang-react"),
-  LoadingAnimation: "LoadingAnimation",
-  notify: "notify",
-  Notification: "Notification",
-}));
-
 const props = {
   teamsState: {
     isFetching: false,

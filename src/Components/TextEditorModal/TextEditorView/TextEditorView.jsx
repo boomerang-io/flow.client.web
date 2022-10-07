@@ -253,7 +253,7 @@ function TextEditorView(props) {
               light={false}
               labelText="Search"
               closeButtonLabelText=""
-              placeHolderText="Search"
+              placeholder="Search"
               onChange={handleSearchText}
               onKeyPress={handleKeyPress}
               size="sm"

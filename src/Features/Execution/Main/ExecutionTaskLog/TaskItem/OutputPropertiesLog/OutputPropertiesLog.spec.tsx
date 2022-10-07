@@ -12,7 +12,7 @@ const props = {
 
 describe("OutputPropertiesLog --- Snapshot", () => {
   it("Capturing Snapshot of OutputPropertiesLog", () => {
-    const { baseElement } = rtlRender(<OutputPropertiesLog {...props} />);
+    const { baseElement } = global.rtlRender(<OutputPropertiesLog {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });

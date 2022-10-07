@@ -90,7 +90,7 @@ function UserLabels({ user, userManagementEnabled }: UserLabelsProps) {
                         <Search
                           labelText="labels search"
                           id="labels-search"
-                          placeHolderText="Search for a label"
+                          placeholder="Search for a label"
                           onChange={(e: React.FormEvent<HTMLInputElement>) => setSearchQuery(e.currentTarget.value)}
                         />
                       </div>

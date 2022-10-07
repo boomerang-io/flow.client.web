@@ -148,7 +148,7 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
             autoComplete="off"
             id="add-members-modal-search"
             labelText=""
-            placeHolderText="Search for a user"
+            placeholder="Search for a user"
             onChange={handleSearchChange}
             value={searchQuery}
             onClick={() => setUsersListOpen(!usersListOpen)}

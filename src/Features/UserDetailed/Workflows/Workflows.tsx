@@ -38,7 +38,7 @@ function Workflows({ user }: { user: FlowUser }) {
           <Search
             labelText="workflow search"
             id="workflow-search"
-            placeHolderText="Search for a workflow"
+            placeholder="Search for a workflow"
             onChange={(e: React.FormEvent<HTMLInputElement>) => setSearchQuery(e.currentTarget.value)}
           />
         </div>

@@ -94,7 +94,7 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
           className={styles.search}
           id="change-log-table-search"
           labelText="Search"
-          placeHolderText="Search"
+          placeholder="Search"
           onChange={this.handleSearchChange}
           data-testid="change-log-search"
         />

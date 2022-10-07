@@ -39,7 +39,7 @@ function UserTeams({ user }: UserTeamsProps) {
           <Search
             labelText="teams search"
             id="teams-search"
-            placeHolderText="Search for a team"
+            placeholder="Search for a team"
             onChange={(e: React.FormEvent<HTMLInputElement>) => setSearchQuery(e.currentTarget.value)}
           />
         </div>
