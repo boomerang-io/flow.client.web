@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import useMutationObserver from "./useMutationObserver";
 
 const htmlElem = document.getElementsByTagName("html")[0];
-const HTML_MODAL_CLASS = "bx--bmrg-html-modal-is-open";
+const HTML_MODAL_CLASS = "cds--bmrg-html-modal-is-open";
 
 function useIsModalOpen() {
   const [isModalOpen, setIsModalOpen] = useState(false);
