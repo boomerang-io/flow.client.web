@@ -1,18 +1,15 @@
 import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
+import { Breadcrumb, BreadcrumbItem, Button, InlineLoading } from "@carbon/react";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  InlineLoading
-} from "@carbon/react";
-import { ConfirmModal,
+  ConfirmModal,
   ComposedModal,
   DelayedRender,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureNavTab as Tab,
-  FeatureNavTabs as Tabs, } from "@boomerang-io/carbon-addons-boomerang-react";
+  FeatureNavTabs as Tabs,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
 import { appLink } from "Config/appConfig";

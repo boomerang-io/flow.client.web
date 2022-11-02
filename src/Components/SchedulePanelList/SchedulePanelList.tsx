@@ -2,6 +2,7 @@ import React from "react";
 import { useMutation, useQueryClient, UseQueryResult } from "react-query";
 import {
   Button,
+  Layer,
   MultiSelect,
   OverflowMenu,
   OverflowMenuItem,
@@ -119,9 +120,8 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
           />
         </div>
         {props.includeStatusFilter && (
-          <div style={{ width: "50%" }}>
+          <Layer style={{ width: "50%" }}>
             <MultiSelect
-              light
               id="actions-statuses-select"
               label="Choose status(es)"
               placeholder="Choose status(es)"
@@ -133,7 +133,7 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
               selectedItem={selectedStatuses}
               titleText="Filter by status"
             />
-          </div>
+          </Layer>
         )}
       </div>
       {renderLists()}

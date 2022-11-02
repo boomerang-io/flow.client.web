@@ -279,7 +279,7 @@
   background-color: var(--cds-ui-01);
   height: 100%;
   padding: 1rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
 

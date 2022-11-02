@@ -4,15 +4,15 @@ import { useLocation } from "react-router-dom";
 import { useFeature } from "flagged";
 import { History } from "history";
 import { Formik, FormikProps, FieldArray } from "formik";
+import { Button, Tag } from "@carbon/react";
 import {
-  Button,
   ComboBox,
-  Tag,
+  ComposedModal,
   TextArea,
   TextInput,
   Toggle,
-} from "@carbon/react";
-import { ComposedModal, TooltipHover} from '@boomerang-io/carbon-addons-boomerang-react';
+  TooltipHover,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import cx from "classnames";
 import cronstrue from "cronstrue";
 import capitalize from "lodash/capitalize";

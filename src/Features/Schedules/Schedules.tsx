@@ -2,7 +2,7 @@ import React from "react";
 import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
-import { MultiSelect as Select } from "@carbon/react";
+import { Layer, MultiSelect as Select } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderSubtitle as HeaderSubtitle,
@@ -237,9 +237,8 @@ export default function Schedules() {
           }
           actions={
             <section aria-label="Schedule filters" className={styles.dataFiltersContainer}>
-              <div className={styles.dataFilter}>
+              <Layer className={styles.dataFilter}>
                 <MultiSelect
-                  light
                   id="schedules-scopes-select"
                   label="Choose scope(s)"
                   placeholder="Choose scope(s)"
@@ -252,8 +251,8 @@ export default function Schedules() {
                   )}
                   titleText="Filter by scope"
                 />
-              </div>
-              <div className={styles.dataFilter}>
+              </Layer>
+              <Layer className={styles.dataFilter}>
                 <MultiSelect
                   light
                   disabled={disableTeamsDropdown}
@@ -268,8 +267,8 @@ export default function Schedules() {
                   initialSelectedItems={selectedTeams}
                   titleText="Filter by Team"
                 />
-              </div>
-              <div className={styles.dataFilter}>
+              </Layer>
+              <Layer className={styles.dataFilter}>
                 <MultiSelect
                   light
                   id="schedules-workflows-select"
@@ -297,10 +296,9 @@ export default function Schedules() {
                   )}
                   titleText="Filter by Workflow"
                 />
-              </div>
-              <div className={styles.dataFilter}>
+              </Layer>
+              <Layer className={styles.dataFilter}>
                 <MultiSelect
-                  light
                   id="schedules-statuses-select"
                   label="Choose status(es)"
                   placeholder="Choose status(es)"
@@ -313,7 +311,7 @@ export default function Schedules() {
                   )}
                   titleText="Filter by status"
                 />
-              </div>
+              </Layer>
             </section>
           }
         />

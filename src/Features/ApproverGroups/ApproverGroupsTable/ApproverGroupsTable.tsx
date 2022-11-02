@@ -4,8 +4,10 @@ import cx from "classnames";
 import { settings } from "carbon-components";
 import { useMutation, useQueryClient } from "react-query";
 import sortBy from "lodash/sortBy";
-import { Button, ComboBox, ConfirmModal, DataTable, DataTableSkeleton, SearchSkeleton } from "@carbon/react";
+import { Button, DataTable, DataTableSkeleton, SearchSkeleton } from "@carbon/react";
 import {
+  ComboBox,
+  ConfirmModal,
   Error404,
   ErrorMessage,
   FeatureHeader as Header,
@@ -20,7 +22,7 @@ import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
 import { sortKeyDirection } from "Utils/arrayHelper";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, ApproverGroup, Approver } from "Types";
-import { Delete } from "@carbon/react/icons";
+import { TrashCan } from "@carbon/react/icons";
 import styles from "./approverGroupsTable.module.scss";
 
 const { prefix } = settings;
@@ -140,7 +142,7 @@ function ApproverGroupsTable({
                   className={styles.deleteButton}
                   onClick={openModal}
                   kind="danger-ghost"
-                  renderIcon={Delete}
+                  renderIcon={TrashCan}
                   size="sm"
                   iconDescription="Delete approver group"
                   data-testid="delete-approver-group"

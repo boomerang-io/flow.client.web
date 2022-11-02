@@ -10,7 +10,7 @@
   flex-grow: 1;
   padding: 1.5rem;
   z-index: 0;
-  overflow: scroll;
+  overflow: auto;
   &[data-is-loading="true"] {
     opacity: 0.5;
   }

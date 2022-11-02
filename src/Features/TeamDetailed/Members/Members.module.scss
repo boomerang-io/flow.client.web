@@ -1,6 +1,6 @@
 .container {
   height: calc(100vh - 13.65rem) !important;
-  overflow: scroll;
+  overflow: auto;
   padding: 1.5rem 2rem;
 
   :global .cds--bmrg-error-page {

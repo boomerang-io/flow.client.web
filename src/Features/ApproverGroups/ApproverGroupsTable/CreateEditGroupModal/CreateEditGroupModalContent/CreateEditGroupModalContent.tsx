@@ -5,8 +5,6 @@ import * as Yup from "yup";
 import sortBy from "lodash/sortBy";
 import matchSorter from "match-sorter";
 import {
-  Button,
-  Checkbox,
   ErrorMessage,
   Loading,
   ModalFlowForm,
@@ -14,7 +12,7 @@ import {
   TextInput,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { InlineNotification, ModalBody, ModalFooter, Search } from "@carbon/react";
+import { Button, Checkbox, InlineNotification, ModalBody, ModalFooter, Search } from "@carbon/react";
 import { formatErrorMessage, isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AddAlt, SubtractAlt } from "@carbon/react/icons";

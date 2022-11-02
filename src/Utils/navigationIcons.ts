@@ -37,7 +37,7 @@ import {
  */
 export const navigationIcons = [
   {
-    name: "Activity",
+    name: "Activity16",
     Icon: Activity,
   },
   {

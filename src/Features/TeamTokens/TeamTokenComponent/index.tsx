@@ -5,13 +5,11 @@ import { settings } from "carbon-components";
 import { Box } from "reflexbox";
 import {
   ButtonSkeleton,
-  ComboBox,
   DataTable,
   DataTableSkeleton,
-
   Pagination,
 } from "@carbon/react";
-import {  ComboBox, FeatureHeader as Header,
+import { ComboBox, FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle, Error404,
   ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react"
 import NoTeamsRedirectPrompt from "Components/NoTeamsRedirectPrompt";

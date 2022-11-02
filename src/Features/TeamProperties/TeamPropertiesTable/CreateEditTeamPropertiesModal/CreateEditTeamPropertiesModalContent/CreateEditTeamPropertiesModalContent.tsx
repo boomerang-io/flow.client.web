@@ -2,15 +2,15 @@ import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import {
-  Button,
-  InlineNotification,
-  ModalBody,
-  ModalFooter,
+  ModalFlowForm,
+  notify,
+  ToastNotification,
+  Loading,
   TextInput,
   Toggle,
-} from "@carbon/react";
-import { ModalFlowForm, notify, ToastNotification, Loading } from "@carbon/react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { PatchProperty, Property, FlowTeam } from "Types";
@@ -44,7 +44,11 @@ function CreateEditTeamPropertiesModalContent({
   const queryClient = useQueryClient();
 
   /** Add Team Property */
-  const { mutateAsync: addTeamPropertyMutation, isLoading: addIsLoading, error: addError } = useMutation(
+  const {
+    mutateAsync: addTeamPropertyMutation,
+    isLoading: addIsLoading,
+    error: addError,
+  } = useMutation(
     (args: { id: string; body: Property }) => {
       const { promise, cancel } = resolver.postTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
@@ -56,7 +60,11 @@ function CreateEditTeamPropertiesModalContent({
   );
 
   /** Update Team Property */
-  const { mutateAsync: updateTeamPropertyMutation, isLoading: updateIsLoading, error: updateError } = useMutation(
+  const {
+    mutateAsync: updateTeamPropertyMutation,
+    isLoading: updateIsLoading,
+    error: updateError,
+  } = useMutation(
     (args: { teamId: string; configurationId: string; body: PatchProperty }) => {
       const { promise, cancel } = resolver.patchTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;

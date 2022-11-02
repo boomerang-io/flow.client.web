@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React from "react";
-import { ModalFlow } from "@carbon/react";
+import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button } from "@carbon/react";
 import CreateEditTeamPropertiesModalContent from "./CreateEditTeamPropertiesModalContent";
 import { Add } from "@carbon/react/icons";

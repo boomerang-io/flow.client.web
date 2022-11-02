@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Box } from "reflexbox";
+import { DataTable, Pagination, DataTableSkeleton } from "@carbon/react";
 import {
   ComboBox,
-  DataTable,
   Error,
-  Pagination,
-  DataTableSkeleton,
-} from "@carbon/react";
-import {  FeatureHeader as Header,
+  FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  notify, ToastNotification} from "@boomerang-io/carbon-addons-boomerang-react"
+  notify,
+  ToastNotification,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditTeamPropertiesModal from "./CreateEditTeamPropertiesModal";
 import ActionsMenu from "./ActionsMenu";
 import EmptyState from "Components/EmptyState";

@@ -15,12 +15,12 @@
   }
 
   ul {
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 }
 
 .listItem {
-  background: var(--cds-ui-background);
+  background: var(--cds-ui-background) !important;
   border-radius: 0.25rem;
   min-height: 10rem;
   margin: 1rem 0rem;

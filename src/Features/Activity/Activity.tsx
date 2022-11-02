@@ -3,8 +3,13 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useAppContext, useQuery } from "Hooks";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import { Error, Loading, MultiSelect as Select, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
-import { DatePicker, DatePickerInput } from "@carbon/react";
+import {
+  Error,
+  Loading,
+  FeatureNavTab as Tab,
+  FeatureNavTabs as Tabs,
+} from "@boomerang-io/carbon-addons-boomerang-react";
+import { DatePicker, DatePickerInput, MultiSelect as Select } from "@carbon/react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
 import moment from "moment";
@@ -98,10 +103,11 @@ function WorkflowActivity() {
     error: SystemWorkflowsError,
   } = useQuery(systemUrl, resolver.query(systemUrl), { enabled: isSystemWorkflowsEnabled });
 
-  const { data: userWorkflowsData, isLoading: userWorkflowsIsLoading, isError: userWorkflowsIsError } = useQuery(
-    serviceUrl.getUserWorkflows(),
-    resolver.query(serviceUrl.getUserWorkflows())
-  );
+  const {
+    data: userWorkflowsData,
+    isLoading: userWorkflowsIsLoading,
+    isError: userWorkflowsIsError,
+  } = useQuery(serviceUrl.getUserWorkflows(), resolver.query(serviceUrl.getUserWorkflows()));
 
   if (systemWorkflowsIsLoading || userWorkflowsIsLoading) {
     return <Loading />;
@@ -246,10 +252,13 @@ function WorkflowActivity() {
   }
 
   if (teamsState || systemWorkflowsData || userWorkflowsData) {
-    const { workflowIds = "", scopes = "", triggers = "", statuses = "", teamIds = "" } = queryString.parse(
-      location.search,
-      queryStringOptions
-    );
+    const {
+      workflowIds = "",
+      scopes = "",
+      triggers = "",
+      statuses = "",
+      teamIds = "",
+    } = queryString.parse(location.search, queryStringOptions);
 
     const selectedScopes = typeof scopes === "string" ? [scopes] : scopes;
     const selectedTeamIds = typeof teamIds === "string" ? [teamIds] : teamIds;

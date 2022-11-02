@@ -4,21 +4,23 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useAppContext } from "Hooks";
 import {
-  Button,
   ComposedModal,
-  InlineNotification,
   Loading,
-  ModalBody,
   ModalForm,
-  ModalFooter,
   notify,
+  TextArea,
+  ToastNotification,
+} from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  Button,
+  InlineNotification,
+  ModalBody,
+  ModalFooter,
   StructuredListWrapper,
   StructuredListHead,
   StructuredListBody,
   StructuredListRow,
   StructuredListCell,
-  TextArea,
-  ToastNotification,
 } from "@carbon/react";
 import { resolver } from "Config/servicesConfig";
 import { Action, ApprovalStatus } from "Types";
@@ -117,40 +119,38 @@ function Form({
   const [rejectLoading, setRejectLoading] = React.useState(false);
 
   /** Update actions */
-  const { mutateAsync: actionsMutation, isLoading: actionsIsLoading, isError: actionsPutError } = useMutation(
-    (args: { body: any }) => {
-      const { promise, cancel } = resolver.putWorkflowAction(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    }
-  );
+  const {
+    mutateAsync: actionsMutation,
+    isLoading: actionsIsLoading,
+    isError: actionsPutError,
+  } = useMutation((args: { body: any }) => {
+    const { promise, cancel } = resolver.putWorkflowAction(args);
+    cancelRequestRef.current = cancel;
+    return promise;
+  });
 
-  const handleActions = ({
-    approved,
-    notificationSubtitle,
-    notificationTitle,
-    setLoading,
-    values,
-  }: any) => async () => {
-    typeof setLoading === "function" && setLoading(true);
-    let request: any = [];
+  const handleActions =
+    ({ approved, notificationSubtitle, notificationTitle, setLoading, values }: any) =>
+    async () => {
+      typeof setLoading === "function" && setLoading(true);
+      let request: any = [];
 
-    Object.keys(values).forEach((actionId) => {
-      request.push({ ...values[actionId], id: actionId, approved });
-    });
+      Object.keys(values).forEach((actionId) => {
+        request.push({ ...values[actionId], id: actionId, approved });
+      });
 
-    try {
-      await actionsMutation({ body: request });
-      typeof setLoading === "function" && setLoading(false);
-      onSuccessfulApprovalRejection();
-      queryClient.invalidateQueries(queryToRefetch);
-      notify(<ToastNotification kind="success" subtitle={notificationSubtitle} title={notificationTitle} />);
-      closeModal();
-    } catch (err) {
-      typeof setLoading === "function" && setLoading(false);
-      // noop
-    }
-  };
+      try {
+        await actionsMutation({ body: request });
+        typeof setLoading === "function" && setLoading(false);
+        onSuccessfulApprovalRejection();
+        queryClient.invalidateQueries(queryToRefetch);
+        notify(<ToastNotification kind="success" subtitle={notificationSubtitle} title={notificationTitle} />);
+        closeModal();
+      } catch (err) {
+        typeof setLoading === "function" && setLoading(false);
+        // noop
+      }
+    };
 
   let initialValues: any = {};
   let validationSchema: any = {};

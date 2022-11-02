@@ -76,14 +76,14 @@
   }
 
   ul {
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 }
 
 .calendarContainer {
   flex-grow: 1;
   padding: 1.5rem;
-  overflow: scroll;
+  overflow: auto;
   z-index: 0;
   &[data-is-loading="true"] {
     opacity: 0.5;

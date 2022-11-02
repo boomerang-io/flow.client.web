@@ -1,5 +1,9 @@
 @import "Styles/mixins";
 
+html, body, #app {
+  height: 100%;
+}
+
 body {
   background-color: var(--cds-ui-background);
   color: var(--cds-text-01);
