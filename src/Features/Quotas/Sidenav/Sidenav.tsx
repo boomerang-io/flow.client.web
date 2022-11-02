@@ -5,7 +5,7 @@ import {
   FeatureSideNavLink as SideNavLink, 
   FeatureSideNavLinks as SideNavLinks,
   Search
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { appLink } from "Config/appConfig";
 import { FlowTeam } from "Types";
 import styles from "./Sidenav.module.scss";

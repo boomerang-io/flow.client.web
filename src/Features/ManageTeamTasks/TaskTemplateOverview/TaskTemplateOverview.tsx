@@ -10,13 +10,12 @@ import {
   Button,
   ConfirmModal,
   InlineNotification,
-  Loading,
-  notify,
   Tag,
   Tile,
-  ToastNotification,
   TooltipHover,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { Loading,
+  notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import EmptyState from "Components/EmptyState";
 import EditTaskTemplateModal from "Components/EditTaskTemplateModal";
@@ -30,7 +29,7 @@ import { TemplateRequestType, FieldTypes } from "../constants";
 import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath } from "Config/appConfig";
-import { Draggable16, TrashCan16, Archive16, Bee16, Recommend16, Identification16 } from "@carbon/icons-react";
+import { Draggable as DraggableIcon, TrashCan, Archive, Bee, Recommend, Identification } from "@carbon/react/icons";
 import { DataDrivenInput, TaskModel } from "Types";
 import styles from "./taskTemplateOverview.module.scss";
 
@@ -81,7 +80,7 @@ const DetailDataElements: React.FC<DetailDataElementsProps> = ({ label, value })
           </div>
         ) : (
           <div className={styles.basicIcon}>
-            <Bee16 style={{ width: "1rem", height: "1rem", marginRight: "0.75rem" }} />
+            <Bee style={{ width: "1rem", height: "1rem", marginRight: "0.75rem" }} />
             <p className={styles.value}>Default</p>
           </div>
         )
@@ -126,7 +125,7 @@ const Field: React.FC<FieldProps> = ({
         {...dragHandleProps}
         style={{ display: `${isOldVersion || !isActive ? "none" : "flex"}` }}
       >
-        <Draggable16 className={styles.dragabble} />
+        <DraggableIcon className={styles.dragabble} />
       </div>
       <dd
         className={styles.value}
@@ -152,8 +151,8 @@ const Field: React.FC<FieldProps> = ({
             iconDescription="delete-field"
             kind="ghost"
             onClick={() => deleteConfiguration(field)}
-            renderIcon={TrashCan16}
-            size="field"
+            renderIcon={TrashCan}
+            size="md"
           />
         </TooltipHover>
       </div>
@@ -213,8 +212,8 @@ const Result: React.FC<ResultProps> = ({
             iconDescription="delete-parameter"
             kind="ghost"
             onClick={() => DeleteResult(index)}
-            renderIcon={TrashCan16}
-            size="field"
+            renderIcon={TrashCan}
+            size="md"
           />
         </TooltipHover>
       </div>
@@ -572,9 +571,9 @@ export function TaskTemplateOverview({
                   modalTrigger={({ openModal }) => (
                     <Button
                       iconDescription="Archive"
-                      renderIcon={Archive16}
+                      renderIcon={Archive}
                       kind="ghost"
-                      size="field"
+                      size="md"
                       disabled={isOldVersion || !isActive || !canEdit}
                       className={styles.archive}
                       onClick={openModal}
@@ -628,7 +627,7 @@ export function TaskTemplateOverview({
                               </div>
                             }
                           >
-                            <Recommend16 fill="#0072C3" style={{ marginLeft: "0.5rem" }} />
+                            <Recommend fill="#0072C3" style={{ marginLeft: "0.5rem" }} />
                           </TooltipHover>
                         ) : (
                           <TooltipHover
@@ -642,7 +641,7 @@ export function TaskTemplateOverview({
                               </div>
                             }
                           >
-                            <Identification16 fill="#0072C3" style={{ marginLeft: "0.5rem" }} />
+                            <Identification fill="#0072C3" style={{ marginLeft: "0.5rem" }} />
                           </TooltipHover>
                         )}
                       </div>

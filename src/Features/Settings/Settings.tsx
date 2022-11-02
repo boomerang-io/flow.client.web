@@ -11,7 +11,7 @@ import {
   SkeletonPlaceholder,
   notify,
   ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import SettingsSection from "./SettingsSection";
 import sortBy from "lodash/sortBy";
 import EmptyState from "Components/EmptyState";

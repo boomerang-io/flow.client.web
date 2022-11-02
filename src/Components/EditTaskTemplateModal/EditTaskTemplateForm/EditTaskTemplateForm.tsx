@@ -12,7 +12,7 @@ import {
   ModalForm,
   TextInput,
   TextArea,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
 import styles from "./EditTaskTemplateForm.module.scss";

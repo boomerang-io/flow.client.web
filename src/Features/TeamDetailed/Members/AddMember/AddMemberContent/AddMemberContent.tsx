@@ -13,7 +13,7 @@ import {
   notify,
   Search,
   ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { FlowUser } from "Types";
 import MemberBar from "./MemberBar";

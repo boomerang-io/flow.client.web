@@ -1,8 +1,9 @@
 import React from "react";
 import cx from "classnames";
-import { Tile, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Tile } from "@carbon/react";
+import { TooltipHover} from '@boomerang-io/carbon-addons-boomerang-react';
 import { taskIcons } from "Utils/taskIcons";
-import { Bee16, Recommend16 } from "@carbon/icons-react";
+import { Bee, Recommend } from "@carbon/react/icons";
 import { TaskModel } from "Types";
 import styles from "./task.module.scss";
 
@@ -29,7 +30,7 @@ const Task: React.FC<TaskModel> = ({ name, model, icon, verified, scope }) => {
             {TaskIcon?.Icon ? (
               <TaskIcon.Icon className={cx(styles.taskIcon, { [styles.teamTask]: isTeamTask })} />
             ) : (
-              <Bee16 className={cx(styles.taskIcon, { [styles.teamTask]: isTeamTask })} />
+              <Bee className={cx(styles.taskIcon, { [styles.teamTask]: isTeamTask })} />
             )}
             <p className={styles.taskName}> {name} </p>
             {verified && (
@@ -45,7 +46,7 @@ const Task: React.FC<TaskModel> = ({ name, model, icon, verified, scope }) => {
                   </div>
                 }
               >
-                <Recommend16 fill="#0072C3" style={{ willChange: "auto" }} />
+                <Recommend fill="#0072C3" style={{ willChange: "auto" }} />
               </TooltipHover>
             )}
           </div>

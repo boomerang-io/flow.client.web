@@ -16,7 +16,7 @@ import {
   ModalFlowForm,
   TextInput,
   TextArea,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utils/taskIcons";

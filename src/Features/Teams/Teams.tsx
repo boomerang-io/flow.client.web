@@ -11,12 +11,12 @@ import {
   DataTable,
   DataTableSkeleton,
   ErrorMessage,
-  FeatureHeader as Header,
-  FeatureHeaderTitle as HeaderTitle,
-  FeatureHeaderSubtitle as HeaderSubtitle,
   Pagination,
   Search,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import {  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle} from "@boomerang-io/carbon-addons-boomerang-react"
 import TeamDetailed from "Features/TeamDetailed";
 import EmptyState from "Components/EmptyState";
 import AddTeamContent from "./AddTeamContent";
@@ -172,7 +172,7 @@ const TeamList: React.FC = () => {
             <Button
               iconDescription="Create new version"
               onClick={openModal}
-              size="field"
+              size="md"
               disabled={getTeamError || getTeamLoading}
               className={styles.createTeamTrigger}
             >

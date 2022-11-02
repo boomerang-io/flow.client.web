@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import { TrashCan16 } from "@carbon/icons-react";
+import { Button, ConfirmModal } from "@carbon/react";
+import { TrashCan } from "@carbon/react/icons";
 import { Token } from "Types";
 import styles from "./deleteToken.module.scss";
 
@@ -19,8 +19,8 @@ function DeleteToken({ tokenItem, deleteToken }: Props) {
           iconDescription="deleteToken"
           kind="danger--ghost"
           onClick={openModal}
-          renderIcon={TrashCan16}
-          size="small"
+          renderIcon={TrashCan}
+          size="sm"
           data-testid={`delete-token-button-${tokenItem.id}`}
         />
       )}

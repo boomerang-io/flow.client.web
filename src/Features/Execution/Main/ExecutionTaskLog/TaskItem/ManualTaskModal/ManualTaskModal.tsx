@@ -10,7 +10,7 @@ import {
   ModalFooter,
   notify,
   ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import "Styles/markdown.css";
 

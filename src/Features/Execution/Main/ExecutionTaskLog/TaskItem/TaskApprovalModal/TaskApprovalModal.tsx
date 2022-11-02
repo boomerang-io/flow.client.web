@@ -14,9 +14,9 @@ import {
   notify,
   TextArea,
   ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { ThumbsUp16, ThumbsDown16 } from "@carbon/icons-react";
+import { ThumbsUp, ThumbsDown } from "@carbon/react/icons";
 import styles from "./taskApprovalModal.module.scss";
 
 const GateStatus = {
@@ -71,8 +71,8 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
   };
 
   const buttons = [
-    { icon: ThumbsDown16, label: "Reject", type: "negative", value: GateStatus.Rejected },
-    { icon: ThumbsUp16, label: "Approve", type: "positive", value: GateStatus.Approved },
+    { icon: ThumbsDown, label: "Reject", type: "negative", value: GateStatus.Rejected },
+    { icon: ThumbsUp, label: "Approve", type: "positive", value: GateStatus.Approved },
   ];
 
   return (

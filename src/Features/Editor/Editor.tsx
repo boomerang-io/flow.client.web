@@ -30,7 +30,6 @@ import ReleaseLockNodeModel from "Utils/dag/releaseLockNode/ReleaseLockNodeModel
 import RunScheduledWorkflowNodeModel from "Utils/dag/runScheduledWorkflowNode/RunScheduledWorkflowNodeModel";
 import RunWorkflowNodeModel from "Utils/dag/runWorkflowNode/RunWorkflowNodeModel";
 import ScriptNodeModel from "Utils/dag/scriptNode/ScriptNodeModel";
-
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { NodeType, WorkflowDagEngineMode } from "Constants";

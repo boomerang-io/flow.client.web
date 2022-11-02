@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalBody } from "@carbon/react";
 import ProgressBar from "Components/ProgressBar";
 import { FlowTeamQuotas } from "Types";
 import { WorkflowScope } from "Constants";

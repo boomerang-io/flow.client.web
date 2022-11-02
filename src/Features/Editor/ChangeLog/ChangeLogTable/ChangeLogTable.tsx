@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import matchSorter from "match-sorter";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { DataTable, Search, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
+import { DataTable, Search, Pagination } from "@carbon/react";
 import EmptyState from "Components/EmptyState";
 import { ChangeLog } from "Types";
 import styles from "./changeLogTable.module.scss";

@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Add16 } from "@carbon/icons-react";
+import { Button, ComposedModal } from "@carbon/react";
+import { Add } from "@carbon/react/icons";
 import { FlowUser } from "Types";
 import AddMemberContent from "./AddMemberContent";
 import styles from "./AddMember.module.scss";
@@ -16,12 +16,12 @@ const AddMember: React.FC<AddMemberProps> = ({ memberIdList, memberList, teamId,
     <ComposedModal
       modalTrigger={({ openModal }: { openModal: Function }) => (
         <Button
-          renderIcon={Add16}
+          renderIcon={Add}
           onClick={() => {
             openModal();
           }}
           iconDescription="Add members"
-          size="field"
+          size="md"
           data-testid="add-members-button"
         >
           Add Members

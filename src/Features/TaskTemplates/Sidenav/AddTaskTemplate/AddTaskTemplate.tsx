@@ -3,11 +3,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { isCancel } from "axios";
 import { useMutation } from "react-query";
-import { notify, ToastNotification, Button, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { notify, ToastNotification, Button, ComposedModal } from "@carbon/react";
 import AddTaskTemplateForm from "./AddTaskTemplateForm";
 import { resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
-import { Add16 } from "@carbon/icons-react";
+import { Add } from "@carbon/react/icons";
 import styles from "./addTaskTemplate.module.scss";
 
 AddTaskTemplate.propTypes = {
@@ -62,7 +62,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
         children: "Your request will not be saved",
       }}
       modalTrigger={({ openModal }) => (
-        <Button iconDescription="Add task template" onClick={openModal} size="field" kind="ghost" renderIcon={Add16}>
+        <Button iconDescription="Add task template" onClick={openModal} size="md" kind="ghost" renderIcon={Add}>
           Add a new task
         </Button>
       )}

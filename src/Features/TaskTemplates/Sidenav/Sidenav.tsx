@@ -2,21 +2,17 @@ import React from "react";
 import { useHistory, matchPath, useLocation } from "react-router-dom";
 import sortBy from "lodash/sortBy";
 import matchSorter from "match-sorter";
+import { Accordion, AccordionItem, OverflowMenu, Checkbox, Search } from "@carbon/react";
 import {
-  Accordion,
-  AccordionItem,
-  OverflowMenu,
-  Checkbox,
   CheckboxList,
   FeatureSideNav as SideNav,
-  FeatureSideNavLink as SideNavLink, 
+  FeatureSideNavLink as SideNavLink,
   FeatureSideNavLinks as SideNavLinks,
-  Search,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import AddTaskTemplate from "./AddTaskTemplate";
 import { appLink } from "Config/appConfig";
-import { Bee16, ViewOff16, Recommend16, SettingsAdjust20 } from "@carbon/icons-react";
+import { Bee, ViewOff, Recommend, SettingsAdjust } from "@carbon/react/icons";
 import { taskIcons } from "Utils/taskIcons";
 import { TaskTemplateStatus } from "Constants";
 import { AppPath } from "Config/appConfig";
@@ -125,7 +121,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
             value={searchQuery}
           />
           <OverflowMenu
-            renderIcon={SettingsAdjust20}
+            renderIcon={SettingsAdjust}
             style={{
               backgroundColor: showVerified || showArchived || activeFilters.length > 0 ? "#3DDBD9" : "initial",
               borderRadius: "0.25rem",
@@ -150,7 +146,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
                 id="verified-tasks"
                 labelText={
                   <div className={styles.checkboxOption}>
-                    <Recommend16 fill="#0072C3" style={{ willChange: "auto" }} /> <p>Verified Tasks</p>
+                    <Recommend fill="#0072C3" style={{ willChange: "auto" }} /> <p>Verified Tasks</p>
                   </div>
                 }
                 checked={showVerified}
@@ -209,7 +205,7 @@ const Task: React.FC<TaskProps> = (props) => {
   return (
     <SideNavLink
       to={appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion })}
-      icon={TaskIcon ? TaskIcon.Icon : Bee16}
+      icon={TaskIcon ? TaskIcon.Icon : Bee}
     >
       <div className={styles.task}>
         <p>{task.name}</p>
@@ -217,7 +213,7 @@ const Task: React.FC<TaskProps> = (props) => {
           <div className={styles.iconContainer}>
             {!taskIsActive && (
               <TooltipHover direction="top" tooltipText="Archived Task">
-                <ViewOff16 fill="#4d5358" />
+                <ViewOff fill="#4d5358" />
               </TooltipHover>
             )}
             {task.verified && (
@@ -232,7 +228,7 @@ const Task: React.FC<TaskProps> = (props) => {
                   </div>
                 }
               >
-                <Recommend16 />
+                <Recommend />
               </TooltipHover>
             )}
           </div>

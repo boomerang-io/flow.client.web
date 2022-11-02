@@ -8,13 +8,13 @@ import {
   Accordion,
   AccordionItem,
   Checkbox,
-  CheckboxList,
   OverflowMenu,
   Search,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { CheckboxList } from "@boomerang-io/carbon-addons-boomerang-react";
 import Task from "./Task";
 import { taskIcons } from "Utils/taskIcons";
-import { ChevronLeft32, SettingsAdjust16, Recommend16 } from "@carbon/icons-react";
+import { ChevronLeft, SettingsAdjust, Recommend } from "@carbon/react/icons";
 import { TaskModel } from "Types";
 import styles from "./tasks.module.scss";
 
@@ -189,7 +189,7 @@ export default class Tasks extends Component<TaskProps> {
             className={styles.collapseButton}
             onClick={() => this.setState((prevState) => ({ isSidenavOpen: !prevState.isSidenavOpen }))}
           >
-            <ChevronLeft32 className={styles.collapseButtonImg} />
+            <ChevronLeft className={styles.collapseButtonImg} />
           </button>
         </header>
         {this.state.isSidenavOpen && (
@@ -208,7 +208,7 @@ export default class Tasks extends Component<TaskProps> {
               <OverflowMenu
                 size="sm"
                 iconDescription="Filter"
-                renderIcon={SettingsAdjust16}
+                renderIcon={SettingsAdjust}
                 style={{
                   backgroundColor:
                     this.state.activeFilters.length > 0 || this.state.showVerified ? "#3DDBD9" : "initial",
@@ -233,7 +233,7 @@ export default class Tasks extends Component<TaskProps> {
                     id="verified-tasks"
                     labelText={
                       <div className={styles.checkboxOption}>
-                        <Recommend16 fill="#0072C3" style={{ willChange: "auto" }} /> <p>Verified Tasks</p>
+                        <Recommend fill="#0072C3" style={{ willChange: "auto" }} /> <p>Verified Tasks</p>
                       </div>
                     }
                     checked={this.state.showVerified}

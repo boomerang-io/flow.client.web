@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "Hooks";
 import { Helmet } from "react-helmet";
 import ErrorDragon from "Components/ErrorDragon";
-import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading } from "@carbon/react";
 import PropertiesTable from "./PropertiesTable";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./globalProperties.module.scss";

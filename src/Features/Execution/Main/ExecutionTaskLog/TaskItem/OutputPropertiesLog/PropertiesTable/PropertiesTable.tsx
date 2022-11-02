@@ -5,8 +5,8 @@ import {
   StructuredListHead,
   StructuredListRow,
   StructuredListWrapper,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-import { NoDisplay } from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { NoDisplay } from "@carbon/react";
 import styles from "./propertiesTable.module.scss";
 
 type Props = {

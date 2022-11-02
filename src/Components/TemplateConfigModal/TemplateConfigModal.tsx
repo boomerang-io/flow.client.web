@@ -1,7 +1,8 @@
 import React from "react";
-import { ComposedModal, Button, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button } from "@carbon/react";
+import { ComposedModal, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import TemplateConfigModalContent from "./TemplateConfigModalContent";
-import { Add16, Edit16 } from "@carbon/icons-react";
+import { Add, Edit } from "@carbon/react/icons";
 import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Types";
 
 interface TemplateConfigModalProps {
@@ -25,8 +26,8 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = (props) => {
           iconDescription="Edit field"
           kind="ghost"
           onClick={openModal}
-          renderIcon={Edit16}
-          size="field"
+          renderIcon={Edit}
+          size="md"
         />
       </TooltipHover>
     ) : (
@@ -36,8 +37,8 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = (props) => {
           iconDescription="Add field"
           kind="ghost"
           onClick={openModal}
-          renderIcon={Add16}
-          size="field"
+          renderIcon={Add}
+          size="md"
           style={{ marginRight: "0.5rem" }}
         >
           Add a field

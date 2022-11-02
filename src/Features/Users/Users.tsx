@@ -3,15 +3,13 @@ import { Helmet } from "react-helmet";
 import { useQuery } from "Hooks";
 import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
+import { DataTable, DataTableSkeleton, Pagination, Search } from "@carbon/react";
+
 import {
-  DataTable,
-  DataTableSkeleton,
   ErrorMessage,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  Pagination,
-  Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import EmptyState from "Components/EmptyState";
@@ -66,12 +64,7 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
       <Box p="2rem" className={styles.content}>
         <>
           <Box mb="1rem" maxWidth="20rem">
-            <Search
-              id="flow-users"
-              labelText="Search users"
-              placeholder="Search users"
-              onChange={handleSearchChange}
-            />
+            <Search id="flow-users" labelText="Search users" placeholder="Search users" onChange={handleSearchChange} />
           </Box>
           {children}
         </>

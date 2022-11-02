@@ -7,12 +7,13 @@ import {
   ButtonSkeleton,
   DataTable,
   DataTableSkeleton,
-  Error404,
+ 
+  Pagination,
+} from "@carbon/react";
+import {  Error404,
   ErrorMessage,
   FeatureHeader as Header,
-  FeatureHeaderTitle as HeaderTitle,
-  Pagination,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+  FeatureHeaderTitle as HeaderTitle} from "@boomerang-io/carbon-addons-boomerang-react"
 import DeleteToken from "./DeleteToken";
 import CreateToken from "./CreateToken";
 import { arrayPagination, sortByProp } from "Utils/arrayHelper";

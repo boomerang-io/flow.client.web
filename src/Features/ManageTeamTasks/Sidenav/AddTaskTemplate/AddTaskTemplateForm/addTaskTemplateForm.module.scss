@@ -1,6 +1,6 @@
 @import "Styles/mixins";
 .container {
-  :global .bx--file-browse-btn {
+  :global .cds--file-browse-btn {
     margin-bottom: 1rem;
   }
 }
@@ -28,7 +28,7 @@
   display: flex;
   flex-flow: wrap;
   margin: 1.25rem 0;
-  :global .bx--assistive-text {
+  :global .cds--assistive-text {
     text-transform: capitalize;
   }
 }
@@ -43,7 +43,7 @@
   margin: 0.25rem !important;
   transition: all 0.15s ease;
   width: 2.7rem;
-  :global .bx--assistive-text {
+  :global .cds--assistive-text {
     left: -1.5rem !important;
   }
 

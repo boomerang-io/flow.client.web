@@ -6,13 +6,13 @@ import { Controlled as CodeMirrorReact } from "react-codemirror2";
 import {
   ModalBody,
   ModalFooter,
-  Toolbar,
-  ToolbarItem,
+  // Toolbar,
+  // ToolbarItem,
   Search,
   Dropdown,
   Button,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16 } from "@carbon/icons-react";
+} from "@carbon/react";
+import { Undo, Redo, Copy, Cut, Paste, ArrowUp, ArrowDown } from "@carbon/react/icons";
 import "codemirror/addon/comment/comment.js";
 import "codemirror/addon/fold/brace-fold.js";
 import "codemirror/addon/fold/comment-fold.js";
@@ -181,16 +181,16 @@ function TextEditorView(props) {
   return (
     <>
       <ModalBody className="c-textEditorContainer">
-        <Toolbar className="b-task-text-area">
+        {/* <Toolbar className="b-task-text-area">
           <ToolbarItem>
             <Button
               hasIconOnly
-              size="small"
+              size="sm"
               kind="ghost"
               iconDescription="Undo"
               tooltipPosition="bottom"
               tooltipAlignment="start"
-              renderIcon={Undo20}
+              renderIcon={Undo}
               onClick={undo}
               className="b-task-text-area__button"
             />
@@ -198,12 +198,12 @@ function TextEditorView(props) {
           <ToolbarItem>
             <Button
               hasIconOnly
-              size="small"
+              size="sm"
               kind="ghost"
               iconDescription="Redo"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              renderIcon={Redo20}
+              renderIcon={Redo}
               onClick={redo}
               className="b-task-text-area__button"
             />
@@ -211,12 +211,12 @@ function TextEditorView(props) {
           <ToolbarItem>
             <Button
               hasIconOnly
-              size="small"
+              size="sm"
               kind="ghost"
               iconDescription="Copy"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              renderIcon={Copy20}
+              renderIcon={Copy}
               onClick={copy}
               className="b-task-text-area__button"
             />
@@ -224,12 +224,12 @@ function TextEditorView(props) {
           <ToolbarItem>
             <Button
               hasIconOnly
-              size="small"
+              size="sm"
               kind="ghost"
               iconDescription="Cut"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              renderIcon={Cut20}
+              renderIcon={Cut}
               onClick={cut}
               className="b-task-text-area__button"
             />
@@ -237,12 +237,12 @@ function TextEditorView(props) {
           <ToolbarItem>
             <Button
               hasIconOnly
-              size="small"
+              size="sm"
               kind="ghost"
               iconDescription="Paste"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              renderIcon={Paste20}
+              renderIcon={Paste}
               onClick={paste}
               className="b-task-text-area__button"
             />
@@ -262,12 +262,12 @@ function TextEditorView(props) {
           <ToolbarItem>
             <Button
               hasIconOnly
-              size="small"
+              size="sm"
               kind="ghost"
               iconDescription="Find previous"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              renderIcon={ArrowUp16}
+              renderIcon={ArrowUp}
               onClick={findPrevious}
               className="b-task-text-area__button"
             />
@@ -275,12 +275,12 @@ function TextEditorView(props) {
           <ToolbarItem>
             <Button
               hasIconOnly
-              size="small"
+              size="sm"
               kind="ghost"
               iconDescription="Find next"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              renderIcon={ArrowDown16}
+              renderIcon={ArrowDown}
               onClick={findNext}
               className="b-task-text-area__button"
             />
@@ -306,7 +306,7 @@ function TextEditorView(props) {
               </div>
             </ToolbarItem>
           )}
-        </Toolbar>
+        </Toolbar> */}
 
         <CodeMirrorReact
           editorDidMount={(cmeditor) => {

@@ -2,7 +2,7 @@ import { Helmet } from "react-helmet";
 import { UseQueryResult } from "react-query";
 import { useParams } from "react-router-dom";
 import { Box } from "reflexbox";
-import { Loading, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading, ErrorMessage } from "@carbon/react";
 import { useQuery } from "Hooks";
 import { ExecutionContextProvider } from "State/context";
 import Main from "./Main";

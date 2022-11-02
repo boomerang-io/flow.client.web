@@ -11,7 +11,7 @@ import {
   ModalFooter,
   notify,
   ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import EmptyGraphic from "Components/EmptyState/EmptyGraphic";
 import { resolver } from "Config/servicesConfig";
 import { Action, ApprovalStatus, ComposedModalChildProps, ModalTriggerProps } from "Types";

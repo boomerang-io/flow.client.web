@@ -41,7 +41,7 @@ describe("Editor -- parameters", function () {
   it("Delete Parameter", function () {
     cy.wait(1000);
     cy.get("[data-testid=workflow-delete-parameter-button]").eq(0).click();
-    cy.get(".bx--btn--danger").click();
+    cy.get(".cds--btn--danger").click();
     cy.findByText("Tenant ID").should("not.exist");
   });
 });

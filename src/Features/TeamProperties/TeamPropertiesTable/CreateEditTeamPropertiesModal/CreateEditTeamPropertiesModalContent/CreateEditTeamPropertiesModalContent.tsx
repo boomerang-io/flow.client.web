@@ -9,8 +9,8 @@ import {
   ModalFooter,
   TextInput,
   Toggle,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { ModalFlowForm, notify, ToastNotification, Loading } from "@carbon/react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { PatchProperty, Property, FlowTeam } from "Types";

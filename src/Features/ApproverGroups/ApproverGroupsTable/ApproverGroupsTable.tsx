@@ -4,19 +4,14 @@ import cx from "classnames";
 import { settings } from "carbon-components";
 import { useMutation, useQueryClient } from "react-query";
 import sortBy from "lodash/sortBy";
+import { Button, ComboBox, ConfirmModal, DataTable, DataTableSkeleton, SearchSkeleton } from "@carbon/react";
 import {
-  Button,
-  ComboBox,
-  ConfirmModal,
-  DataTable,
-  DataTableSkeleton,
   Error404,
   ErrorMessage,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
   notify,
-  SearchSkeleton,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditGroupModal from "./CreateEditGroupModal";
@@ -25,7 +20,7 @@ import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
 import { sortKeyDirection } from "Utils/arrayHelper";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, ApproverGroup, Approver } from "Types";
-import { Delete16 } from "@carbon/icons-react";
+import { Delete } from "@carbon/react/icons";
 import styles from "./approverGroupsTable.module.scss";
 
 const { prefix } = settings;
@@ -72,7 +67,8 @@ function ApproverGroupsTable({
 
   /** Delete Team Approver Group */
   const { mutateAsync: deleteApproverGroupMutation } = useMutation(resolver.deleteApproverGroup, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.resourceApproverGroups({ teamId: activeTeam?.id, groupId: undefined })),
+    onSuccess: () =>
+      queryClient.invalidateQueries(serviceUrl.resourceApproverGroups({ teamId: activeTeam?.id, groupId: undefined })),
   });
 
   const headers = [
@@ -144,8 +140,8 @@ function ApproverGroupsTable({
                   className={styles.deleteButton}
                   onClick={openModal}
                   kind="danger-ghost"
-                  renderIcon={Delete16}
-                  size="small"
+                  renderIcon={Delete}
+                  size="sm"
                   iconDescription="Delete approver group"
                   data-testid="delete-approver-group"
                 />

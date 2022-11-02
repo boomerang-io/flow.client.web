@@ -9,7 +9,7 @@ import {
   StructuredListBody,
   StructuredListRow,
   StructuredListCell,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import EmptyState from "Components/EmptyState";
 import ms from "match-sorter";
 import sortBy from "lodash/sortBy";

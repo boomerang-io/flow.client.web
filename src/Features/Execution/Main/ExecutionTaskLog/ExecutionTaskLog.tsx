@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { SkeletonPlaceholder, TooltipIcon } from "@boomerang-io/carbon-addons-boomerang-react";
+import { SkeletonPlaceholder} from "@carbon/react";
+import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { UseQueryResult } from "react-query";
 import TaskItem from "./TaskItem";
 import orderBy from "lodash/orderBy";
@@ -7,7 +8,7 @@ import { getSimplifiedDuration } from "Utils/timeHelper";
 import { QueryStatus } from "Constants";
 import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import { WorkflowExecution } from "Types";
-import { ArrowsVertical32, ChevronLeft32 } from "@carbon/icons-react";
+import { ArrowsVertical, ChevronLeft } from "@carbon/react/icons";
 import styles from "./executionTaskLog.module.scss";
 
 type Props = {
@@ -35,15 +36,14 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
         <section className={styles.taskbar}>
           <p className={styles.taskbarTitle}>Task log</p>
           {!isCollapsed && (
-            <TooltipIcon
-              disabled
+            <TooltipHover              disabled
               align="center"
               className={styles.taskbarButton}
               id="sort-tooltip"
               data-testid="taskbar-button"
             >
-              <ArrowsVertical32 className={styles.taskbarArrows} />
-            </TooltipIcon>
+              <ArrowsVertical size={32} className={styles.taskbarArrows} />
+            </TooltipHover
           )}
         </section>
         <ul className={styles.tasklog}>
@@ -74,14 +74,13 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
           </div>
         </div>
         <button className={styles.collapseButton} onClick={toggleCollapse}>
-          <ChevronLeft32 className={styles.chevron} />
+          <ChevronLeft size={32} className={styles.chevron} />
         </button>
       </section>
       <section className={styles.taskbar}>
         <p className={styles.taskbarTitle}>Task log</p>
         {!isCollapsed && (
-          <TooltipIcon
-            align="center"
+          <TooltipHover            align="center"
             className={styles.taskbarButton}
             id="sort-tooltip"
             data-testid="taskbar-button"
@@ -89,8 +88,8 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
             onClick={toggleSort}
             tooltipText="Change sort direction (by start time)"
           >
-            <ArrowsVertical32 className={styles.taskbarArrows} />
-          </TooltipIcon>
+            <ArrowsVertical size={32} className={styles.taskbarArrows} />
+          </TooltipHover
         )}
       </section>
       <ul className={styles.tasklog}>

@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { settings } from "carbon-components";
-import { DataTableSkeleton, DataTable, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
+import { DataTableSkeleton, DataTable, Pagination } from "@carbon/react";
 import cx from "classnames";
 import moment from "moment";
 import queryString from "query-string";

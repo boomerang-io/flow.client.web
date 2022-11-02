@@ -11,9 +11,9 @@ import {
   ModalFooter,
   TextInput,
   InlineNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { requiredWorkflowProps } from "./constants";
-import { ErrorFilled32 } from "@carbon/icons-react";
+import { ErrorFilled } from "@carbon/react/icons";
 import { FlowTeam, WorkflowExport, WorkflowSummary } from "Types";
 import { WorkflowScope } from "Constants";
 import styles from "./importWorkflowContent.module.scss";
@@ -215,7 +215,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
               {values.file || errors.file ? (
                 Boolean(errors.file) ? (
                   <div className={styles.validMessage}>
-                    <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
+                    <ErrorFilled aria-label="error-import-icon" className={styles.errorIcon} />
                     <p className={styles.message}>{createInvalidTextMessage(errors.file)}</p>
                   </div>
                 ) : (

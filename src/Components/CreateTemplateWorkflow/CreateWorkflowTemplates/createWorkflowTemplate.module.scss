@@ -14,7 +14,7 @@
   max-width: 15rem;
   min-width: 15rem;
   overflow-y: auto;
-  :global .bx--btn {
+  :global .cds--btn {
     border-radius: 0;
   }
   .active {
@@ -74,7 +74,7 @@
   height: 10rem;
   margin-top: 3rem;
   width: 30rem;
-  :global .bx--bmrg-error-page__graphic {
+  :global .cds--bmrg-error-page__graphic {
     width: 10rem;
   }
 }

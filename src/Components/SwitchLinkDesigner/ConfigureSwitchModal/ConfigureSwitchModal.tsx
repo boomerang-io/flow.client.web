@@ -1,7 +1,7 @@
 //@ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, CodeSnippet, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, CodeSnippet, ModalBody, ModalFooter } from "@carbon/react";
 import { ModalFlowForm, TextArea, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
 import "./styles.scss";
 

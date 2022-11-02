@@ -11,7 +11,7 @@ const props = {
 
 describe("ActivityHeader --- Snapshot", () => {
   it("Capturing Snapshot of ActivityHeader", () => {
-    const { baseElement } = rtlRender(<ActivityHeader {...props} />);
+    const { baseElement } = global.rtlRender(<ActivityHeader {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });

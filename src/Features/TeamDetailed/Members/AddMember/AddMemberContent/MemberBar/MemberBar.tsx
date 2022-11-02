@@ -1,5 +1,5 @@
 import React from "react";
-import { CloseOutline32 } from "@carbon/icons-react";
+import { CloseOutline } from "@carbon/react/icons";
 import styles from "./MemberBar.module.scss";
 
 interface MemberBarProps {
@@ -25,7 +25,7 @@ const MemberBar: React.FC<MemberBarProps> = ({ addUser, id, email, name, removeU
           </div>
         </div>
         {removeUser && (
-          <CloseOutline32 className={styles.closeIcon} alt="remove user" data-testid="remove-user-button" />
+          <CloseOutline size={32} className={styles.closeIcon} alt="remove user" data-testid="remove-user-button" />
         )}
       </button>
     </li>

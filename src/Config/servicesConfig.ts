@@ -1,39 +1,21 @@
 //@ts-nocheck
-import portForwardMap from "../portForwardMap";
 import axios, { CancelToken } from "axios";
 import { Envs, HttpMethod } from "Constants";
 
 // Set defaults, change them if Cypress is NOT defined
 export let CORE_SERVICE_ENV_URL = "/api";
 
-if (typeof Cypress === "undefined") {
-  if (import.meta.env.MODE === Envs.Prod && window._SERVER_DATA) {
-    CORE_SERVICE_ENV_URL = window._SERVER_DATA.CORE_SERVICE_ENV_URL;
-  }
-
+if (import.meta.env.MODE === Envs.Prod && window._SERVER_DATA) {
+  CORE_SERVICE_ENV_URL = window._SERVER_DATA.CORE_SERVICE_ENV_URL;
 }
 
 export const PRODUCT_SERVICE_ENV_URL =
-  import.meta.env.MODE === Envs.Prod? window._SERVER_DATA && window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL : "/api";
+  import.meta.env.MODE === Envs.Prod ? window._SERVER_DATA && window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL : "/api";
 
-/**
- * if port forwarding is enabled, then check to see if service is in config map
- * If it is, set the url request to be only the serviceContextPath so the url is relativet to the root of the app
- * CRA will proxy the request as seen in setupProxy.js
- * @param {string} baseUrl - base of the serivce url
- * @param {sring} serviceContextPath - additional path for the service context e.g. /admin
- */
-function determineUrl(baseUrl, serviceContextPath) {
-  if (import.meta.env.MODE === Envs.PortForward && portForwardMap[serviceContextPath]) {
-    return serviceContextPath;
-  } else {
-    return baseUrl + serviceContextPath;
-  }
-}
 
-export const BASE_URL = determineUrl(PRODUCT_SERVICE_ENV_URL, "/workflow");
+export const BASE_URL = `${PRODUCT_SERVICE_ENV_URL}/workflow`;
 export const BASE_CORE_URL = CORE_SERVICE_ENV_URL;
-export const BASE_CORE_USERS_URL = determineUrl(CORE_SERVICE_ENV_URL, "/users");
+export const BASE_CORE_USERS_URL =  `${CORE_SERVICE_ENV_URL}/users`;
 
 export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,

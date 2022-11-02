@@ -9,7 +9,7 @@ import {
   ModalFooter,
   ModalForm,
   TextInput,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import styles from "./LabelModal.module.scss";
 
 interface LabelModalProps {

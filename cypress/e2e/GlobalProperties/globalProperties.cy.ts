@@ -39,7 +39,7 @@ describe("Global parameters", function () {
   it("Delete a Global Parameter", function () {
     cy.get("[data-testid=configuration-parameter-table-overflow-menu]").eq(0).click();
     cy.contains("Delete").click();
-    cy.get(".bx--btn--danger").click();
+    cy.get(".cds--btn--danger").click();
     cy.findByText("test label").should("not.exist");
     cy.findByText("test.key").should("not.exist");
     cy.findByText("for testing purpose").should("not.exist");

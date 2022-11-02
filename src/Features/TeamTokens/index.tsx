@@ -2,7 +2,7 @@ import React from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Helmet } from "react-helmet";
 import { useAppContext } from "Hooks";
-import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { notify, ToastNotification } from "@carbon/react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import TeamTokenComponent from "./TeamTokenComponent";
 import { FlowTeam } from "Types";

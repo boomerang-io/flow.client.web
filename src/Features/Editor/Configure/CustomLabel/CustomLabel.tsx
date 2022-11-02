@@ -2,12 +2,14 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { Edit16 } from "@carbon/icons-react";
+import { Edit } from "@carbon/react/icons";
 import {
   Button,
-  ComposedModal,
   ModalBody,
   ModalFooter,
+} from "@carbon/react";
+import {
+  ComposedModal,
   ModalForm,
   TextInput,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -54,7 +56,7 @@ const CustomLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels
       )
       :
       (
-        <Button kind="ghost" size="field" renderIcon={Edit16} onClick={openModal} className={styles.addNewToken}>
+        <Button kind="ghost" size="md" renderIcon={Edit} onClick={openModal} className={styles.addNewToken}>
           Add a new label
         </Button>
       )}

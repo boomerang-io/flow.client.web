@@ -5,7 +5,7 @@ import { useQuery } from "Hooks";
 import { useQueryClient } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import { Box } from "reflexbox";
-import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading } from "@carbon/react";
 import ErrorDragon from "Components/ErrorDragon";
 import WombatMessage from "Components/WombatMessage";
 import Sidenav from "./Sidenav";

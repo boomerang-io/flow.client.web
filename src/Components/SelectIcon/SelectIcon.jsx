@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { ComboBox } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComboBox } from "@carbon/react";
 import styles from "./selectIcon.module.scss";
 
 export function SelectIcon({ onChange, selectedIcon, iconOptions }) {

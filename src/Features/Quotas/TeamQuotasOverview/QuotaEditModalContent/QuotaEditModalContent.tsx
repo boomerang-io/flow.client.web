@@ -12,7 +12,7 @@ import {
   NumberInput,
   ToastNotification,
   InlineNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeamQuotas } from "Types";
 import styles from "./QuotaEditModalContent.module.scss";

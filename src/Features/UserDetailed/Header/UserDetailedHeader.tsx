@@ -11,14 +11,14 @@ import {
   FeatureHeaderTitle as HeaderTitle,
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import ChangeRole from "./ChangeRole";
 import { UserRoleCopy } from "Constants";
 import { appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { emailIsValid } from "Utils";
 import { ComposedModalChildProps, FlowUser } from "Types";
-import { Checkmark16, Close16, User24 } from "@carbon/icons-react";
+import { Checkmark, Close, User } from "@carbon/react/icons";
 import styles from "./UserDetailedHeader.module.scss";
 
 interface UserDetailedHeaderProps {
@@ -94,7 +94,7 @@ function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }:
           </HeaderTitle>
           <div className={styles.headerSubtitle} title={user?.email}>
             <div className={styles.status}>
-              {isActive ? <Checkmark16 style={{ fill: "#009d9a" }} /> : <Close16 style={{ fill: "#da1e28" }} />}
+              {isActive ? <Checkmark style={{ fill: "#009d9a" }} /> : <Close style={{ fill: "#da1e28" }} />}
               <p className={styles.statusText}>{isActive ? "Active" : "Inactive"}</p>
             </div>
             <span className={styles.statusDivider}>-</span>
@@ -125,8 +125,8 @@ function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }:
                     disabled={!userManagementEnabled}
                     kind="ghost"
                     onClick={openModal}
-                    renderIcon={User24}
-                    size="field"
+                    renderIcon={User}
+                    size="md"
                   >
                     Change role
                   </Button>

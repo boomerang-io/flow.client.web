@@ -1,7 +1,7 @@
 import React from "react";
 import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
-import { Button } from "carbon-components-react";
+import { Button } from "@carbon/react";
 import {
   notify,
   ToastNotification,
@@ -11,7 +11,7 @@ import {
   ModalFooter,
   TextInput,
   Loading,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import * as Yup from "yup";
 import styles from "./UpdateTeamName.module.scss";

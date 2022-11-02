@@ -1,8 +1,8 @@
 import React from "react";
-import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal } from "@carbon/react";
 import WorkflowEditButton from "./WorkflowEditButton";
 import PropertiesModalContent from "./PropertiesModalContent";
-import { Add32 } from "@carbon/icons-react";
+import { Add } from "@carbon/react/icons";
 import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Types";
 import styles from "./PropertiesModal.module.scss";
 
@@ -32,7 +32,7 @@ const PropertiesModal: React.FC<PropertiesModalProps> = (props) => {
         ) : (
           <button className={styles.createPropertyCard} onClick={openModal} data-testid="create-parameter-button">
             <div className={styles.createContainer}>
-              <Add32 className={styles.createIcon} aria-label="Add" />
+              <Add className={styles.createIcon} aria-label="Add" size={32}/>
               <p className={styles.createText}>Create a new parameter</p>
             </div>
           </button>

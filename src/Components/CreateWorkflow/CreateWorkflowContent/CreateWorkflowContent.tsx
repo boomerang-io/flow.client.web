@@ -6,11 +6,12 @@ import {
   Loading,
   TextArea,
   TextInput,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import capitalize from "lodash/capitalize";
-import { Button, ModalBody, ModalFooter, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
+import {  TooltipHover} from "@boomerang-io/carbon-addons-boomerang-react";
 import workflowIcons from "Assets/workflowIcons";
 import { defaultWorkflowConfig } from "./constants";
 import { ComboBoxItem, FlowTeam, CreateWorkflowSummary } from "Types";

@@ -5,10 +5,10 @@
   max-height: 84vh;
   min-width: 55rem;
 
-  :global .bx--btn.bx--btn--primary {
+  :global .cds--btn.cds--btn--primary {
     flex: 0 auto !important;
   }
-  :global .bx--btn.bx--btn--secondary {
+  :global .cds--btn.cds--btn--secondary {
     flex: 0 1 40% !important;
   }
 }

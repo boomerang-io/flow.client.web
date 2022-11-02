@@ -11,7 +11,7 @@ import {
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
   Loading,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import Header from "./Header";
 import Members from "./Members";
 import Settings from "./Settings";

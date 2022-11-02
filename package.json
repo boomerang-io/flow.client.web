@@ -25,7 +25,7 @@
     "test": "cross-env TZ=UTC vitest",
     "test:ui": "cross-env TZ=UTC vitest --ui",
     "test:ci": "cross-env TZ=UTC vitest --coverage",
-    "test:ci-cypress": "start-server-and-test start:test http://localhost:3000 cypress:run",
+    "test:ci-cypress": "start-server-and-test start:test http://127.0.0.1:3000 cypress:run",
     "test:staged": "cross-env TZ=UTC CI=true vitest related --changed --passWithNoTests",
     "upgradePackage": "node scripts/upgradePackage",
     "preview": "vite preview",
@@ -33,18 +33,15 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@boomerang-io/carbon-addons-boomerang-react": "2.0.10",
+    "@boomerang-io/carbon-addons-boomerang-react": "3.1.1",
     "@boomerang-io/styles": "1.0.0",
     "@boomerang-io/utils": "1.0.3",
-    "@carbon/charts": "^0.58.2",
-    "@carbon/charts-react": "^0.58.2",
-    "@carbon/icons-react": "10.49.0",
+    "@carbon/charts": "^1.6.1",
+    "@carbon/charts-react": "^1.6.1",
+    "@carbon/react": "1.16.0",
     "@projectstorm/react-diagrams": "^5.3.2",
-    "axios": "^0.26.0",
+    "axios": "^0.27.2",
     "axios-hooks": "^3.0.1",
-    "carbon-components": "10.56.0",
-    "carbon-components-react": "7.56.0",
-    "carbon-icons": "^7.0.7",
     "classnames": "^2.2.6",
     "closest": "0.0.1",
     "codemirror": "^5.58.2",
@@ -165,6 +162,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
+      "@carbon/feature-flags@0.9.0": "patches/@carbon__feature-flags@0.9.0.patch", 
       "react-virtualized@9.22.3": "patches/react-virtualized@9.22.3.patch"
     }
   }

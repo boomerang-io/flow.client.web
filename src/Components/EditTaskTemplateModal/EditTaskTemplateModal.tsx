@@ -1,9 +1,9 @@
 //@ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ComposedModal } from "@carbon/react";
 import EditTaskTemplateForm from "./EditTaskTemplateForm";
-import { Edit16 } from "@carbon/icons-react";
+import { Edit } from "@carbon/react/icons";
 import styles from "./editTaskTemplateModal.module.scss";
 
 EditTaskTemplateModal.propTypes = {
@@ -42,11 +42,11 @@ function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue
       }}
       modalTrigger={({ openModal }) => (
         <Button
-          renderIcon={Edit16}
+          renderIcon={Edit}
           iconDescription="edit-template"
           disabled={isOldVersion || !isActive || !canEdit}
           kind="ghost"
-          size="field"
+          size="md"
           onClick={openModal}
         />
       )}

@@ -7,13 +7,12 @@ import { Formik, FormikProps, FieldArray } from "formik";
 import {
   Button,
   ComboBox,
-  ComposedModal,
   Tag,
   TextArea,
   TextInput,
   Toggle,
-  TooltipHover,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { ComposedModal, TooltipHover} from '@boomerang-io/carbon-addons-boomerang-react';
 import cx from "classnames";
 import cronstrue from "cronstrue";
 import capitalize from "lodash/capitalize";
@@ -24,7 +23,7 @@ import CreateToken from "./CreateToken";
 //@ts-ignore
 import CustomLabel from "./CustomLabel";
 import Token from "./Token";
-import { Save24 } from "@carbon/icons-react";
+import { Save } from "@carbon/react/icons";
 import { appLink, BASE_DOCUMENTATION_URL, FeatureFlag } from "Config/appConfig";
 import { QueryStatus } from "Constants";
 import workflowIcons from "Assets/workflowIcons";
@@ -724,14 +723,14 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
           <hr className={styles.delimiter} />
           <div className={styles.saveChangesContainer}>
             <Button
-              size="field"
+              size="md"
               disabled={!dirty || isLoading}
               iconDescription="Save"
               onClick={(e: any) => {
                 e.preventDefault();
                 handleSubmit();
               }}
-              renderIcon={Save24}
+              renderIcon={Save}
             >
               {isLoading ? "Saving..." : "Save"}
             </Button>

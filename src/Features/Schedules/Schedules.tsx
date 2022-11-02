@@ -2,11 +2,11 @@ import React from "react";
 import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
+import { MultiSelect as Select } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderSubtitle as HeaderSubtitle,
   FeatureHeaderTitle as HeaderTitle,
-  MultiSelect as Select,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import Calendar from "Components/ScheduleCalendar";
 import ScheduleCreator from "Components/ScheduleCreator";
@@ -65,10 +65,12 @@ export default function Schedules() {
   /**
    * Get schedule and calendar data
    */
-  const { scopes, statuses = defaultStatusArray, workflowIds, teamIds } = queryString.parse(
-    location.search,
-    queryStringOptions
-  );
+  const {
+    scopes,
+    statuses = defaultStatusArray,
+    workflowIds,
+    teamIds,
+  } = queryString.parse(location.search, queryStringOptions);
 
   const schedulesUrlQuery = queryString.stringify(
     {
@@ -186,12 +188,13 @@ export default function Schedules() {
     setActiveSchedule({ ...schedule, workflow });
   }
 
-
   if (teams || systemWorkflowsQuery.data || userWorkflows.workflows) {
-    const { workflowIds = "", scopes = "", statuses = "", teamIds = "" } = queryString.parse(
-      location.search,
-      queryStringOptions
-    );
+    const {
+      workflowIds = "",
+      scopes = "",
+      statuses = "",
+      teamIds = "",
+    } = queryString.parse(location.search, queryStringOptions);
 
     const selectedScopes = typeof scopes === "string" ? [scopes] : scopes;
     const selectedTeamIds = typeof teamIds === "string" ? [teamIds] : teamIds;
@@ -456,7 +459,6 @@ interface GetWorkflowOptionsArgs {
   userWorkflowsData: Array<WorkflowSummary>;
 }
 
-
 function getWorkflowOptions({
   isSystemWorkflowsEnabled,
   scopes,
@@ -488,4 +490,3 @@ function getWorkflowOptions({
   let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
   return workflowsFilter;
 }
-

@@ -4,17 +4,18 @@ import cx from "classnames";
 import {
   //AutoSuggest,
   Button,
-  DataDrivenInput,
-  DynamicFormik,
-  ModalForm,
+  
   ModalBody,
   ModalFooter,
   //TextInput,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { DataDrivenInput,
+  DynamicFormik,
+  ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import EmptyState from "Components/EmptyState";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
-import { WarningFilled16, WarningAlt16 } from "@carbon/icons-react";
+import { WarningFilled, WarningAlt } from "@carbon/react/icons";
 import styles from "./taskUpdateModal.module.scss";
 
 const UpdateType = {
@@ -236,12 +237,12 @@ function VersionSection({ children, description, latest, name, subtitle, version
 
 const ChangeToAppearanceMap = {
   [UpdateType.Add]: {
-    icon: <WarningAlt16 fill="#DA1E28" />,
+    icon: <WarningAlt fill="#DA1E28" />,
     className: "add",
     text: "This field has been added.",
   },
   [UpdateType.Remove]: {
-    icon: <WarningFilled16 fill="#F1C21B" />,
+    icon: <WarningFilled fill="#F1C21B" />,
     className: "remove",
     text: "This field has been removed.",
   },

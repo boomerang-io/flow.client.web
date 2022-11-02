@@ -45,7 +45,7 @@ describe("Team Parameters", function () {
     cy.contains("IBM Services Engineering").click();
     cy.findAllByTestId("team-parameter-menu-button").first().click();
     cy.contains("Delete").click();
-    cy.get(".bx--btn--danger").click();
+    cy.get(".cds--btn--danger").click();
     cy.findByText("test label").should("not.exist");
     cy.findByText("test key").should("not.exist");
     cy.findByText("for testing purpose").should("not.exist");

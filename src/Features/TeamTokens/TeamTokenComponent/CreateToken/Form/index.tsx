@@ -12,7 +12,7 @@ import {
   TextArea,
   Tooltip,
   Loading,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { Formik } from "formik";
 import { useMutation, useQueryClient } from "react-query";
 import { serviceUrl, resolver } from "Config/servicesConfig";

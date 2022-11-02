@@ -1,7 +1,8 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import {  Button, ModalBody, ModalFooter, TextInput, ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalFlowForm, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import BasicSlider from "Components/Slider";
 
 type Props = {
@@ -13,12 +14,18 @@ type Props = {
   isActivity?: boolean;
 };
 
-
-export default function ConfigureStorage({size, mountPath, handleOnChange, closeModal, quotas, isActivity=false}: Props) {
+export default function ConfigureStorage({
+  size,
+  mountPath,
+  handleOnChange,
+  closeModal,
+  quotas,
+  isActivity = false,
+}: Props) {
   const thresholdRef = React.createRef();
   const handleOnSave = (values: any) => {
     const { size, mountPath } = values;
-    handleOnChange({enabled: true, size, mountPath});
+    handleOnChange({ enabled: true, size, mountPath });
     closeModal();
   };
 
@@ -36,16 +43,7 @@ export default function ConfigureStorage({size, mountPath, handleOnChange, close
       })}
     >
       {(formikProps) => {
-        const {
-          values,
-          touched,
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isValid,
-          setFieldValue,
-        } = formikProps;
+        const { values, touched, errors, handleBlur, handleChange, handleSubmit, isValid, setFieldValue } = formikProps;
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
@@ -88,7 +86,7 @@ export default function ConfigureStorage({size, mountPath, handleOnChange, close
                 name="mountPath"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder={`/workspace/${isActivity? "activity" : "workflow"}`}
+                placeholder={`/workspace/${isActivity ? "activity" : "workflow"}`}
                 style={{ minWidth: "10rem" }}
                 type="mountPath"
                 value={values.mountPath}

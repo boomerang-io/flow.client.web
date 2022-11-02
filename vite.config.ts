@@ -6,7 +6,6 @@ import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import eslint from "vite-plugin-eslint";
 import svgrPlugin from "vite-plugin-svgr";
-import portForwardMap from "./src/portForwardMap";
 
 const projectRootDir = resolve(__dirname);
 
@@ -85,15 +84,25 @@ export default defineConfig(({ mode }) => {
     },
   };
 });
-// Map service context paths to the local port that you have forwarded
 
-function createPortforwardConfig(portForwardMap, jwt) {
-  return Object.entries(portForwardMap).reduce((portForwardMap, [path, port]) => {
-    portForwardMap[path] = {
-      headers: { Authorization: `Bearer ${jwt}` },
-      target: `http://localhost:${port}`,
+const portForwardMap = {
+  "/api/launchpad": 8080,
+  "/api/catalog": 8080,
+  "/api/admin": 8082,
+  "/api/notifications": 8083,
+  "/api/users": 8084,
+  "/api/support": 8085,
+};
+
+// Map service context paths to the local port that you have forwarded
+function createPortforwardConfig(jwt) {
+  return Object.entries(portForwardMap).reduce((proxyMap, [path, port]) => {
+    proxyMap[path] = {
       changeOrigin: true,
+      headers: { Authorization: `Bearer ${jwt}` },
+      rewrite: (path) => path.replace(/^\/api/, ""),
+      target: `http://localhost:${port}`,
     };
-    return portForwardMap;
+    return proxyMap;
   }, {});
 }

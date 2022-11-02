@@ -19,7 +19,7 @@ import {
   StructuredListCell,
   TextArea,
   ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { resolver } from "Config/servicesConfig";
 import { Action, ApprovalStatus } from "Types";
 import dateHelper from "Utils/dateHelper";

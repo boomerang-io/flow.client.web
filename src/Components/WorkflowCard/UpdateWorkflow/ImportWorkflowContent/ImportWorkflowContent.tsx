@@ -3,15 +3,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import {
-  ModalBody,
-  ModalFooter,
-  Button,
-  FileUploaderDropContainer,
-  FileUploaderItem,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalBody, ModalFooter, Button, FileUploaderDropContainer, FileUploaderItem } from "@carbon/react";
 import { ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import { CheckmarkFilled32, ErrorFilled32 } from "@carbon/icons-react";
+import { CheckmarkFilled, ErrorFilled } from "@carbon/react/icons";
 import { requiredWorkflowProps } from "./constants";
 import styles from "./importWorkflowContent.module.scss";
 
@@ -145,12 +139,12 @@ class ImportWorkflowContent extends Component {
                 {values.file ? (
                   Boolean(errors.file) ? (
                     <div className={styles.validMessage}>
-                      <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
+                      <ErrorFilled size={32} aria-label="error-import-icon" className={styles.errorIcon} />
                       <p className={styles.message}>{createInvalidTextMessage(errors.file)}</p>
                     </div>
                   ) : (
                     <div className={styles.validMessage}>
-                      <CheckmarkFilled32 aria-label="success-import-icon" className={styles.successIcon} />
+                      <CheckmarkFilled size={32} aria-label="success-import-icon" className={styles.successIcon} />
                       <p className={styles.message}>{VALID_TEXT_MESSAGE(type)}</p>
                     </div>
                   )

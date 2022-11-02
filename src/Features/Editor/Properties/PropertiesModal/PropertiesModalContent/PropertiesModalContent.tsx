@@ -9,7 +9,7 @@ import {
   Toggle,
   ModalFlowForm,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
@@ -257,17 +257,8 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
         })}
       >
         {(formikProps) => {
-          const {
-            dirty,
-            values,
-            touched,
-            errors,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-            setFieldValue,
-            isValid,
-          } = formikProps;
+          const { dirty, values, touched, errors, handleBlur, handleChange, handleSubmit, setFieldValue, isValid } =
+            formikProps;
           return (
             <ModalFlowForm onSubmit={handleSubmit} disabled={isLoading}>
               <ModalBody aria-label="inputs" className={styles.container}>

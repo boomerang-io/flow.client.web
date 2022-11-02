@@ -5,14 +5,13 @@ import {
   ComboBox,
   DataTable,
   Error,
-  FeatureHeader as Header,
-  FeatureHeaderTitle as HeaderTitle,
-  FeatureHeaderSubtitle as HeaderSubtitle,
   Pagination,
   DataTableSkeleton,
-  notify,
-  ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import {  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
+  notify, ToastNotification} from "@boomerang-io/carbon-addons-boomerang-react"
 import CreateEditTeamPropertiesModal from "./CreateEditTeamPropertiesModal";
 import ActionsMenu from "./ActionsMenu";
 import EmptyState from "Components/EmptyState";
@@ -22,7 +21,7 @@ import { InputType, PASSWORD_CONSTANT } from "Constants";
 import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, Property } from "Types";
-import { Checkmark32, Close32 } from "@carbon/icons-react";
+import { Checkmark, Close } from "@carbon/react/icons";
 import styles from "./teamPropertiesTable.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
@@ -129,9 +128,9 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
         return <p className={styles.tableTextarea}>{determineValue}</p>;
       case "secured":
         return property && property.type === InputType.Password ? (
-          <Checkmark32 alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
+          <Checkmark size={32} alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
         ) : (
-          <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
+          <Close size={32} alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
         );
       case "actions":
         return (

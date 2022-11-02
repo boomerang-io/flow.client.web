@@ -11,10 +11,10 @@ import {
   ModalForm,
   notify,
   ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { useMutation, useQueryClient } from "react-query";
 import { resolver, serviceUrl } from "Config/servicesConfig";
-import { Reset16 } from "@carbon/icons-react";
+import { Reset } from "@carbon/react/icons";
 import { ModalTriggerProps, FlowTeam, ComposedModalChildProps, FlowTeamQuotas } from "Types";
 import styles from "./Header.module.scss";
 
@@ -45,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({
             subtitle: "This will change all quotas to the following default values. This action cannot be undone.",
           }}
           modalTrigger={({ openModal }: ModalTriggerProps) => (
-            <Button className={styles.resetButton} size="field" renderIcon={Reset16} onClick={openModal}>
+            <Button className={styles.resetButton} size="md" renderIcon={Reset} onClick={openModal}>
               Restore defaults
             </Button>
           )}

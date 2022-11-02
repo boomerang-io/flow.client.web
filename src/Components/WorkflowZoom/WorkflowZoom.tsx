@@ -1,6 +1,6 @@
 //@ts-nocheck
 import PropTypes from "prop-types";
-import { ZoomIn16, ZoomOut16 } from "@carbon/icons-react";
+import { ZoomIn, ZoomOut } from "@carbon/react/icons";
 import styles from "./WorkflowZoom.module.scss";
 
 WorkflowZoom.propTypes = {
@@ -62,10 +62,10 @@ export default function WorkflowZoom({ workflowDagEngine, workflowDagBoundingCli
   return (
     <div className={styles.zoomIcons}>
       <button className={styles.zoomButton} onClick={handleZoomDecrease}>
-        <ZoomOut16 className={styles.zoomIcon} />
+        <ZoomOut className={styles.zoomIcon} />
       </button>
       <button className={styles.zoomButton} onClick={handleZoomIncrease}>
-        <ZoomIn16 className={styles.zoomIcon} />
+        <ZoomIn className={styles.zoomIcon} />
       </button>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
-import { Button, ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ComposedModal, ModalBody } from "@carbon/react";
 import ErrorModal from "Components/ErrorModal";
 import ManualTaskModal from "./ManualTaskModal";
 import OutputPropertiesLog from "./OutputPropertiesLog";
@@ -118,7 +118,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                 subtitle: taskName,
               }}
               modalTrigger={({ openModal }: { openModal: () => void }) => (
-                <Button size="small" kind="ghost" onClick={openModal}>
+                <Button size="sm" kind="ghost" onClick={openModal}>
                   View Error
                 </Button>
               )}
@@ -137,7 +137,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                   subtitle: taskName,
                 }}
                 modalTrigger={({ openModal }: { openModal: () => void }) => (
-                  <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
+                  <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
                     Action Manual Approval
                   </Button>
                 )}
@@ -159,7 +159,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                   subtitle: taskName,
                 }}
                 modalTrigger={({ openModal }: { openModal: () => void }) => (
-                  <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
+                  <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
                     Action Manual Task
                   </Button>
                 )}
@@ -185,7 +185,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                   title: "Manual Approval details",
                 }}
                 modalTrigger={({ openModal }: { openModal: () => void }) => (
-                  <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
+                  <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
                     View Manual Approval
                   </Button>
                 )}
@@ -227,7 +227,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                   title: "Manual Task details",
                 }}
                 modalTrigger={({ openModal }: { openModal: () => void }) => (
-                  <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
+                  <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
                     View Manual Task
                   </Button>
                 )}

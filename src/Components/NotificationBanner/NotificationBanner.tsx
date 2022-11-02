@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import { Close32 } from "@carbon/icons-react";
+import { Close } from "@carbon/react/icons";
 import "./styles.scss";
 
 const SLACK_TEAM_ID = "T27TLPNS1";
@@ -35,7 +35,7 @@ class NotificationBanner extends Component {
           Thanks!
         </div>
         <button className="b-notification-banner__button" onClick={this.closeBanner}>
-          <Close32 className="b-notification-banner__close-icon" />
+          <Close size={32} className="b-notification-banner__close-icon" />
         </button>
       </div>
     );

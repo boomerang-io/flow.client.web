@@ -1,18 +1,13 @@
 import React from "react";
 import { useAppContext } from "Hooks";
+import { Button, InlineNotification, ModalBody, ModalFooter, RadioButtonGroup, RadioButton } from "@carbon/react";
 import {
-  Button,
   Creatable,
   CheckboxList,
   ComboBox,
   DynamicFormik,
-  InlineNotification,
   Loading,
-  ModalBody,
   ModalForm,
-  ModalFooter,
-  RadioButtonGroup,
-  RadioButton,
   TextArea,
   TextInput,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -104,10 +99,8 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     if (props.schedule.type === "cron") {
       const cronSchedule = props.schedule.cronSchedule;
       const cronToData = cronToDateTime(Boolean(cronSchedule), cronSchedule);
-      const {
-        cronTime,
-        selectedDays,
-      }: { cronTime: string; selectedDays: { [day in DayOfWeekKey]: boolean } } = cronToData;
+      const { cronTime, selectedDays }: { cronTime: string; selectedDays: { [day in DayOfWeekKey]: boolean } } =
+        cronToData;
 
       let activeDays: DayOfWeekKey[] = [];
       for (let entry in selectedDays) {
@@ -266,7 +259,12 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                 orientation="horizontal"
                 valueSelected={formikProps.values["type"]}
               >
-                <RadioButton key={"runOnce"} id={"runOnce"} labelText={scheduleTypeLabelMap["runOnce"]} value={"runOnce"} />
+                <RadioButton
+                  key={"runOnce"}
+                  id={"runOnce"}
+                  labelText={scheduleTypeLabelMap["runOnce"]}
+                  value={"runOnce"}
+                />
                 <RadioButton key={"cron"} id={"cron"} labelText={scheduleTypeLabelMap["cron"]} value={"cron"} />
                 <RadioButton
                   id={"advanced-cron"}

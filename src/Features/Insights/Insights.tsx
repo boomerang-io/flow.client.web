@@ -5,12 +5,11 @@ import moment from "moment";
 import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { DatePicker, DatePickerInput, FilterableMultiSelect, SkeletonPlaceholder } from "carbon-components-react";
-import {
-  FeatureHeader as Header,
-  FeatureHeaderSubtitle as HeaderSubtitle,
+import { DatePicker, DatePickerInput, FilterableMultiSelect, SkeletonPlaceholder } from "@carbon/react";
+import {  FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+  FeatureHeaderSubtitle as HeaderSubtitle,
+  } from "@boomerang-io/carbon-addons-boomerang-react"
 import { useAppContext } from "Hooks";
 import { useQuery } from "react-query";
 import { sortByProp } from "@boomerang-io/utils";

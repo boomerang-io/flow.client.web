@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { Edit16 } from "@carbon/icons-react";
+import { Edit } from "@carbon/react/icons";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import {
-  Button,
   ComposedModal,
-  InlineNotification,
   Loading,
-  ModalBody,
-  ModalFooter,
   ModalForm,
   notify,
   ToastNotification,
@@ -44,7 +41,7 @@ const CreateToken: React.FC<CreateTokenProps> = ({ tokenData, formikPropsSetFiel
         subtitle: "Select a label for the token",
       }}
       modalTrigger={({ openModal }: { openModal: () => void }) => (
-        <Button kind="ghost" size="field" renderIcon={Edit16} onClick={openModal} className={styles.addNewToken}>
+        <Button kind="ghost" size="md" renderIcon={Edit} onClick={openModal} className={styles.addNewToken}>
           Add a new token
         </Button>
       )}

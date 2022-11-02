@@ -1,12 +1,11 @@
 import React from "react";
+import { MultiSelect, Search } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
-  MultiSelect,
-  Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateTemplateWorkflow from "Components/CreateTemplateWorkflow";
 import { appLink } from "Config/appConfig";
@@ -46,14 +45,15 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
             {scope === WorkflowScope.System
               ? `System Workflows (${workflowsCount})`
               : scope === WorkflowScope.Template
-                ? `Template Workflows (${workflowsCount})`
-                : scope === WorkflowScope.Team
-                  ? `Team Workflows (${workflowsCount})`
-                  : `Workflows (${workflowsCount})`}
+              ? `Template Workflows (${workflowsCount})`
+              : scope === WorkflowScope.Team
+              ? `Team Workflows (${workflowsCount})`
+              : `Workflows (${workflowsCount})`}
           </HeaderTitle>
           {scope === WorkflowScope.User && (
             <HeaderSubtitle className={styles.headerMessage}>
-              Your personal playground to create and execute automation and work smarter. Use teams to collaborate on workflows.
+              Your personal playground to create and execute automation and work smarter. Use teams to collaborate on
+              workflows.
             </HeaderSubtitle>
           )}
         </>
@@ -126,7 +126,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
           id="search-team-workflows"
           labelText={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
           onChange={handleOnSearchInputChange}
-          placeHolderText={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
+          placeholder={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
           value={searchQuery}
         />
       </div>

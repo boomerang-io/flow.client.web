@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import { useAppContext } from "Hooks";
-import { Close32, ChevronUp32 } from "@carbon/icons-react";
+import { Close, ChevronUp } from "@carbon/react/icons";
 import styles from "./welcomeBanner.module.scss";
 
 const SLACK_TEAM_ID = "T27TLPNS1";
@@ -23,12 +23,12 @@ export default function WelcomeBanner({ hide, isOpen, openTutorial, toggleIsOpen
     <div className={cx(styles.container, { [styles.collapsed]: !isOpen })}>
       <section className={styles.closeHideButtons}>
         <button className={styles.closeButton} onClick={hide}>
-          <Close32 aria-label="close" className={styles.closeIcon} />
+          <Close size={32} aria-label="close" className={styles.closeIcon} />
           <p className={styles.closeText}>Don't show again</p>
         </button>
         <button className={styles.collapseButton} onClick={toggleIsOpen}>
           <p className={styles.collapseText}>{isOpen ? "Collapse" : "Welcome to Flow"}</p>
-          <ChevronUp32 aria-label="collapse" className={cx(styles.collapseIcon, { [styles.closed]: !isOpen })} />
+          <ChevronUp size={32} aria-label="collapse" className={cx(styles.collapseIcon, { [styles.closed]: !isOpen })} />
         </button>
       </section>
       <div className={cx(styles.content, { [styles.closed]: !isOpen })}>

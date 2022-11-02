@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppContext } from "Hooks";
-import { AccordionItem, Button, DynamicFormik } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Save16 } from "@carbon/icons-react";
+import { AccordionItem, Button, DynamicFormik } from "@carbon/react";
+import { Save } from "@carbon/react/icons";
 import { UserRole } from "Constants";
 import { FormikProps } from "formik";
 import { DataDrivenInput } from "Types";
@@ -67,8 +67,8 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({ onSave, index, settin
                   disabled={!formikProps.isValid || !formikProps.dirty}
                   iconDescription="Save settings"
                   onClick={formikProps.handleSubmit}
-                  renderIcon={Save16}
-                  size="field"
+                  renderIcon={Save}
+                  size="md"
                 >
                   Save
                 </Button>

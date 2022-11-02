@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import CreateWorkflowContent from "../CreateWorkflowContent";
+import CreateWorkflowContent from ".";
 
 // import { screen, fireEvent } from "@testing-library/react";
 

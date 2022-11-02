@@ -13,7 +13,7 @@ import {
   RadioButtonGroup,
   ToastNotification,
   InlineNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { UserType, UserTypeCopy } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowUser } from "Types";

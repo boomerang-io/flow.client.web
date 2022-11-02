@@ -3,11 +3,11 @@
 .container {
   min-width: 21.875rem;
 
-  :global .bx--bmrg-feature-sidenav-link-content {
+  :global .cds--bmrg-feature-sidenav-link-content {
     width: 100%;
   }
 
-  :global .bx--dropdown__wrapper {
+  :global .cds--dropdown__wrapper {
     margin-left: 1rem;
     margin-right: 1rem;
   }
@@ -15,11 +15,11 @@
 .tools {
   display: flex;
   padding-left: 1rem;
-  :global .bx--search-input,
-  :global .bx--search-close::before {
+  :global .cds--search-input,
+  :global .cds--search-close::before {
     background-color: var(--cds-ui-02);
   }
-  :global .bx--overflow-menu {
+  :global .cds--overflow-menu {
     margin: 0 0.5rem;
   }
 }
@@ -84,7 +84,7 @@
   padding: 1rem;
 }
 .taskCategory {
-  :global .bx--accordion__title {
+  :global .cds--accordion__title {
     text-transform: none !important;
   }
 }

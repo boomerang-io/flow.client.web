@@ -8,7 +8,7 @@ import {
   StructuredListHead,
   StructuredListRow,
   StructuredListWrapper,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { Link } from "react-router-dom";
 import EmptyState from "Components/EmptyState";
 import ms from "match-sorter";

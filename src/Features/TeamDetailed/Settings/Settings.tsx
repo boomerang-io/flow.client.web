@@ -2,12 +2,12 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Box } from "reflexbox";
-import { ErrorMessage, Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ErrorMessage, Loading, ComposedModal } from "@carbon/react";
 import UpdateTeamName from "./UpdateTeamName";
 import queryString from "query-string";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { SortDirection } from "Constants";
-import { Edit16 } from "@carbon/icons-react";
+import { Edit } from "@carbon/react/icons";
 import { FlowTeam } from "Types";
 import styles from "./Settings.module.scss";
 
@@ -79,7 +79,7 @@ export default function Settings({ team, teamManagementEnabled }: { team: FlowTe
               }}
               modalTrigger={({ openModal }: { openModal: () => void }) => (
                 <button className={styles.teamEditIcon} onClick={openModal} data-testid="open-change-name-modal">
-                  <Edit16 />
+                  <Edit />
                 </button>
               )}
             >

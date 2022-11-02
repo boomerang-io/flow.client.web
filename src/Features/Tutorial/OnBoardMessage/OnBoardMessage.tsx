@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Close20 } from "@carbon/icons-react";
+import { Button } from "@carbon/react";
+import { Close } from "@carbon/react/icons";
 import bkgskyline from "Assets/svg/bkg-skyline.svg";
 import FadeAnimation from "Components/FadeAnimation";
 import "./styles.scss";
@@ -51,7 +51,7 @@ const OnBoardMessage = (props: Props) => {
       <div className="c-onboard-wrapper">
         <section aria-label="Onboard Message Container" className="c-onboardExp">
           <button className="b-onboardExp-screen-modal-close" onClick={closeModal}>
-            <Close20 />
+            <Close />
           </button>
           <div className={finishImgsClassName}>
             <div className={finishButtonClassName}>
@@ -66,7 +66,7 @@ const OnBoardMessage = (props: Props) => {
                 </div>
               </div>
               <div className={buttonsClassName}>
-                <Button onClick={closeModal} size="field" style={{ marginTop: "2.6rem" }}>
+                <Button onClick={closeModal} size="md" style={{ marginTop: "2.6rem" }}>
                   {finishButton}
                 </Button>
               </div>
@@ -76,10 +76,10 @@ const OnBoardMessage = (props: Props) => {
             <div className="b-onboardExp__title">{title}</div>
             <div className={subtitleClassName}>{subTitle}</div>
             <div className={buttonsClassName}>
-              <Button size="field" onClick={() => returnScreen && goToScreen && goToScreen(returnScreen)}>
+              <Button size="md" onClick={() => returnScreen && goToScreen && goToScreen(returnScreen)}>
                 {leftButton}
               </Button>
-              <Button size="field" onClick={nextScreen} style={{ marginLeft: "1rem" }}>
+              <Button size="md" onClick={nextScreen} style={{ marginLeft: "1rem" }}>
                 {rightButton}
               </Button>
             </div>

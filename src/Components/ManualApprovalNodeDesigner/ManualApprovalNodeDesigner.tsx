@@ -3,7 +3,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useEditorContext } from "Hooks";
 import { RevisionActionTypes } from "State/reducers/workflowRevision";
-import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal } from "@carbon/react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";

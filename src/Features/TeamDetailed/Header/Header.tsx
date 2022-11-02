@@ -11,8 +11,8 @@ import {
   FeatureNavTabs as Tabs,
   notify,
   ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-import { Checkmark16, Close16 } from "@carbon/icons-react";
+} from "@carbon/react";
+import { Checkmark, Close } from "@carbon/react/icons";
 import { Link, useLocation } from "react-router-dom";
 import { appLink } from "Config/appConfig";
 import { resolver, serviceUrl } from "Config/servicesConfig";
@@ -82,7 +82,7 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
           <HeaderTitle>{team.name}</HeaderTitle>
           <div className={styles.subtitle}>
             <div className={styles.status}>
-              {isActive ? <Checkmark16 style={{ fill: "#009d9a" }} /> : <Close16 style={{ fill: "#da1e28" }} />}
+              {isActive ? <Checkmark style={{ fill: "#009d9a" }} /> : <Close style={{ fill: "#da1e28" }} />}
               <p className={styles.statusText}>{isActive ? "Active" : "Inactive"}</p>
             </div>
             <span className={styles.statusDivider}>-</span>
@@ -123,8 +123,8 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
                   iconDescription="Close"
                   kind="danger"
                   onClick={openModal}
-                  renderIcon={Close16}
-                  size="field"
+                  renderIcon={Close}
+                  size="md"
                   data-testid="close-team"
                 >
                   Close Team

@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory, useLocation, Redirect, Route, Switch } from "react-router-dom";
 import { useQuery } from "Hooks";
-import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading } from "@carbon/react";
 import CreateWorkflow from "Components/CreateWorkflow";
 import EmptyState from "Components/EmptyState";
 import ErrorDragon from "Components/ErrorDragon";

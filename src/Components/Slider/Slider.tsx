@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Slider } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Slider } from "@carbon/react";
 import omit from "lodash/omit";
 import "./styles.scss";
 

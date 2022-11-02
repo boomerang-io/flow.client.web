@@ -10,7 +10,7 @@ import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
 import { formatErrorMessage } from "@boomerang-io/utils";
-import { Add32 } from "@carbon/icons-react";
+import { Add } from "@carbon/react/icons";
 import {
   FlowTeam,
   ComposedModalChildProps,
@@ -37,9 +37,11 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
   const history = useHistory();
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
 
-  const { mutateAsync: createWorkflowMutator, error: workflowError, isLoading: workflowIsLoading } = useMutation(
-    resolver.postCreateWorkflow
-  );
+  const {
+    mutateAsync: createWorkflowMutator,
+    error: workflowError,
+    isLoading: workflowIsLoading,
+  } = useMutation(resolver.postCreateWorkflow);
 
   const {
     mutateAsync: createWorkflowRevisionMutator,
@@ -47,9 +49,11 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
     isLoading: workflowRevisionIsLoading,
   } = useMutation(resolver.postCreateWorkflowRevision);
 
-  const { mutateAsync: importWorkflowMutator, error: importError, isLoading: importIsLoading } = useMutation(
-    resolver.postImportWorkflow
-  );
+  const {
+    mutateAsync: importWorkflowMutator,
+    error: importError,
+    isLoading: importIsLoading,
+  } = useMutation(resolver.postImportWorkflow);
 
   const handleCreateWorkflow = async (workflowSummary: CreateWorkflowSummary) => {
     try {
@@ -62,7 +66,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
       };
 
       await createWorkflowRevisionMutator({ workflowId, body: workflowRevision });
-      
+
       queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
       history.push(appLink.editorDesigner({ workflowId }));
       notify(<ToastNotification kind="success" title="Create Workflow" subtitle="Successfully created workflow" />);
@@ -125,14 +129,16 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
             }
           >
             <div className={styles.disabledCreate} data-testid="workflows-create-workflow-button">
-              <Add32 className={styles.addIcon} />
+              <Add className={styles.addIcon} />
               <p className={styles.text}>Create a new workflow</p>
             </div>
           </TooltipHover>
         ) : (
           <button className={styles.container} onClick={openModal} data-testid="workflows-create-workflow-button">
-            <Add32 className={styles.addIcon} />
-            <p className={styles.text}>{scope !== WorkflowScope.Template ? "Create a new Workflow" : "Create a new Template"}</p>
+            <Add className={styles.addIcon} />
+            <p className={styles.text}>
+              {scope !== WorkflowScope.Template ? "Create a new Workflow" : "Create a new Template"}
+            </p>
           </button>
         )
       }

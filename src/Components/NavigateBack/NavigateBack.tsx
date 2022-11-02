@@ -2,13 +2,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { ChevronLeft32 } from "@carbon/icons-react";
+import { ChevronLeft } from "@carbon/react/icons";
 import styles from "./navigateBack.module.scss";
 
 const NavigateBack = ({ className, onClick, style, text, to }) => (
   <button className={className} style={style} onClick={onClick}>
     <Link className={styles.container} to={to}>
-      <ChevronLeft32 className={styles.chevron} />
+      <ChevronLeft size={32} className={styles.chevron} />
       <span className={styles.text}>{text}</span>
     </Link>
   </button>

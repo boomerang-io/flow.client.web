@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames/bind";
 import {
   ComboBox,
-  InlineNotification,
   Loading,
   RadioGroup,
   TextArea,
@@ -11,7 +10,8 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import capitalize from "lodash/capitalize";
-import { Button, ModalBody, ModalFooter, ModalFlowForm, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, InlineNotification, ModalBody, ModalFooter  } from "@carbon/react";
+import { ModalFlowForm, TooltipHover} from "@boomerang-io/carbon-addons-boomerang-react";
 import workflowIcons from "Assets/workflowIcons";
 import { ComboBoxItem, FlowTeam, WorkflowSummary, UserWorkflow } from "Types";
 import { WorkflowScope } from "Constants";

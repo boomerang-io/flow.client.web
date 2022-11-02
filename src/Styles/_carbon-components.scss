@@ -1,41 +1,46 @@
-// Carbon settings
-@import "@boomerang-io/carbon-addons-boomerang-react/styles/scss/styles/themes/boomerang";
-$carbon--theme: $carbon--theme--boomerang;
-$carbon-addons-bmrg--theme: boomerang;
+// app.scss
+@use "sass:map";
 
-@import "@boomerang-io/carbon-addons-boomerang-react/styles/scss/styles";
-@import "carbon-components/scss/components/accordion/accordion";
-@import "carbon-components/scss/components/checkbox/checkbox";
-@import "carbon-components/scss/components/copy-button/copy-button";
-@import "carbon-components/scss/components/code-snippet/code-snippet";
-@import "carbon-components/scss/components/date-picker/date-picker";
-@import "carbon-components/scss/components/data-table-v2/data-table-v2";
-@import "carbon-components/scss/components/data-table-v2/data-table-v2-core";
-@import "carbon-components/scss/components/data-table-v2/data-table-v2-sort";
-@import "carbon-components/scss/components/file-uploader/file-uploader";
-@import "carbon-components/scss/components/inline-loading/inline-loading";
-@import "carbon-components/scss/components/loading/loading";
-@import "carbon-components/scss/components/multi-select/multi-select";
-@import "carbon-components/scss/components/notification/inline-notification";
-@import "carbon-components/scss/components/overflow-menu/overflow-menu";
-@import "carbon-components/scss/components/pagination/pagination";
-@import "carbon-components/scss/components/search/search";
-@import "carbon-components/scss/components/select/select";
-@import "carbon-components/scss/components/slider/slider";
-@import "carbon-components/scss/components/structured-list/structured-list";
-@import "carbon-components/scss/components/tabs/tabs";
-@import "carbon-components/scss/components/tag/tag";
-@import "carbon-components/scss/components/tooltip/tooltip";
-@import "carbon-components/scss/components/skeleton/skeleton";
-@import "carbon-components/scss/components/ui-shell/header";
-@import "carbon-components/scss/components/number-input/number-input";
+// Carbon base styles and utilities
+@use '@carbon/react/scss/config' with ($use-akamai-cdn: true);
+@use '@carbon/react/scss/reset';
+@use '@carbon/react/scss/motion';
+@use '@carbon/react/scss/type';
+
+// Themes
+@use "@boomerang-io/carbon-addons-boomerang-react/scss/global/themes/boomerang";
+@use '@carbon/react/scss/compat/themes' as compat;
+@use '@carbon/react/scss/compat/theme' with (
+  $theme: map.merge(compat.$white, boomerang.$theme)
+);
+
+// More base styles, components, and component tokens
+@use '@carbon/react/scss/fonts';
+@use '@carbon/react/scss/grid';
+@use '@carbon/react/scss/layer';
+@use '@carbon/react/scss/zone';
+@use '@carbon/react/scss/components/button/tokens' as button;
+@use '@carbon/react/scss/components/notification/tokens' as notification;
+@use '@carbon/react/scss/components/tag/tokens' as tag;
+@use '@carbon/react/scss/components';
+
+// Addons library with boomerang enabled
+@use '@boomerang-io/carbon-addons-boomerang-react/scss/global' with ($use-theme-boomerang: true);
+
+// Finally include the theme to include all of the css custom properties
+[data-carbon-theme="boomerang"] {
+  @include theme.add-component-tokens(map.merge(button.$button-tokens, boomerang.$v11-button-tokens));
+  @include theme.add-component-tokens(notification.$notification-tokens);
+  @include theme.add-component-tokens(tag.$tag-tokens);
+  @include theme.theme();
+}
 
 // Global overrides
-.bx--list-box__menu-icon > svg {
+.cds--list-box__menu-icon > svg {
   fill: var(--cds-text-01);
 }
 
-.bx--date-picker__calendar {
+.cds--date-picker__calendar {
   padding: 0rem;
 }
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ComposedModal, ModalForm } from "@carbon/react";
+import { ModalBody } from "@carbon/react";
 import PropertiesTable from "./PropertiesTable";
 import styles from "./outputPropertisLog.module.scss";
 
@@ -47,7 +47,7 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }: Props)
         label: `${flowTaskName}`,
       }}
       modalTrigger={({ openModal }: { openModal: () => void }) => (
-        <Button kind="ghost" size="small" onClick={openModal}>
+        <Button kind="ghost" size="sm" onClick={openModal}>
           View Parameters
         </Button>
       )}

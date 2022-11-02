@@ -1,9 +1,9 @@
 import React from "react";
-import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button } from "carbon-components-react";
+import { ComposedModal } from "@carbon/react";
+import { Button } from "@carbon/react";
 import CreateEditGroupModalContent from "./CreateEditGroupModalContent";
 import { FlowTeam, ApproverGroup } from "Types";
-import { Add16, Edit16 } from "@carbon/icons-react";
+import { Add, Edit } from "@carbon/react/icons";
 import styles from "./createEditGroupModal.module.scss";
 
 type CreateEditGroupModalProps = {
@@ -38,9 +38,9 @@ function CreateEditGroupModal({
       modalProps={{ shouldCloseOnOverlayClick: false }}
       modalTrigger={({ openModal }: any) =>
         !isEdit ?
-          <Button renderIcon={Add16} size="field" kind="ghost" onClick={openModal}>Create new group</Button>
+          <Button renderIcon={Add} size="md" kind="ghost" onClick={openModal}>Create new group</Button>
           : 
-          <Button className={styles.editButton} onClick={openModal} kind="ghost" renderIcon={Edit16} size="small" iconDescription="Edit approver group" data-testid="edit-approver-group"/>
+          <Button className={styles.editButton} onClick={openModal} kind="ghost" renderIcon={Edit} size="sm" iconDescription="Edit approver group" data-testid="edit-approver-group"/>
       }
       modalHeaderProps={{
         title: isEdit && approverGroup ? `Edit ${approverGroup.groupName}` : "Create new group",

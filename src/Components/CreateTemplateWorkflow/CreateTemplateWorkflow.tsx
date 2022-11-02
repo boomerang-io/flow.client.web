@@ -3,13 +3,14 @@ import React from "react";
 import { useFeature } from "flagged";
 import { useMutation, useQueryClient, useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
-import { Button, ModalFlow, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button } from "@carbon/react";
+import { ModalFlow, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateWorkflowContent from "./CreateWorkflowContent";
 import CreateWorkflowTemplates from "./CreateWorkflowTemplates";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
-import { Template32, Add32 } from "@carbon/icons-react";
+import { Template, Add } from "@carbon/react/icons";
 import { FlowTeam, ModalTriggerProps } from "Types";
 import { WorkflowScope } from "Constants";
 import { FeatureFlag } from "Config/appConfig";
@@ -31,7 +32,11 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams, 
   const userWorkflowsUrl = serviceUrl.getUserWorkflows();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ query: "" });
 
-  const { data: userWorkflows, isLoading: userWorkflowsIsLoading, isError: userWorkflowsIsError } = useQuery({
+  const {
+    data: userWorkflows,
+    isLoading: userWorkflowsIsLoading,
+    isError: userWorkflowsIsError,
+  } = useQuery({
     queryKey: userWorkflowsUrl,
     queryFn: resolver.query(userWorkflowsUrl),
   });
@@ -45,14 +50,20 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams, 
     queryFn: resolver.query(workflowTemplatesUrl),
   });
 
-  const { data: taskTemplatesData, error: taskTemplatesError, isLoading: taskTempaltesAreLoading } = useQuery({
+  const {
+    data: taskTemplatesData,
+    error: taskTemplatesError,
+    isLoading: taskTempaltesAreLoading,
+  } = useQuery({
     queryKey: getTaskTemplatesUrl,
     queryFn: resolver.query(getTaskTemplatesUrl),
   });
 
-  const { mutateAsync: createTemplateWorkflowMutator, isLoading: createTemplateWorkflowIsLoading, error: createTemplateWorkflowError } = useMutation(
-    resolver.postTemplateWorkflow
-  );
+  const {
+    mutateAsync: createTemplateWorkflowMutator,
+    isLoading: createTemplateWorkflowIsLoading,
+    error: createTemplateWorkflowError,
+  } = useMutation(resolver.postTemplateWorkflow);
 
   const handleCreateWorkflow = async (selectedTemplateId: string, requestBody: any) => {
     try {
@@ -93,12 +104,12 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams, 
       modalTrigger={({ openModal }: ModalTriggerProps) => (
         <Button
           onClick={openModal}
-          renderIcon={Add32}
+          renderIcon={Add}
           kind="ghost"
-          size="field"
+          size="md"
           data-testid="workflows-create-workflow-template-button"
         >
-          <Template32 className={styles.addIcon} />
+          <Template className={styles.addIcon} />
           <p className={styles.text}>Templates</p>
         </Button>
       )}

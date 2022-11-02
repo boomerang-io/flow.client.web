@@ -2,7 +2,6 @@ import React from "react";
 import { useMutation, useQueryClient, UseQueryResult } from "react-query";
 import {
   Button,
-  ConfirmModal,
   MultiSelect,
   OverflowMenu,
   OverflowMenuItem,
@@ -10,17 +9,15 @@ import {
   Search,
   Tag,
   Tile,
-  TooltipHover,
-  ToastNotification,
-  notify,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { ConfirmModal, TooltipHover, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import cronstrue from "cronstrue";
 import matchSorter from "match-sorter";
 import moment from "moment-timezone";
 import { DATETIME_LOCAL_DISPLAY_FORMAT } from "Utils/dateHelper";
 import { scheduleStatusOptions, scheduleStatusLabelMap, scheduleTypeLabelMap } from "Constants";
 import { resolver } from "Config/servicesConfig";
-import { Add16, CircleFilled16, Information16, RadioButton16, Repeat16, RepeatOne16 } from "@carbon/icons-react";
+import { Add, CircleFilled, Information, RadioButton, Repeat, RepeatOne } from "@carbon/react/icons";
 import { ScheduleUnion } from "Types";
 import styles from "./SchedulePanelList.module.scss";
 
@@ -107,7 +104,7 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
         <h2>
           {!props.schedulesQuery.isLoading ? `Existing Schedules (${schedules?.length ?? 0})` : "Loading Schedules..."}
         </h2>
-        <Button size="field" renderIcon={Add16} onClick={() => props.setIsCreatorOpen(true)} kind="ghost">
+        <Button size="md" renderIcon={Add} onClick={() => props.setIsCreatorOpen(true)} kind="ghost">
           Create a Schedule
         </Button>
       </div>
@@ -264,13 +261,13 @@ function ScheduledListItem(props: ScheduledListItemProps) {
         <div className={styles.listItemTitle}>
           <h3 title={props.schedule.name}>{props.schedule.name}</h3>
           <TooltipHover direction="top" tooltipText={scheduleTypeLabelMap[props.schedule.type] ?? "---"}>
-            {props.schedule.type === "runOnce" ? <RepeatOne16 /> : <Repeat16 />}
+            {props.schedule.type === "runOnce" ? <RepeatOne /> : <Repeat />}
           </TooltipHover>
           <TooltipHover direction="top" tooltipText={scheduleStatusLabelMap[props.schedule.status]}>
             {props.schedule.status === "inactive" ? (
-              <RadioButton16 className={styles.statusCircle} data-status={props.schedule.status} />
+              <RadioButton className={styles.statusCircle} data-status={props.schedule.status} />
             ) : (
-              <CircleFilled16 className={styles.statusCircle} data-status={props.schedule.status} />
+              <CircleFilled className={styles.statusCircle} data-status={props.schedule.status} />
             )}
           </TooltipHover>
         </div>
@@ -285,7 +282,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
                 direction="top"
                 tooltipText={"The execution date is shown in local time based on the time zone of your browser."}
               >
-                <Information16 />
+                <Information />
               </TooltipHover>
             </dt>
             <dd>{nextScheduledDate}</dd>

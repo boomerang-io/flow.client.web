@@ -1,20 +1,20 @@
 @import "Styles/mixins";
 
 .container {
-  :global .bx--list-box__wrapper {
+  :global .cds--list-box__wrapper {
     width: 22rem;
   }
 
-  :global .bx--inline-notification {
+  :global .cds--inline-notification {
     bottom: 4rem;
     position: absolute;
     width: 95%;
   }
 
-  :global .bx--date-picker-container,
-  :global .bx--date-picker,
-  :global .bx--date-picker--single,
-  :global .bx--date-picker__input {
+  :global .cds--date-picker-container,
+  :global .cds--date-picker,
+  :global .cds--date-picker--single,
+  :global .cds--date-picker__input {
     width: 22rem !important;
   }
 

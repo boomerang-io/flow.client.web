@@ -1,14 +1,14 @@
 .container {
   max-height: 28rem !important;
-  :global .bx--modal-close {
+  :global .cds--modal-close {
     display: none;
   }
 
-  :global .bx--text-input-wrapper {
+  :global .cds--text-input-wrapper {
     margin-top: 0rem;
   }
 
-  :global .bx--inline-notification {
+  :global .cds--inline-notification {
     bottom: 4rem;
     position: absolute;
     width: 95%;

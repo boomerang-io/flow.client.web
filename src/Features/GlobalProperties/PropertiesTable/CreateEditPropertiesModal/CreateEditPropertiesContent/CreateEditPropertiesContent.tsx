@@ -2,18 +2,8 @@ import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import {
-  Button,
-  InlineNotification,
-  Loading,
-  ModalBody,
-  ModalFlowForm,
-  ModalFooter,
-  notify,
-  ToastNotification,
-  TextInput,
-  Toggle,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading, notify, ToastNotification, TextInput, Toggle } from "@carbon/react";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Property, PatchProperty } from "Types";
@@ -40,7 +30,11 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
 
   const queryClient = useQueryClient();
   /** Add property */
-  const { mutateAsync: addGlobalPropertyMutation, isLoading: addLoading, error: addError } = useMutation(
+  const {
+    mutateAsync: addGlobalPropertyMutation,
+    isLoading: addLoading,
+    error: addError,
+  } = useMutation(
     (args: { body: Property }) => {
       const { promise, cancel } = resolver.postGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
@@ -52,7 +46,11 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
   );
 
   /** Update property */
-  const { mutateAsync: updateGlobalPropertyMutation, isLoading: updateLoading, error: updateError } = useMutation(
+  const {
+    mutateAsync: updateGlobalPropertyMutation,
+    isLoading: updateLoading,
+    error: updateError,
+  } = useMutation(
     (args: { id: string; body: PatchProperty }) => {
       const { promise, cancel } = resolver.patchGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;

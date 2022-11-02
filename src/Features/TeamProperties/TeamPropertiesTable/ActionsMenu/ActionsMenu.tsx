@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { OverflowMenu, OverflowMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { OverflowMenu, OverflowMenuItem } from "@carbon/react";
+import { ConfirmModal } from "@carbon/react";
 import CreateEditTeamPropertiesModal from "../CreateEditTeamPropertiesModal";
 import { FlowTeam, Property } from "Types";
 

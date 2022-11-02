@@ -1,4 +1,4 @@
-import { CloseOutline32, CheckmarkOutline32, Error32, InProgress32, Timer32 } from "@carbon/icons-react";
+import { CloseOutline, CheckmarkOutline, Error, InProgress, Timer } from "@carbon/react/icons";
 import { ExecutionStatus, ScheduleStatus, ScheduleType } from "Types";
 
 export const Envs = Object.freeze({
@@ -218,14 +218,14 @@ export const REQUEST_TYPES_TO_DISPLAY = Object.freeze({
  * Complex objects
  */
 export const executionStatusIcon: Record<ExecutionStatus, React.FC<{ [k: string]: any }>> = Object.freeze({
-  [ExecutionStatus.Cancelled]: CloseOutline32,
-  [ExecutionStatus.Completed]: CheckmarkOutline32,
-  [ExecutionStatus.Failure]: CloseOutline32,
-  [ExecutionStatus.InProgress]: Timer32,
-  [ExecutionStatus.NotStarted]: Timer32,
-  [ExecutionStatus.Invalid]: Error32,
-  [ExecutionStatus.Skipped]: Error32,
-  [ExecutionStatus.Waiting]: InProgress32,
+  [ExecutionStatus.Cancelled]: CloseOutline,
+  [ExecutionStatus.Completed]: CheckmarkOutline,
+  [ExecutionStatus.Failure]: CloseOutline,
+  [ExecutionStatus.InProgress]: Timer,
+  [ExecutionStatus.NotStarted]: Timer,
+  [ExecutionStatus.Invalid]: Error,
+  [ExecutionStatus.Skipped]: Error,
+  [ExecutionStatus.Waiting]: InProgress,
 });
 
 export const executionStatusList = [

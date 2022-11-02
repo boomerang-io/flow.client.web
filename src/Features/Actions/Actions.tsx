@@ -10,24 +10,23 @@ import { sortByProp } from "@boomerang-io/utils";
 import {
   DatePicker,
   DatePickerInput,
-  ErrorMessage,
+  MultiSelect as Select,
+  SkeletonPlaceholder,
+} from "@carbon/react";
+import {   ErrorMessage,
   ErrorDragon,
-  FeatureHeader as Header,
+  Loading, FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
   FeatureNavTab as Tab,
-  FeatureNavTabs as Tabs,
-  Loading,
-  MultiSelect as Select,
-  SkeletonPlaceholder,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+  FeatureNavTabs as Tabs } from "@boomerang-io/carbon-addons-boomerang-react";
 import ActionsTable from "./ActionsTable";
 import HeaderWidget from "Components/HeaderWidget";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
 import { elevatedUserRoles, ActionType, WorkflowScope } from "Constants";
 import { approvalStatusOptions } from "Constants/filterOptions";
-import { ArrowUpRight32 } from "@carbon/icons-react";
+import { ArrowUpRight } from "@carbon/react/icons";
 import styles from "./Actions.module.scss";
 
 const MultiSelect = Select.Filterable;
@@ -340,8 +339,8 @@ function Actions() {
                     </>
                   ) : (
                     <>
-                      <HeaderWidget icon={ArrowUpRight32} text="Manual" value={manualTasksSummaryNumber} />
-                      <HeaderWidget icon={ArrowUpRight32} text="Approvals" value={approvalsSummaryNumber} />
+                      <HeaderWidget icon={ArrowUpRight} text="Manual" value={manualTasksSummaryNumber} />
+                      <HeaderWidget icon={ArrowUpRight} text="Approvals" value={approvalsSummaryNumber} />
                       <HeaderWidget icon={emoji} text="Approval rate" value={`${approvalsRatePercentage}%`} />
                     </>
                   )}

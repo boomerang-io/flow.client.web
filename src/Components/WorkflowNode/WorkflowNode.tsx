@@ -5,7 +5,7 @@ import CustomTaskNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
 
 import WorkflowExecutionPort from "Components/WorkflowExecutionPort";
 import { taskIcons } from "Utils/taskIcons";
-import { Bee16 } from "@carbon/icons-react";
+import { Bee } from "@carbon/react/icons";
 import styles from "./WorkflowNode.module.scss";
 
 export default function WorkflowNode({
@@ -35,7 +35,7 @@ export default function WorkflowNode({
   title?: string;
   onClick?: () => void;
 }) {
-  let Icon = () => <Bee16 alt="Task node type default" style={{ willChange: "auto" }} />;
+  let Icon = () => <Bee alt="Task node type default" style={{ willChange: "auto" }} />;
 
   if (icon) {
     Icon = taskIcons.find((taskIcon) => taskIcon.name === icon)?.Icon ?? Icon;

@@ -13,8 +13,8 @@
   display: flex;
   padding-left: 1rem;
   width: 270px;
-  :global .bx--search-input,
-  :global .bx--search-close::before {
+  :global .cds--search-input,
+  :global .cds--search-close::before {
     background-color: var(--cds-ui-02);
   }
 }

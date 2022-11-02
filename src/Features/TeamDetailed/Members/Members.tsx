@@ -11,7 +11,7 @@ import {
   StructuredListBody,
   StructuredListRow,
   StructuredListCell,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { appLink } from "Config/appConfig";
 import { FlowTeam, FlowUser } from "Types";
 import EmptyState from "Components/EmptyState";

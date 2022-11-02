@@ -8,12 +8,12 @@ import {
   ComboBox,
   DataTable,
   DataTableSkeleton,
-  Error404,
-  ErrorMessage,
-  FeatureHeader as Header,
-  FeatureHeaderTitle as HeaderTitle,
+
   Pagination,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import {  ComboBox, FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle, Error404,
+  ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react"
 import NoTeamsRedirectPrompt from "Components/NoTeamsRedirectPrompt";
 import WombatMessage from "Components/WombatMessage";
 import DeleteToken from "./DeleteToken";
