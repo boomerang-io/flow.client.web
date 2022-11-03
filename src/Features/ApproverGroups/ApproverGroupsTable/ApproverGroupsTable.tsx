@@ -1,7 +1,6 @@
 import React from "react";
 // @ts-ignore
 import cx from "classnames";
-import { settings } from "carbon-components";
 import { useMutation, useQueryClient } from "react-query";
 import sortBy from "lodash/sortBy";
 import { Button, DataTable, DataTableSkeleton, SearchSkeleton } from "@carbon/react";
@@ -24,8 +23,6 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, ApproverGroup, Approver } from "Types";
 import { TrashCan } from "@carbon/react/icons";
 import styles from "./approverGroupsTable.module.scss";
-
-const { prefix } = settings;
 
 const FeatureLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -210,7 +207,7 @@ function ApproverGroupsTable({
         <SearchSkeleton style={{ marginBottom: "1rem", marginTop: "-1rem" }} />
         <DataTableSkeleton
           data-testid="team-props-loading-skeleton"
-          className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
+          className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
           rowCount={3}
           columnCount={headers.length}
           headers={headers.map((header) => header.header)}

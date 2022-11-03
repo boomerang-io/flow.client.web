@@ -199,7 +199,7 @@ const Header: React.FC<HeaderProps> = ({
     <FeatureHeader
       className={styles.featureHeader}
       footer={
-        <Tabs>
+        <Tabs ariaLabel="Task template views">
           <Tab
             exact
             label="Overview"

@@ -4,19 +4,14 @@ import { useQuery } from "Hooks";
 import { useFeature } from "flagged";
 import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
+import { Button, Checkbox, DataTable, DataTableSkeleton, Pagination, Search } from "@carbon/react";
 import {
-  Button,
-  Checkbox,
   ComposedModal,
-  DataTable,
-  DataTableSkeleton,
   ErrorMessage,
-  Pagination,
-  Search,
-} from "@carbon/react";
-import {  FeatureHeader as Header,
+  FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
-  FeatureHeaderSubtitle as HeaderSubtitle} from "@boomerang-io/carbon-addons-boomerang-react"
+  FeatureHeaderSubtitle as HeaderSubtitle,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import TeamDetailed from "Features/TeamDetailed";
 import EmptyState from "Components/EmptyState";
 import AddTeamContent from "./AddTeamContent";
@@ -66,12 +61,7 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
       <Box p="2rem" className={styles.content}>
         <>
           <Box mb="1rem" maxWidth="20rem">
-            <Search
-              id="flow-teams"
-              labelText="Search teams"
-              placeholder="Search teams"
-              onChange={handleSearchChange}
-            />
+            <Search id="flow-teams" labelText="Search teams" placeholder="Search teams" onChange={handleSearchChange} />
           </Box>
           {children}
         </>

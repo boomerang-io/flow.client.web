@@ -1,5 +1,4 @@
 import React from "react";
-import { settings } from "carbon-components";
 import { useAppContext } from "Hooks";
 import { Link } from "react-router-dom";
 import {
@@ -20,8 +19,6 @@ import { appLink } from "Config/appConfig";
 import dateHelper from "Utils/dateHelper";
 import { CheckmarkOutline, CloseOutline, Help, Warning } from "@carbon/react/icons";
 import styles from "./ActionsTable.module.scss";
-
-const { prefix } = settings;
 
 interface ActionsTableProps {
   actionsQueryToRefetch: string;
@@ -171,7 +168,7 @@ function ActionsTable(props: ActionsTableProps) {
     return (
       <div style={{ marginTop: "1rem" }}>
         <DataTableSkeleton
-          className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
+          className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
           rowCount={5}
           columnCount={headerList.length}
           headers={headerList.map((header) => header.header)}

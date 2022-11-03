@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Box } from "reflexbox";
-import { ErrorMessage, Loading, ComposedModal } from "@carbon/react";
+import { ErrorMessage, Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import UpdateTeamName from "./UpdateTeamName";
 import queryString from "query-string";
 import { serviceUrl, resolver } from "Config/servicesConfig";

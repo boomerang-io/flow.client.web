@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { ConfirmModal, notify, ToastNotification } from "@carbon/react";
-import { Delete } from "@carbon/react/icons";
+import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { TrashCan } from "@carbon/react/icons";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowUser } from "Types";
 import styles from "./RemoveMember.module.scss";
@@ -53,7 +53,7 @@ const RemoveMember: React.FC<RemoveMemberProps> = ({ member, memberIdList, teamI
       modalTrigger={({ openModal }: { openModal: () => void }) => (
         <button className={styles.removeButton} disabled={member.id === userId} onClick={openModal}>
           Remove from Team
-          <Delete fill={"#f94d56"} />
+          <TrashCan fill={"#f94d56"} />
         </button>
       )}
     />

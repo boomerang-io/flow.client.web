@@ -2,14 +2,12 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import {
-  Button,
   ComposedModal,
-  ModalBody,
-  ModalFooter,
   ModalForm,
   TextInput,
-} from "@carbon/react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./LabelModal.module.scss";
 
 interface LabelModalProps {

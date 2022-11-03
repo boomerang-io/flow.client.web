@@ -60,12 +60,12 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
       }
       footer={
         !(scope === WorkflowScope.System || scope === WorkflowScope.Template) ? (
-          <Tabs>
+          <Tabs ariaLabel="Workflows view">
             <Tab label="My Workflows" to={appLink.workflowsMine()} />
             <Tab label="Team Workflows" to={appLink.workflowsTeams()} />
           </Tabs>
         ) : (
-          <Tabs>
+          <Tabs ariaLabel="Workflows view">
             <Tab label="System" to={appLink.systemManagementWorkflows()} />
             <Tab label="Templates" to={appLink.templateWorkflows()} />
           </Tabs>

@@ -66,7 +66,7 @@ function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }:
       nav={<NavigationComponent />}
       footer={
         !isError && (
-          <Tabs>
+          <Tabs ariaLabel="User pages">
             <Tab exact label="Workflows" to={{ pathname: appLink.user({ userId: user?.id }), state: location.state }} />
             <Tab
               exact

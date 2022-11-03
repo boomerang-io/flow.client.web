@@ -349,7 +349,7 @@ function Actions() {
             </section>
           }
           footer={
-            <Tabs>
+            <Tabs ariaLabel="Action types">
               <Tab
                 exact
                 label={`Approvals (${approvalsNumber})`}

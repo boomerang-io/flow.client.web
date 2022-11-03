@@ -4,16 +4,18 @@ import queryString from "query-string";
 import { useMutation, useQueryClient } from "react-query";
 import {
   Button,
-  Error,
   InlineNotification,
-  Loading,
   ModalBody,
   ModalFooter,
+  Search,
+} from "@carbon/react";
+import {
+  Error,
+  Loading,
   ModalFlowForm,
   notify,
-  Search,
   ToastNotification,
-} from "@carbon/react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { FlowUser } from "Types";
 import MemberBar from "./MemberBar";

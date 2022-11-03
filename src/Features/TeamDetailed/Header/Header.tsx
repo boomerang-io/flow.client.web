@@ -1,9 +1,7 @@
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
+import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
   ConfirmModal,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
@@ -11,7 +9,7 @@ import {
   FeatureNavTabs as Tabs,
   notify,
   ToastNotification,
-} from "@carbon/react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Checkmark, Close } from "@carbon/react/icons";
 import { Link, useLocation } from "react-router-dom";
 import { appLink } from "Config/appConfig";
@@ -94,7 +92,7 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
         </>
       }
       footer={
-        <Tabs>
+        <Tabs ariaLabel="Team pages">
           <Tab exact label="Members" to={{ pathname: appLink.team({ teamId: team.id }), state: location.state }} />
           <Tab
             exact

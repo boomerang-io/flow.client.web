@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SkeletonPlaceholder} from "@carbon/react";
+import { SkeletonPlaceholder } from "@carbon/react";
 import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { UseQueryResult } from "react-query";
 import TaskItem from "./TaskItem";
@@ -36,14 +36,15 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
         <section className={styles.taskbar}>
           <p className={styles.taskbarTitle}>Task log</p>
           {!isCollapsed && (
-            <TooltipHover              disabled
+            <TooltipIco
+              disabled
               align="center"
               className={styles.taskbarButton}
               id="sort-tooltip"
               data-testid="taskbar-button"
             >
               <ArrowsVertical size={32} className={styles.taskbarArrows} />
-            </TooltipHover
+            </TooltipIco>
           )}
         </section>
         <ul className={styles.tasklog}>
@@ -80,7 +81,8 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
       <section className={styles.taskbar}>
         <p className={styles.taskbarTitle}>Task log</p>
         {!isCollapsed && (
-          <TooltipHover            align="center"
+          <TooltipHover
+            align="center"
             className={styles.taskbarButton}
             id="sort-tooltip"
             data-testid="taskbar-button"
@@ -89,7 +91,7 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
             tooltipText="Change sort direction (by start time)"
           >
             <ArrowsVertical size={32} className={styles.taskbarArrows} />
-          </TooltipHover
+          </TooltipHover>
         )}
       </section>
       <ul className={styles.tasklog}>

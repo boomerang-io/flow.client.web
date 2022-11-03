@@ -1,17 +1,17 @@
 import React from "react";
 import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
-import { Button } from "@carbon/react";
+import { Button,   ModalBody,
+  ModalFooter, InlineNotification,} from "@carbon/react";
 import {
   notify,
   ToastNotification,
-  InlineNotification,
+  
   ModalFlowForm,
-  ModalBody,
-  ModalFooter,
+
   TextInput,
   Loading,
-} from "@carbon/react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import * as Yup from "yup";
 import styles from "./UpdateTeamName.module.scss";

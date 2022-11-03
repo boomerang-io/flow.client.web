@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
 import cx from "classnames";
-import { settings } from "carbon-components";
 import { Box } from "reflexbox";
 import {
   ButtonSkeleton,
@@ -20,8 +19,6 @@ import { arrayPagination, sortByProp } from "Utils/arrayHelper";
 import { FlowTeam, Token } from "Types";
 import { UserRole } from "Constants";
 import styles from "./tokensComponent.module.scss";
-
-const { prefix } = settings;
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 20, 50, 100];
@@ -134,11 +131,11 @@ function TeamTokenComponent({ deleteToken, tokens, hasError, isLoading, activeTe
         <ButtonSkeleton className={styles.buttonSkeleton} small />
         <DataTableSkeleton
           data-testid="token-loading-skeleton"
-          className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
+          className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
           rowCount={DEFAULT_PAGE_SIZE}
           columnCount={headers.length}
           headers={headers.map((header) => header.header)}
-        />
+        />  
       </FeatureLayout>
     );
   }

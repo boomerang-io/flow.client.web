@@ -84,7 +84,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
       }
       header={<HeaderTitle>Editor</HeaderTitle>}
       footer={
-        <Tabs>
+        <Tabs ariaLabel="Editor pages">
           <Tab label="Workflow" to={appLink.editorDesigner({ workflowId })} />
           <Tab label="Parameters" to={appLink.editorProperties({ workflowId })} />
           <Tab label="Configure" to={appLink.editorConfigure({ workflowId })} />

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
 import cx from "classnames";
-import { settings } from "carbon-components";
 import { useAppContext } from "Hooks";
 import {
   ButtonSkeleton,
@@ -131,7 +130,7 @@ function GlobalTokenComponent({ deleteToken, tokens, hasError, isLoading }: Glob
         <ButtonSkeleton className={styles.buttonSkeleton} small />
         <DataTableSkeleton
           data-testid="token-loading-skeleton"
-          className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
+          className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
           rowCount={DEFAULT_PAGE_SIZE}
           columnCount={headers.length}
           headers={headers.map((header) => header.header)}
