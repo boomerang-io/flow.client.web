@@ -4,7 +4,6 @@ import { useQuery } from "Hooks";
 import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
 import { DataTable, DataTableSkeleton, Pagination, Search } from "@carbon/react";
-
 import {
   ErrorMessage,
   FeatureHeader as Header,

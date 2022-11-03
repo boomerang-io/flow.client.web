@@ -13,9 +13,8 @@ import {
   StructuredListHead,
   StructuredListRow,
   StructuredListWrapper,
-  notify,
-  ToastNotification,
 } from "@carbon/react";
+import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import EmptyState from "Components/EmptyState";
 import LabelModal from "Components/LabelModal";
 import { serviceUrl } from "Config/servicesConfig";

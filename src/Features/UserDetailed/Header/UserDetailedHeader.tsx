@@ -1,17 +1,15 @@
 import React from "react";
 import moment from "moment";
 import { Link, useLocation } from "react-router-dom";
+import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
 import {
   Avatar,
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
   ComposedModal,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
-} from "@carbon/react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import ChangeRole from "./ChangeRole";
 import { UserRoleCopy } from "Constants";
 import { appLink } from "Config/appConfig";

@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { useFeature } from "flagged";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { Box } from "reflexbox";
-import { ErrorMessage, Loading } from "@carbon/react";
+import { ErrorMessage, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import Header from "./Header";
 import Labels from "./Labels";
 import Teams from "./Teams";
