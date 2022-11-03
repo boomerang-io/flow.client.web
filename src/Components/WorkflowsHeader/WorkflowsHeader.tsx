@@ -1,5 +1,5 @@
 import React from "react";
-import { MultiSelect, Search } from "@carbon/react";
+import { Layer, MultiSelect, Search } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
@@ -119,7 +119,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
   return (
     <div className={styles.filterContainer}>
       {scope !== WorkflowScope.Template && <CreateTemplateWorkflow teams={teams} scope={scope} />}
-      <div className={styles.search}>
+      <Layer className={styles.search}>
         <Search
           disabled={scope === WorkflowScope.Team ? !hasTeams : false}
           data-testid="workflows-team-search"
@@ -129,7 +129,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
           placeholder={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
           value={searchQuery}
         />
-      </div>
+      </Layer>
       {teams && scope !== WorkflowScope.User && (
         <div className={styles.filter}>
           <MultiSelect.Filterable

@@ -4,10 +4,10 @@ import {
   ComboBox,
   Creatable,
   Loading,
+  ModalFlowForm,
   TextArea,
   TextInput,
   Toggle,
-  ModalFlowForm,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { Formik, FormikProps } from "formik";

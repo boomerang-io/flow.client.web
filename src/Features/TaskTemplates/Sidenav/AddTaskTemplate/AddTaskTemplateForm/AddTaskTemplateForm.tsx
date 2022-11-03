@@ -6,17 +6,13 @@ import { useMutation } from "react-query";
 import * as Yup from "yup";
 import {
   Button,
-  Creatable,
   FileUploaderDropContainer,
   FileUploaderItem,
   InlineNotification,
-  Loading,
   ModalBody,
   ModalFooter,
-  ModalFlowForm,
-  TextInput,
-  TextArea,
 } from "@carbon/react";
+import { Creatable, Loading, ModalFlowForm, TextInput, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utils/taskIcons";

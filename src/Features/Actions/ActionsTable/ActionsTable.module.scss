@@ -35,15 +35,12 @@
 .tableContainer {
   margin-top: 1rem;
   margin-bottom: 2rem;
-
-  :global .cds--table-column-checkbox {
-    min-width: 2.25rem !important;
-  }
 }
 
 .actions {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 0.5rem;
   width: 100%;
 }
 

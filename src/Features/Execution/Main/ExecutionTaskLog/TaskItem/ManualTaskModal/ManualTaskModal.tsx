@@ -1,16 +1,8 @@
 import React from "react";
 import { useQueryClient, useMutation } from "react-query";
 import ReactMarkdown from "react-markdown";
-import {
-  Button,
-  InlineNotification,
-  Loading,
-  ModalForm,
-  ModalBody,
-  ModalFooter,
-  notify,
-  ToastNotification,
-} from "@carbon/react";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
+import { Loading, ModalForm, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import "Styles/markdown.css";
 
@@ -25,7 +17,11 @@ function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }
   const cancelRequestRef = React.useRef<any>();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: approvalMutator, isLoading: approvalsIsLoading, error: approvalsError } = useMutation(
+  const {
+    mutateAsync: approvalMutator,
+    isLoading: approvalsIsLoading,
+    error: approvalsError,
+  } = useMutation(
     (args: { body: { id: string; approved: boolean } }) => {
       const { promise, cancel } = resolver.putWorkflowAction(args);
       if (cancelRequestRef?.current) {

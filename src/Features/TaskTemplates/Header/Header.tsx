@@ -10,7 +10,7 @@ import {
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
   TooltipHover,
-} from "@carbon/react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import VersionHistory from "Components/VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
 import moment from "moment";

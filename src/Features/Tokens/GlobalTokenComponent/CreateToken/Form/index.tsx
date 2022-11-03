@@ -2,18 +2,17 @@ import React from "react";
 import moment from "moment";
 import * as Yup from "yup";
 import {
-  ModalFlowForm,
   Button,
   DatePicker,
   DatePickerInput,
   InlineNotification,
   ModalBody,
   ModalFooter,
-  TextArea,
-  Tooltip,
-  Loading,
 } from "@carbon/react";
+import { ModalFlowForm,   TextArea,
+  Loading, TooltipHover} from "@boomerang-io/carbon-addons-boomerang-react"
 import { Formik } from "formik";
+import { Information } from "@carbon/react/icons";
 import { useMutation, useQueryClient } from "react-query";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { TokenRequest } from "Types";
@@ -116,14 +115,12 @@ function CreateServiceTokenForm({
                   invalidText={errors.date}
                   labelText={
                     <div className={styles.inputLabelContainer}>
-                      <p>Expiration Date (optional)</p>
-                      <Tooltip direction="top" iconDescription="Additional Documentation">
-                        <p>
-                          Expiration date will be saved in Coordinated Universal Time (UTC) with the token expiring at
+                      <span>Expiration Date (optional)</span>
+                        <TooltipHover direction="top" tooltipContent="Expiration date will be saved in Coordinated Universal Time (UTC) with the token expiring at
                           the start of the entered day. The token will not expire by default if no expiration date is
-                          entered.
-                        </p>
-                      </Tooltip>
+                          entered."><Information />
+
+                      </TooltipHover>
                     </div>
                   }
                   onChange={(value: any) => handleSelectDate(setFieldValue, InputKey.ExpiryDate, value)}

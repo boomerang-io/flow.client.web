@@ -38,6 +38,7 @@ function Workflows({ team }: { team: FlowTeam }) {
             id="workflow-search"
             placeholder="Search for a workflow"
             onChange={(e: React.FormEvent<HTMLInputElement>) => setSearchQuery(e.currentTarget.value)}
+            size="sm"
           />
         </div>
       </section>

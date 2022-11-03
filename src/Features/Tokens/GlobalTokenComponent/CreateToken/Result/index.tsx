@@ -1,6 +1,7 @@
 import React from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { ModalBody, ModalFooter, Button, TextInput, ModalFlowForm } from "@carbon/react";
+import { ModalBody, ModalFooter, Button,  } from "@carbon/react";
+import { TextInput, ModalFlowForm} from "@boomerang-io/carbon-addons-boomerang-react";
 import { CopyFile } from "@carbon/react/icons";
 import styles from "./result.module.scss";
 

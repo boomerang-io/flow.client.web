@@ -5,16 +5,11 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import {
   Button,
-  DecisionButtons,
   InlineNotification,
-  Loading,
   ModalBody,
-  ModalForm,
   ModalFooter,
-  notify,
-  TextArea,
-  ToastNotification,
 } from "@carbon/react";
+import { DecisionButtons, Loading, ModalForm, notify, TextArea, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { ThumbsUp, ThumbsDown } from "@carbon/react/icons";
 import styles from "./taskApprovalModal.module.scss";

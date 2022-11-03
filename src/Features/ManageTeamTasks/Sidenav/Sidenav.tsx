@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useAppContext } from "Hooks";
 import sortBy from "lodash/sortBy";
 import matchSorter from "match-sorter";
-import { Accordion, AccordionItem, Dropdown, OverflowMenu, Checkbox, Search } from "@carbon/react";
+import { Accordion, AccordionItem, Checkbox, Dropdown, Layer, OverflowMenu , Search } from "@carbon/react";
 import {
   CheckboxList,
   FeatureSideNav as SideNav,
@@ -110,6 +110,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, 
     <SideNav className={styles.container} border="right">
       <h1 className={styles.title}>Task manager</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
+      <Layer>
       <Dropdown
         id="dropdown-team"
         type="default"
@@ -121,6 +122,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, 
         itemToString={(item: any) => (item ? item.name : "")}
         onChange={handleSelectTeam}
       />
+      </Layer>
       {taskTemplates && (
         <div className={styles.tasksContainer}>
           <div className={styles.addTaskContainer}>
@@ -132,7 +134,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, 
               location={location}
             />
           </div>
-          <section className={styles.tools}>
+          <Layer className={styles.tools}>
             <Search
               data-testid="task-templates-search"
               id="task-templates-search"
@@ -184,7 +186,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, 
                 />
               </section>
             </OverflowMenu>
-          </section>
+          </Layer>
           <div className={styles.tasksInfo}>
             <p className={styles.info}>{`Showing ${tasksToDisplay.length} tasks`}</p>
             <button className={styles.expandCollapse} onClick={() => setOpenCategories(!openCategories)}>

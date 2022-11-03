@@ -2,16 +2,15 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { Box } from "reflexbox";
+import { Accordion, SkeletonPlaceholder } from "@carbon/react";
 import {
-  Accordion,
   ErrorMessage,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  SkeletonPlaceholder,
   notify,
   ToastNotification,
-} from "@carbon/react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import SettingsSection from "./SettingsSection";
 import sortBy from "lodash/sortBy";
 import EmptyState from "Components/EmptyState";

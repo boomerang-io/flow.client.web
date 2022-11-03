@@ -2,25 +2,19 @@ import React, { useState } from "react";
 import moment from "moment";
 import cx from "classnames";
 import { useAppContext } from "Hooks";
+import { ButtonSkeleton, DataTable, DataTableSkeleton, Pagination } from "@carbon/react";
 import {
-  ButtonSkeleton,
-  DataTable,
-  DataTableSkeleton,
- 
-  Pagination,
-} from "@carbon/react";
-import {  Error404,
+  Error404,
   ErrorMessage,
   FeatureHeader as Header,
-  FeatureHeaderTitle as HeaderTitle} from "@boomerang-io/carbon-addons-boomerang-react"
+  FeatureHeaderTitle as HeaderTitle,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import DeleteToken from "./DeleteToken";
 import CreateToken from "./CreateToken";
 import { arrayPagination, sortByProp } from "Utils/arrayHelper";
 import { Token } from "Types";
 import { UserRole } from "Constants";
 import styles from "./tokensComponent.module.scss";
-
-const { prefix } = settings;
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 20, 50, 100];
@@ -111,12 +105,12 @@ function GlobalTokenComponent({ deleteToken, tokens, hasError, isLoading }: Glob
     }
   };
 
-  const handlePaginationChange = ({ page, pageSize }: {page:number; pageSize: number;}) => {
+  const handlePaginationChange = ({ page, pageSize }: { page: number; pageSize: number }) => {
     setPage(page);
     setPageSize(pageSize);
   };
 
-  function handleSort(e: any, { sortHeaderKey }: {sortHeaderKey: string}) {
+  function handleSort(e: any, { sortHeaderKey }: { sortHeaderKey: string }) {
     const order = sortDirection === "ASC" ? "DESC" : "ASC";
     setSortKey(sortHeaderKey);
     setSortDirection(order);
@@ -159,12 +153,20 @@ function GlobalTokenComponent({ deleteToken, tokens, hasError, isLoading }: Glob
               rows={arrayPagination(tokens, page, pageSize, sortKey, sortDirection)}
               sortRow={(rows: any) => sortByProp(rows, sortKey, sortDirection.toLowerCase())}
               headers={headers}
-              render={({ rows, headers, getHeaderProps }: {rows: any, headers: Array<{header:string; key: string; sortable: boolean;}>, getHeaderProps: any}) => (
+              render={({
+                rows,
+                headers,
+                getHeaderProps,
+              }: {
+                rows: any;
+                headers: Array<{ header: string; key: string; sortable: boolean }>;
+                getHeaderProps: any;
+              }) => (
                 <TableContainer>
                   <Table isSortable>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header: {header:string; key: string; sortable: boolean;}) => (
+                        {headers.map((header: { header: string; key: string; sortable: boolean }) => (
                           <TableHeader
                             id={header.key}
                             {...getHeaderProps({
@@ -183,7 +185,7 @@ function GlobalTokenComponent({ deleteToken, tokens, hasError, isLoading }: Glob
                     </TableHead>
                     <TableBody className={styles.tableBody}>
                       {rows.map((row: any) => (
-                        <TableRow key={row.id} >
+                        <TableRow key={row.id}>
                           {row.cells.map((cell: any, cellIndex: number) => (
                             <TableCell key={cell.id} style={{ padding: "0" }}>
                               <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
@@ -209,12 +211,12 @@ function GlobalTokenComponent({ deleteToken, tokens, hasError, isLoading }: Glob
             <DataTable
               rows={tokens}
               headers={headers}
-              render={({ headers }: {headers: Array<{header:string; key: string; sortable: boolean;}>}) => (
+              render={({ headers }: { headers: Array<{ header: string; key: string; sortable: boolean }> }) => (
                 <TableContainer>
                   <Table>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header: {header:string; key: string; sortable: boolean;}) => (
+                        {headers.map((header: { header: string; key: string; sortable: boolean }) => (
                           <TableHeader
                             key={header.key}
                             id={header.key}

@@ -3,7 +3,7 @@ import React from "react";
 import cx from "classnames";
 import { useMutation, useQueryClient } from "react-query";
 import sortBy from "lodash/sortBy";
-import { Button, DataTable, DataTableSkeleton, SearchSkeleton } from "@carbon/react";
+import { Button, DataTable, DataTableSkeleton } from "@carbon/react";
 import {
   ComboBox,
   ConfirmModal,
@@ -204,7 +204,22 @@ function ApproverGroupsTable({
   if (isLoading) {
     return (
       <FeatureLayout>
-        <SearchSkeleton style={{ marginBottom: "1rem", marginTop: "-1rem" }} />
+        <div className={styles.dropdown}>
+          <ComboBox
+            id="team-approver-groups-select"
+            initialSelectedItem={activeTeam?.id ? activeTeam : null}
+            items={sortByProp(teams, "name")}
+            itemToString={(item: { name: string }) => item?.name ?? ""}
+            label="Teams"
+            onChange={({ selectedItem }: { selectedItem: FlowTeam }) => {
+              selectedItem && setActiveTeam(selectedItem);
+            }}
+            placeholder="Select a team"
+            shouldFilterItem={({ item, inputValue }: { item: any; inputValue: string }) =>
+              item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
+            }
+          />
+        </div>
         <DataTableSkeleton
           data-testid="team-props-loading-skeleton"
           className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}

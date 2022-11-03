@@ -3,15 +3,13 @@ import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import {
   Button,
-  ComboBox,
   FileUploaderDropContainer,
   FileUploaderItem,
-  Loading,
   ModalBody,
   ModalFooter,
-  TextInput,
   InlineNotification,
 } from "@carbon/react";
+import { ComboBox, Loading, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
 import { requiredWorkflowProps } from "./constants";
 import { ErrorFilled } from "@carbon/react/icons";
 import { FlowTeam, WorkflowExport, WorkflowSummary } from "Types";

@@ -36,7 +36,7 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
         <section className={styles.taskbar}>
           <p className={styles.taskbarTitle}>Task log</p>
           {!isCollapsed && (
-            <TooltipIco
+            <TooltipHover
               disabled
               align="center"
               className={styles.taskbarButton}
@@ -44,7 +44,7 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
               data-testid="taskbar-button"
             >
               <ArrowsVertical size={32} className={styles.taskbarArrows} />
-            </TooltipIco>
+            </TooltipHover>
           )}
         </section>
         <ul className={styles.tasklog}>

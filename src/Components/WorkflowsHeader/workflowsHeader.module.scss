@@ -8,11 +8,6 @@
     font-weight: 300;
   }
 
-  :global .cds--search-input {
-    background: var(--cds-ui-background);
-    font-size: 0.875rem;
-    height: 3rem;
-  }
   :global .b-search-filtersearch {
     align-items: flex-end;
     align-self: flex-end;
@@ -46,16 +41,16 @@
   align-items: flex-end;
   display: flex;
   margin-bottom: 1.5rem;
+
+  svg {
+    fill: currentColor important;
+  }
 }
 
 .search {
   flex: 1 1 auto;
   margin-left: 1rem;
   margin-right: 2rem;
-
-  & .cds--search--lg.cds--search-input {
-    height: 2.75rem !important;
-  }
 }
 
 .filter {

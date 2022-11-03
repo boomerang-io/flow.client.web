@@ -1,17 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames/bind";
-import {
-  ComboBox,
-  InlineNotification,
-  Loading,
-  TextArea,
-  TextInput,
-} from "@carbon/react";
+import { InlineNotification } from "@carbon/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import capitalize from "lodash/capitalize";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
-import {  TooltipHover} from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComboBox, Loading, TextArea, TextInput, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import workflowIcons from "Assets/workflowIcons";
 import { defaultWorkflowConfig } from "./constants";
 import { ComboBoxItem, FlowTeam, CreateWorkflowSummary } from "Types";
@@ -46,7 +40,8 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
 
   const existingWorkflowNames = selectedTeam?.workflows.map((workflow) => workflow.name) ?? [];
 
-  const hasReachedTeamWorkflowLimit = selectedTeam && selectedTeam.workflowQuotas.maxWorkflowCount <= selectedTeam.workflowQuotas.currentWorkflowCount;
+  const hasReachedTeamWorkflowLimit =
+    selectedTeam && selectedTeam.workflowQuotas.maxWorkflowCount <= selectedTeam.workflowQuotas.currentWorkflowCount;
   const createTeamWorkflowsDisabled = workflowQuotasEnabled && hasReachedTeamWorkflowLimit;
 
   useEffect(() => {

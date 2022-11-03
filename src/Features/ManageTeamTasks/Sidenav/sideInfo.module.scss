@@ -1,6 +1,7 @@
 @import "Styles/mixins";
 
 .container {
+  background-color: var(--cds-ui-01);
   min-width: 21.875rem;
 
   :global .cds--bmrg-feature-sidenav-link-content {
@@ -14,11 +15,7 @@
 }
 .tools {
   display: flex;
-  padding-left: 1rem;
-  :global .cds--search-input,
-  :global .cds--search-close::before {
-    background-color: var(--cds-ui-02);
-  }
+  padding: 0 1rem;
   :global .cds--overflow-menu {
     margin: 0 0.5rem;
   }

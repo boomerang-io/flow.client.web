@@ -8,6 +8,7 @@ import {
   Accordion,
   AccordionItem,
   Checkbox,
+  Layer,
   OverflowMenu,
   Search,
 } from "@carbon/react";
@@ -194,9 +195,8 @@ export default class Tasks extends Component<TaskProps> {
         </header>
         {this.state.isSidenavOpen && (
           <>
-            <section className={styles.tasks}>
+            <Layer className={styles.tasks}>
               <Search
-                light
                 data-testid="editor-task-search"
                 id="search-tasks"
                 size="sm"
@@ -255,7 +255,7 @@ export default class Tasks extends Component<TaskProps> {
                   />
                 </section>
               </OverflowMenu>
-            </section>
+            </Layer>
             <section className={styles.detail}>
               <h3 className={styles.totalCount}>{`Showing ${this.state.tasksToDisplay.length} tasks`}</h3>
               <button

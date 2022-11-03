@@ -3,7 +3,7 @@ import { useQuery } from "Hooks";
 import { Helmet } from "react-helmet";
 import { Box } from "reflexbox";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
-import { Loading } from "@carbon/react";
+import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import WombatMessage from "Components/WombatMessage";
 import Sidenav from "./Sidenav";

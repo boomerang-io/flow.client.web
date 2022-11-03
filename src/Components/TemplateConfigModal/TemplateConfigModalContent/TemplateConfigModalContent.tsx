@@ -3,11 +3,11 @@ import React, { Component } from "react";
 import {
   ComboBox,
   Creatable,
+  ModalForm,
   TextArea,
   TextInput,
   Toggle,
-  ModalForm,
-} from "@carbon/react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { Formik } from "formik";
 import * as Yup from "yup";

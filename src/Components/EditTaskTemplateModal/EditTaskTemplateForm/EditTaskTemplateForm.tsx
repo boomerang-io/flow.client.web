@@ -6,13 +6,11 @@ import * as Yup from "yup";
 import orderBy from "lodash/orderBy";
 import {
   Button,
-  Creatable,
+  
   ModalBody,
   ModalFooter,
-  ModalForm,
-  TextInput,
-  TextArea,
 } from "@carbon/react";
+import { Creatable, ModalForm, TextInput, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
 import styles from "./EditTaskTemplateForm.module.scss";

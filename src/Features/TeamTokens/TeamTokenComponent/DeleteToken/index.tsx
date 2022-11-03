@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, ConfirmModal } from "@carbon/react";
+import { Button } from "@carbon/react";
+import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { TrashCan } from "@carbon/react/icons";
 import { Token } from "Types";
 import styles from "./deleteToken.module.scss";

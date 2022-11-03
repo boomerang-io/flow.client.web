@@ -1,17 +1,14 @@
 import React from "react";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import {
-  Button,
   ComposedModal,
   FeatureHeader,
   FeatureHeaderTitle as HeaderTitle,
-  InlineNotification,
   Loading,
-  ModalBody,
-  ModalFooter,
   ModalForm,
   notify,
   ToastNotification,
-} from "@carbon/react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { useMutation, useQueryClient } from "react-query";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { Reset } from "@carbon/react/icons";
@@ -83,7 +80,11 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({
   const cancelRequestRef = React.useRef<{} | null>();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: defaultQuotasMutator, isLoading, error } = useMutation(
+  const {
+    mutateAsync: defaultQuotasMutator,
+    isLoading,
+    error,
+  } = useMutation(
     (args: { id: string }) => {
       const { promise, cancel } = resolver.putTeamQuotasDefault(args);
       if (cancelRequestRef?.current) {
@@ -124,7 +125,6 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({
   return (
     <ModalForm>
       <ModalBody className={styles.modalBodyContainer}>
-        <hr className={styles.divider} />
         {defaultQuotasIsLoading ? (
           <Loading />
         ) : (

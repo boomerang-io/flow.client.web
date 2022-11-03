@@ -311,20 +311,32 @@ function WorkflowActivity() {
         />
         <section aria-label="Activity" className={styles.content}>
           <nav>
-            <Tabs className={styles.tabs} selected={statusIndex + 1} onSelectionChange={handleSelectStatuses}>
-              <Tab label={statusWorkflowSummaryIsLoading ? "All" : `All (${statusWorkflowSummary.all})`} />
+            <Tabs className={styles.tabs} onSelectionChange={handleSelectStatuses}>
+              <Tab label={statusWorkflowSummaryIsLoading ? "All" : `All (${statusWorkflowSummary.all})`} to="/" />
               <Tab
+                to="/"
                 label={
                   statusWorkflowSummaryIsLoading ? "In Progress" : `In Progress (${statusWorkflowSummary?.inProgress})`
                 }
               />
               <Tab
+                to="/"
                 label={statusWorkflowSummaryIsLoading ? "Succeeded" : `Succeeded (${statusWorkflowSummary.completed})`}
               />
-              <Tab label={statusWorkflowSummaryIsLoading ? "Failed" : `Failed (${statusWorkflowSummary.failure})`} />
-              <Tab label={statusWorkflowSummaryIsLoading ? "Invalid" : `Invalid (${statusWorkflowSummary.invalid})`} />
-              <Tab label={statusWorkflowSummaryIsLoading ? "Waiting" : `Waiting (${statusWorkflowSummary.waiting})`} />
               <Tab
+                to="/"
+                label={statusWorkflowSummaryIsLoading ? "Failed" : `Failed (${statusWorkflowSummary.failure})`}
+              />
+              <Tab
+                to="/"
+                label={statusWorkflowSummaryIsLoading ? "Invalid" : `Invalid (${statusWorkflowSummary.invalid})`}
+              />
+              <Tab
+                to="/"
+                label={statusWorkflowSummaryIsLoading ? "Waiting" : `Waiting (${statusWorkflowSummary.waiting})`}
+              />
+              <Tab
+                to="/"
                 label={statusWorkflowSummaryIsLoading ? "Cancelled" : `Cancelled (${statusWorkflowSummary.cancelled})`}
               />
             </Tabs>

@@ -4,15 +4,15 @@ import * as Yup from "yup";
 import { useMutation, useQueryClient } from "react-query";
 import {
   Button,
-  Loading,
+  
   ModalBody,
   ModalFooter,
-  ModalForm,
-  notify,
+  
   NumberInput,
-  ToastNotification,
+ 
   InlineNotification,
 } from "@carbon/react";
+import {Loading, ModalForm, notify,  ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeamQuotas } from "Types";
 import styles from "./QuotaEditModalContent.module.scss";

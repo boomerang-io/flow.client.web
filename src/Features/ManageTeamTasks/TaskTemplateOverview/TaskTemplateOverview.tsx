@@ -6,16 +6,14 @@ import axios from "axios";
 import queryString from "query-string";
 import { useHistory, Prompt, matchPath, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
+import { Button, InlineNotification, Tag, Tile } from "@carbon/react";
 import {
-  Button,
   ConfirmModal,
-  InlineNotification,
-  Tag,
-  Tile,
+  Loading,
+  notify,
+  ToastNotification,
   TooltipHover,
-} from "@carbon/react";
-import { Loading,
-  notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import EmptyState from "Components/EmptyState";
 import EditTaskTemplateModal from "Components/EditTaskTemplateModal";
@@ -263,9 +261,12 @@ export function TaskTemplateOverview({
       onSuccess: invalidateQueries,
     }
   );
-  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(resolver.putRestoreTaskTemplate, {
-    onSuccess: invalidateQueries,
-  });
+  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(
+    resolver.putRestoreTaskTemplate,
+    {
+      onSuccess: invalidateQueries,
+    }
+  );
 
   let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.taskId) ?? {};
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);

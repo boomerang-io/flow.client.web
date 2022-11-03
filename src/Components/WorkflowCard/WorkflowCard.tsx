@@ -4,8 +4,14 @@ import { useAppContext } from "Hooks";
 import { useFeature } from "flagged";
 import { useMutation, useQueryClient } from "react-query";
 import { Link, useHistory } from "react-router-dom";
-import { Button, InlineLoading, OverflowMenu, OverflowMenuItem  } from "@carbon/react";
-import { ConfirmModal, ComposedModal, ToastNotification, notify, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, InlineLoading, OverflowMenu, OverflowMenuItem } from "@carbon/react";
+import {
+  ConfirmModal,
+  ComposedModal,
+  ToastNotification,
+  notify,
+  TooltipHover,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import UpdateWorkflow from "./UpdateWorkflow";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
@@ -353,9 +359,11 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
         <div className={styles.templatesWarningIcon}>
           <TooltipHover
             direction="top"
-            tooltipText={`New version of a task available! To update, edit your ${type.toLowerCase()}.`}
+            tooltipContent={`New version of a task available! To update, edit your ${type.toLowerCase()}.`}
           >
-            <WorkflowWarningButton />
+            <div>
+              <WorkflowWarningButton />
+            </div>
           </TooltipHover>
         </div>
       )}

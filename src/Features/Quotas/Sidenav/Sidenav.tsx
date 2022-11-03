@@ -1,11 +1,11 @@
 import React from "react";
 import matchSorter from "match-sorter";
+import { Layer, Search } from "@carbon/react";
 import {
   FeatureSideNav as SideNav,
-  FeatureSideNavLink as SideNavLink, 
+  FeatureSideNavLink as SideNavLink,
   FeatureSideNavLinks as SideNavLinks,
-  Search
-} from "@carbon/react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { appLink } from "Config/appConfig";
 import { FlowTeam } from "Types";
 import styles from "./Sidenav.module.scss";
@@ -32,25 +32,23 @@ const SideInfo: React.FC<SideInfoProps> = ({ teams }) => {
       <p className={styles.description}>{DESCRIPTION}</p>
       <p className={styles.teamLabel}>Teams</p>
       <div className={styles.teamContainer}>
-        <section className={styles.searchSection}>
-          <Search
-            id="team-quotas-search"
-            size="sm"
-            labelText="Search"
-            onChange={handleOnSearchInputChange}
-            placeholder="Search"
-            value={searchQuery}
-          />
-        </section>
+        <Layer className={styles.searchSection}>
+            <Search
+              id="team-quotas-search"
+              size="md"
+              labelText="Search"
+              onChange={handleOnSearchInputChange}
+              placeholder="Search"
+              value={searchQuery}
+            />
+        </Layer>
         <div className={styles.tasksInfo}>
           <p className={styles.info}>{`Showing ${teamsToDisplay.length} teams`}</p>
         </div>
       </div>
       <SideNavLinks>
         {teamsToDisplay.map((team) => {
-          return (
-            <SideNavLink to={appLink.quotasEdit({ teamId: team.id })}>{team.name}</SideNavLink>
-          );
+          return <SideNavLink to={appLink.quotasEdit({ teamId: team.id })}>{team.name}</SideNavLink>;
         })}
       </SideNavLinks>
     </SideNav>

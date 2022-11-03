@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory, matchPath, useLocation } from "react-router-dom";
 import sortBy from "lodash/sortBy";
 import matchSorter from "match-sorter";
-import { Accordion, AccordionItem, OverflowMenu, Checkbox, Search } from "@carbon/react";
+import { Accordion, AccordionItem, Checkbox, OverflowMenu, Layer, Search } from "@carbon/react";
 import {
   CheckboxList,
   FeatureSideNav as SideNav,
@@ -110,11 +110,11 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
             location={location}
           />
         </div>
-        <section className={styles.tools}>
+        <Layer className={styles.tools}>
           <Search
             data-testid="task-templates-search"
             id="task-templates-search"
-            size="sm"
+            size="md"
             labelText="Search for a task"
             onChange={handleOnSearchInputChange}
             placeholder="Search for a task"
@@ -162,7 +162,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
               />
             </section>
           </OverflowMenu>
-        </section>
+        </Layer>
         <div className={styles.tasksInfo}>
           <p className={styles.info}>{`Showing ${tasksToDisplay.length} tasks`}</p>
           <button className={styles.expandCollapse} onClick={() => setOpenCategories(!openCategories)}>

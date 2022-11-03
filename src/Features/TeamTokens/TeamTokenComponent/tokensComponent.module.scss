@@ -113,8 +113,9 @@
 }
 
 .tokenContainer {
+  align-items: flex-end;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 1.31rem;
+  margin-bottom: 1.25rem;
 }

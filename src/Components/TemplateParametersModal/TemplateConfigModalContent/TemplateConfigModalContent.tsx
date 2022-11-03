@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { Component } from "react";
-import { TextInput, ModalForm } from "@carbon/react";
+import { TextInput, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { Formik } from "formik";
 import * as Yup from "yup";

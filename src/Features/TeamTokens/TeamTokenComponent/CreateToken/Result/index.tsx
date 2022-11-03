@@ -1,6 +1,7 @@
 import React from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { ModalBody, ModalFooter, Button, TextInput, ModalFlowForm } from "@carbon/react";
+import { ModalBody, ModalFooter, Button } from "@carbon/react";
+import { TextInput, ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { CopyFile } from "@carbon/react/icons";
 import styles from "./result.module.scss";
 
@@ -19,12 +20,7 @@ const CreateServiceTokenResult = (props: CreateServiceTokenResultProps | any) =>
     <ModalFlowForm>
       <ModalBody>
         <div className={styles.container}>
-          <TextInput
-            id="service-token"
-            labelText="Team Token"
-            className={styles.token}
-            value={props.formData.token}
-          />
+          <TextInput id="service-token" labelText="Team Token" className={styles.token} value={props.formData.token} />
           <p className={styles.saveText}>
             This is your unique team token and it is not-recoverable. If you lose this team token you will have to
             delete it and create another one.

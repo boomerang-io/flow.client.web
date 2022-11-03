@@ -1,12 +1,13 @@
 import React from "react";
-import { Button, ModalFlow } from "@carbon/react";
+import { Button } from "@carbon/react";
+import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Add } from "@carbon/react/icons";
 import CreateServiceTokenForm from "./Form";
 import CreateServiceTokenResult from "./Result";
 import { FlowTeam } from "Types";
 import styles from "./createToken.module.scss";
 
-function CreateServiceTokenButton({activeTeam}: {activeTeam: FlowTeam|null}) {
+function CreateServiceTokenButton({ activeTeam }: { activeTeam: FlowTeam | null }) {
   const [isTokenCreated, setIsTokenCreated] = React.useState(false);
   const cancelRequestRef = React.useRef<any>();
   return (

@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, ComposedModal, ModalForm } from "@carbon/react";
-import { ModalBody } from "@carbon/react";
+import {  ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody } from "@carbon/react";
 import PropertiesTable from "./PropertiesTable";
 import styles from "./outputPropertisLog.module.scss";
 

@@ -6,7 +6,7 @@ import {
   StructuredListRow,
   StructuredListWrapper,
 } from "@carbon/react";
-import { NoDisplay } from "@carbon/react";
+import { NoDisplay } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./propertiesTable.module.scss";
 
 type Props = {
