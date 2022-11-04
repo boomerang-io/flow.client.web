@@ -60,7 +60,7 @@ function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }
     <ModalForm>
       {approvalsIsLoading && <Loading />}
       <ModalBody>
-        <ReactMarkdown className="markdown-body" source={instructions} />
+        <ReactMarkdown className="markdown-body" children={instructions} />
         {Boolean(approvalsError) && (
           <InlineNotification
             style={{ marginBottom: "0.5rem" }}

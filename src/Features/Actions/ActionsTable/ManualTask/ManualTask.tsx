@@ -118,7 +118,7 @@ function Form({ action, cancelRequestRef, closeModal, queryToRefetch }: FormProp
     <ModalForm>
       {approvalsIsLoading && <Loading />}
       <ModalBody>
-        {instructions ? <ReactMarkdown className="markdown-body" source={instructions} /> : <p>No instructions.</p>}
+        {instructions ? <ReactMarkdown className="markdown-body" children={instructions} /> : <p>No instructions.</p>}
         {Boolean(approvalsError) && (
           <InlineNotification
             lowContrast

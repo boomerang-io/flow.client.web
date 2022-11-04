@@ -341,7 +341,7 @@ export function TaskTemplateYamlEditor({
                   <button className={styles.collapseButton} onClick={() => setDocOpen(!docOpen)}>
                     <ChevronRight size={32} className={styles.collapseButtonImg} />
                   </button>
-                  {docOpen && <ReactMarkdown className="markdown-body" source={yamlInstructions} />}
+                  {docOpen && <ReactMarkdown className="markdown-body" children={yamlInstructions} />}
                 </div>
               </section>
             </div>

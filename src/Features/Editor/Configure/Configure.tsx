@@ -203,7 +203,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           }),
         })}
       >
-        {(formikProps) =>
+        {(formikProps: any) =>
           isOnConfigurePath ? (
             <Configure
               workflowTriggersEnabled={workflowTriggersEnabled as boolean}

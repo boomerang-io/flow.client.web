@@ -256,7 +256,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                     </section>
                     <section className={styles.detailedSection}>
                       <span className={styles.sectionHeader}>Instructions</span>
-                      <ReactMarkdown className="markdown-body" source={approval?.instructions} />
+                      <ReactMarkdown className="markdown-body" children={approval?.instructions} />
                     </section>
                   </ModalBody>
                 )}

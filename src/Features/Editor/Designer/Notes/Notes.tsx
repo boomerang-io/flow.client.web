@@ -109,8 +109,8 @@ function Notes({ markdown, updateNotes }: NotesProps) {
               className: cx(styles.tabButton, { [styles.selected]: selectedTab === mdeTabs.Preview }),
             },
           }}
-          generateMarkdownPreview={(markdown) =>
-            Promise.resolve(<ReactMarkdown className="markdown-body" source={markdown} />)
+          generateMarkdownPreview={(markdown: string) =>
+            Promise.resolve(<ReactMarkdown className="markdown-body" children={markdown} />)
           }
         />
       </div>

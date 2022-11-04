@@ -20,7 +20,7 @@ function ErrorModal({ errorCode, errorMessage }: ErrorModalProps) {
         </section>
         <section className={styles.detailedSection}>
           <span className={styles.sectionHeader}>Error Message</span>
-          <ReactMarkdown className="markdown-body" source={errorMessage} />
+          <ReactMarkdown className="markdown-body" children={errorMessage} />
         </section>
       </ModalBody>
     </ModalForm>

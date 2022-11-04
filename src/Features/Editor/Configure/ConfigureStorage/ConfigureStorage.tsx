@@ -42,7 +42,7 @@ export default function ConfigureStorage({
         mountPath: Yup.string(),
       })}
     >
-      {(formikProps) => {
+      {(formikProps: any) => {
         const { values, touched, errors, handleBlur, handleChange, handleSubmit, isValid, setFieldValue } = formikProps;
 
         return (
