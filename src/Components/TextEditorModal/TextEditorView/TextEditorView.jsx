@@ -6,8 +6,6 @@ import { Controlled as CodeMirrorReact } from "react-codemirror2";
 import {
   ModalBody,
   ModalFooter,
-  // Toolbar,
-  // ToolbarItem,
   Search,
   Dropdown,
   Button,
@@ -181,133 +179,114 @@ function TextEditorView(props) {
   return (
     <>
       <ModalBody className="c-textEditorContainer">
-        {/* <Toolbar className="b-task-text-area">
-          <ToolbarItem>
-            <Button
-              hasIconOnly
-              size="sm"
-              kind="ghost"
-              iconDescription="Undo"
-              tooltipPosition="bottom"
-              tooltipAlignment="start"
-              renderIcon={Undo}
-              onClick={undo}
-              className="b-task-text-area__button"
-            />
-          </ToolbarItem>
-          <ToolbarItem>
-            <Button
-              hasIconOnly
-              size="sm"
-              kind="ghost"
-              iconDescription="Redo"
-              tooltipPosition="bottom"
-              tooltipAlignment="center"
-              renderIcon={Redo}
-              onClick={redo}
-              className="b-task-text-area__button"
-            />
-          </ToolbarItem>
-          <ToolbarItem>
-            <Button
-              hasIconOnly
-              size="sm"
-              kind="ghost"
-              iconDescription="Copy"
-              tooltipPosition="bottom"
-              tooltipAlignment="center"
-              renderIcon={Copy}
-              onClick={copy}
-              className="b-task-text-area__button"
-            />
-          </ToolbarItem>
-          <ToolbarItem>
-            <Button
-              hasIconOnly
-              size="sm"
-              kind="ghost"
-              iconDescription="Cut"
-              tooltipPosition="bottom"
-              tooltipAlignment="center"
-              renderIcon={Cut}
-              onClick={cut}
-              className="b-task-text-area__button"
-            />
-          </ToolbarItem>
-          <ToolbarItem>
-            <Button
-              hasIconOnly
-              size="sm"
-              kind="ghost"
-              iconDescription="Paste"
-              tooltipPosition="bottom"
-              tooltipAlignment="center"
-              renderIcon={Paste}
-              onClick={paste}
-              className="b-task-text-area__button"
-            />
-          </ToolbarItem>
-          <ToolbarItem>
-            <Search
-              id="search"
-              light={false}
-              labelText="Search"
-              closeButtonLabelText=""
-              placeholder="Search"
-              onChange={handleSearchText}
-              onKeyPress={handleKeyPress}
-              size="sm"
-            />
-          </ToolbarItem>
-          <ToolbarItem>
-            <Button
-              hasIconOnly
-              size="sm"
-              kind="ghost"
-              iconDescription="Find previous"
-              tooltipPosition="bottom"
-              tooltipAlignment="center"
-              renderIcon={ArrowUp}
-              onClick={findPrevious}
-              className="b-task-text-area__button"
-            />
-          </ToolbarItem>
-          <ToolbarItem>
-            <Button
-              hasIconOnly
-              size="sm"
-              kind="ghost"
-              iconDescription="Find next"
-              tooltipPosition="bottom"
-              tooltipAlignment="center"
-              renderIcon={ArrowDown}
-              onClick={findNext}
-              className="b-task-text-area__button"
-            />
-          </ToolbarItem>
+        <div className="b-task-text-area">
+          <Button
+            hasIconOnly
+            size="sm"
+            kind="ghost"
+            iconDescription="Undo"
+            tooltipPosition="bottom"
+            tooltipAlignment="start"
+            renderIcon={Undo}
+            onClick={undo}
+            className="b-task-text-area__button"
+          />
+          <Button
+            hasIconOnly
+            size="sm"
+            kind="ghost"
+            iconDescription="Redo"
+            tooltipPosition="bottom"
+            tooltipAlignment="center"
+            renderIcon={Redo}
+            onClick={redo}
+            className="b-task-text-area__button"
+          />
+          <Button
+            hasIconOnly
+            size="sm"
+            kind="ghost"
+            iconDescription="Copy"
+            tooltipPosition="bottom"
+            tooltipAlignment="center"
+            renderIcon={Copy}
+            onClick={copy}
+            className="b-task-text-area__button"
+          />
+          <Button
+            hasIconOnly
+            size="sm"
+            kind="ghost"
+            iconDescription="Cut"
+            tooltipPosition="bottom"
+            tooltipAlignment="center"
+            renderIcon={Cut}
+            onClick={cut}
+            className="b-task-text-area__button"
+          />
+          <Button
+            hasIconOnly
+            size="sm"
+            kind="ghost"
+            iconDescription="Paste"
+            tooltipPosition="bottom"
+            tooltipAlignment="center"
+            renderIcon={Paste}
+            onClick={paste}
+            className="b-task-text-area__button"
+          />
+          <Search
+            id="search"
+            light={false}
+            labelText="Search"
+            closeButtonLabelText=""
+            placeholder="Search"
+            onChange={handleSearchText}
+            onKeyPress={handleKeyPress}
+            size="sm"
+          />
+          <Button
+            hasIconOnly
+            size="sm"
+            kind="ghost"
+            iconDescription="Find previous"
+            tooltipPosition="bottom"
+            tooltipAlignment="center"
+            renderIcon={ArrowUp}
+            onClick={findPrevious}
+            className="b-task-text-area__button"
+          />
+          <Button
+            hasIconOnly
+            size="sm"
+            kind="ghost"
+            iconDescription="Find next"
+            tooltipPosition="bottom"
+            tooltipAlignment="center"
+            renderIcon={ArrowDown}
+            onClick={findNext}
+            className="b-task-text-area__button"
+          />
           {!props.isLanguageSelectorDisabled && (
-            <ToolbarItem>
-              <div className="b-task-text-area__language-dropdown">
-                <Dropdown
-                  id="dropdown-language"
-                  type="default"
-                  label="Language selection"
-                  ariaLabel="Dropdown"
-                  light={false}
-                  initialSelectedItem={
-                    props.language
-                      ? languageOptions.find((languageOption) => languageOption.id === props.language)
-                      : languageOptions[0]
-                  }
-                  items={languageOptions}
-                  itemToString={(item) => (item ? item.text : "")}
-                  onChange={onChangeLanguage}
-                />
-              </div>
-            </ToolbarItem>
+            <div className="b-task-text-area__language-dropdown">
+              <Dropdown
+                id="dropdown-language"
+                type="default"
+                label="Language selection"
+                ariaLabel="Dropdown"
+                light={false}
+                initialSelectedItem={
+                  props.language
+                    ? languageOptions.find((languageOption) => languageOption.id === props.language)
+                    : languageOptions[0]
+                }
+                items={languageOptions}
+                itemToString={(item) => (item ? item.text : "")}
+                onChange={onChangeLanguage}
+              />
+            </div>
           )}
-        </Toolbar> */}
-
+        </div>
         <CodeMirrorReact
           editorDidMount={(cmeditor) => {
             editor.current = cmeditor;
