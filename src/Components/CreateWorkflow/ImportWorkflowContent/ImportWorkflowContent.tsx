@@ -229,7 +229,6 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                         }}
                         items={teams}
                         initialSelectedItem={values.selectedTeam}
-                        value={values.selectedTeam}
                         itemToString={(item: FlowTeam) => (item ? item.name : "")}
                         titleText="Team"
                         placeholder="Select a team"

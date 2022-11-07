@@ -1,5 +1,5 @@
 import React from "react";
-import { ComposedModal } from "@carbon/react";
+import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowEditButton from "./WorkflowEditButton";
 import PropertiesModalContent from "./PropertiesModalContent";
 import { Add } from "@carbon/react/icons";

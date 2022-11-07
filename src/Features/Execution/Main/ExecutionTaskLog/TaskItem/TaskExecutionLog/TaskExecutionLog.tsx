@@ -1,6 +1,7 @@
 import React from "react";
 import cx from "classnames";
-import { Button, ComposedModal } from "@carbon/react";
+import { Button } from "@carbon/react";
+import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Toggle } from "@carbon/react";
 import { ModalBody } from "@carbon/react";
 import { LazyLog, ScrollFollow } from "react-lazylog";

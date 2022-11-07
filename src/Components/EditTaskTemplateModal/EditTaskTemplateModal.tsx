@@ -1,7 +1,8 @@
 //@ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, ComposedModal } from "@carbon/react";
+import { Button } from "@carbon/react";
+import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import EditTaskTemplateForm from "./EditTaskTemplateForm";
 import { Edit } from "@carbon/react/icons";
 import styles from "./editTaskTemplateModal.module.scss";

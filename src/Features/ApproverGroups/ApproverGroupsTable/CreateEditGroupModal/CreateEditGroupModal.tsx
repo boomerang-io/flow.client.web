@@ -1,6 +1,6 @@
 import React from "react";
-import { ComposedModal } from "@carbon/react";
 import { Button } from "@carbon/react";
+import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditGroupModalContent from "./CreateEditGroupModalContent";
 import { FlowTeam, ApproverGroup } from "Types";
 import { Add, Edit } from "@carbon/react/icons";

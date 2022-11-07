@@ -314,7 +314,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 items={teams}
                 itemToString={(item: { name: string }) => item?.name ?? ""}
                 onChange={this.handleTeamChange}
-                value={values.selectedTeam}
                 label="Team"
                 placeholder="Select a team"
                 shouldFilterItem={({ item, inputValue }: { item: { name: string }; inputValue: string }) =>

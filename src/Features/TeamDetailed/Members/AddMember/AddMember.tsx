@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, ComposedModal } from "@carbon/react";
+import { Button } from "@carbon/react";
+import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Add } from "@carbon/react/icons";
 import { FlowUser } from "Types";
 import AddMemberContent from "./AddMemberContent";

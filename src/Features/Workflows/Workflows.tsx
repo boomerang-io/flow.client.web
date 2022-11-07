@@ -5,10 +5,9 @@ import { useQuery } from "react-query";
 import { Redirect, Route, Switch, useHistory, useLocation } from "react-router-dom";
 import {
   Button,
-  ComposedModal,
   SkeletonPlaceholder,
 } from "@carbon/react";
-import { ErrorMessage, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal, ErrorMessage, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { WarningAlt } from "@carbon/react/icons";
 import cx from "classnames";
 import queryString from "query-string";

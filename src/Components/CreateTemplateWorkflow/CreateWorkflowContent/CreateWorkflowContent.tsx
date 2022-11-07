@@ -150,7 +150,6 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                     }}
                     items={teams}
                     initialSelectedItem={selectedTeam}
-                    value={selectedTeam}
                     itemToString={(item: ComboBoxItem) => (item ? item.name : "")}
                     titleText="Team"
                     placeholder="Select a team"
