@@ -13,7 +13,8 @@
   height: calc(100vh - 10.3125rem);
 
   padding: 1.875rem 1.5rem 1.5rem;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
 }
 

@@ -149,7 +149,7 @@ function CreateEditTeamPropertiesModalContent({
       })}
     >
       {(props) => {
-        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit } = props;
+        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
@@ -209,7 +209,7 @@ function CreateEditTeamPropertiesModalContent({
                 disabled={isEdit}
                 labelText="Secured"
                 name="secured"
-                onChange={handleChange}
+                onToggle={(value: string) => setFieldValue("secured", value)}
                 orientation="vertical"
                 toggled={values.secured}
                 helperText="Once a parameter is securely created - you will not be able to make it unsecure"

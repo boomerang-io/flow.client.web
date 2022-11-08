@@ -6,12 +6,12 @@ import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import {
   Error,
   Loading,
-  FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DatePicker, DatePickerInput, MultiSelect as Select } from "@carbon/react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
+import Tab  from "./Tab";
 import moment from "moment";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
@@ -179,9 +179,22 @@ function WorkflowActivity() {
 
   function handleSelectStatuses(statusIndex) {
     const statuses = statusIndex > 0 ? executionStatusList[statusIndex - 1] : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses, page: 0 });
-    return;
+    const {
+      order = DEFAULT_ORDER,
+      page = DEFAULT_PAGE,
+      size = DEFAULT_SIZE,
+      sort = DEFAULT_SORT,
+      ...props
+    } = queryString.parse(location.search);
+    const query = queryString.stringify({ order, page, size, sort, ...props, statuses }, queryStringOptions);
+    return `?${query}`;
   }
+
+  // function handleSelectStatuses(statusIndex) {
+  //   const statuses = statusIndex > 0 ? executionStatusList[statusIndex - 1] : undefined;
+  //   updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses, page: 0 });
+  //   return `?${query}`;
+  // }
 
   function handleSelectDate(dates) {
     let [fromDateObj, toDateObj] = dates;
@@ -265,7 +278,8 @@ function WorkflowActivity() {
     const selectedWorkflowIds = typeof workflowIds === "string" ? [workflowIds] : workflowIds;
     const selectedTriggers = typeof triggers === "string" ? [triggers] : triggers;
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
-    const statusIndex = executionStatusList.indexOf(selectedStatuses[0]);
+    const statusIndex = executionStatusList.indexOf(selectedStatuses[0]) + 1;
+    // const statusIndex = executionStatusList.indexOf(selectedStatuses[0]);
 
     const teamsData = teamsState && JSON.parse(JSON.stringify(teamsState));
 
@@ -311,33 +325,43 @@ function WorkflowActivity() {
         />
         <section aria-label="Activity" className={styles.content}>
           <nav>
-            <Tabs className={styles.tabs} onSelectionChange={handleSelectStatuses}>
-              <Tab label={statusWorkflowSummaryIsLoading ? "All" : `All (${statusWorkflowSummary.all})`} to="/" />
+            <Tabs className={styles.tabs}>
               <Tab
-                to="/"
+                to={() => handleSelectStatuses(0)}
+                label={statusWorkflowSummaryIsLoading ? "All" : `All (${statusWorkflowSummary.all})`}
+                isActive={statusIndex === 0}
+              />
+              <Tab
+                to={() => handleSelectStatuses(1)}
                 label={
                   statusWorkflowSummaryIsLoading ? "In Progress" : `In Progress (${statusWorkflowSummary?.inProgress})`
                 }
+                isActive={statusIndex === 1}
               />
               <Tab
-                to="/"
+                to={() => handleSelectStatuses(2)}
                 label={statusWorkflowSummaryIsLoading ? "Succeeded" : `Succeeded (${statusWorkflowSummary.completed})`}
+                isActive={statusIndex === 2}
               />
               <Tab
-                to="/"
+                to={() => handleSelectStatuses(3)}
                 label={statusWorkflowSummaryIsLoading ? "Failed" : `Failed (${statusWorkflowSummary.failure})`}
+                isActive={statusIndex === 3}
               />
               <Tab
-                to="/"
+                to={() => handleSelectStatuses(4)}
                 label={statusWorkflowSummaryIsLoading ? "Invalid" : `Invalid (${statusWorkflowSummary.invalid})`}
+                isActive={statusIndex === 4}
               />
               <Tab
-                to="/"
+                to={() => handleSelectStatuses(5)}
                 label={statusWorkflowSummaryIsLoading ? "Waiting" : `Waiting (${statusWorkflowSummary.waiting})`}
+                isActive={statusIndex === 5}
               />
               <Tab
-                to="/"
+                to={() => handleSelectStatuses(6)}
                 label={statusWorkflowSummaryIsLoading ? "Cancelled" : `Cancelled (${statusWorkflowSummary.cancelled})`}
+                isActive={statusIndex === 6}
               />
             </Tabs>
           </nav>

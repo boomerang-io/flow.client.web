@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { SkeletonPlaceholder } from "@carbon/react";
-import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, SkeletonPlaceholder } from "@carbon/react";
 import { UseQueryResult } from "react-query";
 import TaskItem from "./TaskItem";
 import orderBy from "lodash/orderBy";
@@ -36,15 +35,14 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
         <section className={styles.taskbar}>
           <p className={styles.taskbarTitle}>Task log</p>
           {!isCollapsed && (
-            <TooltipHover
+            <Button
               disabled
-              align="center"
-              className={styles.taskbarButton}
-              id="sort-tooltip"
-              data-testid="taskbar-button"
-            >
-              <ArrowsVertical size={32} className={styles.taskbarArrows} />
-            </TooltipHover>
+              iconDescription="Change sort direction (by start time)"
+              renderIcon={ArrowsVertical}
+              size="sm"
+              kind="ghost"
+              hasIconOnly
+            />
           )}
         </section>
         <ul className={styles.tasklog}>
@@ -81,17 +79,14 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
       <section className={styles.taskbar}>
         <p className={styles.taskbarTitle}>Task log</p>
         {!isCollapsed && (
-          <TooltipHover
-            align="center"
-            className={styles.taskbarButton}
-            id="sort-tooltip"
-            data-testid="taskbar-button"
-            direction="top"
+          <Button
+            iconDescription="Change sort direction (by start time)"
+            renderIcon={ArrowsVertical}
             onClick={toggleSort}
-            tooltipText="Change sort direction (by start time)"
-          >
-            <ArrowsVertical size={32} className={styles.taskbarArrows} />
-          </TooltipHover>
+            size="sm"
+            kind="ghost"
+            hasIconOnly
+          />
         )}
       </section>
       <ul className={styles.tasklog}>

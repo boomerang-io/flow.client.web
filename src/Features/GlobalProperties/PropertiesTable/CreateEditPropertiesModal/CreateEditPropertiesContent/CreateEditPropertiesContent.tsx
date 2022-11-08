@@ -129,7 +129,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
       })}
     >
       {(props) => {
-        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit } = props;
+        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
@@ -189,7 +189,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 disabled={isEdit}
                 labelText="Secured"
                 name="secured"
-                onChange={handleChange}
+                onToggle={(value: string) => setFieldValue("secured", value)}
                 orientation="vertical"
                 toggled={values.secured}
                 data-testid="secured-global-parameters-toggle"

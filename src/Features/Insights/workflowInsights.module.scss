@@ -54,6 +54,10 @@
     font-size: 0.875rem;
     font-weight: 300;
   }
+
+  :global .cds--overflow-menu-options.cds--overflow-menu--flip {
+    position: absolute !important;
+  }
 }
 
 .navigation {
