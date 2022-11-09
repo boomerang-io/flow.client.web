@@ -28,6 +28,7 @@
   cursor: pointer;
   display: flex;
   justify-content: flex-start;
+  width: 100%;
 }
 
 .icon {
@@ -36,6 +37,7 @@
   max-width: 1.25rem;
   min-height: 1.25rem;
   min-width: 1.25rem;
+  fill: var(--cds-link-primary) !important;
 }
 
 .buttonText {

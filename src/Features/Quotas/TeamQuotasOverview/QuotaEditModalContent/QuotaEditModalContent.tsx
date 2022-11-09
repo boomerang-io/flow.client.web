@@ -110,9 +110,11 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                     value={values.quotaFormValue}
                     step={stepValue}
                     min={minValue}
-                    onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
+                    //Need a max value in order to work - need to update in case of invalid value
+                    max={99999}
+                    onChange={(evt: React.ChangeEvent<HTMLInputElement>, {value}:{value: number}) => {
                       //@ts-ignore
-                      setFieldValue("quotaFormValue", evt.imaginaryTarget.value);
+                      setFieldValue("quotaFormValue", value);
                     }}
                     invalid={errors.quotaFormValue && !touched.quotaFormValue}
                     invalidText={errors.quotaFormValue}
