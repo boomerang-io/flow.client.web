@@ -105,44 +105,49 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
       class="_container_8fb188"
     >
       <header
-        class="bx--bmrg-feature-header _container_4d119f"
+        class="cds--bmrg-feature-header _container_4d119f"
       >
         <section
-          class="bx--bmrg-feature-header__content"
+          class="cds--bmrg-feature-header__content"
         >
           <div
-            class="bx--bmrg-feature-header__header"
+            class="cds--bmrg-feature-header__header"
           >
             <p
-              class="bx--bmrg-feature-header-title"
+              class="cds--bmrg-feature-header-title"
             >
               These are your
             </p>
             <h1
-              class="bx--bmrg-feature-header-title"
+              class="cds--bmrg-feature-header-title"
             >
               Team Workflows (4)
             </h1>
           </div>
           <div
-            class="bx--bmrg-feature-header__footer"
+            class="cds--bmrg-feature-header__footer"
           >
             <nav
-              class="bx--bmrg-feature-nav-tabs"
+              aria-label="Workflows view"
+              class="cds--tabs"
             >
-              <a
-                class="bx--bmrg-feature-nav-tab"
-                href="/workflows/mine"
+              <ul
+                class="cds--tab--list"
               >
-                My Workflows
-              </a>
-              <a
-                aria-current="page"
-                class="bx--bmrg-feature-nav-tab bx--bmrg-feature-nav-tab--active"
-                href="/workflows/teams"
-              >
-                Team Workflows
-              </a>
+                <a
+                  class="cds--tabs__nav-item cds--tabs__nav-link"
+                  href="/workflows/mine"
+                >
+                  My Workflows
+                </a>
+                <a
+                  aria-current="page"
+                  class="cds--tabs__nav-item cds--tabs__nav-link cds--tabs__nav-item--selected"
+                  href="/workflows/teams"
+                >
+                  Team Workflows
+                </a>
+              </ul>
             </nav>
           </div>
         </section>
@@ -150,7 +155,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
           class="_filterContainer_4d119f"
         >
           <button
-            class="bx--btn bx--btn--md bx--btn--ghost"
+            class="cds--btn cds--btn--md cds--btn--ghost"
             data-testid="workflows-create-workflow-template-button"
             tabindex="0"
             type="button"
@@ -160,10 +165,10 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
               class="_addIcon_e88a2f"
               fill="currentColor"
               focusable="false"
-              height="32"
+              height="16"
               preserveAspectRatio="xMidYMid meet"
               viewBox="0 0 32 32"
-              width="32"
+              width="16"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -177,13 +182,13 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
             </p>
             <svg
               aria-hidden="true"
-              class="bx--btn__icon"
+              class="cds--btn__icon"
               fill="currentColor"
               focusable="false"
-              height="32"
+              height="16"
               preserveAspectRatio="xMidYMid meet"
               viewBox="0 0 32 32"
-              width="32"
+              width="16"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -192,19 +197,19 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
             </svg>
           </button>
           <div
-            class="_search_4d119f"
+            class="cds--layer-two _search_4d119f"
           >
             <div
               aria-labelledby="search-team-workflows-search"
-              class="bx--search bx--search--xl"
+              class="cds--search cds--search--md"
               role="search"
             >
               <div
-                class="bx--search-magnifier"
+                class="cds--search-magnifier"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--search-magnifier-icon"
+                  class="cds--search-magnifier-icon"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -214,12 +219,12 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                    d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                   />
                 </svg>
               </div>
               <label
-                class="bx--label"
+                class="cds--label"
                 for="search-team-workflows"
                 id="search-team-workflows-search"
               >
@@ -227,7 +232,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
               </label>
               <input
                 autocomplete="off"
-                class="bx--search-input"
+                class="cds--search-input"
                 data-testid="workflows-team-search"
                 id="search-team-workflows"
                 placeholder="Search for a workflow"
@@ -237,7 +242,8 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
               />
               <button
                 aria-label="Clear search input"
-                class="bx--search-close bx--search-close--hidden"
+                class="cds--search-close cds--search-close--hidden"
+                title="Clear search input"
                 type="button"
               >
                 <svg
@@ -261,27 +267,27 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
             class="_filter_4d119f"
           >
             <div
-              class="bx--multi-select__wrapper bx--list-box__wrapper"
+              class="cds--multi-select__wrapper cds--list-box__wrapper"
             >
               <label
-                class="bx--label"
+                class="cds--label"
                 for="b-search-filter__filter-input"
                 id="b-search-filter__filter-label"
               >
                 Filter by Team
               </label>
               <div
-                class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box bx--list-box--light"
+                class="cds--multi-select cds--combo-box cds--multi-select--filterable cds--list-box cds--list-box--light"
               >
                 <div
-                  class="bx--list-box__field"
+                  class="cds--list-box__field"
                 >
                   <input
                     aria-autocomplete="list"
                     aria-expanded="false"
                     aria-haspopup="listbox"
                     autocomplete="off"
-                    class="bx--text-input bx--text-input--empty bx--text-input--light"
+                    class="cds--text-input cds--text-input--empty cds--text-input--light"
                     id="b-search-filter__filter-input"
                     placeholder="Choose a team"
                     role="combobox"
@@ -291,7 +297,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                   <button
                     aria-haspopup="true"
                     aria-label="Open"
-                    class="bx--list-box__menu-icon"
+                    class="cds--list-box__menu-icon"
                     data-toggle="true"
                     role="button"
                     tabindex="-1"
@@ -348,7 +354,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 </p>
               </div>
               <button
-                class="bx--btn bx--btn--md bx--btn--ghost"
+                class="cds--btn cds--btn--md cds--btn--ghost"
                 tabindex="0"
                 type="button"
               >
@@ -414,7 +420,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 class="_launch_483afa"
               >
                 <button
-                  class="bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
+                  class="cds--btn cds--btn--md cds--btn--primary cds--btn--disabled"
                   disabled=""
                   tabindex="0"
                   type="button"
@@ -423,14 +429,14 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                   <svg
                     aria-hidden="true"
                     aria-label="Run Workflow"
-                    class="bx--btn__icon"
+                    class="cds--btn__icon"
                     fill="currentColor"
                     focusable="false"
-                    height="20"
+                    height="16"
                     preserveAspectRatio="xMidYMid meet"
                     role="img"
                     viewBox="0 0 32 32"
-                    width="20"
+                    width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -449,13 +455,13 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-label="Overflow card menu"
-                class="bx--overflow-menu bx--overflow-menu--md"
+                class="cds--overflow-menu cds--overflow-menu--md"
                 style="position: absolute; right: 0px;"
                 type="button"
               >
                 <svg
                   aria-label="Overflow menu icon"
-                  class="bx--overflow-menu__icon"
+                  class="cds--overflow-menu__icon"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -480,9 +486,6 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                     cy="24"
                     r="2"
                   />
-                  <title>
-                    Overflow menu icon
-                  </title>
                 </svg>
               </button>
             </div>
@@ -539,7 +542,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 class="_launch_483afa"
               >
                 <button
-                  class="bx--btn bx--btn--md bx--btn--primary"
+                  class="cds--btn cds--btn--md cds--btn--primary"
                   tabindex="0"
                   type="button"
                 >
@@ -547,14 +550,14 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                   <svg
                     aria-hidden="true"
                     aria-label="Run Workflow"
-                    class="bx--btn__icon"
+                    class="cds--btn__icon"
                     fill="currentColor"
                     focusable="false"
-                    height="20"
+                    height="16"
                     preserveAspectRatio="xMidYMid meet"
                     role="img"
                     viewBox="0 0 32 32"
-                    width="20"
+                    width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -573,13 +576,13 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-label="Overflow card menu"
-                class="bx--overflow-menu bx--overflow-menu--md"
+                class="cds--overflow-menu cds--overflow-menu--md"
                 style="position: absolute; right: 0px;"
                 type="button"
               >
                 <svg
                   aria-label="Overflow menu icon"
-                  class="bx--overflow-menu__icon"
+                  class="cds--overflow-menu__icon"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -604,9 +607,6 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                     cy="24"
                     r="2"
                   />
-                  <title>
-                    Overflow menu icon
-                  </title>
                 </svg>
               </button>
             </div>
@@ -662,7 +662,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 class="_launch_483afa"
               >
                 <button
-                  class="bx--btn bx--btn--md bx--btn--primary"
+                  class="cds--btn cds--btn--md cds--btn--primary"
                   tabindex="0"
                   type="button"
                 >
@@ -670,14 +670,14 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                   <svg
                     aria-hidden="true"
                     aria-label="Run Workflow"
-                    class="bx--btn__icon"
+                    class="cds--btn__icon"
                     fill="currentColor"
                     focusable="false"
-                    height="20"
+                    height="16"
                     preserveAspectRatio="xMidYMid meet"
                     role="img"
                     viewBox="0 0 32 32"
-                    width="20"
+                    width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -695,18 +695,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
               <div
                 class="_templatesWarningIcon_483afa"
               >
-                <button
-                  aria-describedby="icon-tooltip-1"
-                  class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--tooltip--align-center"
-                  style="cursor: default;"
-                  type="button"
-                >
-                  <span
-                    class="bx--assistive-text"
-                    id="icon-tooltip-1"
-                  >
-                    New version of a task available! To update, edit your workflow.
-                  </span>
+                <div>
                   <svg
                     alt="Workflow warning button"
                     class="_button_f89d84"
@@ -738,19 +727,19 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                       />
                     </g>
                   </svg>
-                </button>
+                </div>
               </div>
               <button
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-label="Overflow card menu"
-                class="bx--overflow-menu bx--overflow-menu--md"
+                class="cds--overflow-menu cds--overflow-menu--md"
                 style="position: absolute; right: 0px;"
                 type="button"
               >
                 <svg
                   aria-label="Overflow menu icon"
-                  class="bx--overflow-menu__icon"
+                  class="cds--overflow-menu__icon"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -775,9 +764,6 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                     cy="24"
                     r="2"
                   />
-                  <title>
-                    Overflow menu icon
-                  </title>
                 </svg>
               </button>
             </div>
@@ -790,10 +776,10 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 class="_addIcon_7b50b0"
                 fill="currentColor"
                 focusable="false"
-                height="32"
+                height="16"
                 preserveAspectRatio="xMidYMid meet"
                 viewBox="0 0 32 32"
-                width="32"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -832,7 +818,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 </p>
               </div>
               <button
-                class="bx--btn bx--btn--md bx--btn--ghost"
+                class="cds--btn cds--btn--md cds--btn--ghost"
                 tabindex="0"
                 type="button"
               >
@@ -907,7 +893,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 class="_launch_483afa"
               >
                 <button
-                  class="bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
+                  class="cds--btn cds--btn--md cds--btn--primary cds--btn--disabled"
                   disabled=""
                   tabindex="0"
                   type="button"
@@ -916,14 +902,14 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                   <svg
                     aria-hidden="true"
                     aria-label="Run Workflow"
-                    class="bx--btn__icon"
+                    class="cds--btn__icon"
                     fill="currentColor"
                     focusable="false"
-                    height="20"
+                    height="16"
                     preserveAspectRatio="xMidYMid meet"
                     role="img"
                     viewBox="0 0 32 32"
-                    width="20"
+                    width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -942,13 +928,13 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 aria-expanded="false"
                 aria-haspopup="true"
                 aria-label="Overflow card menu"
-                class="bx--overflow-menu bx--overflow-menu--md"
+                class="cds--overflow-menu cds--overflow-menu--md"
                 style="position: absolute; right: 0px;"
                 type="button"
               >
                 <svg
                   aria-label="Overflow menu icon"
-                  class="bx--overflow-menu__icon"
+                  class="cds--overflow-menu__icon"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -973,9 +959,6 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                     cy="24"
                     r="2"
                   />
-                  <title>
-                    Overflow menu icon
-                  </title>
                 </svg>
               </button>
             </div>
@@ -988,10 +971,10 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 class="_addIcon_7b50b0"
                 fill="currentColor"
                 focusable="false"
-                height="32"
+                height="16"
                 preserveAspectRatio="xMidYMid meet"
                 viewBox="0 0 32 32"
-                width="32"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -1010,31 +993,31 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
     </div>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

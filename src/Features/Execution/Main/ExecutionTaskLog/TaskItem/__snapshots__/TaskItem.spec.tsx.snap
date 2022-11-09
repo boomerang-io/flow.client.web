@@ -24,11 +24,11 @@ exports[`TaskItem --- Snapshot > Capturing Snapshot of TaskItem 1`] = `
             class="_taskIcon_1bda0d"
             fill="currentColor"
             focusable="false"
-            height="32"
+            height="16"
             preserveAspectRatio="xMidYMid meet"
             role="img"
             viewBox="0 0 32 32"
-            width="32"
+            width="16"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -53,11 +53,11 @@ exports[`TaskItem --- Snapshot > Capturing Snapshot of TaskItem 1`] = `
             class="_statusIcon_1bda0d"
             fill="currentColor"
             focusable="false"
-            height="32"
+            height="16"
             preserveAspectRatio="xMidYMid meet"
             role="img"
             viewBox="0 0 32 32"
-            width="32"
+            width="16"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path

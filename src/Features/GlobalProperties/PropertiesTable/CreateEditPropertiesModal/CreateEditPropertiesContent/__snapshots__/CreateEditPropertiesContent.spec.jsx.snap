@@ -6,38 +6,42 @@ exports[`CreateEditPropertiesContent --- Snapshot Test > Capturing Snapshot of C
 >
   <div>
     <form
-      class="bx--bmrg-modal-flow-form"
+      class="cds--bmrg-modal-flow-form"
     >
       <div
         aria-label="inputs"
-        class="bx--modal-content"
+        class="cds--modal-content"
       >
         <div
-          class="bx--bmrg-text-input"
+          class="cds--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="cds--form-item cds--text-input-wrapper"
           >
-            <label
-              class="bx--label"
-              for="key"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Key
-                </div>
-              </div>
-            </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="cds--text-input__label-wrapper"
+            >
+              <label
+                class="cds--label"
+                for="key"
+              >
+                <div
+                  class="cds--bmrg-text-input__label"
+                >
+                  <div>
+                    Key
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="cds--text-input__field-outer-wrapper"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                class="cds--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text-input--md"
+                  class="cds--text-input cds--text-input--md"
                   data-testid="create-parameter-key"
                   id="key"
                   name="key"
@@ -49,31 +53,35 @@ exports[`CreateEditPropertiesContent --- Snapshot Test > Capturing Snapshot of C
           </div>
         </div>
         <div
-          class="bx--bmrg-text-input"
+          class="cds--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="cds--form-item cds--text-input-wrapper"
           >
-            <label
-              class="bx--label"
-              for="label"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Label
-                </div>
-              </div>
-            </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="cds--text-input__label-wrapper"
+            >
+              <label
+                class="cds--label"
+                for="label"
+              >
+                <div
+                  class="cds--bmrg-text-input__label"
+                >
+                  <div>
+                    Label
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="cds--text-input__field-outer-wrapper"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                class="cds--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text-input--md"
+                  class="cds--text-input cds--text-input--md"
                   data-testid="create-parameter-label"
                   id="label"
                   name="label"
@@ -85,31 +93,35 @@ exports[`CreateEditPropertiesContent --- Snapshot Test > Capturing Snapshot of C
           </div>
         </div>
         <div
-          class="bx--bmrg-text-input"
+          class="cds--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="cds--form-item cds--text-input-wrapper"
           >
-            <label
-              class="bx--label"
-              for="description"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Description (optional)
-                </div>
-              </div>
-            </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="cds--text-input__label-wrapper"
+            >
+              <label
+                class="cds--label"
+                for="description"
+              >
+                <div
+                  class="cds--bmrg-text-input__label"
+                >
+                  <div>
+                    Description (optional)
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="cds--text-input__field-outer-wrapper"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                class="cds--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text-input--md"
+                  class="cds--text-input cds--text-input--md"
                   data-testid="create-parameter-description"
                   id="description"
                   name="description"
@@ -121,31 +133,35 @@ exports[`CreateEditPropertiesContent --- Snapshot Test > Capturing Snapshot of C
           </div>
         </div>
         <div
-          class="bx--bmrg-text-input"
+          class="cds--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="cds--form-item cds--text-input-wrapper"
           >
-            <label
-              class="bx--label"
-              for="value"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Value
-                </div>
-              </div>
-            </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="cds--text-input__label-wrapper"
+            >
+              <label
+                class="cds--label"
+                for="value"
+              >
+                <div
+                  class="cds--bmrg-text-input__label"
+                >
+                  <div>
+                    Value
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="cds--text-input__field-outer-wrapper"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                class="cds--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text-input--md"
+                  class="cds--text-input cds--text-input--md"
                   data-testid="create-parameter-value"
                   id="value"
                   name="value"
@@ -159,16 +175,16 @@ exports[`CreateEditPropertiesContent --- Snapshot Test > Capturing Snapshot of C
           </div>
         </div>
         <div
-          class="bx--bmrg-toggle__container"
+          class="cds--bmrg-toggle__container"
         >
           <div
-            class="bx--bmrg-toggle --vertical"
+            class="cds--bmrg-toggle --vertical"
           >
             <div
-              class="bx--bmrg-toggle__title"
+              class="cds--bmrg-toggle__title"
             >
               <label
-                class="bx--label"
+                class="cds--label"
                 for="secured-global-parameters-toggle"
                 id="secured-global-parameters-toggle-label"
                 style="margin-bottom: 0px;"
@@ -177,39 +193,42 @@ exports[`CreateEditPropertiesContent --- Snapshot Test > Capturing Snapshot of C
               </label>
             </div>
             <div
-              class="bx--form-item"
+              class="cds--toggle cds--toggle--disabled"
             >
-              <input
+              <button
+                aria-checked="false"
                 aria-labelledby="secured-global-parameters-toggle-label"
-                class="bx--toggle-input"
+                class="cds--toggle__button"
                 data-testid="secured-global-parameters-toggle"
                 disabled=""
                 id="secured-global-parameters-toggle"
                 name="secured"
-                type="checkbox"
+                role="switch"
+                type="button"
               />
               <label
-                aria-label="Toggle"
-                class="bx--toggle-input__label"
+                class="cds--toggle__label"
                 for="secured-global-parameters-toggle"
               >
                 <span
-                  class="bx--toggle__switch"
+                  class="cds--toggle__label-text"
+                />
+                <div
+                  class="cds--toggle__appearance"
                 >
-                  <span
-                    aria-hidden="true"
-                    class="bx--toggle__text--off"
+                  <div
+                    class="cds--toggle__switch"
                   />
                   <span
                     aria-hidden="true"
-                    class="bx--toggle__text--on"
+                    class="cds--toggle__text"
                   />
-                </span>
+                </div>
               </label>
             </div>
           </div>
           <div
-            class="bx--form__helper-text"
+            class="cds--form__helper-text"
             style="margin-bottom: 0px;"
           >
             Once a parameter is created, secured state will not be able to be updated
@@ -217,17 +236,17 @@ exports[`CreateEditPropertiesContent --- Snapshot Test > Capturing Snapshot of C
         </div>
       </div>
       <div
-        class="bx--modal-footer bx--btn-set"
+        class="cds--modal-footer cds--btn-set"
       >
         <button
-          class="bx--btn bx--btn--secondary"
+          class="cds--btn cds--btn--secondary"
           tabindex="0"
           type="button"
         >
           Cancel
         </button>
         <button
-          class="bx--btn bx--btn--primary"
+          class="cds--btn cds--btn--primary"
           data-testid="global-parameter-create-submission-button"
           tabindex="0"
           type="submit"

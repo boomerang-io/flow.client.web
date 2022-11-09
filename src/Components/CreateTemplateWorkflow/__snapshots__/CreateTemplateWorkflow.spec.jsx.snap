@@ -6,7 +6,7 @@ exports[`CreateTemplateWorkflow --- Snapshot Test > Capturing Snapshot of Create
 >
   <div>
     <button
-      class="bx--btn bx--btn--md bx--btn--ghost"
+      class="cds--btn cds--btn--md cds--btn--ghost"
       data-testid="workflows-create-workflow-template-button"
       tabindex="0"
       type="button"
@@ -16,10 +16,10 @@ exports[`CreateTemplateWorkflow --- Snapshot Test > Capturing Snapshot of Create
         class="_addIcon_e88a2f"
         fill="currentColor"
         focusable="false"
-        height="32"
+        height="16"
         preserveAspectRatio="xMidYMid meet"
         viewBox="0 0 32 32"
-        width="32"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -33,13 +33,13 @@ exports[`CreateTemplateWorkflow --- Snapshot Test > Capturing Snapshot of Create
       </p>
       <svg
         aria-hidden="true"
-        class="bx--btn__icon"
+        class="cds--btn__icon"
         fill="currentColor"
         focusable="false"
-        height="32"
+        height="16"
         preserveAspectRatio="xMidYMid meet"
         viewBox="0 0 32 32"
-        width="32"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -49,7 +49,7 @@ exports[`CreateTemplateWorkflow --- Snapshot Test > Capturing Snapshot of Create
     </button>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

@@ -6,43 +6,48 @@ exports[`WorkflowsHeader --- Snapshot > Capturing Snapshot of WorkflowsHeader 1`
 >
   <div>
     <header
-      class="bx--bmrg-feature-header _container_4d119f"
+      class="cds--bmrg-feature-header _container_4d119f"
     >
       <section
-        class="bx--bmrg-feature-header__content"
+        class="cds--bmrg-feature-header__content"
       >
         <div
-          class="bx--bmrg-feature-header__header"
+          class="cds--bmrg-feature-header__header"
         >
           <p
-            class="bx--bmrg-feature-header-title"
+            class="cds--bmrg-feature-header-title"
           >
             These are your
           </p>
           <h1
-            class="bx--bmrg-feature-header-title"
+            class="cds--bmrg-feature-header-title"
           >
             Workflows (undefined)
           </h1>
         </div>
         <div
-          class="bx--bmrg-feature-header__footer"
+          class="cds--bmrg-feature-header__footer"
         >
           <nav
-            class="bx--bmrg-feature-nav-tabs"
+            aria-label="Workflows view"
+            class="cds--tabs"
           >
-            <a
-              class="bx--bmrg-feature-nav-tab"
-              href="/workflows/mine"
+            <ul
+              class="cds--tab--list"
             >
-              My Workflows
-            </a>
-            <a
-              class="bx--bmrg-feature-nav-tab"
-              href="/workflows/teams"
-            >
-              Team Workflows
-            </a>
+              <a
+                class="cds--tabs__nav-item cds--tabs__nav-link"
+                href="/workflows/mine"
+              >
+                My Workflows
+              </a>
+              <a
+                class="cds--tabs__nav-item cds--tabs__nav-link"
+                href="/workflows/teams"
+              >
+                Team Workflows
+              </a>
+            </ul>
           </nav>
         </div>
       </section>
@@ -50,7 +55,7 @@ exports[`WorkflowsHeader --- Snapshot > Capturing Snapshot of WorkflowsHeader 1`
         class="_filterContainer_4d119f"
       >
         <button
-          class="bx--btn bx--btn--md bx--btn--ghost"
+          class="cds--btn cds--btn--md cds--btn--ghost"
           data-testid="workflows-create-workflow-template-button"
           tabindex="0"
           type="button"
@@ -60,10 +65,10 @@ exports[`WorkflowsHeader --- Snapshot > Capturing Snapshot of WorkflowsHeader 1`
             class="_addIcon_e88a2f"
             fill="currentColor"
             focusable="false"
-            height="32"
+            height="16"
             preserveAspectRatio="xMidYMid meet"
             viewBox="0 0 32 32"
-            width="32"
+            width="16"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -77,13 +82,13 @@ exports[`WorkflowsHeader --- Snapshot > Capturing Snapshot of WorkflowsHeader 1`
           </p>
           <svg
             aria-hidden="true"
-            class="bx--btn__icon"
+            class="cds--btn__icon"
             fill="currentColor"
             focusable="false"
-            height="32"
+            height="16"
             preserveAspectRatio="xMidYMid meet"
             viewBox="0 0 32 32"
-            width="32"
+            width="16"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -92,19 +97,19 @@ exports[`WorkflowsHeader --- Snapshot > Capturing Snapshot of WorkflowsHeader 1`
           </svg>
         </button>
         <div
-          class="_search_4d119f"
+          class="cds--layer-two _search_4d119f"
         >
           <div
             aria-labelledby="search-team-workflows-search"
-            class="bx--search bx--search--xl"
+            class="cds--search cds--search--md"
             role="search"
           >
             <div
-              class="bx--search-magnifier"
+              class="cds--search-magnifier"
             >
               <svg
                 aria-hidden="true"
-                class="bx--search-magnifier-icon"
+                class="cds--search-magnifier-icon"
                 fill="currentColor"
                 focusable="false"
                 height="16"
@@ -114,12 +119,12 @@ exports[`WorkflowsHeader --- Snapshot > Capturing Snapshot of WorkflowsHeader 1`
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                  d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                 />
               </svg>
             </div>
             <label
-              class="bx--label"
+              class="cds--label"
               for="search-team-workflows"
               id="search-team-workflows-search"
             >
@@ -127,7 +132,7 @@ exports[`WorkflowsHeader --- Snapshot > Capturing Snapshot of WorkflowsHeader 1`
             </label>
             <input
               autocomplete="off"
-              class="bx--search-input"
+              class="cds--search-input"
               data-testid="workflows-team-search"
               id="search-team-workflows"
               placeholder="Search for a workflow"
@@ -137,7 +142,8 @@ exports[`WorkflowsHeader --- Snapshot > Capturing Snapshot of WorkflowsHeader 1`
             />
             <button
               aria-label="Clear search input"
-              class="bx--search-close bx--search-close--hidden"
+              class="cds--search-close cds--search-close--hidden"
+              title="Clear search input"
               type="button"
             >
               <svg
@@ -161,7 +167,7 @@ exports[`WorkflowsHeader --- Snapshot > Capturing Snapshot of WorkflowsHeader 1`
     </header>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

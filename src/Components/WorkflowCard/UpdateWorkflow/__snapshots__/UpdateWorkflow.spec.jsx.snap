@@ -2,7 +2,7 @@
 
 exports[`ImportWorkflow --- Snapshot Test > Capturing Snapshot of ImportWorkflow 1`] = `
 <body
-  class="bx--bmrg-body-modal-is-open"
+  class="cds--bmrg-body-modal-is-open"
   id="app"
 >
   <div
@@ -17,34 +17,34 @@ exports[`ImportWorkflow --- Snapshot Test > Capturing Snapshot of ImportWorkflow
     tabindex="0"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   >
     <div
-      class="bx--bmrg-modal-overlay"
+      class="cds--bmrg-modal-overlay"
     >
       <div
         aria-modal="true"
-        class="bx--bmrg-modal-container bx--bmrg-modal-flow-container bx--modal-container modal-container-fix-width _container_fe4e61"
+        class="cds--bmrg-modal-container cds--bmrg-modal-flow-container cds--modal-container modal-container-fix-width _container_fe4e61"
         role="dialog"
         tabindex="-1"
       >
         <div
-          class="bx--modal-header"
+          class="cds--modal-header"
         >
           <h3
-            class="bx--modal-header__heading bx--type-beta"
+            class="cds--modal-header__heading cds--type-beta"
           >
             Update undefined
           </h3>
           <button
             aria-label="Close"
-            class="bx--modal-close"
+            class="cds--modal-close"
             title="Close"
             type="button"
           >
             <svg
               aria-hidden="true"
-              class="bx--modal-close__icon"
+              class="cds--modal-close__icon"
               fill="currentColor"
               focusable="false"
               height="20"
@@ -60,27 +60,27 @@ exports[`ImportWorkflow --- Snapshot Test > Capturing Snapshot of ImportWorkflow
           </button>
         </div>
         <form
-          class="bx--bmrg-modal-flow-form"
+          class="cds--bmrg-modal-flow-form"
         >
           <p
-            class="bx--bmrg-modal-flow-form__title"
+            class="cds--bmrg-modal-flow-form__title"
           >
             Select the undefined JSON file you want to update the current undefined with. The undefined id must match.
           </p>
           <div
-            class="bx--modal-content"
+            class="cds--modal-content"
             style="height: 21rem; width: 100%;"
           >
             <div
-              class="bx--file"
+              class="cds--file"
             >
               <label
-                class="bx--file-browse-btn"
+                class="cds--file-browse-btn"
                 for="id1"
                 tabindex="0"
               >
                 <div
-                  class="bx--file__drop-container"
+                  class="cds--file__drop-container"
                   role="button"
                 >
                   Choose a file or drag one here
@@ -88,7 +88,7 @@ exports[`ImportWorkflow --- Snapshot Test > Capturing Snapshot of ImportWorkflow
               </label>
               <input
                 accept=".json"
-                class="bx--file-input"
+                class="cds--file-input"
                 id="id1"
                 name="Workflow"
                 tabindex="-1"
@@ -97,17 +97,17 @@ exports[`ImportWorkflow --- Snapshot Test > Capturing Snapshot of ImportWorkflow
             </div>
           </div>
           <div
-            class="bx--modal-footer bx--btn-set"
+            class="cds--modal-footer cds--btn-set"
           >
             <button
-              class="bx--btn bx--btn--secondary"
+              class="cds--btn cds--btn--secondary"
               tabindex="0"
               type="button"
             >
               Cancel
             </button>
             <button
-              class="bx--btn bx--btn--primary bx--btn--disabled"
+              class="cds--btn cds--btn--primary cds--btn--disabled"
               disabled=""
               tabindex="0"
               type="submit"
@@ -120,7 +120,7 @@ exports[`ImportWorkflow --- Snapshot Test > Capturing Snapshot of ImportWorkflow
     </div>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

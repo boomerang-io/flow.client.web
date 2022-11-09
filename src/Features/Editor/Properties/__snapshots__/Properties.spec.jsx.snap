@@ -231,13 +231,13 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
     </div>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

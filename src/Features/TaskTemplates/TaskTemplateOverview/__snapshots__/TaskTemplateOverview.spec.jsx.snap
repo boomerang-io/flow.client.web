@@ -9,10 +9,10 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
       class="_container_734922"
     >
       <header
-        class="bx--bmrg-feature-header _featureHeader_4b0ee6 --bordered"
+        class="cds--bmrg-feature-header _featureHeader_4b0ee6 --bordered"
       >
         <section
-          class="bx--bmrg-feature-header__content"
+          class="cds--bmrg-feature-header__content"
         >
           <p
             class="_category_4b0ee6"
@@ -35,7 +35,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
               />
             </svg>
             <h1
@@ -94,24 +94,29 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
             Version created Apr 30, 2020 by ---
           </p>
           <div
-            class="bx--bmrg-feature-header__footer"
+            class="cds--bmrg-feature-header__footer"
           >
             <nav
-              class="bx--bmrg-feature-nav-tabs"
+              aria-label="Task template views"
+              class="cds--tabs"
             >
-              <a
-                aria-current="page"
-                class="bx--bmrg-feature-nav-tab bx--bmrg-feature-nav-tab--active"
-                href="/admin/task-templates/5e670a1e2d5e6a302de4f41d/1"
+              <ul
+                class="cds--tab--list"
               >
-                Overview
-              </a>
-              <a
-                class="bx--bmrg-feature-nav-tab"
-                href="/admin/task-templates/5e670a1e2d5e6a302de4f41d/1/yaml-editor"
-              >
-                Yaml
-              </a>
+                <a
+                  aria-current="page"
+                  class="cds--tabs__nav-item cds--tabs__nav-link cds--tabs__nav-item--selected"
+                  href="/admin/task-templates/5e670a1e2d5e6a302de4f41d/1"
+                >
+                  Overview
+                </a>
+                <a
+                  class="cds--tabs__nav-item cds--tabs__nav-link"
+                  href="/admin/task-templates/5e670a1e2d5e6a302de4f41d/1/yaml-editor"
+                >
+                  Yaml
+                </a>
+              </ul>
             </nav>
           </div>
         </section>
@@ -224,7 +229,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
             </div>
           </div>
           <button
-            class="_resetButton_4b0ee6 bx--btn bx--btn--md bx--btn--ghost bx--btn--disabled"
+            class="_resetButton_4b0ee6 cds--btn cds--btn--md cds--btn--ghost cds--btn--disabled"
             disabled=""
             tabindex="0"
             type="button"
@@ -233,7 +238,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
             Reset changes
             <svg
               aria-hidden="true"
-              class="bx--btn__icon"
+              class="cds--btn__icon"
               fill="currentColor"
               focusable="false"
               height="16"
@@ -243,12 +248,12 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M12,8c1.2,0,2,0.8,2,2c0,1.2-0.8,2-2,2H9v1h3c1.7,0,3-1.2,3-3c0-1.7-1.3-3-3-3L2.9,7l2-2L4.2,4.3L1,7.5	l3.2,3.2L4.9,10l-2-2L12,8z"
+                d="M12,8c1.2,0,2,0.8,2,2c0,1.2-0.8,2-2,2H9v1h3c1.7,0,3-1.2,3-3c0-1.7-1.3-3-3-3L2.9,7l2-2L4.2,4.3L1,7.5 l3.2,3.2L4.9,10l-2-2L12,8z"
               />
             </svg>
           </button>
           <button
-            class="_mainActionButton_4b0ee6 bx--btn bx--btn--md bx--btn--primary bx--btn--disabled"
+            class="_mainActionButton_4b0ee6 cds--btn cds--btn--md cds--btn--primary cds--btn--disabled"
             disabled=""
             tabindex="0"
             type="button"
@@ -257,7 +262,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
             <svg
               aria-hidden="true"
               aria-label="Save a new version or update the current one"
-              class="bx--btn__icon"
+              class="cds--btn__icon"
               fill="currentColor"
               focusable="false"
               height="16"
@@ -268,7 +273,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M13.9,4.6l-2.5-2.5C11.3,2.1,11.1,2,11,2H3C2.4,2,2,2.4,2,3v10c0,0.6,0.4,1,1,1h10c0.6,0,1-0.4,1-1V5	C14,4.9,13.9,4.7,13.9,4.6z M6,3h4v2H6V3z M10,13H6V9h4V13z M11,13V9c0-0.6-0.4-1-1-1H6C5.4,8,5,8.4,5,9v4H3V3h2v2c0,0.6,0.4,1,1,1	h4c0.6,0,1-0.4,1-1V3.2l2,2V13H11z"
+                d="M13.9,4.6l-2.5-2.5C11.3,2.1,11.1,2,11,2H3C2.4,2,2,2.4,2,3v10c0,0.6,0.4,1,1,1h10c0.6,0,1-0.4,1-1V5 C14,4.9,13.9,4.7,13.9,4.6z M6,3h4v2H6V3z M10,13H6V9h4V13z M11,13V9c0-0.6-0.4-1-1-1H6C5.4,8,5,8.4,5,9v4H3V3h2v2c0,0.6,0.4,1,1,1 h4c0.6,0,1-0.4,1-1V3.2l2,2V13H11z"
               />
             </svg>
           </button>
@@ -286,7 +291,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
             Build the definition requirements for this task.
           </p>
           <button
-            class="_archive_734922 bx--btn bx--btn--md bx--btn--ghost"
+            class="_archive_734922 cds--btn cds--btn--md cds--btn--ghost"
             tabindex="0"
             type="button"
           >
@@ -294,7 +299,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
             <svg
               aria-hidden="true"
               aria-label="Archive"
-              class="bx--btn__icon"
+              class="cds--btn__icon"
               fill="currentColor"
               focusable="false"
               height="16"
@@ -317,7 +322,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
           class="_detailCardsContainer_734922"
         >
           <div
-            class="bx--tile _editDetailsCard_734922"
+            class="cds--tile _editDetailsCard_734922"
           >
             <section
               class="_editTitle_734922"
@@ -326,14 +331,14 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
                 Basics
               </h1>
               <button
-                class="bx--btn bx--btn--md bx--btn--ghost"
+                class="cds--btn cds--btn--md cds--btn--ghost"
                 tabindex="0"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
                   aria-label="edit-template"
-                  class="bx--btn__icon"
+                  class="cds--btn__icon"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -406,7 +411,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                      d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                     />
                   </svg>
                   <p
@@ -560,7 +565,7 @@ lookUpUser
             </dl>
           </div>
           <div
-            class="bx--tile _editFieldsCard_734922"
+            class="cds--tile _editFieldsCard_734922"
           >
             <section
               class="_editTitle_734922"
@@ -581,7 +586,7 @@ lookUpUser
                 class="_fieldActions_734922"
               >
                 <button
-                  class="bx--btn bx--btn--md bx--btn--ghost"
+                  class="cds--btn cds--btn--md cds--btn--ghost"
                   style="width: 6.25rem;"
                   tabindex="0"
                   type="button"
@@ -590,7 +595,7 @@ lookUpUser
                   <svg
                     aria-hidden="true"
                     aria-label="Preview task"
-                    class="bx--btn__icon"
+                    class="cds--btn__icon"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -601,7 +606,7 @@ lookUpUser
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M15.5,7.8C14.3,4.7,11.3,2.6,8,2.5C4.7,2.6,1.7,4.7,0.5,7.8c0,0.1,0,0.2,0,0.3c1.2,3.1,4.1,5.2,7.5,5.3	c3.3-0.1,6.3-2.2,7.5-5.3C15.5,8.1,15.5,7.9,15.5,7.8z M8,12.5c-2.7,0-5.4-2-6.5-4.5c1-2.5,3.8-4.5,6.5-4.5s5.4,2,6.5,4.5	C13.4,10.5,10.6,12.5,8,12.5z"
+                      d="M15.5,7.8C14.3,4.7,11.3,2.6,8,2.5C4.7,2.6,1.7,4.7,0.5,7.8c0,0.1,0,0.2,0,0.3c1.2,3.1,4.1,5.2,7.5,5.3 c3.3-0.1,6.3-2.2,7.5-5.3C15.5,8.1,15.5,7.9,15.5,7.8z M8,12.5c-2.7,0-5.4-2-6.5-4.5c1-2.5,3.8-4.5,6.5-4.5s5.4,2,6.5,4.5 C13.4,10.5,10.6,12.5,8,12.5z"
                     />
                     <path
                       d="M8,5C6.3,5,5,6.3,5,8s1.3,3,3,3s3-1.3,3-3S9.7,5,8,5z M8,10c-1.1,0-2-0.9-2-2s0.9-2,2-2s2,0.9,2,2S9.1,10,8,10z"
@@ -609,7 +614,7 @@ lookUpUser
                   </svg>
                 </button>
                 <button
-                  class="bx--btn bx--btn--md bx--btn--ghost"
+                  class="cds--btn cds--btn--md cds--btn--ghost"
                   style="margin-right: 0.5rem;"
                   tabindex="0"
                   type="button"
@@ -618,7 +623,7 @@ lookUpUser
                   <svg
                     aria-hidden="true"
                     aria-label="Add field"
-                    class="bx--btn__icon"
+                    class="cds--btn__icon"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -680,14 +685,14 @@ lookUpUser
                   class="_actions_734922"
                 >
                   <button
-                    class="bx--btn bx--btn--md bx--btn--ghost"
+                    class="cds--btn cds--btn--md cds--btn--ghost"
                     tabindex="0"
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
                       aria-label="Edit field"
-                      class="bx--btn__icon"
+                      class="cds--btn__icon"
                       fill="currentColor"
                       focusable="false"
                       height="16"
@@ -703,14 +708,14 @@ lookUpUser
                     </svg>
                   </button>
                   <button
-                    class="_delete_734922 bx--btn bx--btn--md bx--btn--ghost"
+                    class="_delete_734922 cds--btn cds--btn--md cds--btn--ghost"
                     tabindex="0"
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
                       aria-label="delete-field"
-                      class="bx--btn__icon"
+                      class="cds--btn__icon"
                       fill="currentColor"
                       focusable="false"
                       height="16"
@@ -772,14 +777,14 @@ lookUpUser
                   class="_actions_734922"
                 >
                   <button
-                    class="bx--btn bx--btn--md bx--btn--ghost"
+                    class="cds--btn cds--btn--md cds--btn--ghost"
                     tabindex="0"
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
                       aria-label="Edit field"
-                      class="bx--btn__icon"
+                      class="cds--btn__icon"
                       fill="currentColor"
                       focusable="false"
                       height="16"
@@ -795,14 +800,14 @@ lookUpUser
                     </svg>
                   </button>
                   <button
-                    class="_delete_734922 bx--btn bx--btn--md bx--btn--ghost"
+                    class="_delete_734922 cds--btn cds--btn--md cds--btn--ghost"
                     tabindex="0"
                     type="button"
                   >
                     <svg
                       aria-hidden="true"
                       aria-label="delete-field"
-                      class="bx--btn__icon"
+                      class="cds--btn__icon"
                       fill="currentColor"
                       focusable="false"
                       height="16"
@@ -825,7 +830,7 @@ lookUpUser
             </div>
           </div>
           <div
-            class="bx--tile _editFieldsCard_734922"
+            class="cds--tile _editFieldsCard_734922"
           >
             <section
               class="_editTitleParameters_734922"
@@ -834,7 +839,7 @@ lookUpUser
                 Result Parameters
               </h1>
               <button
-                class="bx--btn bx--btn--md bx--btn--ghost"
+                class="cds--btn cds--btn--md cds--btn--ghost"
                 style="margin-right: 0.5rem;"
                 tabindex="0"
                 type="button"
@@ -843,7 +848,7 @@ lookUpUser
                 <svg
                   aria-hidden="true"
                   aria-label="Add result parameter"
-                  class="bx--btn__icon"
+                  class="cds--btn__icon"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -888,34 +893,34 @@ lookUpUser
     </div>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
     aria-atomic="true"

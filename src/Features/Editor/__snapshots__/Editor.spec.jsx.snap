@@ -9,35 +9,35 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
       class="_container_189893"
     >
       <header
-        class="bx--bmrg-feature-header _container_e3db26 --bordered"
+        class="cds--bmrg-feature-header _container_e3db26 --bordered"
       >
         <section
-          class="bx--bmrg-feature-header__content"
+          class="cds--bmrg-feature-header__content"
         >
           <div
-            class="bx--bmrg-feature-header__nav"
+            class="cds--bmrg-feature-header__nav"
           >
             <nav
               aria-label="Breadcrumb"
             >
               <ol
-                class="bx--breadcrumb bx--breadcrumb--no-trailing-slash"
+                class="cds--breadcrumb cds--breadcrumb--no-trailing-slash"
               >
                 <li
-                  class="bx--breadcrumb-item"
+                  class="cds--breadcrumb-item"
                 >
                   <a
-                    class="bx--link"
+                    class="cds--link"
                     href="/workflows/teams"
                   >
                     Workflows
                   </a>
                 </li>
                 <li
-                  class="bx--breadcrumb-item bx--breadcrumb-item--current"
+                  class="cds--breadcrumb-item cds--breadcrumb-item--current"
                 >
                   <p
-                    class="bx--link"
+                    class="cds--link"
                   >
                     ML Train – Bot Efficiency
                   </p>
@@ -46,51 +46,56 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
             </nav>
           </div>
           <div
-            class="bx--bmrg-feature-header__header"
+            class="cds--bmrg-feature-header__header"
           >
             <h1
-              class="bx--bmrg-feature-header-title"
+              class="cds--bmrg-feature-header-title"
             >
               Editor
             </h1>
           </div>
           <div
-            class="bx--bmrg-feature-header__footer"
+            class="cds--bmrg-feature-header__footer"
           >
             <nav
-              class="bx--bmrg-feature-nav-tabs"
+              aria-label="Editor pages"
+              class="cds--tabs"
             >
-              <a
-                aria-current="page"
-                class="bx--bmrg-feature-nav-tab bx--bmrg-feature-nav-tab--active"
-                href="/editor/5eb2c4085a92d80001a16d87/workflow"
+              <ul
+                class="cds--tab--list"
               >
-                Workflow
-              </a>
-              <a
-                class="bx--bmrg-feature-nav-tab"
-                href="/editor/5eb2c4085a92d80001a16d87/parameters"
-              >
-                Parameters
-              </a>
-              <a
-                class="bx--bmrg-feature-nav-tab"
-                href="/editor/5eb2c4085a92d80001a16d87/configure"
-              >
-                Configure
-              </a>
-              <a
-                class="bx--bmrg-feature-nav-tab"
-                href="/editor/5eb2c4085a92d80001a16d87/schedule"
-              >
-                Schedule
-              </a>
-              <a
-                class="bx--bmrg-feature-nav-tab"
-                href="/editor/5eb2c4085a92d80001a16d87/changelog"
-              >
-                Change Log
-              </a>
+                <a
+                  aria-current="page"
+                  class="cds--tabs__nav-item cds--tabs__nav-link cds--tabs__nav-item--selected"
+                  href="/editor/5eb2c4085a92d80001a16d87/workflow"
+                >
+                  Workflow
+                </a>
+                <a
+                  class="cds--tabs__nav-item cds--tabs__nav-link"
+                  href="/editor/5eb2c4085a92d80001a16d87/parameters"
+                >
+                  Parameters
+                </a>
+                <a
+                  class="cds--tabs__nav-item cds--tabs__nav-link"
+                  href="/editor/5eb2c4085a92d80001a16d87/configure"
+                >
+                  Configure
+                </a>
+                <a
+                  class="cds--tabs__nav-item cds--tabs__nav-link"
+                  href="/editor/5eb2c4085a92d80001a16d87/schedule"
+                >
+                  Schedule
+                </a>
+                <a
+                  class="cds--tabs__nav-item cds--tabs__nav-link"
+                  href="/editor/5eb2c4085a92d80001a16d87/changelog"
+                >
+                  Change Log
+                </a>
+              </ul>
             </nav>
           </div>
         </section>
@@ -204,7 +209,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
             class="_workflowActionContainer_e3db26"
           >
             <button
-              class="bx--btn bx--btn--md bx--btn--ghost"
+              class="cds--btn cds--btn--md cds--btn--ghost"
               style="display: none;"
               tabindex="0"
               type="button"
@@ -213,7 +218,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 aria-label="Set version to latest"
-                class="bx--btn__icon"
+                class="cds--btn__icon"
                 fill="currentColor"
                 focusable="false"
                 height="16"
@@ -232,7 +237,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
               </svg>
             </button>
             <button
-              class="bx--btn bx--btn--md bx--btn--ghost"
+              class="cds--btn cds--btn--md cds--btn--ghost"
               tabindex="0"
               type="button"
             >
@@ -240,7 +245,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 aria-label="Create new version"
-                class="bx--btn__icon"
+                class="cds--btn__icon"
                 fill="currentColor"
                 focusable="false"
                 height="16"
@@ -280,32 +285,32 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 class="_collapseButtonImg_542829"
                 fill="currentColor"
                 focusable="false"
-                height="32"
+                height="16"
                 preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 32 32"
-                width="32"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M10 16L20 6 21.4 7.4 12.8 16 21.4 24.6 20 26z"
+                  d="M5 8L10 3 10.7 3.7 6.4 8 10.7 12.3 10 13z"
                 />
               </svg>
             </button>
           </header>
-          <section
-            class="_tasks_542829"
+          <div
+            class="cds--layer-two _tasks_542829"
           >
             <div
               aria-labelledby="search-tasks-search"
-              class="bx--search bx--search--sm bx--search--light"
+              class="cds--search cds--search--sm"
               role="search"
             >
               <div
-                class="bx--search-magnifier"
+                class="cds--search-magnifier"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--search-magnifier-icon"
+                  class="cds--search-magnifier-icon"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -315,12 +320,12 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                    d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                   />
                 </svg>
               </div>
               <label
-                class="bx--label"
+                class="cds--label"
                 for="search-tasks"
                 id="search-tasks-search"
               >
@@ -328,7 +333,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
               </label>
               <input
                 autocomplete="off"
-                class="bx--search-input"
+                class="cds--search-input"
                 data-testid="editor-task-search"
                 id="search-tasks"
                 placeholder="Search for a task"
@@ -338,7 +343,8 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
               />
               <button
                 aria-label="Clear search input"
-                class="bx--search-close bx--search-close--hidden"
+                class="cds--search-close cds--search-close--hidden"
+                title="Clear search input"
                 type="button"
               >
                 <svg
@@ -360,14 +366,13 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
             <button
               aria-expanded="false"
               aria-haspopup="true"
-              aria-label="open and close list of options"
-              class="bx--overflow-menu bx--overflow-menu--sm"
+              class="cds--overflow-menu cds--overflow-menu--sm"
               style="border-radius: 0.25rem;"
               type="button"
             >
               <svg
                 aria-label="Filter"
-                class="bx--overflow-menu__icon"
+                class="cds--overflow-menu__icon"
                 fill="currentColor"
                 focusable="false"
                 height="16"
@@ -380,12 +385,9 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 <path
                   d="M30 8h-4.1c-.5-2.3-2.5-4-4.9-4s-4.4 1.7-4.9 4H2v2h14.1c.5 2.3 2.5 4 4.9 4s4.4-1.7 4.9-4H30V8zM21 12c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3S22.7 12 21 12zM2 24h4.1c.5 2.3 2.5 4 4.9 4s4.4-1.7 4.9-4H30v-2H15.9c-.5-2.3-2.5-4-4.9-4s-4.4 1.7-4.9 4H2V24zM11 20c1.7 0 3 1.3 3 3s-1.3 3-3 3-3-1.3-3-3S9.3 20 11 20z"
                 />
-                <title>
-                  Filter
-                </title>
               </svg>
             </button>
-          </section>
+          </div>
           <section
             class="_detail_542829"
           >
@@ -404,20 +406,20 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
             class="_content_542829"
           >
             <ul
-              class="bx--accordion bx--accordion--end bx--accordion--md"
+              class="cds--accordion cds--accordion--end cds--accordion--md"
             >
               <li
-                class="bx--accordion__item bx--accordion__item--active _taskCategory_542829"
+                class="cds--accordion__item cds--accordion__item--active _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-3"
+                  aria-controls="accordion-item-4"
                   aria-expanded="true"
-                  class="bx--accordion__heading"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -431,15 +433,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     workflow (8)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-3"
+                  class="cds--accordion__content"
+                  id="accordion-item-4"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -447,7 +449,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -504,7 +506,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -561,7 +563,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -622,7 +624,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -683,7 +685,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -740,7 +742,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -797,7 +799,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -854,7 +856,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -879,7 +881,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M11.2,2.9l-0.5,0.9c2.6,1.5,3.5,4.9,2,7.5s-4.9,3.5-7.5,2s-3.5-4.9-2-7.5c0.5-0.8,1.2-1.5,2-2L4.8,2.9	c-3.1,1.8-4.2,5.8-2.4,8.9s5.8,4.2,8.9,2.4s4.2-5.8,2.4-8.9C13.1,4.3,12.2,3.4,11.2,2.9z"
+                                d="M11.2,2.9l-0.5,0.9c2.6,1.5,3.5,4.9,2,7.5s-4.9,3.5-7.5,2s-3.5-4.9-2-7.5c0.5-0.8,1.2-1.5,2-2L4.8,2.9 c-3.1,1.8-4.2,5.8-2.4,8.9s5.8,4.2,8.9,2.4s4.2-5.8,2.4-8.9C13.1,4.3,12.2,3.4,11.2,2.9z"
                               />
                               <path
                                 d="M7.5 1H8.5V8H7.5z"
@@ -915,16 +917,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item _taskCategory_542829"
+                class="cds--accordion__item _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-4"
-                  class="bx--accordion__heading"
+                  aria-controls="accordion-item-5"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -938,15 +940,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     Communication (1)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-4"
+                  class="cds--accordion__content"
+                  id="accordion-item-5"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -954,7 +956,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1015,16 +1017,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item _taskCategory_542829"
+                class="cds--accordion__item _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-5"
-                  class="bx--accordion__heading"
+                  aria-controls="accordion-item-6"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -1038,15 +1040,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     GitHub (2)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-5"
+                  class="cds--accordion__content"
+                  id="accordion-item-6"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -1054,7 +1056,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1111,7 +1113,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1173,16 +1175,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item _taskCategory_542829"
+                class="cds--accordion__item _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-6"
-                  class="bx--accordion__heading"
+                  aria-controls="accordion-item-7"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -1196,15 +1198,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     Github (2)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-6"
+                  class="cds--accordion__content"
+                  id="accordion-item-7"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -1212,7 +1214,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1273,7 +1275,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1335,16 +1337,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item _taskCategory_542829"
+                class="cds--accordion__item _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-7"
-                  class="bx--accordion__heading"
+                  aria-controls="accordion-item-8"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -1358,15 +1360,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     ServiceNow (2)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-7"
+                  class="cds--accordion__content"
+                  id="accordion-item-8"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -1374,7 +1376,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1431,7 +1433,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1493,16 +1495,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item _taskCategory_542829"
+                class="cds--accordion__item _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-8"
-                  class="bx--accordion__heading"
+                  aria-controls="accordion-item-9"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -1516,15 +1518,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     Test (1)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-8"
+                  class="cds--accordion__content"
+                  id="accordion-item-9"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -1532,7 +1534,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1578,16 +1580,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item _taskCategory_542829"
+                class="cds--accordion__item _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-9"
-                  class="bx--accordion__heading"
+                  aria-controls="accordion-item-10"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -1601,15 +1603,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     Utilities (1)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-9"
+                  class="cds--accordion__content"
+                  id="accordion-item-10"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -1617,7 +1619,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1675,16 +1677,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item _taskCategory_542829"
+                class="cds--accordion__item _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-10"
-                  class="bx--accordion__heading"
+                  aria-controls="accordion-item-11"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -1698,15 +1700,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     artifactory (2)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-10"
+                  class="cds--accordion__content"
+                  id="accordion-item-11"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -1714,7 +1716,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1771,7 +1773,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1829,16 +1831,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item _taskCategory_542829"
+                class="cds--accordion__item _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-11"
-                  class="bx--accordion__heading"
+                  aria-controls="accordion-item-12"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -1852,15 +1854,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     boomerang (2)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-11"
+                  class="cds--accordion__content"
+                  id="accordion-item-12"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -1868,7 +1870,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1928,7 +1930,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -1989,16 +1991,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item _taskCategory_542829"
+                class="cds--accordion__item _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-12"
-                  class="bx--accordion__heading"
+                  aria-controls="accordion-item-13"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -2012,15 +2014,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     communication (4)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-12"
+                  class="cds--accordion__content"
+                  id="accordion-item-13"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -2028,7 +2030,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2073,7 +2075,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2133,7 +2135,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2158,7 +2160,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                               />
                             </svg>
                             <p
@@ -2190,7 +2192,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2248,16 +2250,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item _taskCategory_542829"
+                class="cds--accordion__item _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-13"
-                  class="bx--accordion__heading"
+                  aria-controls="accordion-item-14"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -2271,15 +2273,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     file utilities (6)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-13"
+                  class="cds--accordion__content"
+                  id="accordion-item-14"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -2287,7 +2289,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2312,7 +2314,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                               />
                             </svg>
                             <p
@@ -2344,7 +2346,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2369,7 +2371,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                               />
                             </svg>
                             <p
@@ -2401,7 +2403,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2426,7 +2428,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M16,4c6.6,0,12,5.4,12,12s-5.4,12-12,12S4,22.6,4,16S9.4,4,16,4 M16,2C8.3,2,2,8.3,2,16s6.3,14,14,14s14-6.3,14-14	S23.7,2,16,2z"
+                                d="M16,4c6.6,0,12,5.4,12,12s-5.4,12-12,12S4,22.6,4,16S9.4,4,16,4 M16,2C8.3,2,2,8.3,2,16s6.3,14,14,14s14-6.3,14-14 S23.7,2,16,2z"
                               />
                               <path
                                 d="M24 15L17 15 17 8 15 8 15 15 8 15 8 17 15 17 15 24 17 24 17 17 24 17z"
@@ -2461,7 +2463,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2486,7 +2488,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                               />
                             </svg>
                             <p
@@ -2518,7 +2520,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2543,7 +2545,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                               />
                             </svg>
                             <p
@@ -2575,7 +2577,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2618,16 +2620,16 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 </div>
               </li>
               <li
-                class="bx--accordion__item _taskCategory_542829"
+                class="cds--accordion__item _taskCategory_542829"
               >
                 <button
-                  aria-controls="accordion-item-14"
-                  class="bx--accordion__heading"
+                  aria-controls="accordion-item-15"
+                  class="cds--accordion__heading"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="bx--accordion__arrow"
+                    class="cds--accordion__arrow"
                     fill="currentColor"
                     focusable="false"
                     height="16"
@@ -2641,15 +2643,15 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     />
                   </svg>
                   <div
-                    class="bx--accordion__title"
+                    class="cds--accordion__title"
                     dir="auto"
                   >
                     utilities (3)
                   </div>
                 </button>
                 <div
-                  class="bx--accordion__content"
-                  id="accordion-item-14"
+                  class="cds--accordion__content"
+                  id="accordion-item-15"
                 >
                   <ul
                     class="_taskSection_542829"
@@ -2657,7 +2659,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2714,7 +2716,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2731,11 +2733,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                               class="_taskIcon_fa1251"
                               fill="currentColor"
                               focusable="false"
-                              height="20"
+                              height="16"
                               preserveAspectRatio="xMidYMid meet"
                               style="will-change: auto;"
                               viewBox="0 0 32 32"
-                              width="20"
+                              width="16"
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
@@ -2775,7 +2777,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                     <li>
                       <div
                         aria-selected="false"
-                        class="bx--tile _container_fa1251 _globalTask_fa1251"
+                        class="cds--tile _container_fa1251 _globalTask_fa1251"
                         draggable="true"
                         role="option"
                         tabindex="0"
@@ -2800,7 +2802,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M11.2,2.9l-0.5,0.9c2.6,1.5,3.5,4.9,2,7.5s-4.9,3.5-7.5,2s-3.5-4.9-2-7.5c0.5-0.8,1.2-1.5,2-2L4.8,2.9	c-3.1,1.8-4.2,5.8-2.4,8.9s5.8,4.2,8.9,2.4s4.2-5.8,2.4-8.9C13.1,4.3,12.2,3.4,11.2,2.9z"
+                                d="M11.2,2.9l-0.5,0.9c2.6,1.5,3.5,4.9,2,7.5s-4.9,3.5-7.5,2s-3.5-4.9-2-7.5c0.5-0.8,1.2-1.5,2-2L4.8,2.9 c-3.1,1.8-4.2,5.8-2.4,8.9s5.8,4.2,8.9,2.4s4.2-5.8,2.4-8.9C13.1,4.3,12.2,3.4,11.2,2.9z"
                               />
                               <path
                                 d="M7.5 1H8.5V8H7.5z"
@@ -2863,7 +2865,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   d="M4 6H9V7H4z"
                 />
                 <path
-                  d="M10.7,10C11.5,9,12,7.8,12,6.5C12,3.5,9.5,1,6.5,1S1,3.5,1,6.5S3.5,12,6.5,12c1.3,0,2.5-0.5,3.5-1.3l3.8,3.8l0.7-0.7	L10.7,10z M6.5,11C4,11,2,9,2,6.5S4,2,6.5,2S11,4,11,6.5S9,11,6.5,11L6.5,11z"
+                  d="M10.7,10C11.5,9,12,7.8,12,6.5C12,3.5,9.5,1,6.5,1S1,3.5,1,6.5S3.5,12,6.5,12c1.3,0,2.5-0.5,3.5-1.3l3.8,3.8l0.7-0.7 L10.7,10z M6.5,11C4,11,2,9,2,6.5S4,2,6.5,2S11,4,11,6.5S9,11,6.5,11L6.5,11z"
                 />
               </svg>
             </button>
@@ -2885,7 +2887,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                   d="M9 6L7 6 7 4 6 4 6 6 4 6 4 7 6 7 6 9 7 9 7 7 9 7z"
                 />
                 <path
-                  d="M10.7,10C11.5,9,12,7.8,12,6.5C12,3.5,9.5,1,6.5,1S1,3.5,1,6.5S3.5,12,6.5,12c1.3,0,2.5-0.5,3.5-1.3l3.8,3.8l0.7-0.7	L10.7,10z M6.5,11C4,11,2,9,2,6.5S4,2,6.5,2S11,4,11,6.5S9,11,6.5,11L6.5,11z"
+                  d="M10.7,10C11.5,9,12,7.8,12,6.5C12,3.5,9.5,1,6.5,1S1,3.5,1,6.5S3.5,12,6.5,12c1.3,0,2.5-0.5,3.5-1.3l3.8,3.8l0.7-0.7 L10.7,10z M6.5,11C4,11,2,9,2,6.5S4,2,6.5,2S11,4,11,6.5S9,11,6.5,11L6.5,11z"
                 />
               </svg>
             </button>
@@ -5784,11 +5786,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       aria-hidden="true"
                       fill="currentColor"
                       focusable="false"
-                      height="20"
+                      height="16"
                       preserveAspectRatio="xMidYMid meet"
                       style="will-change: auto;"
                       viewBox="0 0 32 32"
-                      width="20"
+                      width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -6076,11 +6078,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       aria-hidden="true"
                       fill="currentColor"
                       focusable="false"
-                      height="20"
+                      height="16"
                       preserveAspectRatio="xMidYMid meet"
                       style="will-change: auto;"
                       viewBox="0 0 32 32"
-                      width="20"
+                      width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -6224,11 +6226,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       aria-hidden="true"
                       fill="currentColor"
                       focusable="false"
-                      height="20"
+                      height="16"
                       preserveAspectRatio="xMidYMid meet"
                       style="will-change: auto;"
                       viewBox="0 0 32 32"
-                      width="20"
+                      width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -6808,11 +6810,11 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                       aria-hidden="true"
                       fill="currentColor"
                       focusable="false"
-                      height="20"
+                      height="16"
                       preserveAspectRatio="xMidYMid meet"
                       style="will-change: auto;"
                       viewBox="0 0 32 32"
-                      width="20"
+                      width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -6975,10 +6977,10 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
                 class="_notesIcon_d06b72"
                 fill="currentColor"
                 focusable="false"
-                height="24"
+                height="16"
                 preserveAspectRatio="xMidYMid meet"
                 viewBox="0 0 32 32"
-                width="24"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -7320,7 +7322,16 @@ Hello World!
                 >
                   <div
                     class="markdown-body"
-                  />
+                  >
+                    <h1>
+                      Overview
+                    </h1>
+                    
+
+                    <p>
+                      Hello World!
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -7330,64 +7341,64 @@ Hello World!
     </div>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

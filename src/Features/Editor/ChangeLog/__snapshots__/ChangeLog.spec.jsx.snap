@@ -13,15 +13,15 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
       >
         <div
           aria-labelledby="change-log-table-search-search"
-          class="bx--search bx--search--xl _search_468963"
+          class="cds--search cds--search--md _search_468963"
           role="search"
         >
           <div
-            class="bx--search-magnifier"
+            class="cds--search-magnifier"
           >
             <svg
               aria-hidden="true"
-              class="bx--search-magnifier-icon"
+              class="cds--search-magnifier-icon"
               fill="currentColor"
               focusable="false"
               height="16"
@@ -31,12 +31,12 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
               />
             </svg>
           </div>
           <label
-            class="bx--label"
+            class="cds--label"
             for="change-log-table-search"
             id="change-log-table-search-search"
           >
@@ -44,16 +44,18 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
           </label>
           <input
             autocomplete="off"
-            class="bx--search-input"
+            class="cds--search-input"
             data-testid="change-log-search"
             id="change-log-table-search"
             placeholder="Search"
             role="searchbox"
             type="text"
+            value=""
           />
           <button
             aria-label="Clear search input"
-            class="bx--search-close bx--search-close--hidden"
+            class="cds--search-close cds--search-close--hidden"
+            title="Clear search input"
             type="button"
           >
             <svg
@@ -73,13 +75,13 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
           </button>
         </div>
         <div
-          class="bx--data-table-container"
+          class="cds--data-table-container"
         >
           <div
-            class="bx--data-table-content"
+            class="cds--data-table-content"
           >
             <table
-              class="bx--data-table bx--data-table--sort bx--data-table--no-border"
+              class="cds--data-table cds--data-table--sort"
             >
               <thead>
                 <tr>
@@ -89,27 +91,27 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
                     scope="col"
                   >
                     <div
-                      id="table-sort-1"
+                      id="table-sort-2"
                       style="display: none;"
                     >
                       Click to sort rows by Version header in ascending order
                     </div>
                     <button
-                      aria-describedby="table-sort-1"
-                      class="bx--table-sort"
+                      aria-describedby="table-sort-2"
+                      class="cds--table-sort"
                       type="button"
                     >
                       <span
-                        class="bx--table-sort__flex"
+                        class="cds--table-sort__flex"
                       >
                         <div
-                          class="bx--table-header-label"
+                          class="cds--table-header-label"
                         >
                           Version
                         </div>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon"
+                          class="cds--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -124,7 +126,7 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon-unsorted"
+                          class="cds--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -146,27 +148,27 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
                     scope="col"
                   >
                     <div
-                      id="table-sort-2"
+                      id="table-sort-3"
                       style="display: none;"
                     >
                       Click to sort rows by User header in ascending order
                     </div>
                     <button
-                      aria-describedby="table-sort-2"
-                      class="bx--table-sort"
+                      aria-describedby="table-sort-3"
+                      class="cds--table-sort"
                       type="button"
                     >
                       <span
-                        class="bx--table-sort__flex"
+                        class="cds--table-sort__flex"
                       >
                         <div
-                          class="bx--table-header-label"
+                          class="cds--table-header-label"
                         >
                           User
                         </div>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon"
+                          class="cds--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -181,7 +183,7 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon-unsorted"
+                          class="cds--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -203,27 +205,27 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
                     scope="col"
                   >
                     <div
-                      id="table-sort-3"
+                      id="table-sort-4"
                       style="display: none;"
                     >
                       Click to sort rows by Reason header in ascending order
                     </div>
                     <button
-                      aria-describedby="table-sort-3"
-                      class="bx--table-sort"
+                      aria-describedby="table-sort-4"
+                      class="cds--table-sort"
                       type="button"
                     >
                       <span
-                        class="bx--table-sort__flex"
+                        class="cds--table-sort__flex"
                       >
                         <div
-                          class="bx--table-header-label"
+                          class="cds--table-header-label"
                         >
                           Reason
                         </div>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon"
+                          class="cds--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -238,7 +240,7 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon-unsorted"
+                          class="cds--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -260,27 +262,27 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
                     scope="col"
                   >
                     <div
-                      id="table-sort-4"
+                      id="table-sort-5"
                       style="display: none;"
                     >
                       Click to sort rows by Date header in ascending order
                     </div>
                     <button
-                      aria-describedby="table-sort-4"
-                      class="bx--table-sort"
+                      aria-describedby="table-sort-5"
+                      class="cds--table-sort"
                       type="button"
                     >
                       <span
-                        class="bx--table-sort__flex"
+                        class="cds--table-sort__flex"
                       >
                         <div
-                          class="bx--table-header-label"
+                          class="cds--table-header-label"
                         >
                           Date
                         </div>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon"
+                          class="cds--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -295,7 +297,7 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon-unsorted"
+                          class="cds--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -418,48 +420,48 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
           </div>
         </div>
         <div
-          class="bx--pagination"
+          class="cds--pagination cds--pagination--md"
         >
           <div
-            class="bx--pagination__left"
+            class="cds--pagination__left"
           >
             <label
-              class="bx--pagination__text"
-              for="bx-pagination-select-1"
-              id="bx-pagination-select-1-count-label"
+              class="cds--pagination__text"
+              for="cds-pagination-select-id-11"
+              id="cds-pagination-select-id-11-count-label"
             >
               Items per page:
             </label>
             <div
-              class="bx--form-item"
+              class="cds--form-item cds--select__item-count"
             >
               <div
-                class="bx--select bx--select--inline bx--select__item-count"
+                class="cds--select cds--select--inline"
               >
                 <div
-                  class="bx--select-input--inline__wrapper"
+                  class="cds--select-input--inline__wrapper"
                 >
                   <div
-                    class="bx--select-input__wrapper"
+                    class="cds--select-input__wrapper"
                   >
                     <select
-                      class="bx--select-input"
-                      id="bx-pagination-select-1"
+                      class="cds--select-input"
+                      id="cds-pagination-select-id-11"
                     >
                       <option
-                        class="bx--select-option"
+                        class="cds--select-option"
                         value="10"
                       >
                         10
                       </option>
                       <option
-                        class="bx--select-option"
+                        class="cds--select-option"
                         value="25"
                       >
                         25
                       </option>
                       <option
-                        class="bx--select-option"
+                        class="cds--select-option"
                         value="50"
                       >
                         50
@@ -467,7 +469,7 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
                     </select>
                     <svg
                       aria-hidden="true"
-                      class="bx--select__arrow"
+                      class="cds--select__arrow"
                       fill="currentColor"
                       focusable="false"
                       height="16"
@@ -485,38 +487,38 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
               </div>
             </div>
             <span
-              class="bx--pagination__text bx--pagination__items-count"
+              class="cds--pagination__text cds--pagination__items-count"
             >
               1–2 of 2 items
             </span>
           </div>
           <div
-            class="bx--pagination__right"
+            class="cds--pagination__right"
           >
             <div
-              class="bx--form-item"
+              class="cds--form-item cds--select__page-number"
             >
               <div
-                class="bx--select bx--select--inline bx--select__page-number"
+                class="cds--select cds--select--inline"
               >
                 <label
-                  class="bx--label bx--visually-hidden"
-                  for="bx-pagination-select-1-right"
+                  class="cds--label cds--visually-hidden"
+                  for="cds-pagination-select-id-11-right"
                 >
                   Page number, of 1 pages
                 </label>
                 <div
-                  class="bx--select-input--inline__wrapper"
+                  class="cds--select-input--inline__wrapper"
                 >
                   <div
-                    class="bx--select-input__wrapper"
+                    class="cds--select-input__wrapper"
                   >
                     <select
-                      class="bx--select-input"
-                      id="bx-pagination-select-1-right"
+                      class="cds--select-input"
+                      id="cds-pagination-select-id-11-right"
                     >
                       <option
-                        class="bx--select-option"
+                        class="cds--select-option"
                         value="1"
                       >
                         1
@@ -524,7 +526,7 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
                     </select>
                     <svg
                       aria-hidden="true"
-                      class="bx--select__arrow"
+                      class="cds--select__arrow"
                       fill="currentColor"
                       focusable="false"
                       height="16"
@@ -542,71 +544,95 @@ exports[`ChangeLog --- Snapshot Test > Capturing Snapshot of ChangeLog 1`] = `
               </div>
             </div>
             <span
-              class="bx--pagination__text"
+              class="cds--pagination__text"
             >
               of 1 page
             </span>
             <div
-              class="bx--pagination__control-buttons"
+              class="cds--pagination__control-buttons"
             >
-              <button
-                class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--tooltip--hidden bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--btn--icon-only--top bx--tooltip--align-center"
-                disabled=""
-                tabindex="0"
-                type="button"
+              <span
+                class="cds--popover-container cds--popover--caret cds--popover--high-contrast cds--popover--top cds--tooltip cds--icon-tooltip"
               >
-                <div
-                  class="bx--assistive-text"
+                <button
+                  aria-labelledby="tooltip-8"
+                  class="cds--btn--icon-only cds--pagination__button cds--pagination__button--backward cds--pagination__button--no-index cds--btn cds--btn--md cds--btn--ghost cds--btn--disabled"
+                  disabled=""
+                  tabindex="0"
+                  type="button"
                 >
-                  Previous page
-                </div>
-                <svg
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 24L10 16 20 8z"
+                    />
+                  </svg>
+                </button>
+                <span
                   aria-hidden="true"
-                  aria-label="Previous page"
-                  class="bx--btn__icon"
-                  fill="currentColor"
-                  focusable="false"
-                  height="16"
-                  preserveAspectRatio="xMidYMid meet"
-                  role="img"
-                  viewBox="0 0 32 32"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  class="cds--popover"
+                  id="tooltip-8"
+                  role="tooltip"
                 >
-                  <path
-                    d="M20 24L10 16 20 8z"
+                  <span
+                    class="cds--popover-content cds--tooltip-content"
+                  >
+                    Previous page
+                  </span>
+                  <span
+                    class="cds--popover-caret"
                   />
-                </svg>
-              </button>
-              <button
-                class="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--tooltip--hidden bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--btn--icon-only--top bx--tooltip--align-end"
-                disabled=""
-                tabindex="0"
-                type="button"
+                </span>
+              </span>
+              <span
+                class="cds--popover-container cds--popover--caret cds--popover--high-contrast cds--popover--top-right cds--tooltip cds--icon-tooltip"
               >
-                <div
-                  class="bx--assistive-text"
+                <button
+                  aria-labelledby="tooltip-10"
+                  class="cds--btn--icon-only cds--pagination__button cds--pagination__button--forward cds--pagination__button--no-index cds--btn cds--btn--md cds--btn--ghost cds--btn--disabled"
+                  disabled=""
+                  tabindex="0"
+                  type="button"
                 >
-                  Next page
-                </div>
-                <svg
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 8L22 16 12 24z"
+                    />
+                  </svg>
+                </button>
+                <span
                   aria-hidden="true"
-                  aria-label="Next page"
-                  class="bx--btn__icon"
-                  fill="currentColor"
-                  focusable="false"
-                  height="16"
-                  preserveAspectRatio="xMidYMid meet"
-                  role="img"
-                  viewBox="0 0 32 32"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  class="cds--popover"
+                  id="tooltip-10"
+                  role="tooltip"
                 >
-                  <path
-                    d="M12 8L22 16 12 24z"
+                  <span
+                    class="cds--popover-content cds--tooltip-content"
+                  >
+                    Next page
+                  </span>
+                  <span
+                    class="cds--popover-caret"
                   />
-                </svg>
-              </button>
+                </span>
+              </span>
             </div>
           </div>
         </div>

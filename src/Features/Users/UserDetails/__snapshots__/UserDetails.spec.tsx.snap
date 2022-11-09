@@ -6,7 +6,7 @@ exports[`UserDetails --- Snapshot Test > Capturing Snapshot of UserDetails 1`] =
 >
   <div>
     <div
-      class="bx--modal-content"
+      class="cds--modal-content"
     >
       <dl>
         <section

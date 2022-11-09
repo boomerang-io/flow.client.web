@@ -6,17 +6,17 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
 >
   <div>
     <form
-      class="bx--bmrg-modal-flow-form"
+      class="cds--bmrg-modal-flow-form"
     >
       <div
         aria-label="inputs"
-        class="bx--modal-content _formBody_90cb6e"
+        class="cds--modal-content _formBody_90cb6e"
       >
         <aside
           class="_templates_90cb6e"
         >
           <button
-            class="_template_90cb6e bx--btn bx--btn--sm bx--btn--ghost"
+            class="_template_90cb6e cds--btn cds--btn--sm cds--btn--ghost"
             tabindex="0"
             type="button"
           >
@@ -46,7 +46,7 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
             </p>
           </button>
           <button
-            class="_template_90cb6e bx--btn bx--btn--sm bx--btn--ghost"
+            class="_template_90cb6e cds--btn cds--btn--sm cds--btn--ghost"
             tabindex="0"
             type="button"
           >
@@ -63,7 +63,7 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M11.2,2.9l-0.5,0.9c2.6,1.5,3.5,4.9,2,7.5s-4.9,3.5-7.5,2s-3.5-4.9-2-7.5c0.5-0.8,1.2-1.5,2-2L4.8,2.9	c-3.1,1.8-4.2,5.8-2.4,8.9s5.8,4.2,8.9,2.4s4.2-5.8,2.4-8.9C13.1,4.3,12.2,3.4,11.2,2.9z"
+                d="M11.2,2.9l-0.5,0.9c2.6,1.5,3.5,4.9,2,7.5s-4.9,3.5-7.5,2s-3.5-4.9-2-7.5c0.5-0.8,1.2-1.5,2-2L4.8,2.9 c-3.1,1.8-4.2,5.8-2.4,8.9s5.8,4.2,8.9,2.4s4.2-5.8,2.4-8.9C13.1,4.3,12.2,3.4,11.2,2.9z"
               />
               <path
                 d="M7.5 1H8.5V8H7.5z"
@@ -83,16 +83,16 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
             class="_wombat_90cb6e css-vurnku"
           >
             <div
-              class="bx--bmrg-error-page"
+              class="cds--bmrg-error-page"
               style="margin: 0px;"
             >
               <h1
-                class="bx--bmrg-error-page__title"
+                class="cds--bmrg-error-page__title"
               >
                 Select a template to start with
               </h1>
               <section
-                class="bx--bmrg-error-page__graphic"
+                class="cds--bmrg-error-page__graphic"
               >
                 <svg
                   viewBox="0 0 152.94 211.02"
@@ -159,17 +159,17 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
         </div>
       </div>
       <div
-        class="bx--modal-footer bx--btn-set"
+        class="cds--modal-footer cds--btn-set"
       >
         <button
-          class="bx--btn bx--btn--secondary"
+          class="cds--btn cds--btn--secondary"
           tabindex="0"
           type="button"
         >
           Cancel
         </button>
         <button
-          class="bx--btn bx--btn--primary bx--btn--disabled"
+          class="cds--btn cds--btn--primary cds--btn--disabled"
           data-testid="workflows-create-workflow-submit"
           disabled=""
           tabindex="0"
