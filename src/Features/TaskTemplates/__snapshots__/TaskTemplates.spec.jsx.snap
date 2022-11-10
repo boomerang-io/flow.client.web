@@ -9,7 +9,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
       class="_container_25b96a"
     >
       <div
-        class="bx--bmrg-feature-sidenav-container _container_f7e8ef --right-border"
+        class="cds--bmrg-feature-sidenav-container _container_f7e8ef --right-border"
       >
         <h1
           class="_title_f7e8ef"
@@ -33,7 +33,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               Existing Tasks (34)
             </p>
             <button
-              class="bx--btn bx--btn--md bx--btn--ghost"
+              class="cds--btn cds--btn--md cds--btn--ghost"
               tabindex="0"
               type="button"
             >
@@ -41,7 +41,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               <svg
                 aria-hidden="true"
                 aria-label="Add task template"
-                class="bx--btn__icon"
+                class="cds--btn__icon"
                 fill="currentColor"
                 focusable="false"
                 height="16"
@@ -62,15 +62,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
           >
             <div
               aria-labelledby="task-templates-search-search"
-              class="bx--search bx--search--sm"
+              class="cds--search cds--search--sm"
               role="search"
             >
               <div
-                class="bx--search-magnifier"
+                class="cds--search-magnifier"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--search-magnifier-icon"
+                  class="cds--search-magnifier-icon"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -85,7 +85,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                 </svg>
               </div>
               <label
-                class="bx--label"
+                class="cds--label"
                 for="task-templates-search"
                 id="task-templates-search-search"
               >
@@ -93,7 +93,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </label>
               <input
                 autocomplete="off"
-                class="bx--search-input"
+                class="cds--search-input"
                 data-testid="task-templates-search"
                 id="task-templates-search"
                 placeholder="Search for a task"
@@ -103,7 +103,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               />
               <button
                 aria-label="Clear search input"
-                class="bx--search-close bx--search-close--hidden"
+                class="cds--search-close cds--search-close--hidden"
                 type="button"
               >
                 <svg
@@ -126,13 +126,13 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               aria-expanded="false"
               aria-haspopup="true"
               aria-label="open and close list of options"
-              class="bx--overflow-menu bx--overflow-menu--md"
+              class="cds--overflow-menu cds--overflow-menu--md"
               style="border-radius: 0.25rem;"
               type="button"
             >
               <svg
                 aria-label="open and close list of options"
-                class="bx--overflow-menu__icon"
+                class="cds--overflow-menu__icon"
                 fill="currentColor"
                 focusable="false"
                 height="20"
@@ -167,23 +167,23 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
           </div>
         </div>
         <section
-          class="bx--bmrg-feature-sidenav-links"
+          class="cds--bmrg-feature-sidenav-links"
         >
           <ul
-            class="bx--accordion bx--accordion--end bx--accordion--md"
+            class="cds--accordion cds--accordion--end cds--accordion--md"
           >
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-2"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -197,18 +197,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   Communication (1)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-2"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5e1bcd210351fdc9e42fe4e0/1"
                 >
                   <svg
@@ -231,7 +231,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -263,17 +263,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-3"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -287,18 +287,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   GitHub (2)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-3"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5d25414c988e7b6b6fb3d5f7/3"
                 >
                   <svg
@@ -318,7 +318,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -348,7 +348,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5d3145ee988e7b6b6f24d870/1"
                 >
                   <svg
@@ -372,7 +372,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -404,17 +404,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-4"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -428,18 +428,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   Github (2)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-4"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5eab59eaaecb0800014e0ccb/3"
                 >
                   <svg
@@ -463,7 +463,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -493,7 +493,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5eab5742aecb0800014e0c87/2"
                 >
                   <svg
@@ -517,7 +517,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -549,17 +549,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-5"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -573,18 +573,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   ServiceNow (2)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-5"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5c69365b20cfafa2eaeed89c/1"
                 >
                   <svg
@@ -604,7 +604,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -634,7 +634,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5c6939c620cfafa2eaeef2ad/1"
                 >
                   <svg
@@ -658,7 +658,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -690,17 +690,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-6"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -714,18 +714,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   Test (1)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-6"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5ff772c5daf8634981eee520/3"
                 >
                   <svg
@@ -748,7 +748,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -762,17 +762,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-7"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -786,18 +786,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   Utilities (1)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-7"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5eab5488aecb0800014e0b87/2"
                 >
                   <svg
@@ -817,7 +817,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -849,17 +849,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-8"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -873,18 +873,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   artifactory (2)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-8"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5bd9b4115a5df954ad5ad8db/1"
                 >
                   <svg
@@ -904,7 +904,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -934,7 +934,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5bd9d0825a5df954ad5bb5c3/1"
                 >
                   <svg
@@ -954,7 +954,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -986,17 +986,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-9"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -1010,18 +1010,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   boomerang (2)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-9"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5bd98b105a5df954ad599bc2/1"
                 >
                   <svg
@@ -1044,7 +1044,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1074,7 +1074,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5d53016bd83be3cc84bae976/1"
                 >
                   <svg
@@ -1097,7 +1097,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1129,17 +1129,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-10"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -1153,18 +1153,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   communication (4)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-10"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5b92f794844d0700016ea217/1"
                 >
                   <svg
@@ -1187,7 +1187,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1199,7 +1199,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5e2866c8612203650e389491/1"
                 >
                   <svg
@@ -1222,7 +1222,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1252,7 +1252,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5e670a1e2d5e6a302de4f41d/1"
                 >
                   <svg
@@ -1272,7 +1272,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1302,7 +1302,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5e1bf6ca0351fdc9e4319c3b/1"
                 >
                   <svg
@@ -1322,7 +1322,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1354,17 +1354,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-11"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -1378,18 +1378,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   file utilities (6)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-11"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5d1ed216988e7b6b6f7b3c1c/1"
                 >
                   <svg
@@ -1409,7 +1409,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1439,7 +1439,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5c3fbc92352b1b51416952d1/1"
                 >
                   <svg
@@ -1459,7 +1459,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1489,7 +1489,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5bd9d03a5a5df954ad5bb3b5/2"
                 >
                   <svg
@@ -1512,7 +1512,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1542,7 +1542,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5c39015b352b1b51412e9c85/1"
                 >
                   <svg
@@ -1562,7 +1562,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1592,7 +1592,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5c3fb7e2352b1b5141692f75/1"
                 >
                   <svg
@@ -1612,7 +1612,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1642,7 +1642,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5d1ed36a988e7b6b6f7b470b/1"
                 >
                   <svg
@@ -1662,7 +1662,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1676,17 +1676,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-12"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -1700,18 +1700,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   utilities (3)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-12"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5c3d0401352b1b514150545b/2"
                 >
                   <svg
@@ -1731,7 +1731,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1761,7 +1761,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5c3907a1352b1b51412ed079/1"
                 >
                   <svg
@@ -1785,7 +1785,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1815,7 +1815,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5bd97bea5a5df954ad592c06/1"
                 >
                   <svg
@@ -1838,7 +1838,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1870,17 +1870,17 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               </div>
             </li>
             <li
-              class="bx--accordion__item _taskCategory_f7e8ef"
+              class="cds--accordion__item _taskCategory_f7e8ef"
             >
               <button
                 aria-controls="accordion-item-13"
                 aria-expanded="false"
-                class="bx--accordion__heading"
+                class="cds--accordion__heading"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--accordion__arrow"
+                  class="cds--accordion__arrow"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -1894,18 +1894,18 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   />
                 </svg>
                 <div
-                  class="bx--accordion__title"
+                  class="cds--accordion__title"
                   dir="auto"
                 >
                   workflow (8)
                 </div>
               </button>
               <div
-                class="bx--accordion__content"
+                class="cds--accordion__content"
                 id="accordion-item-13"
               >
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5f6379c974f51934044cbbd6/1"
                 >
                   <svg
@@ -1925,7 +1925,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -1955,7 +1955,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5fa4144bcb28924ba43ab57c/1"
                 >
                   <svg
@@ -1975,7 +1975,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -2005,7 +2005,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5d9e703dc90b5240508869e2/1"
                 >
                   <svg
@@ -2029,7 +2029,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -2059,7 +2059,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/603591f5c267b8ce33782571/1"
                 >
                   <svg
@@ -2083,7 +2083,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -2113,7 +2113,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5f6379c974f51934044cbbd4/1"
                 >
                   <svg
@@ -2133,7 +2133,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -2163,7 +2163,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5f6379c974f51934dadas0244ca0bbd4/1"
                 >
                   <svg
@@ -2183,7 +2183,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -2213,7 +2213,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5c37af285616d5f3544568fd/1"
                 >
                   <svg
@@ -2233,7 +2233,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -2263,7 +2263,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                   </div>
                 </a>
                 <a
-                  class="bx--bmrg-feature-sidenav-link"
+                  class="cds--bmrg-feature-sidenav-link"
                   href="/admin/task-templates/5f7dcf1ce1d3ce8d52ea45d4/1"
                 >
                   <svg
@@ -2286,7 +2286,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
                     />
                   </svg>
                   <div
-                    class="bx--bmrg-feature-sidenav-link-content"
+                    class="cds--bmrg-feature-sidenav-link-content"
                   >
                     <div
                       class="_task_f7e8ef"
@@ -2327,15 +2327,15 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
           class="_wombat_25b96a css-vurnku"
         >
           <div
-            class="bx--bmrg-error-page"
+            class="cds--bmrg-error-page"
           >
             <h1
-              class="bx--bmrg-error-page__title"
+              class="cds--bmrg-error-page__title"
             >
               Select a task or create one
             </h1>
             <section
-              class="bx--bmrg-error-page__graphic"
+              class="cds--bmrg-error-page__graphic"
             >
               <svg
                 viewBox="0 0 152.94 211.02"
@@ -2403,7 +2403,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
     </div>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

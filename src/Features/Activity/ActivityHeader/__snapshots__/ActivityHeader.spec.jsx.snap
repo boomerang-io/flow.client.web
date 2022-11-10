@@ -6,21 +6,21 @@ exports[`ActivityHeader --- Snapshot > Capturing Snapshot of ActivityHeader 1`] 
 >
   <div>
     <header
-      class="bx--bmrg-feature-header _container_76bf80"
+      class="cds--bmrg-feature-header _container_76bf80"
     >
       <section
-        class="bx--bmrg-feature-header__content"
+        class="cds--bmrg-feature-header__content"
       >
         <div
-          class="bx--bmrg-feature-header__header"
+          class="cds--bmrg-feature-header__header"
         >
           <p
-            class="bx--bmrg-feature-header-title"
+            class="cds--bmrg-feature-header-title"
           >
             This is all of the
           </p>
           <h1
-            class="bx--bmrg-feature-header-title"
+            class="cds--bmrg-feature-header-title"
           >
             Activity
           </h1>

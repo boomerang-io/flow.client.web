@@ -3,7 +3,7 @@
 exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow 1`] = `
 <body
   aria-hidden="true"
-  class="bx--bmrg-body-modal-is-open"
+  class="cds--bmrg-body-modal-is-open"
   id="app"
 >
   <div
@@ -21,10 +21,10 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
         class="_addIcon_7b50b0"
         fill="currentColor"
         focusable="false"
-        height="32"
+        height="16"
         preserveAspectRatio="xMidYMid meet"
         viewBox="0 0 32 32"
-        width="32"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -40,39 +40,39 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
      
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   >
     <div
-      class="bx--bmrg-modal-overlay"
+      class="cds--bmrg-modal-overlay"
     >
       <div
         aria-modal="true"
-        class="bx--bmrg-modal-container bx--bmrg-modal-composed-container bx--modal-container modal-container-fix-width _modalContainer_7b50b0"
+        class="cds--bmrg-modal-container cds--bmrg-modal-composed-container cds--modal-container modal-container-fix-width _modalContainer_7b50b0"
         role="dialog"
         tabindex="-1"
       >
         <div
-          class="bx--modal-header"
+          class="cds--modal-header"
         >
           <h3
-            class="bx--modal-header__heading bx--type-beta"
+            class="cds--modal-header__heading cds--type-beta"
           >
             Create a new Workflow
           </h3>
           <p
-            class="bx--bmrg-modal-composed-subtitle"
+            class="cds--bmrg-modal-composed-subtitle"
           >
             Get started with these basics, then proceed to designing it out.
           </p>
           <button
             aria-label="Close"
-            class="bx--modal-close"
+            class="cds--modal-close"
             title="Close"
             type="button"
           >
             <svg
               aria-hidden="true"
-              class="bx--modal-close__icon"
+              class="cds--modal-close__icon"
               fill="currentColor"
               focusable="false"
               height="20"
@@ -88,38 +88,38 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
           </button>
         </div>
         <form
-          class="bx--bmrg-modal-form"
+          class="cds--bmrg-modal-form"
         >
           <div
             class="_typeRadio_88573e"
           >
             <div
-              class="bx--bmrg-radio-group"
+              class="cds--bmrg-radio-group"
               style="--height: 6rem;"
             >
               <div
-                class="bx--form-item"
+                class="cds--form-item"
               >
                 <fieldset
-                  class="bx--radio-button-group bx--radio-button-group--label-right"
+                  class="cds--radio-button-group cds--radio-button-group--label-right"
                 >
                   <div
-                    class="bx--radio-button-wrapper"
+                    class="cds--radio-button-wrapper"
                   >
                     <input
                       checked=""
-                      class="bx--radio-button"
+                      class="cds--radio-button"
                       id="Start from scratch"
                       name="workflow-options"
                       type="radio"
                       value="Start from scratch"
                     />
                     <label
-                      class="bx--radio-button__label"
+                      class="cds--radio-button__label"
                       for="Start from scratch"
                     >
                       <span
-                        class="bx--radio-button__appearance"
+                        class="cds--radio-button__appearance"
                       />
                       <span
                         class=""
@@ -130,21 +130,21 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
                     </label>
                   </div>
                   <div
-                    class="bx--radio-button-wrapper"
+                    class="cds--radio-button-wrapper"
                   >
                     <input
-                      class="bx--radio-button"
+                      class="cds--radio-button"
                       id="Import a Workflow"
                       name="workflow-options"
                       type="radio"
                       value="Import a Workflow"
                     />
                     <label
-                      class="bx--radio-button__label"
+                      class="cds--radio-button__label"
                       for="Import a Workflow"
                     >
                       <span
-                        class="bx--radio-button__appearance"
+                        class="cds--radio-button__appearance"
                       />
                       <span
                         class=""
@@ -160,34 +160,38 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
           </div>
           <div
             aria-label="inputs"
-            class="bx--modal-content _formBody_e5bb29"
+            class="cds--modal-content _formBody_e5bb29"
           >
             <div
-              class="bx--bmrg-text-input"
+              class="cds--bmrg-text-input"
             >
               <div
-                class="bx--form-item bx--text-input-wrapper"
+                class="cds--form-item cds--text-input-wrapper"
               >
-                <label
-                  class="bx--label"
-                  for="name"
-                >
-                  <div
-                    class="bx--bmrg-text-input__label"
-                  >
-                    <div>
-                      Workflow Name
-                    </div>
-                  </div>
-                </label>
                 <div
-                  class="bx--text-input__field-outer-wrapper"
+                  class="cds--text-input__label-wrapper"
+                >
+                  <label
+                    class="cds--label"
+                    for="name"
+                  >
+                    <div
+                      class="cds--bmrg-text-input__label"
+                    >
+                      <div>
+                        Workflow Name
+                      </div>
+                    </div>
+                  </label>
+                </div>
+                <div
+                  class="cds--text-input__field-outer-wrapper"
                 >
                   <div
-                    class="bx--text-input__field-wrapper"
+                    class="cds--text-input__field-wrapper"
                   >
                     <input
-                      class="bx--text-input bx--text-input--md"
+                      class="cds--text-input cds--text-input--md"
                       id="name"
                       type="text"
                       value=""
@@ -197,31 +201,35 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
               </div>
             </div>
             <div
-              class="bx--bmrg-text-input"
+              class="cds--bmrg-text-input"
             >
               <div
-                class="bx--form-item bx--text-input-wrapper"
+                class="cds--form-item cds--text-input-wrapper"
               >
-                <label
-                  class="bx--label"
-                  for="summary"
-                >
-                  <div
-                    class="bx--bmrg-text-input__label"
-                  >
-                    <div>
-                      Summary
-                    </div>
-                  </div>
-                </label>
                 <div
-                  class="bx--text-input__field-outer-wrapper"
+                  class="cds--text-input__label-wrapper"
+                >
+                  <label
+                    class="cds--label"
+                    for="summary"
+                  >
+                    <div
+                      class="cds--bmrg-text-input__label"
+                    >
+                      <div>
+                        Summary
+                      </div>
+                    </div>
+                  </label>
+                </div>
+                <div
+                  class="cds--text-input__field-outer-wrapper"
                 >
                   <div
-                    class="bx--text-input__field-wrapper"
+                    class="cds--text-input__field-wrapper"
                   >
                     <input
-                      class="bx--text-input bx--text-input--md"
+                      class="cds--text-input cds--text-input--md"
                       id="summary"
                       type="text"
                       value=""
@@ -231,16 +239,16 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
               </div>
             </div>
             <div
-              class="bx--bmrg-text-area"
+              class="cds--bmrg-text-area"
             >
               <div
-                class="bx--form-item"
+                class="cds--form-item"
               >
                 <div
-                  class="bx--text-area__label-wrapper"
+                  class="cds--text-area__label-wrapper"
                 >
                   <label
-                    class="bx--label"
+                    class="cds--label"
                     for="description"
                   >
                     <div
@@ -253,10 +261,10 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
                   </label>
                 </div>
                 <div
-                  class="bx--text-area__wrapper"
+                  class="cds--text-area__wrapper"
                 >
                   <textarea
-                    class="bx--text-area"
+                    class="cds--text-area"
                     cols="50"
                     id="description"
                     rows="4"
@@ -589,7 +597,7 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3	z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
+                    d="M25.7,9.3l-7-7C18.5,2.1,18.3,2,18,2H8C6.9,2,6,2.9,6,4v24c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V10C26,9.7,25.9,9.5,25.7,9.3 z M18,4.4l5.6,5.6H18V4.4z M24,28H8V4h8v6c0,1.1,0.9,2,2,2h6V28z"
                   />
                   <path
                     d="M10 22H22V24H10zM10 16H22V18H10z"
@@ -817,7 +825,7 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M14.4,10.1L13,8.8V6.5c0-2.6-1.9-4.7-4.5-5v-1h-1v1C5,1.8,3,3.9,3,6.5v2.3l-1.4,1.3c-0.1,0.1-0.2,0.2-0.1,0.4V12	c0,0.3,0.2,0.5,0.4,0.5c0,0,0,0,0.1,0h3.5C5.5,13.9,6.6,15,8,15s2.5-1.1,2.5-2.5H14c0.3,0,0.5-0.2,0.5-0.4c0,0,0,0,0-0.1v-1.5	C14.5,10.4,14.4,10.2,14.4,10.1z M8,14c-0.8,0-1.5-0.7-1.5-1.5h3C9.5,13.3,8.8,14,8,14z M13.5,11.5h-11v-0.8l1.3-1.4	C3.9,9.3,4,9.1,4,9V6.5c0-2.2,1.8-4,4-4s4,1.8,4,4V9c0,0.1,0.1,0.3,0.1,0.4l1.4,1.3V11.5z"
+                    d="M14.4,10.1L13,8.8V6.5c0-2.6-1.9-4.7-4.5-5v-1h-1v1C5,1.8,3,3.9,3,6.5v2.3l-1.4,1.3c-0.1,0.1-0.2,0.2-0.1,0.4V12 c0,0.3,0.2,0.5,0.4,0.5c0,0,0,0,0.1,0h3.5C5.5,13.9,6.6,15,8,15s2.5-1.1,2.5-2.5H14c0.3,0,0.5-0.2,0.5-0.4c0,0,0,0,0-0.1v-1.5 C14.5,10.4,14.4,10.2,14.4,10.1z M8,14c-0.8,0-1.5-0.7-1.5-1.5h3C9.5,13.3,8.8,14,8,14z M13.5,11.5h-11v-0.8l1.3-1.4 C3.9,9.3,4,9.1,4,9V6.5c0-2.2,1.8-4,4-4s4,1.8,4,4V9c0,0.1,0.1,0.3,0.1,0.4l1.4,1.3V11.5z"
                   />
                 </svg>
               </label>
@@ -841,7 +849,7 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M11.2,2.9l-0.5,0.9c2.6,1.5,3.5,4.9,2,7.5s-4.9,3.5-7.5,2s-3.5-4.9-2-7.5c0.5-0.8,1.2-1.5,2-2L4.8,2.9	c-3.1,1.8-4.2,5.8-2.4,8.9s5.8,4.2,8.9,2.4s4.2-5.8,2.4-8.9C13.1,4.3,12.2,3.4,11.2,2.9z"
+                    d="M11.2,2.9l-0.5,0.9c2.6,1.5,3.5,4.9,2,7.5s-4.9,3.5-7.5,2s-3.5-4.9-2-7.5c0.5-0.8,1.2-1.5,2-2L4.8,2.9 c-3.1,1.8-4.2,5.8-2.4,8.9s5.8,4.2,8.9,2.4s4.2-5.8,2.4-8.9C13.1,4.3,12.2,3.4,11.2,2.9z"
                   />
                   <path
                     d="M7.5 1H8.5V8H7.5z"
@@ -868,7 +876,7 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M13,9c0,2.8-2.2,5-5,5s-5-2.2-5-5s2.2-5,5-5h3.1L9.3,5.8L10,6.5l3-3l-3-3L9.3,1.2L11.1,3H8C4.7,3,2,5.7,2,9s2.7,6,6,6	s6-2.7,6-6H13z"
+                    d="M13,9c0,2.8-2.2,5-5,5s-5-2.2-5-5s2.2-5,5-5h3.1L9.3,5.8L10,6.5l3-3l-3-3L9.3,1.2L11.1,3H8C4.7,3,2,5.7,2,9s2.7,6,6,6 s6-2.7,6-6H13z"
                   />
                 </svg>
               </label>
@@ -920,7 +928,7 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M13.9,4.6l-2.5-2.5C11.3,2.1,11.1,2,11,2H3C2.4,2,2,2.4,2,3v10c0,0.6,0.4,1,1,1h10c0.6,0,1-0.4,1-1V5	C14,4.9,13.9,4.7,13.9,4.6z M6,3h4v2H6V3z M10,13H6V9h4V13z M11,13V9c0-0.6-0.4-1-1-1H6C5.4,8,5,8.4,5,9v4H3V3h2v2c0,0.6,0.4,1,1,1	h4c0.6,0,1-0.4,1-1V3.2l2,2V13H11z"
+                    d="M13.9,4.6l-2.5-2.5C11.3,2.1,11.1,2,11,2H3C2.4,2,2,2.4,2,3v10c0,0.6,0.4,1,1,1h10c0.6,0,1-0.4,1-1V5 C14,4.9,13.9,4.7,13.9,4.6z M6,3h4v2H6V3z M10,13H6V9h4V13z M11,13V9c0-0.6-0.4-1-1-1H6C5.4,8,5,8.4,5,9v4H3V3h2v2c0,0.6,0.4,1,1,1 h4c0.6,0,1-0.4,1-1V3.2l2,2V13H11z"
                   />
                 </svg>
               </label>
@@ -944,7 +952,7 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                    d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5 C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                   />
                 </svg>
               </label>
@@ -968,10 +976,10 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M13.5,8.4c0-0.1,0-0.3,0-0.4c0-0.1,0-0.3,0-0.4l1-0.8c0.4-0.3,0.4-0.9,0.2-1.3l-1.2-2C13.3,3.2,13,3,12.6,3	c-0.1,0-0.2,0-0.3,0.1l-1.2,0.4c-0.2-0.1-0.4-0.3-0.7-0.4l-0.3-1.3C10.1,1.3,9.7,1,9.2,1H6.8c-0.5,0-0.9,0.3-1,0.8L5.6,3.1	C5.3,3.2,5.1,3.3,4.9,3.4L3.7,3C3.6,3,3.5,3,3.4,3C3,3,2.7,3.2,2.5,3.5l-1.2,2C1.1,5.9,1.2,6.4,1.6,6.8l0.9,0.9c0,0.1,0,0.3,0,0.4	c0,0.1,0,0.3,0,0.4L1.6,9.2c-0.4,0.3-0.5,0.9-0.2,1.3l1.2,2C2.7,12.8,3,13,3.4,13c0.1,0,0.2,0,0.3-0.1l1.2-0.4	c0.2,0.1,0.4,0.3,0.7,0.4l0.3,1.3c0.1,0.5,0.5,0.8,1,0.8h2.4c0.5,0,0.9-0.3,1-0.8l0.3-1.3c0.2-0.1,0.4-0.2,0.7-0.4l1.2,0.4	c0.1,0,0.2,0.1,0.3,0.1c0.4,0,0.7-0.2,0.9-0.5l1.1-2c0.2-0.4,0.2-0.9-0.2-1.3L13.5,8.4z M12.6,12l-1.7-0.6c-0.4,0.3-0.9,0.6-1.4,0.8	L9.2,14H6.8l-0.4-1.8c-0.5-0.2-0.9-0.5-1.4-0.8L3.4,12l-1.2-2l1.4-1.2c-0.1-0.5-0.1-1.1,0-1.6L2.2,6l1.2-2l1.7,0.6	C5.5,4.2,6,4,6.5,3.8L6.8,2h2.4l0.4,1.8c0.5,0.2,0.9,0.5,1.4,0.8L12.6,4l1.2,2l-1.4,1.2c0.1,0.5,0.1,1.1,0,1.6l1.4,1.2L12.6,12z"
+                    d="M13.5,8.4c0-0.1,0-0.3,0-0.4c0-0.1,0-0.3,0-0.4l1-0.8c0.4-0.3,0.4-0.9,0.2-1.3l-1.2-2C13.3,3.2,13,3,12.6,3 c-0.1,0-0.2,0-0.3,0.1l-1.2,0.4c-0.2-0.1-0.4-0.3-0.7-0.4l-0.3-1.3C10.1,1.3,9.7,1,9.2,1H6.8c-0.5,0-0.9,0.3-1,0.8L5.6,3.1 C5.3,3.2,5.1,3.3,4.9,3.4L3.7,3C3.6,3,3.5,3,3.4,3C3,3,2.7,3.2,2.5,3.5l-1.2,2C1.1,5.9,1.2,6.4,1.6,6.8l0.9,0.9c0,0.1,0,0.3,0,0.4 c0,0.1,0,0.3,0,0.4L1.6,9.2c-0.4,0.3-0.5,0.9-0.2,1.3l1.2,2C2.7,12.8,3,13,3.4,13c0.1,0,0.2,0,0.3-0.1l1.2-0.4 c0.2,0.1,0.4,0.3,0.7,0.4l0.3,1.3c0.1,0.5,0.5,0.8,1,0.8h2.4c0.5,0,0.9-0.3,1-0.8l0.3-1.3c0.2-0.1,0.4-0.2,0.7-0.4l1.2,0.4 c0.1,0,0.2,0.1,0.3,0.1c0.4,0,0.7-0.2,0.9-0.5l1.1-2c0.2-0.4,0.2-0.9-0.2-1.3L13.5,8.4z M12.6,12l-1.7-0.6c-0.4,0.3-0.9,0.6-1.4,0.8 L9.2,14H6.8l-0.4-1.8c-0.5-0.2-0.9-0.5-1.4-0.8L3.4,12l-1.2-2l1.4-1.2c-0.1-0.5-0.1-1.1,0-1.6L2.2,6l1.2-2l1.7,0.6 C5.5,4.2,6,4,6.5,3.8L6.8,2h2.4l0.4,1.8c0.5,0.2,0.9,0.5,1.4,0.8L12.6,4l1.2,2l-1.4,1.2c0.1,0.5,0.1,1.1,0,1.6l1.4,1.2L12.6,12z"
                   />
                   <path
-                    d="M8,11c-1.7,0-3-1.3-3-3s1.3-3,3-3s3,1.3,3,3C11,9.6,9.7,11,8,11C8,11,8,11,8,11z M8,6C6.9,6,6,6.8,6,7.9C6,7.9,6,8,6,8	c0,1.1,0.8,2,1.9,2c0,0,0.1,0,0.1,0c1.1,0,2-0.8,2-1.9c0,0,0-0.1,0-0.1C10,6.9,9.2,6,8,6C8.1,6,8,6,8,6z"
+                    d="M8,11c-1.7,0-3-1.3-3-3s1.3-3,3-3s3,1.3,3,3C11,9.6,9.7,11,8,11C8,11,8,11,8,11z M8,6C6.9,6,6,6.8,6,7.9C6,7.9,6,8,6,8 c0,1.1,0.8,2,1.9,2c0,0,0.1,0,0.1,0c1.1,0,2-0.8,2-1.9c0,0,0-0.1,0-0.1C10,6.9,9.2,6,8,6C8.1,6,8,6,8,6z"
                   />
                 </svg>
               </label>
@@ -1183,17 +1191,17 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
             </div>
           </div>
           <div
-            class="bx--modal-footer bx--btn-set"
+            class="cds--modal-footer cds--btn-set"
           >
             <button
-              class="bx--btn bx--btn--secondary"
+              class="cds--btn cds--btn--secondary"
               tabindex="0"
               type="button"
             >
               Cancel
             </button>
             <button
-              class="bx--btn bx--btn--primary bx--btn--disabled"
+              class="cds--btn cds--btn--primary cds--btn--disabled"
               data-testid="workflows-create-workflow-submit"
               disabled=""
               tabindex="0"
@@ -1212,7 +1220,7 @@ exports[`CreateWorkflow --- Snapshot Test > Capturing Snapshot of CreateWorkflow
     tabindex="0"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

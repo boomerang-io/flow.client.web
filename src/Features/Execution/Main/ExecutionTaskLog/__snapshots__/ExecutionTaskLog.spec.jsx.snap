@@ -41,11 +41,11 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
               class="_statusIcon_bbdcfb"
               fill="currentColor"
               focusable="false"
-              height="32"
+              height="16"
               preserveAspectRatio="xMidYMid meet"
               role="img"
               viewBox="0 0 32 32"
-              width="32"
+              width="16"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -90,35 +90,47 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
         >
           Task log
         </p>
-        <button
-          aria-describedby="sort-tooltip"
-          class="bx--tooltip__trigger bx--tooltip--a11y _taskbarButton_bbdcfb bx--tooltip--top bx--tooltip--align-center"
-          data-testid="taskbar-button"
-          style="cursor: pointer;"
-          type="button"
+        <span
+          class="cds--popover-container cds--popover--caret cds--popover--high-contrast cds--popover--top cds--tooltip cds--icon-tooltip"
         >
+          <button
+            aria-labelledby="tooltip-2"
+            class="cds--btn--icon-only cds--btn cds--btn--sm cds--btn--ghost cds--btn--icon-only cds--btn cds--btn--sm cds--btn--ghost"
+            data-testid="taskbar-button"
+            tabindex="0"
+            type="button"
+          >
+            <svg
+              aria-hidden="true"
+              fill="currentColor"
+              focusable="false"
+              height="16"
+              preserveAspectRatio="xMidYMid meet"
+              viewBox="0 0 32 32"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
+              />
+            </svg>
+          </button>
           <span
-            class="bx--assistive-text"
-            id="sort-tooltip"
-          >
-            Change sort direction (by start time)
-          </span>
-          <svg
             aria-hidden="true"
-            class="_taskbarArrows_bbdcfb"
-            fill="currentColor"
-            focusable="false"
-            height="32"
-            preserveAspectRatio="xMidYMid meet"
-            viewBox="0 0 32 32"
-            width="32"
-            xmlns="http://www.w3.org/2000/svg"
+            class="cds--popover"
+            id="tooltip-2"
+            role="tooltip"
           >
-            <path
-              d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
+            <span
+              class="cds--popover-content cds--tooltip-content"
+            >
+              Change sort direction (by start time)
+            </span>
+            <span
+              class="cds--popover-caret"
             />
-          </svg>
-        </button>
+          </span>
+        </span>
       </section>
       <ul
         class="_tasklog_bbdcfb"
@@ -142,11 +154,11 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
                 class="_taskIcon_1bda0d"
                 fill="currentColor"
                 focusable="false"
-                height="32"
+                height="16"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
                 viewBox="0 0 32 32"
-                width="32"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -171,11 +183,11 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
                 class="_statusIcon_1bda0d"
                 fill="currentColor"
                 focusable="false"
-                height="32"
+                height="16"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
                 viewBox="0 0 32 32"
-                width="32"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -245,11 +257,11 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
                 class="_taskIcon_1bda0d"
                 fill="currentColor"
                 focusable="false"
-                height="32"
+                height="16"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
                 viewBox="0 0 32 32"
-                width="32"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -274,11 +286,11 @@ exports[`ExecutionTaskLog --- Snapshot > Capturing Snapshot of ExecutionTaskLog 
                 class="_statusIcon_1bda0d"
                 fill="currentColor"
                 focusable="false"
-                height="32"
+                height="16"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
                 viewBox="0 0 32 32"
-                width="32"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path

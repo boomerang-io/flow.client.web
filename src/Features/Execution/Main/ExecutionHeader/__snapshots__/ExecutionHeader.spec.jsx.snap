@@ -6,13 +6,13 @@ exports[`ExecutionHeader --- Snapshot > Capturing Snapshot of ExecutionHeader 1`
 >
   <div>
     <header
-      class="bx--bmrg-feature-header _container_58bfae --bordered"
+      class="cds--bmrg-feature-header _container_58bfae --bordered"
     >
       <section
-        class="bx--bmrg-feature-header__content"
+        class="cds--bmrg-feature-header__content"
       >
         <div
-          class="bx--bmrg-feature-header__nav"
+          class="cds--bmrg-feature-header__nav"
         >
           <div
             class="_headerNav_58bfae"
@@ -21,23 +21,23 @@ exports[`ExecutionHeader --- Snapshot > Capturing Snapshot of ExecutionHeader 1`
               aria-label="Breadcrumb"
             >
               <ol
-                class="bx--breadcrumb bx--breadcrumb--no-trailing-slash"
+                class="cds--breadcrumb cds--breadcrumb--no-trailing-slash"
               >
                 <li
-                  class="bx--breadcrumb-item"
+                  class="cds--breadcrumb-item"
                 >
                   <a
-                    class="bx--link"
+                    class="cds--link"
                     href="/activity"
                   >
                     Activity
                   </a>
                 </li>
                 <li
-                  class="bx--breadcrumb-item bx--breadcrumb-item--current"
+                  class="cds--breadcrumb-item cds--breadcrumb-item--current"
                 >
                   <p
-                    class="bx--link"
+                    class="cds--link"
                   >
                     Sparkle Flow with extra glitter and donuts on the side
                   </p>
@@ -68,13 +68,13 @@ exports[`ExecutionHeader --- Snapshot > Capturing Snapshot of ExecutionHeader 1`
           </div>
         </div>
         <div
-          class="bx--bmrg-feature-header__header"
+          class="cds--bmrg-feature-header__header"
         >
           <div
             style="display: flex;"
           >
             <h1
-              class="bx--bmrg-feature-header-title"
+              class="cds--bmrg-feature-header-title"
             >
               Workflow run detail
             </h1>
@@ -161,7 +161,7 @@ exports[`ExecutionHeader --- Snapshot > Capturing Snapshot of ExecutionHeader 1`
     </header>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

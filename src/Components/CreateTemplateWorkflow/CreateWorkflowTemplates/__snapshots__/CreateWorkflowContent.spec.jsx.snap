@@ -6,17 +6,17 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
 >
   <div>
     <form
-      class="bx--bmrg-modal-flow-form"
+      class="cds--bmrg-modal-flow-form"
     >
       <div
         aria-label="inputs"
-        class="bx--modal-content _formBody_90cb6e"
+        class="cds--modal-content _formBody_90cb6e"
       >
         <aside
           class="_templates_90cb6e"
         >
           <button
-            class="_template_90cb6e bx--btn bx--btn--sm bx--btn--ghost"
+            class="_template_90cb6e cds--btn cds--btn--sm cds--btn--ghost"
             tabindex="0"
             type="button"
           >
@@ -46,7 +46,7 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
             </p>
           </button>
           <button
-            class="_template_90cb6e bx--btn bx--btn--sm bx--btn--ghost"
+            class="_template_90cb6e cds--btn cds--btn--sm cds--btn--ghost"
             tabindex="0"
             type="button"
           >
@@ -83,16 +83,16 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
             class="_wombat_90cb6e css-vurnku"
           >
             <div
-              class="bx--bmrg-error-page"
+              class="cds--bmrg-error-page"
               style="margin: 0px;"
             >
               <h1
-                class="bx--bmrg-error-page__title"
+                class="cds--bmrg-error-page__title"
               >
                 Select a template to start with
               </h1>
               <section
-                class="bx--bmrg-error-page__graphic"
+                class="cds--bmrg-error-page__graphic"
               >
                 <svg
                   viewBox="0 0 152.94 211.02"
@@ -159,17 +159,17 @@ exports[`CreateWorkflowTemplates --- Snapshot Test > Capturing Snapshot of Creat
         </div>
       </div>
       <div
-        class="bx--modal-footer bx--btn-set"
+        class="cds--modal-footer cds--btn-set"
       >
         <button
-          class="bx--btn bx--btn--secondary"
+          class="cds--btn cds--btn--secondary"
           tabindex="0"
           type="button"
         >
           Cancel
         </button>
         <button
-          class="bx--btn bx--btn--primary bx--btn--disabled"
+          class="cds--btn cds--btn--primary cds--btn--disabled"
           data-testid="workflows-create-workflow-submit"
           disabled=""
           tabindex="0"

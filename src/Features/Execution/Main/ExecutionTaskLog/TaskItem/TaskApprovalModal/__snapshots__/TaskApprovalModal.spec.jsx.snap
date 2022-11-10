@@ -6,10 +6,10 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
 >
   <div>
     <form
-      class="bx--bmrg-modal-form"
+      class="cds--bmrg-modal-form"
     >
       <div
-        class="bx--modal-content _modalBody_7e51d1"
+        class="cds--modal-content _modalBody_7e51d1"
       >
         <section
           class="_approval_7e51d1"
@@ -21,16 +21,16 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
               class="_comment_7e51d1"
             >
               <div
-                class="bx--bmrg-text-area"
+                class="cds--bmrg-text-area"
               >
                 <div
-                  class="bx--form-item"
+                  class="cds--form-item _commentArea_7e51d1"
                 >
                   <div
-                    class="bx--text-area__label-wrapper"
+                    class="cds--text-area__label-wrapper"
                   >
                     <label
-                      class="bx--label"
+                      class="cds--label"
                       for="comment"
                     >
                       <div
@@ -43,10 +43,10 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
                     </label>
                   </div>
                   <div
-                    class="bx--text-area__wrapper"
+                    class="cds--text-area__wrapper"
                   >
                     <textarea
-                      class="bx--text-area _commentArea_7e51d1"
+                      class="cds--text-area"
                       cols="50"
                       id="comment"
                       placeholder="Add some reasoning for your decision"
@@ -62,16 +62,16 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
               </p>
             </div>
             <div
-              class="bx--bmrg-decision-buttons"
+              class="cds--bmrg-decision-buttons"
             >
               <div
-                class="bx--form-item"
+                class="cds--form-item"
               >
                 <div
-                  class="bx--radio-button-group _decisionButtons_7e51d1"
+                  class="cds--radio-button-group _decisionButtons_7e51d1"
                 >
                   <label
-                    class="bx--bmrg-decision-button-wrapper"
+                    class="cds--bmrg-decision-button-wrapper"
                     for="decision-buttons-REJECTED-0"
                   >
                     <input
@@ -82,14 +82,14 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
                       value="REJECTED"
                     />
                     <div
-                      class="bx--bmrg-decision-button bx--bmrg-decision-button--negative"
+                      class="cds--bmrg-decision-button cds--bmrg-decision-button--negative"
                     >
                       <span>
                         Reject
                       </span>
                       <svg
                         aria-hidden="true"
-                        class="bx--bmrg-decision-button-icon"
+                        class="cds--bmrg-decision-button-icon"
                         fill="currentColor"
                         focusable="false"
                         height="16"
@@ -105,7 +105,7 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
                     </div>
                   </label>
                   <label
-                    class="bx--bmrg-decision-button-wrapper"
+                    class="cds--bmrg-decision-button-wrapper"
                     for="decision-buttons-APPROVED-1"
                   >
                     <input
@@ -116,14 +116,14 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
                       value="APPROVED"
                     />
                     <div
-                      class="bx--bmrg-decision-button bx--bmrg-decision-button--positive"
+                      class="cds--bmrg-decision-button cds--bmrg-decision-button--positive"
                     >
                       <span>
                         Approve
                       </span>
                       <svg
                         aria-hidden="true"
-                        class="bx--bmrg-decision-button-icon"
+                        class="cds--bmrg-decision-button-icon"
                         fill="currentColor"
                         focusable="false"
                         height="16"
@@ -145,17 +145,17 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
         </section>
       </div>
       <div
-        class="bx--modal-footer bx--btn-set"
+        class="cds--modal-footer cds--btn-set"
       >
         <button
-          class="bx--btn bx--btn--secondary"
+          class="cds--btn cds--btn--secondary"
           tabindex="0"
           type="button"
         >
           Cancel
         </button>
         <button
-          class="bx--btn bx--btn--primary bx--btn--disabled"
+          class="cds--btn cds--btn--primary cds--btn--disabled"
           disabled=""
           tabindex="0"
           type="submit"

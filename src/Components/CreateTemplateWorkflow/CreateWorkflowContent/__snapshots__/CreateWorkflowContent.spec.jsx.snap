@@ -6,42 +6,42 @@ exports[`CreateWorkflowContent --- Snapshot Test > Capturing Snapshot of CreateW
 >
   <div>
     <form
-      class="bx--bmrg-modal-flow-form"
+      class="cds--bmrg-modal-flow-form"
     >
       <div
         aria-label="inputs"
-        class="bx--modal-content _formBody_9cda0f"
+        class="cds--modal-content _formBody_9cda0f"
       >
         <div
           class="_typeRadio_9cda0f"
         >
           <div
-            class="bx--bmrg-radio-group"
+            class="cds--bmrg-radio-group"
             style="--height: 6rem;"
           >
             <div
-              class="bx--form-item"
+              class="cds--form-item"
             >
               <fieldset
-                class="bx--radio-button-group bx--radio-button-group--label-right"
+                class="cds--radio-button-group cds--radio-button-group--label-right"
               >
                 <div
-                  class="bx--radio-button-wrapper"
+                  class="cds--radio-button-wrapper"
                 >
                   <input
                     checked=""
-                    class="bx--radio-button"
+                    class="cds--radio-button"
                     id="user"
                     name="workflow-options"
                     type="radio"
                     value="user"
                   />
                   <label
-                    class="bx--radio-button__label"
+                    class="cds--radio-button__label"
                     for="user"
                   >
                     <span
-                      class="bx--radio-button__appearance"
+                      class="cds--radio-button__appearance"
                     />
                     <span
                       class=""
@@ -52,21 +52,21 @@ exports[`CreateWorkflowContent --- Snapshot Test > Capturing Snapshot of CreateW
                   </label>
                 </div>
                 <div
-                  class="bx--radio-button-wrapper"
+                  class="cds--radio-button-wrapper"
                 >
                   <input
-                    class="bx--radio-button"
+                    class="cds--radio-button"
                     id="team"
                     name="workflow-options"
                     type="radio"
                     value="team"
                   />
                   <label
-                    class="bx--radio-button__label"
+                    class="cds--radio-button__label"
                     for="team"
                   >
                     <span
-                      class="bx--radio-button__appearance"
+                      class="cds--radio-button__appearance"
                     />
                     <span
                       class=""
@@ -81,17 +81,17 @@ exports[`CreateWorkflowContent --- Snapshot Test > Capturing Snapshot of CreateW
           </div>
         </div>
         <div
-          class="bx--bmrg-text-input"
+          class="cds--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="cds--form-item cds--text-input-wrapper"
           >
             <label
-              class="bx--label"
+              class="cds--label"
               for="name"
             >
               <div
-                class="bx--bmrg-text-input__label"
+                class="cds--bmrg-text-input__label"
               >
                 <div>
                   Workflow Name
@@ -99,13 +99,13 @@ exports[`CreateWorkflowContent --- Snapshot Test > Capturing Snapshot of CreateW
               </div>
             </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="cds--text-input__field-outer-wrapper"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                class="cds--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text-input--md"
+                  class="cds--text-input cds--text-input--md"
                   id="name"
                   type="text"
                   value="test template"
@@ -115,17 +115,17 @@ exports[`CreateWorkflowContent --- Snapshot Test > Capturing Snapshot of CreateW
           </div>
         </div>
         <div
-          class="bx--bmrg-text-input"
+          class="cds--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="cds--form-item cds--text-input-wrapper"
           >
             <label
-              class="bx--label"
+              class="cds--label"
               for="summary"
             >
               <div
-                class="bx--bmrg-text-input__label"
+                class="cds--bmrg-text-input__label"
               >
                 <div>
                   Summary
@@ -133,13 +133,13 @@ exports[`CreateWorkflowContent --- Snapshot Test > Capturing Snapshot of CreateW
               </div>
             </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="cds--text-input__field-outer-wrapper"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                class="cds--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text-input--md"
+                  class="cds--text-input cds--text-input--md"
                   id="summary"
                   type="text"
                   value=""
@@ -149,16 +149,16 @@ exports[`CreateWorkflowContent --- Snapshot Test > Capturing Snapshot of CreateW
           </div>
         </div>
         <div
-          class="bx--bmrg-text-area"
+          class="cds--bmrg-text-area"
         >
           <div
-            class="bx--form-item"
+            class="cds--form-item"
           >
             <div
-              class="bx--text-area__label-wrapper"
+              class="cds--text-area__label-wrapper"
             >
               <label
-                class="bx--label"
+                class="cds--label"
                 for="description"
               >
                 <div
@@ -171,10 +171,10 @@ exports[`CreateWorkflowContent --- Snapshot Test > Capturing Snapshot of CreateW
               </label>
             </div>
             <div
-              class="bx--text-area__wrapper"
+              class="cds--text-area__wrapper"
             >
               <textarea
-                class="bx--text-area"
+                class="cds--text-area"
                 cols="50"
                 id="description"
                 rows="4"
@@ -1101,17 +1101,17 @@ exports[`CreateWorkflowContent --- Snapshot Test > Capturing Snapshot of CreateW
         </div>
       </div>
       <div
-        class="bx--modal-footer bx--btn-set"
+        class="cds--modal-footer cds--btn-set"
       >
         <button
-          class="bx--btn bx--btn--secondary"
+          class="cds--btn cds--btn--secondary"
           tabindex="0"
           type="button"
         >
           Back
         </button>
         <button
-          class="bx--btn bx--btn--primary"
+          class="cds--btn cds--btn--primary"
           data-testid="workflows-create-workflow-submit"
           tabindex="0"
           type="button"

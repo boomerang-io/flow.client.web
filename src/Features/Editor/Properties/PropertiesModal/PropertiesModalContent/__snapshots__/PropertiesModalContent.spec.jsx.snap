@@ -6,54 +6,43 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
 >
   <div>
     <form
-      class="bx--bmrg-modal-flow-form"
+      class="cds--bmrg-modal-flow-form"
     >
       <div
         aria-label="inputs"
-        class="bx--modal-content _container_4e189b"
+        class="cds--modal-content _container_4e189b"
       >
         <div
-          class="bx--bmrg-text-input"
+          class="cds--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper bx--text-input-wrapper--readonly"
+            class="cds--form-item cds--text-input-wrapper cds--text-input-wrapper--readonly"
           >
-            <label
-              class="bx--label"
-              for="key"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Key (read-only)
-                </div>
-              </div>
-            </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="cds--text-input__label-wrapper"
+            >
+              <label
+                class="cds--label"
+                for="key"
+              >
+                <div
+                  class="cds--bmrg-text-input__label"
+                >
+                  <div>
+                    Key (read-only)
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="cds--text-input__field-outer-wrapper"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                class="cds--text-input__field-wrapper"
               >
-                <svg
-                  aria-hidden="true"
-                  class="bx--text-input__readonly-icon"
-                  fill="currentColor"
-                  focusable="false"
-                  height="16"
-                  preserveAspectRatio="xMidYMid meet"
-                  viewBox="0 0 32 32"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M30 28.6L3.4 2 2 3.4l10.1 10.1L4 21.6V28h6.4l8.1-8.1L28.6 30 30 28.6zM9.6 26H6v-3.6l7.5-7.5 3.6 3.6L9.6 26zM29.4 6.2L29.4 6.2l-3.6-3.6c-.8-.8-2-.8-2.8 0l0 0 0 0-8 8 1.4 1.4L20 8.4l3.6 3.6L20 15.6l1.4 1.4 8-8C30.2 8.2 30.2 7 29.4 6.2L29.4 6.2zM25 10.6L21.4 7l3-3L28 7.6 25 10.6z"
-                  />
-                </svg>
                 <input
                   aria-describedby="key-helper-text"
-                  class="bx--text-input bx--text-input--md"
+                  class="cds--text-input cds--text-input--md"
                   id="key"
                   placeholder=".e.g. token"
                   readonly=""
@@ -63,7 +52,7 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
                 />
               </div>
               <div
-                class="bx--form__helper-text"
+                class="cds--form__helper-text"
                 id="key-helper-text"
               >
                 Reference value for parameter in workflow. It can't be changed after parameter creation.
@@ -72,17 +61,14 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
           </div>
         </div>
         <div
-          class="bx--bmrg-select"
+          class="cds--bmrg-select"
         >
           <div
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            aria-labelledby="downshift-0-label"
-            class="bx--list-box__wrapper"
-            role="combobox"
+            class="cds--list-box__wrapper"
           >
             <label
-              class="bx--label"
+              class="cds--label"
+              dir="auto"
               for="type"
               id="downshift-0-label"
             >
@@ -95,36 +81,31 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
               </div>
             </label>
             <div
-              aria-label="Choose an item"
-              class="bx--combo-box bx--list-box"
+              class="cds--combo-box cds--list-box"
             >
               <div
-                aria-haspopup="true"
-                aria-label="open menu"
-                class="bx--list-box__field"
-                data-toggle="true"
-                id="type"
-                role="button"
-                tabindex="-1"
-                type="button"
+                class="cds--list-box__field"
               >
                 <input
                   aria-autocomplete="list"
-                  aria-labelledby="downshift-0-label"
+                  aria-expanded="false"
+                  aria-haspopup="listbox"
                   autocomplete="off"
-                  class="bx--text-input"
+                  class="cds--text-input"
                   id="type"
                   placeholder="Select an item"
+                  role="combobox"
                   tabindex="0"
+                  title="Text"
                   type="text"
                   value="Text"
                 />
-                <div
+                <button
                   aria-label="Clear selected item"
-                  class="bx--list-box__selection"
-                  role="button"
+                  class="cds--list-box__selection"
                   tabindex="0"
                   title="Clear selected item"
+                  type="button"
                 >
                   <svg
                     aria-hidden="true"
@@ -140,18 +121,23 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
                       d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
                     />
                   </svg>
-                </div>
-                <div
-                  class="bx--list-box__menu-icon"
+                </button>
+                <button
+                  aria-haspopup="true"
+                  aria-label="Open"
+                  class="cds--list-box__menu-icon"
+                  data-toggle="true"
+                  role="button"
+                  tabindex="-1"
+                  title="Open"
+                  type="button"
                 >
                   <svg
-                    aria-label="Open menu"
+                    aria-hidden="true"
                     fill="currentColor"
                     focusable="false"
                     height="16"
-                    name="chevron--down"
                     preserveAspectRatio="xMidYMid meet"
-                    role="img"
                     viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -159,41 +145,48 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
                     <path
                       d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
                     />
-                    <title>
-                      Open menu
-                    </title>
                   </svg>
-                </div>
+                </button>
               </div>
+              <div
+                aria-label="Choose an item"
+                class="cds--list-box__menu"
+                id="downshift-0-menu"
+                role="listbox"
+              />
             </div>
           </div>
         </div>
         <div
-          class="bx--bmrg-text-input"
+          class="cds--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="cds--form-item cds--text-input-wrapper"
           >
-            <label
-              class="bx--label"
-              for="label"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Label
-                </div>
-              </div>
-            </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="cds--text-input__label-wrapper"
+            >
+              <label
+                class="cds--label"
+                for="label"
+              >
+                <div
+                  class="cds--bmrg-text-input__label"
+                >
+                  <div>
+                    Label
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="cds--text-input__field-outer-wrapper"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                class="cds--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text-input--md"
+                  class="cds--text-input cds--text-input--md"
                   id="label"
                   placeholder="e.g. Token"
                   title="e.g. Token"
@@ -205,31 +198,35 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
           </div>
         </div>
         <div
-          class="bx--bmrg-text-input"
+          class="cds--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="cds--form-item cds--text-input-wrapper"
           >
-            <label
-              class="bx--label"
-              for="description"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Description (optional)
-                </div>
-              </div>
-            </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="cds--text-input__label-wrapper"
+            >
+              <label
+                class="cds--label"
+                for="description"
+              >
+                <div
+                  class="cds--bmrg-text-input__label"
+                >
+                  <div>
+                    Description (optional)
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="cds--text-input__field-outer-wrapper"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                class="cds--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text-input--md"
+                  class="cds--text-input cds--text-input--md"
                   id="description"
                   type="text"
                   value="Tim property"
@@ -239,32 +236,36 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
           </div>
         </div>
         <div
-          class="bx--bmrg-text-input"
+          class="cds--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="cds--form-item cds--text-input-wrapper"
           >
-            <label
-              class="bx--label"
-              for="jsonPath"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Event Payload JsonPath (optional)
-                </div>
-              </div>
-            </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="cds--text-input__label-wrapper"
+            >
+              <label
+                class="cds--label"
+                for="jsonPath"
+              >
+                <div
+                  class="cds--bmrg-text-input__label"
+                >
+                  <div>
+                    Event Payload JsonPath (optional)
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="cds--text-input__field-outer-wrapper"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                class="cds--text-input__field-wrapper"
               >
                 <input
                   aria-describedby="jsonPath-helper-text"
-                  class="bx--text-input bx--text-input--md"
+                  class="cds--text-input cds--text-input--md"
                   id="jsonPath"
                   placeholder="e.g. $.repository.image[2]"
                   title="e.g. $.repository.image[2]"
@@ -273,7 +274,7 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
                 />
               </div>
               <div
-                class="bx--form__helper-text"
+                class="cds--form__helper-text"
                 id="jsonPath-helper-text"
               >
                 Retrieves value matching dot notation path in the event payload
@@ -282,16 +283,16 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
           </div>
         </div>
         <div
-          class="bx--bmrg-toggle__container"
+          class="cds--bmrg-toggle__container"
         >
           <div
-            class="bx--bmrg-toggle --vertical"
+            class="cds--bmrg-toggle --vertical"
           >
             <div
-              class="bx--bmrg-toggle__title"
+              class="cds--bmrg-toggle__title"
             >
               <label
-                class="bx--label"
+                class="cds--label"
                 for="required"
                 id="required-label"
                 style="margin-bottom: 0px;"
@@ -300,62 +301,69 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
               </label>
             </div>
             <div
-              class="bx--form-item"
+              class="cds--toggle"
             >
-              <input
+              <button
+                aria-checked="false"
                 aria-labelledby="required-label"
-                class="bx--toggle-input"
+                class="cds--toggle__button"
                 data-testid="toggle-test-id"
                 id="required"
-                type="checkbox"
+                role="switch"
+                type="button"
               />
               <label
-                aria-label="Toggle"
-                class="bx--toggle-input__label"
+                class="cds--toggle__label"
                 for="required"
               >
                 <span
-                  class="bx--toggle__switch"
+                  class="cds--toggle__label-text"
+                />
+                <div
+                  class="cds--toggle__appearance"
                 >
-                  <span
-                    aria-hidden="true"
-                    class="bx--toggle__text--off"
+                  <div
+                    class="cds--toggle__switch"
                   />
                   <span
                     aria-hidden="true"
-                    class="bx--toggle__text--on"
+                    class="cds--toggle__text"
                   />
-                </span>
+                </div>
               </label>
             </div>
           </div>
         </div>
         <div
-          class="bx--bmrg-text-input"
+          class="cds--bmrg-text-input"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="cds--form-item cds--text-input-wrapper"
           >
-            <label
-              class="bx--label"
-              for="defaultValue"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Default Value
-                </div>
-              </div>
-            </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="cds--text-input__label-wrapper"
+            >
+              <label
+                class="cds--label"
+                for="defaultValue"
+              >
+                <div
+                  class="cds--bmrg-text-input__label"
+                >
+                  <div>
+                    Default Value
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="cds--text-input__field-outer-wrapper"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                class="cds--text-input__field-wrapper"
               >
                 <input
-                  class="bx--text-input bx--text-input--md"
+                  class="cds--text-input cds--text-input--md"
                   data-testid="text-input"
                   id="defaultValue"
                   placeholder="Default Value"
@@ -369,17 +377,17 @@ exports[`Inputs --- Snapshot Test > Capturing Snapshot of Inputs 1`] = `
         </div>
       </div>
       <div
-        class="bx--modal-footer bx--btn-set"
+        class="cds--modal-footer cds--btn-set"
       >
         <button
-          class="bx--btn bx--btn--secondary"
+          class="cds--btn cds--btn--secondary"
           tabindex="0"
           type="button"
         >
           Cancel
         </button>
         <button
-          class="bx--btn bx--btn--primary bx--btn--disabled"
+          class="cds--btn cds--btn--primary cds--btn--disabled"
           data-testid="parameter-modal-confirm-button"
           disabled=""
           tabindex="0"

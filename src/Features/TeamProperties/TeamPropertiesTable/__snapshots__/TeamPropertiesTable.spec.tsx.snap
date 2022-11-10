@@ -6,21 +6,21 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
 >
   <div>
     <header
-      class="bx--bmrg-feature-header _header_d292d6"
+      class="cds--bmrg-feature-header _header_d292d6"
     >
       <section
-        class="bx--bmrg-feature-header__content"
+        class="cds--bmrg-feature-header__content"
       >
         <div
-          class="bx--bmrg-feature-header__header"
+          class="cds--bmrg-feature-header__header"
         >
           <h1
-            class="bx--bmrg-feature-header-title _headerTitle_d292d6"
+            class="cds--bmrg-feature-header-title _headerTitle_d292d6"
           >
             Team Parameters
           </h1>
           <p
-            class="bx--bmrg-feature-header-title"
+            class="cds--bmrg-feature-header-title"
           >
             Set team parameters that are accessible in all workflows for that team.
           </p>
@@ -37,17 +37,14 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
           class="_dropdown_d292d6"
         >
           <div
-            class="bx--bmrg-select"
+            class="cds--bmrg-select"
           >
             <div
-              aria-expanded="false"
-              aria-haspopup="listbox"
-              aria-labelledby="downshift-0-label"
-              class="bx--list-box__wrapper"
-              role="combobox"
+              class="cds--list-box__wrapper"
             >
               <label
-                class="bx--label"
+                class="cds--label"
+                dir="auto"
                 for="team-parameters-select"
                 id="downshift-0-label"
               >
@@ -60,37 +57,32 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
                 </div>
               </label>
               <div
-                aria-label="Choose an item"
-                class="bx--combo-box bx--list-box"
+                class="cds--combo-box cds--list-box"
               >
                 <div
-                  aria-haspopup="true"
-                  aria-label="open menu"
-                  class="bx--list-box__field"
-                  data-toggle="true"
-                  id="team-parameters-select"
-                  role="button"
-                  tabindex="-1"
-                  type="button"
+                  class="cds--list-box__field"
                 >
                   <input
                     aria-autocomplete="list"
-                    aria-labelledby="downshift-0-label"
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
                     autocomplete="off"
-                    class="bx--text-input"
+                    class="cds--text-input"
                     data-testid="team-parameters-combobox"
                     id="team-parameters-select"
                     placeholder="Select a team"
+                    role="combobox"
                     tabindex="0"
+                    title="Allianz"
                     type="text"
                     value="Allianz"
                   />
-                  <div
+                  <button
                     aria-label="Clear selected item"
-                    class="bx--list-box__selection"
-                    role="button"
+                    class="cds--list-box__selection"
                     tabindex="0"
                     title="Clear selected item"
+                    type="button"
                   >
                     <svg
                       aria-hidden="true"
@@ -106,18 +98,23 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
                         d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
                       />
                     </svg>
-                  </div>
-                  <div
-                    class="bx--list-box__menu-icon"
+                  </button>
+                  <button
+                    aria-haspopup="true"
+                    aria-label="Open"
+                    class="cds--list-box__menu-icon"
+                    data-toggle="true"
+                    role="button"
+                    tabindex="-1"
+                    title="Open"
+                    type="button"
                   >
                     <svg
-                      aria-label="Open menu"
+                      aria-hidden="true"
                       fill="currentColor"
                       focusable="false"
                       height="16"
-                      name="chevron--down"
                       preserveAspectRatio="xMidYMid meet"
-                      role="img"
                       viewBox="0 0 16 16"
                       width="16"
                       xmlns="http://www.w3.org/2000/svg"
@@ -125,18 +122,21 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
                       <path
                         d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
                       />
-                      <title>
-                        Open menu
-                      </title>
                     </svg>
-                  </div>
+                  </button>
                 </div>
+                <div
+                  aria-label="Choose an item"
+                  class="cds--list-box__menu"
+                  id="downshift-0-menu"
+                  role="listbox"
+                />
               </div>
             </div>
           </div>
         </div>
         <button
-          class="bx--btn bx--btn--md bx--btn--primary"
+          class="cds--btn cds--btn--md cds--btn--primary"
           data-testid="create-team-parameter-button"
           style="min-width: 9rem;"
           tabindex="0"
@@ -146,7 +146,7 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
           <svg
             aria-hidden="true"
             aria-label="Create Parameter"
-            class="bx--btn__icon"
+            class="cds--btn__icon"
             fill="currentColor"
             focusable="false"
             height="16"
@@ -163,15 +163,15 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
         </button>
       </div>
       <div
-        class="bx--bmrg-error-page"
+        class="cds--bmrg-error-page"
       >
         <h1
-          class="bx--bmrg-error-page__title"
+          class="cds--bmrg-error-page__title"
         >
           No team parameters
         </h1>
         <section
-          class="bx--bmrg-error-page__graphic"
+          class="cds--bmrg-error-page__graphic"
         >
           <svg
             data-name="Layer 1"
@@ -395,7 +395,7 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
     </div>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

@@ -6,7 +6,7 @@ exports[`TaskExecutionLog --- Snapshot > Capturing Snapshot of TaskExecutionLog 
 >
   <div>
     <button
-      class="_trigger_d45153 bx--btn bx--btn--sm bx--btn--ghost"
+      class="_trigger_d45153 cds--btn cds--btn--sm cds--btn--ghost"
       tabindex="0"
       type="button"
     >
@@ -14,7 +14,7 @@ exports[`TaskExecutionLog --- Snapshot > Capturing Snapshot of TaskExecutionLog 
     </button>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;
