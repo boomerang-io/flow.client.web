@@ -9,35 +9,35 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
       class="_container_1b3db8"
     >
       <header
-        class="bx--bmrg-feature-header _container_0b651a --bordered"
+        class="cds--bmrg-feature-header _container_0b651a --bordered"
       >
         <section
-          class="bx--bmrg-feature-header__content"
+          class="cds--bmrg-feature-header__content"
         >
           <div
-            class="bx--bmrg-feature-header__nav"
+            class="cds--bmrg-feature-header__nav"
           >
             <nav
               aria-label="Breadcrumb"
             >
               <ol
-                class="bx--breadcrumb bx--breadcrumb--no-trailing-slash"
+                class="cds--breadcrumb cds--breadcrumb--no-trailing-slash"
               >
                 <li
-                  class="bx--breadcrumb-item"
+                  class="cds--breadcrumb-item"
                 >
                   <a
-                    class="bx--link"
+                    class="cds--link"
                     href="/admin/teams"
                   >
                     Teams
                   </a>
                 </li>
                 <li
-                  class="bx--breadcrumb-item bx--breadcrumb-item--current"
+                  class="cds--breadcrumb-item cds--breadcrumb-item--current"
                 >
                   <p
-                    class="bx--link"
+                    class="cds--link"
                   >
                     WDC2 ISE Dev
                   </p>
@@ -46,10 +46,10 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
             </nav>
           </div>
           <div
-            class="bx--bmrg-feature-header__header"
+            class="cds--bmrg-feature-header__header"
           >
             <h1
-              class="bx--bmrg-feature-header-title"
+              class="cds--bmrg-feature-header-title"
             >
               WDC2 ISE Dev
             </h1>
@@ -88,32 +88,32 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
             </div>
           </div>
           <div
-            class="bx--bmrg-feature-header__footer"
+            class="cds--bmrg-feature-header__footer"
           >
             <nav
-              class="bx--bmrg-feature-nav-tabs"
+              class="cds--bmrg-feature-nav-tabs"
             >
               <a
                 aria-current="page"
-                class="bx--bmrg-feature-nav-tab bx--bmrg-feature-nav-tab--active"
+                class="cds--bmrg-feature-nav-tab cds--bmrg-feature-nav-tab--active"
                 href="/admin/teams/5e7cccb94bbc6e0001c51773"
               >
                 Members
               </a>
               <a
-                class="bx--bmrg-feature-nav-tab"
+                class="cds--bmrg-feature-nav-tab"
                 href="/admin/teams/5e7cccb94bbc6e0001c51773/workflows"
               >
                 Workflows
               </a>
               <a
-                class="bx--bmrg-feature-nav-tab"
+                class="cds--bmrg-feature-nav-tab"
                 href="/admin/teams/5e7cccb94bbc6e0001c51773/labels"
               >
                 Labels
               </a>
               <a
-                class="bx--bmrg-feature-nav-tab"
+                class="cds--bmrg-feature-nav-tab"
                 href="/admin/teams/5e7cccb94bbc6e0001c51773/settings"
               >
                 Settings
@@ -126,13 +126,13 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
         >
           <button
             aria-describedby="danger-description-1"
-            class="bx--btn bx--btn--md bx--btn--danger"
+            class="cds--btn cds--btn--md cds--btn--danger"
             data-testid="close-team"
             tabindex="0"
             type="button"
           >
             <span
-              class="bx--visually-hidden"
+              class="cds--visually-hidden"
               id="danger-description-1"
             >
               danger
@@ -141,7 +141,7 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
             <svg
               aria-hidden="true"
               aria-label="Close"
-              class="bx--btn__icon"
+              class="cds--btn__icon"
               fill="currentColor"
               focusable="false"
               height="16"
@@ -183,15 +183,15 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
             </p>
             <div
               aria-labelledby="member-search-search"
-              class="bx--search bx--search--xl"
+              class="cds--search cds--search--xl"
               role="search"
             >
               <div
-                class="bx--search-magnifier"
+                class="cds--search-magnifier"
               >
                 <svg
                   aria-hidden="true"
-                  class="bx--search-magnifier-icon"
+                  class="cds--search-magnifier-icon"
                   fill="currentColor"
                   focusable="false"
                   height="16"
@@ -206,7 +206,7 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                 </svg>
               </div>
               <label
-                class="bx--label"
+                class="cds--label"
                 for="member-search"
                 id="member-search-search"
               >
@@ -214,7 +214,7 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
               </label>
               <input
                 autocomplete="off"
-                class="bx--search-input"
+                class="cds--search-input"
                 id="member-search"
                 placeholder="Search for a member"
                 role="searchbox"
@@ -222,7 +222,7 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
               />
               <button
                 aria-label="Clear search input"
-                class="bx--search-close bx--search-close--hidden"
+                class="cds--search-close cds--search-close--hidden"
                 type="button"
               >
                 <svg
@@ -246,7 +246,7 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
             class="_rightActions_72f9b4"
           >
             <button
-              class="bx--btn bx--btn--md bx--btn--primary"
+              class="cds--btn cds--btn--md cds--btn--primary"
               data-testid="add-members-button"
               tabindex="0"
               type="button"
@@ -255,7 +255,7 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
               <svg
                 aria-hidden="true"
                 aria-label="Add members"
-                class="bx--btn__icon"
+                class="cds--btn__icon"
                 fill="currentColor"
                 focusable="false"
                 height="16"
@@ -274,59 +274,59 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
         </section>
         <div
           aria-label="Structured list section"
-          class="bx--structured-list"
+          class="cds--structured-list"
           role="table"
         >
           <div
-            class="bx--structured-list-thead"
+            class="cds--structured-list-thead"
             role="rowgroup"
           >
             <div
-              class="bx--structured-list-row bx--structured-list-row--header-row"
+              class="cds--structured-list-row cds--structured-list-row--header-row"
               role="row"
             >
               <div
-                class="bx--structured-list-th"
+                class="cds--structured-list-th"
                 role="columnheader"
               >
                 Name
               </div>
               <div
-                class="bx--structured-list-th"
+                class="cds--structured-list-th"
                 role="columnheader"
               >
                 Email
               </div>
               <div
-                class="bx--structured-list-th"
+                class="cds--structured-list-th"
                 role="columnheader"
               >
                 Added on
               </div>
               <div
-                class="bx--structured-list-th"
+                class="cds--structured-list-th"
                 role="columnheader"
               />
               <div
-                class="bx--structured-list-th"
+                class="cds--structured-list-th"
                 role="columnheader"
               />
               <div
-                class="bx--structured-list-th"
+                class="cds--structured-list-th"
                 role="columnheader"
               />
             </div>
           </div>
           <div
-            class="bx--structured-list-tbody"
+            class="cds--structured-list-tbody"
             role="rowgroup"
           >
             <div
-              class="bx--structured-list-row"
+              class="cds--structured-list-row"
               role="row"
             >
               <div
-                class="bx--structured-list-td"
+                class="cds--structured-list-td"
                 role="cell"
               >
                 <div
@@ -338,19 +338,19 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                 </div>
               </div>
               <div
-                class="bx--structured-list-td"
+                class="cds--structured-list-td"
                 role="cell"
               >
                 mdroy@us.ibm.com
               </div>
               <div
-                class="bx--structured-list-td"
+                class="cds--structured-list-td"
                 role="cell"
               >
                 July 21, 2020
               </div>
               <div
-                class="bx--structured-list-td"
+                class="cds--structured-list-td"
                 role="cell"
               >
                 <button
@@ -377,7 +377,7 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                 </button>
               </div>
               <div
-                class="bx--structured-list-td"
+                class="cds--structured-list-td"
                 role="cell"
               >
                 <a
@@ -389,11 +389,11 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
               </div>
             </div>
             <div
-              class="bx--structured-list-row"
+              class="cds--structured-list-row"
               role="row"
             >
               <div
-                class="bx--structured-list-td"
+                class="cds--structured-list-td"
                 role="cell"
               >
                 <div
@@ -405,19 +405,19 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                 </div>
               </div>
               <div
-                class="bx--structured-list-td"
+                class="cds--structured-list-td"
                 role="cell"
               >
                 trbula@us.ibm.com
               </div>
               <div
-                class="bx--structured-list-td"
+                class="cds--structured-list-td"
                 role="cell"
               >
                 July 21, 2020
               </div>
               <div
-                class="bx--structured-list-td"
+                class="cds--structured-list-td"
                 role="cell"
               >
                 <button
@@ -444,7 +444,7 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
                 </button>
               </div>
               <div
-                class="bx--structured-list-td"
+                class="cds--structured-list-td"
                 role="cell"
               >
                 <a
@@ -461,16 +461,16 @@ exports[`TeamDetailed --- Snapshot Test > Capturing Snapshot of TeamDetailed 1`]
     </div>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

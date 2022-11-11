@@ -36,6 +36,7 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
           <p className={styles.taskbarTitle}>Task log</p>
           {!isCollapsed && (
             <Button
+              data-testid="taskbar-button"
               disabled
               data-testid="taskbar-button"
               iconDescription="Change sort direction (by start time)"

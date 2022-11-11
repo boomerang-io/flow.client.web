@@ -6,7 +6,7 @@ exports[`OutputPropertiesLog --- Snapshot > Capturing Snapshot of OutputProperti
 >
   <div>
     <button
-      class="bx--btn bx--btn--sm bx--btn--ghost"
+      class="cds--btn cds--btn--sm cds--btn--ghost"
       tabindex="0"
       type="button"
     >
@@ -14,7 +14,7 @@ exports[`OutputPropertiesLog --- Snapshot > Capturing Snapshot of OutputProperti
     </button>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;
