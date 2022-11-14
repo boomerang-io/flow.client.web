@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Slider } from "@carbon/react";
+import { Slider, TextInput } from "@carbon/react";
 import omit from "lodash/omit";
 import "./styles.scss";
 
@@ -33,7 +33,7 @@ class BasicSlider extends Component<Props, State> {
   propsHandler = () => {
     const newProps = {
       ...this.props,
-      ref: this.props.sliderRef,
+      hideTextInput: true,
       // Bypass Slider 'number' validation for the input. This way the console warning will not be thrown.
       value: parseInt(this.state.value),
       onChange: (e: { value: number }) => {
@@ -61,19 +61,28 @@ class BasicSlider extends Component<Props, State> {
   };
 
   setSliderValueAndPosition = (value: any) => {
-    this.setState({ value: value }, () => {
-      // Update the Slider ref object with the current value, otherwise it will not be displayed properly
-      this.props.sliderRef.current.state.left =
-        (parseInt(this.state.value, 10) * 100) / this.props.sliderRef.current.props.max;
-      this.props.sliderRef.current.state.value = this.state.value;
-    });
+    // this.setState({ value: value }, () => {
+    //   // Update the Slider ref object with the current value, otherwise it will not be displayed properly
+    //   this.props.sliderRef.current.state.left =
+    //     (parseInt(this.state.value, 10) * 100) / this.props.sliderRef.current.props.max;
+    //   this.props.sliderRef.current.state.value = this.state.value;
+    // });
+    this.setState({ value: value });
+  };
+
+  handleSliderInputChange = (e:any) => {
+    this.setState({ value: e.target.value });
   };
 
   render() {
+    const {max, min, helperText} = this.props;
     return (
       <div className="c-slider__wrapper">
-        <Slider {...this.propsHandler()} />
-        {this.props.helperText && <p className="c-slider__helper-text">{this.props.helperText}</p>}
+        <div className="c-slider__container">
+          <Slider {...this.propsHandler()} />
+          <TextInput className="c-slider__slider-input" max={max} min={min} type="number" value={this.state.value} onChange={this.handleSliderInputChange}/>
+        </div>
+        {helperText && <p className="c-slider__helper-text">{this.props.helperText}</p>}
         <div className="c-slider__input-divider" />
       </div>
     );

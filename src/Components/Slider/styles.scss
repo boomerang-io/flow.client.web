@@ -73,13 +73,13 @@
 .c-slider__wrapper {
   position: relative;
 
-  .c-slider__input-divider {
-    position: absolute;
-    border: 0.0625rem solid var(--cds-ui-04);
-    right: 0;
-    bottom: 0.625rem;
-    width: 3.125rem;
-  }
+  // .c-slider__input-divider {
+  //   position: absolute;
+  //   border: 0.0625rem solid var(--cds-ui-04);
+  //   right: 0;
+  //   bottom: 0.625rem;
+  //   width: 3.125rem;
+  // }
 }
 .c-slider__helper-text {
   color: var(--cds-text-02);
@@ -87,4 +87,14 @@
   letter-spacing: 0.02rem;
   line-height: 0.8rem;
   margin-top: 0.25rem;
+}
+
+.c-slider__container {
+  display: flex;
+}
+
+.c-slider__slider-input {
+  margin-left: 1rem;
+  margin-top: 0.8rem;
+  max-width: 6rem;
 }
