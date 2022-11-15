@@ -11,8 +11,9 @@ import {
   Search,
   Dropdown,
   Button,
+  InlineNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16 } from "@carbon/icons-react";
+import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16, DataFormat20 } from "@carbon/icons-react";
 import "codemirror/addon/comment/comment.js";
 import "codemirror/addon/fold/brace-fold.js";
 import "codemirror/addon/fold/comment-fold.js";
@@ -37,6 +38,8 @@ TextEditorView.propTypes = {
   setShouldConfirmModalClose: PropTypes.func,
   value: PropTypes.string,
 };
+
+const FORMAT_SPACES_NUMBER = 4;
 
 const escapeRegExp = (val) => {
   return val && val.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -65,6 +68,7 @@ function TextEditorView(props) {
       ? languages.find((value) => value.id === props.language).params
       : { id: "text", text: "Text", params: { mode: "text/plain" } }
   );
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const autoSuggestions =
@@ -151,6 +155,25 @@ function TextEditorView(props) {
   };
 
   const languageOptions = languages.map((language) => ({ id: language.id, text: language.text }));
+
+  const formatJson = () => {
+    try {
+      if (value) {
+        const obj = JSON.parse(value);
+        const str = JSON.stringify(obj, null, FORMAT_SPACES_NUMBER);
+        setValue(str);
+        setError("");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        // show a message or something, toast does not work as it is put behind the modal
+        setError(error.message);
+        // do something in case the JSON is invalid
+      } else {
+        throw error;
+      }
+    }
+  };
 
   const onChangeLanguage = (language) => {
     setLanguageParams(languages.find((value) => value.id === language.selectedItem.id).params);
@@ -285,6 +308,24 @@ function TextEditorView(props) {
               className="b-task-text-area__button"
             />
           </ToolbarItem>
+          {!props.isLanguageSelectorDisabled &&
+            (languageParams?.mode?.name === "javascript" || !languageParams?.mode?.name) && (
+              <ToolbarItem>
+                <div className="b-task-text-area__pretty-print">
+                  <Button
+                    hasIconOnly
+                    size="small"
+                    kind="ghost"
+                    iconDescription="Pretty print"
+                    tooltipPosition="bottom"
+                    tooltipAlignment="end"
+                    renderIcon={DataFormat20}
+                    onClick={formatJson}
+                    className="b-task-text-area__button"
+                  />
+                </div>
+              </ToolbarItem>
+            )}
           {!props.isLanguageSelectorDisabled && (
             <ToolbarItem>
               <div className="b-task-text-area__language-dropdown">
@@ -307,7 +348,16 @@ function TextEditorView(props) {
             </ToolbarItem>
           )}
         </Toolbar>
-
+        {error && (
+          <InlineNotification
+            kind="error"
+            title="Invalid Code"
+            subtitle={error}
+            onClose={() => {
+              setError("");
+            }}
+          />
+        )}
         <CodeMirrorReact
           editorDidMount={(cmeditor) => {
             editor.current = cmeditor;

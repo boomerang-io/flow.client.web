@@ -36,10 +36,9 @@ textarea {
   resize: none !important;
 }
 
-
 .c-textEditorContainer {
   height: 100%;
-  
+
   .b-task-text-area {
     display: flex;
     margin-bottom: 0.5rem;
@@ -51,21 +50,29 @@ textarea {
         background-color: initial !important;
       }
     }
-  
+    &__pretty-print {
+      margin: 0.125rem;
+      margin-left: auto;
+      width: 100%;
+    }
+    &__pretty-print button {
+      float: right;
+    }
+
     &__button {
       padding: 0.6875rem 0.75rem 0.6875rem 0.75rem !important;
       margin: 0.125rem !important;
     }
-  
+
     .bx--search {
       width: 20rem;
     }
-  
+
     .bx--list-box__field {
       height: 2.625rem !important;
     }
   }
-  
+
   .bmrg-c-text-area-modal-wrapper {
     cursor: pointer;
     width: 100%;
@@ -148,8 +155,6 @@ li.CodeMirror-hint-active {
 .CodeMirror-hints.material {
   z-index: 1001;
 }
-
-
 
 .cm-s-material.CodeMirror {
   background-color: var(--cds-text-01);
