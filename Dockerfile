@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:16.18.1-alpine
 ENV BMRG_HOME=/opt/boomerang/server
 
 WORKDIR $BMRG_HOME
