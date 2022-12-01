@@ -56,6 +56,11 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
               workflows.
             </HeaderSubtitle>
           )}
+          {scope === WorkflowScope.Team && (
+            <HeaderSubtitle className={styles.headerMessage}>
+              Shared workflows to collaborate on
+            </HeaderSubtitle>
+          )}
         </>
       }
       footer={

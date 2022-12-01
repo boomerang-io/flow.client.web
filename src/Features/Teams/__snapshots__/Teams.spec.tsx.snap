@@ -224,27 +224,26 @@ exports[`Teams --- Snapshot Test > Capturing Snapshot of Teams 1`] = `
                 <td
                   id="5e7cccb94bbc6e0001c51773:isActive"
                 >
-                  <div
-                    class="cds--form-item cds--checkbox-wrapper"
+                  <svg
+                    aria-label="Active"
+                    fill="green"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <input
-                      checked=""
-                      class="cds--checkbox"
-                      id="check-5e7cccb94bbc6e0001c51773:isActive"
-                      type="checkbox"
+                    <path
+                      d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"
                     />
-                    <label
-                      class="cds--checkbox-label"
-                      for="check-5e7cccb94bbc6e0001c51773:isActive"
-                    >
-                      <span
-                        class="cds--checkbox-label-text cds--visually-hidden"
-                        dir="auto"
-                      >
-                        checkbox
-                      </span>
-                    </label>
-                  </div>
+                    <path
+                      d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"
+                      data-icon-path="inner-path"
+                      opacity="0"
+                    />
+                  </svg>
                 </td>
               </tr>
               <tr
@@ -264,27 +263,26 @@ exports[`Teams --- Snapshot Test > Capturing Snapshot of Teams 1`] = `
                 <td
                   id="6e7cccb94bbc6e0001c51773:isActive"
                 >
-                  <div
-                    class="cds--form-item cds--checkbox-wrapper"
+                  <svg
+                    aria-label="Active"
+                    fill="green"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <input
-                      checked=""
-                      class="cds--checkbox"
-                      id="check-6e7cccb94bbc6e0001c51773:isActive"
-                      type="checkbox"
+                    <path
+                      d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"
                     />
-                    <label
-                      class="cds--checkbox-label"
-                      for="check-6e7cccb94bbc6e0001c51773:isActive"
-                    >
-                      <span
-                        class="cds--checkbox-label-text cds--visually-hidden"
-                        dir="auto"
-                      >
-                        checkbox
-                      </span>
-                    </label>
-                  </div>
+                    <path
+                      d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"
+                      data-icon-path="inner-path"
+                      opacity="0"
+                    />
+                  </svg>
                 </td>
               </tr>
               <tr
@@ -304,26 +302,26 @@ exports[`Teams --- Snapshot Test > Capturing Snapshot of Teams 1`] = `
                 <td
                   id="5e3a35ad8c222700018ccd39:isActive"
                 >
-                  <div
-                    class="cds--form-item cds--checkbox-wrapper"
+                  <svg
+                    aria-label="Inactive"
+                    fill="red"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <input
-                      class="cds--checkbox"
-                      id="check-5e3a35ad8c222700018ccd39:isActive"
-                      type="checkbox"
+                    <path
+                      d="M8,1C4.1,1,1,4.1,1,8s3.1,7,7,7s7-3.1,7-7S11.9,1,8,1z M10.7,11.5L8,8.8l-2.7,2.7l-0.8-0.8L7.2,8L4.5,5.3l0.8-0.8L8,7.2 l2.7-2.7l0.8,0.8L8.8,8l2.7,2.7L10.7,11.5z"
                     />
-                    <label
-                      class="cds--checkbox-label"
-                      for="check-5e3a35ad8c222700018ccd39:isActive"
-                    >
-                      <span
-                        class="cds--checkbox-label-text cds--visually-hidden"
-                        dir="auto"
-                      >
-                        checkbox
-                      </span>
-                    </label>
-                  </div>
+                    <path
+                      d="M10.7,11.5L8,8.8l-2.7,2.7l-0.8-0.8L7.2,8L4.5,5.3l0.8-0.8L8,7.2l2.7-2.7l0.8,0.8L8.8,8 l2.7,2.7L10.7,11.5z"
+                      data-icon-path="inner-path"
+                      opacity="0"
+                    />
+                  </svg>
                 </td>
               </tr>
               <tr
@@ -343,26 +341,26 @@ exports[`Teams --- Snapshot Test > Capturing Snapshot of Teams 1`] = `
                 <td
                   id="5e3a35ad8c222700018ccd38:isActive"
                 >
-                  <div
-                    class="cds--form-item cds--checkbox-wrapper"
+                  <svg
+                    aria-label="Inactive"
+                    fill="red"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <input
-                      class="cds--checkbox"
-                      id="check-5e3a35ad8c222700018ccd38:isActive"
-                      type="checkbox"
+                    <path
+                      d="M8,1C4.1,1,1,4.1,1,8s3.1,7,7,7s7-3.1,7-7S11.9,1,8,1z M10.7,11.5L8,8.8l-2.7,2.7l-0.8-0.8L7.2,8L4.5,5.3l0.8-0.8L8,7.2 l2.7-2.7l0.8,0.8L8.8,8l2.7,2.7L10.7,11.5z"
                     />
-                    <label
-                      class="cds--checkbox-label"
-                      for="check-5e3a35ad8c222700018ccd38:isActive"
-                    >
-                      <span
-                        class="cds--checkbox-label-text cds--visually-hidden"
-                        dir="auto"
-                      >
-                        checkbox
-                      </span>
-                    </label>
-                  </div>
+                    <path
+                      d="M10.7,11.5L8,8.8l-2.7,2.7l-0.8-0.8L7.2,8L4.5,5.3l0.8-0.8L8,7.2l2.7-2.7l0.8,0.8L8.8,8 l2.7,2.7L10.7,11.5z"
+                      data-icon-path="inner-path"
+                      opacity="0"
+                    />
+                  </svg>
                 </td>
               </tr>
             </tbody>

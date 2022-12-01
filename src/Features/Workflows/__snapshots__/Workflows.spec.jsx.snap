@@ -123,6 +123,11 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
             >
               Team Workflows (4)
             </h1>
+            <p
+              class="cds--bmrg-feature-header-title _headerMessage_4d119f"
+            >
+              Shared workflows to collaborate on
+            </p>
           </div>
           <div
             class="cds--bmrg-feature-header__footer"

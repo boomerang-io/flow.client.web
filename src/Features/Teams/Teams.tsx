@@ -4,7 +4,8 @@ import { useQuery } from "Hooks";
 import { useFeature } from "flagged";
 import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
-import { Button, Checkbox, DataTable, DataTableSkeleton, Pagination, Search } from "@carbon/react";
+import { Button, DataTable, DataTableSkeleton, Pagination, Search } from "@carbon/react";
+import { CheckmarkFilled, Misuse } from "@carbon/react/icons";
 import {
   ComposedModal,
   ErrorMessage,
@@ -280,7 +281,7 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
                       if (cell.info.header === "isActive") {
                         return (
                           <TableCell key={cell.id} id={cell.id}>
-                            <Checkbox id={"check-" + cell.id} checked={cell.value} hideLabel labelText="checkbox" />
+                            {cell.value ? <CheckmarkFilled aria-label="Active" fill="green" /> : <Misuse aria-label="Inactive" fill="red" />}
                           </TableCell>
                         );
                       }
