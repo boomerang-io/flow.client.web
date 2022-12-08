@@ -45,7 +45,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
   const { user } = useAppContext();
   const queryClient = useQueryClient();
 
-  const { platformRole } = user;
+  const { type: platformRole }: { type: string } = user;
   const systemWorkflowsEnabled = elevatedUserRoles.includes(platformRole);
   const { teamName, initiatedByUserName, trigger, creationDate, scope, status, id } = workflowExecution.data;
   const displayCancelButton = cancelSatusTypes.includes(status);
