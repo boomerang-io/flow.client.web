@@ -129,6 +129,20 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
             <dt
               class="dataTitle"
             >
+              Scope
+            </dt>
+            <dd
+              class="dataValue"
+            >
+              ---
+            </dd>
+          </dl>
+          <dl
+            class="data"
+          >
+            <dt
+              class="dataTitle"
+            >
               Team
             </dt>
             <dd
