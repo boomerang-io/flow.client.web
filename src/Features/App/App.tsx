@@ -45,11 +45,10 @@ const Teams = lazy(() => import("Features/Teams"));
 const TeamProperties = lazy(() => import("Features/TeamProperties"));
 const TeamTokens = lazy(() => import("Features/TeamTokens"));
 const ManageTeamTasks = lazy(() => import("Features/ManageTeamTasks"));
-const ManageTeamTasksContainer = lazy(() =>
-  import("Features/ManageTeamTasksContainer")
-);
+const ManageTeamTasksContainer = lazy(() => import("Features/ManageTeamTasksContainer"));
 const Users = lazy(() => import("Features/Users"));
 const Workflows = lazy(() => import("Features/Workflows"));
+const ReactFlow = lazy(() => import("Features/ReactFlow"));
 
 const getUserUrl = serviceUrl.getUserProfile();
 const getPlatformConfigUrl = serviceUrl.getPlatformConfig();
@@ -290,6 +289,9 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
         }
       >
         <Switch>
+          <Route path="/react-flow">
+            <ReactFlow />
+          </Route>
           <ProtectedRoute
             allowedUserRoles={["*"]}
             component={() => <Execution />}
