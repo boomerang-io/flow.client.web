@@ -3,10 +3,10 @@
 
 import { defineConfig, loadEnv } from "vite";
 import { resolve } from "path";
+import autoprefixer from "autoprefixer";
 import react from "@vitejs/plugin-react";
 import eslint from "vite-plugin-eslint";
 import svgrPlugin from "vite-plugin-svgr";
-
 const projectRootDir = resolve(__dirname);
 
 export default defineConfig(({ mode }) => {
@@ -23,12 +23,8 @@ export default defineConfig(({ mode }) => {
           quietDeps: true,
         },
       },
-    },
-    optimizeDeps: {
-      esbuildOptions: {
-        loader: {
-          ".js": "jsx",
-        },
+      postcss: {
+        plugins: [autoprefixer],
       },
     },
     plugins: [
@@ -53,18 +49,13 @@ export default defineConfig(({ mode }) => {
         { find: "Styles", replacement: resolve(projectRootDir, "./src/Styles") },
         { find: "Types", replacement: resolve(projectRootDir, "./src/Types") },
         { find: "Utils", replacement: resolve(projectRootDir, "./src/Utils") },
-        { find: "~@carbon", replacement: "@carbon" },
-        { find: "~carbon-components", replacement: "carbon-components" },
-        { find: "~carbon-components-react", replacement: "carbon-components-react" },
         { find: "~ibm-design-colors", replacement: "ibm-design-colors" },
         { find: "~normalize-scss", replacement: "normalize-scss" },
-        { find: "~react-toastify", replacement: "react-toastify" },
-        { find: "~tippy.js", replacement: "tippy.js" },
       ],
     },
     server: {
       port: 3000,
-      proxy: mode === "portforward" ? createPortforwardConfig(portForwardMap, env.AUTH_JWT) : undefined,
+      proxy: mode === "portforward" ? createPortforwardConfig(env.AUTH_JWT) : undefined,
     },
     test: {
       css: false,

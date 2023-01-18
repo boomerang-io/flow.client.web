@@ -446,59 +446,65 @@ exports[`EditTaskTemplateForm --- Snapshot > Capturing Snapshot of Task Template
               class="cds--bmrg-creatable__key-value-inputs"
             >
               <div
-                class="cds--form-item cds--text-input-wrapper"
+                style="margin-bottom: 0rem; margin-top: 0px;"
               >
                 <div
-                  class="cds--text-input__label-wrapper"
-                >
-                  <label
-                    class="cds--label"
-                    for="envs-key"
-                  >
-                    Environments (optional)
-                  </label>
-                </div>
-                <div
-                  class="cds--text-input__field-outer-wrapper"
+                  class="cds--form-item cds--text-input-wrapper"
                 >
                   <div
-                    class="cds--text-input__field-wrapper"
+                    class="cds--text-input__label-wrapper"
                   >
-                    <input
-                      class="cds--text-input cds--text-input--md"
-                      id="envs-key"
-                      style="margin-bottom: 0rem; margin-top: 0px;"
-                      type="text"
-                      value=""
-                    />
+                    <label
+                      class="cds--label"
+                      for="envs-key"
+                    >
+                      Environments (optional)
+                    </label>
+                  </div>
+                  <div
+                    class="cds--text-input__field-outer-wrapper"
+                  >
+                    <div
+                      class="cds--text-input__field-wrapper"
+                    >
+                      <input
+                        class="cds--text-input cds--text-input--md"
+                        id="envs-key"
+                        type="text"
+                        value=""
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
               <span
                 class="cds--bmrg-creatable__colon"
-                style="margin-top: 1.75rem;"
+                style="margin-top: 2.25rem;"
               >
                 :
               </span>
               <div
-                class="cds--form-item cds--text-input-wrapper"
+                style="margin-bottom: 0rem; margin-top: 1.5rem;"
               >
                 <div
-                  class="cds--text-input__label-wrapper"
-                />
-                <div
-                  class="cds--text-input__field-outer-wrapper"
+                  class="cds--form-item cds--text-input-wrapper"
                 >
                   <div
-                    class="cds--text-input__field-wrapper"
+                    class="cds--text-input__label-wrapper"
+                  />
+                  <div
+                    class="cds--text-input__field-outer-wrapper"
                   >
-                    <input
-                      class="cds--text-input cds--text-input--md"
-                      id="envs-value"
-                      style="margin-bottom: 0rem; margin-top: 1.5rem;"
-                      type="text"
-                      value=""
-                    />
+                    <div
+                      class="cds--text-input__field-wrapper"
+                    >
+                      <input
+                        class="cds--text-input cds--text-input--md"
+                        id="envs-value"
+                        type="text"
+                        value=""
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

@@ -10,7 +10,7 @@ if (import.meta.env.MODE === Envs.Prod && window._SERVER_DATA) {
 }
 
 export const PRODUCT_SERVICE_ENV_URL =
-  import.meta.env.MODE === Envs.Prod ? window._SERVER_DATA && window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL : "/api";
+  import.meta.env.MODE === Envs.Prod && window._SERVER_DATA ? window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL : "/api";
 
 
 export const BASE_URL = `${PRODUCT_SERVICE_ENV_URL}/workflow`;

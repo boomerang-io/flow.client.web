@@ -14,9 +14,8 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import "./commands";
+import "@testing-library/cypress/add-commands";
 
-// cypress/support/index.js
 Cypress.on("window:before:load", (win) => {
   win.handleFromCypress = function (request) {
     return fetch(request.url, {

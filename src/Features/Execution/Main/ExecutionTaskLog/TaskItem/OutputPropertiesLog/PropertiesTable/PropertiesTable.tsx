@@ -6,7 +6,7 @@ import {
   StructuredListRow,
   StructuredListWrapper,
 } from "@carbon/react";
-import { NoDisplay } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./propertiesTable.module.scss";
 
 type Props = {
@@ -58,7 +58,7 @@ function PropertiesTable({ data: properties, hasJsonValues = false }: Props) {
           </StructuredListBody>
         </StructuredListWrapper>
       ) : (
-        <NoDisplay text="No parameters to display" />
+        <Error404 header={null} theme="boomerang" title="No parameters to display" />
       )}
     </div>
   );

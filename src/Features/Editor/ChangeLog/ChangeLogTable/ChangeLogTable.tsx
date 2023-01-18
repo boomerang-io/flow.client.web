@@ -92,11 +92,11 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
       <div className={styles.tableContainer}>
         <Search
           className={styles.search}
+          data-testid="change-log-search"
           id="change-log-table-search"
           labelText="Search"
-          placeholder="Search"
           onChange={this.handleSearchChange}
-          data-testid="change-log-search"
+          placeholder="Search"
         />
         {totalItems > 0 ? (
           <>
