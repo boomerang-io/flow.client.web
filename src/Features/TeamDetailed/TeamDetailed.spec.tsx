@@ -1,4 +1,3 @@
-import { vi } from "vitest";
 import TeamDetailed from ".";
 import { Route } from "react-router-dom";
 import { screen, fireEvent } from "@testing-library/react";

@@ -2,7 +2,7 @@ import React from "react";
 import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
-import { Layer, MultiSelect as Select } from "@carbon/react";
+import { Layer, FilterableMultiSelect } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderSubtitle as HeaderSubtitle,
@@ -34,8 +34,6 @@ import type {
   WorkflowSummary,
 } from "Types";
 import styles from "./Schedules.module.scss";
-
-const MultiSelect = Select.Filterable;
 
 const defaultStatusArray = scheduleStatusOptions.map((statusObj) => statusObj.value);
 const defaultFromDate = moment().startOf("month").unix();
@@ -238,7 +236,7 @@ export default function Schedules() {
           actions={
             <section aria-label="Schedule filters" className={styles.dataFiltersContainer}>
               <Layer className={styles.dataFilter}>
-                <MultiSelect
+                <FilterableMultiSelect
                   id="schedules-scopes-select"
                   label="Choose scope(s)"
                   placeholder="Choose scope(s)"
@@ -253,7 +251,7 @@ export default function Schedules() {
                 />
               </Layer>
               <Layer className={styles.dataFilter}>
-                <MultiSelect
+                <FilterableMultiSelect
                   light
                   disabled={disableTeamsDropdown}
                   key={disableTeamsDropdown ? "teams-disabled" : "teams-enabeld"}
@@ -269,7 +267,7 @@ export default function Schedules() {
                 />
               </Layer>
               <Layer className={styles.dataFilter}>
-                <MultiSelect
+                <FilterableMultiSelect
                   light
                   id="schedules-workflows-select"
                   label="Choose workflow(s)"
@@ -298,7 +296,7 @@ export default function Schedules() {
                 />
               </Layer>
               <Layer className={styles.dataFilter}>
-                <MultiSelect
+                <FilterableMultiSelect
                   id="schedules-statuses-select"
                   label="Choose status(es)"
                   placeholder="Choose status(es)"

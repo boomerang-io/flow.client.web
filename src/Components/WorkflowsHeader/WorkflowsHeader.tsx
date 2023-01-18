@@ -1,5 +1,5 @@
 import React from "react";
-import { Layer, MultiSelect, Search } from "@carbon/react";
+import { Layer, FilterableMultiSelect, Search } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
@@ -57,9 +57,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
             </HeaderSubtitle>
           )}
           {scope === WorkflowScope.Team && (
-            <HeaderSubtitle className={styles.headerMessage}>
-              Shared workflows to collaborate on
-            </HeaderSubtitle>
+            <HeaderSubtitle className={styles.headerMessage}>Shared workflows to collaborate on</HeaderSubtitle>
           )}
         </>
       }
@@ -137,7 +135,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
       </Layer>
       {teams && scope !== WorkflowScope.User && (
         <div className={styles.filter}>
-          <MultiSelect.Filterable
+          <FilterableMultiSelect
             light
             disabled={!hasTeams}
             id="b-search-filter__filter"
