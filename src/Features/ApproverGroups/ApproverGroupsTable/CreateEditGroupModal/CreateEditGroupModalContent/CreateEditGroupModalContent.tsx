@@ -3,7 +3,7 @@ import { useMutation, useQueryClient, useQuery } from "react-query";
 import { Formik, FieldArray } from "formik";
 import * as Yup from "yup";
 import sortBy from "lodash/sortBy";
-import matchSorter from "match-sorter";
+import { matchSorter } from "match-sorter";
 import {
   ErrorMessage,
   Loading,

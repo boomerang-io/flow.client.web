@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useMutation, useQueryClient } from "react-query";
-import ms from "match-sorter";
+import { matchSorter as ms } from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { Formik, FieldArray } from "formik";
 import {

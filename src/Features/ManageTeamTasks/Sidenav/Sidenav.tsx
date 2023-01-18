@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useAppContext } from "Hooks";
 import sortBy from "lodash/sortBy";
-import matchSorter from "match-sorter";
+import { matchSorter } from "match-sorter";
 import { Accordion, AccordionItem, Checkbox, Dropdown, Layer, OverflowMenu , Search } from "@carbon/react";
 import {
   CheckboxList,

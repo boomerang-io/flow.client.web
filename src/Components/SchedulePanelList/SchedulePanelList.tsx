@@ -13,7 +13,7 @@ import {
 } from "@carbon/react";
 import { ConfirmModal, TooltipHover, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import cronstrue from "cronstrue";
-import matchSorter from "match-sorter";
+import { matchSorter } from "match-sorter";
 import moment from "moment-timezone";
 import { DATETIME_LOCAL_DISPLAY_FORMAT } from "Utils/dateHelper";
 import { scheduleStatusOptions, scheduleStatusLabelMap, scheduleTypeLabelMap } from "Constants";

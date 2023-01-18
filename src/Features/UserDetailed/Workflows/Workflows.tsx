@@ -11,7 +11,7 @@ import {
   StructuredListCell,
 } from "@carbon/react";
 import EmptyState from "Components/EmptyState";
-import ms from "match-sorter";
+import { matchSorter as ms } from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { appLink } from "Config/appConfig";
 import { FlowUser } from "Types";

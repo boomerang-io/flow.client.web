@@ -11,7 +11,7 @@ import {
 } from "@carbon/react";
 import { Link } from "react-router-dom";
 import EmptyState from "Components/EmptyState";
-import ms from "match-sorter";
+import { matchSorter as ms } from "match-sorter";
 import { appLink } from "Config/appConfig";
 import { FlowUser } from "Types";
 import styles from "./UserTeams.module.scss";

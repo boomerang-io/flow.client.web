@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import matchSorter from "match-sorter";
+import { matchSorter } from "match-sorter";
 import { useMutation, useQueryClient } from "react-query";
 import { DataTable, Pagination, Search } from "@carbon/react";
 import {

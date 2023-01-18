@@ -3,15 +3,11 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useAppContext, useQuery } from "Hooks";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import {
-  Error,
-  Loading,
-  FeatureNavTabs as Tabs,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-import { DatePicker, DatePickerInput, MultiSelect as Select } from "@carbon/react";
+import { Error, Loading, FeatureNavTabs as Tabs } from "@boomerang-io/carbon-addons-boomerang-react";
+import { DatePicker, DatePickerInput, FilterableMultiSelect } from "@carbon/react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
-import Tab  from "./Tab";
+import Tab from "./Tab";
 import moment from "moment";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
@@ -22,7 +18,6 @@ import { executionStatusList, QueryStatus, elevatedUserRoles, WorkflowScope } fr
 import { executionOptions } from "Constants/filterOptions";
 import styles from "./Activity.module.scss";
 
-const MultiSelect = Select.Filterable;
 const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
 const DEFAULT_SIZE = 10;
@@ -368,7 +363,7 @@ function WorkflowActivity() {
           <div className={styles.filtersContainer}>
             <div className={styles.dataFilters}>
               <div className={styles.dataFilter}>
-                <MultiSelect
+                <FilterableMultiSelect
                   id="activity-scopes-select"
                   label="Choose scope(s)"
                   placeholder="Choose scope(s)"
@@ -384,7 +379,7 @@ function WorkflowActivity() {
               </div>
               {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
                 <div className={styles.dataFilter}>
-                  <MultiSelect
+                  <FilterableMultiSelect
                     id="activity-teams-select"
                     label="Choose team(s)"
                     placeholder="Choose team(s)"
@@ -398,7 +393,7 @@ function WorkflowActivity() {
                 </div>
               )}
               <div className={styles.dataFilter}>
-                <MultiSelect
+                <FilterableMultiSelect
                   id="activity-workflows-select"
                   label="Choose workflow(s)"
                   placeholder="Choose workflow(s)"
@@ -426,7 +421,7 @@ function WorkflowActivity() {
                 />
               </div>
               <div className={styles.dataFilter}>
-                <MultiSelect
+                <FilterableMultiSelect
                   id="activity-triggers-select"
                   label="Choose trigger type(s)"
                   placeholder="Choose trigger type(s)"

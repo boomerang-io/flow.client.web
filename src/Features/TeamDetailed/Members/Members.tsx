@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import moment from "moment";
-import ms from "match-sorter";
+import { matchSorter as ms } from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { Link } from "react-router-dom";
 import {

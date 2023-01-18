@@ -1,5 +1,5 @@
 import React from "react";
-import matchSorter from "match-sorter";
+import { matchSorter } from "match-sorter";
 import { Layer, Search } from "@carbon/react";
 import {
   FeatureSideNav as SideNav,
