@@ -121,6 +121,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
             value={searchQuery}
           />
           <OverflowMenu
+          ariaLabel="Filter"
             renderIcon={SettingsAdjust}
             style={{
               backgroundColor: showVerified || showArchived || activeFilters.length > 0 ? "#3DDBD9" : "initial",

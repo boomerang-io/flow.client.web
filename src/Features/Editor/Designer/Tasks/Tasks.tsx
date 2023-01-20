@@ -206,6 +206,7 @@ export default class Tasks extends Component<TaskProps> {
                 value={this.state.searchQuery}
               />
               <OverflowMenu
+                ariaLabel="Filter"
                 size="sm"
                 iconDescription="Filter"
                 renderIcon={SettingsAdjust}

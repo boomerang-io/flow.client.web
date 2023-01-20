@@ -673,20 +673,20 @@ export function TaskTemplateOverview({
                         <div className={styles.fieldsContainer} ref={provided.innerRef}>
                           {values.currentConfig?.length > 0 ? (
                             values.currentConfig.map((field, index) => (
-                              <Draggable key={index} draggableId={index} index={index}>
+                              <Draggable key={field.key} draggableId={field.key} index={index}>
                                 {(provided) => (
-                                  <Field
-                                    field={field}
-                                    dragHandleProps={provided.dragHandleProps}
-                                    draggableProps={provided.draggableProps}
-                                    innerRef={provided.innerRef}
-                                    setFieldValue={setFieldValue}
-                                    fields={values.currentConfig}
-                                    deleteConfiguration={deleteConfiguration}
-                                    isOldVersion={isOldVersion}
-                                    isActive={isActive}
-                                    canEdit={canEdit}
-                                  />
+                                    <Field
+                                      field={field}
+                                      dragHandleProps={provided.dragHandleProps}
+                                      draggableProps={provided.draggableProps}
+                                      innerRef={provided.innerRef}
+                                      setFieldValue={setFieldValue}
+                                      fields={values.currentConfig}
+                                      deleteConfiguration={deleteConfiguration}
+                                      isOldVersion={isOldVersion}
+                                      isActive={isActive}
+                                      canEdit={canEdit}
+                                    />
                                 )}
                               </Draggable>
                             ))
@@ -700,6 +700,7 @@ export function TaskTemplateOverview({
                               <p className={styles.noFieldsText}>Add a field above to get started.</p>
                             </div>
                           )}
+                          {provided.placeholder}
                         </div>
                       )}
                     </Droppable>
@@ -721,6 +722,7 @@ export function TaskTemplateOverview({
                     {values.result?.length > 0 ? (
                       values.result.map((result, index) => (
                         <Result
+                          key={result.name}
                           result={result}
                           setFieldValue={setFieldValue}
                           results={values.result}

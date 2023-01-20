@@ -159,6 +159,7 @@
 .fieldActions {
   align-items: center;
   display: flex;
+  flex-flow: wrap;
   white-space: nowrap;
   :global .cds--assistive-text {
     left: -5.75rem !important;
