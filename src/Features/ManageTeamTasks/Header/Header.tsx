@@ -213,7 +213,7 @@ const Header: React.FC<HeaderProps> = ({
           />
           <Tab
             exact
-            label="Yaml"
+            label="YAML"
             to={appLink.manageTaskTemplateYaml({
               teamId: params?.teamId,
               taskId: selectedTaskTemplate.id,

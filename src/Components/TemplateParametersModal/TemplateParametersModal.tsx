@@ -40,7 +40,7 @@ const TemplateParametersModal: React.FC<TemplateParametersModalProps> = (props) 
           onClick={openModal}
           renderIcon={Add}
           size="md"
-          style={{ marginRight: "0.5rem" }}
+          style={{ width: "13.5rem" }}
         >
           Add a Result Parameter
         </Button>

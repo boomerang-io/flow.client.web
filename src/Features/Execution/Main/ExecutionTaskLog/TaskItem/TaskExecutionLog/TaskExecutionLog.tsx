@@ -1,6 +1,5 @@
 import React from "react";
-import cx from "classnames";
-import { Button } from "@carbon/react";
+import { Button, Theme } from "@carbon/react";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Toggle } from "@carbon/react";
 import { ModalBody } from "@carbon/react";
@@ -44,21 +43,20 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
             startFollowing={true}
             render={({ onScroll }: { onScroll: () => void }) => (
               <>
-                <div className={styles.followToggle}>
-                  <label
-                    className={cx(styles.followToggleText, { [styles.disabled]: Boolean(error) })}
-                    htmlFor="task-log-toggle"
-                  >
-                    Follow log
-                  </label>
+                <Theme theme="g100" className={styles.followToggle}>
                   <Toggle
+                  hideLabel
                     defaultValue={follow}
-                    disabled={!!error}
+                    disabled={Boolean(error)}
                     id="task-log-toggle"
+                    labelText="Follow log toggle"
+                    labelB="Follow"
+                    labelA="Don't Follow"
                     onChange={() => setFollow(!follow)}
                     toggled={follow}
+                    size="sm"
                   />
-                </div>
+                </Theme>
                 <LazyLog
                   enableSearch={true}
                   fetchOptions={

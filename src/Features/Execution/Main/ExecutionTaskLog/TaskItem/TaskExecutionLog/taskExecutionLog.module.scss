@@ -72,12 +72,9 @@
   }
 
   .followToggle {
-    align-items: center;
-    display: flex;
-    line-height: 1.5;
-    right: 358px;
-    top: 16px;
     position: absolute;
+    right: 358px;
+    top: 1rem;
   }
 
   .followToggleText {
@@ -87,6 +84,7 @@
     letter-spacing: 0.0625rem;
     margin-right: 0.5rem;
     white-space: nowrap;
+    margin-bottom: 0.375rem;
     &.disabled {
       opacity: 0.5;
     }

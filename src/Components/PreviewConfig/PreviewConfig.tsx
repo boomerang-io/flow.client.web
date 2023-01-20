@@ -81,7 +81,7 @@ const PreviewConfig: React.FC<PreivewConfigProps> = ({ templateConfig, taskTempl
             onClick={openModal}
             size="md"
             kind="ghost"
-            style={{ width: "6.25rem" }}
+            style={{ width: "7rem" }}
           >
             Preview
           </Button>

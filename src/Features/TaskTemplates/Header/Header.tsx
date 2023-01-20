@@ -207,7 +207,7 @@ const Header: React.FC<HeaderProps> = ({
           />
           <Tab
             exact
-            label="Yaml"
+            label="YAML"
             to={appLink.taskTemplateYaml({ id: selectedTaskTemplate.id, version: currentRevision.version })}
           />
         </Tabs>

@@ -194,9 +194,9 @@ export default function App() {
         }}
       >
         <Navbar
+          flowNavigationData={flowNavigationQuery.data}
           handleOnTutorialClick={() => setIsTutorialActive(true)}
           platformConfigData={navigationQuery.data}
-          flowNavigationData={flowNavigationQuery.data}
           userData={userQuery.data}
         />
         <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />

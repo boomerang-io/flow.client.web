@@ -10,6 +10,10 @@ import { FlowData } from "@carbon/react/icons";
 
 const ACTIVE_CLASS_NAME = "cds--side-nav__link--current";
 
+const skipToContentProps = {
+  href: "#content",
+};
+
 function isInternalLink(navUrl: string) {
   return navUrl.includes(APP_ROOT);
 }
@@ -18,7 +22,7 @@ function getRelativePath(navUrl: string) {
   return navUrl.substring(navUrl.indexOf(APP_ROOT) + APP_ROOT.length);
 }
 
-const handleOnMenuClick =
+const createSidenav =
   (flowNavigationData: FlowNavigationItem[]) =>
   ({ isOpen, close }) =>
     (
@@ -69,10 +73,6 @@ const handleOnMenuClick =
       </SideNav>
     );
 
-const skipToContentProps = {
-  href: "#content",
-};
-
 interface NavbarProps {
   handleOnTutorialClick: () => void;
   flowNavigationData: Array<FlowNavigationItem>;
@@ -86,24 +86,19 @@ export default function Navbar({
   platformConfigData,
   userData,
 }: NavbarProps) {
-  const defaultUIShellProps = {
-    baseServiceUrl: "",
-  };
-
   const { platform } = platformConfigData;
   const appTitle = getAppTitle(platform);
-  const appName = platform.appName;
+  const appName = platform.appName || "Boomerang Flow";
   const platformName = platform.platformName;
 
   return (
     <>
       <Helmet defaultTitle={appTitle} titleTemplate={`%s - ${appTitle}`} />
       <UIShell
-        {...defaultUIShellProps}
-        productName={appName}
         config={platformConfigData}
-        leftPanel={handleOnMenuClick(flowNavigationData)}
+        leftPanel={createSidenav(flowNavigationData)}
         platformName={platformName}
+        productName={appName}
         skipToContentProps={skipToContentProps}
         user={userData as FlowUser}
         supportMenuItems={[
