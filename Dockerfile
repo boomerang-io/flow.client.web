@@ -1,8 +1,4 @@
 FROM node:16-alpine
-
-ARG ART_USER
-ARG ART_PASSWORD
-ARG ART_URL
 ENV BMRG_HOME=/opt/boomerang/server
 
 WORKDIR $BMRG_HOME
