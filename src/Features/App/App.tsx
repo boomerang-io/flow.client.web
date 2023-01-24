@@ -18,6 +18,7 @@ import OnBoardExpContainer from "Features/Tutorial";
 import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
+import { sortBy } from "lodash";
 import queryString from "query-string";
 import { elevatedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
@@ -25,8 +26,6 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, UserWorkflow } from "Types";
 import styles from "./app.module.scss";
 
-// import directly bc of webpack chunking error
-import Schedules from "Features/Schedules";
 const AppActivation = lazy(() => import("./AppActivation"));
 const Activity = lazy(() => import("Features/Activity"));
 const Actions = lazy(() => import("Features/Actions"));
@@ -37,7 +36,7 @@ const GlobalProperties = lazy(() => import("Features/GlobalProperties"));
 const Tokens = lazy(() => import("Features/Tokens"));
 const Insights = lazy(() => import("Features/Insights"));
 const Quotas = lazy(() => import("Features/Quotas"));
-//const Schedules = lazy(() => import("Features/Schedules"));
+const Schedules = lazy(() => import("Features/Schedules"));
 const Settings = lazy(() => import("Features/Settings"));
 const SystemWorkflows = lazy(() => import("Features/SystemWorkflows"));
 const TaskTemplates = lazy(() => import("Features/TaskTemplates"));
@@ -45,9 +44,7 @@ const Teams = lazy(() => import("Features/Teams"));
 const TeamProperties = lazy(() => import("Features/TeamProperties"));
 const TeamTokens = lazy(() => import("Features/TeamTokens"));
 const ManageTeamTasks = lazy(() => import("Features/ManageTeamTasks"));
-const ManageTeamTasksContainer = lazy(() =>
-  import("Features/ManageTeamTasksContainer")
-);
+const ManageTeamTasksContainer = lazy(() => import("Features/ManageTeamTasksContainer"));
 const Users = lazy(() => import("Features/Users"));
 const Workflows = lazy(() => import("Features/Workflows"));
 
@@ -260,7 +257,7 @@ function Main({
         communityUrl: platformConfigData?.platform?.communityUrl ?? "",
         setIsTutorialActive,
         user: userData,
-        teams: teamsData,
+        teams: sortBy(teamsData, "name"),
         userWorkflows: userWorkflowsData,
         quotas,
       }}

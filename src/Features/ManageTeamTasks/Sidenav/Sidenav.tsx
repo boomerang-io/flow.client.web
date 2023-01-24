@@ -3,8 +3,9 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useAppContext } from "Hooks";
 import sortBy from "lodash/sortBy";
 import { matchSorter } from "match-sorter";
-import { Accordion, AccordionItem, Checkbox, Dropdown, Layer, OverflowMenu, Search, SkeletonText } from "@carbon/react";
+import { Accordion, AccordionItem, Checkbox, Layer, OverflowMenu, Search, SkeletonText } from "@carbon/react";
 import {
+  ComboBox,
   CheckboxList,
   FeatureSideNav as SideNav,
   FeatureSideNavLink as SideNavLink,
@@ -16,7 +17,7 @@ import { appLink } from "Config/appConfig";
 import { Bee, ViewOff, Recommend, SettingsAdjust } from "@carbon/react/icons";
 import { taskIcons } from "Utils/taskIcons";
 import { TaskTemplateStatus } from "Constants";
-import { TaskModel } from "Types";
+import { FlowTeam, TaskModel } from "Types";
 import styles from "./sideInfo.module.scss";
 
 const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list";
@@ -108,9 +109,9 @@ const SideInfo: React.FC<SideInfoProps> = ({
   const teamOptions = teams.map((team) => ({ id: team.id, name: team.name }));
   const selectedTeam = teamOptions.find((team) => team.id === activeTeam);
 
-  const handleSelectTeam = (selectedTeam: any) => {
-    setActiveTeam(selectedTeam?.selectedItem?.id);
-    history.push(appLink.manageTaskTemplates({ teamId: selectedTeam?.selectedItem?.id }));
+  const handleSelectTeam = ({ selectedItem }: { selectedItem: FlowTeam }) => {
+    setActiveTeam(selectedItem?.id);
+    history.push(appLink.manageTaskTemplates({ teamId: selectedItem?.id }));
   };
 
   if (isLoading) {
@@ -119,14 +120,13 @@ const SideInfo: React.FC<SideInfoProps> = ({
         <h1 className={styles.title}>Task manager</h1>
         <p className={styles.description}>{DESCRIPTION}</p>
         <Layer>
-          <Dropdown
+          <ComboBox
+            ariaLabel="Team dropdown"
             id="dropdown-team"
-            type="default"
-            label="Team selection"
-            ariaLabel="Dropdown"
             initialSelectedItem={selectedTeam}
             items={teamOptions}
             itemToString={(item: any) => (item ? item.name : "")}
+            label="Team selection"
             onChange={handleSelectTeam}
           />
         </Layer>
@@ -146,7 +146,7 @@ const SideInfo: React.FC<SideInfoProps> = ({
       <h1 className={styles.title}>Task manager</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
       <Layer>
-        <Dropdown
+        <ComboBox
           id="dropdown-team"
           type="default"
           label="Team selection"

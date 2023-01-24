@@ -8,9 +8,13 @@
     width: 100%;
   }
 
-  :global .cds--dropdown__wrapper {
-    margin-left: 1rem;
-    margin-right: 1rem;
+  :global .cds--bmrg-select {
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    :global .cds--list-box__selection {
+      display: none;
+    }
   }
 }
 .tools {
