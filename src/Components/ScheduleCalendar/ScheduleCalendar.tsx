@@ -18,7 +18,7 @@ interface ScheduleCalendarProps extends CalendarProps {
 }
 
 export default function ScheduleCalendar(props: ScheduleCalendarProps) {
-  const { heightOffset = 244 } = props;
+  const { heightOffset = 260 } = props;
   const [height, setHeight] = React.useState(window.innerHeight - heightOffset); //meh
 
   React.useLayoutEffect(() => {

@@ -101,11 +101,11 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
 
   return (
     <section className={styles.listContainer}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
         <h2>
           {!props.schedulesQuery.isLoading ? `Existing Schedules (${schedules?.length ?? 0})` : "Loading Schedules..."}
         </h2>
-        <Button size="md" renderIcon={Add} onClick={() => props.setIsCreatorOpen(true)} kind="ghost">
+        <Button size="sm" renderIcon={Add} onClick={() => props.setIsCreatorOpen(true)} kind="ghost">
           Create a Schedule
         </Button>
       </div>
@@ -122,6 +122,7 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
         {props.includeStatusFilter && (
           <Layer style={{ width: "50%" }}>
             <MultiSelect
+              hideLabel
               id="actions-statuses-select"
               label="Choose status(es)"
               placeholder="Choose status(es)"
