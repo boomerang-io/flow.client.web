@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { NavLink } from "react-router-dom";
-import { SideNav, SideNavLink, SideNavItems, SideNavMenu, SideNavMenuItem } from "@carbon/react";
+import { SideNav, SideNavDivider, SideNavLink, SideNavItems, SideNavMenu, SideNavMenuItem } from "@carbon/react";
 import { UIShell, HeaderMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
 import { APP_ROOT } from "Config/appConfig";
 import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, PlatformConfig } from "Types";
@@ -24,10 +24,20 @@ function getRelativePath(navUrl: string) {
 
 const createSidenav =
   (flowNavigationData: FlowNavigationItem[]) =>
-  ({ isOpen, close }: { isOpen: boolean; close: () => void }) =>
+  ({ isOpen, close, navLinks }: { isOpen: boolean; close: () => void; navLinks: any[] }) =>
     (
-      <SideNav aria-label="nav" expanded={isOpen} isChildOfHeader={true} isPersistent={false}>
+      <SideNav aria-label="nav" expanded={isOpen} isChildOfHeader={true} isPersistent={false} onOverlayClick={close}>
         <SideNavItems>
+          {navLinks
+            ? navLinks.map((link) => {
+                return (
+                  <SideNavLink large key={link.url} href={link.url} onClick={close}>
+                    {link.name}
+                  </SideNavLink>
+                );
+              })
+            : undefined}
+          {navLinks ? <SideNavDivider /> : null}
           {flowNavigationData.map((item) => {
             const itemIcon = navigationIcons.find((icon) => icon.name === item.icon) ?? FlowData;
             if (item?.childLinks) {
