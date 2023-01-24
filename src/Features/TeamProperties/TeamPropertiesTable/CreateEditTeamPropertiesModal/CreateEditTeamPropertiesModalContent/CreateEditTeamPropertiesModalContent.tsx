@@ -163,7 +163,7 @@ function CreateEditTeamPropertiesModalContent({
                 value={values.key}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.key && touched.key}
+                invalid={Boolean(errors.key && touched.key)}
                 invalidText={errors.key}
               />
               <TextInput
@@ -174,7 +174,7 @@ function CreateEditTeamPropertiesModalContent({
                 value={values.label}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.label && touched.label}
+                invalid={Boolean(errors.label && touched.label)}
                 invalidText={errors.label}
               />
               <TextInput
@@ -194,7 +194,7 @@ function CreateEditTeamPropertiesModalContent({
                 value={values.value}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.value && touched.value}
+                invalid={Boolean(errors.value && touched.value)}
                 invalidText={errors.value}
                 type={values.secured ? "password" : "text"}
                 helperText={

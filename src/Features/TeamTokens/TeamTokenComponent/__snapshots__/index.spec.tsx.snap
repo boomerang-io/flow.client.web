@@ -22,6 +22,11 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
             >
               Team Tokens
             </h1>
+            <p
+              class="cds--bmrg-feature-header-title"
+            >
+              Set team-level tokens that are accessible to all workflows owned by the team.
+            </p>
           </div>
         </section>
       </header>

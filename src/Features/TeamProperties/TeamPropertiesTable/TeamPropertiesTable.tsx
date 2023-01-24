@@ -156,7 +156,9 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
         header={
           <>
             <HeaderTitle className={styles.headerTitle}>Team Parameters</HeaderTitle>
-            <HeaderSubtitle>Set team parameters that are accessible in all workflows for that team.</HeaderSubtitle>
+            <HeaderSubtitle>
+              Set team-level parameters that are accessible to all workflows owned by the team.
+            </HeaderSubtitle>
           </>
         }
       />
@@ -177,9 +179,6 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
                   setActiveTeam(selectedItem);
                 }}
                 placeholder="Select a team"
-                shouldFilterItem={({ item, inputValue }: { item: any; inputValue: string }) =>
-                  item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
-                }
               />
             </div>
             {(activeTeam?.id || totalItems > 0) && (

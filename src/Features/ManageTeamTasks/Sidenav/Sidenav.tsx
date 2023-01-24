@@ -3,7 +3,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useAppContext } from "Hooks";
 import sortBy from "lodash/sortBy";
 import { matchSorter } from "match-sorter";
-import { Accordion, AccordionItem, Checkbox, Dropdown, Layer, OverflowMenu , Search } from "@carbon/react";
+import { Accordion, AccordionItem, Checkbox, Dropdown, Layer, OverflowMenu, Search, SkeletonText } from "@carbon/react";
 import {
   CheckboxList,
   FeatureSideNav as SideNav,
@@ -22,13 +22,20 @@ import styles from "./sideInfo.module.scss";
 const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list";
 
 interface SideInfoProps {
-  addTemplateInState: (newTemplate: TaskModel) => void;
-  taskTemplates: TaskModel[];
-  setActiveTeam: Function;
   activeTeam: string | string[] | null;
+  addTemplateInState: (newTemplate: TaskModel) => void;
+  isLoading?: boolean;
+  setActiveTeam: Function;
+  taskTemplates: TaskModel[];
 }
 
-const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, setActiveTeam, activeTeam }) => {
+const SideInfo: React.FC<SideInfoProps> = ({
+  activeTeam,
+  addTemplateInState,
+  isLoading,
+  setActiveTeam,
+  taskTemplates,
+}) => {
   const { teams } = useAppContext();
   const [searchQuery, setSearchQuery] = React.useState("");
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
@@ -106,22 +113,49 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, 
     history.push(appLink.manageTaskTemplates({ teamId: selectedTeam?.selectedItem?.id }));
   };
 
+  if (isLoading) {
+    return (
+      <SideNav className={styles.container} border="right">
+        <h1 className={styles.title}>Task manager</h1>
+        <p className={styles.description}>{DESCRIPTION}</p>
+        <Layer>
+          <Dropdown
+            id="dropdown-team"
+            type="default"
+            label="Team selection"
+            ariaLabel="Dropdown"
+            initialSelectedItem={selectedTeam}
+            items={teamOptions}
+            itemToString={(item: any) => (item ? item.name : "")}
+            onChange={handleSelectTeam}
+          />
+        </Layer>
+        <div style={{ padding: "1.5rem 1rem" }}>
+          <SkeletonText />
+          <SkeletonText />
+          <SkeletonText />
+          <SkeletonText />
+          <SkeletonText />
+        </div>
+      </SideNav>
+    );
+  }
+
   return (
     <SideNav className={styles.container} border="right">
       <h1 className={styles.title}>Task manager</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
       <Layer>
-      <Dropdown
-        id="dropdown-team"
-        type="default"
-        label="Team selection"
-        ariaLabel="Dropdown"
-        // light={false}
-        initialSelectedItem={selectedTeam}
-        items={teamOptions}
-        itemToString={(item: any) => (item ? item.name : "")}
-        onChange={handleSelectTeam}
-      />
+        <Dropdown
+          id="dropdown-team"
+          type="default"
+          label="Team selection"
+          ariaLabel="Dropdown"
+          initialSelectedItem={selectedTeam}
+          items={teamOptions}
+          itemToString={(item: any) => (item ? item.name : "")}
+          onChange={handleSelectTeam}
+        />
       </Layer>
       {taskTemplates && (
         <div className={styles.tasksContainer}>
@@ -145,7 +179,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, 
               value={searchQuery}
             />
             <OverflowMenu
-            ariaLabel="Filter"
+              ariaLabel="Filter"
               renderIcon={SettingsAdjust}
               style={{
                 backgroundColor: showVerified || showArchived || activeFilters.length > 0 ? "#3DDBD9" : "initial",
@@ -153,6 +187,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, 
               }}
               flipped={true}
               menuOptionsClass={styles.filters}
+              size="sm"
             >
               <section className={styles.filterHeader}>
                 <p className={styles.filterTitle}>Filters</p>

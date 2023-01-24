@@ -7,6 +7,7 @@ import {
   Error404,
   ErrorMessage,
   FeatureHeader as Header,
+  FeatureHeaderSubtitle,
   FeatureHeaderTitle as HeaderTitle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import DeleteToken from "./DeleteToken";
@@ -60,6 +61,7 @@ const FeatureLayout = ({ children }: FeatureLayoutProps) => {
         header={
           <>
             <HeaderTitle className={styles.headerTitle}>Global Tokens</HeaderTitle>
+            <FeatureHeaderSubtitle className={styles.headerTitle}>Create tokens that can be used globally</FeatureHeaderSubtitle>
           </>
         }
       />

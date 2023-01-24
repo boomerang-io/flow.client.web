@@ -7,6 +7,7 @@ import {
   ComboBox,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
   Error404,
   ErrorMessage,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -63,6 +64,9 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children }) => {
         header={
           <>
             <HeaderTitle className={styles.headerTitle}>Team Tokens</HeaderTitle>
+            <HeaderSubtitle>
+              Set team-level tokens that are accessible to all workflows owned by the team.
+            </HeaderSubtitle>
           </>
         }
       />
@@ -148,9 +152,6 @@ function TeamTokenComponent({
               setActiveTeam(selectedItem);
             }}
             placeholder="Select a team"
-            shouldFilterItem={({ item, inputValue }: { item: any; inputValue: string }) =>
-              item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
-            }
           />
         </div>
         <DataTableSkeleton
@@ -191,9 +192,6 @@ function TeamTokenComponent({
                   setActiveTeam(selectedItem);
                 }}
                 placeholder="Select a team"
-                shouldFilterItem={({ item, inputValue }: { item: any; inputValue: string }) =>
-                  item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
-                }
               />
             </div>
             {activeTeam?.id && <CreateToken activeTeam={activeTeam} />}

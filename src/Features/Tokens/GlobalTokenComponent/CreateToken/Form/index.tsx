@@ -111,7 +111,7 @@ function CreateServiceTokenForm({
                   data-testid="token-expiration-id"
                   id={InputKey.ExpiryDate}
                   dateFormat="MM-DD-YYYY"
-                  invalid={errors.date}
+                  invalid={Boolean(errors.date)}
                   invalidText={errors.date}
                   labelText={
                     <div className={styles.inputLabelContainer}>
@@ -129,12 +129,14 @@ function CreateServiceTokenForm({
                 />
               </DatePicker>
               <TextArea
+              enableCounter
                 labelText="Description"
                 placeholder="Provide a short description for this Token"
                 id="description"
                 data-testid="token-description"
-                onChange={(value: any) => setFieldValue("description", value.target.value)}
+                onChange={(e) => setFieldValue("description", e.target.value)}
                 value={values.description}
+                maxCount={200}
               />
               {postGlobalTokenError ? (
                 <InlineNotification

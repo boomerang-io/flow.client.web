@@ -75,7 +75,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
               <ModalBody aria-label="inputs" className={styles.container}>
                 <TextInput
                   id="name"
-                  invalid={errors.name && touched.name}
+                  invalid={Boolean(errors.name && touched.name)}
                   invalidText={errors.name}
                   labelText="Name"
                   // disabled={isEdit}
@@ -85,7 +85,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                 />
                 <TextInput
                   id="description"
-                  invalid={errors.description && touched.description}
+                  invalid={Boolean(errors.description && touched.description)}
                   invalidText={errors.description}
                   labelText="Description "
                   onBlur={handleBlur}

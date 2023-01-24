@@ -63,7 +63,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
         children: "Your request will not be saved",
       }}
       modalTrigger={({ openModal }) => (
-        <Button iconDescription="Add task template" onClick={openModal} size="md" kind="ghost" renderIcon={Add}>
+        <Button iconDescription="Add task template" onClick={openModal} size="sm" kind="ghost" renderIcon={Add}>
           Add a new task
         </Button>
       )}

@@ -106,7 +106,7 @@ function CreateServiceTokenForm({
                   data-testid="token-expiration-id"
                   id={InputKey.ExpiryDate}
                   dateFormat="MM-DD-YYYY"
-                  invalid={errors.date}
+                  invalid={Boolean(errors.date)}
                   invalidText={errors.date}
                   labelText={
                     <div className={styles.inputLabelContainer}>

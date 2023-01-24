@@ -14,7 +14,7 @@ exports[`PreviewConfig --- Snapshot > Capturing Snapshot of Task Templates 1`] =
   <div>
     <button
       class="cds--btn cds--btn--md cds--btn--ghost"
-      style="width: 6.25rem;"
+      style="width: 7rem;"
       tabindex="0"
       type="button"
     >

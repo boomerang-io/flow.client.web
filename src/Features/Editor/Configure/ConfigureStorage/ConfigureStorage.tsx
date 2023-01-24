@@ -64,7 +64,7 @@ export default function ConfigureStorage({
                 id="size"
                 data-testid="size"
                 helperText="Size in Gigabytes"
-                invalid={errors.size && touched.size}
+                invalid={Boolean(errors.size && touched.size)}
                 invalidText={errors.size}
                 labelText={"Storage Size"}
                 min={0}
@@ -80,7 +80,7 @@ export default function ConfigureStorage({
                 id="mountPath"
                 data-testid="mountPath"
                 helperText={"The Mount path for your storage"}
-                invalid={errors.mountPath && touched.mountPath}
+                invalid={Boolean(errors.mountPath && touched.mountPath)}
                 invalidText={errors.mountPath}
                 labelText={"Mount path"}
                 name="mountPath"

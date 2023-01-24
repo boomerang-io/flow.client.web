@@ -129,6 +129,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
             }}
             flipped={true}
             menuOptionsClass={styles.filters}
+            size="sm"
           >
             <section className={styles.filterHeader}>
               <p className={styles.filterTitle}>Filters</p>

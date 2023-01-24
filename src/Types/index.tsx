@@ -1,3 +1,5 @@
+import { User } from "@boomerang-io/carbon-addons-boomerang-react";
+
 declare global {
   interface Window {
     _SERVER_DATA: {
@@ -82,7 +84,7 @@ export interface DataDrivenInput {
   required?: boolean;
   value: string;
   values?: [string] | [{ key: string; value: string }];
-  type?: string;
+  type: string;
   min?: number;
   max?: number;
 }
@@ -418,7 +420,7 @@ export interface PaginatedResponse<RecordType> {
   records: RecordType[];
 }
 
-export interface FlowUser {
+export interface FlowUser extends User {
   id: string;
   email: string;
   name: string;
@@ -575,8 +577,8 @@ export interface PlatformConfig {
   navigation: Array<{ name: string; url: string }>;
   platform: {
     appName?: string;
-    baseEnvUrl?: string;
-    baseServicesUrl?: string;
+    baseEnvUrl: string;
+    baseServicesUrl: string;
     communityUrl?: string;
     displayLogo: boolean;
     name: string;

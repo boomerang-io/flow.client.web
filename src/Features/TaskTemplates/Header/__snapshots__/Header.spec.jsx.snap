@@ -110,7 +110,7 @@ exports[`Header --- Snapshot > Capturing Snapshot of Task Templates 1`] = `
                 class="cds--tabs__nav-item cds--tabs__nav-link"
                 href="/admin/task-templates/5e670a1e2d5e6a302de4f41d/1/yaml-editor"
               >
-                Yaml
+                YAML
               </a>
             </ul>
           </nav>

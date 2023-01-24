@@ -24,7 +24,7 @@ function getRelativePath(navUrl: string) {
 
 const createSidenav =
   (flowNavigationData: FlowNavigationItem[]) =>
-  ({ isOpen, close }) =>
+  ({ isOpen, close }: { isOpen: boolean; close: () => void }) =>
     (
       <SideNav aria-label="nav" expanded={isOpen} isChildOfHeader={true} isPersistent={false}>
         <SideNavItems>
@@ -100,7 +100,7 @@ export default function Navbar({
         platformName={platformName}
         productName={appName}
         skipToContentProps={skipToContentProps}
-        user={userData as FlowUser}
+        user={userData}
         supportMenuItems={[
           <HeaderMenuItem type="button" onClick={handleOnTutorialClick} text="Tutorial" />,
           <HeaderMenuItem type="link" kind="external" href="https://www.useboomerang.io/flow" text="Docs" />,

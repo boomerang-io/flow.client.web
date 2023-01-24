@@ -41,6 +41,11 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
                         </div>
                       </div>
                     </label>
+                    <div
+                      class="cds--label"
+                    >
+                      0/200
+                    </div>
                   </div>
                   <div
                     class="cds--text-area__wrapper"
@@ -49,17 +54,13 @@ exports[`TaskApprovalModal --- Snapshot > Capturing Snapshot of TaskApprovalModa
                       class="cds--text-area"
                       cols="50"
                       id="comment"
+                      maxlength="200"
                       placeholder="Add some reasoning for your decision"
                       rows="4"
                     />
                   </div>
                 </div>
               </div>
-              <p
-                class="_commentLength_7e51d1"
-              >
-                0/200
-              </p>
             </div>
             <div
               class="cds--bmrg-decision-buttons"

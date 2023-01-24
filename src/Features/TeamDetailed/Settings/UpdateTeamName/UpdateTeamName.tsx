@@ -77,7 +77,7 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamN
                   onChange={(value: React.ChangeEvent<HTMLInputElement>) => {
                     setFieldValue("name", value.target.value);
                   }}
-                  invalid={errors.name && !touched.name}
+                  invalid={Boolean(errors.name && !touched.name)}
                   invalidText={errors.name}
                 />
                 {error && (

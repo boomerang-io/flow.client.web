@@ -76,9 +76,8 @@
 .editTitle {
   align-items: center;
   display: flex;
-
+  flex-flow: wrap;
   justify-content: space-between;
-
   margin-bottom: 0.75rem;
   width: 100%;
   :global .cds--btn__icon {

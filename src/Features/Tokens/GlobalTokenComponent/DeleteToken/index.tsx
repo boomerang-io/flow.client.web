@@ -27,7 +27,7 @@ function DeleteToken({ tokenItem, deleteToken }: Props) {
       )}
       affirmativeAction={() => deleteToken(tokenItem.id)}
       affirmativeButtonProps={{ kind: "danger" }}
-      affirmativeText="Yes"
+      affirmativeText="Delete"
       negativeText="No"
       title={`Are you sure?`}
     >

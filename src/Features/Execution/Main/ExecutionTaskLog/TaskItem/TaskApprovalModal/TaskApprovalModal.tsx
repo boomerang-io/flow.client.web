@@ -1,6 +1,5 @@
 import React from "react";
 import { useQueryClient, useMutation } from "react-query";
-// import moment from "moment";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
@@ -92,10 +91,10 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
                 <Loading />
               ) : (
                 <section className={styles.approval}>
-                  {/*<time className={styles.approvalTime}>{`Submitted ${moment(creationDate).fromNow()}`}</time>*/}
                   <div className={styles.inputs}>
                     <div className={styles.comment}>
                       <TextArea
+                        enableCounter
                         id={`comment`}
                         className={styles.commentArea}
                         labelText="Comments (optional)"
@@ -103,10 +102,10 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
                         value={values?.comment}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        invalid={errors?.comment && touched?.comment}
+                        invalid={Boolean(errors?.comment && touched?.comment)}
                         invalidText={errors?.comment}
+                        maxCount={200}
                       />
-                      <p className={styles.commentLength}>{`${values?.comment.length}/200`}</p>
                     </div>
                     <DecisionButtons
                       canUncheck

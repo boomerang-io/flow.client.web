@@ -253,7 +253,7 @@ const UserWorkflows: React.FC<UserWorkflowsProp> = ({ searchQuery, user, userWor
                     "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an admin.",
                 }}
                 modalTrigger={({ openModal }: ModalTriggerProps) => (
-                  <Button iconDescription="View quota details" kind="ghost" size="md" onClick={openModal}>
+                  <Button iconDescription="View quota details" kind="ghost" size="sm" onClick={openModal}>
                     View more quotas
                   </Button>
                 )}
@@ -340,7 +340,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
                   "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an admin.",
               }}
               modalTrigger={({ openModal }: ModalTriggerProps) => (
-                <Button iconDescription="View quota details" kind="ghost" size="md" onClick={openModal}>
+                <Button iconDescription="View quota details" kind="ghost" size="sm" onClick={openModal}>
                   View more quotas
                 </Button>
               )}

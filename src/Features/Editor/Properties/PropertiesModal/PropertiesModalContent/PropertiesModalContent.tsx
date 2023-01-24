@@ -267,7 +267,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                   readOnly={isEdit}
                   helperText="Reference value for parameter in workflow. It can't be changed after parameter creation."
                   id={InputProperty.Key}
-                  invalid={errors.key && touched.key}
+                  invalid={Boolean(errors.key && touched.key)}
                   invalidText={errors.key}
                   labelText={isEdit ? "Key (read-only)" : "Key"}
                   onBlur={handleBlur}
@@ -291,7 +291,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                 />
                 <TextInput
                   id={InputProperty.Label}
-                  invalid={errors.label && touched.label}
+                  invalid={Boolean(errors.label && touched.label)}
                   invalidText={errors.label}
                   labelText="Label"
                   placeholder="e.g. Token"
@@ -301,7 +301,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                 />
                 <TextInput
                   id={InputProperty.Description}
-                  invalid={errors.description && touched.description}
+                  invalid={Boolean(errors.description && touched.description)}
                   invalidText={errors.description}
                   labelText="Description (optional)"
                   onBlur={handleBlur}
@@ -310,7 +310,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                 />
                 <TextInput
                   id={InputProperty.JsonPath}
-                  invalid={errors.jsonPath && touched.jsonPath}
+                  invalid={Boolean(errors.jsonPath && touched.jsonPath)}
                   invalidText={errors.jsonPath}
                   labelText="Event Payload JsonPath (optional)"
                   onBlur={handleBlur}

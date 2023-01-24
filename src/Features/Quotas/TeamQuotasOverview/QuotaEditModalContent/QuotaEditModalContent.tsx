@@ -116,7 +116,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                       //@ts-ignore
                       setFieldValue("quotaFormValue", value);
                     }}
-                    invalid={errors.quotaFormValue && !touched.quotaFormValue}
+                    invalid={Boolean(errors.quotaFormValue && !touched.quotaFormValue)}
                     invalidText={errors.quotaFormValue}
                   />
                   {inputUnits && <span className={styles.inputUnits}>{inputUnits}</span>}

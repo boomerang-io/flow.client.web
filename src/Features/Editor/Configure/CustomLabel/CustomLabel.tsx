@@ -150,7 +150,7 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
                   labelText="Label Key"
                   value={values.key}
                   onChange={handleChange}
-                  invalid={errors.key && touched.key}
+                  invalid={Boolean(errors.key && touched.key)}
                   invalidText={errors.key}
                   onBlur={handleBlur}
                 />
@@ -159,7 +159,7 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
                   labelText="Label Value"
                   value={values.value}
                   onChange={handleChange}
-                  invalid={errors.value && touched.value}
+                  invalid={Boolean(errors.value && touched.value)}
                   onBlur={handleBlur}
                   invalidText={errors.value}
                 />

@@ -20,7 +20,6 @@ import * as Yup from "yup";
 import BuildWebhookModalContent from "./BuildWebhookModalContent";
 import ConfigureStorage from "./ConfigureStorage";
 import CreateToken from "./CreateToken";
-//@ts-ignore
 import CustomLabel from "./CustomLabel";
 import Token from "./Token";
 import { Save } from "@carbon/react/icons";
@@ -256,30 +255,11 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
     };
   }
 
-  // generateToken = (label: string) => {
-  //   axios
-  //     .post(serviceUrl.postCreateWorkflowToken({ workflowId: this.props.summaryData.id }), { label: label })
-  //     .then((response) => {
-  //       let newTokens = this.props.formikProps.values.tokens;
-  //       let tokenIndex = newTokens.findIndex((obj) => obj.label == label);
+  handleOnChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    this.props.formikProps.handleChange(e);
+  };
 
-  //       if (tokenIndex === -1) {
-  //         newTokens.push(response.data);
-  //       } else {
-  //         newTokens[tokenIndex].token = response.data.token;
-  //       }
-
-  //       // this.props.formikProps.setFieldValue(`triggers.${tokenType}.token`, response.data.token);
-  //       this.props.formikProps.setFieldValue(`tokens`, newTokens);
-
-  //       notify(<ToastNotification kind="success" title="Generate Token" subtitle={`Successfully generated token`} />);
-  //     })
-  //     .catch((err) => {
-  //       notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to create token`} />);
-  //     });
-  // };
-
-  handleOnChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+  handleOnClick: React.MouseEventHandler<HTMLInputElement> = (e) => {
     this.props.formikProps.handleChange(e);
   };
 
@@ -316,9 +296,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 onChange={this.handleTeamChange}
                 label="Team"
                 placeholder="Select a team"
-                shouldFilterItem={({ item, inputValue }: { item: { name: string }; inputValue: string }) =>
-                  item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
-                }
               />
             </div>
           )}
@@ -330,7 +307,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             value={values.name}
             onBlur={handleBlur}
             onChange={this.handleOnChange}
-            invalid={errors.name && touched.name}
+            invalid={Boolean(errors.name && touched.name)}
             invalidText={errors.name}
           />
           <TextInput
@@ -340,18 +317,18 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             value={values.shortDescription}
             onBlur={handleBlur}
             onChange={this.handleOnChange}
-            invalid={errors.shortDescription && touched.shortDescription}
+            invalid={Boolean(errors.shortDescription && touched.shortDescription)}
             invalidText={errors.shortDescription}
           />
           <div className={styles.descriptionContainer}>
             <p className={styles.descriptionLength}> {`${values.description.length} / 250`}</p>
             <TextArea
               id="description"
-              label="Description"
+              labelText="Description"
               placeholder="Description"
               onBlur={handleBlur}
               onChange={this.handleOnChange}
-              invalid={errors.description && touched.description}
+              invalid={Boolean(errors.description && touched.description)}
               invalidText={errors.description}
               style={{ resize: "none" }}
               value={values.description}
@@ -372,7 +349,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                     id="icon"
                     readOnly
                     checked={values.icon === name}
-                    onClick={this.handleOnChange}
+                    onClick={this.handleOnClick}
                     value={name}
                     type="radio"
                   />
@@ -456,16 +433,13 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                         subtitle: (
                           <>
                             <p>
-                              Build up a webhook URL for an external service to push events that map to this workflow.
+                              Build up a webhook URL for an external service to push events that execute this workflow.
                             </p>
                             <p style={{ marginTop: "0.5rem" }}>
-                              There are a variety of different webhook types that provide additional functionality, for
-                              example the Slack type responds to the slack verification request.
-                              <a
-                                href={`${BASE_DOCUMENTATION_URL}/introduction/overview`}
-                                style={{ marginLeft: "0.1rem" }}
-                              >
-                                Learn more here
+                              There are a variety of different webhook types that provide additional functionality. For
+                              example, the Slack type responds to the Slack verification request.{" "}
+                              <a href={`${BASE_DOCUMENTATION_URL}/introduction/overview`}>
+                                Learn more in the documentation.
                               </a>
                             </p>
                           </>
@@ -639,12 +613,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                         </>
                       ),
                     }}
-                    composedModalProps={
-                      {
-                        // containerClassName: styles.buildWebhookContainer,
-                        // shouldCloseOnOverlayClick: true,
-                      }
-                    }
                     modalTrigger={({ openModal }: { openModal: () => void }) => (
                       <button className={styles.regenerateText} type="button" onClick={openModal}>
                         <p>Configure</p>

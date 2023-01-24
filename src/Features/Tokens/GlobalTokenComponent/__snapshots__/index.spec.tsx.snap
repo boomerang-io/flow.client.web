@@ -22,6 +22,11 @@ exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] 
             >
               Global Tokens
             </h1>
+            <p
+              class="cds--bmrg-feature-header-title _headerTitle_23aca4"
+            >
+              Create tokens that can be used globally
+            </p>
           </div>
         </section>
       </header>

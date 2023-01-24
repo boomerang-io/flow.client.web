@@ -313,7 +313,7 @@ function CreateEditGroupModalContent({
                   value={values.groupName}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  invalid={errors.groupName && touched.groupName}
+                  invalid={Boolean(errors.groupName && touched.groupName)}
                   invalidText={errors.groupName}
                 />
               </div>

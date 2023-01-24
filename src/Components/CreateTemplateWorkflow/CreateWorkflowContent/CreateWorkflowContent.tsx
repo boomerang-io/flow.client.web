@@ -155,9 +155,6 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                     placeholder="Select a team"
                     invalid={teamError && teamTouched}
                     invalidText="Team is required"
-                    shouldFilterItem={({ item, inputValue }: { item: ComboBoxItem; inputValue: string }) =>
-                      item && item.name.toLowerCase().includes(inputValue.toLowerCase())
-                    }
                   />
 
                   <TextInput
@@ -166,7 +163,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                     value={values.name}
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    invalid={errors.name && touched.name}
+                    invalid={Boolean(errors.name && touched.name)}
                     invalidText={errors.name}
                   />
                 </div>
@@ -177,7 +174,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                   value={values.name}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  invalid={errors.name && touched.name}
+                  invalid={Boolean(errors.name && touched.name)}
                   invalidText={errors.name}
                 />
               )}
@@ -187,7 +184,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                 value={values.summary}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.summary && touched.summary}
+                invalid={Boolean(errors.summary && touched.summary)}
                 invalidText={errors.summary}
               />
               <TextArea
@@ -195,7 +192,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                 labelText="Description"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.description && touched.description}
+                invalid={Boolean(errors.description && touched.description)}
                 invalidText={errors.description}
                 style={{ resize: "none", width: "100%" }}
                 value={values.description}

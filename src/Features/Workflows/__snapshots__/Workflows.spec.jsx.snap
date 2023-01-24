@@ -359,7 +359,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 </p>
               </div>
               <button
-                class="cds--btn cds--btn--md cds--btn--ghost"
+                class="cds--btn cds--btn--sm cds--btn--ghost"
                 tabindex="0"
                 type="button"
               >
@@ -823,7 +823,7 @@ exports[`WorkflowsHome --- Snapshot > Capturing Snapshot of WorkflowsHome 1`] = 
                 </p>
               </div>
               <button
-                class="cds--btn cds--btn--md cds--btn--ghost"
+                class="cds--btn cds--btn--sm cds--btn--ghost"
                 tabindex="0"
                 type="button"
               >

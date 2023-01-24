@@ -22,7 +22,7 @@ exports[`TeamPropertiesTable --- Snapshot Test > Capturing Snapshot of TeamPrope
           <p
             class="cds--bmrg-feature-header-title"
           >
-            Set team parameters that are accessible in all workflows for that team.
+            Set team-level parameters that are accessible to all workflows owned by the team.
           </p>
         </div>
       </section>

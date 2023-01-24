@@ -192,7 +192,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                 helperText="Workflow for this Schedule to execute"
                 id="workflow"
                 initialSelectedItem={formikProps.values.workflow}
-                items={props.workflowOptions}
+                items={props?.workflowOptions ?? []}
                 itemToString={(workflow: WorkflowSummary) => {
                   if (workflow?.scope === "team") {
                     const team = workflow ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId) : undefined;
@@ -244,13 +244,13 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               valueLabelText="Label value"
               valuePlaceholder="important"
               value={formikProps.values.labels}
-              onChange={(labels: string) => formikProps.setFieldValue("labels", labels)}
+              onChange={(labels) => formikProps.setFieldValue("labels", labels)}
             />
             <p>
               <b>Schedule</b>
             </p>
             <section>
-              <p>What type of Schedule do you want to create?</p>
+              <p style={{ marginBottom: "0.375rem" }}>What type of Schedule do you want to create?</p>
               <RadioButtonGroup
                 id="type"
                 labelPosition="right"
@@ -422,7 +422,7 @@ class CronJobConfig extends React.Component<Props, State> {
                 helperText="What time zone do you want to use"
                 id="timezone"
                 initialSelectedItem={values.timezone}
-                items={this.props.timezoneOptions}
+                items={this.props?.timezoneOptions ?? []}
                 onChange={({ selectedItem }: { selectedItem: { label: string; value: string } }) => {
                   const item = selectedItem ?? { label: "", value: "" };
                   this.props.formikProps.setFieldValue("timezone", item);
@@ -436,7 +436,7 @@ class CronJobConfig extends React.Component<Props, State> {
           <div className={styles.container}>
             <TextInput
               id="time"
-              invalid={errors.time && touched.time}
+              invalid={Boolean(errors.time && touched.time)}
               invalidText={errors.time}
               labelText={"Time"}
               name="time"

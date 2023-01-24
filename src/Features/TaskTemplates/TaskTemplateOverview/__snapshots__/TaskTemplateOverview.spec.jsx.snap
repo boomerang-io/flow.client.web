@@ -114,7 +114,7 @@ exports[`TaskTemplateOverview --- Snapshot > Capturing Snapshot of Task Template
                   class="cds--tabs__nav-item cds--tabs__nav-link"
                   href="/admin/task-templates/5e670a1e2d5e6a302de4f41d/1/yaml-editor"
                 >
-                  Yaml
+                  YAML
                 </a>
               </ul>
             </nav>
@@ -587,7 +587,7 @@ lookUpUser
               >
                 <button
                   class="cds--btn cds--btn--md cds--btn--ghost"
-                  style="width: 6.25rem;"
+                  style="width: 7rem;"
                   tabindex="0"
                   type="button"
                 >
@@ -615,7 +615,7 @@ lookUpUser
                 </button>
                 <button
                   class="cds--btn cds--btn--md cds--btn--ghost"
-                  style="margin-right: 0.5rem;"
+                  style="width: 8rem;"
                   tabindex="0"
                   type="button"
                 >
@@ -646,13 +646,13 @@ lookUpUser
               <section
                 class="_fieldSection_734922"
                 data-rbd-draggable-context-id="0"
-                data-rbd-draggable-id="0"
+                data-rbd-draggable-id="token"
               >
                 <div
                   aria-describedby="rbd-hidden-text-0-hidden-text-0"
                   class="_iconContainer_734922"
                   data-rbd-drag-handle-context-id="0"
-                  data-rbd-drag-handle-draggable-id="0"
+                  data-rbd-drag-handle-draggable-id="token"
                   draggable="false"
                   role="button"
                   style="display: flex;"
@@ -738,13 +738,13 @@ lookUpUser
               <section
                 class="_fieldSection_734922"
                 data-rbd-draggable-context-id="0"
-                data-rbd-draggable-id="1"
+                data-rbd-draggable-id="emailAddress"
               >
                 <div
                   aria-describedby="rbd-hidden-text-0-hidden-text-0"
                   class="_iconContainer_734922"
                   data-rbd-drag-handle-context-id="0"
-                  data-rbd-drag-handle-draggable-id="1"
+                  data-rbd-drag-handle-draggable-id="emailAddress"
                   draggable="false"
                   role="button"
                   style="display: flex;"
@@ -840,7 +840,7 @@ lookUpUser
               </h1>
               <button
                 class="cds--btn cds--btn--md cds--btn--ghost"
-                style="margin-right: 0.5rem;"
+                style="width: 13.5rem;"
                 tabindex="0"
                 type="button"
               >

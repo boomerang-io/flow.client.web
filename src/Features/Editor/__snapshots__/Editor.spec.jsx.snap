@@ -366,6 +366,7 @@ exports[`Editor --- Snapshot > Capturing Snapshot of Editor 1`] = `
             <button
               aria-expanded="false"
               aria-haspopup="true"
+              aria-label="Filter"
               class="cds--overflow-menu cds--overflow-menu--sm"
               style="border-radius: 0.25rem;"
               type="button"

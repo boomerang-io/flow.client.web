@@ -215,9 +215,6 @@ function ApproverGroupsTable({
               selectedItem && setActiveTeam(selectedItem);
             }}
             placeholder="Select a team"
-            shouldFilterItem={({ item, inputValue }: { item: any; inputValue: string }) =>
-              item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
-            }
           />
         </div>
         <DataTableSkeleton
@@ -256,9 +253,6 @@ function ApproverGroupsTable({
                 selectedItem && setActiveTeam(selectedItem);
               }}
               placeholder="Select a team"
-              shouldFilterItem={({ item, inputValue }: { item: any; inputValue: string }) =>
-                item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
-              }
             />
           </div>
           <div className={styles.tableHeader}>

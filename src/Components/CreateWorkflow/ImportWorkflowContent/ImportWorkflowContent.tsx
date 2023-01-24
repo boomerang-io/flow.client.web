@@ -232,7 +232,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                         itemToString={(item: FlowTeam) => (item ? item.name : "")}
                         titleText="Team"
                         placeholder="Select a team"
-                        invalid={errors.selectedTeam}
+                        invalid={Boolean(errors.selectedTeam)}
                         invalidText={errors.selectedTeam}
                       />
                     )}
@@ -243,7 +243,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                       value={values.name}
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      invalid={errors.name && touched.name}
+                      invalid={Boolean(errors.name && touched.name)}
                       invalidText={errors.name}
                     />
                     <TextInput
@@ -252,7 +252,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                       value={values.summary}
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      invalid={errors.summary && touched.summary}
+                      invalid={Boolean(errors.summary && touched.summary)}
                       invalidText={errors.summary}
                     />
                   </div>

@@ -33,7 +33,7 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
               Existing Tasks (34)
             </p>
             <button
-              class="cds--btn cds--btn--md cds--btn--ghost"
+              class="cds--btn cds--btn--sm cds--btn--ghost"
               tabindex="0"
               type="button"
             >
@@ -126,7 +126,8 @@ exports[`TaskTemplateManager --- Snapshot > Capturing Snapshot of Task Templates
             <button
               aria-expanded="false"
               aria-haspopup="true"
-              class="cds--overflow-menu cds--overflow-menu--md"
+              aria-label="Filter"
+              class="cds--overflow-menu cds--overflow-menu--sm"
               style="border-radius: 0.25rem;"
               type="button"
             >

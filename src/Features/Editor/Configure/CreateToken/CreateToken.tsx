@@ -142,7 +142,7 @@ const CreateTokenModalContent: React.FC<CreateTokenModalContentProps> = ({
                     onChange={(value: any) => {
                       setFieldValue("label", value.target.value);
                     }}
-                    invalid={errors.label && !touched.label}
+                    invalid={Boolean(errors.label && !touched.label)}
                     invalidText={errors.label}
                   />
                 )}

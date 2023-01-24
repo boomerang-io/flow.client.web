@@ -148,10 +148,14 @@
       color: var(--cds-text-01);
     }
   }
+
+  :global .cds--bmrg-toggle__title {
+    margin-top: 0.75rem;
+  }
 }
 
 .webhookContainer {
-  padding-left: 4.6rem;
+  padding-left: 3.5rem;
 }
 
 .webhookWrapper {
@@ -245,14 +249,14 @@
 }
 
 .schedulerContainer {
-  padding-left: 4.6rem;
+  padding-left: 3.5rem;
   p {
     font-size: 0.875rem;
   }
 }
 
 .subscriptionContainer {
-  padding-left: 4.6rem;
+  padding-left: 3.5rem;
 
   :global .cds--text-input__field-wrapper {
     width: fit-content;

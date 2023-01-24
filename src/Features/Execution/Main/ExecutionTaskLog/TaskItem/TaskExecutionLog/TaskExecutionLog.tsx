@@ -45,14 +45,14 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
               <>
                 <Theme theme="g100" className={styles.followToggle}>
                   <Toggle
-                  hideLabel
+                    hideLabel
                     defaultValue={follow}
                     disabled={Boolean(error)}
                     id="task-log-toggle"
                     labelText="Follow log toggle"
                     labelB="Follow"
                     labelA="Don't Follow"
-                    onChange={() => setFollow(!follow)}
+                    onToggle={() => setFollow(!follow)}
                     toggled={follow}
                     size="sm"
                   />

@@ -285,7 +285,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
               </div>
               <TextInput
                 id="name"
-                invalid={errors.name && touched.name}
+                invalid={Boolean(errors.name && touched.name)}
                 invalidText={errors.name}
                 labelText="Name"
                 helperText="Must be unique"
@@ -296,7 +296,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
               />
               <TextInput
                 id="category"
-                invalid={errors.category && touched.category}
+                invalid={Boolean(errors.category && touched.category)}
                 invalidText={errors.category}
                 labelText="Category"
                 helperText="Categories have strict matching, type as you want to see it"
@@ -314,7 +314,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 <p className={styles.descriptionLength}>{values.description?.length ?? 0}/200</p>
                 <TextArea
                   id="description"
-                  invalid={errors.description && touched.description}
+                  invalid={Boolean(errors.description && touched.description)}
                   invalidText={errors.description}
                   labelText="Description"
                   onBlur={handleBlur}
@@ -330,7 +330,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 value={values.image}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.image && touched.image}
+                invalid={Boolean(errors.image && touched.image)}
                 invalidText={errors.image}
               />
               <TextArea
@@ -341,7 +341,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 value={values.command}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.command && touched.command}
+                invalid={Boolean(errors.command && touched.command)}
                 invalidText={errors.command}
               />
               <TextArea
@@ -353,12 +353,12 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 value={values.arguments}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.arguments && touched.arguments}
+                invalid={Boolean(errors.arguments && touched.arguments)}
                 invalidText={errors.arguments}
               />
               <TextArea
                 id="script"
-                invalid={errors.script && touched.script}
+                invalid={Boolean(errors.script && touched.script)}
                 invalidText={errors.script}
                 labelText="Script (optional)"
                 onBlur={handleBlur}
@@ -367,7 +367,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
               />
               <TextInput
                 id="workingDir"
-                invalid={errors.workingDir && touched.workingDir}
+                invalid={Boolean(errors.workingDir && touched.workingDir)}
                 invalidText={errors.workingDir}
                 labelText="Working Directory (optional)"
                 onBlur={handleBlur}
