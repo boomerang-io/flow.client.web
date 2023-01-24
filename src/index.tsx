@@ -3,7 +3,6 @@ import { render } from "react-dom";
 import Root from "./Root";
 import { Envs } from "Constants";
 import "Config/axiosGlobalConfig";
-import "typeface-ibm-plex-sans";
 import "Styles/styles.scss";
 
 (async () => {
