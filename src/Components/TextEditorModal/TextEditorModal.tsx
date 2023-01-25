@@ -2,8 +2,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
-import { TextArea } from "@carbon/react";
-import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorView from "./TextEditorView";
 import styles from "./TextEditorModal.module.scss";
 

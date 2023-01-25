@@ -341,7 +341,7 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
                     id="insights-date-picker-start"
                     pattern="\\\\d{1,2}\\\\/\\\\d{1,2}\\\\/\\\\d{4}"
                     type="text"
-                    value="10/24/2022"
+                    value="10/25/2022"
                   />
                   <svg
                     aria-hidden="true"
@@ -380,7 +380,7 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
                     id="insights-date-picker-end"
                     pattern="\\\\d{1,2}\\\\/\\\\d{1,2}\\\\/\\\\d{4}"
                     type="text"
-                    value="01/24/2023"
+                    value="01/25/2023"
                   />
                   <svg
                     aria-hidden="true"
@@ -866,16 +866,17 @@ exports[`WorkflowInsights --- Snapshot > Capturing Snapshot of WorkflowInsights 
               23
             </span>
             <span
-              aria-current="date"
               aria-label="January 24, 2023"
-              class="flatpickr-day today selected endRange undefined--date-picker__day no-border cds--date-picker__day"
+              class="flatpickr-day inRange undefined--date-picker__day cds--date-picker__day"
               tabindex="-1"
             >
               24
             </span>
             <span
+              aria-current="date"
               aria-label="January 25, 2023"
-              class="flatpickr-day flatpickr-disabled undefined--date-picker__day cds--date-picker__day"
+              class="flatpickr-day today selected endRange undefined--date-picker__day no-border cds--date-picker__day"
+              tabindex="-1"
             >
               25
             </span>

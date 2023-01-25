@@ -15,3 +15,5 @@ export const SELECT_TYPES = Object.freeze({
   select: { type: "select", isMultiselect: false },
   multiselect: { type: "multiselect", isMultiselect: true },
 });
+
+export const SUPPORTED_AUTOSUGGEST_TYPES = ["password", "text", "search", "tel", "url"];

@@ -4,14 +4,11 @@ import cx from "classnames";
 import {
   //AutoSuggest,
   Button,
-  
   ModalBody,
   ModalFooter,
   //TextInput,
 } from "@carbon/react";
-import { DataDrivenInput,
-  DynamicFormik,
-  ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
+import { DataDrivenInput, DynamicFormik, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import EmptyState from "Components/EmptyState";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
@@ -23,16 +20,6 @@ const UpdateType = {
   Remove: "remove",
   NoChange: "none",
 };
-
-// const AutoSuggestInput = (props) => {
-//   return (
-//     <div key={props.id} style={{ paddingBottom: "1rem", position: "relative" }}>
-//       <AutoSuggest {...props}>
-//         <TextInput tooltipContent={props.tooltipContent} />
-//       </AutoSuggest>
-//     </div>
-//   );
-// };
 
 const TextEditorInput = (props) => {
   return (
@@ -53,12 +40,6 @@ const TextEditorInput = (props) => {
  *   type: String
  * }
  */
-// function formatAutoSuggestProperties(inputProperties) {
-//   return inputProperties.map((parameter) => ({
-//     value: `$(${parameter.key})`,
-//     label: parameter.key,
-//   }));
-// }
 function formatAutoSuggestProperties(inputProperties) {
   return inputProperties.map((parameter) => ({
     value: `$(${parameter})`,
@@ -70,39 +51,23 @@ const formikSetFieldValue = (value, id, setFieldValue) => {
   setFieldValue(id, value);
 };
 
-const textAreaProps = (inputProperties) => ({ input, formikProps }) => {
-  const { values, setFieldValue } = formikProps;
-  const { key, type, ...rest } = input;
-  const itemConfig = TEXT_AREA_TYPES[type];
+const textAreaProps =
+  (inputProperties) =>
+  ({ input, formikProps }) => {
+    const { values, setFieldValue } = formikProps;
+    const { key, type, ...rest } = input;
+    const itemConfig = TEXT_AREA_TYPES[type];
 
-  return {
-    autoSuggestions: formatAutoSuggestProperties(inputProperties),
-    formikSetFieldValue: (value) => formikSetFieldValue(value, key, setFieldValue),
-    initialValue: values[key],
-    inputProperties: inputProperties,
-    item: input,
-    ...itemConfig,
-    ...rest,
+    return {
+      autoSuggestions: formatAutoSuggestProperties(inputProperties),
+      formikSetFieldValue: (value) => formikSetFieldValue(value, key, setFieldValue),
+      initialValue: values[key],
+      inputProperties: inputProperties,
+      item: input,
+      ...itemConfig,
+      ...rest,
+    };
   };
-};
-
-// const textInputProps = (inputProperties) => ({ formikProps, input }) => {
-//   const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
-//   const { key, ...rest } = input;
-
-//   return {
-//     autoSuggestions: formatAutoSuggestProperties(inputProperties),
-//     onChange: (value) => formikSetFieldValue(value, key, setFieldValue),
-//     initialValue: values[key],
-//     inputProps: {
-//       id: key,
-//       onBlur: handleBlur,
-//       invalid: touched[key] && errors[key],
-//       invalidText: errors[key],
-//       ...rest,
-//     },
-//   };
-// };
 
 const toggleProps = ({ input, formikProps }) => {
   return {
@@ -151,12 +116,9 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
       inputs={newTaskTemplateVersion.config}
       onSubmit={handleSubmit}
       dataDrivenInputProps={{
-        //TextInput: AutoSuggestInput,
         TextEditor: TextEditorInput,
       }}
-      //textAreaProps={textAreaProps(inputProperties)}
       textEditorProps={textAreaProps(inputProperties)}
-      //textInputProps={textInputProps(inputProperties)}
       toggleProps={toggleProps}
     >
       {({ inputs, formikProps }) => {

@@ -12,27 +12,27 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import TextEditorModal from "Components/TextEditorModal";
-import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
+import { SUPPORTED_AUTOSUGGEST_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import styles from "./WorkflowTaskFormResults.module.scss";
 
 const AutoSuggestInput = (props) => {
-  //number inputs doesn't support AutoSuggest setSelectionRange
-  if (props.type === "number") return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
-  else
-    return (
-      <div key={props.id}>
-        <AutoSuggest
-          {...props}
-          initialValue={props?.initialValue !== "" ? props?.initialValue : props?.inputProps?.defaultValue}
-        >
-          <TextInput tooltipContent={props.tooltipContent} disabled={props?.inputProps?.readOnly} />
-        </AutoSuggest>
-      </div>
-    );
+  if (!SUPPORTED_AUTOSUGGEST_TYPES.includes(props.type)) {
+    return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
+  }
+
+  return (
+    <div key={props.id}>
+      <AutoSuggest
+        {...props}
+        initialValue={props?.initialValue !== "" ? props?.initialValue : props?.inputProps?.defaultValue}
+      >
+        <TextInput tooltipContent={props.tooltipContent} disabled={props?.inputProps?.readOnly} />
+      </AutoSuggest>
+    </div>
+  );
 };
 
 const TextAreaSuggestInput = (props) => {
-  //if we have a default value in the input. We want to show user it is disabled
   return (
     <div key={props.id}>
       <AutoSuggest
@@ -40,11 +40,12 @@ const TextAreaSuggestInput = (props) => {
         initialValue={props?.initialValue !== "" ? props?.initialValue : props?.item?.defaultValue}
       >
         <TextArea
-          tooltipContent={props.tooltipContent}
-          labelText={props?.label}
           disabled={props?.item?.readOnly}
           helperText={props?.item?.helperText}
+          id={`['${props.id}']`}
+          labelText={props?.label}
           placeholder={props?.item?.placeholder}
+          tooltipContent={props.tooltipContent}
         />
       </AutoSuggest>
     </div>
@@ -95,12 +96,7 @@ const ResultsInput = ({ formikProps, ...otherProps }) => {
  *   type: String
  * }
  */
-// function formatAutoSuggestProperties(inputProperties) {
-//   return inputProperties.map((parameter) => ({
-//     value: `$(${parameter.key})`,
-//     label: parameter.key,
-//   }));
-// }
+
 function formatAutoSuggestProperties(inputProperties) {
   return inputProperties.map((parameter) => ({
     value: `$(${parameter})`,
