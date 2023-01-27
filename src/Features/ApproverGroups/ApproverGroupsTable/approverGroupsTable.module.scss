@@ -42,7 +42,7 @@
   font-size: inherit;
   font-family: inherit;
   height: 3rem;
-  :global .bx--table-header-label {
+  :global .cds--table-header-label {
     color: var(--cds-text-01);
   }
   button {
@@ -132,8 +132,9 @@
 .deleteButton {
   margin-left: 1rem;
   padding: 0.5rem !important;
+  width: 2rem;
   svg {
-    margin: 0 !important;
+    fill: var(--cds-support-error) !important;
   }
 }
 

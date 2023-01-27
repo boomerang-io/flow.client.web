@@ -1,10 +1,10 @@
-import React from "react";
+import { vi } from "vitest";
 import { fireEvent, screen } from "@testing-library/react";
 import { tokens } from "ApiServer/fixtures";
 import TokenComponent from "./index";
 
 const props = {
-  deleteToken: jest.fn(),
+  deleteToken: vi.fn(),
   tokens: tokens,
   hasError: false,
   isLoading: false,

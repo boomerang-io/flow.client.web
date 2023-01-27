@@ -5,12 +5,10 @@ import { AxiosResponse } from "axios";
 import {
   Button,
   InlineNotification,
-  Loading,
   ModalBody,
   ModalFooter,
-  ModalForm,
-  TextArea,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { Loading, ModalForm, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import { QueryStatus } from "Constants";
 
 interface VersionCommentFormProps {

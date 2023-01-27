@@ -1,20 +1,21 @@
 // @ts-nocheck
 import React, { Component } from "react";
 import cx from "classnames";
-import matchSorter from "match-sorter";
+import { matchSorter } from "match-sorter";
 import uniqBy from "lodash/uniqBy";
 import { sortByProp } from "@boomerang-io/utils";
 import {
   Accordion,
   AccordionItem,
   Checkbox,
-  CheckboxList,
+  Layer,
   OverflowMenu,
   Search,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { CheckboxList } from "@boomerang-io/carbon-addons-boomerang-react";
 import Task from "./Task";
 import { taskIcons } from "Utils/taskIcons";
-import { ChevronLeft32, SettingsAdjust16, Recommend16 } from "@carbon/icons-react";
+import { ChevronLeft, SettingsAdjust, Recommend } from "@carbon/react/icons";
 import { TaskModel } from "Types";
 import styles from "./tasks.module.scss";
 
@@ -49,7 +50,7 @@ export default class Tasks extends Component<TaskProps> {
 
   handleOnSearchInputChange = (e) => {
     const searchQuery = e.target.value;
-    if (searchQuery === "" && this.state.activeFilters === []) {
+    if (searchQuery === "") {
       this.setState({
         searchQuery,
         tasksToDisplay: this.props.tasks,
@@ -189,26 +190,26 @@ export default class Tasks extends Component<TaskProps> {
             className={styles.collapseButton}
             onClick={() => this.setState((prevState) => ({ isSidenavOpen: !prevState.isSidenavOpen }))}
           >
-            <ChevronLeft32 className={styles.collapseButtonImg} />
+            <ChevronLeft className={styles.collapseButtonImg} />
           </button>
         </header>
         {this.state.isSidenavOpen && (
           <>
-            <section className={styles.tasks}>
+            <Layer className={styles.tasks}>
               <Search
-                light
                 data-testid="editor-task-search"
                 id="search-tasks"
                 size="sm"
                 labelText="Search"
                 onChange={this.handleOnSearchInputChange}
-                placeHolderText="Search for a task"
+                placeholder="Search for a task"
                 value={this.state.searchQuery}
               />
               <OverflowMenu
+                ariaLabel="Filter"
                 size="sm"
                 iconDescription="Filter"
-                renderIcon={SettingsAdjust16}
+                renderIcon={SettingsAdjust}
                 style={{
                   backgroundColor:
                     this.state.activeFilters.length > 0 || this.state.showVerified ? "#3DDBD9" : "initial",
@@ -233,7 +234,7 @@ export default class Tasks extends Component<TaskProps> {
                     id="verified-tasks"
                     labelText={
                       <div className={styles.checkboxOption}>
-                        <Recommend16 fill="#0072C3" style={{ willChange: "auto" }} /> <p>Verified Tasks</p>
+                        <Recommend fill="#0072C3" style={{ willChange: "auto" }} /> <p>Verified Tasks</p>
                       </div>
                     }
                     checked={this.state.showVerified}
@@ -255,7 +256,7 @@ export default class Tasks extends Component<TaskProps> {
                   />
                 </section>
               </OverflowMenu>
-            </section>
+            </Layer>
             <section className={styles.detail}>
               <h3 className={styles.totalCount}>{`Showing ${this.state.tasksToDisplay.length} tasks`}</h3>
               <button

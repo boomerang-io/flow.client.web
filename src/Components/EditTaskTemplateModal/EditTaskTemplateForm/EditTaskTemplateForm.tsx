@@ -6,13 +6,11 @@ import * as Yup from "yup";
 import orderBy from "lodash/orderBy";
 import {
   Button,
-  Creatable,
+  
   ModalBody,
   ModalFooter,
-  ModalForm,
-  TextInput,
-  TextArea,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { Creatable, ModalForm, TextInput, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
 import styles from "./EditTaskTemplateForm.module.scss";
@@ -85,7 +83,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
             <ModalBody aria-label="inputs">
               <TextInput
                 id="name"
-                invalid={errors.name && touched.name}
+                invalid={Boolean(errors.name && touched.name)}
                 invalidText={errors.name}
                 labelText="Name"
                 helperText="Must be unique"
@@ -96,7 +94,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
               />
               <TextInput
                 id="category"
-                invalid={errors.category && touched.category}
+                invalid={Boolean(errors.category && touched.category)}
                 invalidText={errors.category}
                 labelText="Category"
                 helperText="Categories have strict matching, type as you want to see it"
@@ -114,7 +112,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 <p className={styles.descriptionLength}>{values.description.length}/200</p>
                 <TextArea
                   id="description"
-                  invalid={errors.description && touched.description}
+                  invalid={Boolean(errors.description && touched.description)}
                   invalidText={errors.description}
                   labelText="Description"
                   onBlur={handleBlur}
@@ -130,7 +128,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 value={values.image}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.image && touched.image}
+                invalid={Boolean(errors.image && touched.image)}
                 invalidText={errors.image}
               />
               <TextArea
@@ -141,7 +139,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 value={values.command}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.command && touched.command}
+                invalid={Boolean(errors.command && touched.command)}
                 invalidText={errors.command}
               />
               <TextArea
@@ -153,12 +151,12 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 value={values.arguments}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.arguments && touched.arguments}
+                invalid={Boolean(errors.arguments && touched.arguments)}
                 invalidText={errors.arguments}
               />
               <TextArea
                 id="script"
-                invalid={errors.script && touched.script}
+                invalid={Boolean(errors.script && touched.script)}
                 invalidText={errors.script}
                 labelText="Script (optional)"
                 onBlur={handleBlur}
@@ -167,7 +165,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
               />
               <TextInput
                 id="workingDir"
-                invalid={errors.workingDir && touched.workingDir}
+                invalid={Boolean(errors.workingDir && touched.workingDir)}
                 invalidText={errors.workingDir}
                 labelText="Working Directory (optional)"
                 onBlur={handleBlur}

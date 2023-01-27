@@ -4,15 +4,15 @@ import * as Yup from "yup";
 import { useMutation, useQueryClient } from "react-query";
 import {
   Button,
-  Loading,
+  
   ModalBody,
   ModalFooter,
-  ModalForm,
-  notify,
+  
   NumberInput,
-  ToastNotification,
+ 
   InlineNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import {Loading, ModalForm, notify,  ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeamQuotas } from "Types";
 import styles from "./QuotaEditModalContent.module.scss";
@@ -110,11 +110,13 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                     value={values.quotaFormValue}
                     step={stepValue}
                     min={minValue}
-                    onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
+                    //Need a max value in order to work - need to update in case of invalid value
+                    max={99999}
+                    onChange={(evt: React.ChangeEvent<HTMLInputElement>, {value}:{value: number}) => {
                       //@ts-ignore
-                      setFieldValue("quotaFormValue", evt.imaginaryTarget.value);
+                      setFieldValue("quotaFormValue", value);
                     }}
-                    invalid={errors.quotaFormValue && !touched.quotaFormValue}
+                    invalid={Boolean(errors.quotaFormValue && !touched.quotaFormValue)}
                     invalidText={errors.quotaFormValue}
                   />
                   {inputUnits && <span className={styles.inputUnits}>{inputUnits}</span>}

@@ -5,7 +5,6 @@ import { useQuery } from "Hooks";
 import { useQueryClient } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect, useParams } from "react-router-dom";
 import { Box } from "reflexbox";
-import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import queryString from "query-string";
 import ErrorDragon from "Components/ErrorDragon";
 import WombatMessage from "Components/WombatMessage";
@@ -27,7 +26,11 @@ const TaskTemplatesContainer: React.FC = () => {
     query: queryString.stringify({ teamId: params?.teamId, scope: "team" }),
   });
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
-  const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl, {
+  const {
+    data: taskTemplatesData,
+    error: taskTemplatesDataError,
+    isLoading,
+  } = useQuery(getTaskTemplatesUrl, {
     enabled: Boolean(activeTeam),
   });
 
@@ -47,12 +50,34 @@ const TaskTemplatesContainer: React.FC = () => {
   };
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <div className={styles.container}>
+        <Helmet>
+          <title>Team Tasks</title>
+        </Helmet>
+        <Sidenav
+          isLoading
+          activeTeam={activeTeam}
+          addTemplateInState={addTemplateInState}
+          taskTemplates={[]}
+          setActiveTeam={setActiveTeam}
+        />
+        <Box maxWidth="24rem" margin="0 auto">
+          <WombatMessage
+            className={styles.wombat}
+            title={`${activeTeam ? "Select a task or create one" : "Select a team"}`}
+          />
+        </Box>
+      </div>
+    );
   }
 
   if (taskTemplatesDataError) {
     return (
       <div className={styles.container}>
+        <Helmet>
+          <title>Team Tasks</title>
+        </Helmet>
         <ErrorDragon />
       </div>
     );
@@ -64,10 +89,10 @@ const TaskTemplatesContainer: React.FC = () => {
         <title>Team Tasks</title>
       </Helmet>
       <Sidenav
-        taskTemplates={taskTemplatesData}
-        addTemplateInState={addTemplateInState}
-        setActiveTeam={setActiveTeam}
         activeTeam={activeTeam}
+        addTemplateInState={addTemplateInState}
+        taskTemplates={taskTemplatesData}
+        setActiveTeam={setActiveTeam}
       />
       <Switch>
         <Route exact path={match.path}>

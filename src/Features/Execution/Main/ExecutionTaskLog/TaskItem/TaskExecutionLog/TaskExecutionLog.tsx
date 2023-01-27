@@ -1,8 +1,8 @@
 import React from "react";
-import cx from "classnames";
-import { Button, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, Theme } from "@carbon/react";
+import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Toggle } from "@carbon/react";
+import { ModalBody } from "@carbon/react";
 import { LazyLog, ScrollFollow } from "react-lazylog";
 import { serviceUrl } from "Config/servicesConfig";
 import { PRODUCT_SERVICE_ENV_URL } from "Config/servicesConfig";
@@ -32,7 +32,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
         label: `${flowTaskName}`,
       }}
       modalTrigger={({ openModal }: { openModal: () => void }) => (
-        <Button className={styles.trigger} kind="ghost" size="small" onClick={openModal}>
+        <Button className={styles.trigger} kind="ghost" size="sm" onClick={openModal}>
           View Log
         </Button>
       )}
@@ -43,21 +43,20 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
             startFollowing={true}
             render={({ onScroll }: { onScroll: () => void }) => (
               <>
-                <div className={styles.followToggle}>
-                  <label
-                    className={cx(styles.followToggleText, { [styles.disabled]: Boolean(error) })}
-                    htmlFor="task-log-toggle"
-                  >
-                    Follow log
-                  </label>
+                <Theme theme="g100" className={styles.followToggle}>
                   <Toggle
+                    hideLabel
                     defaultValue={follow}
-                    disabled={!!error}
+                    disabled={Boolean(error)}
                     id="task-log-toggle"
-                    onChange={() => setFollow(!follow)}
+                    labelText="Follow log toggle"
+                    labelB="Follow"
+                    labelA="Don't Follow"
+                    onToggle={() => setFollow(!follow)}
                     toggled={follow}
+                    size="sm"
                   />
-                </div>
+                </Theme>
                 <LazyLog
                   enableSearch={true}
                   fetchOptions={

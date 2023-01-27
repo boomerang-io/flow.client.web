@@ -1,5 +1,9 @@
 @import "Styles/mixins";
 
+html, body, #app {
+  height: 100%;
+}
+
 body {
   background-color: var(--cds-ui-background);
   color: var(--cds-text-01);
@@ -20,13 +24,13 @@ a {
 }
 
 /* fix for carbon menu */
-.bx--list-box__menu {
+.cds--list-box__menu {
   z-index: 998;
 }
 
 #app {
   //overwrite carbon components
-  .bx--list-box__label {
+  .cds--list-box__label {
     color: var(--cds-text-01);
     font-weight: 400;
   }
@@ -47,7 +51,7 @@ textarea {
       min-width: 15rem;
       margin: 0.125rem;
       margin-left: auto;
-      .bx--list-box__field {
+      .cds--list-box__field {
         background-color: initial !important;
       }
     }
@@ -57,11 +61,11 @@ textarea {
       margin: 0.125rem !important;
     }
   
-    .bx--search {
+    .cds--search {
       width: 20rem;
     }
   
-    .bx--list-box__field {
+    .cds--list-box__field {
       height: 2.625rem !important;
     }
   }
@@ -69,7 +73,7 @@ textarea {
   .bmrg-c-text-area-modal-wrapper {
     cursor: pointer;
     width: 100%;
-    .bx--text-area__wrapper {
+    .cds--text-area__wrapper {
       width: 100%;
     }
   }

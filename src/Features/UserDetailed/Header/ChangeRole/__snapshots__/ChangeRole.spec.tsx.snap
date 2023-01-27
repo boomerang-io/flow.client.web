@@ -1,41 +1,41 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`ChangeRole --- Snapshot Test Capturing Snapshot of ChangeRole 1`] = `
+exports[`ChangeRole --- Snapshot Test > Capturing Snapshot of ChangeRole 1`] = `
 <body
   id="app"
 >
   <div>
     <form
-      class="bx--bmrg-modal-flow-form"
+      class="cds--bmrg-modal-flow-form"
     >
       <div
-        class="bx--modal-content"
+        class="cds--modal-content"
       >
         <div
-          class="gridContainer"
+          class="_gridContainer_7666e5"
         >
           <div
-            class="bx--form-item"
+            class="cds--form-item"
           >
             <fieldset
-              class="bx--radio-button-group bx--radio-button-group--vertical bx--radio-button-group--label-right"
+              class="cds--radio-button-group cds--radio-button-group--vertical cds--radio-button-group--label-right"
             >
               <div
-                class="bx--radio-button-wrapper"
+                class="cds--radio-button-wrapper"
               >
                 <input
-                  class="bx--radio-button"
+                  class="cds--radio-button"
                   id="platform-role-admin"
                   name="platform-role"
                   type="radio"
                   value="admin"
                 />
                 <label
-                  class="bx--radio-button__label"
+                  class="cds--radio-button__label"
                   for="platform-role-admin"
                 >
                   <span
-                    class="bx--radio-button__appearance"
+                    class="cds--radio-button__appearance"
                   />
                   <span
                     class=""
@@ -46,21 +46,21 @@ exports[`ChangeRole --- Snapshot Test Capturing Snapshot of ChangeRole 1`] = `
                 </label>
               </div>
               <div
-                class="bx--radio-button-wrapper"
+                class="cds--radio-button-wrapper"
               >
                 <input
-                  class="bx--radio-button"
+                  class="cds--radio-button"
                   id="platform-role-user"
                   name="platform-role"
                   type="radio"
                   value="user"
                 />
                 <label
-                  class="bx--radio-button__label"
+                  class="cds--radio-button__label"
                   for="platform-role-user"
                 >
                   <span
-                    class="bx--radio-button__appearance"
+                    class="cds--radio-button__appearance"
                   />
                   <span
                     class=""
@@ -75,17 +75,17 @@ exports[`ChangeRole --- Snapshot Test Capturing Snapshot of ChangeRole 1`] = `
         </div>
       </div>
       <div
-        class="bx--modal-footer bx--btn-set"
+        class="cds--modal-footer cds--btn-set"
       >
         <button
-          class="bx--btn bx--btn--secondary"
+          class="cds--btn cds--btn--secondary"
           tabindex="0"
           type="button"
         >
           Cancel
         </button>
         <button
-          class="bx--btn bx--btn--primary bx--btn--disabled"
+          class="cds--btn cds--btn--primary cds--btn--disabled"
           disabled=""
           tabindex="0"
           type="submit"

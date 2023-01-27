@@ -2,11 +2,11 @@ import React from "react";
 import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
+import { Layer, FilterableMultiSelect } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderSubtitle as HeaderSubtitle,
   FeatureHeaderTitle as HeaderTitle,
-  MultiSelect as Select,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import Calendar from "Components/ScheduleCalendar";
 import ScheduleCreator from "Components/ScheduleCreator";
@@ -34,8 +34,6 @@ import type {
   WorkflowSummary,
 } from "Types";
 import styles from "./Schedules.module.scss";
-
-const MultiSelect = Select.Filterable;
 
 const defaultStatusArray = scheduleStatusOptions.map((statusObj) => statusObj.value);
 const defaultFromDate = moment().startOf("month").unix();
@@ -65,10 +63,12 @@ export default function Schedules() {
   /**
    * Get schedule and calendar data
    */
-  const { scopes, statuses = defaultStatusArray, workflowIds, teamIds } = queryString.parse(
-    location.search,
-    queryStringOptions
-  );
+  const {
+    scopes,
+    statuses = defaultStatusArray,
+    workflowIds,
+    teamIds,
+  } = queryString.parse(location.search, queryStringOptions);
 
   const schedulesUrlQuery = queryString.stringify(
     {
@@ -186,12 +186,13 @@ export default function Schedules() {
     setActiveSchedule({ ...schedule, workflow });
   }
 
-
   if (teams || systemWorkflowsQuery.data || userWorkflows.workflows) {
-    const { workflowIds = "", scopes = "", statuses = "", teamIds = "" } = queryString.parse(
-      location.search,
-      queryStringOptions
-    );
+    const {
+      workflowIds = "",
+      scopes = "",
+      statuses = "",
+      teamIds = "",
+    } = queryString.parse(location.search, queryStringOptions);
 
     const selectedScopes = typeof scopes === "string" ? [scopes] : scopes;
     const selectedTeamIds = typeof teamIds === "string" ? [teamIds] : teamIds;
@@ -234,9 +235,8 @@ export default function Schedules() {
           }
           actions={
             <section aria-label="Schedule filters" className={styles.dataFiltersContainer}>
-              <div className={styles.dataFilter}>
-                <MultiSelect
-                  light
+              <Layer className={styles.dataFilter}>
+                <FilterableMultiSelect
                   id="schedules-scopes-select"
                   label="Choose scope(s)"
                   placeholder="Choose scope(s)"
@@ -249,9 +249,9 @@ export default function Schedules() {
                   )}
                   titleText="Filter by scope"
                 />
-              </div>
-              <div className={styles.dataFilter}>
-                <MultiSelect
+              </Layer>
+              <Layer className={styles.dataFilter}>
+                <FilterableMultiSelect
                   light
                   disabled={disableTeamsDropdown}
                   key={disableTeamsDropdown ? "teams-disabled" : "teams-enabeld"}
@@ -265,9 +265,9 @@ export default function Schedules() {
                   initialSelectedItems={selectedTeams}
                   titleText="Filter by Team"
                 />
-              </div>
-              <div className={styles.dataFilter}>
-                <MultiSelect
+              </Layer>
+              <Layer className={styles.dataFilter}>
+                <FilterableMultiSelect
                   light
                   id="schedules-workflows-select"
                   label="Choose workflow(s)"
@@ -294,10 +294,9 @@ export default function Schedules() {
                   )}
                   titleText="Filter by Workflow"
                 />
-              </div>
-              <div className={styles.dataFilter}>
-                <MultiSelect
-                  light
+              </Layer>
+              <Layer className={styles.dataFilter}>
+                <FilterableMultiSelect
                   id="schedules-statuses-select"
                   label="Choose status(es)"
                   placeholder="Choose status(es)"
@@ -310,7 +309,7 @@ export default function Schedules() {
                   )}
                   titleText="Filter by status"
                 />
-              </div>
+              </Layer>
             </section>
           }
         />
@@ -456,7 +455,6 @@ interface GetWorkflowOptionsArgs {
   userWorkflowsData: Array<WorkflowSummary>;
 }
 
-
 function getWorkflowOptions({
   isSystemWorkflowsEnabled,
   scopes,
@@ -488,4 +486,3 @@ function getWorkflowOptions({
   let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
   return workflowsFilter;
 }
-

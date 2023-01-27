@@ -8,8 +8,9 @@ import { Formik } from "formik";
 import axios from "axios";
 import { useParams, useHistory, Prompt, matchPath } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
-import { InlineNotification, Loading, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ChevronRight32 } from "@carbon/icons-react";
+import { InlineNotification } from "@carbon/react";
+import { Loading, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ChevronRight } from "@carbon/react/icons";
 import EmptyState from "Components/EmptyState";
 import Header from "../Header";
 import { formatErrorMessage } from "@boomerang-io/utils";
@@ -323,9 +324,9 @@ export function TaskTemplateYamlEditor({
                 />
                 <div className={cx(styles.markdownContainer, { [styles.collapsed]: !docOpen })}>
                   <button className={styles.collapseButton} onClick={() => setDocOpen(!docOpen)}>
-                    <ChevronRight32 className={styles.collapseButtonImg} />
+                    <ChevronRight size={32} className={styles.collapseButtonImg} />
                   </button>
-                  {docOpen && <ReactMarkdown className="markdown-body" source={yamlInstructions} />}
+                  {docOpen && <ReactMarkdown className="markdown-body" children={yamlInstructions} />}
                 </div>
               </section>
             </div>

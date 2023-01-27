@@ -14,7 +14,7 @@
   max-width: 15rem;
   min-width: 15rem;
   overflow-y: auto;
-  :global .bx--btn {
+  :global .cds--btn {
     border-radius: 0;
   }
   .active {
@@ -28,6 +28,7 @@
   cursor: pointer;
   display: flex;
   justify-content: flex-start;
+  width: 100%;
 }
 
 .icon {
@@ -36,6 +37,7 @@
   max-width: 1.25rem;
   min-height: 1.25rem;
   min-width: 1.25rem;
+  fill: var(--cds-link-primary) !important;
 }
 
 .buttonText {
@@ -74,7 +76,7 @@
   height: 10rem;
   margin-top: 3rem;
   width: 30rem;
-  :global .bx--bmrg-error-page__graphic {
+  :global .cds--bmrg-error-page__graphic {
     width: 10rem;
   }
 }

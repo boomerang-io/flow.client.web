@@ -1,14 +1,11 @@
 import React from "react";
 import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
-import { Button } from "carbon-components-react";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import {
   notify,
   ToastNotification,
-  InlineNotification,
   ModalFlowForm,
-  ModalBody,
-  ModalFooter,
   TextInput,
   Loading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -29,7 +26,11 @@ export default function AddTeamContent({
   currentQuery: string;
 }) {
   const queryClient = useQueryClient();
-  const { mutateAsync: createTeamMutator, isLoading, error } = useMutation(
+  const {
+    mutateAsync: createTeamMutator,
+    isLoading,
+    error,
+  } = useMutation(
     (args: { body: {} }) => {
       const { promise, cancel } = resolver.postCreateTeam(args);
       if (cancelRequestRef?.current) {
@@ -94,7 +95,7 @@ export default function AddTeamContent({
                   onChange={(value: React.ChangeEvent<HTMLInputElement>) => {
                     setFieldValue("name", value.target.value);
                   }}
-                  invalid={errors.name && !touched.name}
+                  invalid={Boolean(errors.name && !touched.name)}
                   invalidText={errors.name}
                 />
                 {error && (

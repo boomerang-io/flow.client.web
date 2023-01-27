@@ -1,5 +1,4 @@
 import React from "react";
-import { settings } from "carbon-components";
 import { useAppContext } from "Hooks";
 import { Link } from "react-router-dom";
 import {
@@ -7,8 +6,8 @@ import {
   DataTableSkeleton,
   DataTable,
   Pagination,
-  TooltipHover,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { TooltipHover} from '@boomerang-io/carbon-addons-boomerang-react';
 import cx from "classnames";
 import queryString from "query-string";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
@@ -18,10 +17,8 @@ import ManualTask from "./ManualTask";
 import { Action, ApprovalStatus } from "Types";
 import { appLink } from "Config/appConfig";
 import dateHelper from "Utils/dateHelper";
-import { CheckmarkOutline16, CloseOutline16, Help16, Warning16 } from "@carbon/icons-react";
+import { CheckmarkOutline, CloseOutline, Help, Warning } from "@carbon/react/icons";
 import styles from "./ActionsTable.module.scss";
-
-const { prefix } = settings;
 
 interface ActionsTableProps {
   actionsQueryToRefetch: string;
@@ -171,7 +168,7 @@ function ActionsTable(props: ActionsTableProps) {
     return (
       <div style={{ marginTop: "1rem" }}>
         <DataTableSkeleton
-          className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
+          className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
           rowCount={5}
           columnCount={headerList.length}
           headers={headerList.map((header) => header.header)}
@@ -217,7 +214,7 @@ function ActionsTable(props: ActionsTableProps) {
             >
               <div className={styles.tableCellInputApprovals}>
                 <p className={styles.tableCellSmallGray}>{`${value}/${currentAction?.approvalsRequired} approvals`}</p>
-                <Warning16 className={styles.tableCellInputRequiredIcon} />
+                <Warning className={styles.tableCellInputRequiredIcon} />
               </div>
             </TooltipHover>
           );
@@ -287,8 +284,8 @@ function ActionsTable(props: ActionsTableProps) {
                               kind="danger--ghost"
                               iconDescription="reject-actions"
                               onClick={openModal}
-                              renderIcon={CloseOutline16}
-                              size="field"
+                              renderIcon={CloseOutline}
+                              size="md"
                             >
                               Reject selected
                             </Button>
@@ -306,8 +303,8 @@ function ActionsTable(props: ActionsTableProps) {
                               kind="ghost"
                               iconDescription="approve-actions"
                               onClick={openModal}
-                              renderIcon={CheckmarkOutline16}
-                              size="field"
+                              renderIcon={CheckmarkOutline}
+                              size="md"
                             >
                               Approve selected
                             </Button>
@@ -357,7 +354,7 @@ function ActionsTable(props: ActionsTableProps) {
                                     direction="top"
                                     tooltipText="Number of required approvals that have been received in order for this component to proceed."
                                   >
-                                    <Help16 className={styles.tableHeaderApprovalsIcon} />
+                                    <Help className={styles.tableHeaderApprovalsIcon} />
                                   </TooltipHover>
                                 </div>
                               ) : (

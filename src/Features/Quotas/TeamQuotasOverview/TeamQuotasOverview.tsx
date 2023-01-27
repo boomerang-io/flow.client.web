@@ -3,9 +3,10 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { Tile, Button, TooltipHover, Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Tile, Button } from "@carbon/react";
+import { TooltipHover, Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ComposedModalChildProps, ModalTriggerProps, FlowTeamQuotas } from "Types";
-import { Edit16 } from "@carbon/icons-react";
+import { Edit } from "@carbon/react/icons";
 import ProgressBar from "Components/ProgressBar";
 import Header from "../Header";
 import QuotaEditModalContent from "./QuotaEditModalContent";
@@ -220,8 +221,8 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
                 iconDescription="Edit"
                 kind="ghost"
                 onClick={openModal}
-                renderIcon={Edit16}
-                size="field"
+                renderIcon={Edit}
+                size="md"
               />
             </TooltipHover>
           )}

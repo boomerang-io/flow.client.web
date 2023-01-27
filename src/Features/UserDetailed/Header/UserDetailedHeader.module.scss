@@ -1,4 +1,4 @@
-@import "~Styles/mixins";
+@import "Styles/mixins";
 
 .container {
   display: flex;
@@ -23,6 +23,7 @@
   align-items: center;
   display: flex;
   font-size: 1rem;
+  gap: 0.5rem;
 }
 .statusDivider {
   margin: 0 1rem;
@@ -84,7 +85,7 @@
   margin: 1rem 0 1rem 0;
   max-width: calc(100% - 30rem);
 
-  :global .bx--bmrg-avatar {
+  :global .cds--bmrg-avatar {
     path {
       fill: var(--cds-text-01);
     }

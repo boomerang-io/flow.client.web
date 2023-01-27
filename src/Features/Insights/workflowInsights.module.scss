@@ -18,22 +18,22 @@
     }
   }
 
-  :global .bx--list-box {
+  :global .cds--list-box {
     cursor: pointer;
     height: 2.5rem;
     max-height: 2.5rem;
     width: 16rem;
   }
 
-  :global .bx--list-box__field {
+  :global .cds--list-box__field {
     width: 16rem;
   }
 
-  :global .bx--list-box__label {
+  :global .cds--list-box__label {
     @include text-overflow-ellipsis();
   }
 
-  :global .bx--list-box__menu {
+  :global .cds--list-box__menu {
     min-width: 12rem;
     // width: max-content;
     height: auto;
@@ -42,7 +42,7 @@
     left: unset;
   }
 
-  :global .bx--list-box__menu-item--highlighted {
+  :global .cds--list-box__menu-item--highlighted {
     text-decoration: none;
   }
 
@@ -50,9 +50,13 @@
     margin-top: 1rem;
   }
 
-  :global .bx--cc--title > p.title {
+  :global .cds--cc--title > p.title {
     font-size: 0.875rem;
     font-weight: 300;
+  }
+
+  :global .cds--overflow-menu-options.cds--overflow-menu--flip {
+    position: absolute !important;
   }
 }
 

@@ -4,9 +4,10 @@ import {
   Loading,
   // Tag,
   // TooltipHover,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { ExecutionContextProvider } from "State/context";
-import { Button, ModalBody, ModalFlowForm, ModalFooter, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
+import { ModalFlowForm, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import { Box } from "reflexbox";
 import WombatMessage from "Components/WombatMessage";
@@ -14,7 +15,7 @@ import workflowIcons from "Assets/workflowIcons";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import { WorkflowTemplate, TaskModel } from "Types";
 import { WorkflowDagEngineMode } from "Constants";
-import { Bee20 } from "@carbon/icons-react";
+import { Bee } from "@carbon/react/icons";
 import styles from "./createWorkflowTemplate.module.scss";
 
 export const TriggerType:{[key:string]: string} = {
@@ -94,9 +95,9 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
           <aside className={styles.templates}>
             {
               workflowTemplates?.map(template => {
-                const { name, Icon = Bee20 } = workflowIcons.find((icon) => icon.name === template.icon) ?? {};
+                const { name, Icon = Bee } = workflowIcons.find((icon) => icon.name === template.icon) ?? {};
                 return (
-                  <Button className={cx(styles.template, { [styles.active]: selectedWorkflow?.id === template.id })} kind="ghost" size="small" onClick={() => handleSelectTemplate(template)}>
+                  <Button className={cx(styles.template, { [styles.active]: selectedWorkflow?.id === template.id })} kind="ghost" size="sm" onClick={() => handleSelectTemplate(template)}>
                     <Icon className={styles.icon} alt={`${name}`} />
                     <p className={styles.buttonText}>{template.name}</p>
                   </Button>

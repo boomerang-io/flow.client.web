@@ -52,14 +52,6 @@
   resize: vertical !important;
 }
 
-.commentLength {
-  font-size: 0.75rem;
-  letter-spacing: 0.02rem;
-  line-height: 1rem;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
 
 /**
  * Single Modal
@@ -75,8 +67,8 @@
 
 .creationDate {
   @extend .dataLabel;
+  display: block;
   margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
 }
 
 .yourInput {
@@ -87,9 +79,11 @@
 .singleLabel {
   @extend .dataLabel;
   margin-bottom: 0.5rem;
+  display: block;
 }
 
 .singleHelperText {
+  display: block;
   font-size: 0.75rem;
   letter-spacing: 0.02rem;
   line-height: 0.9375rem;
@@ -123,9 +117,11 @@
 }
 
 .approvalsRatio {
+  display: block;
   font-size: 0.875rem;
   letter-spacing: 0.01rem;
   line-height: 1.125rem;
+  margin-top: 0.5rem;
 }
 
 .approvers {
@@ -133,7 +129,7 @@
   margin-top: 1.5rem;
   padding-top: 1.5rem;
 
-  :global .bx--structured-list-td {
+  :global .cds--structured-list-td {
     padding: 0.5rem 1rem;
   }
 }

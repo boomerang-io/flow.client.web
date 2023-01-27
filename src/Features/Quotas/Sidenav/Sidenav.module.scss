@@ -1,6 +1,7 @@
 // import "Styles/mixins";
 
 .container {
+  background-color: var(--cds-ui-01);
   min-width: 21.875rem;
 }
 
@@ -10,13 +11,7 @@
 }
 
 .searchSection {
-  display: flex;
-  padding-left: 1rem;
-  width: 270px;
-  :global .bx--search-input,
-  :global .bx--search-close::before {
-    background-color: var(--cds-ui-02);
-  }
+  padding: 0 1rem;
 }
 
 .teamContainer {

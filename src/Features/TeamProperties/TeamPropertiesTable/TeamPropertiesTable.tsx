@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Box } from "reflexbox";
+import { DataTable, Pagination, DataTableSkeleton } from "@carbon/react";
 import {
   ComboBox,
-  DataTable,
   Error,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  Pagination,
-  DataTableSkeleton,
   notify,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -22,7 +20,7 @@ import { InputType, PASSWORD_CONSTANT } from "Constants";
 import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, Property } from "Types";
-import { Checkmark32, Close32 } from "@carbon/icons-react";
+import { Checkmark, Close } from "@carbon/react/icons";
 import styles from "./teamPropertiesTable.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
@@ -129,9 +127,9 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
         return <p className={styles.tableTextarea}>{determineValue}</p>;
       case "secured":
         return property && property.type === InputType.Password ? (
-          <Checkmark32 alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
+          <Checkmark size={32} alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
         ) : (
-          <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
+          <Close size={32} alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
         );
       case "actions":
         return (
@@ -158,7 +156,9 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
         header={
           <>
             <HeaderTitle className={styles.headerTitle}>Team Parameters</HeaderTitle>
-            <HeaderSubtitle>Set team parameters that are accessible in all workflows for that team.</HeaderSubtitle>
+            <HeaderSubtitle>
+              Set team-level parameters that are accessible to all workflows owned by the team.
+            </HeaderSubtitle>
           </>
         }
       />
@@ -179,9 +179,6 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
                   setActiveTeam(selectedItem);
                 }}
                 placeholder="Select a team"
-                shouldFilterItem={({ item, inputValue }: { item: any; inputValue: string }) =>
-                  item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
-                }
               />
             </div>
             {(activeTeam?.id || totalItems > 0) && (

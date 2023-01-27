@@ -1,7 +1,7 @@
 import React from "react";
 import cx from "classnames";
 import { useHistory, useParams } from "react-router-dom";
-import { ChevronLeft16, ChevronRight16, PageFirst16, PageLast16 } from "@carbon/icons-react";
+import { ChevronLeft, ChevronRight, PageFirst, PageLast } from "@carbon/react/icons";
 import { appLink } from "Config/appConfig";
 import styles from "./VersionSwitcher.module.scss";
 
@@ -51,10 +51,10 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRev
     return (
       <div className={styles.buttonList}>
         <button className={styles.button} disabled={!enabled} onClick={fastBackVersion}>
-          <PageFirst16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="first version" />
+          <PageFirst className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="first version" />
         </button>
         <button className={styles.button} disabled={!enabled} onClick={backVersion}>
-          <ChevronLeft16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="back one version" />
+          <ChevronLeft className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="back one version" />
         </button>
       </div>
     );
@@ -64,10 +64,10 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRev
     return (
       <div className={styles.buttonList}>
         <button className={styles.button} disabled={!enabled} onClick={forwardVersion}>
-          <ChevronRight16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="forward one version" />
+          <ChevronRight className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="forward one version" />
         </button>
         <button className={styles.button} disabled={!enabled} onClick={fastForwardVersion}>
-          <PageLast16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="last version" />
+          <PageLast className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="last version" />
         </button>
       </div>
     );

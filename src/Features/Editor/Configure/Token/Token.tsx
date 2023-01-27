@@ -3,7 +3,7 @@ import axios from "axios";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { ConfirmModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl } from "Config/servicesConfig";
-import { CopyFile16, TrashCan16, ViewFilled16 } from "@carbon/icons-react";
+import { CopyFile, TrashCan, ViewFilled } from "@carbon/react/icons";
 import { ModalTriggerProps } from "Types";
 import styles from "./Token.module.scss";
 
@@ -50,7 +50,7 @@ const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikProps
               onClick={() => setIsDisplayingPassword(!isDisplayingPassword)}
               type="button"
             >
-              <ViewFilled16 fill={"#0072C3"} className={styles.actionIcon} alt="Show/Hide token" />
+              <ViewFilled fill={"#0072C3"} className={styles.actionIcon} alt="Show/Hide token" />
             </button>
           </TooltipHover>
           <TooltipHover direction="top" content={copyTokenText} hideOnClick={false}>
@@ -62,7 +62,7 @@ const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikProps
                   onMouseLeave={() => setCopyTokenText("Copy Token")}
                   type="button"
                 >
-                  <CopyFile16 fill={"#0072C3"} className={styles.actionIcon} alt="Copy token" />
+                  <CopyFile fill={"#0072C3"} className={styles.actionIcon} alt="Copy token" />
                 </button>
               </CopyToClipboard>
             </div>
@@ -78,7 +78,7 @@ const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikProps
               modalTrigger={({ openModal }: ModalTriggerProps) => (
                 <TooltipHover direction="top" content={"Delete"}>
                   <button className={styles.actionButton} type="button" onClick={openModal}>
-                    <TrashCan16 fill={"#da1e28"} className={styles.actionIcon} alt="Delete token" />
+                    <TrashCan fill={"#da1e28"} className={styles.actionIcon} alt="Delete token" />
                   </button>
                 </TooltipHover>
               )}

@@ -1,4 +1,4 @@
-@import "~@boomerang-io/styles/lib/colors";
+@import "@boomerang-io/styles/lib/colors";
 
 .container {
   background: var(--cds-ui-background);
@@ -36,7 +36,7 @@
   }
 }
 
-.buttonSkeleton{
+.buttonSkeleton {
   align-self: flex-end;
   margin-bottom: 1rem;
   margin-top: -1rem;
@@ -54,7 +54,7 @@
 .tableHeadHeader {
   font-size: inherit;
   font-family: inherit;
-  :global .bx--table-header-label {
+  :global .cds--table-header-label {
     color: var(--cds-text-01);
   }
 
@@ -108,8 +108,9 @@
 }
 
 .tokenContainer {
+  align-items: flex-end;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin-bottom: 1.31rem;
+  margin-bottom: 1.25rem;
 }

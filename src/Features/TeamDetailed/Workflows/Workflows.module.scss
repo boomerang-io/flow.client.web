@@ -1,17 +1,17 @@
 .container {
   height: calc(100vh - 13.65rem) !important;
-  overflow: scroll;
+  overflow: auto;
   padding: 1.5rem 2rem;
 
-  :global .bx--bmrg-error-page {
+  :global .cds--bmrg-error-page {
     width: 100%;
   }
 
-  :global .bx--structured-list {
+  :global .cds--structured-list {
     max-width: 100rem;
   }
 
-  :global .bx--structured-list-td {
+  :global .cds--structured-list-td {
     line-height: 1rem;
     padding: 1rem 1rem;
   }
@@ -20,7 +20,7 @@
 .manageOwnershipCell {
   position: relative;
 
-  :global .bx--dropdown__wrapper--inline {
+  :global .cds--dropdown__wrapper--inline {
     position: absolute;
     top: 0.5rem;
   }
@@ -33,7 +33,7 @@
   margin-bottom: 2rem;
   width: 100%;
 
-  :global .bx--search {
+  :global .cds--search {
     max-width: 24rem;
   }
 }
@@ -63,7 +63,7 @@
   letter-spacing: 0.16px;
   font-weight: 600;
 
-  :global .bx--tooltip__trigger {
+  :global .cds--tooltip__trigger {
     margin-left: 0.5rem;
   }
 }
@@ -72,7 +72,7 @@
   align-items: center;
   display: flex;
 
-  :global .bx--bmrg-avatar {
+  :global .cds--bmrg-avatar {
     margin-right: 1rem;
     position: absolute;
     path {

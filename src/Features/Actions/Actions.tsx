@@ -7,19 +7,16 @@ import queryString from "query-string";
 import { Helmet } from "react-helmet";
 import { useAppContext } from "Hooks";
 import { sortByProp } from "@boomerang-io/utils";
+import { DatePicker, DatePickerInput, FilterableMultiSelect, SkeletonPlaceholder } from "@carbon/react";
 import {
-  DatePicker,
-  DatePickerInput,
   ErrorMessage,
   ErrorDragon,
+  Loading,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
-  Loading,
-  MultiSelect as Select,
-  SkeletonPlaceholder,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import ActionsTable from "./ActionsTable";
 import HeaderWidget from "Components/HeaderWidget";
@@ -27,10 +24,9 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
 import { elevatedUserRoles, ActionType, WorkflowScope } from "Constants";
 import { approvalStatusOptions } from "Constants/filterOptions";
-import { ArrowUpRight32 } from "@carbon/icons-react";
+import { ArrowUpRight } from "@carbon/react/icons";
 import styles from "./Actions.module.scss";
 
-const MultiSelect = Select.Filterable;
 const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
 const DEFAULT_SIZE = 10;
@@ -40,7 +36,7 @@ const DEFAULT_TO_DATE = moment(new Date()).unix();
 
 const summaryQuery = queryString.stringify({
   fromDate: DEFAULT_FROM_DATE,
-  toDate: DEFAULT_TO_DATE
+  toDate: DEFAULT_TO_DATE,
 });
 
 const actionsSummaryUrl = serviceUrl.getActionsSummary({ query: summaryQuery });
@@ -86,7 +82,7 @@ function Actions() {
     statuses,
     teamIds,
     fromDate,
-    toDate
+    toDate,
   } = queryString.parse(location.search, queryStringOptions);
 
   const actionsUrlQuery = queryString.stringify(
@@ -137,13 +133,21 @@ function Actions() {
     queryFn: resolver.query(actionsUrl),
   });
 
-  const { data: systemWorkflowsData, isLoading: systemWorkflowsIsLoading, error: SystemWorkflowsError } = useQuery({
+  const {
+    data: systemWorkflowsData,
+    isLoading: systemWorkflowsIsLoading,
+    error: SystemWorkflowsError,
+  } = useQuery({
     queryKey: systemUrl,
     queryFn: resolver.query(systemUrl),
     enabled: isSystemWorkflowsEnabled,
   });
 
-  const { data: userWorkflowsData, isLoading: userWorkflowsIsLoading, isError: userWorkflowsIsError } = useQuery({
+  const {
+    data: userWorkflowsData,
+    isLoading: userWorkflowsIsLoading,
+    isError: userWorkflowsIsError,
+  } = useQuery({
     queryKey: userWorkflowsUrl,
     queryFn: resolver.query(userWorkflowsUrl),
   });
@@ -264,10 +268,12 @@ function Actions() {
   }
 
   if (teams || systemWorkflowsData || userWorkflowsData) {
-    const { workflowIds = "", scopes = "", statuses = "", teamIds = "" } = queryString.parse(
-      location.search,
-      queryStringOptions
-    );
+    const {
+      workflowIds = "",
+      scopes = "",
+      statuses = "",
+      teamIds = "",
+    } = queryString.parse(location.search, queryStringOptions);
 
     const selectedScopes = typeof scopes === "string" ? [scopes] : scopes;
     const selectedTeamIds = typeof teamIds === "string" ? [teamIds] : teamIds;
@@ -340,8 +346,8 @@ function Actions() {
                     </>
                   ) : (
                     <>
-                      <HeaderWidget icon={ArrowUpRight32} text="Manual" value={manualTasksSummaryNumber} />
-                      <HeaderWidget icon={ArrowUpRight32} text="Approvals" value={approvalsSummaryNumber} />
+                      <HeaderWidget icon={ArrowUpRight} text="Manual" value={manualTasksSummaryNumber} />
+                      <HeaderWidget icon={ArrowUpRight} text="Approvals" value={approvalsSummaryNumber} />
                       <HeaderWidget icon={emoji} text="Approval rate" value={`${approvalsRatePercentage}%`} />
                     </>
                   )}
@@ -350,7 +356,7 @@ function Actions() {
             </section>
           }
           footer={
-            <Tabs>
+            <Tabs ariaLabel="Action types">
               <Tab
                 exact
                 label={`Approvals (${approvalsNumber})`}
@@ -379,7 +385,7 @@ function Actions() {
             <div className={styles.filtersContainer}>
               <div className={styles.dataFilters}>
                 <div className={styles.dataFilter}>
-                  <MultiSelect
+                  <FilterableMultiSelect
                     id="actions-scopes-select"
                     label="Choose scope(s)"
                     placeholder="Choose scope(s)"
@@ -395,7 +401,7 @@ function Actions() {
                 </div>
                 {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
                   <div className={styles.dataFilter}>
-                    <MultiSelect
+                    <FilterableMultiSelect
                       id="actions-teams-select"
                       label="Choose team(s)"
                       placeholder="Choose team(s)"
@@ -409,7 +415,7 @@ function Actions() {
                   </div>
                 )}
                 <div className={styles.dataFilter}>
-                  <MultiSelect
+                  <FilterableMultiSelect
                     id="actions-workflows-select"
                     label="Choose workflow(s)"
                     placeholder="Choose workflow(s)"
@@ -437,7 +443,7 @@ function Actions() {
                   />
                 </div>
                 <div className={styles.dataFilter}>
-                  <MultiSelect
+                  <FilterableMultiSelect
                     id="actions-statuses-select"
                     label="Choose status(es)"
                     placeholder="Choose status(es)"

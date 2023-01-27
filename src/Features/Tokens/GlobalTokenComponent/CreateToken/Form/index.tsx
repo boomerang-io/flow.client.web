@@ -2,18 +2,17 @@ import React from "react";
 import moment from "moment";
 import * as Yup from "yup";
 import {
-  ModalFlowForm,
   Button,
   DatePicker,
   DatePickerInput,
   InlineNotification,
   ModalBody,
   ModalFooter,
-  TextArea,
-  Tooltip,
-  Loading,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { ModalFlowForm,   TextArea,
+  Loading, TooltipHover} from "@boomerang-io/carbon-addons-boomerang-react"
 import { Formik } from "formik";
+import { Information } from "@carbon/react/icons";
 import { useMutation, useQueryClient } from "react-query";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { TokenRequest } from "Types";
@@ -112,18 +111,16 @@ function CreateServiceTokenForm({
                   data-testid="token-expiration-id"
                   id={InputKey.ExpiryDate}
                   dateFormat="MM-DD-YYYY"
-                  invalid={errors.date}
+                  invalid={Boolean(errors.date)}
                   invalidText={errors.date}
                   labelText={
                     <div className={styles.inputLabelContainer}>
-                      <p>Expiration Date (optional)</p>
-                      <Tooltip direction="top" iconDescription="Additional Documentation">
-                        <p>
-                          Expiration date will be saved in Coordinated Universal Time (UTC) with the token expiring at
+                      <span>Expiration Date (optional)</span>
+                        <TooltipHover direction="top" tooltipContent="Expiration date will be saved in Coordinated Universal Time (UTC) with the token expiring at
                           the start of the entered day. The token will not expire by default if no expiration date is
-                          entered.
-                        </p>
-                      </Tooltip>
+                          entered."><Information />
+
+                      </TooltipHover>
                     </div>
                   }
                   onChange={(value: any) => handleSelectDate(setFieldValue, InputKey.ExpiryDate, value)}
@@ -132,12 +129,14 @@ function CreateServiceTokenForm({
                 />
               </DatePicker>
               <TextArea
+              enableCounter
                 labelText="Description"
                 placeholder="Provide a short description for this Token"
                 id="description"
                 data-testid="token-description"
-                onChange={(value: any) => setFieldValue("description", value.target.value)}
+                onChange={(e) => setFieldValue("description", e.target.value)}
                 value={values.description}
+                maxCount={200}
               />
               {postGlobalTokenError ? (
                 <InlineNotification

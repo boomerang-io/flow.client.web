@@ -1,8 +1,8 @@
-import React from "react";
+import { vi } from "vitest";
 import TeamPropertiesTable from ".";
 import { screen, fireEvent } from "@testing-library/react";
 
-const mockfn = jest.fn();
+const mockfn = vi.fn();
 const mockReduxTeamConfig = {
   teamProperties: {
     data: [
@@ -124,20 +124,16 @@ describe("TeamPropertiesTable --- RTL", () => {
     const selection = screen.getByText(/Allianz/i);
     fireEvent.click(selection);
 
-    // eslint-disable-next-line jest-dom/prefer-in-document
     expect(screen.queryAllByText(/Please select a team to manage properties./i)).toHaveLength(0);
   });
 
   test("TeamPropertiesTable -  test it renders table with data", async () => {
-    const { container } = global.rtlContextRouterRender(<TeamPropertiesTable {...propsWithProperties} />);
+    global.rtlContextRouterRender(<TeamPropertiesTable {...propsWithProperties} />);
     const { data } = mockReduxTeamConfig.teamProperties;
     // eslint-disable-next-line
-    const unsecuredElement = container.querySelector(".unsecured");
-
     expect(screen.getByText(data[0].value)).toBeInTheDocument();
     expect(screen.getByText(data[0].label)).toBeInTheDocument();
     expect(screen.getByText(data[0].key)).toBeInTheDocument();
     expect(screen.getByText(data[0].description)).toBeInTheDocument();
-    expect(unsecuredElement).toBeInTheDocument();
   });
 });

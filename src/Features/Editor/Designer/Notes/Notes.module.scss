@@ -96,7 +96,6 @@
   font-size: 1.125rem;
   font-weight: 300;
   line-height: 1.4375rem;
-  margin: 1rem;
 }
 
 .reactMde {
@@ -113,10 +112,6 @@
 
 .reactMdeTextArea {
   min-height: calc(100vh - 19.5rem) !important;
-
-  &:focus {
-    @include focus-outline();
-  }
 }
 
 .tabButton {
@@ -126,6 +121,7 @@
   border-bottom: 0.125rem solid #b9bfc7 !important;
   color: var(--cds-text-02);
   font-weight: 300;
+  font-size: 0.875rem;
   margin: 0 !important;
   padding: 0 1.75rem 0.25rem;
   transition: border-bottom 0.15s cubic-bezier(0.2, 0, 0.38, 0.9), color 0.15s cubic-bezier(0.2, 0, 0.38, 0.9);
@@ -136,7 +132,7 @@
   }
 
   &.selected {
-    border-bottom: 0.125rem solid var(--cds-support-02) !important;
+    border-bottom: 0.125rem solid var(--cds-border-interactive) !important;
     color: var(--cds-text-01);
     font-weight: 600;
   }

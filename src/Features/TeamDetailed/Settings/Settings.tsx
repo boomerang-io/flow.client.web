@@ -7,7 +7,7 @@ import UpdateTeamName from "./UpdateTeamName";
 import queryString from "query-string";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { SortDirection } from "Constants";
-import { Edit16 } from "@carbon/icons-react";
+import { Edit } from "@carbon/react/icons";
 import { FlowTeam } from "Types";
 import styles from "./Settings.module.scss";
 
@@ -79,7 +79,7 @@ export default function Settings({ team, teamManagementEnabled }: { team: FlowTe
               }}
               modalTrigger={({ openModal }: { openModal: () => void }) => (
                 <button className={styles.teamEditIcon} onClick={openModal} data-testid="open-change-name-modal">
-                  <Edit16 />
+                  <Edit />
                 </button>
               )}
             >

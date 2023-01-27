@@ -6,9 +6,9 @@ import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  SkeletonPlaceholder 
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ArrowDownRight32, ArrowUpRight32 } from "@carbon/icons-react";
+import { SkeletonPlaceholder } from "@carbon/react";
+import { ArrowDownRight, ArrowUpRight } from "@carbon/react/icons";
 import styles from "./activityHeader.module.scss";
 
 ActivityHeader.propTypes = {
@@ -57,9 +57,9 @@ function ActivityHeader({
           ) : (
             <>
               <p className={styles.text}>Today's numbers</p>
-              <HeaderWidget icon={ArrowUpRight32} text="Runs" value={runActivities} />
-              <HeaderWidget icon={ArrowUpRight32} text="Successes" value={succeededActivities} />
-              <HeaderWidget icon={ArrowDownRight32} text="Failures" value={failedActivities} />
+              <HeaderWidget icon={ArrowUpRight} text="Runs" value={runActivities} />
+              <HeaderWidget icon={ArrowUpRight} text="Successes" value={succeededActivities} />
+              <HeaderWidget icon={ArrowDownRight} text="Failures" value={failedActivities} />
               <HeaderWidget icon={emoji} text="Success rate" value={`${successRatePercentage}%`} />
             </>
           )}

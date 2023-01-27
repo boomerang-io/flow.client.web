@@ -3,12 +3,12 @@ import React, { Component } from "react";
 import {
   ComboBox,
   Creatable,
+  ModalForm,
   TextArea,
   TextInput,
   Toggle,
-  ModalForm,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
@@ -269,16 +269,8 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
         })}
       >
         {(formikProps) => {
-          const {
-            values,
-            touched,
-            errors,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-            setFieldValue,
-            isValid,
-          } = formikProps;
+          const { values, touched, errors, handleBlur, handleChange, handleSubmit, setFieldValue, isValid } =
+            formikProps;
 
           return (
             <ModalForm onSubmit={handleSubmit}>
@@ -297,7 +289,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                 <TextInput
                   helperText="Reference value for field in task template config"
                   id={InputProperty.Key}
-                  invalid={errors.key && touched.key}
+                  invalid={Boolean(errors.key && touched.key)}
                   invalidText={errors.key}
                   labelText="Key"
                   disabled={isEdit}
@@ -308,7 +300,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                 />
                 <TextInput
                   id={InputProperty.Label}
-                  invalid={errors.label && touched.label}
+                  invalid={Boolean(errors.label && touched.label)}
                   invalidText={errors.label}
                   labelText="Label"
                   placeholder="e.g. Email"
@@ -318,7 +310,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                 />
                 <TextInput
                   id={InputProperty.HelperText}
-                  invalid={errors.helperText && touched.helperText}
+                  invalid={Boolean(errors.helperText && touched.helperText)}
                   invalidText={errors.helperText}
                   labelText="Helper Text (optional)"
                   helperText="Assist user in completing the field"
@@ -328,7 +320,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                 />
                 <TextInput
                   id={InputProperty.Description}
-                  invalid={errors.description && touched.description}
+                  invalid={Boolean(errors.description && touched.description)}
                   invalidText={errors.description}
                   labelText="Description (optional)"
                   helperText="Provide additional information about field to show in a tooltip"
@@ -339,7 +331,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                 {InputType.Boolean !== values.type && (
                   <TextInput
                     id={InputProperty.Placeholder}
-                    invalid={errors.placeholder && touched.placeholder}
+                    invalid={Boolean(errors.placeholder && touched.placeholder)}
                     invalidText={errors.placeholder}
                     labelText="Placeholder (optional)"
                     helperText="Give the user a hint for the field value"

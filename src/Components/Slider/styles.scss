@@ -1,21 +1,21 @@
 @import "Styles/variables";
 
 /* Override the Slider carbon component */
-.c-slider__wrapper .bx--label {
+.c-slider__wrapper .cds--label {
   line-height: 1.125rem;
   margin: 0;
 }
 
 /* Override the Slider carbon component */
-.c-slider__wrapper .bx--slider-container {
+.c-slider__wrapper .cds--slider-container {
   position: relative;
   width: 100%;
 
-  .bx--form-item {
+  .cds--form-item {
     order: 4;
   }
 
-  .bx--slider {
+  .cds--slider {
     max-width: initial;
     outline: none;
 
@@ -25,7 +25,7 @@
       height: 0.3rem;
     }
 
-    .bx--slider__thumb {
+    .cds--slider__thumb {
       border-radius: 1.5625rem;
       height: 1.5rem;
       width: 1.5rem;
@@ -53,7 +53,7 @@
     }
   }
 
-  .bx--slider-text-input {
+  .cds--slider-text-input {
     position: relative;
     background-color: white;
     border-radius: 0.25rem 0.25rem 0 0;
@@ -73,13 +73,13 @@
 .c-slider__wrapper {
   position: relative;
 
-  .c-slider__input-divider {
-    position: absolute;
-    border: 0.0625rem solid var(--cds-ui-04);
-    right: 0;
-    bottom: 0.625rem;
-    width: 3.125rem;
-  }
+  // .c-slider__input-divider {
+  //   position: absolute;
+  //   border: 0.0625rem solid var(--cds-ui-04);
+  //   right: 0;
+  //   bottom: 0.625rem;
+  //   width: 3.125rem;
+  // }
 }
 .c-slider__helper-text {
   color: var(--cds-text-02);
@@ -87,4 +87,14 @@
   letter-spacing: 0.02rem;
   line-height: 0.8rem;
   margin-top: 0.25rem;
+}
+
+.c-slider__container {
+  display: flex;
+}
+
+.c-slider__slider-input {
+  margin-left: 1rem;
+  margin-top: 0.8rem;
+  max-width: 6rem;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Helmet } from "react-helmet";
 import { useMutation, useQueryClient } from "react-query";
-import ms from "match-sorter";
+import { matchSorter as ms } from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { Formik, FieldArray } from "formik";
 import {
@@ -13,13 +13,12 @@ import {
   StructuredListHead,
   StructuredListRow,
   StructuredListWrapper,
-  notify,
-  ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import EmptyState from "Components/EmptyState";
 import LabelModal from "Components/LabelModal";
 import { serviceUrl } from "Config/servicesConfig";
-import { Add16, Edit16, Save16, TrashCan16 } from "@carbon/icons-react";
+import { Add, Edit, Save, TrashCan } from "@carbon/react/icons";
 import { FlowUser } from "Types";
 import styles from "./UserLabels.module.scss";
 
@@ -90,7 +89,7 @@ function UserLabels({ user, userManagementEnabled }: UserLabelsProps) {
                         <Search
                           labelText="labels search"
                           id="labels-search"
-                          placeHolderText="Search for a label"
+                          placeholder="Search for a label"
                           onChange={(e: React.FormEvent<HTMLInputElement>) => setSearchQuery(e.currentTarget.value)}
                         />
                       </div>
@@ -99,8 +98,8 @@ function UserLabels({ user, userManagementEnabled }: UserLabelsProps) {
                           <Button
                             disabled={!dirty || isLoading}
                             iconDescription="save labels"
-                            renderIcon={Save16}
-                            size="field"
+                            renderIcon={Save}
+                            size="md"
                             onClick={handleSubmit}
                           >
                             {isLoading ? "Saving..." : "Save"}
@@ -112,8 +111,8 @@ function UserLabels({ user, userManagementEnabled }: UserLabelsProps) {
                               <Button
                                 kind="secondary"
                                 iconDescription="add a new label"
-                                renderIcon={Add16}
-                                size="field"
+                                renderIcon={Add}
+                                size="md"
                                 onClick={openModal}
                               >
                                 Add a new label
@@ -154,8 +153,8 @@ function UserLabels({ user, userManagementEnabled }: UserLabelsProps) {
                                           <Button
                                             kind="ghost"
                                             iconDescription="edit label"
-                                            renderIcon={Edit16}
-                                            size="small"
+                                            renderIcon={Edit}
+                                            size="sm"
                                             onClick={openModal}
                                           >
                                             Edit
@@ -167,8 +166,8 @@ function UserLabels({ user, userManagementEnabled }: UserLabelsProps) {
                                       <Button
                                         kind="danger--ghost"
                                         iconDescription="delete label"
-                                        renderIcon={TrashCan16}
-                                        size="small"
+                                        renderIcon={TrashCan}
+                                        size="sm"
                                         onClick={() => arrayHelpers.remove(labelIndex)}
                                       >
                                         Delete

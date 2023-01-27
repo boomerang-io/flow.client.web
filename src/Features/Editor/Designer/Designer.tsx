@@ -3,7 +3,8 @@ import { Helmet } from "react-helmet";
 import { UseQueryResult } from "react-query";
 import cx from "classnames";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
-import { DelayedRender, Error, SkeletonPlaceholder, SkeletonText } from "@boomerang-io/carbon-addons-boomerang-react";
+import { SkeletonPlaceholder, SkeletonText } from "@carbon/react";
+import { DelayedRender, Error } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowZoom from "Components/WorkflowZoom";
 import Notes from "./Notes";
 import Tasks from "./Tasks";
@@ -17,7 +18,7 @@ interface DesignerContainerProps {
   isModalOpen: boolean;
   notes: string;
   updateNotes: ({ markdown }: { markdown: string }) => void;
-  revisionQuery:  UseQueryResult<WorkflowRevision, unknown>;
+  revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
   tasks: Array<TaskModel>;
   workflowDagEngine: WorkflowDagEngine | null;
   workflowName: string;

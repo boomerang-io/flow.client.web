@@ -2,18 +2,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-import {
-  Button,
-  Loading,
-  ModalBody,
-  ModalFooter,
-  ModalFlowForm,
-  notify,
-  RadioButton,
-  RadioButtonGroup,
-  ToastNotification,
-  InlineNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter, RadioButton, RadioButtonGroup, InlineNotification } from "@carbon/react";
+import { Loading, ModalFlowForm, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { UserType, UserTypeCopy } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowUser } from "Types";

@@ -6,7 +6,7 @@ import { CORE_ENV_URL } from "Config/appConfig";
 
 const ErrorMessage: React.FC<FallbackProps> = (props) => {
   return (
-    <Flex mt="10rem" alignItems="center" flexDirection="column" justifyContent="center">
+    <Flex alignItems="center" flexDirection="column" justifyContent="center">
       <ErrorFullPage statusUrl={`${CORE_ENV_URL}/status`} />
     </Flex>
   );

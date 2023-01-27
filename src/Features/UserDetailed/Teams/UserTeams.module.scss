@@ -3,15 +3,15 @@
   overflow: auto;
   padding: 1.5rem 2rem;
 
-  :global .bx--bmrg-error-page {
+  :global .cds--bmrg-error-page {
     width: 100%;
   }
 
-  :global .bx--structured-list {
+  :global .cds--structured-list {
     max-width: 100rem;
   }
 
-  :global .bx--structured-list-td {
+  :global .cds--structured-list-td {
     line-height: 1rem;
     padding: 1rem 1rem;
   }
@@ -24,7 +24,7 @@
   margin-bottom: 2rem;
   width: 100%;
 
-  :global .bx--search {
+  :global .cds--search {
     max-width: 24rem;
   }
 }

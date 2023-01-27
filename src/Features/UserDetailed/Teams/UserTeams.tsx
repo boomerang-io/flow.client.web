@@ -8,10 +8,10 @@ import {
   StructuredListHead,
   StructuredListRow,
   StructuredListWrapper,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { Link } from "react-router-dom";
 import EmptyState from "Components/EmptyState";
-import ms from "match-sorter";
+import { matchSorter as ms } from "match-sorter";
 import { appLink } from "Config/appConfig";
 import { FlowUser } from "Types";
 import styles from "./UserTeams.module.scss";
@@ -39,7 +39,7 @@ function UserTeams({ user }: UserTeamsProps) {
           <Search
             labelText="teams search"
             id="teams-search"
-            placeHolderText="Search for a team"
+            placeholder="Search for a team"
             onChange={(e: React.FormEvent<HTMLInputElement>) => setSearchQuery(e.currentTarget.value)}
           />
         </div>

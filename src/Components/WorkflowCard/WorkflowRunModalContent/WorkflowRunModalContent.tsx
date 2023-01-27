@@ -2,11 +2,10 @@ import React from "react";
 import {
   Button,
   InlineNotification,
-  ModalForm,
   ModalBody,
   ModalFooter,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-
+} from "@carbon/react";
+import { ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 interface WorkflowRunModalContentProps {
   closeModal: () => void;
   executeError: any;

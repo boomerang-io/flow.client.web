@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import moment from "moment";
-import ms from "match-sorter";
+import { matchSorter as ms } from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { Link } from "react-router-dom";
 import {
@@ -11,7 +11,7 @@ import {
   StructuredListBody,
   StructuredListRow,
   StructuredListCell,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { appLink } from "Config/appConfig";
 import { FlowTeam, FlowUser } from "Types";
 import EmptyState from "Components/EmptyState";
@@ -49,7 +49,7 @@ const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, teamM
           <Search
             labelText="member search"
             id="member-search"
-            placeHolderText="Search for a member"
+            placeholder="Search for a member"
             onChange={(e: React.FormEvent<HTMLInputElement>) => setSearchQuery(e.currentTarget.value)}
           />
         </div>

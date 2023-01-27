@@ -1,11 +1,9 @@
 import React from "react";
 import moment from "moment";
 import { Link, useLocation } from "react-router-dom";
+import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
 import {
   Avatar,
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
   ComposedModal,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
@@ -18,7 +16,7 @@ import { appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { emailIsValid } from "Utils";
 import { ComposedModalChildProps, FlowUser } from "Types";
-import { Checkmark16, Close16, User24 } from "@carbon/icons-react";
+import { Checkmark, Close, User } from "@carbon/react/icons";
 import styles from "./UserDetailedHeader.module.scss";
 
 interface UserDetailedHeaderProps {
@@ -66,7 +64,7 @@ function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }:
       nav={<NavigationComponent />}
       footer={
         !isError && (
-          <Tabs>
+          <Tabs ariaLabel="User pages">
             <Tab exact label="Workflows" to={{ pathname: appLink.user({ userId: user?.id }), state: location.state }} />
             <Tab
               exact
@@ -94,7 +92,7 @@ function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }:
           </HeaderTitle>
           <div className={styles.headerSubtitle} title={user?.email}>
             <div className={styles.status}>
-              {isActive ? <Checkmark16 style={{ fill: "#009d9a" }} /> : <Close16 style={{ fill: "#da1e28" }} />}
+              {isActive ? <Checkmark style={{ fill: "#009d9a" }} /> : <Close style={{ fill: "#da1e28" }} />}
               <p className={styles.statusText}>{isActive ? "Active" : "Inactive"}</p>
             </div>
             <span className={styles.statusDivider}>-</span>
@@ -125,8 +123,8 @@ function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }:
                     disabled={!userManagementEnabled}
                     kind="ghost"
                     onClick={openModal}
-                    renderIcon={User24}
-                    size="field"
+                    renderIcon={User}
+                    size="md"
                   >
                     Change role
                   </Button>

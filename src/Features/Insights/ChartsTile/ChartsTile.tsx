@@ -1,4 +1,4 @@
-import { Tile } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Tile } from "@carbon/react";
 import styles from "./chartsTile.module.scss";
 
 interface ChartsTileProps {

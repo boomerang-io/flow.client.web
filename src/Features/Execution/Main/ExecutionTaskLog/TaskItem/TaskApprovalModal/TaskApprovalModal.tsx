@@ -1,22 +1,16 @@
 import React from "react";
 import { useQueryClient, useMutation } from "react-query";
-// import moment from "moment";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
   Button,
-  DecisionButtons,
   InlineNotification,
-  Loading,
   ModalBody,
-  ModalForm,
   ModalFooter,
-  notify,
-  TextArea,
-  ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { DecisionButtons, Loading, ModalForm, notify, TextArea, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { ThumbsUp16, ThumbsDown16 } from "@carbon/icons-react";
+import { ThumbsUp, ThumbsDown } from "@carbon/react/icons";
 import styles from "./taskApprovalModal.module.scss";
 
 const GateStatus = {
@@ -71,8 +65,8 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
   };
 
   const buttons = [
-    { icon: ThumbsDown16, label: "Reject", type: "negative", value: GateStatus.Rejected },
-    { icon: ThumbsUp16, label: "Approve", type: "positive", value: GateStatus.Approved },
+    { icon: ThumbsDown, label: "Reject", type: "negative", value: GateStatus.Rejected },
+    { icon: ThumbsUp, label: "Approve", type: "positive", value: GateStatus.Approved },
   ];
 
   return (
@@ -97,10 +91,10 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
                 <Loading />
               ) : (
                 <section className={styles.approval}>
-                  {/*<time className={styles.approvalTime}>{`Submitted ${moment(creationDate).fromNow()}`}</time>*/}
                   <div className={styles.inputs}>
                     <div className={styles.comment}>
                       <TextArea
+                        enableCounter
                         id={`comment`}
                         className={styles.commentArea}
                         labelText="Comments (optional)"
@@ -108,10 +102,10 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
                         value={values?.comment}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        invalid={errors?.comment && touched?.comment}
+                        invalid={Boolean(errors?.comment && touched?.comment)}
                         invalidText={errors?.comment}
+                        maxCount={200}
                       />
-                      <p className={styles.commentLength}>{`${values?.comment.length}/200`}</p>
                     </div>
                     <DecisionButtons
                       canUncheck

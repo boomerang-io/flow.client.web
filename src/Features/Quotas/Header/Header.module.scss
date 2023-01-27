@@ -15,7 +15,7 @@
 
 .modalContainer {
   height: 25.625rem;
-  width: 30rem;
+  width: 32rem;
 }
 
 .detailedTitle {
@@ -36,14 +36,6 @@
   grid-template-columns: repeat(auto-fill, 11.875rem);
   column-gap: 1.5rem;
   row-gap: 3.75rem;
-}
-
-.divider {
-  height: 0.0625rem;
-  width: 28rem;
-  background-color: var(--cds-active-ui);
-  margin-bottom: 1rem;
-  margin-top: 0;
 }
 
 .modalBodyContainer {

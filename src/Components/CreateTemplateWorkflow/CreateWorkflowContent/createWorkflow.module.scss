@@ -1,14 +1,14 @@
 .teamAndName {
   display: flex;
   justify-content: space-between;
-  :global .bx--bmrg-text-input {
+  :global .cds--bmrg-text-input {
     margin-left: 1rem;
     margin-top: 0;
     width: 40rem;
   }
 }
 .iconsTitle {
-  color: var(--cds-text-01);
+  color: var(--cds-text-primary);
   letter-spacing: 0.0625rem;
   margin-bottom: 0.5rem;
   margin-top: 1rem;

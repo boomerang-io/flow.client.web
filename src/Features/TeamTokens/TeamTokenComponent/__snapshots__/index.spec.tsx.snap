@@ -1,51 +1,53 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = `
+exports[`TokenComponent --- Snapshot > Capturing Snapshot of TokenComponent 1`] = `
 <body
   id="app"
 >
   <div>
     <div
-      class="container"
+      class="_container_0d6de6"
     >
       <header
-        class="bx--bmrg-feature-header header"
+        class="cds--bmrg-feature-header _header_0d6de6"
       >
         <section
-          class="bx--bmrg-feature-header__content"
+          class="cds--bmrg-feature-header__content"
         >
           <div
-            class="bx--bmrg-feature-header__header"
+            class="cds--bmrg-feature-header__header"
           >
             <h1
-              class="bx--bmrg-feature-header-title headerTitle"
+              class="cds--bmrg-feature-header-title _headerTitle_0d6de6"
             >
               Team Tokens
             </h1>
+            <p
+              class="cds--bmrg-feature-header-title"
+            >
+              Set team-level tokens that are accessible to all workflows owned by the team.
+            </p>
           </div>
         </section>
       </header>
       <div
-        class="content"
+        class="_content_0d6de6"
       >
         <div
-          class="tokenContainer"
+          class="_tokenContainer_0d6de6"
         >
           <div
-            class="dropdown"
+            class="_dropdown_0d6de6"
           >
             <div
-              class="bx--bmrg-select"
+              class="cds--bmrg-select"
             >
               <div
-                aria-expanded="false"
-                aria-haspopup="listbox"
-                aria-labelledby="downshift-0-label"
-                class="bx--list-box__wrapper"
-                role="combobox"
+                class="cds--list-box__wrapper"
               >
                 <label
-                  class="bx--label"
+                  class="cds--label"
+                  dir="auto"
                   for="team-tokens-select"
                   id="downshift-0-label"
                 >
@@ -58,37 +60,32 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   </div>
                 </label>
                 <div
-                  aria-label="Choose an item"
-                  class="bx--combo-box bx--list-box"
+                  class="cds--combo-box cds--list-box"
                 >
                   <div
-                    aria-haspopup="true"
-                    aria-label="open menu"
-                    class="bx--list-box__field"
-                    data-toggle="true"
-                    id="team-tokens-select"
-                    role="button"
-                    tabindex="-1"
-                    type="button"
+                    class="cds--list-box__field"
                   >
                     <input
                       aria-autocomplete="list"
-                      aria-labelledby="downshift-0-label"
+                      aria-expanded="false"
+                      aria-haspopup="listbox"
                       autocomplete="off"
-                      class="bx--text-input"
+                      class="cds--text-input"
                       data-testid="team-tokens-combobox"
                       id="team-tokens-select"
                       placeholder="Select a team"
+                      role="combobox"
                       tabindex="0"
+                      title="IBM Services Engineering"
                       type="text"
                       value="IBM Services Engineering"
                     />
-                    <div
+                    <button
                       aria-label="Clear selected item"
-                      class="bx--list-box__selection"
-                      role="button"
+                      class="cds--list-box__selection"
                       tabindex="0"
                       title="Clear selected item"
+                      type="button"
                     >
                       <svg
                         aria-hidden="true"
@@ -104,18 +101,23 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                           d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
                         />
                       </svg>
-                    </div>
-                    <div
-                      class="bx--list-box__menu-icon"
+                    </button>
+                    <button
+                      aria-haspopup="true"
+                      aria-label="Open"
+                      class="cds--list-box__menu-icon"
+                      data-toggle="true"
+                      role="button"
+                      tabindex="-1"
+                      title="Open"
+                      type="button"
                     >
                       <svg
-                        aria-label="Open menu"
+                        aria-hidden="true"
                         fill="currentColor"
                         focusable="false"
                         height="16"
-                        name="chevron--down"
                         preserveAspectRatio="xMidYMid meet"
-                        role="img"
                         viewBox="0 0 16 16"
                         width="16"
                         xmlns="http://www.w3.org/2000/svg"
@@ -123,18 +125,21 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                         <path
                           d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
                         />
-                        <title>
-                          Open menu
-                        </title>
                       </svg>
-                    </div>
+                    </button>
                   </div>
+                  <div
+                    aria-label="Choose an item"
+                    class="cds--list-box__menu"
+                    id="downshift-0-menu"
+                    role="listbox"
+                  />
                 </div>
               </div>
             </div>
           </div>
           <button
-            class="bx--btn bx--btn--md bx--btn--primary"
+            class="cds--btn cds--btn--md cds--btn--primary"
             data-testid="create-token-button"
             style="width: 12rem;"
             tabindex="0"
@@ -144,7 +149,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
             <svg
               aria-hidden="true"
               aria-label="Create Token"
-              class="bx--btn__icon"
+              class="cds--btn__icon"
               fill="currentColor"
               focusable="false"
               height="16"
@@ -161,21 +166,21 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
           </button>
         </div>
         <div
-          class="bx--data-table-container"
+          class="cds--data-table-container"
         >
           <div
-            class="bx--data-table-content"
+            class="cds--data-table-content"
           >
             <table
-              class="bx--data-table bx--data-table--sort bx--data-table--no-border"
+              class="cds--data-table cds--data-table--sort"
             >
               <thead>
                 <tr
-                  class="tableHeadRow"
+                  class="_tableHeadRow_0d6de6"
                 >
                   <th
                     aria-sort="none"
-                    class="tableHeadHeader creatorName"
+                    class="_tableHeadHeader_0d6de6 _creatorName_0d6de6"
                     id="creatorName"
                     scope="col"
                   >
@@ -187,20 +192,20 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     </div>
                     <button
                       aria-describedby="table-sort-2"
-                      class="tableHeadHeader creatorName bx--table-sort"
+                      class="_tableHeadHeader_0d6de6 _creatorName_0d6de6 cds--table-sort"
                       type="button"
                     >
                       <span
-                        class="bx--table-sort__flex"
+                        class="cds--table-sort__flex"
                       >
                         <div
-                          class="bx--table-header-label"
+                          class="cds--table-header-label"
                         >
                           Created By
                         </div>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon"
+                          class="cds--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -215,7 +220,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon-unsorted"
+                          class="cds--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -233,7 +238,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   </th>
                   <th
                     aria-sort="none"
-                    class="tableHeadHeader description"
+                    class="_tableHeadHeader_0d6de6 _description_0d6de6"
                     id="description"
                     scope="col"
                   >
@@ -245,20 +250,20 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     </div>
                     <button
                       aria-describedby="table-sort-3"
-                      class="tableHeadHeader description bx--table-sort"
+                      class="_tableHeadHeader_0d6de6 _description_0d6de6 cds--table-sort"
                       type="button"
                     >
                       <span
-                        class="bx--table-sort__flex"
+                        class="cds--table-sort__flex"
                       >
                         <div
-                          class="bx--table-header-label"
+                          class="cds--table-header-label"
                         >
                           Description
                         </div>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon"
+                          class="cds--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -273,7 +278,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon-unsorted"
+                          class="cds--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -291,7 +296,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   </th>
                   <th
                     aria-sort="descending"
-                    class="tableHeadHeader creationDate"
+                    class="_tableHeadHeader_0d6de6 _creationDate_0d6de6"
                     id="creationDate"
                     scope="col"
                   >
@@ -303,20 +308,20 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     </div>
                     <button
                       aria-describedby="table-sort-4"
-                      class="tableHeadHeader creationDate bx--table-sort bx--table-sort--active bx--table-sort--ascending"
+                      class="_tableHeadHeader_0d6de6 _creationDate_0d6de6 cds--table-sort cds--table-sort--active cds--table-sort--descending"
                       type="button"
                     >
                       <span
-                        class="bx--table-sort__flex"
+                        class="cds--table-sort__flex"
                       >
                         <div
-                          class="bx--table-header-label"
+                          class="cds--table-header-label"
                         >
                           Date Created
                         </div>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon"
+                          class="cds--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -331,7 +336,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon-unsorted"
+                          class="cds--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -349,7 +354,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   </th>
                   <th
                     aria-sort="none"
-                    class="tableHeadHeader expiryDate"
+                    class="_tableHeadHeader_0d6de6 _expiryDate_0d6de6"
                     id="expiryDate"
                     scope="col"
                   >
@@ -361,20 +366,20 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     </div>
                     <button
                       aria-describedby="table-sort-5"
-                      class="tableHeadHeader expiryDate bx--table-sort"
+                      class="_tableHeadHeader_0d6de6 _expiryDate_0d6de6 cds--table-sort"
                       type="button"
                     >
                       <span
-                        class="bx--table-sort__flex"
+                        class="cds--table-sort__flex"
                       >
                         <div
-                          class="bx--table-header-label"
+                          class="cds--table-header-label"
                         >
                           Expires (UTC)
                         </div>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon"
+                          class="cds--table-sort__icon"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -389,7 +394,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                         </svg>
                         <svg
                           aria-hidden="true"
-                          class="bx--table-sort__icon-unsorted"
+                          class="cds--table-sort__icon-unsorted"
                           fill="currentColor"
                           focusable="false"
                           height="20"
@@ -406,7 +411,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     </button>
                   </th>
                   <th
-                    class="tableHeadHeader delete"
+                    class="_tableHeadHeader_0d6de6 _delete_0d6de6"
                     id="delete"
                     scope="col"
                   />
@@ -414,17 +419,17 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
               </thead>
               <tbody
                 aria-live="polite"
-                class="tableBody"
+                class="_tableBody_0d6de6"
               >
                 <tr>
                   <td
                     style="padding: 0px;"
                   >
                     <div
-                      class="tableCell"
+                      class="_tableCell_0d6de6"
                     >
                       <p
-                        class="tableTextarea"
+                        class="_tableTextarea_0d6de6"
                       >
                         Test User
                       </p>
@@ -434,10 +439,10 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     style="padding: 0px;"
                   >
                     <div
-                      class="tableCell"
+                      class="_tableCell_0d6de6"
                     >
                       <p
-                        class="tableTextarea"
+                        class="_tableTextarea_0d6de6"
                       >
                         test token 2
                       </p>
@@ -447,12 +452,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     style="padding: 0px;"
                   >
                     <div
-                      class="tableCell"
+                      class="_tableCell_0d6de6"
                     >
                       <p
-                        class="tableTextarea"
+                        class="_tableTextarea_0d6de6"
                       >
-                        January 01, 2020
+                        July 07, 2021
                       </p>
                     </div>
                   </td>
@@ -460,10 +465,10 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     style="padding: 0px;"
                   >
                     <div
-                      class="tableCell"
+                      class="_tableCell_0d6de6"
                     >
                       <p
-                        class="tableTextarea"
+                        class="_tableTextarea_0d6de6"
                       >
                         ---
                       </p>
@@ -473,17 +478,17 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     style="padding: 0px;"
                   >
                     <div
-                      class="tableCell"
+                      class="_tableCell_0d6de6"
                     >
                       <button
                         aria-describedby="danger-description-7"
-                        class="button bx--btn bx--btn--sm bx--btn--danger--ghost"
+                        class="_button_396177 cds--btn cds--btn--sm cds--btn--danger--ghost"
                         data-testid="delete-token-button-12"
                         tabindex="0"
                         type="button"
                       >
                         <span
-                          class="bx--visually-hidden"
+                          class="cds--visually-hidden"
                           id="danger-description-7"
                         >
                           danger
@@ -491,7 +496,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                         <svg
                           aria-hidden="true"
                           aria-label="deleteToken"
-                          class="bx--btn__icon"
+                          class="cds--btn__icon"
                           fill="currentColor"
                           focusable="false"
                           height="16"
@@ -517,10 +522,10 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     style="padding: 0px;"
                   >
                     <div
-                      class="tableCell"
+                      class="_tableCell_0d6de6"
                     >
                       <p
-                        class="tableTextarea"
+                        class="_tableTextarea_0d6de6"
                       >
                         Test User
                       </p>
@@ -530,10 +535,10 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     style="padding: 0px;"
                   >
                     <div
-                      class="tableCell"
+                      class="_tableCell_0d6de6"
                     >
                       <p
-                        class="tableTextarea"
+                        class="_tableTextarea_0d6de6"
                       >
                         test token
                       </p>
@@ -543,12 +548,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     style="padding: 0px;"
                   >
                     <div
-                      class="tableCell"
+                      class="_tableCell_0d6de6"
                     >
                       <p
-                        class="tableTextarea"
+                        class="_tableTextarea_0d6de6"
                       >
-                        January 01, 2020
+                        June 07, 2021
                       </p>
                     </div>
                   </td>
@@ -556,12 +561,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     style="padding: 0px;"
                   >
                     <div
-                      class="tableCell"
+                      class="_tableCell_0d6de6"
                     >
                       <p
-                        class="tableTextarea"
+                        class="_tableTextarea_0d6de6"
                       >
-                        January 01, 2020
+                        June 07, 2022
                       </p>
                     </div>
                   </td>
@@ -569,17 +574,17 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     style="padding: 0px;"
                   >
                     <div
-                      class="tableCell"
+                      class="_tableCell_0d6de6"
                     >
                       <button
                         aria-describedby="danger-description-8"
-                        class="button bx--btn bx--btn--sm bx--btn--danger--ghost"
+                        class="_button_396177 cds--btn cds--btn--sm cds--btn--danger--ghost"
                         data-testid="delete-token-button-11"
                         tabindex="0"
                         type="button"
                       >
                         <span
-                          class="bx--visually-hidden"
+                          class="cds--visually-hidden"
                           id="danger-description-8"
                         >
                           danger
@@ -587,7 +592,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                         <svg
                           aria-hidden="true"
                           aria-label="deleteToken"
-                          class="bx--btn__icon"
+                          class="cds--btn__icon"
                           fill="currentColor"
                           focusable="false"
                           height="16"
@@ -613,54 +618,54 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
           </div>
         </div>
         <div
-          class="bx--pagination"
+          class="cds--pagination cds--pagination--md"
         >
           <div
-            class="bx--pagination__left"
+            class="cds--pagination__left"
           >
             <label
-              class="bx--pagination__text"
-              for="bx-pagination-select-1"
-              id="bx-pagination-select-1-count-label"
+              class="cds--pagination__text"
+              for="cds-pagination-select-id-14"
+              id="cds-pagination-select-id-14-count-label"
             >
               Items per page:
             </label>
             <div
-              class="bx--form-item"
+              class="cds--form-item cds--select__item-count"
             >
               <div
-                class="bx--select bx--select--inline bx--select__item-count"
+                class="cds--select cds--select--inline"
               >
                 <div
-                  class="bx--select-input--inline__wrapper"
+                  class="cds--select-input--inline__wrapper"
                 >
                   <div
-                    class="bx--select-input__wrapper"
+                    class="cds--select-input__wrapper"
                   >
                     <select
-                      class="bx--select-input"
-                      id="bx-pagination-select-1"
+                      class="cds--select-input"
+                      id="cds-pagination-select-id-14"
                     >
                       <option
-                        class="bx--select-option"
+                        class="cds--select-option"
                         value="10"
                       >
                         10
                       </option>
                       <option
-                        class="bx--select-option"
+                        class="cds--select-option"
                         value="20"
                       >
                         20
                       </option>
                       <option
-                        class="bx--select-option"
+                        class="cds--select-option"
                         value="50"
                       >
                         50
                       </option>
                       <option
-                        class="bx--select-option"
+                        class="cds--select-option"
                         value="100"
                       >
                         100
@@ -668,7 +673,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     </select>
                     <svg
                       aria-hidden="true"
-                      class="bx--select__arrow"
+                      class="cds--select__arrow"
                       fill="currentColor"
                       focusable="false"
                       height="16"
@@ -686,38 +691,38 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
               </div>
             </div>
             <span
-              class="bx--pagination__text bx--pagination__items-count"
+              class="cds--pagination__text cds--pagination__items-count"
             >
               1–2 of 2 items
             </span>
           </div>
           <div
-            class="bx--pagination__right"
+            class="cds--pagination__right"
           >
             <div
-              class="bx--form-item"
+              class="cds--form-item cds--select__page-number"
             >
               <div
-                class="bx--select bx--select--inline bx--select__page-number"
+                class="cds--select cds--select--inline"
               >
                 <label
-                  class="bx--label bx--visually-hidden"
-                  for="bx-pagination-select-1-right"
+                  class="cds--label cds--visually-hidden"
+                  for="cds-pagination-select-id-14-right"
                 >
                   Page number, of 1 pages
                 </label>
                 <div
-                  class="bx--select-input--inline__wrapper"
+                  class="cds--select-input--inline__wrapper"
                 >
                   <div
-                    class="bx--select-input__wrapper"
+                    class="cds--select-input__wrapper"
                   >
                     <select
-                      class="bx--select-input"
-                      id="bx-pagination-select-1-right"
+                      class="cds--select-input"
+                      id="cds-pagination-select-id-14-right"
                     >
                       <option
-                        class="bx--select-option"
+                        class="cds--select-option"
                         value="1"
                       >
                         1
@@ -725,7 +730,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     </select>
                     <svg
                       aria-hidden="true"
-                      class="bx--select__arrow"
+                      class="cds--select__arrow"
                       fill="currentColor"
                       focusable="false"
                       height="16"
@@ -743,71 +748,95 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
               </div>
             </div>
             <span
-              class="bx--pagination__text"
+              class="cds--pagination__text"
             >
               of 1 page
             </span>
             <div
-              class="bx--pagination__control-buttons"
+              class="cds--pagination__control-buttons"
             >
-              <button
-                class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--tooltip--hidden bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--btn--icon-only--top bx--tooltip--align-center"
-                disabled=""
-                tabindex="0"
-                type="button"
+              <span
+                class="cds--popover-container cds--popover--caret cds--popover--high-contrast cds--popover--top cds--tooltip cds--icon-tooltip"
               >
-                <div
-                  class="bx--assistive-text"
+                <button
+                  aria-labelledby="tooltip-11"
+                  class="cds--btn--icon-only cds--pagination__button cds--pagination__button--backward cds--pagination__button--no-index cds--btn cds--btn--md cds--btn--ghost cds--btn--disabled"
+                  disabled=""
+                  tabindex="0"
+                  type="button"
                 >
-                  Previous page
-                </div>
-                <svg
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 24L10 16 20 8z"
+                    />
+                  </svg>
+                </button>
+                <span
                   aria-hidden="true"
-                  aria-label="Previous page"
-                  class="bx--btn__icon"
-                  fill="currentColor"
-                  focusable="false"
-                  height="16"
-                  preserveAspectRatio="xMidYMid meet"
-                  role="img"
-                  viewBox="0 0 32 32"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  class="cds--popover"
+                  id="tooltip-11"
+                  role="tooltip"
                 >
-                  <path
-                    d="M20 24L10 16 20 8z"
+                  <span
+                    class="cds--popover-content cds--tooltip-content"
+                  >
+                    Previous page
+                  </span>
+                  <span
+                    class="cds--popover-caret"
                   />
-                </svg>
-              </button>
-              <button
-                class="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index bx--btn bx--btn--ghost bx--btn--disabled bx--tooltip--hidden bx--btn--icon-only bx--tooltip__trigger bx--tooltip--a11y bx--btn--icon-only--top bx--tooltip--align-end"
-                disabled=""
-                tabindex="0"
-                type="button"
+                </span>
+              </span>
+              <span
+                class="cds--popover-container cds--popover--caret cds--popover--high-contrast cds--popover--top-right cds--tooltip cds--icon-tooltip"
               >
-                <div
-                  class="bx--assistive-text"
+                <button
+                  aria-labelledby="tooltip-13"
+                  class="cds--btn--icon-only cds--pagination__button cds--pagination__button--forward cds--pagination__button--no-index cds--btn cds--btn--md cds--btn--ghost cds--btn--disabled"
+                  disabled=""
+                  tabindex="0"
+                  type="button"
                 >
-                  Next page
-                </div>
-                <svg
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 8L22 16 12 24z"
+                    />
+                  </svg>
+                </button>
+                <span
                   aria-hidden="true"
-                  aria-label="Next page"
-                  class="bx--btn__icon"
-                  fill="currentColor"
-                  focusable="false"
-                  height="16"
-                  preserveAspectRatio="xMidYMid meet"
-                  role="img"
-                  viewBox="0 0 32 32"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
+                  class="cds--popover"
+                  id="tooltip-13"
+                  role="tooltip"
                 >
-                  <path
-                    d="M12 8L22 16 12 24z"
+                  <span
+                    class="cds--popover-content cds--tooltip-content"
+                  >
+                    Next page
+                  </span>
+                  <span
+                    class="cds--popover-caret"
                   />
-                </svg>
-              </button>
+                </span>
+              </span>
             </div>
           </div>
         </div>
@@ -815,13 +844,13 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
     </div>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;
