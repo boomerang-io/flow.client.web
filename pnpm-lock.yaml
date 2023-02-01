@@ -9,7 +9,7 @@ patchedDependencies:
     path: patches/react-virtualized@9.22.3.patch
 
 specifiers:
-  '@boomerang-io/carbon-addons-boomerang-react': 4.0.2-beta.3
+  '@boomerang-io/carbon-addons-boomerang-react': 4.0.2-beta.4
   '@boomerang-io/styles': 1.1.0
   '@boomerang-io/utils': 1.1.0
   '@carbon/charts': ^1.6.1
@@ -109,7 +109,7 @@ specifiers:
   yup: ^0.32.11
 
 dependencies:
-  '@boomerang-io/carbon-addons-boomerang-react': 4.0.2-beta.3_aytq2vbgxrqhdj2733c2rytpli
+  '@boomerang-io/carbon-addons-boomerang-react': 4.0.2-beta.4_aytq2vbgxrqhdj2733c2rytpli
   '@boomerang-io/styles': 1.1.0
   '@boomerang-io/utils': 1.1.0_guhsudq2cko2s755arxahdpfri
   '@carbon/charts': 1.6.1_d3@7.5.0+sass@1.54.0
@@ -1706,8 +1706,8 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@boomerang-io/carbon-addons-boomerang-react/4.0.2-beta.3_aytq2vbgxrqhdj2733c2rytpli:
-    resolution: {integrity: sha512-tgeSzbQuwdBIrt4GGyXGZi6J8qcycdpLbTnFGHZoHNIcRpdyQosLduNcX6eG76Y3tmOb/Lh6Pk9Q24f5qPVmjw==}
+  /@boomerang-io/carbon-addons-boomerang-react/4.0.2-beta.4_aytq2vbgxrqhdj2733c2rytpli:
+    resolution: {integrity: sha512-lPqiVvoAFkG2uzN28KCQotGjTgZotGyJ585UX2MCcGKn64lFyLj8M/e3jtNu8JbgaNjeL8gmQfbpL+XJcYABpA==}
     peerDependencies:
       '@carbon/react': ^1.14.0
       axios: '>= 0.26.0 < 1'
