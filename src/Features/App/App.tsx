@@ -26,6 +26,7 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, UserWorkflow } from "Types";
 import styles from "./app.module.scss";
 
+const ReactFlow = lazy(() => import("Features/Reactflow"));
 const AppActivation = lazy(() => import("./AppActivation"));
 const Activity = lazy(() => import("Features/Activity"));
 const Actions = lazy(() => import("Features/Actions"));
@@ -287,6 +288,9 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
         }
       >
         <Switch>
+          <Route path={"/react-flow"}>
+            <ReactFlow />
+          </Route>
           <ProtectedRoute
             allowedUserRoles={["*"]}
             component={() => <Execution />}
