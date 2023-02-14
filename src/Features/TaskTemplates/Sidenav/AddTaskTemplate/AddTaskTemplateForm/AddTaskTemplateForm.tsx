@@ -137,8 +137,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         selectedIcon &&
           setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
         setFieldValue("image", currentRevision.image);
-        setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
-        setFieldValue("command", currentRevision.command ?? "");
+        setFieldValue("arguments", currentRevision.arguments?.join("\n") ?? "");
+        setFieldValue("command", currentRevision.command.join("\n") ?? "");
         setFieldValue("script", currentRevision.script ?? "");
         const formattedEnvs = Array.isArray(currentRevision.envs)
           ? currentRevision.envs.map((env) => {
@@ -186,7 +186,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           label: Yup.string().required(),
         }),
         arguments: Yup.string(),
-        command: Yup.string().nullable(),
+        command: Yup.string(),
         script: Yup.string().nullable(),
         workingDir: Yup.string().nullable(),
         image: Yup.string().nullable(),

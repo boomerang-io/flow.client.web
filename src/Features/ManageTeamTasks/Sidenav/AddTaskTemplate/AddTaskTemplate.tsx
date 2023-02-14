@@ -45,6 +45,8 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
     } catch (err) {
       if (!isCancel(err)) {
         const { data } = err && err.response;
+        console.log("Update Task Template" + error.toString());
+        console.log("Update Task Template" + data.toString());
         notify(
           <ToastNotification
             kind="error"
