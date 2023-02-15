@@ -41,15 +41,21 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
       history.push(appLink.taskTemplateEdit({ id: response.data.id, version: 1 }));
       closeModal();
     } catch (err) {
-      console.log("Update Task Template" + err.toString());
       if (!isCancel(err)) {
+        let errorTitle = err.toString();
+        let subTitle = "";
         const { data } = err && err.response;
-        console.log("Update Task Template" + data.toString());
+        if (data && data.status && data.error) {
+          errorTitle = data.status + " - " + data.error;
+        }
+        if (data && data.message) {
+          subTitle = data.message;
+        }
         notify(
           <ToastNotification
             kind="error"
-            title={`${data.status} - ${data.error}`}
-            subtitle={data.message}
+            title={errorTitle}
+            subtitle={subTitle}
             data-testid="create-task-template-notification"
           />
         );
