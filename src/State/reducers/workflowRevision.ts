@@ -6,7 +6,7 @@ export const RevisionActionTypes = {
   Set: "SET",
   UpdateNodeConfig: "UPDATE_NODE_CONFIG",
   UpdateNodeTaskVersion: "UPDATE_NODE_TASK_VERSION",
-  UpdateNotes: "UPDATE_Notes",
+  UpdateNotes: "UPDATE_NOTES",
 };
 
 export function revisionReducer(state, action) {
