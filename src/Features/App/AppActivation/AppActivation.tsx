@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation } from "react-query";
 import { ComposedModal, ModalForm, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter, TextInput, InlineNotification } from "carbon-components-react";
+import { Button, ModalBody, ModalFooter, TextInput, InlineNotification } from "@carbon/react";
 import { resolver } from "Config/servicesConfig";
 import { formatErrorMessage } from "@boomerang-io/utils";
 import styles from "./AppActivation.module.scss";

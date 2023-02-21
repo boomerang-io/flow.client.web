@@ -1,12 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`CreateServiceTokenButton --- Snapshot Capturing Snapshot of CreateServiceTokenButton 1`] = `
+exports[`CreateServiceTokenButton --- Snapshot > Capturing Snapshot of CreateServiceTokenButton 1`] = `
 <body
   id="app"
 >
   <div>
     <button
-      class="bx--btn bx--btn--md bx--btn--primary"
+      class="cds--btn cds--btn--md cds--btn--primary"
       data-testid="create-token-button"
       style="width: 12rem;"
       tabindex="0"
@@ -16,7 +16,7 @@ exports[`CreateServiceTokenButton --- Snapshot Capturing Snapshot of CreateServi
       <svg
         aria-hidden="true"
         aria-label="Create Token"
-        class="bx--btn__icon"
+        class="cds--btn__icon"
         fill="currentColor"
         focusable="false"
         height="16"
@@ -33,7 +33,7 @@ exports[`CreateServiceTokenButton --- Snapshot Capturing Snapshot of CreateServi
     </button>
   </div>
   <div
-    class="bx--bmrg-modal-portal"
+    class="cds--bmrg-modal-portal"
   />
 </body>
 `;

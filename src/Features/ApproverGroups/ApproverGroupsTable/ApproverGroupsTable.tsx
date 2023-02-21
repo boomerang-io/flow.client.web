@@ -1,22 +1,18 @@
 import React from "react";
 // @ts-ignore
 import cx from "classnames";
-import { settings } from "carbon-components";
 import { useMutation, useQueryClient } from "react-query";
 import sortBy from "lodash/sortBy";
+import { Button, DataTable, DataTableSkeleton } from "@carbon/react";
 import {
-  Button,
   ComboBox,
   ConfirmModal,
-  DataTable,
-  DataTableSkeleton,
   Error404,
   ErrorMessage,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
   notify,
-  SearchSkeleton,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditGroupModal from "./CreateEditGroupModal";
@@ -25,10 +21,8 @@ import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
 import { sortKeyDirection } from "Utils/arrayHelper";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, ApproverGroup, Approver } from "Types";
-import { Delete16 } from "@carbon/icons-react";
+import { TrashCan } from "@carbon/react/icons";
 import styles from "./approverGroupsTable.module.scss";
-
-const { prefix } = settings;
 
 const FeatureLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -72,7 +66,8 @@ function ApproverGroupsTable({
 
   /** Delete Team Approver Group */
   const { mutateAsync: deleteApproverGroupMutation } = useMutation(resolver.deleteApproverGroup, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.resourceApproverGroups({ teamId: activeTeam?.id, groupId: undefined })),
+    onSuccess: () =>
+      queryClient.invalidateQueries(serviceUrl.resourceApproverGroups({ teamId: activeTeam?.id, groupId: undefined })),
   });
 
   const headers = [
@@ -144,8 +139,8 @@ function ApproverGroupsTable({
                   className={styles.deleteButton}
                   onClick={openModal}
                   kind="danger-ghost"
-                  renderIcon={Delete16}
-                  size="small"
+                  renderIcon={TrashCan}
+                  size="sm"
                   iconDescription="Delete approver group"
                   data-testid="delete-approver-group"
                 />
@@ -209,10 +204,22 @@ function ApproverGroupsTable({
   if (isLoading) {
     return (
       <FeatureLayout>
-        <SearchSkeleton style={{ marginBottom: "1rem", marginTop: "-1rem" }} />
+        <div className={styles.dropdown}>
+          <ComboBox
+            id="team-approver-groups-select"
+            initialSelectedItem={activeTeam?.id ? activeTeam : null}
+            items={sortByProp(teams, "name")}
+            itemToString={(item: { name: string }) => item?.name ?? ""}
+            label="Teams"
+            onChange={({ selectedItem }: { selectedItem: FlowTeam }) => {
+              selectedItem && setActiveTeam(selectedItem);
+            }}
+            placeholder="Select a team"
+          />
+        </div>
         <DataTableSkeleton
           data-testid="team-props-loading-skeleton"
-          className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
+          className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
           rowCount={3}
           columnCount={headers.length}
           headers={headers.map((header) => header.header)}
@@ -246,9 +253,6 @@ function ApproverGroupsTable({
                 selectedItem && setActiveTeam(selectedItem);
               }}
               placeholder="Select a team"
-              shouldFilterItem={({ item, inputValue }: { item: any; inputValue: string }) =>
-                item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
-              }
             />
           </div>
           <div className={styles.tableHeader}>

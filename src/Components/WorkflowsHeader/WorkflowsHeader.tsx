@@ -1,12 +1,11 @@
 import React from "react";
+import { Layer, FilterableMultiSelect, Search } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
-  MultiSelect,
-  Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateTemplateWorkflow from "Components/CreateTemplateWorkflow";
 import { appLink } from "Config/appConfig";
@@ -46,26 +45,30 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
             {scope === WorkflowScope.System
               ? `System Workflows (${workflowsCount})`
               : scope === WorkflowScope.Template
-                ? `Template Workflows (${workflowsCount})`
-                : scope === WorkflowScope.Team
-                  ? `Team Workflows (${workflowsCount})`
-                  : `Workflows (${workflowsCount})`}
+              ? `Template Workflows (${workflowsCount})`
+              : scope === WorkflowScope.Team
+              ? `Team Workflows (${workflowsCount})`
+              : `Workflows (${workflowsCount})`}
           </HeaderTitle>
           {scope === WorkflowScope.User && (
             <HeaderSubtitle className={styles.headerMessage}>
-              Your personal playground to create and execute automation and work smarter. Use teams to collaborate on workflows.
+              Your personal playground to create and execute automation and work smarter. Use teams to collaborate on
+              workflows.
             </HeaderSubtitle>
+          )}
+          {scope === WorkflowScope.Team && (
+            <HeaderSubtitle className={styles.headerMessage}>Shared workflows to collaborate on</HeaderSubtitle>
           )}
         </>
       }
       footer={
         !(scope === WorkflowScope.System || scope === WorkflowScope.Template) ? (
-          <Tabs>
+          <Tabs ariaLabel="Workflows view">
             <Tab label="My Workflows" to={appLink.workflowsMine()} />
             <Tab label="Team Workflows" to={appLink.workflowsTeams()} />
           </Tabs>
         ) : (
-          <Tabs>
+          <Tabs ariaLabel="Workflows view">
             <Tab label="System" to={appLink.systemManagementWorkflows()} />
             <Tab label="Templates" to={appLink.templateWorkflows()} />
           </Tabs>
@@ -119,20 +122,20 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
   return (
     <div className={styles.filterContainer}>
       {scope !== WorkflowScope.Template && <CreateTemplateWorkflow teams={teams} scope={scope} />}
-      <div className={styles.search}>
+      <Layer className={styles.search}>
         <Search
           disabled={scope === WorkflowScope.Team ? !hasTeams : false}
           data-testid="workflows-team-search"
           id="search-team-workflows"
           labelText={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
           onChange={handleOnSearchInputChange}
-          placeHolderText={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
+          placeholder={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
           value={searchQuery}
         />
-      </div>
+      </Layer>
       {teams && scope !== WorkflowScope.User && (
         <div className={styles.filter}>
-          <MultiSelect.Filterable
+          <FilterableMultiSelect
             light
             disabled={!hasTeams}
             id="b-search-filter__filter"

@@ -3,17 +3,15 @@ import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import {
   Button,
-  ComboBox,
   FileUploaderDropContainer,
   FileUploaderItem,
-  Loading,
   ModalBody,
   ModalFooter,
-  TextInput,
   InlineNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
+import { ComboBox, Loading, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
 import { requiredWorkflowProps } from "./constants";
-import { ErrorFilled32 } from "@carbon/icons-react";
+import { ErrorFilled } from "@carbon/react/icons";
 import { FlowTeam, WorkflowExport, WorkflowSummary } from "Types";
 import { WorkflowScope } from "Constants";
 import styles from "./importWorkflowContent.module.scss";
@@ -215,7 +213,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
               {values.file || errors.file ? (
                 Boolean(errors.file) ? (
                   <div className={styles.validMessage}>
-                    <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
+                    <ErrorFilled aria-label="error-import-icon" className={styles.errorIcon} />
                     <p className={styles.message}>{createInvalidTextMessage(errors.file)}</p>
                   </div>
                 ) : (
@@ -231,11 +229,10 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                         }}
                         items={teams}
                         initialSelectedItem={values.selectedTeam}
-                        value={values.selectedTeam}
                         itemToString={(item: FlowTeam) => (item ? item.name : "")}
                         titleText="Team"
                         placeholder="Select a team"
-                        invalid={errors.selectedTeam}
+                        invalid={Boolean(errors.selectedTeam)}
                         invalidText={errors.selectedTeam}
                       />
                     )}
@@ -246,7 +243,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                       value={values.name}
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      invalid={errors.name && touched.name}
+                      invalid={Boolean(errors.name && touched.name)}
                       invalidText={errors.name}
                     />
                     <TextInput
@@ -255,7 +252,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                       value={values.summary}
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      invalid={errors.summary && touched.summary}
+                      invalid={Boolean(errors.summary && touched.summary)}
                       invalidText={errors.summary}
                     />
                   </div>

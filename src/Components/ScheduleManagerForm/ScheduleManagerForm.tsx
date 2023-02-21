@@ -1,18 +1,13 @@
 import React from "react";
 import { useAppContext } from "Hooks";
+import { Button, InlineNotification, ModalBody, ModalFooter, RadioButtonGroup, RadioButton } from "@carbon/react";
 import {
-  Button,
   Creatable,
   CheckboxList,
   ComboBox,
   DynamicFormik,
-  InlineNotification,
   Loading,
-  ModalBody,
   ModalForm,
-  ModalFooter,
-  RadioButtonGroup,
-  RadioButton,
   TextArea,
   TextInput,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -104,10 +99,8 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     if (props.schedule.type === "cron") {
       const cronSchedule = props.schedule.cronSchedule;
       const cronToData = cronToDateTime(Boolean(cronSchedule), cronSchedule);
-      const {
-        cronTime,
-        selectedDays,
-      }: { cronTime: string; selectedDays: { [day in DayOfWeekKey]: boolean } } = cronToData;
+      const { cronTime, selectedDays }: { cronTime: string; selectedDays: { [day in DayOfWeekKey]: boolean } } =
+        cronToData;
 
       let activeDays: DayOfWeekKey[] = [];
       for (let entry in selectedDays) {
@@ -199,7 +192,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                 helperText="Workflow for this Schedule to execute"
                 id="workflow"
                 initialSelectedItem={formikProps.values.workflow}
-                items={props.workflowOptions}
+                items={props?.workflowOptions ?? []}
                 itemToString={(workflow: WorkflowSummary) => {
                   if (workflow?.scope === "team") {
                     const team = workflow ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId) : undefined;
@@ -251,13 +244,13 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               valueLabelText="Label value"
               valuePlaceholder="important"
               value={formikProps.values.labels}
-              onChange={(labels: string) => formikProps.setFieldValue("labels", labels)}
+              onChange={(labels) => formikProps.setFieldValue("labels", labels)}
             />
             <p>
               <b>Schedule</b>
             </p>
             <section>
-              <p>What type of Schedule do you want to create?</p>
+              <p style={{ marginBottom: "0.375rem" }}>What type of Schedule do you want to create?</p>
               <RadioButtonGroup
                 id="type"
                 labelPosition="right"
@@ -266,7 +259,12 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                 orientation="horizontal"
                 valueSelected={formikProps.values["type"]}
               >
-                <RadioButton key={"runOnce"} id={"runOnce"} labelText={scheduleTypeLabelMap["runOnce"]} value={"runOnce"} />
+                <RadioButton
+                  key={"runOnce"}
+                  id={"runOnce"}
+                  labelText={scheduleTypeLabelMap["runOnce"]}
+                  value={"runOnce"}
+                />
                 <RadioButton key={"cron"} id={"cron"} labelText={scheduleTypeLabelMap["cron"]} value={"cron"} />
                 <RadioButton
                   id={"advanced-cron"}
@@ -424,7 +422,7 @@ class CronJobConfig extends React.Component<Props, State> {
                 helperText="What time zone do you want to use"
                 id="timezone"
                 initialSelectedItem={values.timezone}
-                items={this.props.timezoneOptions}
+                items={this.props?.timezoneOptions ?? []}
                 onChange={({ selectedItem }: { selectedItem: { label: string; value: string } }) => {
                   const item = selectedItem ?? { label: "", value: "" };
                   this.props.formikProps.setFieldValue("timezone", item);
@@ -438,7 +436,7 @@ class CronJobConfig extends React.Component<Props, State> {
           <div className={styles.container}>
             <TextInput
               id="time"
-              invalid={errors.time && touched.time}
+              invalid={Boolean(errors.time && touched.time)}
               invalidText={errors.time}
               labelText={"Time"}
               name="time"

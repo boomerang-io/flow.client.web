@@ -11,20 +11,20 @@
   display: grid;
   grid-template-columns: 35% 35% 30%;
   grid-auto-rows: min-content;
-  height: calc(100vh - 12.125rem);
+  height: calc(100vh - 12.75rem);
   min-width: 64rem;
   overflow: auto;
-  width: 100vw;
+  width: 100%;
 
-  :global .bx--text-area__wrapper {
+  :global .cds--text-area__wrapper {
     width: 100%;
   }
 
-  :global .bx--bmrg-text-input,
-  :global .bx--bmrg-select,
-  :global .bx--bmrg-multi-select,
-  :global .bx--bmrg-toggle,
-  :global .bx--bmrg-creatable {
+  :global .cds--bmrg-text-input,
+  :global .cds--bmrg-select,
+  :global .cds--bmrg-multi-select,
+  :global .cds--bmrg-toggle,
+  :global .cds--bmrg-creatable {
     padding-bottom: 1rem;
   }
 }
@@ -61,7 +61,7 @@
 }
 
 .teamSelect {
-  input + div[role="button"] {
+  input + button {
     display: none;
   }
 }
@@ -77,7 +77,7 @@
   gap: 0.5rem;
   grid-template-columns: repeat(auto-fill, 2.7rem);
 
-  :global .bx--assistive-text {
+  :global .cds--assistive-text {
     text-transform: capitalize;
   }
 }
@@ -135,23 +135,27 @@
 }
 
 .toggleContainer {
-  :global .bx--bmrg-toggle {
+  :global .cds--bmrg-toggle {
     justify-content: flex-end;
     padding-bottom: 0.5rem;
 
-    .bx--form-item {
+    .cds--form-item {
       margin-right: 1.5rem;
     }
 
-    .bx--label {
+    .cds--label {
       font-size: 0.875rem;
       color: var(--cds-text-01);
     }
   }
+
+  :global .cds--bmrg-toggle__title {
+    margin-top: 0.75rem;
+  }
 }
 
 .webhookContainer {
-  padding-left: 4.6rem;
+  padding-left: 3.5rem;
 }
 
 .webhookWrapper {
@@ -162,7 +166,7 @@
   width: 100%;
   word-break: break-word;
 
-  :global .bx--bmrg-text-input {
+  :global .cds--bmrg-text-input {
     background-color: transparent;
     color: var(--cds-text-01);
     font-size: 0.75rem;
@@ -179,7 +183,7 @@
 .tagsContainer {
   margin-bottom: 0.5rem;
 
-  :global .bx--tag--filter {
+  :global .cds--tag--filter {
     margin-left: 0 !important;
   }
 }
@@ -245,19 +249,19 @@
 }
 
 .schedulerContainer {
-  padding-left: 4.6rem;
+  padding-left: 3.5rem;
   p {
     font-size: 0.875rem;
   }
 }
 
 .subscriptionContainer {
-  padding-left: 4.6rem;
+  padding-left: 3.5rem;
 
-  :global .bx--text-input__field-wrapper {
+  :global .cds--text-input__field-wrapper {
     width: fit-content;
   }
-  :global .bx--text__input {
+  :global .cds--text__input {
     width: fit-content;
   }
 }
@@ -269,7 +273,7 @@
     margin-top: 1rem;
   }
 
-  :global .bx--label {
+  :global .cds--label {
     color: var(--cds-text-01);
     font-size: 0.875rem;
     line-height: 1.125rem;

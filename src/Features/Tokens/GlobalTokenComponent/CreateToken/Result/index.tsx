@@ -1,7 +1,8 @@
 import React from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { ModalBody, ModalFooter, Button, TextInput, ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import { CopyFile16 } from "@carbon/icons-react";
+import { ModalBody, ModalFooter, Button,  } from "@carbon/react";
+import { TextInput, ModalFlowForm} from "@boomerang-io/carbon-addons-boomerang-react";
+import { CopyFile } from "@carbon/react/icons";
 import styles from "./result.module.scss";
 
 interface CreateServiceTokenResultProps {
@@ -36,7 +37,7 @@ const CreateServiceTokenResult = (props: CreateServiceTokenResultProps | any) =>
           Done
         </Button>
         <CopyToClipboard text={props.formData.token}>
-          <Button type="button" onClick={handleCopyClick} renderIcon={CopyFile16} iconDescription="Copy">
+          <Button type="button" onClick={handleCopyClick} renderIcon={CopyFile} iconDescription="Copy">
             Copy
           </Button>
         </CopyToClipboard>

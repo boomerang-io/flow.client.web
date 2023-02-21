@@ -1,9 +1,7 @@
 import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
+import { Breadcrumb, BreadcrumbItem, Button, InlineLoading } from "@carbon/react";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
   ConfirmModal,
   ComposedModal,
   DelayedRender,
@@ -11,13 +9,12 @@ import {
   FeatureHeaderTitle as HeaderTitle,
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
-  InlineLoading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
 import { appLink } from "Config/appConfig";
 import { QueryStatus } from "Constants";
-import { Add16, DocumentExport16 } from "@carbon/icons-react";
+import { Add, DocumentExport } from "@carbon/react/icons";
 import { AxiosResponse } from "axios";
 import { UseQueryResult, MutateFunction } from "react-query";
 import {
@@ -87,7 +84,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
       }
       header={<HeaderTitle>Editor</HeaderTitle>}
       footer={
-        <Tabs>
+        <Tabs ariaLabel="Editor pages">
           <Tab label="Workflow" to={appLink.editorDesigner({ workflowId })} />
           <Tab label="Parameters" to={appLink.editorProperties({ workflowId })} />
           <Tab label="Configure" to={appLink.editorConfigure({ workflowId })} />
@@ -120,8 +117,8 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
                     iconDescription="Set version to latest"
                     kind="ghost"
                     onClick={openModal}
-                    renderIcon={DocumentExport16}
-                    size="field"
+                    renderIcon={DocumentExport}
+                    size="md"
                     style={!isPreviousVersion || isQueryLoading ? { display: "none" } : null}
                   >
                     {performActionButtonText}
@@ -140,8 +137,8 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
                     iconDescription="Create new version"
                     kind="ghost"
                     onClick={openModal}
-                    renderIcon={Add16}
-                    size="field"
+                    renderIcon={Add}
+                    size="md"
                     style={isPreviousVersion || isQueryLoading ? { display: "none" } : null}
                   >
                     {performActionButtonText}

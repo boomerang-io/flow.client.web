@@ -4,18 +4,14 @@ import { useQuery } from "Hooks";
 import { useFeature } from "flagged";
 import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
+import { Button, DataTable, DataTableSkeleton, Pagination, Search } from "@carbon/react";
+import { CheckmarkFilled, Misuse } from "@carbon/react/icons";
 import {
-  Button,
-  Checkbox,
   ComposedModal,
-  DataTable,
-  DataTableSkeleton,
   ErrorMessage,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  Pagination,
-  Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import TeamDetailed from "Features/TeamDetailed";
 import EmptyState from "Components/EmptyState";
@@ -66,12 +62,7 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
       <Box p="2rem" className={styles.content}>
         <>
           <Box mb="1rem" maxWidth="20rem">
-            <Search
-              id="flow-teams"
-              labelText="Search teams"
-              placeHolderText="Search teams"
-              onChange={handleSearchChange}
-            />
+            <Search id="flow-teams" labelText="Search teams" placeholder="Search teams" onChange={handleSearchChange} />
           </Box>
           {children}
         </>
@@ -172,7 +163,7 @@ const TeamList: React.FC = () => {
             <Button
               iconDescription="Create new version"
               onClick={openModal}
-              size="field"
+              size="md"
               disabled={getTeamError || getTeamLoading}
               className={styles.createTeamTrigger}
             >
@@ -290,7 +281,7 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
                       if (cell.info.header === "isActive") {
                         return (
                           <TableCell key={cell.id} id={cell.id}>
-                            <Checkbox id={"check-" + cell.id} checked={cell.value} hideLabel labelText="checkbox" />
+                            {cell.value ? <CheckmarkFilled aria-label="Active" fill="green" /> : <Misuse aria-label="Inactive" fill="red" />}
                           </TableCell>
                         );
                       }

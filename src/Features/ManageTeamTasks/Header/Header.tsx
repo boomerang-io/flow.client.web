@@ -1,20 +1,16 @@
 import React from "react";
 import {
-  Button,
   ComposedModal,
   ConfirmModal,
   FeatureHeader,
-  InlineNotification,
   Loading,
-  ModalBody,
   ModalFlowForm,
-  ModalFooter,
-  Tag,
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
   TextArea,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, Tag, ModalBody, ModalFooter, InlineNotification } from "@carbon/react";
 import { useParams } from "react-router-dom";
 import VersionHistory from "Components/VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
@@ -23,7 +19,7 @@ import { appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
-import { Bee20, Download16, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
+import { Bee, Download, Save, Undo, Reset, ViewOff } from "@carbon/react/icons";
 import { FormikProps } from "formik";
 import { ComposedModalChildProps, ModalTriggerProps, TaskModel } from "Types";
 import styles from "./header.module.scss";
@@ -75,8 +71,8 @@ const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, ha
           <Button
             className={styles.mainActionButton}
             disabled={!formikProps.isValid || !formikProps.dirty}
-            size="field"
-            renderIcon={Save16}
+            size="md"
+            renderIcon={Save}
             iconDescription="Save a new version or update the current one"
             onClick={openModal}
           >
@@ -205,7 +201,7 @@ const Header: React.FC<HeaderProps> = ({
     <FeatureHeader
       className={styles.featureHeader}
       footer={
-        <Tabs>
+        <Tabs ariaLabel="Task template views">
           <Tab
             exact
             label="Overview"
@@ -217,7 +213,7 @@ const Header: React.FC<HeaderProps> = ({
           />
           <Tab
             exact
-            label="Yaml"
+            label="YAML"
             to={appLink.manageTaskTemplateYaml({
               teamId: params?.teamId,
               taskId: selectedTaskTemplate.id,
@@ -245,9 +241,9 @@ const Header: React.FC<HeaderProps> = ({
                   <Button
                     className={styles.resetButton}
                     disabled={!formikProps.dirty || !canEdit}
-                    size="field"
+                    size="md"
                     kind="ghost"
-                    renderIcon={Undo16}
+                    renderIcon={Undo}
                     onClick={openModal}
                   >
                     {" "}
@@ -278,9 +274,9 @@ const Header: React.FC<HeaderProps> = ({
                 <TooltipHover direction="bottom" tooltipText={"Copy this version to a new version to enable editing"}>
                   <Button
                     className={styles.copyButton}
-                    size="field"
+                    size="md"
                     kind="ghost"
-                    renderIcon={Undo16}
+                    renderIcon={Undo}
                     onClick={openModal}
                     disabled={!canEdit}
                   >
@@ -312,7 +308,7 @@ const Header: React.FC<HeaderProps> = ({
               affirmativeText="Restore this task"
               title="Restore"
               modalTrigger={({ openModal }: ModalTriggerProps) => (
-                <Button className={styles.mainActionButton} size="field" renderIcon={Reset16} onClick={openModal}>
+                <Button className={styles.mainActionButton} size="md" renderIcon={Reset} onClick={openModal}>
                   Restore
                 </Button>
               )}
@@ -326,14 +322,14 @@ const Header: React.FC<HeaderProps> = ({
         {TaskIcon ? (
           <TaskIcon.Icon style={{ minWidth: "1.5rem", minHeight: "1.5rem", marginRight: "0.75rem" }} />
         ) : (
-          <Bee20 alt={`${selectedTaskTemplate.name} icon`} className={styles.icon} />
+          <Bee alt={`${selectedTaskTemplate.name} icon`} className={styles.icon} />
         )}
         <h1 className={styles.taskName} title={selectedTaskTemplate.name}>
           {selectedTaskTemplate.name}
         </h1>
         {!isActive && (
           <Tag className={styles.archivedTag} type="gray">
-            <ViewOff16 style={{ marginRight: "0.5rem" }} />
+            <ViewOff style={{ marginRight: "0.5rem" }} />
             Archived
           </Tag>
         )}
@@ -346,7 +342,7 @@ const Header: React.FC<HeaderProps> = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Download16 />
+            <Download />
           </a>
         </TooltipHover>
       </div>

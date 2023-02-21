@@ -1,4 +1,4 @@
-import React from "react";
+import { vi } from "vitest";
 import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import TokenComponent from "./index";
@@ -85,14 +85,14 @@ const teams: FlowTeam[] = [
 ];
 
 const props = {
-  deleteToken: jest.fn(),
+  deleteToken: vi.fn(),
   tokens: tokens,
   teams: teams,
   activeTeam: teams[0],
   isLoading: false,
   hasError: false,
   userType: "admin",
-  setActiveTeam: () => jest.fn(),
+  setActiveTeam: () => vi.fn(),
 };
 
 describe("TokenComponent --- Snapshot", () => {

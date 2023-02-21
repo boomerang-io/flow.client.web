@@ -4,8 +4,14 @@ import { FlagsProvider } from "flagged";
 import { createMemoryHistory } from "history";
 import { render as rtlRender } from "@testing-library/react";
 import { QueryClient, QueryClientProvider, setLogger } from "react-query";
+import { vi } from "vitest";
 import { AppContextProvider } from "State/context";
-import { featureFlags as featureFlagsFixture, teams as teamsFixture, profile as userFixture, userWorkflows as userWorkflowsFixture } from "ApiServer/fixtures";
+import {
+  featureFlags as featureFlagsFixture,
+  teams as teamsFixture,
+  profile as userFixture,
+  userWorkflows as userWorkflowsFixture,
+} from "ApiServer/fixtures";
 import "@testing-library/jest-dom/extend-expect";
 
 setLogger({
@@ -25,10 +31,7 @@ declare global {
   }
 }
 
-function rtlQueryRender(
-  ui,
-  { queryConfig = {}} = {}
-) {
+function rtlQueryRender(ui, { queryConfig = {} } = {}) {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: 0 },
@@ -54,7 +57,7 @@ function rtlRouterRender(
 const defaultContextValue = {
   user: userFixture,
   teams: teamsFixture,
-  userWorkflows: userWorkflowsFixture
+  userWorkflows: userWorkflowsFixture,
 };
 
 const feature = featureFlagsFixture.features;
@@ -90,7 +93,7 @@ function rtlContextRouterRender(
       mutations: { throwOnError: true },
       ...queryConfig,
     },
-  }); 
+  });
   return {
     ...rtlRender(
       <FlagsProvider features={defaultFeatures}>
@@ -137,32 +140,32 @@ global.rtlContextRouterRender = rtlContextRouterRender;
 global.rtlQueryRender = rtlQueryRender;
 
 const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  clear: jest.fn(),
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  clear: vi.fn(),
   length: 0,
-  key: jest.fn(),
-  removeItem: jest.fn(),
+  key: vi.fn(),
+  removeItem: vi.fn(),
 };
 const sessionStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  clear: jest.fn(),
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  clear: vi.fn(),
   length: 0,
-  key: jest.fn(),
-  removeItem: jest.fn(),
+  key: vi.fn(),
+  removeItem: vi.fn(),
 };
 global.localStorage = localStorageMock;
 global.sessionStorage = sessionStorageMock;
 
 // Dates
-const moment = jest.requireActual("moment-timezone");
-jest.doMock("moment", () => {
+const moment = vi.importActual("moment-timezone");
+vi.importMock("moment", () => {
   moment.tz.setDefault("UTC");
   moment.tz.guess(false);
   const DATE_TO_USE = new Date("Jan 1 2020 00:00:00 UTC");
-  const mom = () => jest.requireActual("moment")(DATE_TO_USE);
-  mom.utc = jest.requireActual("moment").utc;
-  mom.fromNow = jest.requireActual("moment").fromNow;
+  vi.setSystemTime(DATE_TO_USE);
+  const mom = () => vi.importActual("moment")(DATE_TO_USE);
+  mom.utc = vi.importActual("moment").utc;
   return mom;
 });

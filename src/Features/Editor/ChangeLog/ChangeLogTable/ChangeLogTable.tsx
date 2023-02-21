@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import matchSorter from "match-sorter";
+import { matchSorter } from "match-sorter";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { DataTable, Search, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
+import { DataTable, Search, Pagination } from "@carbon/react";
 import EmptyState from "Components/EmptyState";
 import { ChangeLog } from "Types";
 import styles from "./changeLogTable.module.scss";
@@ -92,11 +92,11 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
       <div className={styles.tableContainer}>
         <Search
           className={styles.search}
+          data-testid="change-log-search"
           id="change-log-table-search"
           labelText="Search"
-          placeHolderText="Search"
           onChange={this.handleSearchChange}
-          data-testid="change-log-search"
+          placeholder="Search"
         />
         {totalItems > 0 ? (
           <>

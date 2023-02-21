@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ArrowRight16, ArrowLeft16, Close20 } from "@carbon/icons-react";
+import { Button } from "@carbon/react";
+import { ArrowRight, ArrowLeft, Close } from "@carbon/react/icons";
 import "./styles.scss";
 
 type Props = {
@@ -48,8 +48,8 @@ const OnBoardGuide = (props: Props) => {
         data-testid="onboardArrowLeft"
         iconDescription="back"
         onClick={previousScreen}
-        renderIcon={ArrowLeft16}
-        size="small"
+        renderIcon={ArrowLeft}
+        size="sm"
         style={{ width: "2rem", height: "1rem", marginRight: "1rem" }}
         tooltipAlignment="center"
         tooltipPosition="bottom"
@@ -60,7 +60,7 @@ const OnBoardGuide = (props: Props) => {
     <Button
       kind="primary"
       onClick={nextScreen}
-      size="small"
+      size="sm"
       style={{ width: "1rem" }} //will have to change
     >
       Done
@@ -71,8 +71,8 @@ const OnBoardGuide = (props: Props) => {
       className="b-onboard-screen-arrow"
       iconDescription="forward"
       onClick={nextScreen}
-      renderIcon={ArrowRight16}
-      size="small"
+      renderIcon={ArrowRight}
+      size="sm"
       style={{ width: "2rem", height: "1rem" }}
       tooltipAlignment="center"
       tooltipPosition="bottom"
@@ -82,7 +82,7 @@ const OnBoardGuide = (props: Props) => {
   return (
     <section aria-label="Onboard" className={`c-onboard-screen ${containerClassName}`}>
       <button className="b-onboard-screen-exit-button" onClick={closeModal}>
-        <Close20 />
+        <Close />
       </button>
       <h1 className="b-onboard-screen-title">{title}</h1>
       <p className="b-onboard-screen-content">{message}</p>

@@ -4,22 +4,24 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useAppContext } from "Hooks";
 import {
-  Button,
   ComposedModal,
-  InlineNotification,
   Loading,
-  ModalBody,
   ModalForm,
-  ModalFooter,
   notify,
+  TextArea,
+  ToastNotification,
+} from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  Button,
+  InlineNotification,
+  ModalBody,
+  ModalFooter,
   StructuredListWrapper,
   StructuredListHead,
   StructuredListBody,
   StructuredListRow,
   StructuredListCell,
-  TextArea,
-  ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import { resolver } from "Config/servicesConfig";
 import { Action, ApprovalStatus } from "Types";
 import dateHelper from "Utils/dateHelper";
@@ -117,40 +119,38 @@ function Form({
   const [rejectLoading, setRejectLoading] = React.useState(false);
 
   /** Update actions */
-  const { mutateAsync: actionsMutation, isLoading: actionsIsLoading, isError: actionsPutError } = useMutation(
-    (args: { body: any }) => {
-      const { promise, cancel } = resolver.putWorkflowAction(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    }
-  );
+  const {
+    mutateAsync: actionsMutation,
+    isLoading: actionsIsLoading,
+    isError: actionsPutError,
+  } = useMutation((args: { body: any }) => {
+    const { promise, cancel } = resolver.putWorkflowAction(args);
+    cancelRequestRef.current = cancel;
+    return promise;
+  });
 
-  const handleActions = ({
-    approved,
-    notificationSubtitle,
-    notificationTitle,
-    setLoading,
-    values,
-  }: any) => async () => {
-    typeof setLoading === "function" && setLoading(true);
-    let request: any = [];
+  const handleActions =
+    ({ approved, notificationSubtitle, notificationTitle, setLoading, values }: any) =>
+    async () => {
+      typeof setLoading === "function" && setLoading(true);
+      let request: any = [];
 
-    Object.keys(values).forEach((actionId) => {
-      request.push({ ...values[actionId], id: actionId, approved });
-    });
+      Object.keys(values).forEach((actionId) => {
+        request.push({ ...values[actionId], id: actionId, approved });
+      });
 
-    try {
-      await actionsMutation({ body: request });
-      typeof setLoading === "function" && setLoading(false);
-      onSuccessfulApprovalRejection();
-      queryClient.invalidateQueries(queryToRefetch);
-      notify(<ToastNotification kind="success" subtitle={notificationSubtitle} title={notificationTitle} />);
-      closeModal();
-    } catch (err) {
-      typeof setLoading === "function" && setLoading(false);
-      // noop
-    }
-  };
+      try {
+        await actionsMutation({ body: request });
+        typeof setLoading === "function" && setLoading(false);
+        onSuccessfulApprovalRejection();
+        queryClient.invalidateQueries(queryToRefetch);
+        notify(<ToastNotification kind="success" subtitle={notificationSubtitle} title={notificationTitle} />);
+        closeModal();
+      } catch (err) {
+        typeof setLoading === "function" && setLoading(false);
+        // noop
+      }
+    };
 
   let initialValues: any = {};
   let validationSchema: any = {};
@@ -290,6 +290,7 @@ function ActionSection({ formikBag, action }: ActionSectionProps) {
       <DataSection className={styles.data} label="Workflow" value={workflowName} />
       <div className={styles.comment}>
         <TextArea
+          enableCounter
           id={`${id}.comments`}
           className={styles.commentArea}
           labelText="Comments (optional)"
@@ -297,10 +298,10 @@ function ActionSection({ formikBag, action }: ActionSectionProps) {
           value={values[id]?.comments}
           onChange={handleChange}
           onBlur={handleBlur}
-          invalid={errors[id]?.comments && touched[id]?.comments}
+          invalid={Boolean(errors[id]?.comments && touched[id]?.comments)}
           invalidText={errors[id]?.comments}
+          maxCount={200}
         />
-        <p className={styles.commentLength}>{`${values[id]?.comments.length}/200`}</p>
       </div>
     </section>
   );
@@ -337,18 +338,19 @@ function SingleActionSection({ formikBag, action, isAlreadyApproved, user }: Sin
     <section className={styles.action}>
       <DataSection className={styles.data} label="Team" value={teamName} />
       <DataSection className={styles.data} label="Workflow" value={workflowName} />
-      <p className={styles.creationDate}>{`Submitted ${dateHelper.humanizedSimpleTimeAgo(creationDate)}`}</p>
+      <span className={styles.creationDate}>{`Submitted ${dateHelper.humanizedSimpleTimeAgo(creationDate)}`}</span>
       {!isAlreadyApproved ? (
         <>
           <div className={styles.approvals}>
-            <p className={styles.singleLabel}>Approvals</p>
-            <p className={styles.approvalsRatio}>{`${numberOfApprovals}/${approvalsRequired} approvals`}</p>
-            <p className={styles.singleHelperText}>
+            <span className={styles.singleLabel}>Approvals</span>
+            <span className={styles.approvalsRatio}>{`${numberOfApprovals}/${approvalsRequired} approvals`}</span>
+            <span className={styles.singleHelperText}>
               Number of required approvals that have been received in order for this component to proceed.
-            </p>
+            </span>
           </div>
           <div className={styles.comment}>
             <TextArea
+              enableCounter
               id={`${id}.comments`}
               className={styles.commentArea}
               labelText="Comments (optional)"
@@ -356,25 +358,25 @@ function SingleActionSection({ formikBag, action, isAlreadyApproved, user }: Sin
               value={values[id]?.comments}
               onChange={handleChange}
               onBlur={handleBlur}
-              invalid={errors[id]?.comments && touched[id]?.comments}
+              invalid={Boolean(errors[id]?.comments && touched[id]?.comments)}
               invalidText={errors[id]?.comments}
+              maxCount={200}
             />
-            <p className={styles.commentLength}>{`${values[id]?.comments.length}/200`}</p>
           </div>
         </>
       ) : (
         <div className={styles.yourInput}>
-          <p className={styles.singleLabel}>Your input</p>
-          <p className={styles.singleHelperText}>
+          <span className={styles.singleLabel}>Your input</span>
+          <span className={styles.singleHelperText}>
             {status !== ApprovalStatus.Submitted
               ? `This action is already ${status}`
               : "You already submitted your response for this action."}
-          </p>
+          </span>
         </div>
       )}
       {Array.isArray(actioners) && actioners.length && (
         <div className={styles.approvers}>
-          <p className={styles.singleLabel}>Approvers who submitted</p>
+          <span className={styles.singleLabel}>Approvers who submitted</span>
           <StructuredListWrapper>
             <StructuredListHead>
               <StructuredListRow head>

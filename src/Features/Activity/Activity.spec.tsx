@@ -1,4 +1,3 @@
-import React from "react";
 import queryString, { StringifyOptions } from "query-string";
 import { waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -6,8 +5,6 @@ import WorkflowActivity from "./index";
 import { startApiServer } from "ApiServer";
 
 const queryStringOptions: StringifyOptions = { arrayFormat: "comma", skipEmptyString: true };
-
-jest.setTimeout(60000);
 
 let server: any;
 
@@ -33,19 +30,19 @@ describe("WorkflowActivity --- RTL", () => {
     const { history } = global.rtlContextRouterRender(<WorkflowActivity />);
     await screen.findByText(/This is all of the/i);
 
-    userEvent.click(screen.getByRole("tab", { name: /in progress/i }));
+    userEvent.click(screen.getByRole("link", { name: /in progress/i }));
     await waitFor(() =>
       expect(history.location.search).toBe(
         "?" + queryString.stringify({ statuses: "inProgress", ...basicQuery }, queryStringOptions)
       )
     );
 
-    userEvent.click(screen.getByRole("tab", { name: /failed/i }));
+    userEvent.click(screen.getByRole("link", { name: /failed/i }));
     await waitFor(() =>
       expect(history.location.search).toBe("?" + queryString.stringify({ statuses: "failure", ...basicQuery }))
     );
 
-    userEvent.click(screen.getByRole("tab", { name: /all/i }));
+    userEvent.click(screen.getByRole("link", { name: /all/i }));
     await waitFor(() =>
       expect(history.location.search).toBe(
         "?" + queryString.stringify({ statuses: undefined, ...basicQuery }, queryStringOptions)

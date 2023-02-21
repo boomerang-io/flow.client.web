@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, InlineNotification, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { DynamicFormik, ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./workflowInputModalContent.module.scss";
 import { InputProperty, InputType, PASSWORD_CONSTANT } from "Constants";

@@ -18,6 +18,7 @@ import OnBoardExpContainer from "Features/Tutorial";
 import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
+import { sortBy } from "lodash";
 import queryString from "query-string";
 import { elevatedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
@@ -25,31 +26,27 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, UserWorkflow } from "Types";
 import styles from "./app.module.scss";
 
-// import directly bc of webpack chunking error
-import Schedules from "Features/Schedules";
-const AppActivation = lazy(() => import(/* webpackChunkName: "App Activation" */ "./AppActivation"));
-const Activity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/Activity"));
-const Actions = lazy(() => import(/* webpackChunkName: "Actions" */ "Features/Actions"));
-const ApproverGroups = lazy(() => import(/* webpackChunkName: "ApproverGroups" */ "Features/ApproverGroups"));
-const Editor = lazy(() => import(/* webpackChunkName: "Editor" */ "Features/Editor"));
-const Execution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/Execution"));
-const GlobalProperties = lazy(() => import(/* webpackChunkName: "GlobalProperties" */ "Features/GlobalProperties"));
-const Tokens = lazy(() => import(/* webpackChunkName: "Tokens" */ "Features/Tokens"));
-const Insights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
-const Quotas = lazy(() => import(/* webpackChunkName: "Quotas" */ "Features/Quotas"));
-//const Schedules = lazy(() => import(/* webpackChunkName: "Schedules" */ "Features/Schedules"));
-const Settings = lazy(() => import(/* webpackChunkName: "Settings" */ "Features/Settings"));
-const SystemWorkflows = lazy(() => import(/* webpackChunkName: "SystemWorkflows" */ "Features/SystemWorkflows"));
-const TaskTemplates = lazy(() => import(/* webpackChunkName: "TaskTemplates" */ "Features/TaskTemplates"));
-const Teams = lazy(() => import(/* webpackChunkName: "Teams" */ "Features/Teams"));
-const TeamProperties = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/TeamProperties"));
-const TeamTokens = lazy(() => import(/* webpackChunkName: "TeamTokens" */ "Features/TeamTokens"));
-const ManageTeamTasks = lazy(() => import(/* webpackChunkName: "ManageTeamTasks" */ "Features/ManageTeamTasks"));
-const ManageTeamTasksContainer = lazy(() =>
-  import(/* webpackChunkName: "ManageTeamTasksContainer" */ "Features/ManageTeamTasksContainer")
-);
-const Users = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/Users"));
-const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Features/Workflows"));
+const AppActivation = lazy(() => import("./AppActivation"));
+const Activity = lazy(() => import("Features/Activity"));
+const Actions = lazy(() => import("Features/Actions"));
+const ApproverGroups = lazy(() => import("Features/ApproverGroups"));
+const Editor = lazy(() => import("Features/Editor"));
+const Execution = lazy(() => import("Features/Execution"));
+const GlobalProperties = lazy(() => import("Features/GlobalProperties"));
+const Tokens = lazy(() => import("Features/Tokens"));
+const Insights = lazy(() => import("Features/Insights"));
+const Quotas = lazy(() => import("Features/Quotas"));
+const Schedules = lazy(() => import("Features/Schedules"));
+const Settings = lazy(() => import("Features/Settings"));
+const SystemWorkflows = lazy(() => import("Features/SystemWorkflows"));
+const TaskTemplates = lazy(() => import("Features/TaskTemplates"));
+const Teams = lazy(() => import("Features/Teams"));
+const TeamProperties = lazy(() => import("Features/TeamProperties"));
+const TeamTokens = lazy(() => import("Features/TeamTokens"));
+const ManageTeamTasks = lazy(() => import("Features/ManageTeamTasks"));
+const ManageTeamTasksContainer = lazy(() => import("Features/ManageTeamTasksContainer"));
+const Users = lazy(() => import("Features/Users"));
+const Workflows = lazy(() => import("Features/Workflows"));
 
 const getUserUrl = serviceUrl.getUserProfile();
 const getPlatformConfigUrl = serviceUrl.getPlatformConfig();
@@ -194,9 +191,9 @@ export default function App() {
         }}
       >
         <Navbar
+          flowNavigationData={flowNavigationQuery.data}
           handleOnTutorialClick={() => setIsTutorialActive(true)}
           platformConfigData={navigationQuery.data}
-          flowNavigationData={flowNavigationQuery.data}
           userData={userQuery.data}
         />
         <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
@@ -260,7 +257,7 @@ function Main({
         communityUrl: platformConfigData?.platform?.communityUrl ?? "",
         setIsTutorialActive,
         user: userData,
-        teams: teamsData,
+        teams: sortBy(teamsData, "name"),
         userWorkflows: userWorkflowsData,
         quotas,
       }}
@@ -292,67 +289,67 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
         <Switch>
           <ProtectedRoute
             allowedUserRoles={["*"]}
-            component={<Execution />}
+            component={() => <Execution />}
             path={AppPath.Execution}
             userRole={activityEnabled ? "*" : ""}
           />
           <ProtectedRoute
             allowedUserRoles={["*"]}
-            component={<Activity />}
+            component={() => <Activity />}
             path={AppPath.Activity}
             userRole={activityEnabled ? "*" : ""}
           />
           <ProtectedRoute
             allowedUserRoles={elevatedUserRoles}
-            component={<GlobalProperties />}
+            component={() => <GlobalProperties />}
             path={AppPath.Properties}
             userRole={platformRole}
           />
           <ProtectedRoute
             allowedUserRoles={["*"]}
-            component={<Insights />}
+            component={() => <Insights />}
             path={AppPath.Insights}
             userRole={insightsEnabled ? "*" : "none"}
           />
           <ProtectedRoute
             allowedUserRoles={["*"]}
-            component={<ManageTeamTasks />}
+            component={() => <ManageTeamTasks />}
             path={AppPath.ManageTaskTemplatesTeam}
             userRole={teamTasksEnabled ? "*" : ""}
           />
           <ProtectedRoute
             allowedUserRoles={["*"]}
-            component={<ManageTeamTasksContainer />}
+            component={() => <ManageTeamTasksContainer />}
             path={AppPath.ManageTaskTemplates}
             userRole={teamTasksEnabled ? "*" : ""}
           />
           <ProtectedRoute
             allowedUserRoles={elevatedUserRoles}
-            component={<Quotas />}
+            component={() => <Quotas />}
             path={AppPath.Quotas}
             userRole={platformRole}
           />
           <ProtectedRoute
             allowedUserRoles={elevatedUserRoles}
-            component={<Settings />}
+            component={() => <Settings />}
             path={AppPath.Settings}
             userRole={platformRole}
           />
           <ProtectedRoute
             allowedUserRoles={elevatedUserRoles}
-            component={<SystemWorkflows />}
+            component={() => <SystemWorkflows />}
             path={AppPath.SystemWorkflows}
             userRole={platformRole}
           />
           <ProtectedRoute
             allowedUserRoles={elevatedUserRoles}
-            component={<TaskTemplates />}
+            component={() => <TaskTemplates />}
             path={AppPath.TaskTemplates}
             userRole={platformRole}
           />
           <ProtectedRoute
             allowedUserRoles={["*"]}
-            component={<TeamProperties />}
+            component={() => <TeamProperties />}
             path={AppPath.TeamProperties}
             userRole={teamPropertiesEnabled ? "*" : ""}
           />

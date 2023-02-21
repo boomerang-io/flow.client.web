@@ -1,8 +1,9 @@
 import React from "react";
 import cx from "classnames";
-import { Tile, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Tile } from "@carbon/react";
+import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { taskIcons } from "Utils/taskIcons";
-import { Bee16, Recommend16 } from "@carbon/icons-react";
+import { Bee, Recommend } from "@carbon/react/icons";
 import { TaskModel } from "Types";
 import styles from "./task.module.scss";
 
@@ -13,23 +14,24 @@ const Task: React.FC<TaskModel> = ({ name, model, icon, verified, scope }) => {
   return (
     <li>
       <Tile
-        className={cx(styles.container, { [styles.globalTask]: !isTeamTask })}
-        aria-selected={isDragActive}
         role="option"
+        aria-selected={isDragActive}
+        className={cx(styles.container, { [styles.globalTask]: !isTeamTask })}
         draggable={true}
+        onDragEnd={() => setIsDragActive(false)}
         onDragStart={(event: React.DragEvent<HTMLDivElement>) => {
           setIsDragActive(true);
           event.dataTransfer.setData("storm-diagram-node", JSON.stringify(model));
         }}
-        onDragEnd={() => setIsDragActive(false)}
         tabIndex="0"
+        title={name}
       >
         <div className={styles.columnContainer}>
           <div className={styles.rowContainer}>
             {TaskIcon?.Icon ? (
               <TaskIcon.Icon className={cx(styles.taskIcon, { [styles.teamTask]: isTeamTask })} />
             ) : (
-              <Bee16 className={cx(styles.taskIcon, { [styles.teamTask]: isTeamTask })} />
+              <Bee className={cx(styles.taskIcon, { [styles.teamTask]: isTeamTask })} />
             )}
             <p className={styles.taskName}> {name} </p>
             {verified && (
@@ -45,7 +47,7 @@ const Task: React.FC<TaskModel> = ({ name, model, icon, verified, scope }) => {
                   </div>
                 }
               >
-                <Recommend16 fill="#0072C3" style={{ willChange: "auto" }} />
+                <Recommend fill="#0072C3" style={{ willChange: "auto" }} />
               </TooltipHover>
             )}
           </div>

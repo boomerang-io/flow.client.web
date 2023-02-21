@@ -45,6 +45,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       tasktemplate: Model,
       team: Model,
       teamApproverUsers: Model,
+      taskTemplateValidate: Model,
       teamProperties: Model,
       tokens: Model,
       flowNavigation: Model,
@@ -235,8 +236,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return taskTemplate;
       });
 
-      this.post(serviceUrl.postValidateYaml(), () => {
-        return {};
+      this.post(serviceUrl.postValidateYaml(), (schema) => {
+        return schema.db.taskTemplateValidate[0];
       });
 
       /**

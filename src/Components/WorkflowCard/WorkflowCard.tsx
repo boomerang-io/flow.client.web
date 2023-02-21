@@ -4,16 +4,13 @@ import { useAppContext } from "Hooks";
 import { useFeature } from "flagged";
 import { useMutation, useQueryClient } from "react-query";
 import { Link, useHistory } from "react-router-dom";
+import { Button, InlineLoading, OverflowMenu, OverflowMenuItem } from "@carbon/react";
 import {
-  Button,
   ConfirmModal,
   ComposedModal,
-  InlineLoading,
-  OverflowMenu,
-  OverflowMenuItem,
   ToastNotification,
-  TooltipIcon,
   notify,
+  TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import UpdateWorkflow from "./UpdateWorkflow";
@@ -25,7 +22,7 @@ import { formatErrorMessage } from "@boomerang-io/utils";
 import { appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
-import { Run20, Bee20 } from "@carbon/icons-react";
+import { Run, Bee } from "@carbon/react/icons";
 import workflowIcons from "Assets/workflowIcons";
 import { ComposedModalChildProps, FlowTeamQuotas, ModalTriggerProps, WorkflowSummary } from "Types";
 import { WorkflowScope } from "Constants";
@@ -57,13 +54,15 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
 
   const { mutateAsync: deleteWorkflowMutator, isLoading: isDeleting } = useMutation(resolver.deleteWorkflow, {});
 
-  const { mutateAsync: executeWorkflowMutator, error: executeError, isLoading: isExecuting } = useMutation(
-    (args: { id: string; properties: {} }) => {
-      const { promise, cancel } = resolver.postExecuteWorkflow(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    }
-  );
+  const {
+    mutateAsync: executeWorkflowMutator,
+    error: executeError,
+    isLoading: isExecuting,
+  } = useMutation((args: { id: string; properties: {} }) => {
+    const { promise, cancel } = resolver.postExecuteWorkflow(args);
+    cancelRequestRef.current = cancel;
+    return promise;
+  });
 
   const { mutateAsync: duplicateWorkflowMutator, isLoading: duplicateWorkflowIsLoading } = useMutation(
     resolver.postDuplicateWorkflow
@@ -240,7 +239,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
 
   const formattedProperties = formatPropertiesForEdit();
 
-  const { name, Icon = Bee20 } = workflowIcons.find((icon) => icon.name === workflow.icon) ?? {};
+  const { name, Icon = Bee } = workflowIcons.find((icon) => icon.name === workflow.icon) ?? {};
 
   let hasReachedMonthlyRunLimit = false;
 
@@ -303,8 +302,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
               <Button
                 disabled={isDeleting || isDisabled}
                 iconDescription={`Run ${type}`}
-                renderIcon={Run20}
-                size="field"
+                renderIcon={Run}
+                size="md"
                 onClick={openModal}
               >
                 Run it
@@ -336,8 +335,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
               <Button
                 disabled={isDeleting || isDisabled}
                 iconDescription={`Run ${type}`}
-                renderIcon={Run20}
-                size="field"
+                renderIcon={Run}
+                size="md"
                 onClick={openModal}
               >
                 Run it
@@ -358,12 +357,14 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
       </section>
       {workflow.templateUpgradesAvailable && (
         <div className={styles.templatesWarningIcon}>
-          <TooltipIcon
+          <TooltipHover
             direction="top"
-            tooltipText={`New version of a task available! To update, edit your ${type.toLowerCase()}.`}
+            tooltipContent={`New version of a task available! To update, edit your ${type.toLowerCase()}.`}
           >
-            <WorkflowWarningButton />
-          </TooltipIcon>
+            <div>
+              <WorkflowWarningButton />
+            </div>
+          </TooltipHover>
         </div>
       )}
       {isDuplicating || isDeleting || isExecuting ? (

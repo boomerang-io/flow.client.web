@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery, UseQueryResult } from "react-query";
-import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading } from "@carbon/react";
 import ErrorDragon from "Components/ErrorDragon";
 import ScheduleCalendar from "Components/ScheduleCalendar";
 import ScheduleCreator from "Components/ScheduleCreator";

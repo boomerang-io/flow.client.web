@@ -1,9 +1,9 @@
 //@ts-nocheck
 import React from "react";
 import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button } from "@carbon/react";
 import CreateEditPropertiesContent from "./CreateEditPropertiesContent";
-import { Add16 } from "@carbon/icons-react";
+import { Add } from "@carbon/react/icons";
 import { Property } from "Types";
 import styles from "./createEditPropertiesModal.module.scss";
 
@@ -38,9 +38,9 @@ function CreateEditPropertiesModal({ isEdit, isOpen, handleEditClose, property, 
           <Button
             data-testid="create-global-parameter-button"
             iconDescription="Create Parameter"
-            renderIcon={Add16}
+            renderIcon={Add}
             style={{ width: "12rem" }}
-            size="field"
+            size="md"
             onClick={openModal}
           >
             Create Parameter

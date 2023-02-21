@@ -1,9 +1,9 @@
 import React from "react";
+import { Button } from "@carbon/react";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button } from "carbon-components-react";
 import CreateEditGroupModalContent from "./CreateEditGroupModalContent";
 import { FlowTeam, ApproverGroup } from "Types";
-import { Add16, Edit16 } from "@carbon/icons-react";
+import { Add, Edit } from "@carbon/react/icons";
 import styles from "./createEditGroupModal.module.scss";
 
 type CreateEditGroupModalProps = {
@@ -13,12 +13,7 @@ type CreateEditGroupModalProps = {
   team?: FlowTeam | null;
 };
 
-function CreateEditGroupModal({
-  isEdit,
-  approverGroup,
-  approverGroups,
-  team,
-}: CreateEditGroupModalProps) {
+function CreateEditGroupModal({ isEdit, approverGroup, approverGroups, team }: CreateEditGroupModalProps) {
   /**
    * arrays of values for making the key unique
    * filter out own value if editing a approverGroup, pass through all if creating
@@ -27,24 +22,37 @@ function CreateEditGroupModal({
   if (Array.isArray(approverGroups)) {
     approverGroupNames = approverGroups.map((configurationObj) => configurationObj.groupName.toLowerCase());
     if (isEdit && approverGroup) {
-      approverGroupNames = approverGroupNames.filter((approverGroupItem) => approverGroupItem !== approverGroup.groupName.toLowerCase());
+      approverGroupNames = approverGroupNames.filter(
+        (approverGroupItem) => approverGroupItem !== approverGroup.groupName.toLowerCase()
+      );
     }
   }
   const cancelRequestRef = React.useRef<any>();
 
   return (
     <ComposedModal
-      composedModalProps={{ containerClassName: styles.modalContainer }}
-      modalProps={{ shouldCloseOnOverlayClick: false }}
+      composedModalProps={{ containerClassName: styles.modalContainer, shouldCloseOnOverlayClick: false }}
       modalTrigger={({ openModal }: any) =>
-        !isEdit ?
-          <Button renderIcon={Add16} size="field" kind="ghost" onClick={openModal}>Create new group</Button>
-          : 
-          <Button className={styles.editButton} onClick={openModal} kind="ghost" renderIcon={Edit16} size="small" iconDescription="Edit approver group" data-testid="edit-approver-group"/>
+        !isEdit ? (
+          <Button renderIcon={Add} size="md" kind="ghost" onClick={openModal}>
+            Create new group
+          </Button>
+        ) : (
+          <Button
+            className={styles.editButton}
+            onClick={openModal}
+            kind="ghost"
+            renderIcon={Edit}
+            size="sm"
+            iconDescription="Edit approver group"
+            data-testid="edit-approver-group"
+          />
+        )
       }
       modalHeaderProps={{
         title: isEdit && approverGroup ? `Edit ${approverGroup.groupName}` : "Create new group",
-        subtitle: "Choose a group name, then add users from a selected Team. Groups can only be formed with users from the same Team. Members will receive an email notification about their new permissions.",
+        subtitle:
+          "Choose a group name, then add users from a selected Team. Groups can only be formed with users from the same Team. Members will receive an email notification about their new permissions.",
       }}
       onCloseModal={() => {
         if (cancelRequestRef.current) cancelRequestRef.current();

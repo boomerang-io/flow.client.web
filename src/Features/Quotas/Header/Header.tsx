@@ -1,20 +1,17 @@
 import React from "react";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import {
-  Button,
   ComposedModal,
   FeatureHeader,
   FeatureHeaderTitle as HeaderTitle,
-  InlineNotification,
   Loading,
-  ModalBody,
-  ModalFooter,
   ModalForm,
   notify,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useMutation, useQueryClient } from "react-query";
 import { resolver, serviceUrl } from "Config/servicesConfig";
-import { Reset16 } from "@carbon/icons-react";
+import { Reset } from "@carbon/react/icons";
 import { ModalTriggerProps, FlowTeam, ComposedModalChildProps, FlowTeamQuotas } from "Types";
 import styles from "./Header.module.scss";
 
@@ -45,7 +42,7 @@ const Header: React.FC<HeaderProps> = ({
             subtitle: "This will change all quotas to the following default values. This action cannot be undone.",
           }}
           modalTrigger={({ openModal }: ModalTriggerProps) => (
-            <Button className={styles.resetButton} size="field" renderIcon={Reset16} onClick={openModal}>
+            <Button className={styles.resetButton} size="md" renderIcon={Reset} onClick={openModal}>
               Restore defaults
             </Button>
           )}
@@ -83,7 +80,11 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({
   const cancelRequestRef = React.useRef<{} | null>();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: defaultQuotasMutator, isLoading, error } = useMutation(
+  const {
+    mutateAsync: defaultQuotasMutator,
+    isLoading,
+    error,
+  } = useMutation(
     (args: { id: string }) => {
       const { promise, cancel } = resolver.putTeamQuotasDefault(args);
       if (cancelRequestRef?.current) {
@@ -124,7 +125,6 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({
   return (
     <ModalForm>
       <ModalBody className={styles.modalBodyContainer}>
-        <hr className={styles.divider} />
         {defaultQuotasIsLoading ? (
           <Loading />
         ) : (

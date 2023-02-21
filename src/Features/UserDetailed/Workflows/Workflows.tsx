@@ -9,9 +9,9 @@ import {
   StructuredListBody,
   StructuredListRow,
   StructuredListCell,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+} from "@carbon/react";
 import EmptyState from "Components/EmptyState";
-import ms from "match-sorter";
+import { matchSorter as ms } from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { appLink } from "Config/appConfig";
 import { FlowUser } from "Types";
@@ -38,8 +38,9 @@ function Workflows({ user }: { user: FlowUser }) {
           <Search
             labelText="workflow search"
             id="workflow-search"
-            placeHolderText="Search for a workflow"
+            placeholder="Search for a workflow"
             onChange={(e: React.FormEvent<HTMLInputElement>) => setSearchQuery(e.currentTarget.value)}
+            size="sm"
           />
         </div>
       </section>

@@ -1,4 +1,4 @@
-import { Tile } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Tile } from "@carbon/react";
 import styles from "./insightsTile.module.scss";
 
 interface InsightsTileProps {

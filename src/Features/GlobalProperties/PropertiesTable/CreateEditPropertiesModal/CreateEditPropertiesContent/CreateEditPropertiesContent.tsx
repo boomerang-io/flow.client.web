@@ -2,18 +2,8 @@ import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import {
-  Button,
-  InlineNotification,
-  Loading,
-  ModalBody,
-  ModalFlowForm,
-  ModalFooter,
-  notify,
-  ToastNotification,
-  TextInput,
-  Toggle,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading, ModalFlowForm, notify, ToastNotification, TextInput, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Property, PatchProperty } from "Types";
@@ -40,7 +30,11 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
 
   const queryClient = useQueryClient();
   /** Add property */
-  const { mutateAsync: addGlobalPropertyMutation, isLoading: addLoading, error: addError } = useMutation(
+  const {
+    mutateAsync: addGlobalPropertyMutation,
+    isLoading: addLoading,
+    error: addError,
+  } = useMutation(
     (args: { body: Property }) => {
       const { promise, cancel } = resolver.postGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
@@ -52,7 +46,11 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
   );
 
   /** Update property */
-  const { mutateAsync: updateGlobalPropertyMutation, isLoading: updateLoading, error: updateError } = useMutation(
+  const {
+    mutateAsync: updateGlobalPropertyMutation,
+    isLoading: updateLoading,
+    error: updateError,
+  } = useMutation(
     (args: { id: string; body: PatchProperty }) => {
       const { promise, cancel } = resolver.patchGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
@@ -131,7 +129,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
       })}
     >
       {(props) => {
-        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit } = props;
+        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
@@ -145,7 +143,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 value={values.key}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.key && touched.key}
+                invalid={Boolean(errors.key && touched.key)}
                 invalidText={errors.key}
               />
               <TextInput
@@ -156,7 +154,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 value={values.label}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.label && touched.label}
+                invalid={Boolean(errors.label && touched.label)}
                 invalidText={errors.label}
               />
               <TextInput
@@ -177,7 +175,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 value={values.value}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.value && touched.value}
+                invalid={Boolean(errors.value && touched.value)}
                 invalidText={errors.value}
                 type={values.secured ? "password" : "text"}
                 helperText={
@@ -191,7 +189,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 disabled={isEdit}
                 labelText="Secured"
                 name="secured"
-                onChange={handleChange}
+                onToggle={(value: string) => setFieldValue("secured", value)}
                 orientation="vertical"
                 toggled={values.secured}
                 data-testid="secured-global-parameters-toggle"

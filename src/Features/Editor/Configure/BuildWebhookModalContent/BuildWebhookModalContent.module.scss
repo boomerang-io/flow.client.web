@@ -4,11 +4,11 @@
   display: flex;
   margin-top: 1rem;
 
-  :global .bx--snippet--multi {
+  :global .cds--snippet--multi {
     max-width: 95%;
   }
 
-  :global .bx--copy-btn:hover {
+  :global .cds--copy-btn:hover {
     background-color: #f2f4f8 !important;
   }
 
@@ -39,7 +39,7 @@
 }
 
 .container {
-  :global .bx--dropdown__wrapper {
+  :global .cds--dropdown__wrapper {
     width: 16rem;
     margin-bottom: 1rem;
   }

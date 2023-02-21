@@ -1,5 +1,6 @@
 // Look for the data injected into the HTML file from the Express app
 // See server/app.js for implementation
+import { Envs } from "Constants";
 import { StringifyOptions } from "query-string";
 export const APP_ROOT =
   window._SERVER_DATA && window._SERVER_DATA.APP_ROOT ? window._SERVER_DATA.APP_ROOT : "/BMRG_APP_ROOT_CONTEXT";
@@ -9,8 +10,10 @@ export const CORE_ENV_URL =
 
 export const BASE_DOCUMENTATION_URL = "https://www.useboomerang.io/docs/boomerang-flow";
 
-export const isDevEnv = process.env.NODE_ENV === "development";
-export const isTestEnv = process.env.NODE_ENV === "test";
+//@ts-ignore
+export const isDevEnv = import.meta.env.MODE === Envs.Dev
+//@ts-ignore
+export const isTestEnv = import.meta.env.MODE === Envs.Test
 
 type AppPathKey =
   | "Root"

@@ -1,46 +1,50 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`AddTeamContent --- Snapshot Test Capturing Snapshot of AddTeamContent 1`] = `
+exports[`AddTeamContent --- Snapshot Test > Capturing Snapshot of AddTeamContent 1`] = `
 <body
   id="app"
 >
   <div>
     <form
-      class="bx--bmrg-modal-flow-form"
+      class="cds--bmrg-modal-flow-form"
     >
       <div
-        class="bx--modal-content"
+        class="cds--modal-content"
       >
         <div
-          class="modalInputContainer"
+          class="_modalInputContainer_36e9f5"
         >
           <div
-            class="bx--bmrg-text-input"
+            class="cds--bmrg-text-input"
           >
             <div
-              class="bx--form-item bx--text-input-wrapper"
+              class="cds--form-item cds--text-input-wrapper"
             >
-              <label
-                class="bx--label"
-                for="team-update-name-id"
-              >
-                <div
-                  class="bx--bmrg-text-input__label"
-                >
-                  <div>
-                    Name
-                  </div>
-                </div>
-              </label>
               <div
-                class="bx--text-input__field-outer-wrapper"
+                class="cds--text-input__label-wrapper"
+              >
+                <label
+                  class="cds--label"
+                  for="team-update-name-id"
+                >
+                  <div
+                    class="cds--bmrg-text-input__label"
+                  >
+                    <div>
+                      Name
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div
+                class="cds--text-input__field-outer-wrapper"
               >
                 <div
-                  class="bx--text-input__field-wrapper"
+                  class="cds--text-input__field-wrapper"
                 >
                   <input
                     aria-describedby="team-update-name-id-helper-text"
-                    class="bx--text-input bx--text-input--md"
+                    class="cds--text-input cds--text-input--md"
                     data-testid="text-input-team-name"
                     id="team-update-name-id"
                     type="text"
@@ -48,7 +52,7 @@ exports[`AddTeamContent --- Snapshot Test Capturing Snapshot of AddTeamContent 1
                   />
                 </div>
                 <div
-                  class="bx--form__helper-text"
+                  class="cds--form__helper-text"
                   id="team-update-name-id-helper-text"
                 >
                   Must be unique
@@ -59,17 +63,17 @@ exports[`AddTeamContent --- Snapshot Test Capturing Snapshot of AddTeamContent 1
         </div>
       </div>
       <div
-        class="bx--modal-footer bx--btn-set"
+        class="cds--modal-footer cds--btn-set"
       >
         <button
-          class="bx--btn bx--btn--secondary"
+          class="cds--btn cds--btn--secondary"
           tabindex="0"
           type="button"
         >
           Cancel
         </button>
         <button
-          class="bx--btn bx--btn--primary bx--btn--disabled"
+          class="cds--btn cds--btn--primary cds--btn--disabled"
           data-testid="save-team-name"
           disabled=""
           tabindex="0"

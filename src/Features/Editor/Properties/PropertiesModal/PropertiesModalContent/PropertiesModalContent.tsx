@@ -4,12 +4,12 @@ import {
   ComboBox,
   Creatable,
   Loading,
+  ModalFlowForm,
   TextArea,
   TextInput,
   Toggle,
-  ModalFlowForm,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
@@ -257,17 +257,8 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
         })}
       >
         {(formikProps) => {
-          const {
-            dirty,
-            values,
-            touched,
-            errors,
-            handleBlur,
-            handleChange,
-            handleSubmit,
-            setFieldValue,
-            isValid,
-          } = formikProps;
+          const { dirty, values, touched, errors, handleBlur, handleChange, handleSubmit, setFieldValue, isValid } =
+            formikProps;
           return (
             <ModalFlowForm onSubmit={handleSubmit} disabled={isLoading}>
               <ModalBody aria-label="inputs" className={styles.container}>
@@ -276,7 +267,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                   readOnly={isEdit}
                   helperText="Reference value for parameter in workflow. It can't be changed after parameter creation."
                   id={InputProperty.Key}
-                  invalid={errors.key && touched.key}
+                  invalid={Boolean(errors.key && touched.key)}
                   invalidText={errors.key}
                   labelText={isEdit ? "Key (read-only)" : "Key"}
                   onBlur={handleBlur}
@@ -300,7 +291,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                 />
                 <TextInput
                   id={InputProperty.Label}
-                  invalid={errors.label && touched.label}
+                  invalid={Boolean(errors.label && touched.label)}
                   invalidText={errors.label}
                   labelText="Label"
                   placeholder="e.g. Token"
@@ -310,7 +301,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                 />
                 <TextInput
                   id={InputProperty.Description}
-                  invalid={errors.description && touched.description}
+                  invalid={Boolean(errors.description && touched.description)}
                   invalidText={errors.description}
                   labelText="Description (optional)"
                   onBlur={handleBlur}
@@ -319,7 +310,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                 />
                 <TextInput
                   id={InputProperty.JsonPath}
-                  invalid={errors.jsonPath && touched.jsonPath}
+                  invalid={Boolean(errors.jsonPath && touched.jsonPath)}
                   invalidText={errors.jsonPath}
                   labelText="Event Payload JsonPath (optional)"
                   onBlur={handleBlur}

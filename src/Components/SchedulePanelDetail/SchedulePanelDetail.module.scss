@@ -5,7 +5,7 @@
   background-color: var(--cds-ui-01);
   margin-top: 12.125rem;
   border: none;
-  height: calc(100vh - 12.125rem);
+  height: calc(100vh - 12.75rem);
   transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
   :global .slide-pane__content {
     padding: 0;
@@ -16,8 +16,8 @@
   }
 }
 
-.listItem {
-  background: var(--cds-ui-background);
+div.listItem {
+  background: var(--cds-ui-background) !important;
   border-radius: 0.25rem;
   min-height: 8rem;
   margin: 1rem 0rem;
@@ -33,6 +33,7 @@
   }
   dd {
     font-size: 0.875rem;
+    margin-top: 0.25rem;
   }
 }
 

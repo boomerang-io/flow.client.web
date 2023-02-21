@@ -1,6 +1,7 @@
 import React from "react";
-import { Button, ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Add16 } from "@carbon/icons-react";
+import { Button } from "@carbon/react";
+import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Add } from "@carbon/react/icons";
 import CreateServiceTokenForm from "./Form";
 import CreateServiceTokenResult from "./Result";
 import styles from "./createToken.module.scss";
@@ -19,9 +20,9 @@ function CreateServiceTokenButton() {
         <Button
           iconDescription="Create Token"
           onClick={openModal}
-          renderIcon={Add16}
+          renderIcon={Add}
           style={{ width: "12rem" }}
-          size="field"
+          size="md"
           data-testid="create-token-button"
         >
           Create Token

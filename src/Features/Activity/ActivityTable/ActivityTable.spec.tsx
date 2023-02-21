@@ -1,4 +1,4 @@
-import React from "react";
+import { vi } from "vitest";
 import ActivityTable from "./index";
 
 const props = {
@@ -11,7 +11,7 @@ const props = {
   },
   location: {},
   history: {},
-  updateHistorySearch: jest.fn(),
+  updateHistorySearch: vi.fn(),
 };
 
 describe("ActivityTable --- Snapshot", () => {

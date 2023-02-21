@@ -1,10 +1,10 @@
-import React from "react";
+import { vi } from "vitest";
 import AddTeamContent from ".";
 
 const props = {
   teamRecords: [],
   currentQuery: "",
-  closeModal: jest.fn(),
+  closeModal: vi.fn(),
   cancelRequestRef: { current: undefined },
 };
 

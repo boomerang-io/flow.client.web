@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { Component } from "react";
 import { TextInput, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
@@ -75,7 +75,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
               <ModalBody aria-label="inputs" className={styles.container}>
                 <TextInput
                   id="name"
-                  invalid={errors.name && touched.name}
+                  invalid={Boolean(errors.name && touched.name)}
                   invalidText={errors.name}
                   labelText="Name"
                   // disabled={isEdit}
@@ -85,7 +85,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                 />
                 <TextInput
                   id="description"
-                  invalid={errors.description && touched.description}
+                  invalid={Boolean(errors.description && touched.description)}
                   invalidText={errors.description}
                   labelText="Description "
                   onBlur={handleBlur}

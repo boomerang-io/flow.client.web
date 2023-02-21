@@ -2,16 +2,18 @@ import React from "react";
 import { useQueryClient, useMutation } from "react-query";
 import ReactMarkdown from "react-markdown";
 import {
-  Button,
   ComposedModal,
-  InlineNotification,
   Loading,
   ModalForm,
-  ModalBody,
-  ModalFooter,
   notify,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  Button,
+  InlineNotification,
+  ModalBody,
+  ModalFooter
+} from "@carbon/react";
 import EmptyGraphic from "Components/EmptyState/EmptyGraphic";
 import { resolver } from "Config/servicesConfig";
 import { Action, ApprovalStatus, ComposedModalChildProps, ModalTriggerProps } from "Types";
@@ -116,7 +118,7 @@ function Form({ action, cancelRequestRef, closeModal, queryToRefetch }: FormProp
     <ModalForm>
       {approvalsIsLoading && <Loading />}
       <ModalBody>
-        {instructions ? <ReactMarkdown className="markdown-body" source={instructions} /> : <p>No instructions.</p>}
+        {instructions ? <ReactMarkdown className="markdown-body" children={instructions} /> : <p>No instructions.</p>}
         {Boolean(approvalsError) && (
           <InlineNotification
             lowContrast

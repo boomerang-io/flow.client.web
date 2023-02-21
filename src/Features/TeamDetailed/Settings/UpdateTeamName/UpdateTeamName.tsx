@@ -1,14 +1,14 @@
 import React from "react";
 import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
-import { Button } from "carbon-components-react";
+import { Button,   ModalBody,
+  ModalFooter, InlineNotification,} from "@carbon/react";
 import {
   notify,
   ToastNotification,
-  InlineNotification,
+  
   ModalFlowForm,
-  ModalBody,
-  ModalFooter,
+
   TextInput,
   Loading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -77,7 +77,7 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamN
                   onChange={(value: React.ChangeEvent<HTMLInputElement>) => {
                     setFieldValue("name", value.target.value);
                   }}
-                  invalid={errors.name && !touched.name}
+                  invalid={Boolean(errors.name && !touched.name)}
                   invalidText={errors.name}
                 />
                 {error && (

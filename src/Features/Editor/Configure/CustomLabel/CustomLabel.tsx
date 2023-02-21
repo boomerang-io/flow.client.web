@@ -2,12 +2,14 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { Edit16 } from "@carbon/icons-react";
+import { Edit } from "@carbon/react/icons";
 import {
   Button,
-  ComposedModal,
   ModalBody,
   ModalFooter,
+} from "@carbon/react";
+import {
+  ComposedModal,
   ModalForm,
   TextInput,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -54,7 +56,7 @@ const CustomLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels
       )
       :
       (
-        <Button kind="ghost" size="field" renderIcon={Edit16} onClick={openModal} className={styles.addNewToken}>
+        <Button kind="ghost" size="md" renderIcon={Edit} onClick={openModal} className={styles.addNewToken}>
           Add a new label
         </Button>
       )}
@@ -148,7 +150,7 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
                   labelText="Label Key"
                   value={values.key}
                   onChange={handleChange}
-                  invalid={errors.key && touched.key}
+                  invalid={Boolean(errors.key && touched.key)}
                   invalidText={errors.key}
                   onBlur={handleBlur}
                 />
@@ -157,7 +159,7 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
                   labelText="Label Value"
                   value={values.value}
                   onChange={handleChange}
-                  invalid={errors.value && touched.value}
+                  invalid={Boolean(errors.value && touched.value)}
                   onBlur={handleBlur}
                   invalidText={errors.value}
                 />

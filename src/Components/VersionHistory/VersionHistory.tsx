@@ -1,15 +1,14 @@
 import React from "react";
 import {
-  ComposedModal,
   ModalBody,
   StructuredListWrapper,
   StructuredListHead,
   StructuredListBody,
   StructuredListRow,
   StructuredListCell,
-  TooltipHover,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-import { Catalog16 } from "@carbon/icons-react";
+} from "@carbon/react";
+import { ComposedModal, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Catalog } from "@carbon/react/icons";
 import { ChangeLogItem, ModalTriggerProps } from "Types";
 import styles from "./versionHistory.module.scss";
 
@@ -27,7 +26,7 @@ const VersionHistory: React.FC<VersionHistoryProps> = ({ changelogs }) => {
       modalTrigger={({ openModal }: ModalTriggerProps) => (
         <TooltipHover direction="right" content="History">
           <button className={styles.button} onClick={openModal}>
-            <Catalog16 />
+            <Catalog />
           </button>
         </TooltipHover>
       )}

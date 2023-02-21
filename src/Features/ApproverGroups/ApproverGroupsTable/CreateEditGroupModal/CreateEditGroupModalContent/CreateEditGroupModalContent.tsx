@@ -3,24 +3,19 @@ import { useMutation, useQueryClient, useQuery } from "react-query";
 import { Formik, FieldArray } from "formik";
 import * as Yup from "yup";
 import sortBy from "lodash/sortBy";
-import matchSorter from "match-sorter";
+import { matchSorter } from "match-sorter";
 import {
-  Button,
-  Checkbox,
   ErrorMessage,
-  InlineNotification,
   Loading,
-  ModalBody,
-  ModalFooter,
   ModalFlowForm,
   notify,
-  Search,
   TextInput,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, Checkbox, InlineNotification, ModalBody, ModalFooter, Search } from "@carbon/react";
 import { formatErrorMessage, isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { AddAlt16, SubtractAlt16 } from "@carbon/icons-react";
+import { AddAlt, SubtractAlt } from "@carbon/react/icons";
 import { FlowTeam, Approver, ApproverGroup } from "Types";
 import styles from "./createEditGroupModalContent.module.scss";
 
@@ -69,7 +64,7 @@ function RenderMembersList({ members, approvers, setFieldValue }: RenderMembersL
       <Search
         labelText="member search"
         id="member-search"
-        placeHolderText="Search for Team Members by name or email"
+        placeholder="Search for Team Members by name or email"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
       />
       <p className={styles.selectedUsers}>{`${approvers.length} users selected`}</p>
@@ -134,7 +129,7 @@ function RenderEditMembersInGroup({ members, title, isRemove = false }: RenderEd
                       }
                       tabIndex={0}
                     >
-                      <SubtractAlt16 className={styles.actionIcon} />
+                      <SubtractAlt className={styles.actionIcon} />
                     </div>
                   ) : (
                     <div
@@ -143,7 +138,7 @@ function RenderEditMembersInGroup({ members, title, isRemove = false }: RenderEd
                       onKeyDown={(e: any) => isAccessibleKeyboardEvent(e) && arrayHelpers.push(member)}
                       tabIndex={0}
                     >
-                      <AddAlt16 className={styles.actionIcon} />
+                      <AddAlt className={styles.actionIcon} />
                     </div>
                   )}
                 </li>
@@ -184,7 +179,11 @@ function CreateEditGroupModalContent({
   const queryClient = useQueryClient();
   const flowTeamUsersUrl = serviceUrl.getFlowTeamUsers({ teamId: team?.id });
 
-  const { data: teamMembers, isLoading: teamMembersIsLoading, error: teamMembersError } = useQuery({
+  const {
+    data: teamMembers,
+    isLoading: teamMembersIsLoading,
+    error: teamMembersError,
+  } = useQuery({
     queryKey: flowTeamUsersUrl,
     queryFn: resolver.query(flowTeamUsersUrl),
     enabled: Boolean(team?.id),
@@ -193,7 +192,11 @@ function CreateEditGroupModalContent({
   const approverGroupsUrl = serviceUrl.resourceApproverGroups({ teamId: team?.id, groupId: undefined });
 
   /** Add Approver Group */
-  const { mutateAsync: addTeamApproverGroupMutation, isLoading: addIsLoading, error: addError } = useMutation(
+  const {
+    mutateAsync: addTeamApproverGroupMutation,
+    isLoading: addIsLoading,
+    error: addError,
+  } = useMutation(
     (args: { teamId: string | undefined; body: ApproverGroup }) => {
       const { promise, cancel } = resolver.postApproverGroupRequest(args);
       cancelRequestRef.current = cancel;
@@ -205,7 +208,11 @@ function CreateEditGroupModalContent({
   );
 
   /** Update Approver Group */
-  const { mutateAsync: updateTeamApproverGroupMutation, isLoading: updateIsLoading, error: updateError } = useMutation(
+  const {
+    mutateAsync: updateTeamApproverGroupMutation,
+    isLoading: updateIsLoading,
+    error: updateError,
+  } = useMutation(
     (args: { teamId: string | undefined; body: ApproverGroup }) => {
       const { promise, cancel } = resolver.putApproverGroupRequest(args);
       cancelRequestRef.current = cancel;
@@ -284,17 +291,8 @@ function CreateEditGroupModalContent({
       })}
     >
       {(props) => {
-        const {
-          dirty,
-          values,
-          touched,
-          errors,
-          isValid,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          setFieldValue,
-        } = props;
+        const { dirty, values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } =
+          props;
         const currentGroupMembersIds = values.approvers.map((approver) => approver.userId);
         const sortedTeamMembers = sortBy(teamMembers, ["userName"]);
         const eligibleMembers = teamMembers
@@ -315,7 +313,7 @@ function CreateEditGroupModalContent({
                   value={values.groupName}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  invalid={errors.groupName && touched.groupName}
+                  invalid={Boolean(errors.groupName && touched.groupName)}
                   invalidText={errors.groupName}
                 />
               </div>

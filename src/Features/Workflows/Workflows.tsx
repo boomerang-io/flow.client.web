@@ -5,12 +5,10 @@ import { useQuery } from "react-query";
 import { Redirect, Route, Switch, useHistory, useLocation } from "react-router-dom";
 import {
   Button,
-  ComposedModal,
-  ErrorMessage,
   SkeletonPlaceholder,
-  TooltipHover,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-import { WarningAlt16 } from "@carbon/icons-react";
+} from "@carbon/react";
+import { ComposedModal, ErrorMessage, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { WarningAlt } from "@carbon/react/icons";
 import cx from "classnames";
 import queryString from "query-string";
 import sortBy from "lodash/sortBy";
@@ -240,7 +238,7 @@ const UserWorkflows: React.FC<UserWorkflowsProp> = ({ searchQuery, user, userWor
                       "You reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact an administrator to increase the quota."
                     }
                   >
-                    <WarningAlt16 className={styles.warningIcon} />
+                    <WarningAlt className={styles.warningIcon} />
                   </TooltipHover>
                 )}
               </div>
@@ -255,7 +253,7 @@ const UserWorkflows: React.FC<UserWorkflowsProp> = ({ searchQuery, user, userWor
                     "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an admin.",
                 }}
                 modalTrigger={({ openModal }: ModalTriggerProps) => (
-                  <Button iconDescription="View quota details" kind="ghost" size="field" onClick={openModal}>
+                  <Button iconDescription="View quota details" kind="ghost" size="sm" onClick={openModal}>
                     View more quotas
                   </Button>
                 )}
@@ -327,7 +325,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
                     "This team has reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact your Team administrator/owner to increase the quota."
                   }
                 >
-                  <WarningAlt16 className={styles.warningIcon} />
+                  <WarningAlt className={styles.warningIcon} />
                 </TooltipHover>
               )}
             </div>
@@ -342,7 +340,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
                   "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an admin.",
               }}
               modalTrigger={({ openModal }: ModalTriggerProps) => (
-                <Button iconDescription="View quota details" kind="ghost" size="field" onClick={openModal}>
+                <Button iconDescription="View quota details" kind="ghost" size="sm" onClick={openModal}>
                   View more quotas
                 </Button>
               )}

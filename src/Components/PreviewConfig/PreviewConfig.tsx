@@ -1,16 +1,10 @@
 import React from "react";
-import {
-  DynamicFormik,
-  ModalForm,
-  ComposedModal,
-  Button,
-  ModalBody,
-  TooltipHover,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody } from "@carbon/react";
+import { ComposedModal, DynamicFormik, ModalForm, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Types";
-import { View16 } from "@carbon/icons-react";
+import { View } from "@carbon/react/icons";
 
 const modalHeadertext =
   "This is a preview of what the user sees when editing this Task. The user can also give this task a custom name for their Workflow, and can adjust its connected tasks. You can type in these fields to test any validation requirements.";
@@ -83,11 +77,11 @@ const PreviewConfig: React.FC<PreivewConfigProps> = ({ templateConfig, taskTempl
         <TooltipHover direction="top" tooltipText={"Preview what the user sees when they view this task"}>
           <Button
             iconDescription="Preview task"
-            renderIcon={View16}
+            renderIcon={View}
             onClick={openModal}
-            size="field"
+            size="md"
             kind="ghost"
-            style={{ width: "6.25rem" }}
+            style={{ width: "7rem" }}
           >
             Preview
           </Button>

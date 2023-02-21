@@ -1,9 +1,7 @@
 /* eslint-disable */
-import React from "react";
+import { vi } from "vitest";
 import Quotas from "./Quotas";
 import { startApiServer } from "ApiServer";
-
-jest.setTimeout(60000);
 
 let server: any;
 

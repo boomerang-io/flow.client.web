@@ -1,4 +1,4 @@
-import React from "react";
+import { vi } from "vitest";
 import ChangeRole from ".";
 import { FlowUser, PlatformRole, UserStatus } from "Types";
 
@@ -18,7 +18,7 @@ const user: FlowUser = {
 describe("ChangeRole --- Snapshot Test", () => {
   it("Capturing Snapshot of ChangeRole", async () => {
     const { baseElement } = global.rtlContextRouterRender(
-      <ChangeRole user={user} cancelRequestRef={{}} closeModal={jest.fn()} />
+      <ChangeRole user={user} cancelRequestRef={{}} closeModal={vi.fn()} />
     );
     expect(baseElement).toMatchSnapshot();
   });

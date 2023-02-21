@@ -894,7 +894,7 @@ const taskTemplate = [
           {
             placeholder: "",
             readOnly: false,
-            description: "",
+            description: "hello",
             key: "script",
             label: "Shell Script",
             type: "texteditor::shell",

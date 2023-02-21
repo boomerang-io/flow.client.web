@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import matchSorter from "match-sorter";
+import { matchSorter } from "match-sorter";
 import { useMutation, useQueryClient } from "react-query";
+import { DataTable, Pagination, Search } from "@carbon/react";
 import {
-  DataTable,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
   notify,
-  Pagination,
-  Search,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import ActionsMenu from "./ActionsMenu";
@@ -19,7 +17,7 @@ import { formatErrorMessage } from "@boomerang-io/utils";
 import EmptyState from "Components/EmptyState";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Property } from "Types";
-import { Checkmark32, Close32 } from "@carbon/icons-react";
+import { Checkmark, Close } from "@carbon/react/icons";
 import styles from "./propertiesTable.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
@@ -131,9 +129,9 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
         return <p className={styles.tableTextarea}>{determineValue}</p>;
       case "secured":
         return property && property.type === InputType.Password ? (
-          <Checkmark32 alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
+          <Checkmark size={32} alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
         ) : (
-          <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
+          <Close size={32} alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
         );
       case "actions":
         return (
@@ -170,7 +168,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
             className={styles.search}
             id="parameters-table-search"
             labelText="Search"
-            placeHolderText="Search"
+            placeholder="Search"
             onChange={handleSearchChange}
           />
           <div className={styles.actions}>

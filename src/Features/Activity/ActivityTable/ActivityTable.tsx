@@ -1,8 +1,7 @@
 //@ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
-import { settings } from "carbon-components";
-import { DataTableSkeleton, DataTable, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
+import { DataTableSkeleton, DataTable, Pagination } from "@carbon/react";
 import cx from "classnames";
 import moment from "moment";
 import queryString from "query-string";
@@ -10,8 +9,6 @@ import { getHumanizedDuration, isAccessibleKeyboardEvent } from "@boomerang-io/u
 import EmptyState from "Components/EmptyState";
 import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
 import styles from "./activityTable.module.scss";
-
-const { prefix } = settings;
 
 ActivityTable.propTypes = {
   history: PropTypes.object.isRequired,
@@ -128,7 +125,7 @@ function ActivityTable(props) {
     return (
       <div style={{ marginTop: "1rem" }}>
         <DataTableSkeleton
-          className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
+          className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
           rowCount={10}
           columnCount={headerList.length}
           headers={headerList.map((header) => header.header)}

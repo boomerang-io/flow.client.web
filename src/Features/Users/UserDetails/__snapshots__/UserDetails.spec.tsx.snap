@@ -1,103 +1,103 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`UserDetails --- Snapshot Test Capturing Snapshot of UserDetails 1`] = `
+exports[`UserDetails --- Snapshot Test > Capturing Snapshot of UserDetails 1`] = `
 <body
   id="app"
 >
   <div>
     <div
-      class="bx--modal-content"
+      class="cds--modal-content"
     >
       <dl>
         <section
-          class="sectionContainer"
+          class="_sectionContainer_aec184"
         >
           <dt
-            class="sectionHeader"
+            class="_sectionHeader_aec184"
           >
             Name
           </dt>
           <dd
-            class="sectionDetail"
+            class="_sectionDetail_aec184"
           >
             Test User
           </dd>
         </section>
         <section
-          class="sectionContainer"
+          class="_sectionContainer_aec184"
         >
           <dt
-            class="sectionHeader"
+            class="_sectionHeader_aec184"
           >
             Email
           </dt>
           <dd
-            class="sectionDetail"
+            class="_sectionDetail_aec184"
           >
             test@testemail.com
           </dd>
         </section>
         <section
-          class="sectionContainer"
+          class="_sectionContainer_aec184"
         >
           <dt
-            class="sectionHeader"
+            class="_sectionHeader_aec184"
           >
             Type
           </dt>
           <dd
-            class="sectionDetail"
+            class="_sectionDetail_aec184"
           >
             Admin
           </dd>
         </section>
         <section
-          class="sectionContainer"
+          class="_sectionContainer_aec184"
         >
           <dt
-            class="sectionHeader"
+            class="_sectionHeader_aec184"
           >
             Created
           </dt>
           <dd
-            class="sectionDetail"
+            class="_sectionDetail_aec184"
           >
-            January 01, 2020
+            July 21, 2020
           </dd>
         </section>
         <section
-          class="sectionContainer"
+          class="_sectionContainer_aec184"
         >
           <dt
-            class="sectionHeader"
+            class="_sectionHeader_aec184"
           >
             Last Login
           </dt>
           <dd
-            class="sectionDetail"
+            class="_sectionDetail_aec184"
           >
-            January 01, 2020
+            July 21, 2020
           </dd>
         </section>
         <section
-          class="sectionContainer"
+          class="_sectionContainer_aec184"
         >
           <dt
-            class="sectionHeader"
+            class="_sectionHeader_aec184"
           >
             Status
           </dt>
           <dd
-            class="sectionDetail"
+            class="_sectionDetail_aec184"
           >
             active
           </dd>
         </section>
         <section
-          class="sectionContainer"
+          class="_sectionContainer_aec184"
         >
           <dt
-            class="sectionHeader"
+            class="_sectionHeader_aec184"
           >
             Teams (0)
           </dt>

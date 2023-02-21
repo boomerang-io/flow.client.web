@@ -14,10 +14,10 @@
 
   &.execution {
     circle {
-      stroke: var(--cds-text-01);
+      stroke: var(--cds-text-primary);
     }
     path {
-      fill: var(--cds-text-01) !important;
+      fill: var(--cds-text-primary) !important;
     }
   }
 
@@ -35,7 +35,7 @@
 
   &.always {
     path {
-      fill: var(--cds-text-01);
+      fill: var(--cds-text-primary);
     }
   }
 }

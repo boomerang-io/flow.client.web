@@ -7,9 +7,9 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["**/*.spec.js"],
+      files: ["**/*.cy.*"],
       rules: {
-        "cypress/no-unnecessary-waiting": "on",
+        "cypress/no-unnecessary-waiting": 0,
       },
     },
   ],

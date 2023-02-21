@@ -1,9 +1,9 @@
 import React from "react";
 import { useAppContext } from "Hooks";
-import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button } from "@carbon/react";
 import { useHistory } from "react-router-dom";
 import { appLink } from "Config/appConfig";
-import { Edit32 } from "@carbon/icons-react";
+import { Edit } from "@carbon/react/icons";
 import { elevatedUserRoles } from "Constants";
 import { WorkflowSummary } from "Types";
 import styles from "./WorkflowActions.module.scss";
@@ -28,9 +28,9 @@ function WorkflowActions({ workflow }: Props) {
       {showEditWorkflow && (
         <Button
           kind="ghost"
-          size="field"
+          size="md"
           onClick={() => history.push(appLink.editorDesigner({ workflowId: id }))}
-          renderIcon={Edit32}
+          renderIcon={Edit}
         >
           Edit Workflow
         </Button>

@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalBody } from "carbon-components-react";
+import { ModalBody } from "@carbon/react";
 import { useAppContext } from "Hooks";
 import capitalize from "lodash/capitalize";
 import moment from "moment";

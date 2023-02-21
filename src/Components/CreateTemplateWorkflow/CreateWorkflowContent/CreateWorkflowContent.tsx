@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames/bind";
 import {
   ComboBox,
-  InlineNotification,
   Loading,
   RadioGroup,
   TextArea,
@@ -11,7 +10,8 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import capitalize from "lodash/capitalize";
-import { Button, ModalBody, ModalFooter, ModalFlowForm, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, InlineNotification, ModalBody, ModalFooter  } from "@carbon/react";
+import { ModalFlowForm, TooltipHover} from "@boomerang-io/carbon-addons-boomerang-react";
 import workflowIcons from "Assets/workflowIcons";
 import { ComboBoxItem, FlowTeam, WorkflowSummary, UserWorkflow } from "Types";
 import { WorkflowScope } from "Constants";
@@ -150,15 +150,11 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                     }}
                     items={teams}
                     initialSelectedItem={selectedTeam}
-                    value={selectedTeam}
                     itemToString={(item: ComboBoxItem) => (item ? item.name : "")}
                     titleText="Team"
                     placeholder="Select a team"
                     invalid={teamError && teamTouched}
                     invalidText="Team is required"
-                    shouldFilterItem={({ item, inputValue }: { item: ComboBoxItem; inputValue: string }) =>
-                      item && item.name.toLowerCase().includes(inputValue.toLowerCase())
-                    }
                   />
 
                   <TextInput
@@ -167,7 +163,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                     value={values.name}
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    invalid={errors.name && touched.name}
+                    invalid={Boolean(errors.name && touched.name)}
                     invalidText={errors.name}
                   />
                 </div>
@@ -178,7 +174,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                   value={values.name}
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  invalid={errors.name && touched.name}
+                  invalid={Boolean(errors.name && touched.name)}
                   invalidText={errors.name}
                 />
               )}
@@ -188,7 +184,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                 value={values.summary}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.summary && touched.summary}
+                invalid={Boolean(errors.summary && touched.summary)}
                 invalidText={errors.summary}
               />
               <TextArea
@@ -196,7 +192,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                 labelText="Description"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.description && touched.description}
+                invalid={Boolean(errors.description && touched.description)}
                 invalidText={errors.description}
                 style={{ resize: "none", width: "100%" }}
                 value={values.description}

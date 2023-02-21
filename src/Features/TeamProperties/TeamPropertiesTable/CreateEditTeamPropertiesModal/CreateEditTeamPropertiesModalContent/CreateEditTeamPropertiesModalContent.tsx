@@ -2,15 +2,15 @@ import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import {
-  Button,
-  InlineNotification,
-  ModalBody,
-  ModalFooter,
+  ModalFlowForm,
+  notify,
+  ToastNotification,
+  Loading,
   TextInput,
   Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { PatchProperty, Property, FlowTeam } from "Types";
@@ -44,7 +44,11 @@ function CreateEditTeamPropertiesModalContent({
   const queryClient = useQueryClient();
 
   /** Add Team Property */
-  const { mutateAsync: addTeamPropertyMutation, isLoading: addIsLoading, error: addError } = useMutation(
+  const {
+    mutateAsync: addTeamPropertyMutation,
+    isLoading: addIsLoading,
+    error: addError,
+  } = useMutation(
     (args: { id: string; body: Property }) => {
       const { promise, cancel } = resolver.postTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
@@ -56,7 +60,11 @@ function CreateEditTeamPropertiesModalContent({
   );
 
   /** Update Team Property */
-  const { mutateAsync: updateTeamPropertyMutation, isLoading: updateIsLoading, error: updateError } = useMutation(
+  const {
+    mutateAsync: updateTeamPropertyMutation,
+    isLoading: updateIsLoading,
+    error: updateError,
+  } = useMutation(
     (args: { teamId: string; configurationId: string; body: PatchProperty }) => {
       const { promise, cancel } = resolver.patchTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
@@ -141,7 +149,7 @@ function CreateEditTeamPropertiesModalContent({
       })}
     >
       {(props) => {
-        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit } = props;
+        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
@@ -155,7 +163,7 @@ function CreateEditTeamPropertiesModalContent({
                 value={values.key}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.key && touched.key}
+                invalid={Boolean(errors.key && touched.key)}
                 invalidText={errors.key}
               />
               <TextInput
@@ -166,7 +174,7 @@ function CreateEditTeamPropertiesModalContent({
                 value={values.label}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.label && touched.label}
+                invalid={Boolean(errors.label && touched.label)}
                 invalidText={errors.label}
               />
               <TextInput
@@ -186,7 +194,7 @@ function CreateEditTeamPropertiesModalContent({
                 value={values.value}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.value && touched.value}
+                invalid={Boolean(errors.value && touched.value)}
                 invalidText={errors.value}
                 type={values.secured ? "password" : "text"}
                 helperText={
@@ -201,7 +209,7 @@ function CreateEditTeamPropertiesModalContent({
                 disabled={isEdit}
                 labelText="Secured"
                 name="secured"
-                onChange={handleChange}
+                onToggle={(value: string) => setFieldValue("secured", value)}
                 orientation="vertical"
                 toggled={values.secured}
                 helperText="Once a parameter is securely created - you will not be able to make it unsecure"

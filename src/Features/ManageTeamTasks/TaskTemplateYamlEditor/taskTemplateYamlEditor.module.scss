@@ -34,7 +34,7 @@
   justify-content: space-between;
   margin-bottom: 1rem;
 
-  :global .bx--inline-notification {
+  :global .cds--inline-notification {
     margin: 0.5rem 0 0 20rem;
     position: absolute;
   }
@@ -76,12 +76,11 @@
 .editTitle {
   align-items: center;
   display: flex;
-
+  flex-flow: wrap;
   justify-content: space-between;
-
   margin-bottom: 0.75rem;
   width: 100%;
-  :global .bx--btn__icon {
+  :global .cds--btn__icon {
     margin-left: 0 !important;
   }
 
@@ -121,7 +120,7 @@
   flex-direction: column;
   padding-bottom: 1.5rem;
   min-width: 28rem;
-  :global .bx--btn__icon {
+  :global .cds--btn__icon {
     margin-left: 0 !important;
   }
 }
@@ -141,7 +140,7 @@
 .fieldActions {
   display: flex;
   align-items: center;
-  :global .bx--assistive-text {
+  :global .cds--assistive-text {
     left: -5.75rem !important;
   }
 }
@@ -234,7 +233,7 @@
   margin-left: auto;
   margin-right: 0.5rem;
   & div:nth-child(2) {
-    :global .bx--assistive-text {
+    :global .cds--assistive-text {
       left: -4.75rem !important;
     }
   }
@@ -279,7 +278,7 @@
   background-color: var(--cds-ui-01);
   height: 100%;
   padding: 1rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
 

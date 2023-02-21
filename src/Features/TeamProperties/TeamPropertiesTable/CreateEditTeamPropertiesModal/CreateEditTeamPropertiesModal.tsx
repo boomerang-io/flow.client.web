@@ -1,9 +1,9 @@
 //@ts-nocheck
 import React from "react";
 import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button } from "@carbon/react";
 import CreateEditTeamPropertiesModalContent from "./CreateEditTeamPropertiesModalContent";
-import { Add16 } from "@carbon/icons-react";
+import { Add } from "@carbon/react/icons";
 import { Property, FlowTeam } from "Types";
 import styles from "./createEditTeamPropertiesModal.module.scss";
 
@@ -41,8 +41,8 @@ function CreateEditTeamPropertiesModal({ handleEditClose, isEdit, isOpen, proper
             data-testid="create-team-parameter-button"
             onClick={openModal}
             iconDescription="Create Parameter"
-            renderIcon={Add16}
-            size="field"
+            renderIcon={Add}
+            size="md"
             style={{ minWidth: "9rem" }}
           >
             Create Parameter

@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { Component } from "react";
 import cx from "classnames";
-import { ChevronLeft16, ChevronRight16, PageFirst16, PageLast16 } from "@carbon/icons-react";
+import { ChevronLeft, ChevronRight, PageFirst, PageLast } from "@carbon/react/icons";
 import styles from "./VersionSwitcher.module.scss";
 
 interface VersionSwitcherProps {
@@ -32,10 +32,10 @@ class VersionSwitcher extends Component<VersionSwitcherProps> {
     return (
       <div className={styles.buttonList}>
         <button className={styles.button} disabled={!enabled} onClick={this.fastBackVersion}>
-          <PageFirst16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="first version" />
+          <PageFirst className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="first version" />
         </button>
         <button className={styles.button} disabled={!enabled} onClick={this.backVersion}>
-          <ChevronLeft16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="back one version" />
+          <ChevronLeft className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="back one version" />
         </button>
       </div>
     );
@@ -45,10 +45,10 @@ class VersionSwitcher extends Component<VersionSwitcherProps> {
     return (
       <div className={styles.buttonList}>
         <button className={styles.button} disabled={!enabled} onClick={this.forwardVersion}>
-          <ChevronRight16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="forward one version" />
+          <ChevronRight className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="forward one version" />
         </button>
         <button className={styles.button} disabled={!enabled} onClick={this.fastForwardVersion}>
-          <PageLast16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="last version" />
+          <PageLast className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="last version" />
         </button>
       </div>
     );

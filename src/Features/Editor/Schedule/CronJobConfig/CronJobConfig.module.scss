@@ -24,10 +24,10 @@
 .inputContainer {
   align-items: flex-start;
   display: flex;
-  :global .bx--bmrg-text-input {
+  :global .cds--bmrg-text-input {
     width: 23.625rem;
   }
-  :global .bx--inline-loading {
+  :global .cds--inline-loading {
     margin-left: 1rem;
     margin-top: 1.75rem;
     width: auto;
@@ -43,14 +43,14 @@
   align-items: flex-end;
   display: flex;
 
-  :global .bx--bmrg-text-input {
+  :global .cds--bmrg-text-input {
     margin-right: 1rem;
   }
 }
 .advancedCronToggle {
   margin-bottom: 1rem;
   width: 12rem;
-  :global .bx--label {
+  :global .cds--label {
     font-size: 14px;
     line-height: 18px;
     color: var(--cds-text-01);
@@ -64,7 +64,7 @@
   line-height: 1rem;
 }
 
-:global .bx--bmrg-creatable__colon {
+:global .cds--bmrg-creatable__colon {
   margin-top: 2.215rem !important;
   padding-right: initial !important;
 }

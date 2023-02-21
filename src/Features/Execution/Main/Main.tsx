@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { withRouter } from "react-router-dom";
 import { UseQueryResult } from "react-query";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
-import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading } from "@carbon/react";
 import ExecutionHeader from "./ExecutionHeader";
 import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";

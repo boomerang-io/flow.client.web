@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { OverflowMenu, OverflowMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
+import { OverflowMenu, OverflowMenuItem } from "@carbon/react";
 import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditPropertiesModal from "../CreateEditPropertiesModal";
 import { Property } from "Types";

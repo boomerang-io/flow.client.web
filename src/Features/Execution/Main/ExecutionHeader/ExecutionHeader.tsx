@@ -4,19 +4,13 @@ import { useMutation, useQueryClient, UseQueryResult } from "react-query";
 import { withRouter, Link, useParams } from "react-router-dom";
 import CopyToClipboard from "react-copy-to-clipboard";
 import moment from "moment";
+import { Breadcrumb, BreadcrumbItem, Button, ModalBody, SkeletonPlaceholder, Tag, TextArea } from "@carbon/react";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  ComposedModal,
   ConfirmModal,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
-  ModalBody,
+  ComposedModal,
   notify,
-  SkeletonPlaceholder,
-  Tag,
-  TextArea,
   ToastNotification,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -25,7 +19,7 @@ import ErrorModal from "Components/ErrorModal";
 import { appLink } from "Config/appConfig";
 import { elevatedUserRoles, QueryStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { Catalog16, CopyFile16, StopOutline16, Warning16 } from "@carbon/icons-react";
+import { Catalog, CopyFile, StopOutline, Warning } from "@carbon/react/icons";
 import { ExecutionStatus, WorkflowSummary } from "Types";
 import styles from "./executionHeader.module.scss";
 
@@ -90,7 +84,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
               modalTrigger={({ openModal }: { openModal: () => void }) => (
                 <TooltipHover direction="right" content="Advanced Detail">
                   <button className={styles.workflowAdvancedDetailTrigger} onClick={openModal}>
-                    <Catalog16 />
+                    <Catalog />
                   </button>
                 </TooltipHover>
               )}
@@ -112,8 +106,8 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
                   className={styles.workflowErrorTrigger}
                   kind={"ghost"}
                   onClick={openModal}
-                  renderIcon={Warning16}
-                  size="small"
+                  renderIcon={Warning}
+                  size="sm"
                 >
                   View Execution Error
                 </Button>
@@ -189,8 +183,8 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
                       kind="danger--ghost"
                       iconDescription="Cancel run"
                       onClick={openModal}
-                      renderIcon={StopOutline16}
-                      size="small"
+                      renderIcon={StopOutline}
+                      size="sm"
                     >
                       Cancel run
                     </Button>
@@ -248,8 +242,8 @@ function WorkflowAdvancedDetail({ workflow }: { workflow: WorkflowSummary }) {
                 kind="ghost"
                 onClick={() => setCopyTokenText("Copied!")}
                 onMouseLeave={() => setCopyTokenText("Copy")}
-                renderIcon={CopyFile16}
-                size="small"
+                renderIcon={CopyFile}
+                size="sm"
               />
             </CopyToClipboard>
           </div>
@@ -268,8 +262,8 @@ function WorkflowAdvancedDetail({ workflow }: { workflow: WorkflowSummary }) {
                 kind="ghost"
                 onClick={() => setCopyTokenText("Copied!")}
                 onMouseLeave={() => setCopyTokenText("Copy")}
-                renderIcon={CopyFile16}
-                size="small"
+                renderIcon={CopyFile}
+                size="sm"
               />
             </CopyToClipboard>
           </div>
