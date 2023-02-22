@@ -6,7 +6,7 @@ export const Envs = Object.freeze({
   Test: "test",
   Prod: "production",
   PortForward: "portforward",
-})
+});
 
 /**
  * Primitve constants
@@ -89,23 +89,24 @@ export const InputTypeCopy = Object.freeze({
   [InputType.URL]: "URL",
 });
 
-export const NodeType = Object.freeze({
+export const NodeType = {
+  Acquirelock: "acquirelock",
   Approval: "approval",
   CustomTask: "customTask",
   Decision: "decision",
+  End: "end",
   Manual: "manual",
-  SetProperty: "setwfproperty",
-  StartEnd: "startend",
-  Task: "task",
-  TemplateTask: "templateTask",
-  Wait: "eventwait",
-  Acquirelock: "acquirelock",
   Releaselock: "releaselock",
   RunScheduledWorkflow: "runscheduledworkflow",
   RunWorkflow: "runworkflow",
   Script: "script",
+  SetProperty: "setwfproperty",
   SetStatus: "setwfstatus",
-});
+  Start: "start",
+  Task: "task",
+  TemplateTask: "templateTask",
+  Wait: "eventwait",
+} as const;
 
 export const QueryStatus = Object.freeze({
   Idle: "idle",
