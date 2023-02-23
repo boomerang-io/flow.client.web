@@ -10,6 +10,7 @@ import { resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import { Add } from "@carbon/react/icons";
 import styles from "./addTaskTemplate.module.scss";
+import { formatErrorMessage } from "@boomerang-io/utils";
 
 AddTaskTemplate.propTypes = {
   addTemplateInState: PropTypes.func.isRequired,
@@ -45,23 +46,35 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
       closeModal();
     } catch (err) {
       if (!isCancel(err)) {
-        let errorTitle = err.toString();
-        let subTitle = "";
-        const { data } = err && err.response;
-        if (data && data.status && data.error) {
-          errorTitle = data.status + " - " + data.error;
-        }
-        if (data && data.message) {
-          subTitle = data.message;
-        }
+        const errorMessages = formatErrorMessage({
+          error: err,
+          defaultMessage: "Created Task Template Failed",
+        });
         notify(
           <ToastNotification
             kind="error"
-            title={errorTitle}
-            subtitle={subTitle}
+            title={errorMessages.title}
+            subtitle={errorMessages.message}
             data-testid="create-task-template-notification"
           />
         );
+        // let errorTitle = err.toString();
+        // let subTitle = "";
+        // const { data } = err && err.response;
+        // if (data && data.status && data.error) {
+        //   errorTitle = data.status + " - " + data.error;
+        // }
+        // if (data && data.message) {
+        //   subTitle = data.message;
+        // }
+        // notify(
+        //   <ToastNotification
+        //     kind="error"
+        //     title={errorTitle}
+        //     subtitle={subTitle}
+        //     data-testid="create-task-template-notification"
+        //   />
+        // );
       }
     }
   };
