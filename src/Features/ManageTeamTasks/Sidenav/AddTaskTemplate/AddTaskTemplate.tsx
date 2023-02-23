@@ -58,23 +58,6 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
             data-testid="create-task-template-notification"
           />
         );
-        // let errorTitle = err.toString();
-        // let subTitle = "";
-        // const { data } = err && err.response;
-        // if (data && data.status && data.error) {
-        //   errorTitle = data.status + " - " + data.error;
-        // }
-        // if (data && data.message) {
-        //   subTitle = data.message;
-        // }
-        // notify(
-        //   <ToastNotification
-        //     kind="error"
-        //     title={errorTitle}
-        //     subtitle={subTitle}
-        //     data-testid="create-task-template-notification"
-        //   />
-        // );
       }
     }
   };
