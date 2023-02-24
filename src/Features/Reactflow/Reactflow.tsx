@@ -23,10 +23,11 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import "./styles.scss";
+import { AppContextProvider } from "State/context";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
-import { StartNode, EndNode, SetPropertyNode, DecisionNode, DecisionEdge } from "./components";
+import { StartNode, EndNode, SetPropertyNode, DecisionNode, DecisionEdge, CustomTaskNode } from "./components";
 
 type NodeTypeValues = typeof NodeType[keyof typeof NodeType];
 
@@ -46,7 +47,7 @@ const TaskNode: React.FC<NodeProps> = (props) => {
   // TODO: this along w/ the use of `reactFlowInstance.deleteElements` should probably be a shared hook that can be reused by
   // nodes
   const reactFlowInstance = useReactFlow();
-  const { isConnectable } = props;
+  const { isConnectable, type } = props;
   return (
     <div
       style={{
@@ -62,7 +63,7 @@ const TaskNode: React.FC<NodeProps> = (props) => {
         height: "80px",
       }}
     >
-      <h2>Task node</h2>
+      <h2>{`Task node - ${type}`}</h2>
       <div style={{ position: "absolute", top: "-0.875rem", right: "-0.875rem", display: "flex", gap: "0.375rem" }}>
         <WorkflowEditButton className={""} onClick={() => console.log("clicked")}>
           Edit
@@ -215,7 +216,7 @@ const nodeTypes: NodeTypes = {
   task: TaskNode,
   templateTask: TaskNode,
   approval: TaskNode,
-  customTask: TaskNode,
+  customTask: CustomTaskNode,
   decision: DecisionNode,
   eventwait: TaskNode,
   manual: TaskNode,
@@ -352,6 +353,7 @@ function FlowDiagram(props: {
 
   return (
     <div style={{ height: "100%" }}>
+      {/* <AppContextProvider value={{}}> */}
       <ReactFlowProvider>
         <Sidenav />
         <div className="reactflow-wrapper" ref={reactFlowWrapper} style={{ height: "100%" }}>
@@ -375,10 +377,11 @@ function FlowDiagram(props: {
               <CustomEdgeArrow id={markerTypes.task} color="#0072c3" />
             </MarkerDefinition>
             <Background />
-            <Controls />
+            <Controls style={{marginBottom: "15rem"}}/>
           </ReactFlow>
         </div>
       </ReactFlowProvider>
+      {/* </AppContextProvider> */}
     </div>
   );
 }
@@ -418,6 +421,9 @@ const Sidenav = () => {
       </div>
       <div className="dndnode" onDragStart={(event) => onDragStart(event, "setwfproperty")} draggable>
         Set Property Node
+      </div>
+      <div className="dndnode" onDragStart={(event) => onDragStart(event, "customTask")} draggable>
+        Custom Node
       </div>
       <div className="dndnode output" onDragStart={(event) => onDragStart(event, "end")} draggable>
         End Node
