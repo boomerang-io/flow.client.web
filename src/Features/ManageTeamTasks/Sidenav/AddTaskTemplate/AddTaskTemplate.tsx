@@ -10,6 +10,7 @@ import { resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import { Add } from "@carbon/react/icons";
 import styles from "./addTaskTemplate.module.scss";
+import { formatErrorMessage } from "@boomerang-io/utils";
 
 AddTaskTemplate.propTypes = {
   addTemplateInState: PropTypes.func.isRequired,
@@ -45,12 +46,15 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
       closeModal();
     } catch (err) {
       if (!isCancel(err)) {
-        const { data } = err && err.response;
+        const errorMessages = formatErrorMessage({
+          error: err,
+          defaultMessage: "Created Task Template Failed",
+        });
         notify(
           <ToastNotification
             kind="error"
-            title={`${data.status} - ${data.error}`}
-            subtitle={data.message}
+            title={errorMessages.title}
+            subtitle={errorMessages.message}
             data-testid="create-task-template-notification"
           />
         );
