@@ -363,6 +363,7 @@ export type ChangeLog = Array<ChangeLogItem>;
 export interface TaskModel {
   category: string;
   currentVersion: number;
+  description?: string;
   id: string;
   icon: string;
   model: string;

@@ -1,0 +1,22 @@
+.closeButton {
+  position: absolute;
+  right: -0.75rem;
+  top: -0.75rem;
+}
+
+.editButton {
+  position: absolute;
+  right: 1.75rem;
+  top: -0.75rem;
+}
+
+.updateButton {
+  position: absolute;
+  right: 4.375rem;
+  top: -0.75rem;
+}
+
+.updateTaskModalContainer {
+  max-height: 62.5rem !important;
+  max-width: 60rem !important;
+}

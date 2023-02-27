@@ -103,6 +103,7 @@ export const NodeType = {
   SetProperty: "setwfproperty",
   SetStatus: "setwfstatus",
   Start: "start",
+  StartEnd: "startend",
   Task: "task",
   TemplateTask: "templateTask",
   Wait: "eventwait",

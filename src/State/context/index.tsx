@@ -49,6 +49,7 @@ interface ExecutionContext {
 export const [useExecutionContext, ExecutionContextProvider] = createContext<ExecutionContext>();
 
 interface EditorContext {
+  availableParametersQueryData?: any;
   revisionDispatch?: Function;
   revisionState: WorkflowRevision;
   summaryData: WorkflowSummary;
