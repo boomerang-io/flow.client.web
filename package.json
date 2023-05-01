@@ -158,8 +158,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@carbon/feature-flags@0.9.0": "patches/@carbon__feature-flags@0.9.0.patch",
-      "react-virtualized@9.22.3": "patches/react-virtualized@9.22.3.patch"
+      "react-virtualized@9.22.5": "patches/react-virtualized@9.22.5.patch"
     }
   }
 }
