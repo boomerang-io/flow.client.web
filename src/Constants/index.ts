@@ -92,8 +92,9 @@ export const InputTypeCopy = Object.freeze({
 export const NodeType = {
   Acquirelock: "acquirelock",
   Approval: "approval",
-  CustomTask: "customTask",
+  CustomTask: "custom",
   Decision: "decision",
+  Generic: "generic",
   End: "end",
   Manual: "manual",
   Releaselock: "releaselock",
@@ -105,8 +106,9 @@ export const NodeType = {
   Start: "start",
   StartEnd: "startend",
   Task: "task",
-  TemplateTask: "templateTask",
+  TemplateTask: "template",
   Wait: "eventwait",
+  Sleep: "sleep",
 } as const;
 
 export const QueryStatus = Object.freeze({

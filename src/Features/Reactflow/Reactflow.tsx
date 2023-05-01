@@ -37,6 +37,8 @@ import {
   TaskTemplateNode,
   CustomTaskNode
 } from "./components";
+import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
+import SwitchLinkExecutionConditionButton from "Components/SwitchLinkExecutionConditionButton";
 
 type NodeTypeValues = typeof NodeType[keyof typeof NodeType];
 
@@ -139,6 +141,7 @@ const TaskEdge: React.FC<EdgeProps> = (props: any) => {
           }}
           className="nodrag nopan"
         >
+          <TaskLinkExecutionConditionSwitcher onClick={() => setCondition((condition + 1) % 3)} />
           <button
             style={{
               cursor: "pointer",
@@ -147,7 +150,6 @@ const TaskEdge: React.FC<EdgeProps> = (props: any) => {
               padding: "0.375rem",
               borderRadius: "4px",
             }}
-            onClick={() => setCondition((condition + 1) % 3)}
           >
             {conditions[condition as keyof typeof conditions]}
           </button>
@@ -200,7 +202,7 @@ export const markerTypes: { [K in NodeTypeValues]: string } = {
   decision: "decision-marker",
   end: "task-marker",
   eventwait: "task-marker",
-  customTask: "task-marker",
+  custom: "task-marker",
   manual: "task-marker",
   releaselock: "task-marker",
   runscheduledworkflow: "task-marker",
@@ -210,7 +212,7 @@ export const markerTypes: { [K in NodeTypeValues]: string } = {
   setwfstatus: "task-marker",
   start: "task-marker",
   task: "task-marker",
-  templateTask: "task-marker",
+  template: "task-marker",
 };
 
 const edgeTypes: EdgeTypes = {
@@ -245,10 +247,8 @@ const initialNodes: Node[] = [
   {
     id: "start",
     position: { x: 200, y: 200 },
-    data: { label: "start" },
     type: "start",
-    sourcePosition: Position.Right,
-    deletable: false,
+    data: {},
   },
   {
     id: "2",
@@ -368,6 +368,7 @@ function FlowDiagram(props: {
     taskTemplatesData: tasktemplate,
   };
 
+  console.log(flow?.toObject());
   return (
     <EditorContextProvider value={store}>
       <div style={{ height: "100%" }}>
