@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 patchedDependencies:
+  '@carbon/feature-flags@0.9.0':
+    hash: 63rlm5q566k5pgiec2zdysfecu
+    path: patches/@carbon__feature-flags@0.9.0.patch
   react-virtualized@9.22.5:
     hash: wem7zdhrj6jola7ic3qcehiqii
     path: patches/react-virtualized@9.22.5.patch
@@ -1790,9 +1793,10 @@ packages:
     resolution: {integrity: sha512-nca4aTE8Ss5NzjjK6fxR+mM63e0hDmH3nT3zDZ2pRQ23QoJzcmhZmaWQoLGd6ONa52vAuPWcVPPg/bynN07Q9w==}
     dev: false
 
-  /@carbon/feature-flags@0.9.0:
+  /@carbon/feature-flags@0.9.0(patch_hash=63rlm5q566k5pgiec2zdysfecu):
     resolution: {integrity: sha512-uNCRkxsNwLdJVNwQ5S5vrLAm4yawWzhFBwyP9EgXVmRzJH85Aim+miC+QNjRXntJDYhZYDuLABTeb3VD692ypA==}
     dev: false
+    patched: true
 
   /@carbon/grid@11.13.0:
     resolution: {integrity: sha512-Jb2QaG22BXd1zvnXwkQMYxyF3Us1cY46pWzRYAy0dKQCJYaW3ii2kD1Z2aE8Ea3UYmg5CR13D7+shB/idtZG5g==}
@@ -1845,7 +1849,7 @@ packages:
       sass: ^1.33.0
     dependencies:
       '@babel/runtime': 7.21.5
-      '@carbon/feature-flags': 0.9.0
+      '@carbon/feature-flags': 0.9.0(patch_hash=63rlm5q566k5pgiec2zdysfecu)
       '@carbon/icons-react': 11.19.0(react@17.0.0)
       '@carbon/layout': 11.13.0
       '@carbon/styles': 1.28.0(sass@1.62.1)
