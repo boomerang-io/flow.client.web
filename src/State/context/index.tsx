@@ -31,7 +31,6 @@ type AppContext = {
   };
   teams: FlowTeam[];
   user: FlowUser;
-  userWorkflows: UserWorkflow;
 };
 
 interface TaskProvider {

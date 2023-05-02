@@ -52,7 +52,6 @@ const Workflows = lazy(() => import("Features/Workflows"));
 const getUserUrl = serviceUrl.getUserProfile();
 const getPlatformConfigUrl = serviceUrl.getPlatformConfig();
 const getTeamsUrl = serviceUrl.getTeams();
-const getUserWorkflows = serviceUrl.getUserWorkflows();
 const featureFlagsUrl = serviceUrl.getFeatureFlags();
 const browser = detect();
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
@@ -116,27 +115,19 @@ export default function App() {
     enabled: Boolean(userQuery.data?.id),
   });
 
-  const userWorkflowsQuery = useQuery<UserWorkflow, string>({
-    queryKey: getUserWorkflows,
-    queryFn: resolver.query(getUserWorkflows),
-    enabled: Boolean(userQuery.data?.id),
-  });
-
   const isLoading =
     userQuery.isLoading ||
     navigationQuery.isLoading ||
     teamsQuery.isLoading ||
     featureQuery.isLoading ||
-    flowNavigationQuery.isLoading ||
-    userWorkflowsQuery.isLoading;
+    flowNavigationQuery.isLoading;
 
   const hasError =
     userQuery.isError ||
     navigationQuery.isError ||
     teamsQuery.isError ||
     featureQuery.isError ||
-    flowNavigationQuery.isError ||
-    userWorkflowsQuery.isError;
+    flowNavigationQuery.isError;
 
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
@@ -166,14 +157,7 @@ export default function App() {
     );
   }
 
-  if (
-    userQuery.data &&
-    navigationQuery.data &&
-    teamsQuery.data &&
-    featureQuery.data &&
-    flowNavigationQuery.data &&
-    userWorkflowsQuery.data
-  ) {
+  if (userQuery.data && navigationQuery.data && teamsQuery.data && featureQuery.data && flowNavigationQuery.data) {
     const feature = featureQuery.data.features;
     return (
       <FlagsProvider
@@ -207,7 +191,6 @@ export default function App() {
             shouldShowBrowserWarning={shouldShowBrowserWarning}
             teamsData={teamsQuery.data}
             userData={userQuery.data}
-            userWorkflowsData={userWorkflowsQuery.data}
             quotas={featureQuery.data.quotas}
           />
         </ErrorBoundary>
@@ -226,7 +209,6 @@ interface MainProps {
   teamsData: Array<FlowTeam>;
   userData: FlowUser;
   quotas: FlowFeatures["quotas"];
-  userWorkflowsData: UserWorkflow;
 }
 
 function Main({
@@ -237,7 +219,6 @@ function Main({
   shouldShowBrowserWarning,
   teamsData,
   userData,
-  userWorkflowsData,
   quotas,
 }: MainProps) {
   const { id: userId, type: platformRole } = userData;
@@ -259,7 +240,6 @@ function Main({
         setIsTutorialActive,
         user: userData,
         teams: sortBy(teamsData, "name"),
-        userWorkflows: userWorkflowsData,
         quotas,
       }}
     >
