@@ -55,15 +55,15 @@ export interface Action {
 }
 
 export interface Approver {
-  userName: string;
-  userId: string;
-  userEmail: string;
-  teamApprover?: boolean;
+  name: string;
+  id: string;
+  email: string;
 }
 
 export interface ApproverGroup {
-  groupId: string;
-  groupName: string;
+  id: string;
+  name: string;
+  creationDate: string;
   approvers: Array<Approver>;
 }
 
@@ -375,14 +375,23 @@ export interface TaskModel {
 }
 
 export interface FlowTeam {
-  higherLevelGroupId: string;
   id: string;
-  isActive: boolean;
-  labels?: { key: string; value: string }[];
   name: string;
-  workflowQuotas: FlowTeamQuotas;
-  users: FlowUser[];
-  workflows: WorkflowSummary[];
+  creationDate: string;
+  status: FlowTeamStatus;
+  externalRef?: string;
+  labels?: Record<string, string>;
+  quotas?: FlowTeamQuotas;
+  users: Array<FlowUser>;
+  workflows?: Array<WorkflowSummary>;
+  settings?: unknown;
+  parameters: Array<DataDrivenInput>;
+  approverGroups: Array<ApproverGroup>;
+}
+
+export enum FlowTeamStatus {
+  Active = "active",
+  Inactive = "inactive",
 }
 
 export interface FlowTeamQuotas {
@@ -394,7 +403,6 @@ export interface FlowTeamQuotas {
   maxConcurrentWorkflows: number;
   maxWorkflowExecutionTime: number;
   monthlyResetDate: string;
-
   currentConcurrentWorkflows: number;
   currentAverageExecutionTime: number;
   currentWorkflowsPersistentStorage: number;
