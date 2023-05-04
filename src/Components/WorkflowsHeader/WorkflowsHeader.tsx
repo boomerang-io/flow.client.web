@@ -4,35 +4,31 @@ import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  FeatureNavTab as Tab,
-  FeatureNavTabs as Tabs,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateTemplateWorkflow from "Components/CreateTemplateWorkflow";
-import { appLink } from "Config/appConfig";
-import { FlowTeam } from "Types";
-import { WorkflowScope } from "Constants";
+import { FlowTeam, WorkflowView, WorkflowViewType } from "Types";
 import styles from "./workflowsHeader.module.scss";
 
 type HandleUpdateFilter = (query: { [key: string]: string | string[] | null }) => void;
 
 interface WorkflowsHeaderProps {
-  scope: string;
+  title: string;
+  subtitle?: string;
   handleUpdateFilter: HandleUpdateFilter;
   searchQuery: string | string[] | null;
-  selectedTeams: FlowTeam[] | null;
-  teamsQuery: string[] | null;
-  teams: FlowTeam[] | null;
+  team: FlowTeam | null;
   workflowsCount: number;
+  viewType: WorkflowViewType;
 }
 
 const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
-  scope,
-  selectedTeams,
+  title,
+  subtitle,
   handleUpdateFilter,
   searchQuery,
-  teams,
-  teamsQuery,
+  team,
   workflowsCount,
+  viewType,
 }) => {
   return (
     <Header
@@ -40,31 +36,18 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
       includeBorder={false}
       header={
         <>
-          <HeaderSubtitle>These are your</HeaderSubtitle>
-          <HeaderTitle>
-            {scope === WorkflowScope.System
-              ? `System Workflows (${workflowsCount})`
-              : scope === WorkflowScope.Template
-              ? `Template Workflows (${workflowsCount})`
-              : scope === WorkflowScope.Team
-              ? `Team Workflows (${workflowsCount})`
-              : `Workflows (${workflowsCount})`}
-          </HeaderTitle>
-          {scope === WorkflowScope.Team && (
-            <HeaderSubtitle className={styles.headerMessage}>
-              Your playground to create, execute, and collaborate on shared workflows. Automation and work smarter.
-            </HeaderSubtitle>
-          )}
+          <HeaderSubtitle>These are your ${viewType}</HeaderSubtitle>
+          <HeaderTitle>{`(${title}) (${workflowsCount})`}</HeaderTitle>
+          {Boolean(subtitle) ? <HeaderSubtitle className={styles.headerMessage}>{subtitle}</HeaderSubtitle> : null}
         </>
       }
       actions={
         <SearchFilterBar
-          scope={scope}
-          selectedTeams={selectedTeams}
           handleUpdateFilter={handleUpdateFilter}
           searchQuery={searchQuery}
-          teamsQuery={teamsQuery}
-          teams={teams}
+          team={team}
+          workflowsCount={workflowsCount}
+          viewType={viewType}
         />
       }
     />
@@ -74,69 +57,38 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
 export default WorkflowsHeader;
 
 interface SearchFilterBarProps {
-  scope: string;
   handleUpdateFilter: HandleUpdateFilter;
   searchQuery: string | string[] | null;
-  selectedTeams: FlowTeam[] | null;
-  teamsQuery: string[] | null;
-  teams: FlowTeam[] | null;
+  workflowsCount: number;
+  team: FlowTeam | null;
+  viewType: WorkflowViewType;
 }
 
 const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
-  scope,
-  selectedTeams,
   handleUpdateFilter,
   searchQuery,
-  teamsQuery,
-  teams,
+  team,
+  viewType,
+  workflowsCount,
 }) => {
-  const handleOnMultiSelectChange = (change: any) => {
-    const selectedItems = change.selectedItems;
-    handleUpdateFilter({ teams: selectedItems.map((team: { id: string }) => team.id) });
-  };
-
   const handleOnSearchInputChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     handleUpdateFilter({ query: e.currentTarget?.value ?? "" });
   };
 
-  const isTeamQueryActive = teamsQuery && teamsQuery.length > 0;
-  const hasTeams = teams && teams.length > 0;
-
   return (
     <div className={styles.filterContainer}>
-      {scope !== WorkflowScope.Template && <CreateTemplateWorkflow teams={teams} scope={scope} />}
+      {viewType === WorkflowView.Workflow ? <CreateTemplateWorkflow team={team!} /> : null}
       <Layer className={styles.search}>
         <Search
-          disabled={scope === WorkflowScope.Team ? !hasTeams : false}
+          disabled={workflowsCount > 0}
           data-testid="workflows-team-search"
           id="search-team-workflows"
-          labelText={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
+          labelText={`Search for a ${viewType}`}
           onChange={handleOnSearchInputChange}
-          placeholder={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
+          placeholder={`Search for a ${viewType}`}
           value={searchQuery}
         />
       </Layer>
-      {teams && scope !== WorkflowScope.User && (
-        <div className={styles.filter}>
-          <FilterableMultiSelect
-            light
-            disabled={!hasTeams}
-            id="b-search-filter__filter"
-            invalid={false}
-            initialSelectedItems={
-              isTeamQueryActive && Array.isArray(selectedTeams)
-                ? selectedTeams.map((team) => ({ id: team.id, text: team.name }))
-                : []
-            }
-            items={Array.isArray(teams) ? teams.map((team) => ({ id: team.id, text: team.name })) : []}
-            itemToString={(team: { text: string }) => (team ? team.text : "")}
-            label={"Choose a team"}
-            onChange={handleOnMultiSelectChange}
-            placeholder={"Choose a team"}
-            titleText={"Filter by Team"}
-          />
-        </div>
-      )}
     </div>
   );
 };

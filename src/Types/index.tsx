@@ -199,6 +199,13 @@ export interface WorkflowSummary {
   templateUpgradesAvailable: boolean;
 }
 
+export const WorkflowView = {
+  Template: "template",
+  Workflow: "workflow",
+} as const;
+
+export type WorkflowViewType = typeof WorkflowView[keyof typeof WorkflowView];
+
 export interface WorkflowDag {
   gridSize: number;
   id: string;
@@ -381,9 +388,9 @@ export interface FlowTeam {
   status: FlowTeamStatus;
   externalRef?: string;
   labels?: Record<string, string>;
-  quotas?: FlowTeamQuotas;
+  quotas: FlowTeamQuotas;
   users: Array<FlowUser>;
-  workflows?: Array<WorkflowSummary>;
+  workflows: Array<WorkflowSummary>;
   settings?: unknown;
   parameters: Array<DataDrivenInput>;
   approverGroups: Array<ApproverGroup>;

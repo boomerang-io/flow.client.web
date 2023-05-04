@@ -240,6 +240,7 @@ function Main({
         setIsTutorialActive,
         user: userData,
         teams: sortBy(teamsData, "name"),
+        activeTeam: teamsData[0],
         quotas,
       }}
     >

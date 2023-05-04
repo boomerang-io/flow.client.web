@@ -18,19 +18,26 @@ import {
   WorkflowExport,
   CreateWorkflowSummary,
   WorkflowSummary,
+  WorkflowViewType,
+  WorkflowView,
 } from "Types";
-import { WorkflowScope } from "Constants";
 import { FeatureFlag } from "Config/appConfig";
 import styles from "./createWorkflow.module.scss";
 interface CreateWorkflowProps {
-  scope: string;
-  team?: FlowTeam | null;
+  team: FlowTeam;
   teams?: FlowTeam[] | null;
   hasReachedWorkflowLimit: boolean;
   workflows?: WorkflowSummary[];
+  viewType: WorkflowViewType;
 }
 
-const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, hasReachedWorkflowLimit, workflows }) => {
+const CreateWorkflow: React.FC<CreateWorkflowProps> = ({
+  team,
+  teams,
+  hasReachedWorkflowLimit,
+  workflows,
+  viewType,
+}) => {
   const workflowDagEngine = new WorkflowDagEngine({ dag: null });
   const { teams: teamState } = useAppContext();
   const queryClient = useQueryClient();
@@ -59,7 +66,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
     try {
       const { data: newWorkflow } = await createWorkflowMutator({ body: workflowSummary });
       const workflowId = newWorkflow.id;
-      const dagProps = createWorkflowRevisionBody(workflowDagEngine, "Create workflow");
+      const dagProps = createWorkflowRevisionBody(workflowDagEngine, `Create ${viewType}`);
       const workflowRevision = {
         ...dagProps,
         workflowId,
@@ -69,15 +76,13 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
 
       queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
       history.push(appLink.editorDesigner({ workflowId }));
-      notify(<ToastNotification kind="success" title="Create Workflow" subtitle="Successfully created workflow" />);
-      if (scope === WorkflowScope.System) {
-        queryClient.invalidateQueries(serviceUrl.getSystemWorkflows());
-      } else if (scope === WorkflowScope.Team) {
-        queryClient.invalidateQueries(serviceUrl.getTeams());
-      } else if (scope === WorkflowScope.Template) {
+      notify(
+        <ToastNotification kind="success" title={`Create ${viewType}`} subtitle={`${viewType} successfully created`} />
+      );
+      if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.workflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getUserWorkflows());
+        queryClient.invalidateQueries(serviceUrl.getTeams());
       }
       return;
     } catch (e) {
@@ -87,29 +92,30 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
     }
   };
 
+  // TODO - fix up import query
   const handleImportWorkflow = async (workflowExport: WorkflowExport, closeModal: () => void, team: FlowTeam) => {
     let query;
-    if (scope === WorkflowScope.Team) {
-      query = queryString.stringify({ update: false, flowTeamId: team.id, scope: "team" });
-    } else query = queryString.stringify({ update: false, scope });
+    if (viewType === WorkflowView.Workflow) {
+      query = queryString.stringify({ update: false, flowTeamId: team.id });
+    } else query = queryString.stringify({ update: false });
     try {
       await importWorkflowMutator({ query, body: workflowExport });
-      notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfully updated" />);
-      if (scope === WorkflowScope.System) {
-        queryClient.invalidateQueries(serviceUrl.getSystemWorkflows());
-      } else if (scope === WorkflowScope.Team) {
+      notify(
+        <ToastNotification kind="success" title={`Update ${viewType}`} subtitle={`${viewType} successfully updated`} />
+      );
+      if (viewType === WorkflowView.Template) {
+        queryClient.invalidateQueries(serviceUrl.workflowTemplates());
+      } else {
         //todo: fix refresh
         teamState.find((t) => t.id === team.id)?.workflows.push(workflowExport);
         queryClient.setQueryData(serviceUrl.getTeams(), teamState);
         queryClient.invalidateQueries(serviceUrl.getTeams());
-      } else {
-        queryClient.invalidateQueries(serviceUrl.getUserWorkflows());
       }
       closeModal();
     } catch (err) {
       const errorMessages = formatErrorMessage({
         error: err,
-        defaultMessage: "Import Workflow Failed",
+        defaultMessage: `Import ${viewType} Failed`,
       });
       notify(<ToastNotification kind="error" title={errorMessages.title} subtitle={errorMessages.message} />);
     }
@@ -130,15 +136,13 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
           >
             <div className={styles.disabledCreate} data-testid="workflows-create-workflow-button">
               <Add className={styles.addIcon} />
-              <p className={styles.text}>Create a new workflow</p>
+              <p className={styles.text}>Create a new ${viewType}</p>
             </div>
           </TooltipHover>
         ) : (
           <button className={styles.container} onClick={openModal} data-testid="workflows-create-workflow-button">
             <Add className={styles.addIcon} />
-            <p className={styles.text}>
-              {scope !== WorkflowScope.Template ? "Create a new Workflow" : "Create a new Template"}
-            </p>
+            <p className={styles.text}>Create a new ${viewType}</p>
           </button>
         )
       }
@@ -147,7 +151,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
         children: "Your request will not be saved",
       }}
       modalHeaderProps={{
-        title: scope !== WorkflowScope.Template ? "Create a new Workflow" : "Create a new Template",
+        title: `Create a new ${viewType}`,
         subtitle: "Get started with these basics, then proceed to designing it out.",
       }}
     >
@@ -159,10 +163,9 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
           importError={importError}
           importWorkflow={handleImportWorkflow}
           isLoading={isLoading}
-          scope={scope}
           team={team}
           teams={teams}
-          type={scope === WorkflowScope.Template ? "Template" : "Workflow"}
+          type={viewType}
           workflows={workflows}
           //@ts-ignore
           workflowQuotasEnabled={workflowQuotasEnabled}

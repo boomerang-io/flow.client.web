@@ -168,13 +168,6 @@ export const WorkflowPropertyUpdateType = Object.freeze({
   Delete: "delete",
 });
 
-export const WorkflowScope = Object.freeze({
-  System: "system",
-  Team: "team",
-  User: "user",
-  Template: "template",
-});
-
 export const SortDirection = Object.freeze({
   Asc: "ASC",
   Desc: "DESC",

@@ -11,21 +11,21 @@ interface UpdateWorkflowProps {
   teamId: string | null;
   workflowId: string;
   onCloseModal: () => void;
-  scope: string;
   type: string;
 }
 
-const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onCloseModal, scope, type }) => {
+const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onCloseModal, type }) => {
   const queryClient = useQueryClient();
-  
+
+  //TODO - update the query and mutator as post endpoint different
   const { mutateAsync: importWorkflowMutator, isLoading: isPosting } = useMutation(resolver.postImportWorkflow, {
     onSuccess: async () => queryClient.invalidateQueries(serviceUrl.getTeams()),
   });
   const handleImportWorkflow = async (data: WorkflowExport, closeModal: () => void) => {
     let query;
     if (teamId) {
-      query = queryString.stringify({ update: true, flowTeamId: teamId, scope });
-    } else query = queryString.stringify({ update: true, scope });
+      query = queryString.stringify({ update: true, flowTeamId: teamId });
+    } else query = queryString.stringify({ update: true });
 
     try {
       await importWorkflowMutator({ query, body: data });
