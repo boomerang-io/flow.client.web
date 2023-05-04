@@ -1,5 +1,5 @@
 import React from "react";
-import { Layer, FilterableMultiSelect, Search } from "@carbon/react";
+import { Layer, Search } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
@@ -12,16 +12,18 @@ import styles from "./workflowsHeader.module.scss";
 type HandleUpdateFilter = (query: { [key: string]: string | string[] | null }) => void;
 
 interface WorkflowsHeaderProps {
+  pretitle: string;
   title: string;
   subtitle?: string;
   handleUpdateFilter: HandleUpdateFilter;
   searchQuery: string | string[] | null;
-  team: FlowTeam | null;
+  team?: FlowTeam | null;
   workflowsCount: number;
   viewType: WorkflowViewType;
 }
 
 const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
+  pretitle,
   title,
   subtitle,
   handleUpdateFilter,
@@ -36,7 +38,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
       includeBorder={false}
       header={
         <>
-          <HeaderSubtitle>These are your ${viewType}</HeaderSubtitle>
+          <HeaderSubtitle>{pretitle}</HeaderSubtitle>
           <HeaderTitle>{`(${title}) (${workflowsCount})`}</HeaderTitle>
           {Boolean(subtitle) ? <HeaderSubtitle className={styles.headerMessage}>{subtitle}</HeaderSubtitle> : null}
         </>
@@ -60,7 +62,7 @@ interface SearchFilterBarProps {
   handleUpdateFilter: HandleUpdateFilter;
   searchQuery: string | string[] | null;
   workflowsCount: number;
-  team: FlowTeam | null;
+  team?: FlowTeam | null;
   viewType: WorkflowViewType;
 }
 

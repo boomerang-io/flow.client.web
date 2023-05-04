@@ -102,6 +102,7 @@ export default function WorkflowsHome() {
         })}
       >
         <WorkflowsHeader
+          pretitle="These are your Workflows"
           title={activeTeam.name}
           subtitle="Your playground to create, execute, and collaborate on workflows. Work smarter with automation."
           handleUpdateFilter={handleUpdateFilter}

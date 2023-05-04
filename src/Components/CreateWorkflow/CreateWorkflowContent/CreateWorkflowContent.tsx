@@ -5,11 +5,10 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import capitalize from "lodash/capitalize";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
-import { ComboBox, Loading, TextArea, TextInput, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading, TextArea, TextInput, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import workflowIcons from "Assets/workflowIcons";
 import { defaultWorkflowConfig } from "./constants";
-import { ComboBoxItem, FlowTeam, CreateWorkflowSummary } from "Types";
-import { WorkflowScope } from "Constants";
+import { FlowTeam, CreateWorkflowSummary, WorkflowViewType } from "Types";
 import styles from "./createWorkflow.module.scss";
 
 let classnames = classNames.bind(styles);
@@ -19,10 +18,9 @@ interface CreateWorkflowContentProps {
   createError: object;
   createWorkflow: (workflowSummary: CreateWorkflowSummary) => Promise<void>;
   isLoading: boolean;
-  scope: string;
-  team?: FlowTeam | null;
-  teams?: FlowTeam[] | null;
+  team: FlowTeam;
   workflowQuotasEnabled: boolean;
+  viewType: WorkflowViewType;
 }
 
 const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
@@ -30,33 +28,23 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   createError,
   createWorkflow,
   isLoading,
-  scope,
   team,
-  teams,
   workflowQuotasEnabled,
+  viewType,
 }) => {
-  const [selectedTeam, setSelectedTeam] = useState<FlowTeam | null>(team ?? null);
   const formikRef = useRef<any>();
-
-  const existingWorkflowNames = selectedTeam?.workflows.map((workflow) => workflow.name) ?? [];
-
-  const hasReachedTeamWorkflowLimit =
-    selectedTeam && selectedTeam.workflowQuotas.maxWorkflowCount <= selectedTeam.workflowQuotas.currentWorkflowCount;
-  const createTeamWorkflowsDisabled = workflowQuotasEnabled && hasReachedTeamWorkflowLimit;
-
-  useEffect(() => {
-    formikRef.current?.validateForm();
-  }, [selectedTeam]);
+  const hasReachedWorkflowLimit = team.quotas.maxWorkflowCount <= team.quotas.currentWorkflowCount;
+  const createWorkflowsDisabled = workflowQuotasEnabled && hasReachedWorkflowLimit;
+  const existingWorkflowNames = team.workflows.map((workflow) => workflow.name) ?? [];
 
   const handleSubmit = (values: any) => {
     const requestBody = {
       ...defaultWorkflowConfig,
-      flowTeamId: selectedTeam?.id,
+      flowTeamId: team.id,
       name: values.name,
       shortDescription: values.summary,
       description: values.description,
       icon: values.icon,
-      scope,
     };
     createWorkflow(requestBody);
   };
@@ -88,44 +76,15 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
           <>
             {isLoading && <Loading />}
             <ModalBody aria-label="inputs" className={styles.formBody}>
-              {scope === WorkflowScope.Team ? (
-                <div className={styles.teamAndName}>
-                  <ComboBox
-                    id="selectedTeam"
-                    styles={{ marginBottom: "2.5rem" }}
-                    onChange={({ selectedItem }: { selectedItem: FlowTeam }) =>
-                      setSelectedTeam(selectedItem ? selectedItem : null)
-                    }
-                    items={teams}
-                    initialSelectedItem={selectedTeam}
-                    itemToString={(item: ComboBoxItem) => (item ? item.name : "")}
-                    titleText="Team"
-                    placeholder="Select a team"
-                    invalid={scope === WorkflowScope.Team && !Boolean(selectedTeam)}
-                    invalidText="Team is required"
-                  />
-
-                  <TextInput
-                    id="name"
-                    labelText="Workflow Name"
-                    value={values.name}
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    invalid={Boolean(errors.name && touched.name)}
-                    invalidText={errors.name}
-                  />
-                </div>
-              ) : (
-                <TextInput
-                  id="name"
-                  labelText={scope === WorkflowScope.Template ? "Template Name" : "Workflow Name"}
-                  value={values.name}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  invalid={Boolean(errors.name && touched.name)}
-                  invalidText={errors.name}
-                />
-              )}
+              <TextInput
+                id="name"
+                labelText={`${viewType} Name`}
+                value={values.name}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={Boolean(errors.name && touched.name)}
+                invalidText={errors.name}
+              />
               <TextInput
                 id="summary"
                 labelText="Summary"
@@ -172,10 +131,10 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                   lowContrast
                   kind="error"
                   title="Something's Wrong"
-                  subtitle={`Request to create ${scope === WorkflowScope.Template ? "template" : "workflow"} failed`}
+                  subtitle={`Request to create ${viewType} failed`}
                 />
               )}
-              {createTeamWorkflowsDisabled && (
+              {createWorkflowsDisabled && (
                 <InlineNotification
                   lowContrast
                   kind="error"
@@ -190,7 +149,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
               </Button>
               <Button
                 data-testid="workflows-create-workflow-submit"
-                disabled={!isValid || isLoading || createTeamWorkflowsDisabled}
+                disabled={!isValid || isLoading || createWorkflowsDisabled}
                 onClick={handleSubmit}
               >
                 {isLoading ? "Creating..." : "Create"}

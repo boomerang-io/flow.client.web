@@ -553,11 +553,6 @@ export interface UserQuotas {
   monthlymonthlyResetDate: string;
 }
 
-export interface UserWorkflow {
-  userQuotas: UserQuotas;
-  workflows: WorkflowSummary[];
-}
-
 export interface FlowNavigationItemChild {
   activeClassName?: string;
   element?: React.ReactNode;

@@ -1,5 +1,4 @@
-import React from "react";
-import { useHistory, useLocation, Redirect, Route, Switch } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "Hooks";
 import { Loading } from "@carbon/react";
 import CreateWorkflow from "Components/CreateWorkflow";
@@ -9,23 +8,20 @@ import WorkflowCard from "Components/WorkflowCard";
 import WorkflowsHeader from "Components/WorkflowsHeader";
 import queryString from "query-string";
 import { serviceUrl } from "Config/servicesConfig";
-import { AppPath } from "Config/appConfig";
-import { WorkflowSummary } from "Types";
-import { WorkflowScope } from "Constants";
-
+import { WorkflowSummary, WorkflowView } from "Types";
 import styles from "./SystemWorkflows.module.scss";
 
 export default function SystemWorkflows() {
   const history = useHistory();
-
   const location = useLocation();
   let { query: searchQuery = "" } = queryString.parse(location.search, {
     arrayFormat: "comma",
   });
-  const isWorkflowTemplates = location.pathname.includes("templates");
-
-  const { data: systemWorkflowsData, error, isLoading } = useQuery(serviceUrl.getSystemWorkflows());
-  const { data: templatesWorkflowData, error: errorTemplatesWorkflow, isLoading: isLoadingTemplatesWorkflow } = useQuery(serviceUrl.workflowTemplates());
+  const {
+    data: templatesWorkflowData,
+    error: errorTemplatesWorkflow,
+    isLoading: isLoadingTemplatesWorkflow,
+  } = useQuery(serviceUrl.workflowTemplates());
 
   let safeQuery = "";
   if (Array.isArray(searchQuery)) {
@@ -43,99 +39,46 @@ export default function SystemWorkflows() {
     history.push({ search: queryStr });
   };
 
-  const filteredWorkflows = isWorkflowTemplates ?
-    templatesWorkflowData?.filter((workflow: any) => workflow.name.toLowerCase().includes(safeQuery)) ?? []
-    :
-    systemWorkflowsData?.filter((workflow: any) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
+  const filteredWorkflows =
+    templatesWorkflowData?.filter((workflow: any) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
 
   return (
     <>
       <div className={styles.container}>
         <WorkflowsHeader
+          pretitle="These are your"
+          title="Template Workflows"
+          subtitle="Define reuseable Workflows available to all teams as Templates."
           handleUpdateFilter={handleUpdateFilter}
-          scope={isWorkflowTemplates ? WorkflowScope.Template : WorkflowScope.System}
           searchQuery={searchQuery}
-          selectedTeams={null}
-          teamsQuery={null}
-          teams={null}
-          //@ts-ignore
-          workflowsCount={isWorkflowTemplates ? templatesWorkflowData?.length ?? 0 : systemWorkflowsData?.length ?? 0}
+          workflowsCount={templatesWorkflowData?.length ?? 0}
+          viewType={WorkflowView.Template}
         />
         <div aria-label="Team Workflows" className={styles.content} role="region">
-          <Switch>
-            <Route path={AppPath.SystemManagementWorkflows}>
-              <section className={styles.sectionContainer}>
-                <RenderWorkflows
-                  isLoading={isLoading}
-                  error={error}
-                  filteredWorkflows={filteredWorkflows}
-                  searchQuery={searchQuery}
-                />
-              </section>
-            </Route>
-            <Route path={AppPath.TemplatesWorkflows}>
-              <section className={styles.sectionContainer}>
-                <RenderTemplates
-                  isLoading={isLoadingTemplatesWorkflow}
-                  error={errorTemplatesWorkflow}
-                  filteredWorkflows={filteredWorkflows}
-                  searchQuery={searchQuery}
-                />
-              </section>
-            </Route>
-            <Redirect exact from={AppPath.SystemWorkflows} to={AppPath.SystemManagementWorkflows} />
-          </Switch>
+          <section className={styles.sectionContainer}>
+            <RenderTemplates
+              isLoading={isLoadingTemplatesWorkflow}
+              error={errorTemplatesWorkflow}
+              workflows={templatesWorkflowData}
+              filteredWorkflows={filteredWorkflows}
+              searchQuery={searchQuery}
+            />
+          </section>
         </div>
       </div>
     </>
   );
 }
 
-type WorkflowProps = {
-  isLoading: boolean;
-  error: any;
-  filteredWorkflows: WorkflowSummary[];
-  searchQuery: string | string[] | null;
-};
-
-const RenderWorkflows = ({isLoading, error, filteredWorkflows, searchQuery}: WorkflowProps) => {
-    
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <ErrorDragon />;
-  }
-
-  if (!filteredWorkflows || (filteredWorkflows?.length === 0 && searchQuery !== "")) {
-    return <EmptyState />;
-  }
-  return (
-    <div className={styles.workflows}>
-      {filteredWorkflows.map((workflow: WorkflowSummary) => (
-        <WorkflowCard
-          scope={WorkflowScope.System}
-          key={workflow.id}
-          teamId={null}
-          workflow={workflow}
-          quotas={null}
-        />
-      ))}
-      {<CreateWorkflow scope={WorkflowScope.System} hasReachedWorkflowLimit={false} />}
-    </div>
-  );
-};
-
 type TemplatesProps = {
   isLoading: boolean;
   error: any;
+  workflows: WorkflowSummary[];
   filteredWorkflows: WorkflowSummary[];
   searchQuery: string | string[] | null;
 };
 
-const RenderTemplates = ({isLoading, error, filteredWorkflows, searchQuery}: TemplatesProps) => {
-    
+const RenderTemplates = ({ isLoading, error, workflows, filteredWorkflows, searchQuery }: TemplatesProps) => {
   if (isLoading) {
     return <Loading />;
   }
@@ -149,16 +92,16 @@ const RenderTemplates = ({isLoading, error, filteredWorkflows, searchQuery}: Tem
   }
   return (
     <div className={styles.workflows}>
-      {filteredWorkflows.map((workflow: WorkflowSummary) => (
+      {filteredWorkflows.map((workflow) => (
         <WorkflowCard
-          scope={WorkflowScope.Template}
           key={workflow.id}
           teamId={null}
           workflow={workflow}
           quotas={null}
+          viewType={WorkflowView.Template}
         />
       ))}
-      {<CreateWorkflow scope={WorkflowScope.Template} hasReachedWorkflowLimit={false} />}
+      {<CreateWorkflow hasReachedWorkflowLimit={false} workflows={workflows} viewType={WorkflowView.Template} />}
     </div>
   );
 };

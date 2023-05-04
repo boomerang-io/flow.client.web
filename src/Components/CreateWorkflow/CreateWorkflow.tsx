@@ -24,20 +24,13 @@ import {
 import { FeatureFlag } from "Config/appConfig";
 import styles from "./createWorkflow.module.scss";
 interface CreateWorkflowProps {
-  team: FlowTeam;
-  teams?: FlowTeam[] | null;
+  team?: FlowTeam;
   hasReachedWorkflowLimit: boolean;
   workflows?: WorkflowSummary[];
   viewType: WorkflowViewType;
 }
 
-const CreateWorkflow: React.FC<CreateWorkflowProps> = ({
-  team,
-  teams,
-  hasReachedWorkflowLimit,
-  workflows,
-  viewType,
-}) => {
+const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflowLimit, workflows, viewType }) => {
   const workflowDagEngine = new WorkflowDagEngine({ dag: null });
   const { teams: teamState } = useAppContext();
   const queryClient = useQueryClient();

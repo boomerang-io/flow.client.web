@@ -13,7 +13,6 @@ import { ComboBox, Loading, TextInput } from "@boomerang-io/carbon-addons-boomer
 import { requiredWorkflowProps } from "./constants";
 import { ErrorFilled } from "@carbon/react/icons";
 import { FlowTeam, WorkflowExport, WorkflowSummary } from "Types";
-import { WorkflowScope } from "Constants";
 import styles from "./importWorkflowContent.module.scss";
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";

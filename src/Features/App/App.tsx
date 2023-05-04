@@ -23,7 +23,7 @@ import queryString from "query-string";
 import { elevatedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, UserWorkflow } from "Types";
+import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig } from "Types";
 import styles from "./app.module.scss";
 
 const ReactFlow = lazy(() => import("Features/Reactflow"));
