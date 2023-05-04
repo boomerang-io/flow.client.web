@@ -1,8 +1,9 @@
 const teams = [
   {
-    higherLevelGroupId: "5c41596cf32aa30001e9d444",
     id: "5e3a35ad8c222700018ccd39",
     name: "IBM Services Engineering",
+    creationDate: "2023-05-04T03:18:27.350Z",
+    status: "active",
     workflows: [
       {
         properties: [
@@ -211,7 +212,7 @@ const teams = [
         templateUpgradesAvailable: true,
       },
     ],
-    workflowQuotas: {
+    quotas: {
       maxWorkflowCount: 10,
       maxWorkflowExecutionMonthly: 100,
       maxWorkflowStorage: 5,
@@ -224,13 +225,16 @@ const teams = [
       monthlyResetDate: "August 1, 2020",
       currentWorkflowsPersistentStorage: 0,
     },
-    isActive: true,
     users: [],
+    parameters: [],
+    approverGroups: [],
   },
   {
-    higherLevelGroupId: "5c41596cf32aa30001e9d443",
+    externalRef: "5c41596cf32aa30001e9d443",
     id: "5e3a35ad8c222700018ccd38",
     name: "IBM Services Essentials",
+    creationDate: "2023-05-04T03:18:27.350Z",
+    status: "active",
     workflows: [
       {
         properties: [
@@ -379,7 +383,7 @@ const teams = [
         templateUpgradesAvailable: false,
       },
     ],
-    workflowQuotas: {
+    quotas: {
       maxWorkflowCount: 10,
       maxWorkflowExecutionMonthly: 100,
       maxWorkflowStorage: 5,
@@ -392,8 +396,9 @@ const teams = [
       monthlymonthlyResetDate: "August 1, 2020",
       currentWorkflowsPersistentStorage: 0,
     },
-    isActive: true,
     users: [],
+    parameters: [],
+    approverGroups: [],
   },
 ];
 

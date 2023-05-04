@@ -96,8 +96,8 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ team })
       }}
     >
       <CreateWorkflowTemplates
-        templatesError={workflowTemplatesError || userWorkflowsIsError || taskTemplatesError}
-        isLoading={workflowTemplatesIsLoading || userWorkflowsIsLoading || taskTempaltesAreLoading}
+        templatesError={workflowTemplatesError || taskTemplatesError}
+        isLoading={workflowTemplatesIsLoading || taskTempaltesAreLoading}
         workflowTemplates={workflowTemplatesData}
         taskTemplates={taskTemplatesData}
       />
