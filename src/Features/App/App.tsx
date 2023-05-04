@@ -39,7 +39,7 @@ const Insights = lazy(() => import("Features/Insights"));
 const Quotas = lazy(() => import("Features/Quotas"));
 const Schedules = lazy(() => import("Features/Schedules"));
 const Settings = lazy(() => import("Features/Settings"));
-const SystemWorkflows = lazy(() => import("Features/SystemWorkflows"));
+const TemplateWorkflows = lazy(() => import("Features/TemplateWorkflows"));
 const TaskTemplates = lazy(() => import("Features/TaskTemplates"));
 const Teams = lazy(() => import("Features/Teams"));
 const TeamProperties = lazy(() => import("Features/TeamProperties"));
@@ -322,8 +322,8 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           />
           <ProtectedRoute
             allowedUserRoles={elevatedUserRoles}
-            component={() => <SystemWorkflows />}
-            path={AppPath.SystemWorkflows}
+            component={() => <TemplateWorkflows />}
+            path={AppPath.TemplateWorkflows}
             userRole={platformRole}
           />
           <ProtectedRoute

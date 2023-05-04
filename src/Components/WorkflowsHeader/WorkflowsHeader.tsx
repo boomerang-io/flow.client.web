@@ -39,7 +39,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
       header={
         <>
           <HeaderSubtitle>{pretitle}</HeaderSubtitle>
-          <HeaderTitle>{`(${title}) (${workflowsCount})`}</HeaderTitle>
+          <HeaderTitle>{`${title} (${workflowsCount})`}</HeaderTitle>
           {Boolean(subtitle) ? <HeaderSubtitle className={styles.headerMessage}>{subtitle}</HeaderSubtitle> : null}
         </>
       }
@@ -82,7 +82,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
       {viewType === WorkflowView.Workflow ? <CreateTemplateWorkflow team={team!} /> : null}
       <Layer className={styles.search}>
         <Search
-          disabled={workflowsCount > 0}
+          disabled={workflowsCount <= 0}
           data-testid="workflows-team-search"
           id="search-team-workflows"
           labelText={`Search for a ${viewType}`}

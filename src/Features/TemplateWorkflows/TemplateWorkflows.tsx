@@ -9,9 +9,9 @@ import WorkflowsHeader from "Components/WorkflowsHeader";
 import queryString from "query-string";
 import { serviceUrl } from "Config/servicesConfig";
 import { WorkflowSummary, WorkflowView } from "Types";
-import styles from "./SystemWorkflows.module.scss";
+import styles from "./TemplateWorkflows.module.scss";
 
-export default function SystemWorkflows() {
+export default function TemplateWorkflows() {
   const history = useHistory();
   const location = useLocation();
   let { query: searchQuery = "" } = queryString.parse(location.search, {
@@ -46,7 +46,7 @@ export default function SystemWorkflows() {
     <>
       <div className={styles.container}>
         <WorkflowsHeader
-          pretitle="These are your"
+          pretitle="These are the"
           title="Template Workflows"
           subtitle="Define reuseable Workflows available to all teams as Templates."
           handleUpdateFilter={handleUpdateFilter}
@@ -101,7 +101,14 @@ const RenderTemplates = ({ isLoading, error, workflows, filteredWorkflows, searc
           viewType={WorkflowView.Template}
         />
       ))}
-      {<CreateWorkflow hasReachedWorkflowLimit={false} workflows={workflows} viewType={WorkflowView.Template} />}
+      {
+        <CreateWorkflow
+          team={null}
+          hasReachedWorkflowLimit={false}
+          workflows={workflows}
+          viewType={WorkflowView.Template}
+        />
+      }
     </div>
   );
 };

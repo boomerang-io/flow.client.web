@@ -24,7 +24,7 @@ import {
 import { FeatureFlag } from "Config/appConfig";
 import styles from "./createWorkflow.module.scss";
 interface CreateWorkflowProps {
-  team?: FlowTeam;
+  team: FlowTeam | null;
   hasReachedWorkflowLimit: boolean;
   workflows?: WorkflowSummary[];
   viewType: WorkflowViewType;
@@ -129,13 +129,13 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
           >
             <div className={styles.disabledCreate} data-testid="workflows-create-workflow-button">
               <Add className={styles.addIcon} />
-              <p className={styles.text}>Create a new ${viewType}</p>
+              <p className={styles.text}>{`Create a new ${viewType}`}</p>
             </div>
           </TooltipHover>
         ) : (
           <button className={styles.container} onClick={openModal} data-testid="workflows-create-workflow-button">
             <Add className={styles.addIcon} />
-            <p className={styles.text}>Create a new ${viewType}</p>
+            <p className={styles.text}>{`Create a new ${viewType}`}</p>
           </button>
         )
       }
@@ -157,7 +157,6 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
           importWorkflow={handleImportWorkflow}
           isLoading={isLoading}
           team={team}
-          teams={teams}
           type={viewType}
           workflows={workflows}
           //@ts-ignore

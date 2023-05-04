@@ -40,14 +40,12 @@ interface ImportWorkflowContentProps {
   isLoading: boolean;
   importError: any;
   importWorkflow: (workflowExport: WorkflowExport, closeModal: () => void, team: FlowTeam) => Promise<void>;
-  scope: string;
-  teams?: FlowTeam[] | null;
-  team?: FlowTeam | null;
+  team: FlowTeam;
   type: string;
 }
 
 interface FormProps {
-  selectedTeam: FlowTeam | null;
+  team: FlowTeam;
   name: string;
   summary: string;
   file: WorkflowExport | undefined;
@@ -59,9 +57,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
   isLoading,
   importError,
   importWorkflow,
-  scope,
   team,
-  teams,
   type,
 }) => {
   const [existingNames, setExistingNames] = useState(existingWorkflowNames);

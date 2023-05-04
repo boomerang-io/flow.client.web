@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import classNames from "classnames/bind";
 import { InlineNotification } from "@carbon/react";
 import { Formik } from "formik";

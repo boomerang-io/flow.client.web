@@ -39,9 +39,7 @@ type AppPathKey =
   | "QuotasEdit"
   | "Schedules"
   | "Settings"
-  | "SystemWorkflows"
-  | "SystemManagementWorkflows"
-  | "TemplatesWorkflows"
+  | "TemplateWorkflows"
   | "TaskTemplates"
   | "TaskTemplateEdit"
   | "TaskTemplateYaml"
@@ -96,9 +94,7 @@ export const AppPath: Record<AppPathKey, string> = {
   QuotasEdit: "/admin/quotas/:teamId",
   Schedules: "/schedules",
   Settings: "/admin/settings",
-  SystemWorkflows: "/admin/system-workflows",
-  SystemManagementWorkflows: "/admin/system-workflows/system",
-  TemplatesWorkflows: "/admin/system-workflows/templates",
+  TemplateWorkflows: "/admin/template-workflows",
   TaskTemplates: "/admin/task-templates",
   TaskTemplateEdit: `/admin/task-templates/:id/:version`,
   TaskTemplateYaml: `/admin/task-templates/:id/:version/yaml-editor`,
@@ -157,9 +153,7 @@ export const appLink: Record<string, (args?: any) => string> = {
   quotasEdit: ({ teamId }: TeamIdArg) => `/admin/quotas/${teamId}`,
   schedule: () => "/schedule",
   settings: () => "/admin/settings",
-  systemWorkflows: () => "/admin/system-workflows",
-  systemManagementWorkflows: () => "/admin/system-workflows/system",
-  templateWorkflows: () => "/admin/system-workflows/templates",
+  templateWorkflows: () => "/admin/template-workflows",
   taskTemplates: () => "/admin/task-templates",
   taskTemplateEdit: ({ id, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${id}/${version}`,
   taskTemplateYaml: ({ id, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${id}/${version}/yaml-editor`,

@@ -97,9 +97,9 @@ const flowNavigation = [
         link: "/BMRG_APP_ROOT_CONTEXT/admin/task-templates",
       },
       {
-        name: "System Workflows",
+        name: "Template Workflows",
         type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/admin/system-workflows",
+        link: "/BMRG_APP_ROOT_CONTEXT/admin/template-workflows",
       },
     ],
   },

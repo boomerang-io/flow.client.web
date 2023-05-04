@@ -12,11 +12,9 @@ interface CreateWorkflowContainerProps {
   createError: any;
   createWorkflow: (workflowData: CreateWorkflowSummary) => Promise<void>;
   isLoading: boolean;
-  scope: string;
   importError: any;
   importWorkflow: (workflowData: WorkflowExport, closeModal: () => void, team: FlowTeam) => Promise<void>;
-  team?: FlowTeam | null;
-  teams?: FlowTeam[] | null;
+  team: FlowTeam | null;
   type: string;
   workflows?: WorkflowSummary[];
   workflowQuotasEnabled: boolean;
@@ -29,9 +27,7 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
   importError,
   importWorkflow,
   isLoading,
-  scope,
   team,
-  teams,
   type,
   workflows,
   workflowQuotasEnabled,
@@ -67,9 +63,7 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
           createWorkflow={createWorkflow}
           createError={createError}
           isLoading={isLoading}
-          scope={scope}
           team={team}
-          teams={teams}
           workflowQuotasEnabled={workflowQuotasEnabled}
         />
       ) : (
@@ -79,9 +73,7 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
           importError={importError}
           importWorkflow={importWorkflow}
           isLoading={isLoading}
-          scope={scope}
           team={team}
-          teams={teams}
           type={type}
         />
       )}
