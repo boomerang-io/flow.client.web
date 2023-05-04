@@ -142,7 +142,6 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ searchQuery, team, fi
   return (
     <section className={styles.sectionContainer}>
       <hgroup className={styles.header}>
-        {/* <h1 className={styles.team}>{`${team.name} (${team.workflows.length})`}</h1> */}
         {workflowQuotasEnabled && (
           <div className={styles.teamQuotaContainer}>
             <div className={styles.quotaDescriptionContainer}>
