@@ -8,6 +8,13 @@ export const Envs = Object.freeze({
   PortForward: "portforward",
 });
 
+export const WorkflowScope = Object.freeze({
+  System: "system",
+  Team: "team",
+  User: "user",
+  Template: "template",
+});
+
 /**
  * Primitve constants
  */
