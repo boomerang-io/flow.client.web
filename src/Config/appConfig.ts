@@ -127,10 +127,10 @@ interface ExecutionArgs {
 }
 
 export const appLink: Record<string, (args?: any) => string> = {
-  activity: () => `/activity`,
-  actions: () => `/actions`,
-  actionsApprovals: () => `/actions/approvals`,
-  actionsManual: () => `/actions/manual`,
+  activity: ({ teamId }: TeamIdArg) => `/${teamId}/activity`,
+  actions: ({ teamId }: TeamIdArg) => `/${teamId}/actions`,
+  actionsApprovals: ({ teamId }: TeamIdArg) => `/${teamId}/actions/approvals`,
+  actionsManual: ({ teamId }: TeamIdArg) => `/${teamId}/actions/manual`,
   editorDesigner: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/workflow`,
   editorConfigure: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/configure`,
   editorChangelog: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/changelog`,
@@ -167,9 +167,7 @@ export const appLink: Record<string, (args?: any) => string> = {
   userTeams: ({ userId }) => `/admin/users/${userId}/teams`,
   userLabels: ({ userId }) => `/admin/users/${userId}/labels`,
   userList: () => "/admin/users",
-  workflows: () => "/workflows",
-  workflowsMine: () => "/workflows/mine",
-  workflowsTeams: () => "/workflows/teams",
+  workflows: ({ teamId }: TeamIdArg) => `/${teamId}/workflows`,
   workflowActivity: ({ workflowId }: WorkflowIdArg) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
   //external apps
   docsWorkflowEditor: () => `${BASE_DOCUMENTATION_URL}/how-to-guide/workflow-editor`,

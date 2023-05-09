@@ -15,7 +15,7 @@ import WorkflowsHeader from "Components/WorkflowsHeader";
 import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
 import { FlowTeam, ModalTriggerProps, ComposedModalChildProps, WorkflowSummary, WorkflowView } from "Types";
 import { FeatureFlag } from "Config/appConfig";
-import styles from "./workflowHome.module.scss";
+import styles from "./workflows.module.scss";
 
 const BANNER_STORAGE_ID = "bmrg-flow-hideWelcomeBanner";
 const initShowWelcomeBanner = window.localStorage.getItem(BANNER_STORAGE_ID) !== "true";
@@ -72,7 +72,7 @@ export default function WorkflowsHome() {
     history.push({ search: queryStr });
   };
 
-  const workflowsCount = activeTeam.workflows.length;
+  const workflowsCount = activeTeam ? activeTeam.workflows.length : 0;
 
   let safeQuery = "";
   if (Array.isArray(searchQuery)) {
@@ -82,7 +82,7 @@ export default function WorkflowsHome() {
   }
 
   const filteredWorkflows =
-    activeTeam.workflows.filter((workflow) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
+    activeTeam?.workflows.filter((workflow) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
   let filteredWorkflowsCount = filteredWorkflows.length;
 
   return (
@@ -103,7 +103,7 @@ export default function WorkflowsHome() {
       >
         <WorkflowsHeader
           pretitle="These are your Workflows"
-          title={activeTeam.name}
+          title={activeTeam ? activeTeam.name : "No Team selected"}
           subtitle="Your playground to create, execute, and collaborate on workflows. Work smarter with automation."
           handleUpdateFilter={handleUpdateFilter}
           searchQuery={searchQuery}
@@ -112,7 +112,7 @@ export default function WorkflowsHome() {
           viewType={WorkflowView.Workflow}
         />
         <div aria-label="My Workflows" className={styles.content} role="region">
-          {searchQuery && filteredWorkflowsCount === 0 ? (
+          {searchQuery && filteredWorkflowsCount === 0 && !activeTeam ? (
             <EmptyState />
           ) : (
             <WorkflowContent searchQuery={safeQuery} team={activeTeam} filteredWorkflows={filteredWorkflows} />

@@ -64,6 +64,7 @@ export const serviceUrl = {
   getTeamProperties: ({ id }) => `${BASE_URL}/teams/${id}/properties`,
   getTeamQuotas: ({ id }) => `${BASE_URL}/teams/${id}/quotas`,
   getTeamTokens: ({ teamId }) => `${BASE_URL}/tokens/team/${teamId}`,
+  leaveTeam: ({ id }) => `${BASE_URL}/${id}/leave`,
   getUsers: () => `${BASE_URL}/users`,
   getUser: ({ userId }) => `${BASE_URL}/users/${userId}`,
   getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
@@ -139,6 +140,7 @@ export const resolver = {
   deleteTeamPropertyRequest: ({ teamId, configurationId }) =>
     axios.delete(serviceUrl.getTeamProperty({ teamId, configurationId })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
+  leaveTeam: ({ id }) => axios.delete(serviceUrl.leaveTeam({ id })),
   deleteSchedule: ({ scheduleId }) => axios.delete(serviceUrl.deleteSchedule({ scheduleId })),
   deleteToken: ({ tokenId }) => axios.delete(serviceUrl.deleteToken({ tokenId })),
   patchGlobalPropertyRequest: ({ id, body }) =>
