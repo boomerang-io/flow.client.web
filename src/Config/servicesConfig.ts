@@ -21,7 +21,7 @@ export const PRODUCT_SERVICE_ENV_URL =
   import.meta.env.MODE === Envs.Prod && window._SERVER_DATA ? window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL : "/api";
 
 
-export const BASE_URL = `${PRODUCT_SERVICE_ENV_URL}/api/v2`;
+export const BASE_URL = `${PRODUCT_SERVICE_ENV_URL}`;
 export const BASE_CORE_URL = CORE_SERVICE_ENV_URL;
 export const BASE_CORE_USERS_URL =  `${CORE_SERVICE_ENV_URL}/users`;
 
