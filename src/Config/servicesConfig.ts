@@ -1,3 +1,11 @@
+/*
+* This file contains all the service URLs and configurations.
+* 
+* The model is to have a serviceUrl object that contains all the service URLs and a resolver object that holds all the queries and mutations.
+*
+* This depends on the /server to mount the environment variables that are the root prefixes.
+*/
+
 //@ts-nocheck
 import axios, { CancelToken } from "axios";
 import { Envs, HttpMethod } from "Constants";
@@ -13,7 +21,7 @@ export const PRODUCT_SERVICE_ENV_URL =
   import.meta.env.MODE === Envs.Prod && window._SERVER_DATA ? window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL : "/api";
 
 
-export const BASE_URL = `${PRODUCT_SERVICE_ENV_URL}/workflow`;
+export const BASE_URL = `${PRODUCT_SERVICE_ENV_URL}/api/v2`;
 export const BASE_CORE_URL = CORE_SERVICE_ENV_URL;
 export const BASE_CORE_USERS_URL =  `${CORE_SERVICE_ENV_URL}/users`;
 
@@ -29,7 +37,7 @@ export const serviceUrl = {
   getDefaultQuotas: () => `${BASE_URL}/quotas/default`,
   getFeatureFlags: () => `${BASE_URL}/features`,
   getFlowTeamUsers: ({ teamId }) => `${BASE_URL}/teams/${teamId}/members`,
-  getFlowNavigation: ({ query }) => `${BASE_URL}/navigation${query}`,
+  getNavigation: ({ query }) => `${BASE_URL}/navigation${query}`,
   getGlobalConfiguration: () => `${BASE_URL}/config`,
   getGlobalProperty: ({ id }) => `${BASE_URL}/config/${id}`,
   getGlobalTokens: () => `${BASE_URL}/tokens/global-tokens`,
@@ -41,7 +49,7 @@ export const serviceUrl = {
   getManageTeams: ({ query }) => `${BASE_URL}/manage/teams${query ? "?" + query : ""}`,
   getManageUsers: ({ query }) => `${BASE_URL}/manage/users${query ? "?" + query : ""}`,
   // getPlatformConfig: () => `${BASE_CORE_USERS_URL}/navigation`,
-  getPlatformConfig: () => `${BASE_URL}/users/navigation`,
+  getContext: () => `${BASE_URL}/context`,
   getSchedules: ({ query }) => `${BASE_URL}/schedules${query ? "?" + query : ""}`,
   getSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
   getSchedulesCalendars: ({ query }) => `${BASE_URL}/schedules/calendar${query ? "?" + query : ""}`,
@@ -60,7 +68,7 @@ export const serviceUrl = {
   getUser: ({ userId }) => `${BASE_URL}/users/${userId}`,
   getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
   // getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
-  getUserProfile: () => `${BASE_URL}/users/profile`,
+  getUserProfile: () => `${BASE_URL}/user/profile`,
   getUserProfileImage: ({ userEmail }) => `${BASE_CORE_USERS_URL}/image/${userEmail}`,
   getUserWorkflows: () => `${BASE_URL}/workflows/user`,
   getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
@@ -91,7 +99,7 @@ export const serviceUrl = {
   postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
   // putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,
-  putActivationApp: () => `${BASE_URL}/users/register`,
+  putActivationApp: () => `${BASE_URL}/activate`,
   putRestoreTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}/activate`,
   putTaskTemplateYaml: ({ id, revision, comment }) =>
     `${BASE_URL}/tasktemplate/${id}/yaml${`/${revision}`}${comment ? "?" + comment : ""}`,

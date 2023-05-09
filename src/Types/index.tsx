@@ -440,16 +440,20 @@ export interface FlowUser extends User {
   id: string;
   email: string;
   name: string;
-  ifFirstVisit: boolean;
   type: PlatformRole;
-  firstLoginDate: string;
+  creationDate: string;
   lastLoginDate: string;
-  flowTeams: string[];
+  teams: string[];
   status: UserStatus;
   platformRole: string;
   labels?: { key: string; value: string }[];
-  workflows?: WorkflowSummary[];
-  userTeams?: FlowTeam[];
+  settings?: unknown;
+}
+
+export interface FlowUserSettings {
+  hasConsented: boolean;
+  isShowHelp: boolean | null;
+  ifFirstVisit: boolean;
 }
 
 export interface Property {

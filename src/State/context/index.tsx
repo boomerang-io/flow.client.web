@@ -22,8 +22,8 @@ type AppContext = {
     maxWorkflowStorageSize: string;
   };
   teams: FlowTeam[];
-  activeTeam: FlowTeam;
   user: FlowUser;
+  activeTeam?: FlowTeam;
 };
 
 interface TaskProvider {

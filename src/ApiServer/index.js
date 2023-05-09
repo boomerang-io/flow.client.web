@@ -69,7 +69,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.profile[0];
       });
 
-      this.get(serviceUrl.getPlatformConfig(), (schema) => {
+      this.get(serviceUrl.getContext(), (schema) => {
         return schema.db.platformConfig[0];
       });
 

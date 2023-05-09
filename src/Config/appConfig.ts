@@ -56,43 +56,39 @@ type AppPathKey =
   | "UserList"
   | "UserTeams"
   | "UserLabels"
-  | "Workflows"
-  | "WorkflowsMine"
-  | "WorkflowsTeams";
+  | "Workflows";
 
 export const AppPath: Record<AppPathKey, string> = {
   Root: "/",
   Error: "/error",
-  Activity: "/activity",
-  Actions: "/actions",
-  ActionsApprovals: "/actions/approvals",
-  ActionsManual: "/actions/manual",
-  Editor: "/editor/:workflowId",
-  EditorDesigner: `/editor/:workflowId/workflow`,
-  EditorConfigure: `editor/:workflowId/configure`,
-  EditorChangelog: `/editor/:workflowId/changelog`,
-  EditorProperties: `/editor/:workflowId/parameters`,
-  EditorSchedule: `/editor/:workflowId/schedule`,
-  Execution: "/activity/:workflowId/execution/:executionId",
-  Insights: "/insights",
-  TeamTokens: "/manage/team-tokens",
-  Workflows: "/workflows",
-  WorkflowsMine: "/workflows/mine",
-  WorkflowsTeams: "/workflows/teams",
+  Activity: "/:teamId/activity",
+  Actions: "/:teamId/actions",
+  ActionsApprovals: "/:teamId/actions/approvals",
+  ActionsManual: "/:teamId/actions/manual",
+  Editor: "/:teamId/editor/:workflowId",
+  EditorDesigner: `/:teamId/editor/:workflowId/workflow`,
+  EditorConfigure: `/:teamId/editor/:workflowId/configure`,
+  EditorChangelog: `/:teamId/editor/:workflowId/changelog`,
+  EditorProperties: `/:teamId/editor/:workflowId/parameters`,
+  EditorSchedule: `/:teamId/editor/:workflowId/schedule`,
+  Execution: "/:teamId/activity/:workflowId/execution/:executionId",
+  Insights: "/:teamId/insights",
+  TeamTokens: "/:teamId/manage/team-tokens",
+  Workflows: "/:teamId/workflows",
+  Schedules: "/:teamId/schedules",
 
   //Manage
-  ManageTaskTemplates: `/manage/task-templates`,
-  ManageTaskTemplatesTeam: `/manage/task-templates/team/:teamId`,
-  ManageTaskTemplateEdit: `/manage/task-templates/team/:teamId/:taskId/:version`,
-  ManageTaskTemplateYaml: `/manage/task-templates/team/:teamId/:taskId/:version/yaml-editor`,
-  TeamApprovers: `/manage/approver-groups`,
-  TeamProperties: `/manage/team-parameters`,
+  ManageTaskTemplates: `/:teamId/manage/task-templates`,
+  ManageTaskTemplatesTeam: `/:teamId/manage/task-templates/team/:teamId`,
+  ManageTaskTemplateEdit: `/:teamId/manage/task-templates/team/:teamId/:taskId/:version`,
+  ManageTaskTemplateYaml: `/:teamId/manage/task-templates/team/:teamId/:taskId/:version/yaml-editor`,
+  TeamApprovers: `/:teamId/manage/approver-groups`,
+  TeamProperties: `/:teamId/manage/team-parameters`,
 
   //Admin
   Properties: "/admin/parameters",
   Quotas: "/admin/quotas",
   QuotasEdit: "/admin/quotas/:teamId",
-  Schedules: "/schedules",
   Settings: "/admin/settings",
   TemplateWorkflows: "/admin/template-workflows",
   TaskTemplates: "/admin/task-templates",

@@ -48,9 +48,10 @@ const ManageTeamTasks = lazy(() => import("Features/ManageTeamTasks"));
 const ManageTeamTasksContainer = lazy(() => import("Features/ManageTeamTasksContainer"));
 const Users = lazy(() => import("Features/Users"));
 const Workflows = lazy(() => import("Features/Workflows"));
+const Home = lazy(() => import("Features/Home"));
 
 const getUserUrl = serviceUrl.getUserProfile();
-const getPlatformConfigUrl = serviceUrl.getPlatformConfig();
+const getContextUrl = serviceUrl.getContext();
 const getTeamsUrl = serviceUrl.getTeams();
 const featureFlagsUrl = serviceUrl.getFeatureFlags();
 const browser = detect();
@@ -59,10 +60,9 @@ const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 export default function App() {
   const location = useLocation();
   const queryClient = useQueryClient();
-  const teamIds = queryString.parse(location.search).teams;
-  const teamIdsArray = teamIds === null || teamIds === undefined ? [] : teamIds.toString().split(",");
-  const query = teamIdsArray.length === 1 ? `?teamId=${teamIdsArray[0]}` : "";
-  const getFlowNavigationUrl = serviceUrl.getFlowNavigation({ query });
+  const teamId = location.pathname.startsWith("/home") ? null : location.pathname.split("/").filter(Boolean)[0];
+  const query = teamId ? `?teamId=${teamId}` : "";
+  const getNavigationUrl = serviceUrl.getNavigation({ query });
 
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
     !supportedBrowsers.includes(browser?.name ?? "")
@@ -97,15 +97,15 @@ export default function App() {
     queryFn: fetchUserResolver,
   });
 
-  const navigationQuery = useQuery<PlatformConfig, string>({
-    queryKey: getPlatformConfigUrl,
-    queryFn: resolver.query(getPlatformConfigUrl),
+  const contextQuery = useQuery<PlatformConfig, string>({
+    queryKey: getContextUrl,
+    queryFn: resolver.query(getContextUrl),
     enabled: Boolean(userQuery.data?.id),
   });
 
-  const flowNavigationQuery = useQuery<Array<FlowNavigationItem>, string>({
-    queryKey: serviceUrl.getFlowNavigation({ query: "" }),
-    queryFn: resolver.query(getFlowNavigationUrl),
+  const navigationQuery = useQuery<Array<FlowNavigationItem>, string>({
+    queryKey: getNavigationUrl,
+    queryFn: resolver.query(getNavigationUrl),
     enabled: Boolean(userQuery.data?.id),
   });
 
@@ -117,17 +117,13 @@ export default function App() {
 
   const isLoading =
     userQuery.isLoading ||
-    navigationQuery.isLoading ||
+    contextQuery.isLoading ||
     teamsQuery.isLoading ||
     featureQuery.isLoading ||
-    flowNavigationQuery.isLoading;
+    navigationQuery.isLoading;
 
   const hasError =
-    userQuery.isError ||
-    navigationQuery.isError ||
-    teamsQuery.isError ||
-    featureQuery.isError ||
-    flowNavigationQuery.isError;
+    userQuery.isError || contextQuery.isError || teamsQuery.isError || featureQuery.isError || navigationQuery.isError;
 
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
@@ -147,6 +143,7 @@ export default function App() {
     return <ErrorDragon style={{ margin: "5rem 0" }} />;
   }
 
+  // Check if the app is Activated
   if (showActivatePlatform) {
     return (
       <Suspense fallback={() => <DelayedRender>{null}</DelayedRender>}>
@@ -157,7 +154,8 @@ export default function App() {
     );
   }
 
-  if (userQuery.data && navigationQuery.data && teamsQuery.data && featureQuery.data && flowNavigationQuery.data) {
+  // Context Data needed for the app to render
+  if (userQuery.data && contextQuery.data && teamsQuery.data && featureQuery.data && navigationQuery.data) {
     const feature = featureQuery.data.features;
     return (
       <FlagsProvider
@@ -176,22 +174,23 @@ export default function App() {
         }}
       >
         <Navbar
-          flowNavigationData={flowNavigationQuery.data}
+          flowNavigationData={navigationQuery.data}
           handleOnTutorialClick={() => setIsTutorialActive(true)}
-          platformConfigData={navigationQuery.data}
+          platformConfigData={contextQuery.data}
           userData={userQuery.data}
         />
         <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
         <ErrorBoundary>
           <Main
             isTutorialActive={isTutorialActive}
-            platformConfigData={navigationQuery.data}
+            platformConfigData={contextQuery.data}
             setIsTutorialActive={setIsTutorialActive}
             setShouldShowBrowserWarning={setShouldShowBrowserWarning}
             shouldShowBrowserWarning={shouldShowBrowserWarning}
             teamsData={teamsQuery.data}
             userData={userQuery.data}
             quotas={featureQuery.data.quotas}
+            activeTeamId={teamId}
           />
         </ErrorBoundary>
       </FlagsProvider>
@@ -209,6 +208,7 @@ interface MainProps {
   teamsData: Array<FlowTeam>;
   userData: FlowUser;
   quotas: FlowFeatures["quotas"];
+  activeTeamId: string | null;
 }
 
 function Main({
@@ -220,6 +220,7 @@ function Main({
   teamsData,
   userData,
   quotas,
+  activeTeamId,
 }: MainProps) {
   const { id: userId, type: platformRole } = userData;
 
@@ -232,6 +233,8 @@ function Main({
     return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
   }
 
+  let activeTeam = teamsData.find((team) => team.id === activeTeamId);
+
   return (
     <AppContextProvider
       value={{
@@ -240,7 +243,7 @@ function Main({
         setIsTutorialActive,
         user: userData,
         teams: sortBy(teamsData, "name"),
-        activeTeam: teamsData[0],
+        activeTeam: activeTeam,
         quotas,
       }}
     >
@@ -269,113 +272,120 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
         }
       >
         <Switch>
-          <Route path={"/react-flow"}>
-            <ReactFlow />
+          <Route path={"/home"}>
+            <Home />
           </Route>
-          <ProtectedRoute
-            allowedUserRoles={["*"]}
-            component={() => <Execution />}
-            path={AppPath.Execution}
-            userRole={activityEnabled ? "*" : ""}
-          />
-          <ProtectedRoute
-            allowedUserRoles={["*"]}
-            component={() => <Activity />}
-            path={AppPath.Activity}
-            userRole={activityEnabled ? "*" : ""}
-          />
-          <ProtectedRoute
-            allowedUserRoles={elevatedUserRoles}
-            component={() => <GlobalProperties />}
-            path={AppPath.Properties}
-            userRole={platformRole}
-          />
-          <ProtectedRoute
-            allowedUserRoles={["*"]}
-            component={() => <Insights />}
-            path={AppPath.Insights}
-            userRole={insightsEnabled ? "*" : "none"}
-          />
-          <ProtectedRoute
-            allowedUserRoles={["*"]}
-            component={() => <ManageTeamTasks />}
-            path={AppPath.ManageTaskTemplatesTeam}
-            userRole={teamTasksEnabled ? "*" : ""}
-          />
-          <ProtectedRoute
-            allowedUserRoles={["*"]}
-            component={() => <ManageTeamTasksContainer />}
-            path={AppPath.ManageTaskTemplates}
-            userRole={teamTasksEnabled ? "*" : ""}
-          />
-          <ProtectedRoute
-            allowedUserRoles={elevatedUserRoles}
-            component={() => <Quotas />}
-            path={AppPath.Quotas}
-            userRole={platformRole}
-          />
-          <ProtectedRoute
-            allowedUserRoles={elevatedUserRoles}
-            component={() => <Settings />}
-            path={AppPath.Settings}
-            userRole={platformRole}
-          />
-          <ProtectedRoute
-            allowedUserRoles={elevatedUserRoles}
-            component={() => <TemplateWorkflows />}
-            path={AppPath.TemplateWorkflows}
-            userRole={platformRole}
-          />
-          <ProtectedRoute
-            allowedUserRoles={elevatedUserRoles}
-            component={() => <TaskTemplates />}
-            path={AppPath.TaskTemplates}
-            userRole={platformRole}
-          />
-          <ProtectedRoute
-            allowedUserRoles={["*"]}
-            component={() => <TeamProperties />}
-            path={AppPath.TeamProperties}
-            userRole={teamPropertiesEnabled ? "*" : ""}
-          />
-          {/* {<ProtectedRoute
+          <Route path={"/:teamId"}>
+            <Switch>
+              <Route path={"/react-flow"}>
+                <ReactFlow />
+              </Route>
+              <ProtectedRoute
+                allowedUserRoles={["*"]}
+                component={() => <Execution />}
+                path={AppPath.Execution}
+                userRole={activityEnabled ? "*" : ""}
+              />
+              <ProtectedRoute
+                allowedUserRoles={["*"]}
+                component={() => <Activity />}
+                path={AppPath.Activity}
+                userRole={activityEnabled ? "*" : ""}
+              />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={() => <GlobalProperties />}
+                path={AppPath.Properties}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={["*"]}
+                component={() => <Insights />}
+                path={AppPath.Insights}
+                userRole={insightsEnabled ? "*" : "none"}
+              />
+              <ProtectedRoute
+                allowedUserRoles={["*"]}
+                component={() => <ManageTeamTasks />}
+                path={AppPath.ManageTaskTemplatesTeam}
+                userRole={teamTasksEnabled ? "*" : ""}
+              />
+              <ProtectedRoute
+                allowedUserRoles={["*"]}
+                component={() => <ManageTeamTasksContainer />}
+                path={AppPath.ManageTaskTemplates}
+                userRole={teamTasksEnabled ? "*" : ""}
+              />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={() => <Quotas />}
+                path={AppPath.Quotas}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={() => <Settings />}
+                path={AppPath.Settings}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={() => <TemplateWorkflows />}
+                path={AppPath.TemplateWorkflows}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={() => <TaskTemplates />}
+                path={AppPath.TaskTemplates}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={["*"]}
+                component={() => <TeamProperties />}
+                path={AppPath.TeamProperties}
+                userRole={teamPropertiesEnabled ? "*" : ""}
+              />
+              {/* {<ProtectedRoute
             allowedUserRoles={["*"]}
             component={<TeamTokens />}
             path={AppPath.TeamTokens}
             userRole={teamTokensEnabled}
           />} */}
-          <ProtectedRoute
-            allowedUserRoles={elevatedUserRoles}
-            component={<Tokens />}
-            path={AppPath.Tokens}
-            userRole={platformRole}
-          />
-          <Route path={AppPath.Actions}>
-            <Actions />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={<Tokens />}
+                path={AppPath.Tokens}
+                userRole={platformRole}
+              />
+              <Route path={AppPath.Actions}>
+                <Actions />
+              </Route>
+              <Route path={AppPath.Editor}>
+                <Editor />
+              </Route>
+              <Route path={AppPath.Schedules}>
+                <Schedules />
+              </Route>
+              <Route path={AppPath.TeamList}>
+                <Teams />
+              </Route>
+              <Route path={AppPath.TeamApprovers}>
+                <ApproverGroups />
+              </Route>
+              <Route path={AppPath.TeamTokens}>
+                <TeamTokens />
+              </Route>
+              <Route path={AppPath.UserList}>
+                <Users />
+              </Route>
+              <Route path={AppPath.Workflows}>
+                <Workflows />
+              </Route>
+              <Redirect exact from="/" to={AppPath.Workflows} />
+              <Route path="*" component={() => <Error404 theme="boomerang" />} />
+            </Switch>
           </Route>
-          <Route path={AppPath.Editor}>
-            <Editor />
-          </Route>
-          <Route path={AppPath.Schedules}>
-            <Schedules />
-          </Route>
-          <Route path={AppPath.TeamList}>
-            <Teams />
-          </Route>
-          <Route path={AppPath.TeamApprovers}>
-            <ApproverGroups />
-          </Route>
-          <Route path={AppPath.TeamTokens}>
-            <TeamTokens />
-          </Route>
-          <Route path={AppPath.UserList}>
-            <Users />
-          </Route>
-          <Route path={AppPath.Workflows}>
-            <Workflows />
-          </Route>
-          <Redirect exact from="/" to={AppPath.Workflows} />
-          <Route path="*" component={() => <Error404 theme="boomerang" />} />
         </Switch>
       </Suspense>
       <NotificationsContainer enableMultiContainer />
