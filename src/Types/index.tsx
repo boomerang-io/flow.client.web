@@ -384,6 +384,7 @@ export interface TaskModel {
 export interface FlowTeam {
   id: string;
   name: string;
+  description?: string;
   creationDate: string;
   status: FlowTeamStatus;
   externalRef?: string;

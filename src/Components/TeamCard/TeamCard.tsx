@@ -39,13 +39,13 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
 
   let menuOptions = [
     {
-      itemText: "Workflows",
+      itemText: "View Workflows",
       onClick: () => history.push(appLink.workflows({ teamId: team.id })),
     },
-    // {
-    //   itemText: "Manage",
-    //   onClick: () => history.push(appLink.workflowActivity({ workflowId: workflow.id })),
-    // },
+    {
+      itemText: "Manage Team",
+      onClick: () => history.push(appLink.workflows({ teamId: team.id })),
+    },
     {
       hasDivider: true,
       itemText: "Leave",
@@ -62,10 +62,9 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
             <h1 title={team.name} className={styles.name} data-testid="workflow-card-title">
               {team.name}
             </h1>
-            {/* TODO - add a team description field
-            <p title={workflow.shortDescription} className={styles.description}>
-              {workflow.shortDescription}
-            </p> */}
+            <p title={team.description} className={styles.description}>
+              {team.description}
+            </p>
           </div>
           <ArrowRight size={24} className={styles.cardIcon} />
         </section>
@@ -91,7 +90,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
         <ConfirmModal
           affirmativeAction={handleLeaveTeam}
           affirmativeButtonProps={{ kind: "danger" }}
-          affirmativeText="Delete"
+          affirmativeText="Leave"
           isOpen={isLeaveModalOpen}
           negativeAction={() => {
             setIsLeaveModalOpen(false);
@@ -102,7 +101,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
           }}
           title={`Leave Team`}
         >
-          {`Are you sure you want to leave this Team? There's no going back from this decision.`}
+          {`Are you sure you want to leave Team (${team.name})? There's no going back from this decision.`}
         </ConfirmModal>
       )}
     </div>
