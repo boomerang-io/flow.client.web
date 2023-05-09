@@ -2,12 +2,10 @@ import React from "react";
 import { startApiServer } from "ApiServer";
 import { teams, profile } from "ApiServer/fixtures";
 import { AppContextProvider } from "State/context";
-import WorkflowCard from "./index";
+import TeamCard from "./index";
 
 const props = {
-  teamId: teams[0].id,
-  quotas: teams[0].workflowQuotas,
-  workflow: teams[0].workflows,
+  team: teams[0],
 };
 
 let server;
@@ -20,8 +18,8 @@ afterEach(() => {
   server.shutdown();
 });
 
-describe("WorkflowCard --- Snapshot", () => {
-  it("Capturing Snapshot of WorkflowCard", () => {
+describe("TeamCard --- Snapshot", () => {
+  it("Capturing Snapshot of TeamCard", () => {
     const { baseElement } = rtlContextRouterRender(
       <AppContextProvider
         value={{
@@ -31,7 +29,7 @@ describe("WorkflowCard --- Snapshot", () => {
           teams,
         }}
       >
-        <WorkflowCard {...props} />
+        <TeamCard {...props} />
       </AppContextProvider>
     );
     expect(baseElement).toMatchSnapshot();
