@@ -31,6 +31,7 @@ const initShowWelcomeBanner = window.localStorage.getItem(BANNER_STORAGE_ID) !==
 
 export default function WorkflowsHome() {
   const { isTutorialActive, setIsTutorialActive, activeTeam } = useAppContext();
+  console.log({ activeTeam });
   const history = useHistory();
   const location = useLocation();
   const [isWelcomeBannerOpen, setIsWelcomeBannerOpen] = useState(true);
@@ -39,7 +40,7 @@ export default function WorkflowsHome() {
   let { query: searchQuery = "" } = queryString.parse(location.search, {
     arrayFormat: "comma",
   });
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `?teams=${activeTeam?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
 
   useEffect(() => {
     if (isTutorialActive) {

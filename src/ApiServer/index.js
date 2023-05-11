@@ -120,7 +120,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       this.get(serviceUrl.getWorkflows({ query: null }), (schema) => {
-        return schema.db.userWorkflows[0];
+        return schema.db.workflows[0];
       });
 
       this.get(serviceUrl.getTeamQuotas({ id: ":id" }), (schema) => {
