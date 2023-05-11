@@ -13,17 +13,15 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorBoundary from "Components/ErrorBoundary";
 import ErrorDragon from "Components/ErrorDragon";
-
 import OnBoardExpContainer from "Features/Tutorial";
 import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
 import { sortBy } from "lodash";
-import queryString from "query-string";
 import { elevatedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig } from "Types";
+import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, PaginatedTeamResponse } from "Types";
 import styles from "./app.module.scss";
 
 const ReactFlow = lazy(() => import("Features/Reactflow"));
@@ -109,7 +107,7 @@ export default function App() {
     enabled: Boolean(userQuery.data?.id),
   });
 
-  const teamsQuery = useQuery<Array<FlowTeam>, string>({
+  const teamsQuery = useQuery<PaginatedTeamResponse>({
     queryKey: getTeamsUrl,
     queryFn: resolver.query(getTeamsUrl),
     enabled: Boolean(userQuery.data?.id),
@@ -187,7 +185,7 @@ export default function App() {
             setIsTutorialActive={setIsTutorialActive}
             setShouldShowBrowserWarning={setShouldShowBrowserWarning}
             shouldShowBrowserWarning={shouldShowBrowserWarning}
-            teamsData={teamsQuery.data}
+            teamsData={teamsQuery.data.records}
             userData={userQuery.data}
             quotas={featureQuery.data.quotas}
             activeTeamId={teamId}

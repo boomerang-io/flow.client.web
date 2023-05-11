@@ -206,6 +206,29 @@ export const WorkflowView = {
 
 export type WorkflowViewType = typeof WorkflowView[keyof typeof WorkflowView];
 
+type PageableSort<T> = {
+  property: keyof T;
+  direction: "ASC" | "DESC";
+  ignoreCase: boolean;
+  nullHandling: "NATIVE" | "NULLS_FIRST" | "NULLS_LAST";
+  ascending: boolean;
+  descending: boolean;
+};
+
+type Pageable<T> = {
+  first: boolean;
+  last: boolean;
+  number: number;
+  size: number;
+  totalPages: number;
+  totalElements: number;
+  numberOfElements: number;
+  sort: Array<PageableSort<T>>;
+  records: Array<T>;
+};
+
+export type PaginatedTeamResponse = Pageable<FlowTeam>;
+
 export interface WorkflowDag {
   gridSize: number;
   id: string;

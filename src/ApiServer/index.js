@@ -77,7 +77,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.flowNavigation;
       });
 
-      this.get(serviceUrl.getTeams(), (schema) => {
+      this.get(serviceUrl.getTeams({query: null}), (schema) => {
         return schema.db.teams;
       });
 
