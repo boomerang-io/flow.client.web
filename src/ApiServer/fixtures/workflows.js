@@ -1,5 +1,5 @@
-const userWorkflows = {
-  workflows: [
+const workflows = {
+  content: [
     {
       properties: [
         {
@@ -209,18 +209,21 @@ const userWorkflows = {
       templateUpgradesAvailable: true,
     },
   ],
-  userQuotas: {
-    maxWorkflowCount: 10,
-    maxWorkflowExecutionMonthly: 100,
-    maxWorkflowStorage: 5,
-    maxWorkflowExecutionTime: 30,
-    maxConcurrentWorkflows: 4,
-    currentWorkflowCount: 1,
-    currentConcurrentWorkflows: 0,
-    currentWorkflowExecutionMonthly: 10,
-    currentAverageExecutionTime: 2,
-    monthlymonthlyResetDate: "August 1, 2020",
+  number: 0,
+  size: 3,
+  totalElements: 3,
+  pageable: "INSTANCE",
+  last: true,
+  totalPages: 1,
+  sort: {
+      sorted: false,
+      empty: true,
+      unsorted: true
   },
+  first: true,
+  numberOfElements: 3,
+  empty: false
 };
 
-export default userWorkflows;
+
+export default workflows;

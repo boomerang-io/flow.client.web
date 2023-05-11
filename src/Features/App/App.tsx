@@ -107,7 +107,7 @@ export default function App() {
     enabled: Boolean(userQuery.data?.id),
   });
 
-  const teamsQuery = useQuery<PaginatedTeamResponse>({
+  const teamsQuery = useQuery<PaginatedTeamResponse, string>({
     queryKey: getTeamsUrl,
     queryFn: resolver.query(getTeamsUrl),
     enabled: Boolean(userQuery.data?.id),
@@ -185,7 +185,7 @@ export default function App() {
             setIsTutorialActive={setIsTutorialActive}
             setShouldShowBrowserWarning={setShouldShowBrowserWarning}
             shouldShowBrowserWarning={shouldShowBrowserWarning}
-            teamsData={teamsQuery.data.records}
+            teamsData={teamsQuery.data.content}
             userData={userQuery.data}
             quotas={featureQuery.data.quotas}
             activeTeamId={teamId}
@@ -230,7 +230,7 @@ function Main({
   if (shouldShowBrowserWarning) {
     return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
   }
-
+  console.log(teamsData);
   let activeTeam = teamsData.find((team) => team.id === activeTeamId);
 
   return (

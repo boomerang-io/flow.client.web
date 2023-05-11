@@ -25,7 +25,7 @@ export { default as teams } from "./teams";
 export { default as teamApproverUsers } from "./teamApproverUsers";
 export { default as tokens } from "./tokens";
 export { default as teamProperties } from "./teamProperties";
-export { default as userWorkflows } from "./userWorkflows";
+export { default as workflows } from "./workflows";
 export { default as quotas } from "./quotas";
 export { default as workflowCalendar } from "./workflowCalendar";
 export { default as workflowExecution } from "./workflowExecution";

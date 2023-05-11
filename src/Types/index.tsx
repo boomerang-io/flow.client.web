@@ -146,30 +146,32 @@ export interface CreateWorkflowSummary {
   };
 }
 
-export interface WorkflowSummary {
+export interface Workflow {
   id: string;
-  description: string;
-  enableACCIntegration: boolean;
-  storage: {
-    activity: {
-      enabled: boolean;
-      size: number;
-      mountPath: string;
-    };
-    workflow: {
-      enabled: boolean;
-      size: number;
-      mountPath: string;
-    };
-  };
-  icon: string;
   name: string;
-  labels: Array<{ key: string; value: string }>;
-  revisionCount: number;
-  status?: string;
-  scope: "system" | "team" | "user" | "template";
+  creationDate: string;
+  status: WorkflowStatus;
+  version: number;
+  description: string;
   shortDescription: string;
-  properties: [DataDrivenInput];
+  icon: string;
+  labels?: Record<string, string>;
+  annotations?: Record<string, object>;
+  params?: [
+    {
+      name: string;
+      type: string;
+      description?: string;
+      defaultValue?: object;
+    }
+  ];
+  tasks: [];
+  changelog: {
+    author: string;
+    reason: string;
+    date: string;
+  };
+  config: [DataDrivenInput];
   triggers: {
     manual: {
       enable: boolean;
@@ -195,8 +197,26 @@ export interface WorkflowSummary {
       label: string;
     }
   ];
-  flowTeamId: string;
   templateUpgradesAvailable: boolean;
+  workspaces: [
+    {
+      name: string;
+      description?: string;
+      type: string;
+      optional: boolean;
+      spec?: {
+        accessMode?: string;
+        className?: string;
+        size?: number;
+        mountPath?: string;
+      };
+    }
+  ];
+}
+
+export enum WorkflowStatus {
+  Active = "active",
+  Inactive = "inactive",
 }
 
 export const WorkflowView = {
@@ -206,16 +226,14 @@ export const WorkflowView = {
 
 export type WorkflowViewType = typeof WorkflowView[keyof typeof WorkflowView];
 
-type PageableSort<T> = {
-  property: keyof T;
-  direction: "ASC" | "DESC";
-  ignoreCase: boolean;
-  nullHandling: "NATIVE" | "NULLS_FIRST" | "NULLS_LAST";
-  ascending: boolean;
-  descending: boolean;
+type PageableSort = {
+  sorted: boolean;
+  empty: boolean;
+  unsorted: boolean;
 };
 
 type Pageable<T> = {
+  empty: boolean;
   first: boolean;
   last: boolean;
   number: number;
@@ -223,11 +241,12 @@ type Pageable<T> = {
   totalPages: number;
   totalElements: number;
   numberOfElements: number;
-  sort: Array<PageableSort<T>>;
-  records: Array<T>;
+  sort: PageableSort;
+  content: Array<T>;
 };
 
 export type PaginatedTeamResponse = Pageable<FlowTeam>;
+export type PaginatedWorkflowResponse = Pageable<Workflow>;
 
 export interface WorkflowDag {
   gridSize: number;
@@ -414,7 +433,7 @@ export interface FlowTeam {
   labels?: Record<string, string>;
   quotas: FlowTeamQuotas;
   users: Array<FlowUser>;
-  workflows: Array<WorkflowSummary>;
+  // workflows: Array<WorkflowSummary>;
   settings?: unknown;
   parameters: Array<DataDrivenInput>;
   approverGroups: Array<ApproverGroup>;

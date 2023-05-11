@@ -13,9 +13,18 @@ import WelcomeBanner from "Components/WelcomeBanner";
 import WorkflowCard from "Components/WorkflowCard";
 import WorkflowsHeader from "Components/WorkflowsHeader";
 import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
-import { FlowTeam, ModalTriggerProps, ComposedModalChildProps, WorkflowSummary, WorkflowView } from "Types";
+import {
+  FlowTeam,
+  ModalTriggerProps,
+  ComposedModalChildProps,
+  WorkflowView,
+  PaginatedWorkflowResponse,
+  Workflow,
+} from "Types";
 import { FeatureFlag } from "Config/appConfig";
 import styles from "./workflows.module.scss";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import { useQuery } from "react-query";
 
 const BANNER_STORAGE_ID = "bmrg-flow-hideWelcomeBanner";
 const initShowWelcomeBanner = window.localStorage.getItem(BANNER_STORAGE_ID) !== "true";
@@ -30,6 +39,7 @@ export default function WorkflowsHome() {
   let { query: searchQuery = "" } = queryString.parse(location.search, {
     arrayFormat: "comma",
   });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `?teams=${activeTeam?.id}` });
 
   useEffect(() => {
     if (isTutorialActive) {
@@ -72,7 +82,12 @@ export default function WorkflowsHome() {
     history.push({ search: queryStr });
   };
 
-  const workflowsCount = activeTeam ? activeTeam.workflows.length : 0;
+  const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>({
+    queryKey: getWorkflowsUrl,
+    queryFn: resolver.query(getWorkflowsUrl),
+  });
+
+  const workflowsCount = workflowsQuery.data ? workflowsQuery.data?.totalElements : 0;
 
   let safeQuery = "";
   if (Array.isArray(searchQuery)) {
@@ -82,7 +97,7 @@ export default function WorkflowsHome() {
   }
 
   const filteredWorkflows =
-    activeTeam?.workflows.filter((workflow) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
+    workflowsQuery.data?.content.filter((workflow) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
   let filteredWorkflowsCount = filteredWorkflows.length;
 
   return (
@@ -126,7 +141,7 @@ export default function WorkflowsHome() {
 interface WorkflowContentProps {
   searchQuery: string;
   team: FlowTeam;
-  filteredWorkflows: WorkflowSummary[];
+  filteredWorkflows: Workflow[];
 }
 
 const WorkflowContent: React.FC<WorkflowContentProps> = ({ searchQuery, team, filteredWorkflows }) => {

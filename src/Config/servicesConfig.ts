@@ -71,7 +71,7 @@ export const serviceUrl = {
   // getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
   getUserProfile: () => `${BASE_URL}/user/profile`,
   getUserProfileImage: ({ userEmail }) => `${BASE_CORE_USERS_URL}/image/${userEmail}`,
-  getUserWorkflows: () => `${BASE_URL}/workflows/user`,
+  getWorkflows: ({ query }) => `${BASE_URL}/workflow/query${query ? "?" + query : ""}`,
   getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
   getWorkflowChangelog: ({ workflowId, query }) =>
     `${BASE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
