@@ -1,7 +1,7 @@
 import React from "react";
 import { Handle, Position, NodeProps } from "reactflow";
 
-export function EndNode(props: NodeProps) {
+export default function EndNode(props: NodeProps) {
   const { isConnectable } = props;
   return (
     <div className="b-startEnd-node">

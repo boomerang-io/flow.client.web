@@ -5,16 +5,16 @@ import { NodeProps } from "reactflow";
 import BaseNode from "../Base/BaseNode";
 
 // About: shows a simple use of the BaseNode component
-export default function SetPropertyNode(props: NodeProps) {
+export default function AcquireLock(props: NodeProps) {
   // use context to determine state of diagram
   // render the correct component based on the mode of the diagram
-  return <SetPropertyNodeDesigner {...props} />;
+  return <AcquireLockDesigner {...props} />;
 }
 
-function SetPropertyNodeDesigner(props: NodeProps) {
-  return <BaseNode title="Set Property" isConnectable={props.isConnectable} nodeProps={props} />;
+function AcquireLockDesigner(props: NodeProps) {
+  return <BaseNode title="Acquire Lock" isConnectable={props.isConnectable} nodeProps={props} />;
 }
 
-function SetPropertyNodeExecution(props: NodeProps) {
+function AcquireLockExecution(props: NodeProps) {
   return <div>TODO</div>;
 }
