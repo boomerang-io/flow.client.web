@@ -11,6 +11,7 @@ import CreateWorkflow from "Components/CreateWorkflow";
 import EmptyState from "Components/EmptyState";
 import WelcomeBanner from "Components/WelcomeBanner";
 import WorkflowCard from "Components/WorkflowCard";
+import { WorkflowCardSkeleton } from "Components/WorkflowCard";
 import WorkflowsHeader from "Components/WorkflowsHeader";
 import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
 import {
@@ -128,8 +129,13 @@ export default function WorkflowsHome() {
           viewType={WorkflowView.Workflow}
         />
         <div aria-label="My Workflows" className={styles.content} role="region">
-          {searchQuery && filteredWorkflowsCount === 0 && !activeTeam ? (
+          {(searchQuery && filteredWorkflowsCount === 0) || !activeTeam ? (
+            // This is empty state with graphic, not loading state
             <EmptyState />
+          ) : workflowsQuery.isLoading ? (
+            <section className={styles.sectionContainer}>
+              <WorkflowCardSkeleton />
+            </section>
           ) : (
             <WorkflowContent searchQuery={safeQuery} team={activeTeam} filteredWorkflows={filteredWorkflows} />
           )}

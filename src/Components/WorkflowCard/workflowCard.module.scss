@@ -42,6 +42,17 @@
   }
 }
 
+.skeletonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 19.375rem;
+  width: 19.375rem;
+  height: 10.31255rem;
+  position: relative;
+  @include border-radius();
+}
+
 .details {
   display: flex;
   box-sizing: border-box;

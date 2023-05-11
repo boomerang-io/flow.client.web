@@ -384,6 +384,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
               <Route path="*" component={() => <Error404 theme="boomerang" />} />
             </Switch>
           </Route>
+          <Redirect to="/home" />
         </Switch>
       </Suspense>
       <NotificationsContainer enableMultiContainer />
