@@ -77,7 +77,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.flowNavigation;
       });
 
-      this.get(serviceUrl.getTeams({query: null}), (schema) => {
+      this.get(serviceUrl.getTeams({ query: null }), (schema) => {
         return schema.db.teams[0];
       });
 
@@ -119,7 +119,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.systemWorkflows;
       });
 
-      this.get(serviceUrl.getWorkflows(), (schema) => {
+      this.get(serviceUrl.getWorkflows({ query: null }), (schema) => {
         return schema.db.userWorkflows[0];
       });
 
