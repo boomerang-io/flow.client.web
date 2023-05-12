@@ -3,9 +3,10 @@ import { useFeature } from "flagged";
 import { useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Button } from "@carbon/react";
-import { ComposedModal, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal, Error, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { WarningAlt } from "@carbon/react/icons";
 import queryString from "query-string";
+import { matchSorter } from "match-sorter";
 import CreateWorkflow from "Components/CreateWorkflow";
 import EmptyState from "Components/EmptyState";
 import WorkflowCard from "Components/WorkflowCard";
@@ -61,6 +62,14 @@ export default function WorkflowsHome() {
     return (
       <Layout activeTeam={activeTeam} handleUpdateFilter={handleUpdateFilter} searchQuery={safeSearchQuery}>
         <WorkflowCardSkeleton />
+      </Layout>
+    );
+  }
+
+  if (workflowsQuery.error) {
+    return (
+      <Layout activeTeam={activeTeam} handleUpdateFilter={handleUpdateFilter} searchQuery={safeSearchQuery}>
+        <Error />
       </Layout>
     );
   }
@@ -124,12 +133,11 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ activeTeam, searchQue
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const hasReachedWorkflowLimit = activeTeam.quotas.maxWorkflowCount <= activeTeam.quotas.currentWorkflowCount;
 
-  const filteredWorkflowList = searchQuery
-    ? workflowList.filter((workflow) => workflow.name.toLowerCase().includes(searchQuery))
+  const filteredWorkflowList = Boolean(searchQuery)
+    ? matchSorter(workflowList, searchQuery, { keys: ["name", "shortDescription"] })
     : workflowList;
-  const filteredWorkflowsCount = filteredWorkflowList.length;
 
-  if (hasWorkflows && Boolean(searchQuery) && filteredWorkflowsCount === 0) {
+  if (hasWorkflows && Boolean(searchQuery) && filteredWorkflowList.length === 0) {
     return <EmptyState />;
   }
 
