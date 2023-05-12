@@ -1,9 +1,18 @@
-import { SkeletonPlaceholder } from "@carbon/react";
+import { Stack, Grid, Column, SkeletonPlaceholder, SkeletonText } from "@carbon/react";
 
 import styles from "./workflowCard.module.scss";
 
 const WorkflowCardSkeleton = () => {
-  return <SkeletonPlaceholder className={styles.skeletonContainer}></SkeletonPlaceholder>;
+  return (
+    <Stack gap={4}>
+      <SkeletonText className={styles.skeletonText} />
+      <div className={styles.skeletonCardContainer}>
+        <SkeletonPlaceholder className={styles.skeletonCard} />
+        <SkeletonPlaceholder className={styles.skeletonCard} />
+        <SkeletonPlaceholder className={styles.skeletonCard} />
+      </div>
+    </Stack>
+  );
 };
 
 export default WorkflowCardSkeleton;

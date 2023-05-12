@@ -236,13 +236,13 @@ function Main({
   return (
     <AppContextProvider
       value={{
+        activeTeam,
         isTutorialActive,
-        communityUrl: platformConfigData?.platform?.communityUrl ?? "",
         setIsTutorialActive,
-        user: userData,
-        teams: sortBy(teamsData, "name"),
-        activeTeam: activeTeam,
         quotas,
+        communityUrl: platformConfigData?.platform?.communityUrl ?? "",
+        teams: sortBy(teamsData, "name"),
+        user: userData,
       }}
     >
       <AppFeatures platformRole={platformRole} />

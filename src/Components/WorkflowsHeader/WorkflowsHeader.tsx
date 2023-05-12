@@ -9,16 +9,14 @@ import CreateTemplateWorkflow from "Components/CreateTemplateWorkflow";
 import { FlowTeam, WorkflowView, WorkflowViewType } from "Types";
 import styles from "./workflowsHeader.module.scss";
 
-type HandleUpdateFilter = (query: { [key: string]: string | string[] | null }) => void;
-
 interface WorkflowsHeaderProps {
   pretitle: string;
   title: string;
   subtitle?: string;
-  handleUpdateFilter: HandleUpdateFilter;
+  handleUpdateFilter: (args: { query: string }) => void;
   searchQuery: string | string[] | null;
   team?: FlowTeam | null;
-  workflowsCount: number;
+  workflowsCount?: number;
   viewType: WorkflowViewType;
 }
 
@@ -32,6 +30,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
   workflowsCount,
   viewType,
 }) => {
+  const workflowsCountStr = workflowsCount ? `(${workflowsCount})` : "";
   return (
     <Header
       className={styles.container}
@@ -39,7 +38,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
       header={
         <>
           <HeaderSubtitle>{pretitle}</HeaderSubtitle>
-          <HeaderTitle>{`${title} (${workflowsCount})`}</HeaderTitle>
+          <HeaderTitle>{`${title} ${workflowsCountStr}`}</HeaderTitle>
           {Boolean(subtitle) ? <HeaderSubtitle className={styles.headerMessage}>{subtitle}</HeaderSubtitle> : null}
         </>
       }
@@ -59,9 +58,9 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
 export default WorkflowsHeader;
 
 interface SearchFilterBarProps {
-  handleUpdateFilter: HandleUpdateFilter;
+  handleUpdateFilter: (args: { query: string }) => void;
   searchQuery: string | string[] | null;
-  workflowsCount: number;
+  workflowsCount?: number;
   team?: FlowTeam | null;
   viewType: WorkflowViewType;
 }
@@ -82,7 +81,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
       {viewType === WorkflowView.Workflow ? <CreateTemplateWorkflow team={team!} /> : null}
       <Layer className={styles.search}>
         <Search
-          disabled={workflowsCount <= 0}
+          disabled={!workflowsCount || workflowsCount === 0}
           data-testid="workflows-team-search"
           id="search-team-workflows"
           labelText={`Search for a ${viewType}`}

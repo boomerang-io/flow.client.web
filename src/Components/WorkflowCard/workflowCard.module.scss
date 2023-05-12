@@ -42,15 +42,20 @@
   }
 }
 
-.skeletonContainer {
+.skeletonCardContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  gap: 1.5rem
+}
+
+.skeletonCard {
   min-width: 19.375rem;
   width: 19.375rem;
   height: 10.31255rem;
-  position: relative;
   @include border-radius();
+}
+
+.skeletonText {
+  width: 10rem !important;
 }
 
 .details {

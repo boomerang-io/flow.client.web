@@ -15,6 +15,9 @@ declare global {
   }
 }
 
+// TODO: FIX THIS
+export type WorkflowSummary = any;
+
 export enum PlatformRole {
   Admin = "admin",
   User = "user",
