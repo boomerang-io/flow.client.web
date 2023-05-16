@@ -19,12 +19,11 @@ import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
 import { sortBy } from "lodash";
 import { elevatedUserRoles } from "Constants";
-import { AppPath, FeatureFlag, appLink } from "Config/appConfig";
+import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, PaginatedTeamResponse } from "Types";
 import styles from "./app.module.scss";
 
-const ReactFlow = lazy(() => import("Features/Reactflow"));
 const AppActivation = lazy(() => import("./AppActivation"));
 const Activity = lazy(() => import("Features/Activity"));
 const Actions = lazy(() => import("Features/Actions"));
@@ -270,7 +269,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
         }
       >
         <Switch>
-          <Route path={AppPath.Home}>
+          <Route path={"/home"}>
             <Home />
           </Route>
           <Route path={"/:teamId"}>
@@ -381,7 +380,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
               <Route path="*" component={() => <Error404 theme="boomerang" />} />
             </Switch>
           </Route>
-          <Redirect to={appLink.home()} />
+          <Redirect to="/home" />
         </Switch>
       </Suspense>
       <NotificationsContainer enableMultiContainer />

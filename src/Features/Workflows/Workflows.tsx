@@ -26,7 +26,7 @@ import {
 } from "Types";
 import styles from "./workflows.module.scss";
 
-export default function WorkflowsHome() {
+export default function Workflows() {
   const { activeTeam } = useAppContext();
   const history = useHistory();
   const location = useLocation();
