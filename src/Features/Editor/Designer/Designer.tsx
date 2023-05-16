@@ -12,6 +12,7 @@ import { TaskTemplateStatus, QueryStatus } from "Constants";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import { TaskModel, WorkflowRevision } from "Types";
 import styles from "./designer.module.scss";
+import ReactFlow from "Features/Reactflow";
 
 interface DesignerContainerProps {
   createNode: (workflowDagEngine: WorkflowDagEngine, event: React.DragEvent<HTMLDivElement>) => void;
@@ -47,7 +48,7 @@ const DesignerContainer: React.FC<DesignerContainerProps> = ({
         <Error />
       ) : (
         <>
-          <Designer createNode={createNode} isModalOpen={isModalOpen} workflowDagEngine={workflowDagEngine} />
+          <Designer isModalOpen={isModalOpen} />
           <Notes markdown={notes} updateNotes={updateNotes} />
         </>
       )}
@@ -58,40 +59,13 @@ const DesignerContainer: React.FC<DesignerContainerProps> = ({
 export default DesignerContainer;
 
 interface DesignerProps {
-  createNode: (workflowDagEngine: WorkflowDagEngine, event: React.DragEvent<HTMLDivElement>) => void;
   isModalOpen: boolean;
-  workflowDagEngine: WorkflowDagEngine;
 }
 
-const Designer: React.FC<DesignerProps> = ({ createNode, isModalOpen, workflowDagEngine }) => {
-  const workflowDagRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    workflowDagEngine.getDiagramEngine().zoomToFit();
-  }, [workflowDagEngine]);
-
-  const workflowDagBoundingClientRect = workflowDagRef.current ? workflowDagRef.current.getBoundingClientRect() : {};
+const Designer: React.FC<DesignerProps> = ({ isModalOpen }) => {
   return (
-    <div
-      id="workflow-dag-designer"
-      className={styles.workflowContainer}
-      onDrop={(event) => createNode(workflowDagEngine, event)}
-      onDragOver={(event) => {
-        event.preventDefault();
-      }}
-      ref={workflowDagRef}
-    >
-      <WorkflowZoom
-        workflowDagEngine={workflowDagEngine}
-        workflowDagBoundingClientRect={workflowDagBoundingClientRect}
-      />
-      <DiagramWidget
-        allowCanvasTranslation={!isModalOpen}
-        allowCanvasZoom={!isModalOpen}
-        className={styles.diagram}
-        deleteKeys={[]}
-        diagramEngine={workflowDagEngine.getDiagramEngine()}
-        maxNumberPointsPerLink={0}
-      />
+    <div id="workflow-dag-designer" className={styles.workflowContainer}>
+      <ReactFlow mode="editor" diagram={{ nodes: [], edges: [] }} />
     </div>
   );
 };

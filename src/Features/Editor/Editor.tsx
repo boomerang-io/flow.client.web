@@ -69,7 +69,8 @@ export default function EditorContainer() {
     },
   });
   const { mutateAsync: parametersMutation } = useMutation(resolver.postWorkflowAvailableParameters, {
-    onSuccess: (response) => queryClient.setQueryData(serviceUrl.workflowAvailableParameters({workflowId}), response.data),
+    onSuccess: (response) =>
+      queryClient.setQueryData(serviceUrl.workflowAvailableParameters({ workflowId }), response.data),
   });
 
   // Only show loading for the summary and task templates
@@ -107,13 +108,37 @@ export default function EditorContainer() {
 
 interface EditorStateContainerProps {
   availableParametersQueryData: Array<string>;
-  mutateRevision: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>;
-  mutateSummary: MutateFunction<AxiosResponse<any, any>, unknown, { body: any; }, unknown>;
-  parametersMutation: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>;
-  revisionMutation: { data: undefined; error: null; isError: false; isIdle: true; isLoading: false; isSuccess: false; status: "idle"; mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>; variables: { workflowId: any; body: any; } | undefined; } | any;
+  mutateRevision: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+  mutateSummary: MutateFunction<AxiosResponse<any, any>, unknown, { body: any }, unknown>;
+  parametersMutation: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+  revisionMutation:
+    | {
+        data: undefined;
+        error: null;
+        isError: false;
+        isIdle: true;
+        isLoading: false;
+        isSuccess: false;
+        status: "idle";
+        mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+        variables: { workflowId: any; body: any } | undefined;
+      }
+    | any;
   revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
   summaryData: WorkflowSummary;
-  summaryMutation: { data: undefined; error: null; isError: false; isIdle: true; isLoading: false; isSuccess: false; status: "idle"; mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>; variables: { workflowId: any; body: any; } | undefined; } | any;
+  summaryMutation:
+    | {
+        data: undefined;
+        error: null;
+        isError: false;
+        isIdle: true;
+        isLoading: false;
+        isSuccess: false;
+        status: "idle";
+        mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+        variables: { workflowId: any; body: any } | undefined;
+      }
+    | any;
   setRevisionNumber: (revisionNumber: number) => void;
   taskTemplatesData: Array<TaskModel>;
   workflowId: string;
@@ -142,7 +167,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   const isModalOpen = useIsModalOpen();
   const queryClient = useQueryClient();
 
-  const [workflowDagEngine, setWorkflowDagEngine] = useState<WorkflowDagEngine | null>(null);
+  const [workflowDagEngine, setWorkflowDagEngine] = useState<any>(null);
   const [revisionState, revisionDispatch] = useImmerReducer(
     revisionReducer,
     initRevisionReducerState(revisionQuery.data)
@@ -193,7 +218,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       const revisionConfig = { nodes: Object.values(normalizedConfig) };
 
       const revision = {
-        dag: workflowDagEngine?.getDiagramEngine().getDiagramModel().serializeDiagram(),
+        dag: {}, //TODO
         config: revisionConfig,
         changelog: { reason },
         markdown: revisionState.markdown,
@@ -257,7 +282,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         );
       }
     },
-    [mutateSummary, queryClient, summaryData, workflowId,]
+    [mutateSummary, queryClient, summaryData, workflowId]
   );
 
   const handleUpdateNotes = useCallback(
@@ -277,7 +302,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
    */
   const handleCreateNode = useCallback(
     (diagramApp, event) => {
-      const { taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
+      const { taskData } = JSON.parse(event.dataTransfer.getData("application/reactflow"));
 
       // For naming purposes
       const nodes: Array<{ id: string; taskId: string }> = Object.values(
@@ -385,9 +410,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   useEffect(() => {
     // Initial value of revisionState will be null, so need to check if its present or we get two engines created
     if (revisionState.version) {
-      const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, mode });
+      const newWorkflowDagEngine = {};
       setWorkflowDagEngine(newWorkflowDagEngine);
-      newWorkflowDagEngine.getDiagramEngine().repaintCanvas();
+      //newWorkflowDagEngine.getDiagramEngine().repaintCanvas();
     }
 
     // really and truly only want to rerun this on version change

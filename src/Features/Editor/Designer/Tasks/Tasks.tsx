@@ -4,14 +4,7 @@ import cx from "classnames";
 import { matchSorter } from "match-sorter";
 import uniqBy from "lodash/uniqBy";
 import { sortByProp } from "@boomerang-io/utils";
-import {
-  Accordion,
-  AccordionItem,
-  Checkbox,
-  Layer,
-  OverflowMenu,
-  Search,
-} from "@carbon/react";
+import { Accordion, AccordionItem, Checkbox, Layer, OverflowMenu, Search } from "@carbon/react";
 import { CheckboxList } from "@boomerang-io/carbon-addons-boomerang-react";
 import Task from "./Task";
 import { taskIcons } from "Utils/taskIcons";
@@ -168,10 +161,10 @@ export default class Tasks extends Component<TaskProps> {
                 <Task
                   key={task.id}
                   icon={task.icon}
-                  model={{ type: task.id, name: task.name, taskData: task }}
                   name={task.name}
                   verified={task.verified}
                   scope={task.scope}
+                  taskData={task}
                 />
               ))}
             </ul>

@@ -23,22 +23,12 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import "./styles.scss";
-import { AppContextProvider, EditorContextProvider } from "State/context";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
-import { tasktemplate, revisions, summaries } from "ApiServer/fixtures";
-import { 
-  StartNode, 
-  EndNode, 
-  SetPropertyNode, 
-  DecisionNode, 
-  DecisionEdge, 
-  TaskTemplateNode,
-  CustomTaskNode
-} from "./components";
+import * as GraphComps from "./components";
 import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
-import SwitchLinkExecutionConditionButton from "Components/SwitchLinkExecutionConditionButton";
+import { EXECUTION_CONDITIONS } from "Utils/taskLinkIcons";
 
 type NodeTypeValues = typeof NodeType[keyof typeof NodeType];
 
@@ -141,19 +131,11 @@ const TaskEdge: React.FC<EdgeProps> = (props: any) => {
           }}
           className="nodrag nopan"
         >
-          <TaskLinkExecutionConditionSwitcher onClick={() => setCondition((condition + 1) % 3)} />
-          <button
-            style={{
-              cursor: "pointer",
-              color: "white",
-              background: conditionColor[condition as keyof typeof conditionColor],
-              padding: "0.375rem",
-              borderRadius: "4px",
-            }}
-          >
-            {conditions[condition as keyof typeof conditions]}
-          </button>
           <WorkflowCloseButton className="" onClick={() => reactFlowInstance.deleteElements({ edges: [props] })} />
+          <TaskLinkExecutionConditionSwitcher
+            onClick={() => setCondition((condition + 1) % 3)}
+            executionCondition={EXECUTION_CONDITIONS[condition]}
+          />
         </div>
       </EdgeLabelRenderer>
     </>
@@ -217,27 +199,27 @@ export const markerTypes: { [K in NodeTypeValues]: string } = {
 
 const edgeTypes: EdgeTypes = {
   task: TaskEdge,
-  decision: DecisionEdge,
+  decision: GraphComps.DecisionEdge,
 };
 
 // Replace all of the functionality for the utils/dag/WorkflowDagEngine constructor, registerNodeFactory and factories
 const nodeTypes: NodeTypes = {
-  start: StartNode,
-  end: EndNode,
+  start: GraphComps.StartNode,
+  end: GraphComps.EndNode,
   task: TaskNode,
-  templateTask: TaskNode,
+  templateTask: GraphComps.TemplateNode,
   approval: TaskNode,
-  customTask: CustomTaskNode,
-  decision: DecisionNode,
-  eventwait: TaskNode,
-  manual: TaskNode,
-  acquirelock: TaskTemplateNode,
-  releaselock: TaskTemplateNode,
-  runscheduledworkflow: TaskNode,
-  runworkflow: TaskNode,
-  script: TaskNode,
-  setwfproperty: SetPropertyNode,
-  setwfstatus: TaskNode,
+  custom: GraphComps.CustomNode,
+  decision: GraphComps.DecisionNode,
+  eventwait: GraphComps.WaitNode,
+  manual: GraphComps.ManualNode,
+  acquirelock: GraphComps.AcquireLockNode,
+  releaselock: GraphComps.ReleaseLockNode,
+  runscheduledworkflow: GraphComps.RunScheduledWorkflowNode,
+  runworkflow: GraphComps.RunWorkflowNode,
+  script: GraphComps.ScriptNode,
+  setwfproperty: GraphComps.SetPropertyNode,
+  setwfstatus: GraphComps.SetStatusNode,
 };
 
 let id = 0;
@@ -360,47 +342,36 @@ function FlowDiagram(props: {
 
   const isDisabled = props.mode === WorkflowDagEngineMode.Viewer;
 
-  const store: any = {
-    availableParametersQueryData: ["global.params.test", "params.test"],
-    revisionDispatch: (props: any) => { console.log("Revision dispatch called")},
-    revisionState: revisions[0],
-    summaryData: summaries[0],
-    taskTemplatesData: tasktemplate,
-  };
-
-  console.log(flow?.toObject());
   return (
-    <EditorContextProvider value={store}>
-      <div style={{ height: "100%" }}>
-        <ReactFlowProvider>
-          <Sidenav />
-          <div className="reactflow-wrapper" ref={reactFlowWrapper} style={{ height: "100%" }}>
-            <ReactFlow
-              nodes={nodes}
-              onNodesChange={onNodesChange}
-              edges={edges}
-              onEdgesChange={onEdgesChange}
-              edgeTypes={edgeTypes}
-              nodeTypes={nodeTypes}
-              onConnect={onConnect}
-              onInit={setFlow}
-              onDrop={onDrop}
-              onDragOver={onDragOver}
-              nodesDraggable={!isDisabled}
-              nodesConnectable={!isDisabled}
-              elementsSelectable={!isDisabled}
-            >
-              <MarkerDefinition>
-                <CustomEdgeArrow id={markerTypes.decision} color="purple" />
-                <CustomEdgeArrow id={markerTypes.task} color="#0072c3" />
-              </MarkerDefinition>
-              <Background />
-              <Controls />
-            </ReactFlow>
-          </div>
-        </ReactFlowProvider>
-      </div>
-    </EditorContextProvider>
+    <div style={{ height: "100%", width: "100%" }}>
+      <ReactFlowProvider>
+        {/* <Sidenav /> */}
+        <div className="reactflow-wrapper" ref={reactFlowWrapper} style={{ height: "100%", width: "100%" }}>
+          <ReactFlow
+            nodes={nodes}
+            onNodesChange={onNodesChange}
+            edges={edges}
+            onEdgesChange={onEdgesChange}
+            edgeTypes={edgeTypes}
+            nodeTypes={nodeTypes}
+            onConnect={onConnect}
+            onInit={setFlow}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            nodesDraggable={!isDisabled}
+            nodesConnectable={!isDisabled}
+            elementsSelectable={!isDisabled}
+          >
+            <MarkerDefinition>
+              <CustomEdgeArrow id={markerTypes.decision} color="purple" />
+              <CustomEdgeArrow id={markerTypes.task} color="#0072c3" />
+            </MarkerDefinition>
+            <Background />
+            <Controls />
+          </ReactFlow>
+        </div>
+      </ReactFlowProvider>
+    </div>
   );
 }
 
@@ -419,41 +390,44 @@ function getLinkType(connection: Connection, nodes: Node[]) {
   };
 }
 
-const Sidenav = () => {
-  const onDragStart = (event: any, nodeType: any) => {
-    event.dataTransfer.setData("application/reactflow", nodeType);
-    event.dataTransfer.effectAllowed = "move";
-  };
+// const Sidenav = () => {
+//   const onDragStart = (event: any, nodeType: any) => {
+//     event.dataTransfer.setData("application/reactflow", nodeType);
+//     event.dataTransfer.effectAllowed = "move";
+//   };
 
-  return (
-    <aside style={{ background: "white", padding: "1rem", display: "flex", gap: "1rem" }}>
-      <div className="description">You can drag these nodes to the pane on the right.</div>
-      <div className="dndnode input" onDragStart={(event) => onDragStart(event, "start")} draggable>
-        Start Node
-      </div>
-      <div className="dndnode" onDragStart={(event) => onDragStart(event, "acquirelock")} draggable>
-        Acquire Lock
-      </div>
-      <div className="dndnode" onDragStart={(event) => onDragStart(event, "releaselock")} draggable>
-        Release Lock
-      </div>
-      <div className="dndnode" onDragStart={(event) => onDragStart(event, "task")} draggable>
-        Task Node
-      </div>
-      <div className="dndnode" onDragStart={(event) => onDragStart(event, "decision")} draggable>
-        Decision Node
-      </div>
-      <div className="dndnode" onDragStart={(event) => onDragStart(event, "setwfproperty")} draggable>
-        Set Property Node
-      </div>
-      <div className="dndnode" onDragStart={(event) => onDragStart(event, "customTask")} draggable>
-        Custom Node
-      </div>
-      <div className="dndnode output" onDragStart={(event) => onDragStart(event, "end")} draggable>
-        End Node
-      </div>
-    </aside>
-  );
-};
+//   return (
+//     <aside style={{ background: "white", padding: "1rem", display: "flex", gap: "1rem" }}>
+//       <div className="description">You can drag these nodes to the pane on the right.</div>
+//       <div className="dndnode input" onDragStart={(event) => onDragStart(event, "start")} draggable>
+//         Start Node
+//       </div>
+//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "acquirelock")} draggable>
+//         Acquire Lock
+//       </div>
+//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "approval")} draggable>
+//         Approval
+//       </div>
+//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "releaselock")} draggable>
+//         Release Lock
+//       </div>
+//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "task")} draggable>
+//         Task Node
+//       </div>
+//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "decision")} draggable>
+//         Decision Node
+//       </div>
+//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "setwfproperty")} draggable>
+//         Set Property Node
+//       </div>
+//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "custom")} draggable>
+//         Custom Node
+//       </div>
+//       <div className="dndnode output" onDragStart={(event) => onDragStart(event, "end")} draggable>
+//         End Node
+//       </div>
+//     </aside>
+//   );
+// };
 
 export default FlowDiagram;

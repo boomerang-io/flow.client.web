@@ -8,24 +8,23 @@ import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import BaseNode from "../Base/BaseNode";
 // import cx from "classnames";
-import styles from "./CustomTaskNode.module.scss";
+import styles from "./CustomNode.module.scss";
 
-export default function CustomTasksNode(props: NodeProps) {
+export default function CustomNode(props: NodeProps) {
   // use context to determine state of diagram
   // render the correct component based on the mode of the diagram
-  return <CustomTaskNodeDesigner {...props} />;
+  return <CustomNodeDesigner {...props} />;
 }
 
 // TODO: could probably create a "base" Node that this actually renders, lile what we have now to avoid duplicating things like
 // WorkflowCloseButton and WorkflowEditButtons, maybe even the ports as well
 // I think we can implement everything then optimize though
 
-
 //TODO: need to figure out how to get the task information from the data, might be the same method as before
 // might be able to use a hook got get the workflow state from react flow
 const task = {};
 
-function CustomTaskNodeDesigner(props: NodeProps) {
+function CustomNodeDesigner(props: NodeProps) {
   const { isConnectable } = props;
   const reactFlowInstance = useReactFlow();
 
@@ -78,36 +77,18 @@ function CustomTaskNodeDesigner(props: NodeProps) {
   //   });
   // };
 
-
   // Delete the node in state and then remove it from the diagram
-// const handleOnDelete = () => {
-//   //deleteNode
-//   revisionDispatch({
-//     type: RevisionActionTypes.DeleteNode,
-//     data: { nodeId: designerNode.id },
-//   });
-//   designerNode.remove();
-// };
+  // const handleOnDelete = () => {
+  //   //deleteNode
+  //   revisionDispatch({
+  //     type: RevisionActionTypes.DeleteNode,
+  //     data: { nodeId: designerNode.id },
+  //   });
+  //   designerNode.remove();
+  // };
 
   return (
-    <BaseNode title="Custom Task node" isConnectable={isConnectable}>
-      <div style={{ position: "absolute", top: "-0.875rem", right: "-0.875rem", display: "flex", gap: "0.25rem" }}>
-        <WorkflowCloseButton className={""} onClick={() => reactFlowInstance.deleteElements({ nodes: [props] })}>
-          Delete
-        </WorkflowCloseButton>
-      </div>
-      <Handle
-        className={"b-startEnd-node__port --right"}
-        type="source"
-        position={Position.Right}
-        isConnectable={isConnectable}
-      />
-      <Handle
-        className={"b-startEnd-node__port --left"}
-        type="target"
-        position={Position.Left}
-        isConnectable={isConnectable}
-      />
+    <BaseNode title="Run Custom Task" subtitle={"Run Custom Task 1"} isConnectable={isConnectable} nodeProps={props}>
       <div className={styles.badgeContainer}>
         <p className={styles.badgeText}>Custom</p>
       </div>

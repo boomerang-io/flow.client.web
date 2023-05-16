@@ -1,6 +1,8 @@
 import React from "react";
 import cx from "classnames";
-import { Handle, Position } from "reactflow";
+import { Handle, Position, useReactFlow, NodeProps } from "reactflow";
+import WorkflowEditButton from "Components/WorkflowEditButton";
+import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import styles from "./BaseNode.module.scss";
 
 //About: based on WorkflowNode component that serves as a base for many of the the components
@@ -14,10 +16,21 @@ export default function BaseNode(props: {
   title?: string;
   subtitle?: string;
   children?: React.ReactNode;
+  nodeProps: NodeProps;
 }) {
   const { isConnectable, children, title, subtitle, className, subtitleClass, ...rest } = props;
+  const reactFlowInstance = useReactFlow();
   return (
     <div className={cx(styles.node, className)} {...rest}>
+      <div style={{ position: "absolute", top: "-0.875rem", right: "-0.875rem", display: "flex", gap: "0.25rem" }}>
+        <WorkflowCloseButton
+          style={{ height: "1.75rem" }}
+          className={""}
+          onClick={() => reactFlowInstance.deleteElements({ nodes: [props.nodeProps] })}
+        >
+          Delete
+        </WorkflowCloseButton>
+      </div>
       <header className={styles.header}>
         <h3 title={title || "Task"} className={styles.title}>
           {title || "Task"}

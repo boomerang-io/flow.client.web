@@ -9,7 +9,7 @@ import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import BaseNode from "../../Base/BaseNode";
 import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { useEditorContext } from "Hooks";
-import styles from "./TaskTemplateNode.module.scss";
+import styles from "./TemplateNode.module.scss";
 
 export default function TaskTemplateNode(props: NodeProps) {
   // use context to determine state of diagram
@@ -27,12 +27,7 @@ export default function TaskTemplateNode(props: NodeProps) {
 function TaskTemplateNodeDesigner(props: NodeProps) {
   const reactFlowInstance = useReactFlow();
 
-  const {
-    availableParametersQueryData,
-    revisionDispatch,
-    revisionState,
-    taskTemplatesData,
-  } = useEditorContext();
+  const { availableParametersQueryData, revisionDispatch, revisionState, taskTemplatesData } = useEditorContext();
 
   const designerNode: any = {};
 
@@ -43,7 +38,10 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
 
   const nodeDag: any = revisionState.dag.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
   const nodeConfig = revisionState.config[designerNode?.id] ?? {};
-  const task = taskTemplatesData?.find((taskTemplate) => taskTemplate.id === designerNode.taskId) ?? { name: props.type, description: "" };
+  const task = taskTemplatesData?.find((taskTemplate) => taskTemplate.id === designerNode.taskId) ?? {
+    name: props.type,
+    description: "",
+  };
 
   // Get the taskNames names from the nodes on the model
   const taskNames: any[] = [];
@@ -52,25 +50,28 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
    * TODO: Event handlers
    */
   const handleOnUpdateTaskVersion = ({ inputs, version }: any) => {
-    revisionDispatch && revisionDispatch({
-      type: RevisionActionTypes.UpdateNodeTaskVersion,
-      data: { nodeId: designerNode.id, inputs, version },
-    });
+    revisionDispatch &&
+      revisionDispatch({
+        type: RevisionActionTypes.UpdateNodeTaskVersion,
+        data: { nodeId: designerNode.id, inputs, version },
+      });
   };
 
   const handleOnSaveTaskConfig = (inputs: any) => {
-    revisionDispatch && revisionDispatch({
-      type: RevisionActionTypes.UpdateNodeConfig,
-      data: { nodeId: designerNode.id, inputs },
-    });
+    revisionDispatch &&
+      revisionDispatch({
+        type: RevisionActionTypes.UpdateNodeConfig,
+        data: { nodeId: designerNode.id, inputs },
+      });
   };
 
   // Delete the node in state and then remove it from reactflow
   const handleOnDelete = () => {
-    revisionDispatch && revisionDispatch({
-      type: RevisionActionTypes.DeleteNode,
-      data: { nodeId: designerNode.id },
-    });
+    revisionDispatch &&
+      revisionDispatch({
+        type: RevisionActionTypes.DeleteNode,
+        data: { nodeId: designerNode.id },
+      });
     reactFlowInstance.deleteElements({ nodes: [props] });
   };
 
@@ -135,10 +136,7 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
   };
 
   return (
-    <BaseNode title={task.name} isConnectable>
-      <WorkflowCloseButton className={styles.closeButton} onClick={handleOnDelete}>
-        Delete
-      </WorkflowCloseButton>
+    <BaseNode title={task.name} isConnectable nodeProps={props}>
       <UpdateTaskVersion />
       <ConfigureTask />
     </BaseNode>

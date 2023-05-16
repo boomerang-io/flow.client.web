@@ -424,6 +424,7 @@ export interface TaskModel {
   status: string;
   scope: string; //global or team
   verified: boolean;
+  taskData: any;
 }
 
 export interface FlowTeam {
