@@ -11,9 +11,9 @@ export const CORE_ENV_URL =
 export const BASE_DOCUMENTATION_URL = "https://www.useboomerang.io/docs/boomerang-flow";
 
 //@ts-ignore
-export const isDevEnv = import.meta.env.MODE === Envs.Dev
+export const isDevEnv = import.meta.env.MODE === Envs.Dev;
 //@ts-ignore
-export const isTestEnv = import.meta.env.MODE === Envs.Test
+export const isTestEnv = import.meta.env.MODE === Envs.Test;
 
 type AppPathKey =
   | "Root"
@@ -29,6 +29,7 @@ type AppPathKey =
   | "EditorProperties"
   | "EditorSchedule"
   | "Execution"
+  | "Home"
   | "Insights"
   | "ManageTaskTemplates"
   | "ManageTaskTemplatesTeam"
@@ -72,6 +73,7 @@ export const AppPath: Record<AppPathKey, string> = {
   EditorProperties: `/:teamId/editor/:workflowId/parameters`,
   EditorSchedule: `/:teamId/editor/:workflowId/schedule`,
   Execution: "/:teamId/activity/:workflowId/execution/:executionId",
+  Home: "/home",
   Insights: "/:teamId/insights",
   TeamTokens: "/:teamId/manage/team-tokens",
   Workflows: "/:teamId/workflows",
@@ -137,6 +139,7 @@ export const appLink: Record<string, (args?: any) => string> = {
   editorProperties: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/parameters`,
   editorSchedule: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/schedule`,
   execution: ({ executionId, workflowId }: ExecutionArgs) => `/activity/${workflowId}/execution/${executionId}`,
+  home: () => "/home",
   insights: () => "/insights",
   manageTaskTemplates: ({ teamId }: TeamIdArg) => `/manage/task-templates/team/${teamId}`,
   manageTaskTemplateEdit: ({ teamId, taskId, version }: ManageTaskTemplateArgs) =>

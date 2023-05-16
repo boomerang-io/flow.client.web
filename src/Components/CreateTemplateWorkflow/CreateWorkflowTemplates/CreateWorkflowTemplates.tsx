@@ -75,12 +75,12 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
 
   const handleSelectTemplate = (template: WorkflowTemplate) => {
     setSelectedWorkflow(template);
-    setCurrentDag(
-      new WorkflowDagEngine({
-        dag: template.revision.dag,
-        mode: WorkflowDagEngineMode.Executor,
-      })
-    );
+    // setCurrentDag(
+    //   new WorkflowDagEngine({
+    //     dag: template.revision.dag,
+    //     mode: WorkflowDagEngineMode.Executor,
+    //   })
+    // );
   };
 
   const handleNextStep = (e: any) => {

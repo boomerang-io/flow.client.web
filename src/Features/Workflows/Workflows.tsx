@@ -1,8 +1,8 @@
 import React from "react";
 import { useFeature } from "flagged";
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
-import { Button } from "@carbon/react";
+import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
 import { ComposedModal, Error, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { WarningAlt } from "@carbon/react/icons";
 import queryString from "query-string";
@@ -14,7 +14,7 @@ import { WorkflowCardSkeleton } from "Components/WorkflowCard";
 import WorkflowsHeader from "Components/WorkflowsHeader";
 import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
 import { useAppContext } from "Hooks";
-import { FeatureFlag } from "Config/appConfig";
+import { FeatureFlag, appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import {
   FlowTeam,
@@ -55,12 +55,17 @@ export default function WorkflowsHome() {
 
   // TODO: make this smarter bc we shouldn't get to the route without an active team
   if (!activeTeam) {
-    return history.push("/home");
+    return history.push(appLink.home());
   }
 
   if (workflowsQuery.isLoading) {
     return (
-      <Layout activeTeam={activeTeam} handleUpdateFilter={handleUpdateFilter} searchQuery={safeSearchQuery}>
+      <Layout
+        activeTeam={activeTeam}
+        handleUpdateFilter={handleUpdateFilter}
+        searchQuery={safeSearchQuery}
+        workflowList={[]}
+      >
         <WorkflowCardSkeleton />
       </Layout>
     );
@@ -68,7 +73,12 @@ export default function WorkflowsHome() {
 
   if (workflowsQuery.error) {
     return (
-      <Layout activeTeam={activeTeam} handleUpdateFilter={handleUpdateFilter} searchQuery={safeSearchQuery}>
+      <Layout
+        activeTeam={activeTeam}
+        handleUpdateFilter={handleUpdateFilter}
+        searchQuery={safeSearchQuery}
+        workflowList={[]}
+      >
         <Error />
       </Layout>
     );
@@ -106,8 +116,15 @@ function Layout(props: LayoutProps) {
   return (
     <div className={styles.container}>
       <WorkflowsHeader
-        pretitle="These are your Workflows"
-        title={props.activeTeam.name}
+        pretitle={
+          <Breadcrumb noTrailingSlash>
+            <BreadcrumbItem>
+              <Link to={appLink.home()}>Teams</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem isCurrentPage>{props.activeTeam.name}</BreadcrumbItem>
+          </Breadcrumb>
+        }
+        title={"Workflows"}
         subtitle="Your playground to create, execute, and collaborate on workflows. Work smarter with automation."
         handleUpdateFilter={props.handleUpdateFilter}
         searchQuery={props.searchQuery}

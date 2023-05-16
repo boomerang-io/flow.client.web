@@ -10,9 +10,9 @@ import { FlowTeam, WorkflowView, WorkflowViewType, Workflow } from "Types";
 import styles from "./workflowsHeader.module.scss";
 
 interface WorkflowsHeaderProps {
-  pretitle: string;
+  pretitle?: React.ReactNode;
   title: string;
-  subtitle?: string;
+  subtitle: string;
   handleUpdateFilter: (args: { query: string }) => void;
   searchQuery: string | string[] | null;
   team?: FlowTeam | null;
@@ -32,6 +32,11 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
 }) => {
   const workflowsCount = workflowList.length;
   const workflowsCountStr = workflowsCount > 0 ? `(${workflowsCount})` : "";
+
+  const handleOnSearchInputChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    handleUpdateFilter({ query: e.currentTarget?.value ?? "" });
+  };
+
   return (
     <Header
       className={styles.container}
@@ -44,13 +49,20 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
         </>
       }
       actions={
-        <ActionsBar
-          handleUpdateFilter={handleUpdateFilter}
-          searchQuery={searchQuery}
-          team={team}
-          workflowsCount={workflowsCount}
-          viewType={viewType}
-        />
+        <ActionsBar>
+          {viewType === WorkflowView.Workflow ? <CreateTemplateWorkflow team={team!} workflowList={[]} /> : null}
+          <Layer className={styles.search}>
+            <Search
+              disabled={!workflowsCount || workflowsCount === 0}
+              data-testid="workflows-team-search"
+              id="search-team-workflows"
+              labelText={`Search for a ${viewType}`}
+              onChange={handleOnSearchInputChange}
+              placeholder={`Search for a ${viewType}`}
+              value={searchQuery}
+            />
+          </Layer>
+        </ActionsBar>
       }
     />
   );
@@ -59,38 +71,9 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
 export default WorkflowsHeader;
 
 interface ActionsBarProps {
-  handleUpdateFilter: (args: { query: string }) => void;
-  searchQuery: string | string[] | null;
-  workflowsCount?: number;
-  team?: FlowTeam | null;
-  viewType: WorkflowViewType;
+  children: React.ReactNode;
 }
 
-const ActionsBar: React.FC<ActionsBarProps> = ({
-  handleUpdateFilter,
-  searchQuery,
-  team,
-  viewType,
-  workflowsCount,
-}) => {
-  const handleOnSearchInputChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    handleUpdateFilter({ query: e.currentTarget?.value ?? "" });
-  };
-
-  return (
-    <div className={styles.filterContainer}>
-      {viewType === WorkflowView.Workflow ? <CreateTemplateWorkflow team={team!} workflowList=/> : null}
-      <Layer className={styles.search}>
-        <Search
-          disabled={!workflowsCount || workflowsCount === 0}
-          data-testid="workflows-team-search"
-          id="search-team-workflows"
-          labelText={`Search for a ${viewType}`}
-          onChange={handleOnSearchInputChange}
-          placeholder={`Search for a ${viewType}`}
-          value={searchQuery}
-        />
-      </Layer>
-    </div>
-  );
+const ActionsBar: React.FC<ActionsBarProps> = (props: ActionsBarProps) => {
+  return <div className={styles.filterContainer}>{props.children}</div>;
 };

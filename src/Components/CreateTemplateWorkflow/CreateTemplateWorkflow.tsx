@@ -10,15 +10,16 @@ import CreateWorkflowTemplates from "./CreateWorkflowTemplates";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Template, Add } from "@carbon/react/icons";
-import { FlowTeam, ModalTriggerProps } from "Types";
+import { FlowTeam, ModalTriggerProps, Workflow } from "Types";
 import { FeatureFlag } from "Config/appConfig";
 import styles from "./createWorkflow.module.scss";
 
 interface CreateTemplateWorkflowProps {
   team: FlowTeam;
+  workflowList: Array<Workflow>;
 }
 
-const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ team }) => {
+function CreateTemplateWorkflow({ team, workflowList }: CreateTemplateWorkflowProps) {
   const queryClient = useQueryClient();
   const history = useHistory();
   const workflowQuotasEnabled: boolean = useFeature(FeatureFlag.WorkflowQuotasEnabled);
@@ -107,9 +108,10 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ team })
         isLoading={isLoading}
         team={team}
         workflowQuotasEnabled={workflowQuotasEnabled}
+        workflowList={workflowList}
       />
     </ModalFlow>
   );
-};
+}
 
 export default CreateTemplateWorkflow;

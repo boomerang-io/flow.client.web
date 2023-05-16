@@ -7,7 +7,7 @@ import capitalize from "lodash/capitalize";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { ModalFlowForm, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import workflowIcons from "Assets/workflowIcons";
-import { FlowTeam } from "Types";
+import { FlowTeam, Workflow } from "Types";
 import styles from "./createWorkflow.module.scss";
 
 let classnames = classNames.bind(styles);
@@ -22,6 +22,7 @@ interface CreateWorkflowContentProps {
   saveValues: any;
   requestPreviousStep: any;
   workflowQuotasEnabled: boolean;
+  workflowList: Array<Workflow>;
 }
 
 const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
@@ -32,17 +33,17 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   isLoading,
   team,
   workflowQuotasEnabled,
+  workflowList,
 }) => {
   const formikRef = useRef<any>();
   const hasReachedWorkflowLimit = team.quotas.maxWorkflowCount <= team.quotas.currentWorkflowCount;
   const createWorkflowsDisabled = workflowQuotasEnabled && hasReachedWorkflowLimit;
-  const existingWorkflowNames = team.workflows.map((workflow) => workflow.name) ?? [];
+  const existingWorkflowNames = workflowList.map((workflow) => workflow.name) ?? [];
 
   const handleSubmit = (values: any) => {
     const requestBody = {
       name: values.name,
       description: values.description,
-      summary: values.summary,
       icon: values.icon,
       teamId: team.id,
     };
@@ -56,7 +57,6 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
       innerRef={formikRef}
       initialValues={{
         name: formData.selectedWorkflow.name,
-        summary: formData.selectedWorkflow?.summary ?? "",
         description: formData.selectedWorkflow?.description ?? "",
         icon: formData.selectedWorkflow.icon,
       }}
@@ -66,7 +66,6 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
           .required("Name is required")
           .max(64, "Name must not be greater than 64 characters")
           .notOneOf(existingWorkflowNames, "This name already exists"),
-        summary: Yup.string().max(128, "Summary must not be greater than 128 characters"),
         description: Yup.string().max(250, "Description must not be greater than 250 characters"),
       })}
     >
@@ -84,15 +83,6 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                 onChange={handleChange}
                 invalid={Boolean(errors.name && touched.name)}
                 invalidText={errors.name}
-              />
-              <TextInput
-                id="summary"
-                labelText="Summary"
-                value={values.summary}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={Boolean(errors.summary && touched.summary)}
-                invalidText={errors.summary}
               />
               <TextArea
                 id="description"
