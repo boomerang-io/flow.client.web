@@ -21,7 +21,7 @@ export default function TemplateWorkflows() {
     data: templatesWorkflowData,
     error: errorTemplatesWorkflow,
     isLoading: isLoadingTemplatesWorkflow,
-  } = useQuery(serviceUrl.workflowTemplates());
+  } = useQuery(serviceUrl.getWorkflowTemplates());
 
   let safeQuery = "";
   if (Array.isArray(searchQuery)) {

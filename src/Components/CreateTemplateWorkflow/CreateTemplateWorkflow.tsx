@@ -22,7 +22,7 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ team })
   const queryClient = useQueryClient();
   const history = useHistory();
   const workflowQuotasEnabled: boolean = useFeature(FeatureFlag.WorkflowQuotasEnabled);
-  const workflowTemplatesUrl = serviceUrl.workflowTemplates();
+  const workflowTemplatesUrl = serviceUrl.getWorkflowTemplates();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ query: "" });
 
   const {

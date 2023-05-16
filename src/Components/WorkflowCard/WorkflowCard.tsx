@@ -94,7 +94,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
         <ToastNotification kind="success" title={`Delete ${viewType}`} subtitle={`${viewType} successfully deleted`} />
       );
       if (viewType === WorkflowView.Template) {
-        queryClient.invalidateQueries(serviceUrl.workflowTemplates());
+        queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
         /**
          * teams query takes a while. optomistic update here
@@ -130,7 +130,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
         />
       );
       if (viewType === WorkflowView.Template) {
-        queryClient.invalidateQueries(serviceUrl.workflowTemplates());
+        queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
         queryClient.invalidateQueries(serviceUrl.getTeams());
       }
@@ -296,8 +296,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
         {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
           <ComposedModal
             modalHeaderProps={{
-              title: `${viewType} Parameters`,
-              subtitle: `Provide parameter values for your ${viewType.toLowerCase()}`,
+              title: `Workflow Parameters`,
+              subtitle: `Provide parameter values for your Workflow`,
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button

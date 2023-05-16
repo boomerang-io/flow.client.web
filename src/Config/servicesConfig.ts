@@ -111,7 +111,7 @@ export const serviceUrl = {
   resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
   resourceSettings: () => `${BASE_URL}/settings`,
   workflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
-  workflowTemplates: () => `${BASE_URL}/workflows/template`,
+  getWorkflowTemplates: () => `${BASE_URL}/workflowtemplate/query`,
 };
 
 export const cancellableResolver = ({ url, method, body, headers, ...config }) => {
@@ -176,7 +176,7 @@ export const resolver = {
       body,
       method: HttpMethod.Post,
     }),
-  postCreateTemplate: ({ body }) => axios.post(serviceUrl.workflowTemplates(), body),
+  postCreateTemplate: ({ body }) => axios.post(serviceUrl.getWorkflowTemplates(), body),
   postCreateWorkflow: ({ body }) => axios.post(serviceUrl.postCreateWorkflow(), body),
   postCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
