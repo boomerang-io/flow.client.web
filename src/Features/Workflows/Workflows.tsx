@@ -80,7 +80,7 @@ export default function WorkflowsHome() {
         activeTeam={activeTeam}
         handleUpdateFilter={handleUpdateFilter}
         searchQuery={safeSearchQuery}
-        workflowCount={workflowsQuery.data.content.length}
+        workflowList={workflowsQuery.data.content}
       >
         <WorkflowContent
           activeTeam={activeTeam}
@@ -99,7 +99,7 @@ interface LayoutProps {
   children: React.ReactNode;
   handleUpdateFilter: (args: { query: string }) => void;
   searchQuery: string;
-  workflowCount?: number;
+  workflowList: Array<Workflow>;
 }
 
 function Layout(props: LayoutProps) {
@@ -112,7 +112,7 @@ function Layout(props: LayoutProps) {
         handleUpdateFilter={props.handleUpdateFilter}
         searchQuery={props.searchQuery}
         team={props.activeTeam}
-        workflowsCount={props.workflowCount}
+        workflowList={props.workflowList}
         viewType={WorkflowView.Workflow}
       />
       <div aria-label="My Workflows" className={styles.content} role="region">

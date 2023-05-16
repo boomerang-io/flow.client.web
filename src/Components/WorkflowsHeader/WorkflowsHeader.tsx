@@ -6,7 +6,7 @@ import {
   FeatureHeaderSubtitle as HeaderSubtitle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateTemplateWorkflow from "Components/CreateTemplateWorkflow";
-import { FlowTeam, WorkflowView, WorkflowViewType } from "Types";
+import { FlowTeam, WorkflowView, WorkflowViewType, Workflow } from "Types";
 import styles from "./workflowsHeader.module.scss";
 
 interface WorkflowsHeaderProps {
@@ -16,7 +16,7 @@ interface WorkflowsHeaderProps {
   handleUpdateFilter: (args: { query: string }) => void;
   searchQuery: string | string[] | null;
   team?: FlowTeam | null;
-  workflowsCount?: number;
+  workflowList: Array<Workflow>;
   viewType: WorkflowViewType;
 }
 
@@ -27,10 +27,11 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
   handleUpdateFilter,
   searchQuery,
   team,
-  workflowsCount,
+  workflowList,
   viewType,
 }) => {
-  const workflowsCountStr = workflowsCount ? `(${workflowsCount})` : "";
+  const workflowsCount = workflowList.length;
+  const workflowsCountStr = workflowsCount > 0 ? `(${workflowsCount})` : "";
   return (
     <Header
       className={styles.container}
@@ -43,7 +44,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
         </>
       }
       actions={
-        <SearchFilterBar
+        <ActionsBar
           handleUpdateFilter={handleUpdateFilter}
           searchQuery={searchQuery}
           team={team}
@@ -57,7 +58,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
 
 export default WorkflowsHeader;
 
-interface SearchFilterBarProps {
+interface ActionsBarProps {
   handleUpdateFilter: (args: { query: string }) => void;
   searchQuery: string | string[] | null;
   workflowsCount?: number;
@@ -65,7 +66,7 @@ interface SearchFilterBarProps {
   viewType: WorkflowViewType;
 }
 
-const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
+const ActionsBar: React.FC<ActionsBarProps> = ({
   handleUpdateFilter,
   searchQuery,
   team,
@@ -78,7 +79,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
 
   return (
     <div className={styles.filterContainer}>
-      {viewType === WorkflowView.Workflow ? <CreateTemplateWorkflow team={team!} /> : null}
+      {viewType === WorkflowView.Workflow ? <CreateTemplateWorkflow team={team!} workflowList=/> : null}
       <Layer className={styles.search}>
         <Search
           disabled={!workflowsCount || workflowsCount === 0}
