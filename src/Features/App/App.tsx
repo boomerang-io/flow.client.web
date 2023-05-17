@@ -229,7 +229,6 @@ function Main({
   if (shouldShowBrowserWarning) {
     return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
   }
-  console.log(teamsData);
   let activeTeam = teamsData.find((team) => team.id === activeTeamId);
 
   return (

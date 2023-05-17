@@ -32,9 +32,10 @@ import {
   WorkflowView,
   WorkflowViewType,
 } from "Types";
-import styles from "./workflowCard.module.scss";
 // @ts-ignore:next-line
 import { swapValue } from "Utils";
+import styles from "./workflowCard.module.scss";
+import { constants } from "crypto";
 
 interface WorkflowCardProps {
   teamId: string | null;
@@ -46,7 +47,7 @@ interface WorkflowCardProps {
 type FunctionAnyReturn = () => any;
 
 const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, viewType }) => {
-  const { teams } = useAppContext();
+  const { activeTeam } = useAppContext();
   const queryClient = useQueryClient();
   const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -82,8 +83,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
    * @returns {Array}
    */
   const formatPropertiesForEdit = () => {
-    const { properties = [] } = workflow;
-    return properties.filter((property) => !property.readOnly);
+    const { params = [] } = workflow;
+    return params.filter((param: any) => !param.readOnly);
   };
 
   const handleDeleteWorkflow = async () => {
@@ -96,17 +97,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        /**
-         * teams query takes a while. optomistic update here
-         */
-        // TODO I think we only need to invalidate the particular activeTeam query
-        const specificTeam = teams.find((team) => team.id === teamId);
-        const specificTeamIndex = teams.findIndex((team) => team.id === teamId);
-        const newTeamWorkflows = specificTeam?.workflows.filter((workflow) => workflow.id !== workflowId);
-        // @ts-ignore
-        teams[specificTeamIndex].workflows = newTeamWorkflows;
-        queryClient.setQueryData(serviceUrl.getTeams(), teams);
-        queryClient.invalidateQueries(serviceUrl.getTeams());
+        queryClient.invalidateQueries(serviceUrl.getTeams({ query: activeTeam?.id }));
       }
     } catch {
       notify(
@@ -132,7 +123,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getTeams());
+        queryClient.invalidateQueries(serviceUrl.getTeams({ query: activeTeam?.id }));
       }
       return;
     } catch (e) {
@@ -191,7 +182,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
           state: { fromUrl: appLink.workflows(), fromText: `${viewType}s` },
         });
       } else {
-        queryClient.invalidateQueries(serviceUrl.getTeams());
+        queryClient.invalidateQueries(serviceUrl.getTeams({ query: activeTeam?.id }));
         closeModal();
       }
     } catch (err) {
@@ -208,7 +199,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
   let menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => history.push(appLink.editorDesigner({ workflowId: workflow.id })),
+      onClick: () => history.push(appLink.editorDesigner({ teamId: activeTeam?.id, workflowId: workflow.id })),
     },
     {
       itemText: "View Activity",
@@ -239,9 +230,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
   }
 
   const formattedProperties = formatPropertiesForEdit();
-
   const { name, Icon = Bee } = workflowIcons.find((icon) => icon.name === workflow.icon) ?? {};
-
   let hasReachedMonthlyRunLimit = false;
 
   if (quotas) {
@@ -249,7 +238,6 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
   }
 
   const canRunManually = workflow?.triggers?.manual?.enable ?? false;
-
   const isDisabled = workflowQuotasEnabled && (hasReachedMonthlyRunLimit || !canRunManually);
 
   let loadingText = "";
@@ -264,7 +252,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
 
   return (
     <div className={styles.container}>
-      <Link to={!isDeleting ? appLink.editorDesigner({ workflowId: workflow.id }) : ""}>
+      <Link to={!isDeleting ? appLink.editorDesigner({ teamId: activeTeam?.id, workflowId: workflow.id }) : ""}>
         <section className={styles.details}>
           <div className={styles.iconContainer}>
             <Icon className={styles.icon} alt={`${name}`} />

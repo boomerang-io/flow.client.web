@@ -25,41 +25,53 @@ export const BASE_URL = `${PRODUCT_SERVICE_ENV_URL}`;
 export const BASE_CORE_URL = CORE_SERVICE_ENV_URL;
 export const BASE_CORE_USERS_URL =  `${CORE_SERVICE_ENV_URL}/users`;
 
+type IdArg = {
+  query: string
+}
+
+type TeamIdArg = {
+  query: string
+}
+type QueryArg = {
+  query: string
+}
+
 export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
   deleteCancelWorkflow: ({ executionId }) => `${BASE_URL}/activity/${executionId}/cancel`,
   deleteToken: ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
   deleteSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
-  getActivitySummary: ({ query }) => `${BASE_URL}/activity/summary${query ? "?" + query : ""}`,
-  getActivity: ({ query }) => `${BASE_URL}/activity${query ? "?" + query : ""}`,
-  getActionsSummary: ({ query }) => `${BASE_URL}/actions/summary${query ? "?" + query : ""}`,
-  getActions: ({ query }) => `${BASE_URL}/actions${query ? "?" + query : ""}`,
+  getActivitySummary: ({ query }: QueryArg) => `${BASE_URL}/activity/summary${query ? "?" + query : ""}`,
+  getActivity: ({ query }: QueryArg) => `${BASE_URL}/activity${query ? "?" + query : ""}`,
+  getActionsSummary: ({ query }: QueryArg) => `${BASE_URL}/actions/summary${query ? "?" + query : ""}`,
+  getActions: ({ query }: QueryArg) => `${BASE_URL}/actions${query ? "?" + query : ""}`,
   getDefaultQuotas: () => `${BASE_URL}/quotas/default`,
   getFeatureFlags: () => `${BASE_URL}/features`,
-  getFlowTeamUsers: ({ teamId }) => `${BASE_URL}/teams/${teamId}/members`,
-  getNavigation: ({ query }) => `${BASE_URL}/navigation${query}`,
+  getFlowTeamUsers: ({ teamId }: TeamIdArg) => `${BASE_URL}/teams/${teamId}/members`,
+  getNavigation: ({ query }: QueryArg) => `${BASE_URL}/navigation${query}`,
   getGlobalConfiguration: () => `${BASE_URL}/config`,
-  getGlobalProperty: ({ id }) => `${BASE_URL}/config/${id}`,
+  getGlobalProperty: ({ id }: IdArg) => `${BASE_URL}/config/${id}`,
   getGlobalTokens: () => `${BASE_URL}/tokens/global-tokens`,
-  getInsights: ({ query }) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
+  getInsights: ({ query }: QueryId) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
   getManageTeamsCreate: () => `${BASE_URL}/manage/teams`,
   getManageTeam: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}`,
   getManageTeamUser: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}/members`,
   getManageTeamLabels: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}/labels`,
-  getManageTeams: ({ query }) => `${BASE_URL}/manage/teams${query ? "?" + query : ""}`,
-  getManageUsers: ({ query }) => `${BASE_URL}/manage/users${query ? "?" + query : ""}`,
+  getManageTeams: ({ query }: QueryId) => `${BASE_URL}/manage/teams${query ? "?" + query : ""}`,
+  getManageUsers: ({ query }: QueryId) => `${BASE_URL}/manage/users${query ? "?" + query : ""}`,
   // getPlatformConfig: () => `${BASE_CORE_USERS_URL}/navigation`,
   getContext: () => `${BASE_URL}/context`,
-  getSchedules: ({ query }) => `${BASE_URL}/schedules${query ? "?" + query : ""}`,
+  getSchedules: ({ query }: QueryId) => `${BASE_URL}/schedules${query ? "?" + query : ""}`,
   getSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
-  getSchedulesCalendars: ({ query }) => `${BASE_URL}/schedules/calendar${query ? "?" + query : ""}`,
+  getSchedulesCalendars: ({ query }: QueryId) => `${BASE_URL}/schedules/calendar${query ? "?" + query : ""}`,
   getScheduleCalendar: ({ scheduleId, query }) =>
     `${BASE_URL}/schedules/${scheduleId}/calendar${query ? "?" + query : ""}`,
   getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedules/validate/cron?cron=${expression}`,
   getSystemWorkflows: () => `${BASE_URL}/workflows/system`,
-  getTaskTemplates: ({ query }) => `${BASE_URL}/tasktemplate${query ? "?" + query : ""}`,
+  getTaskTemplates: ({ query }: QueryId) => `${BASE_URL}/tasktemplate${query ? "?" + query : ""}`,
   getTaskTemplateYaml: ({ id, revision }) => `${BASE_URL}/tasktemplate/${id}/yaml${revision ? `/${revision}` : ""}`,
-  getTeams: ({ query }) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
+  getTeam: ({ teamId }) => `${BASE_URL}/team/${teamId}`,
+  getTeams: ({ query }: QueryId) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/teams/${teamId}/properties/${configurationId}`,
   getTeamProperties: ({ id }) => `${BASE_URL}/teams/${id}/properties`,
   getTeamQuotas: ({ id }) => `${BASE_URL}/teams/${id}/quotas`,
@@ -71,11 +83,11 @@ export const serviceUrl = {
   // getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
   getUserProfile: () => `${BASE_URL}/user/profile`,
   getUserProfileImage: ({ userEmail }) => `${BASE_CORE_USERS_URL}/image/${userEmail}`,
-  getWorkflows: ({ query }) => `${BASE_URL}/workflow/query${query ? "?" + query : ""}`,
+  getWorkflows: ({ query }: QueryId) => `${BASE_URL}/workflow/query${query ? "?" + query : ""}`,
   getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
   getWorkflowChangelog: ({ workflowId, query }) =>
     `${BASE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
-  getWorkflowImport: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
+  getWorkflowImport: ({ query }: QueryId) => `${BASE_URL}/workflow/import?${query}`,
   getWorkflowExecution: ({ executionId }) => `${BASE_URL}/activity/${executionId}`,
   getWorkflowExecutionLog: ({ flowActivityId, flowTaskId }) =>
     `${BASE_URL}/activity/${flowActivityId}/log/${flowTaskId}`,

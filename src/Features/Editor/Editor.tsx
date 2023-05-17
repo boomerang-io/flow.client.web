@@ -33,7 +33,7 @@ import ScriptNodeModel from "Utils/dag/scriptNode/ScriptNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
-import { TaskModel, WorkflowSummary, WorkflowRevision } from "Types";
+import { TaskModel, WorkflowSummary, WorkflowRevision, WorkflowView } from "Types";
 import styles from "./editor.module.scss";
 
 export default function EditorContainer() {
@@ -451,6 +451,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             revisionMutation={revisionMutation}
             revisionQuery={revisionQuery}
             summaryData={summaryData}
+            viewType={WorkflowView.Workflow}
           />
           <Switch>
             <Route path={AppPath.EditorDesigner}>

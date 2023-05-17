@@ -2,37 +2,36 @@ const flowNavigation = [
   {
     name: "Workflows",
     type: "link",
-    icon: "FlowData16",
     link: "/BMRG_APP_ROOT_CONTEXT/workflows",
   },
   {
     name: "Activity",
     type: "link",
-    icon: "Activity16",
+    icon: "Activity",
     link: "/BMRG_APP_ROOT_CONTEXT/activity",
   },
   {
     name: "Actions",
     type: "link",
-    icon: "Stamp16",
+    icon: "Stamp",
     link: "/BMRG_APP_ROOT_CONTEXT/actions",
   },
   {
     name: "Schedules",
     type: "link",
-    icon: "CalendarHeatMap16",
+    icon: "CalendarHeatMap",
     link: "/BMRG_APP_ROOT_CONTEXT/schedules",
   },
   {
     name: "Insights",
     type: "link",
-    icon: "ChartScatter16",
+    icon: "ChartScatter",
     link: "/BMRG_APP_ROOT_CONTEXT/insights",
   },
   {
     name: "Management",
     type: "category",
-    icon: "SettingsAdjust16",
+    icon: "SettingsAdjust",
     childLinks: [
       {
         name: "Team Approvers",
@@ -59,7 +58,7 @@ const flowNavigation = [
   {
     name: "Admin",
     type: "category",
-    icon: "Settings16",
+    icon: "Settings",
     childLinks: [
       {
         name: "Teams",

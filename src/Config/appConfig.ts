@@ -114,6 +114,12 @@ interface WorkflowIdArg {
 interface TeamIdArg {
   teamId: string;
 }
+
+interface UserIdArg {
+  userId: string
+}
+
+type TeamRouteArgs = WorkflowIdArg & TeamIdArg;
 interface ManageTaskTemplateArgs {
   teamId: string;
   taskId: string;
@@ -128,16 +134,16 @@ interface ExecutionArgs {
   workflowId: string;
 }
 
-export const appLink: Record<string, (args?: any) => string> = {
+export const appLink = {
   activity: ({ teamId }: TeamIdArg) => `/${teamId}/activity`,
   actions: ({ teamId }: TeamIdArg) => `/${teamId}/actions`,
   actionsApprovals: ({ teamId }: TeamIdArg) => `/${teamId}/actions/approvals`,
   actionsManual: ({ teamId }: TeamIdArg) => `/${teamId}/actions/manual`,
-  editorDesigner: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/workflow`,
-  editorConfigure: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/configure`,
-  editorChangelog: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/changelog`,
-  editorProperties: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/parameters`,
-  editorSchedule: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/schedule`,
+  editorDesigner: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/editor/${workflowId}/workflow`,
+  editorConfigure: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/editor/${workflowId}/configure`,
+  editorChangelog: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/editor/${workflowId}/changelog`,
+  editorProperties: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/editor/${workflowId}/parameters`,
+  editorSchedule: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/editor/${workflowId}/schedule`,
   execution: ({ executionId, workflowId }: ExecutionArgs) => `/activity/${workflowId}/execution/${executionId}`,
   home: () => "/home",
   insights: () => "/insights",
@@ -166,9 +172,9 @@ export const appLink: Record<string, (args?: any) => string> = {
   teamList: () => "/admin/teams",
   teamTokens: () => `/manage/team-tokens`,
   tokens: () => `/admin/tokens`,
-  user: ({ userId }) => `/admin/users/${userId}`,
-  userTeams: ({ userId }) => `/admin/users/${userId}/teams`,
-  userLabels: ({ userId }) => `/admin/users/${userId}/labels`,
+  user: ({ userId }: UserIdArg) => `/admin/users/${userId}`,
+  userTeams: ({ userId }: UserIdArg) => `/admin/users/${userId}/teams`,
+  userLabels: ({ userId }: UserIdArg) => `/admin/users/${userId}/labels`,
   userList: () => "/admin/users",
   workflows: ({ teamId }: TeamIdArg) => `/${teamId}/workflows`,
   workflowActivity: ({ workflowId }: WorkflowIdArg) => `/activity?page=0&size=10&workflowIds=${workflowId}`,

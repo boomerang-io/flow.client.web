@@ -119,7 +119,7 @@ function Layout(props: LayoutProps) {
         pretitle={
           <Breadcrumb noTrailingSlash>
             <BreadcrumbItem>
-              <Link to={appLink.home()}>Teams</Link>
+              <Link to={appLink.home()}>Home</Link>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>{props.activeTeam.name}</BreadcrumbItem>
           </Breadcrumb>

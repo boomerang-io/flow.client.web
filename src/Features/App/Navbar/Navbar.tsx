@@ -5,7 +5,7 @@ import { SideNav, SideNavDivider, SideNavLink, SideNavItems, SideNavMenu, SideNa
 import { UIShell, HeaderMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
 import { APP_ROOT } from "Config/appConfig";
 import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, PlatformConfig } from "Types";
-import { navigationIcons } from "Utils/navigationIcons";
+import * as navigationIcons from "Utils/navigationIcons";
 import { FlowData } from "@carbon/react/icons";
 
 const ACTIVE_CLASS_NAME = "cds--side-nav__link--current";
@@ -39,10 +39,12 @@ const createSidenav =
             : undefined}
           {navLinks ? <SideNavDivider /> : null}
           {flowNavigationData.map((item) => {
-            const itemIcon = navigationIcons.find((icon) => icon.name === item.icon) ?? FlowData;
+            //@ts-ignore
+            //TODO: figure out type error
+            const itemIcon = item.icon ? navigationIcons[item.icon] : FlowData;
             if (item?.childLinks) {
               return (
-                <SideNavMenu large key={item.name} title={item.name} renderIcon={itemIcon.Icon}>
+                <SideNavMenu large key={item.name} title={item.name} renderIcon={itemIcon}>
                   {item.childLinks.map((childItem) => {
                     let props: Omit<FlowNavigationItemChild, "link" | "name" | "renderIcon" | "large"> = {};
                     if (isInternalLink(childItem.link)) {
@@ -64,7 +66,7 @@ const createSidenav =
             } else {
               let props: Omit<FlowNavigationItemChild, "link" | "name"> = {
                 large: true,
-                renderIcon: itemIcon.Icon,
+                renderIcon: itemIcon,
               };
               if (isInternalLink(item.link)) {
                 props.to = getRelativePath(item.link);
