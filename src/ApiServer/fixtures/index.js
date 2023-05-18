@@ -19,7 +19,6 @@ export { default as profile } from "./profile";
 export { default as tasktemplate } from "./tasktemplate";
 export { default as settings } from "./settings";
 export { default as summaries } from "./summaries";
-export { default as systemWorkflows } from "./systemWorkflows";
 export { default as revisions } from "./revisions";
 export { default as teams } from "./teams";
 export { default as teamApproverUsers } from "./teamApproverUsers";

@@ -22,7 +22,7 @@ import ActionsTable from "./ActionsTable";
 import HeaderWidget from "Components/HeaderWidget";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
-import { elevatedUserRoles, ActionType, WorkflowScope } from "Constants";
+import { ActionType } from "Constants";
 import { approvalStatusOptions } from "Constants/filterOptions";
 import { ArrowUpRight } from "@carbon/react/icons";
 import styles from "./Actions.module.scss";
@@ -40,17 +40,14 @@ const summaryQuery = queryString.stringify({
 });
 
 const actionsSummaryUrl = serviceUrl.getActionsSummary({ query: summaryQuery });
-const systemUrl = serviceUrl.getSystemWorkflows();
-const userWorkflowsUrl = serviceUrl.getUserWorkflows();
 
 function Actions() {
-  const { teams, user } = useAppContext();
+  const { teams, activeTeam } = useAppContext();
   const history = useHistory();
   const location = useLocation();
   const match = useRouteMatch();
 
   /** Define constants */
-  const isSystemWorkflowsEnabled = elevatedUserRoles.includes(user.type);
   const actionType = location.pathname.includes("/manual") ? ActionType.Task : ActionType.Approval;
 
   /** Get today's numbers data */
@@ -77,10 +74,8 @@ function Actions() {
     page = DEFAULT_PAGE,
     size = DEFAULT_SIZE,
     sort = DEFAULT_SORT,
-    scopes,
-    workflowIds,
+    workflows,
     statuses,
-    teamIds,
     fromDate,
     toDate,
   } = queryString.parse(location.search, queryStringOptions);
@@ -91,11 +86,10 @@ function Actions() {
       page,
       size,
       sort,
-      scopes,
       statuses,
-      teamIds,
+      teams: activeTeam?.id,
       type: actionType,
-      workflowIds,
+      workflows,
       fromDate,
       toDate,
     },
@@ -104,10 +98,8 @@ function Actions() {
 
   const actionsUrlSummaryQuery = queryString.stringify(
     {
-      scopes,
-      teamIds,
-      statuses,
-      workflowIds,
+      teams: activeTeam?.id,
+      workflows,
       fromDate,
       toDate,
     },
@@ -133,30 +125,21 @@ function Actions() {
     queryFn: resolver.query(actionsUrl),
   });
 
+  /** Retrieve Workflows */
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
   const {
-    data: systemWorkflowsData,
-    isLoading: systemWorkflowsIsLoading,
-    error: SystemWorkflowsError,
-  } = useQuery({
-    queryKey: systemUrl,
-    queryFn: resolver.query(systemUrl),
-    enabled: isSystemWorkflowsEnabled,
+    data: workflowsData,
+    isLoading: workflowsIsLoading,
+    isError: workflowsIsError,
+  } = useQuery<PaginatedWorkflowResponse, string>({
+    queryKey: getWorkflowsUrl,
+    queryFn: resolver.query(getWorkflowsUrl),
   });
-
-  const {
-    data: userWorkflowsData,
-    isLoading: userWorkflowsIsLoading,
-    isError: userWorkflowsIsError,
-  } = useQuery({
-    queryKey: userWorkflowsUrl,
-    queryFn: resolver.query(userWorkflowsUrl),
-  });
-
-  if (systemWorkflowsIsLoading || userWorkflowsIsLoading) {
+  if (workflowsIsLoading) {
     return <Loading />;
   }
 
-  if (SystemWorkflowsError || userWorkflowsIsError) {
+  if (workflowsIsError) {
     return <ErrorDragon />;
   }
 
@@ -181,34 +164,11 @@ function Actions() {
     return;
   };
 
-  function handleSelectScopes({ selectedItems }) {
-    const scopes = selectedItems.length > 0 ? selectedItems.map((scope) => scope.value) : undefined;
-    updateHistorySearch({
-      ...queryString.parse(location.search, queryStringOptions),
-      scopes: scopes,
-      teamIds: undefined,
-      workflowIds: undefined,
-      page: 0,
-    });
-    return;
-  }
-
-  function handleSelectTeams({ selectedItems }) {
-    const teamIds = selectedItems.length > 0 ? selectedItems.map((team) => team.id) : undefined;
-    updateHistorySearch({
-      ...queryString.parse(location.search, queryStringOptions),
-      teamIds,
-      workflowIds: undefined,
-      page: 0,
-    });
-    return;
-  }
-
   function handleSelectWorkflows({ selectedItems }) {
     const workflowIds = selectedItems.length > 0 ? selectedItems.map((worflow) => worflow.id) : undefined;
     updateHistorySearch({
       ...queryString.parse(location.search, queryStringOptions),
-      workflowIds: workflowIds,
+      workflows: workflowIds,
       page: 0,
     });
     return;
@@ -241,71 +201,20 @@ function Actions() {
     return;
   };
 
-  function getWorkflowFilter({ teamsData, selectedTeams, systemWorkflowsData = [], userWorkflowsData = [] }) {
+  function getWorkflowFilter() {
     let workflowsList = [];
-    if (!scopes || scopes?.includes(WorkflowScope.Team)) {
-      if (!selectedTeams.length && teamsData) {
-        workflowsList = teamsData.reduce((acc, team) => {
-          acc.push(...team.workflows);
-          return acc;
-        }, []);
-      } else if (selectedTeams) {
-        workflowsList = selectedTeams.reduce((acc, team) => {
-          acc.push(...team.workflows);
-          return acc;
-        }, []);
-      }
-    }
-    if ((!scopes || scopes?.includes(WorkflowScope.System)) && isSystemWorkflowsEnabled) {
-      workflowsList = workflowsList.concat(systemWorkflowsData);
-    }
-    if (!scopes || scopes?.includes(WorkflowScope.User)) {
-      workflowsList = workflowsList.concat(userWorkflowsData);
+    if (workflowsData.content) {
+      workflowsList = workflowsData.content;
     }
 
-    let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
-    return workflowsFilter;
+    return sortByProp(workflowsList, "name", "ASC");
   }
 
-  if (teams || systemWorkflowsData || userWorkflowsData) {
-    const {
-      workflowIds = "",
-      scopes = "",
-      statuses = "",
-      teamIds = "",
-    } = queryString.parse(location.search, queryStringOptions);
-
-    const selectedScopes = typeof scopes === "string" ? [scopes] : scopes;
-    const selectedTeamIds = typeof teamIds === "string" ? [teamIds] : teamIds;
-    const selectedWorkflowIds = typeof workflowIds === "string" ? [workflowIds] : workflowIds;
+  if (activeTeam && workflowsData.content) {
+    const { workflows = "", statuses = "" } = queryString.parse(location.search, queryStringOptions);
+    const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
-
-    const teamsData = teams && JSON.parse(JSON.stringify(teams));
-
-    const selectedTeams =
-      teams &&
-      teamsData.filter((team) => {
-        if (selectedTeamIds.find((id) => id === team.id)) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-
-    const workflowsFilter = getWorkflowFilter({
-      teamsData,
-      selectedTeams,
-      systemWorkflowsData,
-      userWorkflowsData: userWorkflowsData?.workflows,
-    });
     const maxDate = moment().format("MM/DD/YYYY");
-
-    const workflowScopeOptions = [
-      { label: "User", value: WorkflowScope.User },
-      { label: "Team", value: WorkflowScope.Team },
-    ];
-
-    if (isSystemWorkflowsEnabled) workflowScopeOptions.push({ label: "System", value: WorkflowScope.System });
 
     return (
       <div className={styles.container}>
@@ -361,7 +270,7 @@ function Actions() {
                 exact
                 label={`Approvals (${approvalsNumber})`}
                 to={{
-                  pathname: appLink.actionsApprovals(),
+                  pathname: appLink.actionsApprovals({ teamId: activeTeam.id }),
                   search: location.search,
                 }}
               />
@@ -369,7 +278,7 @@ function Actions() {
                 exact
                 label={`Manual (${manualTasksNumber})`}
                 to={{
-                  pathname: appLink.actionsManual(),
+                  pathname: appLink.actionsManual({ teamId: activeTeam.id }),
                   search: location.search,
                 }}
               />
@@ -386,57 +295,16 @@ function Actions() {
               <div className={styles.dataFilters}>
                 <div className={styles.dataFilter}>
                   <FilterableMultiSelect
-                    id="actions-scopes-select"
-                    label="Choose scope(s)"
-                    placeholder="Choose scope(s)"
-                    invalid={false}
-                    onChange={handleSelectScopes}
-                    items={workflowScopeOptions}
-                    itemToString={(scope) => (scope ? scope.label : "")}
-                    initialSelectedItems={workflowScopeOptions.filter((option) =>
-                      Boolean(selectedScopes.find((scope) => scope === option.value))
-                    )}
-                    titleText="Filter by scope"
-                  />
-                </div>
-                {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
-                  <div className={styles.dataFilter}>
-                    <FilterableMultiSelect
-                      id="actions-teams-select"
-                      label="Choose team(s)"
-                      placeholder="Choose team(s)"
-                      invalid={false}
-                      onChange={handleSelectTeams}
-                      items={teamsData}
-                      itemToString={(team) => (team ? team.name : "")}
-                      initialSelectedItems={selectedTeams}
-                      titleText="Filter by Team"
-                    />
-                  </div>
-                )}
-                <div className={styles.dataFilter}>
-                  <FilterableMultiSelect
                     id="actions-workflows-select"
                     label="Choose workflow(s)"
                     placeholder="Choose workflow(s)"
                     invalid={false}
                     onChange={handleSelectWorkflows}
-                    items={workflowsFilter}
+                    items={getWorkflowFilter()}
                     itemToString={(workflow) => {
-                      if (workflow.scope === "team") {
-                        const team = workflow
-                          ? teamsData.find((team: FlowTeam) => team.id === workflow.flowTeamId)
-                          : undefined;
-                        if (team) {
-                          return workflow ? (team ? `${workflow.name} (${team.name})` : workflow.name) : "";
-                        }
-                      }
-                      if (workflow.scope === "system") {
-                        return `${workflow.name} (System)`;
-                      }
                       return workflow.name;
                     }}
-                    initialSelectedItems={workflowsFilter.filter((workflow) =>
+                    initialSelectedItems={getWorkflowFilter().filter((workflow) =>
                       Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
                     )}
                     titleText="Filter by Workflow"
@@ -488,7 +356,6 @@ function Actions() {
               isLoading={actionsQuery.isLoading}
               location={location}
               match={match}
-              isSystemWorkflowsEnabled={isSystemWorkflowsEnabled}
               tableData={actionsQuery.data}
               updateHistorySearch={updateHistorySearch}
             />

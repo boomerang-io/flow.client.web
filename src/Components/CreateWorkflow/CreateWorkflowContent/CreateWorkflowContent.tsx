@@ -42,7 +42,6 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
       ...defaultWorkflowConfig,
       flowTeamId: team.id,
       name: values.name,
-      shortDescription: values.summary,
       description: values.description,
       icon: values.icon,
     };

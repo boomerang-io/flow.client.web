@@ -23,7 +23,6 @@ interface FormProps {
   };
   icon: string;
   name: string;
-  shortDescription: string;
   triggers: {
     manual: {
       enable: boolean;

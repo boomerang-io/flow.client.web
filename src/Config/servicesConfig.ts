@@ -67,7 +67,6 @@ export const serviceUrl = {
   getScheduleCalendar: ({ scheduleId, query }) =>
     `${BASE_URL}/schedules/${scheduleId}/calendar${query ? "?" + query : ""}`,
   getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedules/validate/cron?cron=${expression}`,
-  getSystemWorkflows: () => `${BASE_URL}/workflows/system`,
   getTaskTemplates: ({ query }: QueryId) => `${BASE_URL}/tasktemplate${query ? "?" + query : ""}`,
   getTaskTemplateYaml: ({ id, revision }) => `${BASE_URL}/tasktemplate/${id}/yaml${revision ? `/${revision}` : ""}`,
   getTeam: ({ teamId }) => `${BASE_URL}/team/${teamId}`,

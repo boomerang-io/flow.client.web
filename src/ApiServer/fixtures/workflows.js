@@ -22,12 +22,11 @@ const workflows = {
           hiddenValue: true,
         },
       ],
-      description: "",
+      description: "Train and store ML model for Bot Efficiency.",
       flowTeamId: "5e3a35ad8c222700018ccd39",
       icon: "bot",
       id: "5eb2c4085a92d80001a16d87",
       name: "Personal - ML Train – Bot Efficiency",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
       status: "active",
       triggers: {
         scheduler: { enable: false, schedule: "", timezone: "", advancedCron: false },
@@ -67,7 +66,6 @@ const workflows = {
       icon: "cloud upload",
       id: "5e877e944bbc6e0001c51e6e",
       name: "Personal - Java - Deploy",
-      shortDescription: "",
       status: "active",
       triggers: {
         manual: {
@@ -167,7 +165,6 @@ const workflows = {
       icon: "delivery",
       id: "5e877d1f4bbc6e0001c51e12",
       name: "Personal - Java - Build",
-      shortDescription: "Java - Build",
       status: "active",
       triggers: {
         manual: {

@@ -35,9 +35,6 @@ function WorkflowActivity() {
   const location = useLocation();
   const match = useRouteMatch();
 
-  const { type: platformRole }: { type: string } = user;
-  const isSystemWorkflowsEnabled = elevatedUserRoles.includes(platformRole);
-
   const {
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
@@ -89,28 +86,6 @@ function WorkflowActivity() {
   const activitySummaryState = useQuery(activitySummaryUrl);
   const activityStatusSummaryState = useQuery(activityStatusSummaryUrl);
   const activityState = useQuery(activityUrl);
-
-  const systemUrl = serviceUrl.getSystemWorkflows();
-
-  const {
-    data: systemWorkflowsData,
-    isLoading: systemWorkflowsIsLoading,
-    error: SystemWorkflowsError,
-  } = useQuery(systemUrl, resolver.query(systemUrl), { enabled: isSystemWorkflowsEnabled });
-
-  const {
-    data: userWorkflowsData,
-    isLoading: userWorkflowsIsLoading,
-    isError: userWorkflowsIsError,
-  } = useQuery(serviceUrl.getUserWorkflows(), resolver.query(serviceUrl.getUserWorkflows()));
-
-  if (systemWorkflowsIsLoading || userWorkflowsIsLoading) {
-    return <Loading />;
-  }
-
-  if (SystemWorkflowsError || userWorkflowsIsError) {
-    return <ErrorDragon />;
-  }
 
   /**** End get some data ****/
 
@@ -212,7 +187,7 @@ function WorkflowActivity() {
     return;
   };
 
-  function getWorkflowFilter({ teamsData, selectedTeams, systemWorkflowsData = [], userWorkflowsData = [] }) {
+  function getWorkflowFilter({ teamsData, selectedTeams }) {
     let workflowsList = [];
     if (!scopes || scopes?.includes(WorkflowScope.Team)) {
       if (!selectedTeams.length && teamsData) {
@@ -226,12 +201,6 @@ function WorkflowActivity() {
           return acc;
         }, []);
       }
-    }
-    if ((!scopes || scopes?.includes(WorkflowScope.System)) && isSystemWorkflowsEnabled) {
-      workflowsList = workflowsList.concat(systemWorkflowsData);
-    }
-    if (!scopes || scopes?.includes(WorkflowScope.User)) {
-      workflowsList = workflowsList.concat(userWorkflowsData);
     }
     let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
     return workflowsFilter;
@@ -259,7 +228,7 @@ function WorkflowActivity() {
     );
   }
 
-  if (teamsState || systemWorkflowsData || userWorkflowsData) {
+  if (teamsState) {
     const {
       workflowIds = "",
       scopes = "",
@@ -291,8 +260,6 @@ function WorkflowActivity() {
     const workflowsFilter = getWorkflowFilter({
       teamsData,
       selectedTeams,
-      systemWorkflowsData,
-      userWorkflowsData: userWorkflowsData?.workflows,
     });
     const { data: statusWorkflowSummary, status: statusSummaryStatus } = activityStatusSummaryState;
     const maxDate = moment().format("MM/DD/YYYY");

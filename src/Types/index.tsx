@@ -129,7 +129,6 @@ export interface CreateWorkflowSummary {
   icon: string;
   name: string;
   revisionCount: number;
-  shortDescription: string;
   properties: Array<any>;
   triggers: {
     event: {
@@ -156,7 +155,6 @@ export interface Workflow {
   status: WorkflowStatus;
   version: number;
   description: string;
-  shortDescription: string;
   icon: string;
   labels?: Record<string, string>;
   annotations?: Record<string, object>;

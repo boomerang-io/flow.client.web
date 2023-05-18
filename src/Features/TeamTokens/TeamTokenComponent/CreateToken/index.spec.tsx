@@ -33,12 +33,11 @@ const activeTeam: FlowTeam = {
           helperText: "",
         },
       ],
-      description: "",
+      description: "Train and store ML model for Bot Efficiency.",
       flowTeamId: "5e3a35ad8c222700018ccd39",
       icon: "bot",
       id: "5eb2c4085a92d80001a16d87",
       name: "ML Train – Bot Efficiency",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
       status: "active",
       triggers: {
         scheduler: { enable: false, schedule: "", timezone: "", advancedCron: false },

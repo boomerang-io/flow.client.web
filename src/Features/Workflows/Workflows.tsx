@@ -151,7 +151,7 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ activeTeam, searchQue
   const hasReachedWorkflowLimit = activeTeam.quotas.maxWorkflowCount <= activeTeam.quotas.currentWorkflowCount;
 
   const filteredWorkflowList = Boolean(searchQuery)
-    ? matchSorter(workflowList, searchQuery, { keys: ["name", "shortDescription"] })
+    ? matchSorter(workflowList, searchQuery, { keys: ["name"] })
     : workflowList;
 
   if (hasWorkflows && Boolean(searchQuery) && filteredWorkflowList.length === 0) {

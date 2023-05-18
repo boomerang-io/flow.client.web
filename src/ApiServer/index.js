@@ -41,7 +41,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       revision: Model,
       setting: Model,
       summary: Model,
-      systemWorkflows: Model,
       tasktemplate: Model,
       team: Model,
       teamApproverUsers: Model,
@@ -113,10 +112,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.get(serviceUrl.getWorkflowTemplates(), (schema) => {
         return schema.db.workflowTemplates;
-      });
-
-      this.get(serviceUrl.getSystemWorkflows(), (schema) => {
-        return schema.db.systemWorkflows;
       });
 
       this.get(serviceUrl.getWorkflows({ query: null }), (schema) => {

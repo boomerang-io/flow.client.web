@@ -261,8 +261,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
             <h1 title={workflow.name} className={styles.name} data-testid="workflow-card-title">
               {workflow.name}
             </h1>
-            <p title={workflow.shortDescription} className={styles.description}>
-              {workflow.shortDescription}
+            <p title={workflow.description} className={styles.description}>
+              {workflow.description}
             </p>
           </div>
         </section>

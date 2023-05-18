@@ -20,9 +20,7 @@ import styles from "./Workflows.module.scss";
 function Workflows({ user }: { user: FlowUser }) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const workflows = user.workflows ?? [];
-  const filteredWorkflowsList = searchQuery
-    ? ms(workflows, searchQuery, { keys: ["name", "shortDescription"] })
-    : workflows;
+  const filteredWorkflowsList = searchQuery ? ms(workflows, searchQuery, { keys: ["name"] }) : workflows;
 
   return (
     <section aria-label={`${user.name} Workflows`} className={styles.container}>
@@ -64,9 +62,7 @@ function Workflows({ user }: { user: FlowUser }) {
                       <p>{workflow.name}</p>
                     </div>
                   </StructuredListCell>
-                  <StructuredListCell>
-                    {workflow.shortDescription !== "" ? workflow.shortDescription : "---"}
-                  </StructuredListCell>
+                  <StructuredListCell>{workflow.description !== "" ? workflow.description : "---"}</StructuredListCell>
                   <StructuredListCell>{workflow.revisionCount}</StructuredListCell>
                   <StructuredListCell>
                     <Link

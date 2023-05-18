@@ -1,13 +1,8 @@
 import React from "react";
 import { useAppContext } from "Hooks";
 import { Link } from "react-router-dom";
-import {
-  Button,
-  DataTableSkeleton,
-  DataTable,
-  Pagination,
-} from "@carbon/react";
-import { TooltipHover} from '@boomerang-io/carbon-addons-boomerang-react';
+import { Button, DataTableSkeleton, DataTable, Pagination } from "@carbon/react";
+import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import cx from "classnames";
 import queryString from "query-string";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
@@ -26,7 +21,6 @@ interface ActionsTableProps {
   isLoading: boolean;
   location: any;
   match: any;
-  isSystemWorkflowsEnabled: boolean;
   tableData: {
     pageable: { number: number; size: number; sort: [{ property: string; direction: string }]; totalElements: number };
     records: any;
@@ -37,8 +31,6 @@ interface ActionsTableProps {
 const PAGE_SIZES = [5, 10, 20, 25, 50, 100];
 
 const HeadersHeader = {
-  Team: "Team",
-  Scope: "Scope",
   Workflow: "Workflow",
   Task: "Task",
   Approvals: "Approvals",
@@ -47,8 +39,6 @@ const HeadersHeader = {
 };
 
 const HeadersKey = {
-  Team: "teamName",
-  Scope: "scope",
   Workflow: "workflowName",
   Task: "taskName",
   Approvals: "numberOfApprovals",
@@ -58,16 +48,6 @@ const HeadersKey = {
 };
 
 const headers = [
-  {
-    header: HeadersHeader.Team,
-    key: HeadersKey.Team,
-    sortable: true,
-  },
-  {
-    header: HeadersHeader.Scope,
-    key: HeadersKey.Scope,
-    sortable: true,
-  },
   {
     header: HeadersHeader.Workflow,
     key: HeadersKey.Workflow,
@@ -198,7 +178,6 @@ function ActionsTable(props: ActionsTableProps) {
     const column = headerList[cellIndex];
 
     switch (column?.key) {
-      case HeadersKey.Scope:
       case HeadersKey.Status:
         return (
           <p className={styles.tableTextarea} style={{ textTransform: "capitalize" }}>

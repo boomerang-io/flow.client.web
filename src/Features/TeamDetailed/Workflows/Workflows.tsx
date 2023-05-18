@@ -62,9 +62,7 @@ function Workflows({ team }: { team: FlowTeam }) {
                       <p>{workflow.name}</p>
                     </div>
                   </StructuredListCell>
-                  <StructuredListCell>
-                    {workflow.shortDescription !== "" ? workflow.shortDescription : "---"}
-                  </StructuredListCell>
+                  <StructuredListCell>{workflow.description !== "" ? workflow.description : "---"}</StructuredListCell>
                   <StructuredListCell>{workflow.revisionCount}</StructuredListCell>
                   <StructuredListCell>
                     <Link

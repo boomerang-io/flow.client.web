@@ -107,7 +107,6 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
     importWorkflow(
       {
         ...fileData,
-        shortDescription: values.summary,
         name: values.name,
         flowTeamId: values.selectedTeam?.id ?? values.file.flowTeamId,
       },
@@ -193,7 +192,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                   };
                   setFieldValue("file", fileInfo);
                   setFieldValue("name", contents?.name ?? "");
-                  setFieldValue("summary", contents?.shortDescription ?? "");
+                  setFieldValue("description", contents?.description ?? "");
                 }}
               />
               {values.file && (
