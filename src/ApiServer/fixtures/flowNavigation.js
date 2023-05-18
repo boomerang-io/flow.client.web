@@ -23,6 +23,7 @@ const flowNavigation = [
     link: "/BMRG_APP_ROOT_CONTEXT/actions",
   },
   {
+    disabled: true,
     name: "Schedules",
     type: "link",
     icon: "CalendarHeatMap",

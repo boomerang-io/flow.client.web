@@ -607,6 +607,7 @@ export interface FlowNavigationItemChild {
   element?: React.ReactNode;
   onClick?: (e: React.SyntheticEvent) => any;
   href?: string;
+  disabled?: boolean;
   large: boolean;
   link: string;
   name: string;
@@ -615,6 +616,7 @@ export interface FlowNavigationItemChild {
 }
 
 export interface FlowNavigationItem {
+  disabled: boolean;
   icon: string;
   name: string;
   link: string;

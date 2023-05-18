@@ -7,84 +7,11 @@ import { APP_ROOT } from "Config/appConfig";
 import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, PlatformConfig } from "Types";
 import * as navigationIcons from "Utils/navigationIcons";
 import { FlowData } from "@carbon/react/icons";
-
-const ACTIVE_CLASS_NAME = "cds--side-nav__link--current";
+import styles from "./navbar.module.scss";
 
 const skipToContentProps = {
   href: "#content",
 };
-
-function isInternalLink(navUrl: string) {
-  return navUrl.includes(APP_ROOT);
-}
-
-function getRelativePath(navUrl: string) {
-  return navUrl.substring(navUrl.indexOf(APP_ROOT) + APP_ROOT.length);
-}
-
-const createSidenav =
-  (flowNavigationData: FlowNavigationItem[]) =>
-  ({ isOpen, close, navLinks }: { isOpen: boolean; close: () => void; navLinks: any[] }) =>
-    (
-      <SideNav aria-label="nav" expanded={isOpen} isChildOfHeader={true} isPersistent={false} onOverlayClick={close}>
-        <SideNavItems>
-          {navLinks
-            ? navLinks.map((link) => {
-                return (
-                  <SideNavLink large key={link.url} href={link.url} onClick={close}>
-                    {link.name}
-                  </SideNavLink>
-                );
-              })
-            : undefined}
-          {navLinks ? <SideNavDivider /> : null}
-          {flowNavigationData.map((item) => {
-            //@ts-ignore
-            //TODO: figure out type error
-            const itemIcon = item.icon ? navigationIcons[item.icon] : FlowData;
-            if (item?.childLinks) {
-              return (
-                <SideNavMenu large key={item.name} title={item.name} renderIcon={itemIcon}>
-                  {item.childLinks.map((childItem) => {
-                    let props: Omit<FlowNavigationItemChild, "link" | "name" | "renderIcon" | "large"> = {};
-                    if (isInternalLink(childItem.link)) {
-                      props.to = getRelativePath(childItem.link);
-                      props.activeClassName = ACTIVE_CLASS_NAME;
-                      props.element = NavLink;
-                      props.onClick = close;
-                    } else {
-                      props.href = childItem.link;
-                    }
-                    return (
-                      <SideNavMenuItem key={childItem.name} {...props}>
-                        {childItem.name}
-                      </SideNavMenuItem>
-                    );
-                  })}
-                </SideNavMenu>
-              );
-            } else {
-              let props: Omit<FlowNavigationItemChild, "link" | "name"> = {
-                large: true,
-                renderIcon: itemIcon,
-              };
-              if (isInternalLink(item.link)) {
-                props.to = getRelativePath(item.link);
-                props.activeClassName = ACTIVE_CLASS_NAME;
-                props.element = NavLink;
-                props.onClick = close;
-              } else props.href = item.link;
-              return (
-                <SideNavLink key={item.name} {...props}>
-                  {item.name}
-                </SideNavLink>
-              );
-            }
-          })}
-        </SideNavItems>
-      </SideNav>
-    );
-
 interface NavbarProps {
   handleOnTutorialClick: () => void;
   flowNavigationData: Array<FlowNavigationItem>;
@@ -108,7 +35,7 @@ export default function Navbar({
       <Helmet defaultTitle={appTitle} titleTemplate={`%s - ${appTitle}`} />
       <UIShell
         config={platformConfigData}
-        leftPanel={createSidenav(flowNavigationData)}
+        leftPanel={(args) => <AppSideNav {...args} flowNavigationData={flowNavigationData} />}
         platformName={platformName}
         productName={appName}
         skipToContentProps={skipToContentProps}
@@ -119,6 +46,112 @@ export default function Navbar({
         ]}
       />
     </>
+  );
+}
+
+//TODO: figure out type error bc it works. I'm getting the arg type for the leftPanel function instead of writing it again
+//@ts-ignore
+type AppSideNavProps = Parameters<Parameters<typeof UIShell>[0]["leftPanel"]>[0] & {
+  flowNavigationData: Array<FlowNavigationItem>;
+};
+
+type SideNavElemProps =
+  | { to: string; activeClassName: string; element: React.ReactNode; onClick: Function }
+  | { href: string };
+
+type SideNavLinkSharedProps = Pick<FlowNavigationItemChild, "large" | "renderIcon"> & { key: string };
+
+const ACTIVE_CLASS_NAME = "cds--side-nav__link--current";
+
+function isInternalLink(navUrl?: string) {
+  return navUrl?.includes(APP_ROOT);
+}
+
+function getRelativePath(navUrl: string) {
+  return navUrl.substring(navUrl.indexOf(APP_ROOT) + APP_ROOT.length);
+}
+
+function getSideNavElemProps(item: FlowNavigationItem, close: Function): SideNavElemProps {
+  if (isInternalLink(item.link)) {
+    return {
+      to: getRelativePath(item.link),
+      activeClassName: ACTIVE_CLASS_NAME,
+      element: NavLink,
+      onClick: close,
+    };
+  }
+
+  return { href: item.link };
+}
+
+function AppSideNav(props: AppSideNavProps) {
+  return (
+    <SideNav
+      aria-label="nav"
+      expanded={props.isOpen}
+      isChildOfHeader={true}
+      isPersistent={false}
+      onOverlayClick={props.close}
+    >
+      <SideNavItems>
+        {props.navLinks
+          ? props.navLinks.map((link) => {
+              return (
+                <SideNavLink large key={link.url} href={link.url} onClick={props.close}>
+                  {link.name}
+                </SideNavLink>
+              );
+            })
+          : undefined}
+        {props.navLinks ? <SideNavDivider /> : null}
+        {props.flowNavigationData.map((item) => {
+          const itemIcon = item.icon ? navigationIcons[item.icon as keyof typeof navigationIcons] : FlowData;
+          if (item?.childLinks) {
+            return (
+              <SideNavMenu large key={item.name} title={item.name} renderIcon={itemIcon}>
+                {item.childLinks.map((childItem) => {
+                  if (childItem.disabled) {
+                    return (
+                      <SideNavMenuItem className={styles.disabledSidenavLink} key={childItem.name}>
+                        {childItem.name}
+                      </SideNavMenuItem>
+                    );
+                  }
+
+                  const elemProps = getSideNavElemProps(item, props.close);
+                  return (
+                    <SideNavMenuItem key={childItem.name} {...elemProps}>
+                      {childItem.name}
+                    </SideNavMenuItem>
+                  );
+                })}
+              </SideNavMenu>
+            );
+          }
+
+          const sharedProps: SideNavLinkSharedProps = {
+            large: true,
+            renderIcon: itemIcon,
+            key: item.name,
+          };
+
+          if (item.disabled) {
+            return (
+              <SideNavLink className={styles.disabledSidenavLink} {...sharedProps}>
+                {item.name}
+              </SideNavLink>
+            );
+          }
+
+          const elemProps = getSideNavElemProps(item, props.close);
+          return (
+            <SideNavLink {...sharedProps} {...elemProps}>
+              {item.name}
+            </SideNavLink>
+          );
+        })}
+      </SideNavItems>
+    </SideNav>
   );
 }
 
