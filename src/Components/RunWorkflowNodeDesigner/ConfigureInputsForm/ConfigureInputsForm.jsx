@@ -133,14 +133,6 @@ function ConfigureInputsForm(props) {
       : []
   );
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <ErrorMessage />;
-  }
-
   const formikSetFieldValue = (value, id, setFieldValue) => {
     setFieldValue(id, value);
   };

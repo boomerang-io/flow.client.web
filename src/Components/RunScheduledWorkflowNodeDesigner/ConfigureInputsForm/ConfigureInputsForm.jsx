@@ -111,13 +111,10 @@ ConfigureInputsForm.propTypes = {
 };
 
 function ConfigureInputsForm(props) {
-  const { teams, userWorkflows } = useAppContext();
+  const { teams, activeTeam } = useAppContext();
   const { summaryData } = useEditorContext();
   const [activeWorkflowId, setActiveWorkflowId] = useState("");
   const { node, taskNames, nodeConfig } = props;
-
-  const isSystem = summaryData?.scope === "system";
-  const isUser = summaryData?.scope === "user";
 
   let workflows = [];
   workflows = teams.find((team) => team.id === summaryData?.flowTeamId)?.workflows;
