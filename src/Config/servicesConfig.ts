@@ -43,8 +43,8 @@ export const serviceUrl = {
   deleteSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
   getActivitySummary: ({ query }: QueryArg) => `${BASE_URL}/activity/summary${query ? "?" + query : ""}`,
   getActivity: ({ query }: QueryArg) => `${BASE_URL}/activity${query ? "?" + query : ""}`,
-  getActionsSummary: ({ query }: QueryArg) => `${BASE_URL}/actions/summary${query ? "?" + query : ""}`,
-  getActions: ({ query }: QueryArg) => `${BASE_URL}/actions${query ? "?" + query : ""}`,
+  getActionsSummary: ({ query }: QueryArg) => `${BASE_URL}/action/summary${query ? "?" + query : ""}`,
+  getActions: ({ query }: QueryArg) => `${BASE_URL}/action${query ? "?" + query : ""}`,
   getDefaultQuotas: () => `${BASE_URL}/quotas/default`,
   getFeatureFlags: () => `${BASE_URL}/features`,
   getFlowTeamUsers: ({ teamId }: TeamIdArg) => `${BASE_URL}/teams/${teamId}/members`,
@@ -116,7 +116,7 @@ export const serviceUrl = {
   putTaskTemplateYaml: ({ id, revision, comment }) =>
     `${BASE_URL}/tasktemplate/${id}/yaml${`/${revision}`}${comment ? "?" + comment : ""}`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
-  putWorkflowAction: () => `${BASE_URL}/actions/action`,
+  putWorkflowAction: () => `${BASE_URL}/action/action`,
   resourceApproverGroups: ({ teamId, groupId }) =>
     `${BASE_URL}/teams/${teamId}/approvers${groupId ? "/" + groupId : ""}`,
   resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
