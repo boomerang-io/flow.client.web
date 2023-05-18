@@ -19,6 +19,7 @@ interface CreateWorkflowContentProps {
   createWorkflow: (workflowSummary: CreateWorkflowSummary) => Promise<void>;
   isLoading: boolean;
   team: FlowTeam;
+  existingWorkflowNames: string[];
   workflowQuotasEnabled: boolean;
   viewType: WorkflowViewType;
 }
@@ -29,13 +30,13 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   createWorkflow,
   isLoading,
   team,
+  existingWorkflowNames,
   workflowQuotasEnabled,
   viewType,
 }) => {
   const formikRef = useRef<any>();
   const hasReachedWorkflowLimit = team.quotas.maxWorkflowCount <= team.quotas.currentWorkflowCount;
   const createWorkflowsDisabled = workflowQuotasEnabled && hasReachedWorkflowLimit;
-  const existingWorkflowNames = team.workflows.map((workflow) => workflow.name) ?? [];
 
   const handleSubmit = (values: any) => {
     const requestBody = {
@@ -77,21 +78,12 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
             <ModalBody aria-label="inputs" className={styles.formBody}>
               <TextInput
                 id="name"
-                labelText={`${viewType} Name`}
+                labelText={`Name`}
                 value={values.name}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 invalid={Boolean(errors.name && touched.name)}
                 invalidText={errors.name}
-              />
-              <TextInput
-                id="summary"
-                labelText="Summary"
-                value={values.summary}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={Boolean(errors.summary && touched.summary)}
-                invalidText={errors.summary}
               />
               <TextArea
                 id="description"

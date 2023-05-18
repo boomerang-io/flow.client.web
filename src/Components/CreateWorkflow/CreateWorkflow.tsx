@@ -17,7 +17,7 @@ import {
   ModalTriggerProps,
   WorkflowExport,
   CreateWorkflowSummary,
-  WorkflowSummary,
+  Workflow,
   WorkflowViewType,
   WorkflowView,
 } from "Types";
@@ -26,7 +26,7 @@ import styles from "./createWorkflow.module.scss";
 interface CreateWorkflowProps {
   team: FlowTeam | null;
   hasReachedWorkflowLimit: boolean;
-  workflows?: WorkflowSummary[];
+  workflows: Array<Workflow>;
   viewType: WorkflowViewType;
 }
 
@@ -68,14 +68,15 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       await createWorkflowRevisionMutator({ workflowId, body: workflowRevision });
 
       queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
-      history.push(appLink.editorDesigner({ workflowId }));
+      history.push(appLink.editorDesigner({ teamId: team?.id, workflowId: workflowId }));
       notify(
         <ToastNotification kind="success" title={`Create ${viewType}`} subtitle={`${viewType} successfully created`} />
       );
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getTeams());
+        //TODO should this be invalidate workflows?
+        queryClient.invalidateQueries(serviceUrl.getTeams({ query: "" }));
       }
       return;
     } catch (e) {
@@ -101,8 +102,8 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       } else {
         //todo: fix refresh
         teamState.find((t) => t.id === team.id)?.workflows.push(workflowExport);
-        queryClient.setQueryData(serviceUrl.getTeams(), teamState);
-        queryClient.invalidateQueries(serviceUrl.getTeams());
+        queryClient.setQueryData(serviceUrl.getTeams({ query: "" }), teamState);
+        queryClient.invalidateQueries(serviceUrl.getTeams({ query: "" }));
       }
       closeModal();
     } catch (err) {

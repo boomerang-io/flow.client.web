@@ -35,7 +35,6 @@ import {
 // @ts-ignore:next-line
 import { swapValue } from "Utils";
 import styles from "./workflowCard.module.scss";
-import { constants } from "crypto";
 
 interface WorkflowCardProps {
   teamId: string | null;
@@ -179,7 +178,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       if (redirect) {
         history.push({
           pathname: appLink.execution({ executionId: execution.id, workflowId }),
-          state: { fromUrl: appLink.workflows(), fromText: `${viewType}s` },
+          state: { fromUrl: appLink.workflows({ teamId: activeTeam?.id }), fromText: `${viewType}s` },
         });
       } else {
         queryClient.invalidateQueries(serviceUrl.getTeams({ query: activeTeam?.id }));
