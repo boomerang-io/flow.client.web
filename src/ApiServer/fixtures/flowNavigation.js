@@ -1,5 +1,11 @@
 const flowNavigation = [
   {
+    name: "Home",
+    type: "link",
+    icon: "Home",
+    link: "/BMRG_APP_ROOT_CONTEXT/home",
+  },
+  {
     name: "Workflows",
     type: "link",
     link: "/BMRG_APP_ROOT_CONTEXT/workflows",
