@@ -10,7 +10,7 @@ import WorkflowActions from "./WorkflowActions";
 import WorkflowZoom from "Components/WorkflowZoom";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import { QueryStatus, WorkflowDagEngineMode } from "Constants";
-import { ExecutionStatus, WorkflowDag, WorkflowExecution, WorkflowExecutionStep, WorkflowSummary } from "Types";
+import { RunStatus, WorkflowDag, WorkflowExecution, WorkflowExecutionStep, WorkflowSummary } from "Types";
 import styles from "./main.module.scss";
 
 type Props = {
@@ -59,9 +59,9 @@ class Main extends Component<Props, State> {
 
     if (workflowExecution.data) {
       const { status, steps } = workflowExecution.data;
-      hasFinished = [ExecutionStatus.Completed, ExecutionStatus.Invalid, ExecutionStatus.Failure].includes(status);
+      hasFinished = [RunStatus.Completed, RunStatus.Invalid, RunStatus.Failure].includes(status);
       hasStarted = steps
-        ? Boolean(steps.find((step: WorkflowExecutionStep) => step.flowTaskStatus !== ExecutionStatus.NotStarted))
+        ? Boolean(steps.find((step: WorkflowExecutionStep) => step.flowTaskStatus !== RunStatus.NotStarted))
         : false;
     }
 

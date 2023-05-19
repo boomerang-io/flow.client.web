@@ -1,5 +1,5 @@
 import { CloseOutline, CheckmarkOutline, Error, InProgress, Timer } from "@carbon/react/icons";
-import { ExecutionStatus, ScheduleStatus, ScheduleType } from "Types";
+import { RunStatus, ScheduleStatus, ScheduleType } from "Types";
 
 export const Envs = Object.freeze({
   Dev: "development",
@@ -34,25 +34,27 @@ export const HttpMethod = Object.freeze({
 });
 
 export const ExecutionStatusMap = {
-  Cancelled: "cancelled",
-  Completed: "completed",
-  Failure: "failure",
-  InProgress: "inProgress",
-  Invalid: "invalid",
   NotStarted: "notstarted",
-  Skipped: "skipped",
+  Ready: "ready",
+  Running: "running",
   Waiting: "waiting",
+  Succeeded: "succeeded",
+  Failed: "failed",
+  Invalid: "invalid",
+  Skipped: "skipped",
+  Cancelled: "cancelled",
 };
 
-export const ExecutionStatusCopy: Record<ExecutionStatus, string> = Object.freeze({
-  [ExecutionStatus.Cancelled]: "Cancelled",
-  [ExecutionStatus.Completed]: "Succeeded",
-  [ExecutionStatus.Failure]: "Failed",
-  [ExecutionStatus.InProgress]: "In Progress",
-  [ExecutionStatus.NotStarted]: "Not Started",
-  [ExecutionStatus.Invalid]: "Invalid",
-  [ExecutionStatus.Skipped]: "Skipped",
-  [ExecutionStatus.Waiting]: "Waiting",
+export const ExecutionStatusCopy: Record<RunStatus, string> = Object.freeze({
+  [RunStatus.Cancelled]: "Cancelled",
+  [RunStatus.Succeeded]: "Succeeded",
+  [RunStatus.Failed]: "Failed",
+  [RunStatus.Running]: "Running",
+  [RunStatus.NotStarted]: "Not Started",
+  [RunStatus.Invalid]: "Invalid",
+  [RunStatus.Skipped]: "Skipped",
+  [RunStatus.Waiting]: "Waiting",
+  [RunStatus.Ready]: "Ready",
 });
 
 export const InputProperty = Object.freeze({
@@ -221,24 +223,24 @@ export const REQUEST_TYPES_TO_DISPLAY = Object.freeze({
 /**
  * Complex objects
  */
-export const executionStatusIcon: Record<ExecutionStatus, React.FC<{ [k: string]: any }>> = Object.freeze({
-  [ExecutionStatus.Cancelled]: CloseOutline,
-  [ExecutionStatus.Completed]: CheckmarkOutline,
-  [ExecutionStatus.Failure]: CloseOutline,
-  [ExecutionStatus.InProgress]: Timer,
-  [ExecutionStatus.NotStarted]: Timer,
-  [ExecutionStatus.Invalid]: Error,
-  [ExecutionStatus.Skipped]: Error,
-  [ExecutionStatus.Waiting]: InProgress,
+export const executionStatusIcon: Record<RunStatus, React.FC<{ [k: string]: any }>> = Object.freeze({
+  [RunStatus.Cancelled]: CloseOutline,
+  [RunStatus.Completed]: CheckmarkOutline,
+  [RunStatus.Failure]: CloseOutline,
+  [RunStatus.InProgress]: Timer,
+  [RunStatus.NotStarted]: Timer,
+  [RunStatus.Invalid]: Error,
+  [RunStatus.Skipped]: Error,
+  [RunStatus.Waiting]: InProgress,
 });
 
 export const executionStatusList = [
-  ExecutionStatus.InProgress,
-  ExecutionStatus.Completed,
-  ExecutionStatus.Failure,
-  ExecutionStatus.Invalid,
-  ExecutionStatus.Waiting,
-  ExecutionStatus.Cancelled,
+  RunStatus.InProgress,
+  RunStatus.Completed,
+  RunStatus.Failure,
+  RunStatus.Invalid,
+  RunStatus.Waiting,
+  RunStatus.Cancelled,
 ];
 
 export const ActionType = Object.freeze({

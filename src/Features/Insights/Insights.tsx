@@ -20,20 +20,19 @@ import InsightsTile from "./InsightsTile";
 import CarbonDonutChart from "./CarbonDonutChart";
 import CarbonLineChart from "./CarbonLineChart";
 import CarbonScatterChart from "./CarbonScatterChart";
-import { elevatedUserRoles, WorkflowScope } from "Constants";
 import { executionOptions, statusOptions } from "Constants/filterOptions";
 import { parseChartsData } from "./utils/formatData";
 import { queryStringOptions } from "Config/appConfig";
 import { timeSecondsToTimeUnit } from "Utils/timeSecondsToTimeUnit";
-import type { ExecutionStatus, PaginatedWorkflowResponse, MultiSelectItem, MultiSelectItems, Workflow } from "Types";
+import type { RunStatus, PaginatedWorkflowResponse, MultiSelectItem, MultiSelectItems, Workflow } from "Types";
 import styles from "./workflowInsights.module.scss";
 
-export interface InsightsExecution {
+export interface InsightsRuns {
   id: string;
   creationDate: string;
   startTime: string;
   duration: number;
-  status: ExecutionStatus;
+  status: RunStatus;
   workflowRef: string;
   workflowName: string;
 }
@@ -42,7 +41,7 @@ interface WorkflowInsightsRes {
   totalRuns: number;
   totalDuration: number;
   medianDuration: number;
-  runs: Array<InsightsExecution>;
+  runs: Array<InsightsRuns>;
 }
 
 const now = moment();
@@ -129,7 +128,7 @@ export default function Insights() {
     return (
       <InsightsContainer>
         <Selects workflowsData={workflowsData?.content} updateHistorySearch={updateHistorySearch} />
-        <Graphs data={insightsQuery.data} statuses={statuses as ExecutionStatus | Array<ExecutionStatus> | null} />
+        <Graphs data={insightsQuery.data} statuses={statuses as RunStatus | Array<RunStatus> | null} />
       </InsightsContainer>
     );
   }
@@ -148,7 +147,7 @@ function InsightsContainer(props: { children: React.ReactNode }) {
         header={
           <>
             <HeaderTitle>Insights</HeaderTitle>
-            <HeaderSubtitle>View your Worfklow execution stats</HeaderSubtitle>
+            <HeaderSubtitle>Gain valuable insight by digging deeper into the Workflow executions</HeaderSubtitle>
           </>
         }
       />
@@ -288,18 +287,18 @@ function Selects(props: SelectsProps) {
 
 interface GraphsProps {
   data: WorkflowInsightsRes;
-  statuses: ExecutionStatus | ExecutionStatus[] | null;
+  statuses: RunStatus | RunStatus[] | null;
 }
 
 function Graphs(props: GraphsProps) {
   const { data, statuses } = props;
   const { donutData, durationData, lineChartData, scatterPlotData, executionsCountList } = React.useMemo(
-    () => parseChartsData(data.executions, statuses),
-    [data.executions, statuses]
+    () => parseChartsData(data.runs, statuses),
+    [data.runs, statuses]
   );
 
-  const totalExecutions = data.totalActivitiesExecuted;
-  const medianExecutionTime = Math.round(data.medianExecutionTime / 1000);
+  const totalExecutions = data.totalRuns;
+  const medianExecutionTime = Math.round(data.medianDuration / 1000);
   return (
     <>
       <div className={styles.statsWidgets} data-testid="completed-insights">

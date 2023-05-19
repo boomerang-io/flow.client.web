@@ -333,7 +333,7 @@ export interface WorkflowExecutionStep {
     };
   };
   duration: number;
-  flowTaskStatus: ExecutionStatus;
+  flowTaskStatus: RunStatus;
   id: string;
   order: number;
   startTime: string;
@@ -343,7 +343,7 @@ export interface WorkflowExecutionStep {
   preApproved: boolean;
   runWorkflowActivityId: string;
   runWorkflowId: string;
-  runWorkflowActivityStatus: ExecutionStatus;
+  runWorkflowActivityStatus: RunStatus;
   switchValue: string;
   outputs: {
     [key: string]: string;
@@ -362,7 +362,7 @@ export interface WorkflowExecution {
   creationDate: string;
   duration: number;
   id: string;
-  status: ExecutionStatus;
+  status: RunStatus;
   workflowId: string;
   workflowRevisionid: string;
   workflowRevisionVersion: string;
@@ -577,15 +577,16 @@ export interface WorkflowTemplate {
   triggers: { [key: string]: any };
 }
 
-export enum ExecutionStatus {
-  Cancelled = "cancelled",
-  Completed = "completed",
-  Failure = "failure",
-  InProgress = "inProgress",
-  Invalid = "invalid",
+export enum RunStatus {
   NotStarted = "notstarted",
-  Skipped = "skipped",
+  Ready = "ready",
+  Running = "running",
   Waiting = "waiting",
+  Succeeded = "succeeded",
+  Failed = "failed",
+  Invalid = "invalid",
+  Skipped = "skipped",
+  Cancelled = "cancelled",
 }
 
 export interface UserQuotas {
