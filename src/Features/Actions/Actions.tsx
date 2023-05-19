@@ -207,7 +207,6 @@ function Actions() {
     if (workflowsData.content) {
       workflowsList = workflowsData.content;
     }
-
     return sortByProp(workflowsList, "name", "ASC");
   }
 

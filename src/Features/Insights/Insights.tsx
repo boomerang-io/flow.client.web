@@ -25,65 +25,53 @@ import { executionOptions, statusOptions } from "Constants/filterOptions";
 import { parseChartsData } from "./utils/formatData";
 import { queryStringOptions } from "Config/appConfig";
 import { timeSecondsToTimeUnit } from "Utils/timeSecondsToTimeUnit";
-import type { ExecutionStatus, FlowTeam, MultiSelectItem, MultiSelectItems, WorkflowSummary } from "Types";
+import type { ExecutionStatus, PaginatedWorkflowResponse, MultiSelectItem, MultiSelectItems, Workflow } from "Types";
 import styles from "./workflowInsights.module.scss";
 
 export interface InsightsExecution {
-  activityId: string;
+  id: string;
   creationDate: string;
+  startTime: string;
   duration: number;
   status: ExecutionStatus;
-  teamName: string;
-  workflowId: string;
+  workflowRef: string;
   workflowName: string;
 }
 interface WorkflowInsightsRes {
-  medianExecutionTime: number;
-  totalActivitiesExecuted: number;
-  executions: Array<InsightsExecution>;
+  concurrentRun: number;
+  totalRuns: number;
+  totalDuration: number;
+  medianDuration: number;
+  runs: Array<InsightsExecution>;
 }
 
-const systemWorkflowsUrl = serviceUrl.getSystemWorkflows();
 const now = moment();
 const maxDate = now.format("MM/DD/YYYY");
 const defaultFromDate = now.subtract(3, "months").valueOf();
 const defaultToDate = moment().endOf("day").valueOf();
 
 export default function Insights() {
-  const { user } = useAppContext();
+  const { activeTeam } = useAppContext();
   const history = useHistory();
   const location = useLocation();
-  const isSystemWorkflowsEnabled = elevatedUserRoles.includes(user.type);
-
-  /**
-   * Get system workflow data
-   */
-  const systemWorkflowsQuery = useQuery<Array<WorkflowSummary>, string>({
-    queryKey: systemWorkflowsUrl,
-    queryFn: resolver.query(systemWorkflowsUrl),
-    enabled: isSystemWorkflowsEnabled,
-  });
 
   /**
    * Get insights data
    */
   const {
-    scopes,
     statuses,
-    teamIds,
     triggers,
-    workflowIds,
+    workflows,
     fromDate = defaultFromDate,
     toDate = defaultToDate,
   } = queryString.parse(location.search, queryStringOptions);
 
   const insightsSearchParams = queryString.stringify(
     {
-      scopes,
       statuses,
-      teamIds,
+      teams: activeTeam?.id,
       triggers,
-      workflowIds,
+      workflows,
       fromDate,
       toDate,
     },
@@ -102,19 +90,30 @@ export default function Insights() {
     return;
   }
 
-  if (insightsQuery.error) {
+  /** Retrieve Workflows */
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
+  const {
+    data: workflowsData,
+    isLoading: workflowsIsLoading,
+    isError: workflowsIsError,
+  } = useQuery<PaginatedWorkflowResponse, string>({
+    queryKey: getWorkflowsUrl,
+    queryFn: resolver.query(getWorkflowsUrl),
+  });
+
+  if (insightsQuery.error || workflowsIsError) {
     return (
       <InsightsContainer>
-        <Selects systemWorkflowsQuery={systemWorkflowsQuery} updateHistorySearch={updateHistorySearch} />
+        <Selects workflowsData={workflowsData?.content} updateHistorySearch={updateHistorySearch} />
         <ErrorDragon />
       </InsightsContainer>
     );
   }
 
-  if (insightsQuery.isLoading) {
+  if (insightsQuery.isLoading || workflowsIsLoading) {
     return (
       <InsightsContainer>
-        <Selects systemWorkflowsQuery={systemWorkflowsQuery} updateHistorySearch={updateHistorySearch} />
+        <Selects workflowsData={workflowsData?.content} updateHistorySearch={updateHistorySearch} />
         <div className={styles.cardPlaceholderContainer}>
           <SkeletonPlaceholder className={styles.cardPlaceholder} />
           <SkeletonPlaceholder className={styles.cardPlaceholder} />
@@ -129,7 +128,7 @@ export default function Insights() {
   if (insightsQuery.data) {
     return (
       <InsightsContainer>
-        <Selects systemWorkflowsQuery={systemWorkflowsQuery} updateHistorySearch={updateHistorySearch} />
+        <Selects workflowsData={workflowsData?.content} updateHistorySearch={updateHistorySearch} />
         <Graphs data={insightsQuery.data} statuses={statuses as ExecutionStatus | Array<ExecutionStatus> | null} />
       </InsightsContainer>
     );
@@ -159,23 +158,15 @@ function InsightsContainer(props: { children: React.ReactNode }) {
 }
 
 interface SelectsProps {
-  systemWorkflowsQuery: any;
+  workflowsData: Array<Workflow> | undefined;
   updateHistorySearch: any;
 }
 
 function Selects(props: SelectsProps) {
   const location = useLocation();
-  const { teams, user, userWorkflows } = useAppContext();
-  const isSystemWorkflowsEnabled = elevatedUserRoles.includes(user.type);
 
-  const { scopes, statuses, workflowIds, teamIds, triggers, fromDate, toDate } = queryString.parse(
-    location.search,
-    queryStringOptions
-  );
-
-  const selectedScopes = typeof scopes === "string" ? [scopes] : scopes;
-  const selectedTeamIds = typeof teamIds === "string" ? [teamIds] : teamIds;
-  const selectedWorkflowIds = typeof workflowIds === "string" ? [workflowIds] : workflowIds;
+  const { statuses, workflows, triggers, fromDate, toDate } = queryString.parse(location.search, queryStringOptions);
+  const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
   const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
   const selectedTriggers = typeof triggers === "string" ? [triggers] : triggers;
   const selectedFromDate = Array.isArray(fromDate)
@@ -189,55 +180,12 @@ function Selects(props: SelectsProps) {
     ? Number.parseInt(toDate)
     : defaultToDate;
 
-  const selectedTeams =
-    teams && teams.filter((team: FlowTeam) => selectedTeamIds?.find((id: string) => id === team.id));
-
-  const workflowOptions = getWorkflowOptions({
-    isSystemWorkflowsEnabled,
-    selectedScopes,
-    selectedTeams,
-    teams,
-    systemWorkflowsData: props.systemWorkflowsQuery.data,
-    userWorkflowsData: userWorkflows.workflows,
-  });
-
-  const workflowScopeOptions = [
-    { label: "User", value: WorkflowScope.User },
-    { label: "Team", value: WorkflowScope.Team },
-  ];
-
-  if (isSystemWorkflowsEnabled) {
-    workflowScopeOptions.push({ label: "System", value: WorkflowScope.System });
-  }
-
-  const disableTeamsDropdown = !!scopes && !scopes.includes(WorkflowScope.Team);
-
-  function handleSelectScopes({ selectedItems }: MultiSelectItems) {
-    const scopes = selectedItems.length > 0 ? selectedItems.map((scope) => scope.value) : undefined;
-    props.updateHistorySearch({
-      ...queryString.parse(location.search, queryStringOptions),
-      scopes: scopes,
-      teamIds: undefined,
-      workflowIds: undefined,
-    });
-    return;
-  }
-
-  function handleSelectTeams({ selectedItems }: MultiSelectItems<FlowTeam>) {
-    const teamIds = selectedItems.length > 0 ? selectedItems.map((team) => team.id) : undefined;
-    props.updateHistorySearch({
-      ...queryString.parse(location.search, queryStringOptions),
-      teamIds,
-      workflowIds: undefined,
-    });
-    return;
-  }
-
-  function handleSelectWorkflows({ selectedItems }: MultiSelectItems<WorkflowSummary>) {
+  function handleSelectWorkflows({ selectedItems }: MultiSelectItems<Workflow>) {
     const workflowIds = selectedItems.length > 0 ? selectedItems.map((worflow) => worflow.id) : undefined;
     props.updateHistorySearch({
       ...queryString.parse(location.search, queryStringOptions),
-      workflowIds: workflowIds,
+      workflows: workflowIds,
+      page: 0,
     });
     return;
   }
@@ -267,55 +215,28 @@ function Selects(props: SelectsProps) {
     return;
   }
 
+  function getWorkflowOptions() {
+    let workflowsList: Array<Workflow> = [];
+    if (props.workflowsData) {
+      workflowsList = props.workflowsData;
+    }
+    return sortByProp(workflowsList, "name", "ASC");
+  }
+
   return (
     <div className={styles.dataFilters}>
-      <FilterableMultiSelect
-        id="actions-scopes-select"
-        label="Choose scope(s)"
-        placeholder="Choose scope(s)"
-        invalid={false}
-        onChange={handleSelectScopes}
-        items={workflowScopeOptions}
-        itemToString={(scope: MultiSelectItem) => (scope ? scope.label : "")}
-        initialSelectedItems={workflowScopeOptions.filter((option) =>
-          Boolean(selectedScopes?.find((scope) => scope === option.value))
-        )}
-        titleText="Filter by scope"
-      />
-      <FilterableMultiSelect
-        disabled={disableTeamsDropdown}
-        key={disableTeamsDropdown ? "teams-disabled" : "teams-enabeld"}
-        id="insights-teams-select"
-        label="Choose team(s)"
-        placeholder="Choose team(s)"
-        invalid={false}
-        onChange={handleSelectTeams}
-        items={teams}
-        itemToString={(team: FlowTeam) => (team ? team.name : "")}
-        initialSelectedItems={selectedTeams}
-        titleText="Filter by Team"
-      />
       <FilterableMultiSelect
         id="insights-workflows-select"
         label="Choose workflow(s)"
         placeholder="Choose workflow(s)"
         invalid={false}
         onChange={handleSelectWorkflows}
-        items={workflowOptions}
-        itemToString={(workflow: WorkflowSummary) => {
-          if (workflow.scope === "team") {
-            const team = workflow ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId) : undefined;
-            if (team) {
-              return workflow ? (team ? `${workflow.name} (${team.name})` : workflow.name) : "";
-            }
-          }
-          if (workflow.scope === "system") {
-            return `${workflow.name} (System)`;
-          }
+        items={getWorkflowOptions()}
+        itemToString={(workflow: Workflow) => {
           return workflow.name;
         }}
-        initialSelectedItems={workflowOptions.filter((workflow: WorkflowSummary) =>
-          Boolean(selectedWorkflowIds?.find((id) => id === workflow.id))
+        initialSelectedItems={getWorkflowOptions().filter((workflow: Workflow) =>
+          Boolean(selectedWorkflowIds ? selectedWorkflowIds.find((id) => id === workflow.id) : false)
         )}
         titleText="Filter by Workflow"
       />
@@ -421,45 +342,4 @@ function Graphs(props: GraphsProps) {
       </div>
     </>
   );
-}
-
-interface GetWorkflowOptionsArgs {
-  isSystemWorkflowsEnabled: boolean;
-  selectedScopes: Array<string> | null;
-  selectedTeams: Array<FlowTeam>;
-  systemWorkflowsData?: Array<WorkflowSummary>;
-  teams: Array<FlowTeam>;
-  userWorkflowsData: Array<WorkflowSummary>;
-}
-
-function getWorkflowOptions({
-  isSystemWorkflowsEnabled,
-  teams,
-  selectedScopes,
-  selectedTeams,
-  systemWorkflowsData = [],
-  userWorkflowsData = [],
-}: GetWorkflowOptionsArgs) {
-  let workflowsList: Array<WorkflowSummary> = [];
-  if (!selectedScopes || (Array.isArray(selectedScopes) && selectedScopes?.includes(WorkflowScope.Team))) {
-    if (selectedTeams.length === 0 && teams) {
-      workflowsList = teams.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
-        acc.push(...team.workflows);
-        return acc;
-      }, []);
-    } else if (selectedTeams) {
-      workflowsList = selectedTeams.reduce((acc: Array<WorkflowSummary>, team: FlowTeam): Array<WorkflowSummary> => {
-        acc.push(...team.workflows);
-        return acc;
-      }, []);
-    }
-  }
-  if ((!selectedScopes || selectedScopes?.includes(WorkflowScope.System)) && isSystemWorkflowsEnabled) {
-    workflowsList.push(...systemWorkflowsData);
-  }
-  if (!selectedScopes || selectedScopes?.includes(WorkflowScope.User)) {
-    workflowsList.push(...userWorkflowsData);
-  }
-  let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
-  return workflowsFilter;
 }
