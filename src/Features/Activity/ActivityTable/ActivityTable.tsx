@@ -19,7 +19,7 @@ ActivityTable.propTypes = {
   updateHistorySearch: PropTypes.func.isRequired,
 };
 
-const PAGE_SIZES = [5, 10, 20, 25, 50, 100];
+const PAGE_SIZES = [10, 20, 25, 50, 100];
 
 const headers = [
   {
