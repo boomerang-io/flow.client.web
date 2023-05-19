@@ -29,17 +29,10 @@ import styles from "./Actions.module.scss";
 
 const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
-const DEFAULT_SIZE = 10;
+const DEFAULT_LIMIT = 10;
 const DEFAULT_SORT = "creationDate";
 const DEFAULT_FROM_DATE = moment(new Date()).subtract("24", "hours").unix();
 const DEFAULT_TO_DATE = moment(new Date()).unix();
-
-const summaryQuery = queryString.stringify({
-  fromDate: DEFAULT_FROM_DATE,
-  toDate: DEFAULT_TO_DATE,
-});
-
-const actionsSummaryUrl = serviceUrl.getActionsSummary({ query: summaryQuery });
 
 function Actions() {
   const { activeTeam } = useAppContext();
@@ -47,8 +40,16 @@ function Actions() {
   const location = useLocation();
   const match = useRouteMatch();
 
+  const summaryQuery = queryString.stringify({
+    teams: activeTeam?.id,
+    fromDate: DEFAULT_FROM_DATE,
+    toDate: DEFAULT_TO_DATE,
+  });
+
+  const actionsSummaryUrl = serviceUrl.getActionsSummary({ query: summaryQuery });
+
   /** Define constants */
-  const actionType = location.pathname.includes("/manual") ? ActionType.Task : ActionType.Approval;
+  const actionType = location.pathname.includes("/manual") ? ActionType.Manual : ActionType.Approval;
 
   /** Get today's numbers data */
   const actionsSummaryQuery = useQuery({
@@ -72,7 +73,7 @@ function Actions() {
   const {
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
-    size = DEFAULT_SIZE,
+    limit = DEFAULT_LIMIT,
     sort = DEFAULT_SORT,
     workflows,
     statuses,
@@ -84,7 +85,7 @@ function Actions() {
     {
       order,
       page,
-      size,
+      limit,
       sort,
       statuses,
       teams: activeTeam?.id,
@@ -155,11 +156,11 @@ function Actions() {
   const updateHistorySearch = ({
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
-    size = DEFAULT_SIZE,
+    limit = DEFAULT_LIMIT,
     sort = DEFAULT_SORT,
     ...props
   }) => {
-    const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props }, queryStringOptions)}`;
+    const queryStr = `?${queryString.stringify({ order, page, limit, sort, ...props }, queryStringOptions)}`;
     history.push({ search: queryStr });
     return;
   };

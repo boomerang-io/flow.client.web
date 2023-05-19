@@ -243,7 +243,7 @@ export const executionStatusList = [
 
 export const ActionType = Object.freeze({
   Approval: "approval",
-  Task: "task",
+  Manual: "manual",
 });
 
 export const ApprovalInputRequired = Object.freeze({

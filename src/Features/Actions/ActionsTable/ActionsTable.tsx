@@ -124,7 +124,7 @@ function ActionsTable(props: ActionsTableProps) {
     props.updateHistorySearch({
       ...queryString.parse(props.location.search),
       page: page - 1, // We have to decrement by one to offset the table pagination adjustment
-      size: pageSize,
+      limit: pageSize,
     });
   }
 
