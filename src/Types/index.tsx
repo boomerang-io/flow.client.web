@@ -34,26 +34,25 @@ export interface SimpleApprover {
   approverEmail: string;
   approverName: string;
   comments: string;
-  actionDate: string;
-  actioned: boolean;
+  date: string;
+  approved: boolean;
 }
 
 export interface Action {
   id: string;
-  activityId: string;
-  taskActivityId: string;
-  workflowId: string;
-  teamId: string;
-  audit: any;
+  taskRunRef: string;
+  workflowRunRef: string;
+  workflowRef: string;
+  teamRef: string;
   status: string;
   type: string;
   creationDate: string;
   taskName: string;
   workflowName: string;
+  teamName: string;
   numberOfApprovals: number;
   approvalsRequired: number;
   actioners: SimpleApprover[];
-  teamName: string;
   instructions: any;
 }
 

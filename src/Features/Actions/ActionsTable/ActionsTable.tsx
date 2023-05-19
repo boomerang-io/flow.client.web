@@ -23,7 +23,7 @@ interface ActionsTableProps {
   match: any;
   tableData: {
     pageable: { number: number; size: number; sort: [{ property: string; direction: string }]; totalElements: number };
-    records: any;
+    content: any;
   };
   updateHistorySearch: Function;
 }
@@ -159,7 +159,7 @@ function ActionsTable(props: ActionsTableProps) {
 
   const {
     pageable: { number, size, sort, totalElements },
-    records,
+    content,
   } = props.tableData;
 
   const {
@@ -219,8 +219,8 @@ function ActionsTable(props: ActionsTableProps) {
 
   const getSelectedActions = (actionId?: string) => {
     return actionId
-      ? records.filter((action: Action) => action.id === actionId)
-      : records.filter((action: Action) =>
+      ? content.filter((action: Action) => action.id === actionId)
+      : content.filter((action: Action) =>
           selectedActions.some((selectedAction: string) => selectedAction === action.id)
         );
   };
@@ -231,7 +231,7 @@ function ActionsTable(props: ActionsTableProps) {
         {totalElements > 0 ? (
           <>
             <DataTable
-              rows={records}
+              rows={content}
               headers={headerList}
               render={({ rows, headers, getHeaderProps, getSelectionProps, selectRow, selectedRows }: any) => {
                 const onSuccessfulApprovalRejection = async () => {
@@ -302,7 +302,7 @@ function ActionsTable(props: ActionsTableProps) {
                               {...getSelectionProps({
                                 onClick: () => {
                                   handleOnClickCheckbox(
-                                    records
+                                    content
                                       .filter(
                                         (item: Action) =>
                                           item.status === ApprovalStatus.Submitted &&
@@ -345,7 +345,7 @@ function ActionsTable(props: ActionsTableProps) {
                       </TableHead>
                       <TableBody className={styles.tableBody}>
                         {rows.map((row: any) => {
-                          const currentAction: Action = records.find((action: Action) => action.id === row.id);
+                          const currentAction: Action = content.find((action: Action) => action.id === row.id);
                           const isAlreadyApproved =
                             (user?.id && currentAction?.actioners?.map((user) => user.approverId).includes(user.id)) ||
                             currentAction?.status !== ApprovalStatus.Submitted;
