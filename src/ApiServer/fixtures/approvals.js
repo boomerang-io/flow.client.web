@@ -1,19 +1,18 @@
 const approvals = {
-  pageable: {
-    number: 0,
-    size: 2147483647,
-    sort: [
-      {
-        property: "creationDate",
-        direction: "ASC",
-      },
-    ],
-    totalElements: 4,
-    first: true,
-    last: true,
-    totalPages: 1,
-    numberOfElements: 4,
+  number: 0,
+  size: 4,
+  totalElements: 4,
+  pageable: "INSTANCE",
+  last: true,
+  totalPages: 1,
+  sort: {
+      sorted: false,
+      empty: true,
+      unsorted: true
   },
+  first: true,
+  numberOfElements: 4,
+  empty: false,
   content: [
     {
       id: "61300607db7b5f610be7346d",
@@ -24,7 +23,7 @@ const approvals = {
       status: "submitted",
       type: "approval",
       creationDate: "2021-05-20T12:12:58.963+0000",
-      taskName: "Manual Approval 1",
+      taskName: null,
       workflowName: "Test Action 1",
       numberOfApprovals: 1,
       approvalsRequired: 2,

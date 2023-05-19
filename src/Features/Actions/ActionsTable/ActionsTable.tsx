@@ -14,6 +14,7 @@ import { appLink } from "Config/appConfig";
 import dateHelper from "Utils/dateHelper";
 import { CheckmarkOutline, CloseOutline, Help, Warning } from "@carbon/react/icons";
 import styles from "./ActionsTable.module.scss";
+import { set } from "lodash";
 
 interface ActionsTableProps {
   actionsQueryToRefetch: string;
@@ -22,13 +23,17 @@ interface ActionsTableProps {
   location: any;
   match: any;
   tableData: {
-    pageable: { number: number; size: number; sort: [{ property: string; direction: string }]; totalElements: number };
+    number: number;
+    size: number;
+    totalElements: number;
     content: any;
   };
+  sort: string;
+  order: string;
   updateHistorySearch: Function;
 }
 
-const PAGE_SIZES = [5, 10, 20, 25, 50, 100];
+const PAGE_SIZES = [10, 20, 25, 50, 100];
 
 const HeadersHeader = {
   Workflow: "Workflow",
@@ -124,15 +129,11 @@ function ActionsTable(props: ActionsTableProps) {
   }
 
   function handleSort(e: any, { sortHeaderKey }: { sortHeaderKey: string }) {
-    const { property, direction } = props.tableData.pageable.sort[0];
-    const sort = sortHeaderKey;
     let order = "ASC";
-
-    if (sort === property && direction === "ASC") {
+    if (props.order === "ASC") {
       order = "DESC";
     }
-
-    props.updateHistorySearch({ ...queryString.parse(props.location.search), sort, order });
+    props.updateHistorySearch({ ...queryString.parse(props.location.search), sort: sortHeaderKey, order });
   }
 
   /**
@@ -157,10 +158,7 @@ function ActionsTable(props: ActionsTableProps) {
     );
   }
 
-  const {
-    pageable: { number, size, sort, totalElements },
-    content,
-  } = props.tableData;
+  const { number, size, totalElements, content } = props.tableData;
 
   const {
     TableContainer,
@@ -323,8 +321,8 @@ function ActionsTable(props: ActionsTableProps) {
                                 isSortable: header.sortable,
                                 onClick: handleSort,
                               })}
-                              isSortHeader={sort[0].property === header.key}
-                              sortDirection={sort[0].direction}
+                              isSortHeader={props.sort === header.key}
+                              sortDirection={props.order}
                             >
                               {header.header === HeadersHeader.Approvals ? (
                                 <div className={styles.tableHeaderApprovals}>

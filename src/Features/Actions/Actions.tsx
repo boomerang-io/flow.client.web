@@ -42,7 +42,7 @@ const summaryQuery = queryString.stringify({
 const actionsSummaryUrl = serviceUrl.getActionsSummary({ query: summaryQuery });
 
 function Actions() {
-  const { teams, activeTeam } = useAppContext();
+  const { activeTeam } = useAppContext();
   const history = useHistory();
   const location = useLocation();
   const match = useRouteMatch();
@@ -357,6 +357,8 @@ function Actions() {
               location={location}
               match={match}
               tableData={actionsQuery.data}
+              sort={sort}
+              order={order}
               updateHistorySearch={updateHistorySearch}
             />
           </section>
