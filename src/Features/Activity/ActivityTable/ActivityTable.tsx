@@ -23,12 +23,6 @@ const PAGE_SIZES = [10, 20, 25, 50, 100];
 
 const headers = [
   {
-    header: "Team",
-    key: "teamName",
-    sortable: true,
-  },
-  { header: "Scope", key: "scope" },
-  {
     header: "Workflow",
     key: "workflowName",
     sortable: true,
@@ -78,12 +72,6 @@ function renderCell(headerList, cellIndex, value) {
           <Icon aria-label={value} className={styles.statusIcon} />
           <p className={styles.statusText}>{ExecutionStatusCopy[value ? value : "notstarted"]}</p>
         </div>
-      );
-    case "scope":
-      return (
-        <p className={styles.tableTextarea} style={{ textTransform: "capitalize" }}>
-          {value || "---"}
-        </p>
       );
     default:
       return <p className={styles.tableTextarea}>{value || "---"}</p>;

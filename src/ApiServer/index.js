@@ -344,11 +344,11 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Activity
        */
-      this.get(serviceUrl.getActivity({ query: null }), (schema) => {
+      this.get(serviceUrl.getWorkflowRuns({ query: null }), (schema) => {
         return schema.db.activityList[0];
       });
 
-      this.get(serviceUrl.getActivitySummary({ query: null }), (schema, request) => {
+      this.get(serviceUrl.getWorkflowRunCount({ query: null }), (schema, request) => {
         return schema.db.activitySummary[0];
       });
 

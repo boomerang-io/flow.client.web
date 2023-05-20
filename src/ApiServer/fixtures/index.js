@@ -1,5 +1,5 @@
 export { default as activityList } from "./activityList";
-export { default as activitySummary } from "./activitySummary";
+export { default as workflowRunCount } from "./workflowRunCount";
 export { default as activity } from "./activity";
 export { default as actionsSummary } from "./actionsSummary";
 export { default as approvals } from "./approvals";

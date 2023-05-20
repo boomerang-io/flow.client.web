@@ -225,22 +225,26 @@ export const REQUEST_TYPES_TO_DISPLAY = Object.freeze({
  */
 export const executionStatusIcon: Record<RunStatus, React.FC<{ [k: string]: any }>> = Object.freeze({
   [RunStatus.Cancelled]: CloseOutline,
-  [RunStatus.Completed]: CheckmarkOutline,
-  [RunStatus.Failure]: CloseOutline,
-  [RunStatus.InProgress]: Timer,
+  [RunStatus.Succeeded]: CheckmarkOutline,
+  [RunStatus.Failed]: CloseOutline,
+  [RunStatus.Running]: Timer,
   [RunStatus.NotStarted]: Timer,
   [RunStatus.Invalid]: Error,
   [RunStatus.Skipped]: Error,
   [RunStatus.Waiting]: InProgress,
+  [RunStatus.Ready]: Timer,
 });
 
 export const executionStatusList = [
-  RunStatus.InProgress,
-  RunStatus.Completed,
-  RunStatus.Failure,
+  RunStatus.Running,
+  RunStatus.Ready,
+  RunStatus.Succeeded,
+  RunStatus.Failed,
   RunStatus.Invalid,
   RunStatus.Waiting,
   RunStatus.Cancelled,
+  RunStatus.Skipped,
+  RunStatus.NotStarted,
 ];
 
 export const ActionType = Object.freeze({
