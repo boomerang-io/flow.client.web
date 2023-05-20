@@ -12,6 +12,7 @@
   @include border-radius();
 
   a {
+    height: 100%;
     &:focus {
       @include focus-outline($offset: 0rem);
     }
@@ -47,7 +48,7 @@
   box-sizing: border-box;
   justify-content: space-between;
   height: 6.5rem;
-  padding: 0.5rem;
+  padding: 1rem;
   margin-top: 1.5rem;
 }
 
@@ -72,7 +73,7 @@
   font-size: 1.125rem;
   font-weight: 600;
   letter-spacing: 0rem;
-  line-height: 1.25rem;
+  line-height: 1.25;
   margin: 0;
   margin-bottom: 0.5rem;
   text-align: left;

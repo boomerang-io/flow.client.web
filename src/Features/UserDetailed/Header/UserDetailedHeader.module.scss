@@ -75,7 +75,7 @@
 
 .dataValue {
   font-size: 1rem;
-  line-height: 1.25rem;
+  line-height: 1.25;
   max-width: 16rem;
   text-transform: capitalize;
   @include text-overflow-ellipsis();
