@@ -1,12 +1,13 @@
 const workflowRunCount = {
   status: {
     all: 1969,
+    ready: 5,
     notstarted: 0,
-    inProgress: 27,
-    failure: 17,
+    running: 27,
+    failed: 17,
     no_status: 65,
     invalid: 6,
-    completed: 1854,
+    succeeded: 1854,
     skipped: 0,
     waiting: 0,
     cancelled: 0,

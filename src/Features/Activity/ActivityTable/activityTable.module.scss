@@ -104,7 +104,7 @@
     @include focus-outline(var(--cds-interactive-01), -0.125rem);
   }
 
-  &.completed {
+  &.succeeded {
     .status {
       color: var(--cds-support-02);
       svg {
@@ -113,7 +113,7 @@
     }
   }
 
-  &.failure, &.cancelled {
+  &.failed, &.cancelled {
     td {
       background-color: #fcd0d3;
     }
@@ -166,17 +166,17 @@
     }
   }
 
-  &.inProgress {
+  &.running {
     .tableCell {
-      animation: inProgressText 3.75s infinite;
+      animation: runningText 3.75s infinite;
       svg {
-        animation: inProgressIcon 3.75s infinite;
+        animation: runningIcon 3.75s infinite;
       }
     }
   }
 }
 
-@keyframes inProgressText {
+@keyframes runningText {
   0% {
     color: var(--cds-text-02);
   }
@@ -197,7 +197,7 @@
   }
 }
 
-@keyframes inProgressIcon {
+@keyframes runningIcon {
   0% {
     fill: var(--cds-text-02);
   }

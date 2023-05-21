@@ -236,8 +236,8 @@ export const executionStatusIcon: Record<RunStatus, React.FC<{ [k: string]: any 
 });
 
 export const executionStatusList = [
-  RunStatus.Running,
   RunStatus.Ready,
+  RunStatus.Running,
   RunStatus.Succeeded,
   RunStatus.Failed,
   RunStatus.Invalid,

@@ -3,7 +3,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useAppContext, useQuery } from "Hooks";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import { Error, Loading, FeatureNavTabs as Tabs } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Error, Loading, ErrorMessage, FeatureNavTabs as Tabs } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DatePicker, DatePickerInput, FilterableMultiSelect } from "@carbon/react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
@@ -14,7 +14,7 @@ import { sortByProp } from "@boomerang-io/utils";
 import ErrorDragon from "Components/ErrorDragon";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { executionStatusList, QueryStatus, elevatedUserRoles, WorkflowScope } from "Constants";
+import { executionStatusList, QueryStatus } from "Constants";
 import { executionOptions } from "Constants/filterOptions";
 import styles from "./Activity.module.scss";
 
@@ -61,7 +61,7 @@ function WorkflowActivity() {
 
   /**** Start get some data ****/
 
-  const wfRunsQuery = queryString.stringify(
+  const wfRunsURLQuery = queryString.stringify(
     {
       order,
       page,
@@ -77,7 +77,7 @@ function WorkflowActivity() {
     queryStringOptions
   );
 
-  const wfRunStatusSummaryQuery = queryString.stringify(
+  const wfRunStatusSummaryURLQuery = queryString.stringify(
     {
       teams: activeTeam?.id,
       triggers,
@@ -89,12 +89,15 @@ function WorkflowActivity() {
   );
 
   const wfRunSummaryUrl = serviceUrl.getWorkflowRunCount({ query: activitySummaryQuery });
-  const wfRunStatusSummaryUrl = serviceUrl.getWorkflowRunCount({ query: wfRunStatusSummaryQuery });
-  const wfRunUrl = serviceUrl.getWorkflowRuns({ query: wfRunsQuery });
+  const wfRunStatusSummaryUrl = serviceUrl.getWorkflowRunCount({ query: wfRunStatusSummaryURLQuery });
+  const wfRunUrl = serviceUrl.getWorkflowRuns({ query: wfRunsURLQuery });
 
-  const wfRunSummaryState = useQuery(wfRunSummaryUrl);
-  const wfRunStatusSummaryState = useQuery(wfRunStatusSummaryUrl);
-  const wfRunState = useQuery(wfRunUrl);
+  const wfRunSummaryQuery = useQuery(wfRunSummaryUrl);
+  const wfRunStatusSummaryQuery = useQuery(wfRunStatusSummaryUrl);
+  const wfRunQuery = useQuery({
+    queryKey: wfRunUrl,
+    queryFn: resolver.query(wfRunUrl),
+  });
 
   /**** End get some data ****/
 
@@ -183,7 +186,7 @@ function WorkflowActivity() {
   /** End input handlers */
 
   /** Start Render Logic */
-  if (wfRunState.error || workflowsIsError) {
+  if (wfRunQuery.error || workflowsIsError) {
     return (
       <div className={styles.container}>
         <ActivityHeader
@@ -201,7 +204,7 @@ function WorkflowActivity() {
     );
   }
 
-  if (workflowsData) {
+  if (activeTeam && workflowsData) {
     const { workflows = "", triggers = "", statuses = "" } = queryString.parse(location.search, queryStringOptions);
     const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
     const selectedTriggers = typeof triggers === "string" ? [triggers] : triggers;
@@ -209,7 +212,7 @@ function WorkflowActivity() {
     const statusIndex = executionStatusList.indexOf(selectedStatuses[0]) + 1;
     // const statusIndex = executionStatusList.indexOf(selectedStatuses[0]);
 
-    const { data: statusWorkflowSummary, status: statusSummaryStatus } = wfRunStatusSummaryState;
+    const { data: statusWorkflowSummary, status: statusSummaryStatus } = wfRunStatusSummaryQuery;
     const maxDate = moment().format("MM/DD/YYYY");
 
     const statusWorkflowSummaryIsLoading = statusSummaryStatus === QueryStatus.Loading;
@@ -220,128 +223,149 @@ function WorkflowActivity() {
           <title>Activity</title>
         </Helmet>
         <ActivityHeader
-          inProgressActivities={wfRunSummaryState.data?.inProgress ?? 0}
-          isLoading={wfRunSummaryState.status === QueryStatus.Loading}
-          failedActivities={wfRunSummaryState.data?.failure ?? 0}
-          runActivities={wfRunSummaryState.data?.all ?? 0}
-          succeededActivities={wfRunSummaryState.data?.completed ?? 0}
+          inProgressActivities={wfRunSummaryQuery.data?.inProgress ?? 0}
+          isLoading={wfRunSummaryQuery.status === QueryStatus.Loading}
+          failedActivities={wfRunSummaryQuery.data?.failure ?? 0}
+          runActivities={wfRunSummaryQuery.data?.all ?? 0}
+          succeededActivities={wfRunSummaryQuery.data?.completed ?? 0}
         />
-        <section aria-label="Activity" className={styles.content}>
-          <nav>
-            <Tabs className={styles.tabs}>
-              <Tab
-                to={() => handleSelectStatuses(0)}
-                label={statusWorkflowSummaryIsLoading ? "All" : `All (${statusWorkflowSummary.status.all})`}
-                isActive={statusIndex === 0}
-              />
-              <Tab
-                to={() => handleSelectStatuses(1)}
-                label={
-                  statusWorkflowSummaryIsLoading
-                    ? "In Progress"
-                    : `In Progress (${statusWorkflowSummary?.status.inProgress})`
-                }
-                isActive={statusIndex === 1}
-              />
-              <Tab
-                to={() => handleSelectStatuses(2)}
-                label={
-                  statusWorkflowSummaryIsLoading ? "Succeeded" : `Succeeded (${statusWorkflowSummary.status.completed})`
-                }
-                isActive={statusIndex === 2}
-              />
-              <Tab
-                to={() => handleSelectStatuses(3)}
-                label={statusWorkflowSummaryIsLoading ? "Failed" : `Failed (${statusWorkflowSummary.status.failure})`}
-                isActive={statusIndex === 3}
-              />
-              <Tab
-                to={() => handleSelectStatuses(4)}
-                label={statusWorkflowSummaryIsLoading ? "Invalid" : `Invalid (${statusWorkflowSummary.status.invalid})`}
-                isActive={statusIndex === 4}
-              />
-              <Tab
-                to={() => handleSelectStatuses(5)}
-                label={statusWorkflowSummaryIsLoading ? "Waiting" : `Waiting (${statusWorkflowSummary.status.waiting})`}
-                isActive={statusIndex === 5}
-              />
-              <Tab
-                to={() => handleSelectStatuses(6)}
-                label={
-                  statusWorkflowSummaryIsLoading ? "Cancelled" : `Cancelled (${statusWorkflowSummary.status.cancelled})`
-                }
-                isActive={statusIndex === 6}
-              />
-            </Tabs>
-          </nav>
-          <div className={styles.filtersContainer}>
-            <div className={styles.dataFilters}>
-              <div className={styles.dataFilter}>
-                <FilterableMultiSelect
-                  id="activity-workflows-select"
-                  label="Choose workflow(s)"
-                  placeholder="Choose workflow(s)"
-                  invalid={false}
-                  onChange={handleSelectWorkflows}
-                  items={getWorkflowFilter()}
-                  itemToString={(workflow) => {
-                    return workflow.name;
-                  }}
-                  initialSelectedItems={getWorkflowFilter().filter((workflow) =>
-                    Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
-                  )}
-                  titleText="Filter by Workflow"
+        {wfRunQuery.isError ? (
+          <section aria-label="Activity" className={styles.content}>
+            <ErrorMessage />
+          </section>
+        ) : (
+          <section aria-label="Activity" className={styles.content}>
+            <nav>
+              <Tabs className={styles.tabs}>
+                <Tab
+                  to={() => handleSelectStatuses(0)}
+                  label={statusWorkflowSummaryIsLoading ? "All" : `All (${statusWorkflowSummary.status.all})`}
+                  isActive={statusIndex === 0}
                 />
-              </div>
-              <div className={styles.dataFilter}>
-                <FilterableMultiSelect
-                  id="activity-triggers-select"
-                  label="Choose trigger type(s)"
-                  placeholder="Choose trigger type(s)"
-                  invalid={false}
-                  onChange={handleSelectTriggers}
-                  items={executionOptions}
-                  itemToString={(item) => (item ? item.label : "")}
-                  initialSelectedItems={executionOptions.filter((option) =>
-                    Boolean(selectedTriggers.find((trigger) => trigger === option.value))
-                  )}
-                  titleText="Filter by trigger"
+                <Tab
+                  to={() => handleSelectStatuses(1)}
+                  label={statusWorkflowSummaryIsLoading ? "Queued" : `Queued (${statusWorkflowSummary?.status.ready})`}
+                  isActive={statusIndex === 1}
                 />
+                <Tab
+                  to={() => handleSelectStatuses(2)}
+                  label={
+                    statusWorkflowSummaryIsLoading
+                      ? "In Progress"
+                      : `In Progress (${statusWorkflowSummary?.status.running})`
+                  }
+                  isActive={statusIndex === 2}
+                />
+                <Tab
+                  to={() => handleSelectStatuses(3)}
+                  label={
+                    statusWorkflowSummaryIsLoading
+                      ? "Succeeded"
+                      : `Succeeded (${statusWorkflowSummary.status.succeeded})`
+                  }
+                  isActive={statusIndex === 3}
+                />
+                <Tab
+                  to={() => handleSelectStatuses(4)}
+                  label={statusWorkflowSummaryIsLoading ? "Failed" : `Failed (${statusWorkflowSummary.status.failed})`}
+                  isActive={statusIndex === 4}
+                />
+                <Tab
+                  to={() => handleSelectStatuses(5)}
+                  label={
+                    statusWorkflowSummaryIsLoading ? "Invalid" : `Invalid (${statusWorkflowSummary.status.invalid})`
+                  }
+                  isActive={statusIndex === 5}
+                />
+                <Tab
+                  to={() => handleSelectStatuses(6)}
+                  label={
+                    statusWorkflowSummaryIsLoading ? "Waiting" : `Waiting (${statusWorkflowSummary.status.waiting})`
+                  }
+                  isActive={statusIndex === 6}
+                />
+                <Tab
+                  to={() => handleSelectStatuses(7)}
+                  label={
+                    statusWorkflowSummaryIsLoading
+                      ? "Cancelled"
+                      : `Cancelled (${statusWorkflowSummary.status.cancelled})`
+                  }
+                  isActive={statusIndex === 7}
+                />
+              </Tabs>
+            </nav>
+            <div className={styles.filtersContainer}>
+              <div className={styles.dataFilters}>
+                <div className={styles.dataFilter}>
+                  <FilterableMultiSelect
+                    id="activity-workflows-select"
+                    label="Choose workflow(s)"
+                    placeholder="Choose workflow(s)"
+                    invalid={false}
+                    onChange={handleSelectWorkflows}
+                    items={getWorkflowFilter()}
+                    itemToString={(workflow) => {
+                      return workflow.name;
+                    }}
+                    initialSelectedItems={getWorkflowFilter().filter((workflow) =>
+                      Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
+                    )}
+                    titleText="Filter by Workflow"
+                  />
+                </div>
+                <div className={styles.dataFilter}>
+                  <FilterableMultiSelect
+                    id="activity-triggers-select"
+                    label="Choose trigger type(s)"
+                    placeholder="Choose trigger type(s)"
+                    invalid={false}
+                    onChange={handleSelectTriggers}
+                    items={executionOptions}
+                    itemToString={(item) => (item ? item.label : "")}
+                    initialSelectedItems={executionOptions.filter((option) =>
+                      Boolean(selectedTriggers.find((trigger) => trigger === option.value))
+                    )}
+                    titleText="Filter by trigger"
+                  />
+                </div>
               </div>
+              <DatePicker
+                id="activity-date-picker"
+                className={styles.timeFilters}
+                datePickerType="range"
+                maxDate={maxDate}
+                onChange={handleSelectDate}
+                onClose={handleCloseSelectDate}
+              >
+                <DatePickerInput
+                  autoComplete="off"
+                  id="activity-date-picker-start"
+                  labelText="Start date"
+                  placeholder="mm/dd/yyyy"
+                  value={fromDate && moment.unix(fromDate).format("MM/DD/YYYY")}
+                />
+                <DatePickerInput
+                  autoComplete="off"
+                  id="activity-date-picker-end"
+                  labelText="End date"
+                  placeholder="mm/dd/yyyy"
+                  value={toDate && moment.unix(toDate).format("MM/DD/YYYY")}
+                />
+              </DatePicker>
             </div>
-            <DatePicker
-              id="activity-date-picker"
-              className={styles.timeFilters}
-              datePickerType="range"
-              maxDate={maxDate}
-              onChange={handleSelectDate}
-              onClose={handleCloseSelectDate}
-            >
-              <DatePickerInput
-                autoComplete="off"
-                id="activity-date-picker-start"
-                labelText="Start date"
-                placeholder="mm/dd/yyyy"
-                value={fromDate && moment.unix(fromDate).format("MM/DD/YYYY")}
-              />
-              <DatePickerInput
-                autoComplete="off"
-                id="activity-date-picker-end"
-                labelText="End date"
-                placeholder="mm/dd/yyyy"
-                value={toDate && moment.unix(toDate).format("MM/DD/YYYY")}
-              />
-            </DatePicker>
-          </div>
-          <ActivityTable
-            history={history}
-            isLoading={wfRunState.status === QueryStatus.Loading}
-            location={location}
-            match={match}
-            tableData={wfRunState.data}
-            updateHistorySearch={updateHistorySearch}
-          />
-        </section>
+            <ActivityTable
+              history={history}
+              isLoading={wfRunQuery.isLoading}
+              location={location}
+              match={match}
+              tableData={wfRunQuery.data}
+              sort={sort}
+              order={order}
+              updateHistorySearch={updateHistorySearch}
+            />
+          </section>
+        )}
       </div>
     );
   }
