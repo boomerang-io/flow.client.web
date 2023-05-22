@@ -22,6 +22,8 @@ const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
 const DEFAULT_LIMIT = 10;
 const DEFAULT_SORT = "creationDate";
+const DEFAULT_FROM_DATE = moment().startOf("month").unix();
+const DEFAULT_TO_DATE = moment().endOf("month").unix();
 
 function WorkflowActivity() {
   const { activeTeam } = useAppContext();
@@ -29,10 +31,10 @@ function WorkflowActivity() {
   const location = useLocation();
   const match = useRouteMatch();
 
-  // Defined outside function so only run once
+  //TODO - this was defined outside so as to only run once but now needs the teamId - how do we make it only run once?
   const activitySummaryQuery = queryString.stringify({
-    fromDate: moment(new Date()).subtract("24", "hours").unix(),
-    toDate: moment(new Date()).unix(),
+    fromDate: DEFAULT_FROM_DATE,
+    toDate: DEFAULT_TO_DATE,
     teams: activeTeam?.id,
   });
 

@@ -61,9 +61,9 @@ export const serviceUrl = {
   getManageUsers: ({ query }: QueryId) => `${BASE_URL}/manage/users${query ? "?" + query : ""}`,
   // getPlatformConfig: () => `${BASE_CORE_USERS_URL}/navigation`,
   getContext: () => `${BASE_URL}/context`,
-  getSchedules: ({ query }: QueryId) => `${BASE_URL}/schedules${query ? "?" + query : ""}`,
+  getSchedules: ({ query }: QueryId) => `${BASE_URL}/schedules/query${query ? "?" + query : ""}`,
   getSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
-  getSchedulesCalendars: ({ query }: QueryId) => `${BASE_URL}/schedules/calendar${query ? "?" + query : ""}`,
+  getSchedulesCalendars: ({ query }: QueryId) => `${BASE_URL}/schedules/calendars${query ? "?" + query : ""}`,
   getScheduleCalendar: ({ scheduleId, query }) =>
     `${BASE_URL}/schedules/${scheduleId}/calendar${query ? "?" + query : ""}`,
   getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedules/validate/cron?cron=${expression}`,

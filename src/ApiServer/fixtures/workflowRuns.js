@@ -1,270 +1,276 @@
 const workflowRuns = {
-  number: 0,
-  size: 10,
-  totalElements: 22,
-  pageable: "INSTANCE",
-  last: true,
-  totalPages: 3,
-  sort: {
-      sorted: false,
-      empty: true,
-      unsorted: true
-  },
-  first: true,
-  numberOfElements: 10,
-  empty: false,
-  content: [
-    {
-      creationDate: "2020-06-02T13:08:11.391+0000",
-      duration: 51235,
-      id: "5ed64f3beddd5f0001ef8c0a",
-      initiatedByUserId: "5a0d52e9a1a0b20007f2287a",
-      initiatedByUserName: "Iulian Corcoja",
-      status: "running",
-      workflowId: "5eb2c4085a92d80001a16d87",
-      workflowRevisionid: "5ed011e0eddd5f0001eeb7d0",
-      trigger: "manual",
-      properties: [
-        { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "ben@ibm.com" },
-        {
-          key: "artifactory.api_key",
-          value: "testKey",
-        },
-        { key: "db.host", value: "" },
-        { key: "db.port", value: "" },
-        { key: "db.username", value: "" },
-        { key: "db.password", value: "" },
-      ],
-      description: "",
-      icon: "flow",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
-      workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Services Engineering",
-      scope: "system",
-    },
-    {
-      creationDate: "2020-06-02T13:02:42.210+0000",
-      duration: 165863,
-      id: "5ed64df2eddd5f0001ef8a39",
-      initiatedByUserId: "5a0d52e9a1a0b20007f2287a",
-      initiatedByUserName: "Iulian Corcoja",
-      status: "failed",
-      workflowId: "5eb2c4085a92d80001a16d87",
-      workflowRevisionid: "5ed011e0eddd5f0001eeb7d0",
-      trigger: "manual",
-      properties: [
-        { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "ben@ibm.com" },
-        {
-          key: "artifactory.api_key",
-          value: "testKey",
-        },
-        { key: "db.host", value: "" },
-        { key: "db.port", value: "" },
-        { key: "db.username", value: "" },
-        { key: "db.password", value: "" },
-      ],
-      description: "",
-      icon: "flow",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
-      workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Services Engineering",
-    },
-    {
-      creationDate: "2020-05-20T12:12:58.963+0000",
-      duration: 54703,
-      id: "5ec51eca5a92d80001a2005d",
-      initiatedByUserId: "5a0d52e9a1a0b20007f2287a",
-      initiatedByUserName: "Iulian Corcoja",
-      status: "succeeded",
-      workflowId: "5eb2c4085a92d80001a16d87",
-      workflowRevisionid: "5ec2a79d5a92d80001a1f2b1",
-      trigger: "manual",
-      properties: [
-        { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "testUser@ibm.com" },
-        {
-          key: "artifactory.api_key",
-          value: "TEST",
-        },
-      ],
-      description: "",
-      icon: "flow",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
-      workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Services Engineering",
-      scope: "team",
-    },
-    {
-      creationDate: "2020-05-19T11:48:19.577+0000",
-      duration: 53261,
-      id: "5ec3c7835a92d80001a1fc5b",
-      initiatedByUserId: "5a0d52e9a1a0b20007f2287a",
-      initiatedByUserName: "Iulian Corcoja",
-      status: "succeeded",
-      workflowId: "5eb2c4085a92d80001a16d87",
-      workflowRevisionid: "5ec2a79d5a92d80001a1f2b1",
-      trigger: "manual",
-      properties: [
-        { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "testUser@ibm.com" },
-        {
-          key: "artifactory.api_key",
-          value: "TEST",
-        },
-      ],
-      description: "",
-      icon: "flow",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
-      workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Services Engineering",
-    },
-    {
-      creationDate: "2020-05-18T15:20:09.781+0000",
-      duration: 58451,
-      id: "5ec2a7a95a92d80001a1f30a",
-      initiatedByUserId: "5a0d52e9a1a0b20007f2287a",
-      initiatedByUserName: "Iulian Corcoja",
-      status: "succeeded",
-      workflowId: "5eb2c4085a92d80001a16d87",
-      workflowRevisionid: "5ec2a79d5a92d80001a1f2b1",
-      trigger: "manual",
-      properties: [
-        { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "testUser@ibm.com" },
-        {
-          key: "artifactory.api_key",
-          value: "TEST",
-        },
-      ],
-      description: "",
-      icon: "flow",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
-      workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Services Engineering",
-    },
-    {
-      creationDate: "2020-05-18T15:13:20.401+0000",
-      duration: 52494,
-      id: "5ec2a6105a92d80001a1f21a",
-      initiatedByUserId: "5a0d52e9a1a0b20007f2287a",
-      initiatedByUserName: "Iulian Corcoja",
-      status: "succeeded",
-      workflowId: "5eb2c4085a92d80001a16d87",
-      workflowRevisionid: "5ec2a6085a92d80001a1f1c3",
-      trigger: "manual",
-      properties: [
-        { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "testUser@ibm.com" },
-        {
-          key: "artifactory.api_key",
-          value: "TEST",
-        },
-      ],
-      description: "",
-      icon: "flow",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
-      workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Services Engineering",
-    },
-    {
-      creationDate: "2020-05-18T15:09:23.391+0000",
-      duration: 34699,
-      id: "5ec2a5235a92d80001a1f155",
-      initiatedByUserId: "5a0d52e9a1a0b20007f2287a",
-      initiatedByUserName: "Iulian Corcoja",
-      status: "succeeded",
-      workflowId: "5eb2c4085a92d80001a16d87",
-      workflowRevisionid: "5ec2a51d5a92d80001a1f100",
-      trigger: "manual",
-      properties: [
-        { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "testUser@ibm.com" },
-        {
-          key: "artifactory.api_key",
-          value: "TEST",
-        },
-      ],
-      description: "",
-      icon: "flow",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
-      workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Services Engineering",
-    },
-    {
-      creationDate: "2020-05-18T15:07:04.262+0000",
-      duration: 38637,
-      id: "5ec2a4985a92d80001a1f08a",
-      initiatedByUserId: "5a0d52e9a1a0b20007f2287a",
-      initiatedByUserName: "Iulian Corcoja",
-      status: "succeeded",
-      workflowId: "5eb2c4085a92d80001a16d87",
-      workflowRevisionid: "5ec2a4915a92d80001a1f035",
-      trigger: "manual",
-      properties: [
-        { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "testUSer@ibm.com" },
-        {
-          key: "artifactory.api_key",
-          value: "TEST",
-        },
-      ],
-      description: "",
-      icon: "flow",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
-      workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Services Engineering",
-    },
-    {
-      creationDate: "2020-05-18T14:54:28.899+0000",
-      duration: 45740,
-      id: "5ec2a1a45a92d80001a1efa0",
-      initiatedByUserId: "5a0d52e9a1a0b20007f2287a",
-      initiatedByUserName: "Iulian Corcoja",
-      status: "succeeded",
-      workflowId: "5eb2c4085a92d80001a16d87",
-      workflowRevisionid: "5ec2a19f5a92d80001a1ef47",
-      trigger: "manual",
-      properties: [
-        { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "testUSer@ibm.com" },
-        {
-          key: "artifactory.api_key",
-          value: "TEST",
-        },
-      ],
-      description: "",
-      icon: "flow",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
-      workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Services Engineering",
-    },
-    {
-      creationDate: "2020-05-18T14:52:23.540+0000",
-      duration: 49634,
-      id: "5ec2a1275a92d80001a1eeae",
-      initiatedByUserId: "5a0d52e9a1a0b20007f2287a",
-      initiatedByUserName: "Iulian Corcoja",
-      status: "succeeded",
-      workflowId: "5eb2c4085a92d80001a16d87",
-      workflowRevisionid: "5ec2a1135a92d80001a1ee55",
-      trigger: "manual",
-      properties: [
-        { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "testUser" },
-        {
-          key: "artifactory.api_key",
-          value: "TEST",
-        },
-      ],
-      description: "",
-      icon: "flow",
-      shortDescription: "Train and store ML model for Bot Efficiency.",
-      workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Services Engineering",
-    },
+  "content": [
+      {
+          "id": "63c3831e65413043cf2286b7",
+          "creationDate": "2023-01-15T04:37:51.099+00:00",
+          "status": "succeeded",
+          "phase": "finalized",
+          "startTime": "2023-01-15T04:37:51.099+00:00",
+          "duration": 11867,
+          "workflowRef": "61d620a33aa9034ded32caee",
+          "workflowRevisionRef": "61d620b63aa9034ded32caf0",
+          "labels": {},
+          "annotations": {
+              "io.boomerang/kind": "WorkflowRun",
+              "io.boomerang/generation": "3"
+          },
+          "params": [
+              {
+                  "name": "token",
+                  "value": "a"
+              },
+              {
+                  "name": "password",
+                  "value": null
+              }
+          ],
+          "trigger": "manual",
+          "results": [],
+          "workspaces": [],
+          "awaitingApproval": false
+      },
+      {
+          "id": "63c375253f44c50272f4ac9e",
+          "creationDate": "2023-01-15T03:38:13.862+00:00",
+          "status": "succeeded",
+          "phase": "finalized",
+          "startTime": "2023-01-15T03:38:13.862+00:00",
+          "duration": 40924,
+          "workflowRef": "61d620a33aa9034ded32caee",
+          "workflowRevisionRef": "61d620b63aa9034ded32caf0",
+          "labels": {},
+          "annotations": {
+              "io.boomerang/kind": "WorkflowRun",
+              "io.boomerang/generation": "3"
+          },
+          "params": [
+              {
+                  "name": "token",
+                  "value": "a"
+              },
+              {
+                  "name": "password",
+                  "value": null
+              }
+          ],
+          "trigger": "manual",
+          "results": [],
+          "workspaces": [],
+          "awaitingApproval": false
+      },
+      {
+          "id": "62e985a366ff43491f09d3ce",
+          "creationDate": "2022-08-02T20:14:27.751+00:00",
+          "status": "succeeded",
+          "phase": "finalized",
+          "startTime": "2022-08-02T20:14:27.751+00:00",
+          "duration": 7818,
+          "workflowRef": "61e605edae821f45ecf3b2a6",
+          "workflowRevisionRef": "61e60ed2ae821f45ecf3b2b6",
+          "labels": {},
+          "annotations": {
+              "io.boomerang/kind": "WorkflowRun",
+              "io.boomerang/generation": "3"
+          },
+          "params": [],
+          "trigger": "manual",
+          "results": [],
+          "workspaces": [],
+          "awaitingApproval": false
+      },
+      {
+          "id": "62e9858a66ff43491f09d3c9",
+          "creationDate": "2022-08-02T20:14:02.371+00:00",
+          "status": "succeeded",
+          "phase": "finalized",
+          "startTime": "2022-08-02T20:14:02.371+00:00",
+          "duration": 21488,
+          "workflowRef": "61e605edae821f45ecf3b2a6",
+          "workflowRevisionRef": "61e60ed2ae821f45ecf3b2b6",
+          "labels": {},
+          "annotations": {
+              "io.boomerang/kind": "WorkflowRun",
+              "io.boomerang/generation": "3"
+          },
+          "params": [],
+          "trigger": "manual",
+          "results": [],
+          "workspaces": [],
+          "awaitingApproval": false
+      },
+      {
+          "id": "62be548866ff43491f09d2e5",
+          "creationDate": "2022-07-01T01:57:28.446+00:00",
+          "status": "succeeded",
+          "phase": "finalized",
+          "startTime": "2022-07-01T01:57:28.446+00:00",
+          "duration": 8881,
+          "workflowRef": "61d620a33aa9034ded32caee",
+          "workflowRevisionRef": "61d620b63aa9034ded32caf0",
+          "labels": {},
+          "annotations": {
+              "io.boomerang/kind": "WorkflowRun",
+              "io.boomerang/generation": "3"
+          },
+          "params": [
+              {
+                  "name": "token",
+                  "value": "a"
+              },
+              {
+                  "name": "password",
+                  "value": null
+              }
+          ],
+          "trigger": "manual",
+          "results": [],
+          "workspaces": [],
+          "awaitingApproval": false
+      },
+      {
+          "id": "62ba6d4e21db0821a98e6d6c",
+          "creationDate": "2022-06-28T02:54:06.579+00:00",
+          "status": "succeeded",
+          "phase": "finalized",
+          "startTime": "2022-06-28T02:54:06.579+00:00",
+          "duration": 8148,
+          "workflowRef": "61d620a33aa9034ded32caee",
+          "workflowRevisionRef": "61d620b63aa9034ded32caf0",
+          "labels": {},
+          "annotations": {
+              "io.boomerang/kind": "WorkflowRun",
+              "io.boomerang/generation": "3"
+          },
+          "params": [
+              {
+                  "name": "token",
+                  "value": "a"
+              },
+              {
+                  "name": "password",
+                  "value": null
+              }
+          ],
+          "trigger": "manual",
+          "results": [],
+          "workspaces": [],
+          "awaitingApproval": false
+      },
+      {
+          "id": "62ba6d2321db0821a98e6d6a",
+          "creationDate": "2022-06-28T02:53:23.073+00:00",
+          "status": "succeeded",
+          "phase": "finalized",
+          "startTime": "2022-06-28T02:53:23.073+00:00",
+          "duration": 10287,
+          "workflowRef": "61d620a33aa9034ded32caee",
+          "workflowRevisionRef": "61d620b63aa9034ded32caf0",
+          "labels": {},
+          "annotations": {
+              "io.boomerang/kind": "WorkflowRun",
+              "io.boomerang/generation": "3"
+          },
+          "params": [
+              {
+                  "name": "token",
+                  "value": "a"
+              },
+              {
+                  "name": "password",
+                  "value": null
+              }
+          ],
+          "trigger": "manual",
+          "results": [],
+          "workspaces": [],
+          "awaitingApproval": false
+      },
+      {
+          "id": "62b2fdc021db0821a98e6d56",
+          "creationDate": "2022-06-22T11:32:16.810+00:00",
+          "status": "succeeded",
+          "phase": "finalized",
+          "startTime": "2022-06-22T11:32:16.810+00:00",
+          "duration": 649855371,
+          "workflowRef": "61e605edae821f45ecf3b2a6",
+          "workflowRevisionRef": "61e60ed2ae821f45ecf3b2b6",
+          "labels": {},
+          "annotations": {
+              "io.boomerang/kind": "WorkflowRun",
+              "io.boomerang/generation": "3"
+          },
+          "params": [],
+          "trigger": "manual",
+          "results": [],
+          "workspaces": [],
+          "awaitingApproval": false
+      },
+      {
+          "id": "62b2fd3e21db0821a98e6d51",
+          "creationDate": "2022-06-22T11:30:06.403+00:00",
+          "status": "succeeded",
+          "phase": "finalized",
+          "startTime": "2022-06-22T11:30:06.403+00:00",
+          "duration": 741889189,
+          "workflowRef": "61e605edae821f45ecf3b2a6",
+          "workflowRevisionRef": "61e60ed2ae821f45ecf3b2b6",
+          "labels": {},
+          "annotations": {
+              "io.boomerang/kind": "WorkflowRun",
+              "io.boomerang/generation": "3"
+          },
+          "params": [],
+          "trigger": "manual",
+          "results": [],
+          "workspaces": [],
+          "awaitingApproval": false
+      },
+      {
+          "id": "62aa74e8fbfcb16f54d1c982",
+          "creationDate": "2022-06-16T00:10:16.676+00:00",
+          "status": "succeeded",
+          "phase": "finalized",
+          "startTime": "2022-06-16T00:10:16.676+00:00",
+          "duration": 9676,
+          "workflowRef": "61d620a33aa9034ded32caee",
+          "workflowRevisionRef": "61d620b63aa9034ded32caf0",
+          "labels": {},
+          "annotations": {
+              "io.boomerang/kind": "WorkflowRun",
+              "io.boomerang/generation": "3"
+          },
+          "params": [],
+          "trigger": "webhook",
+          "results": [],
+          "workspaces": [],
+          "awaitingApproval": false
+      }
   ],
+  "number": 0,
+  "size": 10,
+  "totalElements": 10,
+  "pageable": {
+      "sort": {
+          "sorted": false,
+          "empty": true,
+          "unsorted": true
+      },
+      "pageSize": 10,
+      "pageNumber": 0,
+      "offset": 0,
+      "paged": true,
+      "unpaged": false
+  },
+  "last": true,
+  "totalPages": 1,
+  "sort": {
+      "sorted": false,
+      "empty": true,
+      "unsorted": true
+  },
+  "first": true,
+  "numberOfElements": 10,
+  "empty": false
 };
 
 export default workflowRuns;
