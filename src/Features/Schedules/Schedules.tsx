@@ -134,7 +134,7 @@ export default function Schedules() {
 
   function handleSetActiveSchedule(schedule: ScheduleUnion) {
     const workflowFindPredicate = (workflow: Workflow) => {
-      return workflow.id === schedule.workflowId;
+      return workflow.id === schedule.workflowRef;
     };
     let workflow: Workflow | undefined;
     if (workflowsData && !workflow) {

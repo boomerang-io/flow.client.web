@@ -1,4 +1,5 @@
 import React from "react";
+import { useAppContext } from "Hooks";
 import { useMutation, useQueryClient } from "react-query";
 import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import ScheduleManagerForm from "Components/ScheduleManagerForm";
@@ -28,6 +29,7 @@ interface CreateScheduleProps {
 
 export default function CreateSchedule(props: CreateScheduleProps) {
   const queryClient = useQueryClient();
+  const { activeTeam } = useAppContext();
   /**
    * Create schedule
    */
@@ -35,7 +37,7 @@ export default function CreateSchedule(props: CreateScheduleProps) {
 
   const handleCreateSchedule = async (schedule: ScheduleUnion) => {
     // intentionally don't handle error so it can be done by the ScheduleManagerForm
-    await createScheduleMutator({ body: schedule });
+    await createScheduleMutator({ teamId: activeTeam?.id, body: schedule });
     notify(
       <ToastNotification
         kind="success"
@@ -65,13 +67,13 @@ export default function CreateSchedule(props: CreateScheduleProps) {
       ...parameters
     } = values;
 
-    let scheduleLabels: Array<{ key: string; value: string }> = [];
-    if (values.labels.length) {
-      scheduleLabels = values.labels.map((pair: string) => {
-        const [key, value] = pair.split(":");
-        return { key, value };
-      });
-    }
+    let scheduleLabels: Record<string, string> = {};
+    // if (values.labels.length) {
+    //   scheduleLabels = values.labels.map((pair: string) => {
+    //     const [key, value] = pair.split(":");
+    //     return { key, value };
+    //   });
+    // }
 
     // Undo the namespacing of parameter keys and add to parameter object
     const resetParameters: { [key: string]: any } = {};
@@ -86,7 +88,7 @@ export default function CreateSchedule(props: CreateScheduleProps) {
       timezone: timezone.value,
       labels: scheduleLabels,
       parameters: resetParameters,
-      workflowId: workflow.id,
+      workflowRef: workflow.id,
     };
 
     if (schedule.type === "runOnce") {

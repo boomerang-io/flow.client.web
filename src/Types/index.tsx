@@ -691,14 +691,14 @@ export interface Schedule {
   id: string;
   name: string;
   description?: string;
-  labels?: Array<{ key: string; value: string }>;
+  labels?: Record<string, string>;
   nextScheduleDate: string;
   parameters?: { [k: string]: any };
   status: ScheduleStatus;
   type: ScheduleType;
   timezone: string;
-  workflowId: string;
-  workflow?: WorkflowSummary;
+  workflowRef: string;
+  workflow?: Workflow;
 }
 
 export interface ScheduleDate extends Schedule {
@@ -740,7 +740,7 @@ export interface ScheduleManagerFormInputs {
   type: ScheduleType;
   timezone: { label: string; value: string };
   time: string;
-  workflow: WorkflowSummary;
+  workflowRef: string;
   [key: string]: any;
 }
 

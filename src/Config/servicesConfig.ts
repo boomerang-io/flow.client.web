@@ -106,7 +106,7 @@ export const serviceUrl = {
   postDuplicateWorkflow: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/duplicate`,
   postExecuteWorkflow: ({ id }) => `${BASE_URL}/execute/${id}`,
   postGlobalToken: () => `${BASE_URL}/global-token`,
-  postSchedule: () => `${BASE_URL}/schedules`,
+  postSchedule: ({ teamId }) => `${BASE_URL}/schedules?team=${teamId}`,
   postTeamToken: () => `${BASE_URL}/team-token`,
   postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
@@ -219,7 +219,7 @@ export const resolver = {
   postGlobalPropertyRequest: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalConfiguration(), body, method: HttpMethod.Post }),
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
-  postSchedule: ({ body }) => axios.post(serviceUrl.postSchedule(), body),
+  postSchedule: ({ teamId, body }) => axios.post(serviceUrl.postSchedule({ teamId }), body),
   postTeamPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HttpMethod.Post }),
   postWorkflowAvailableParameters: ({ workflowId, body }) =>
