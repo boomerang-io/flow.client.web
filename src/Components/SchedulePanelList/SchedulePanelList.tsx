@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { useMutation, useQueryClient, UseQueryResult } from "react-query";
 import {
   Button,
@@ -158,14 +158,17 @@ function ScheduledListItem(props: ScheduledListItemProps) {
 
   // Determine some things for rendering
   const isActive = props.schedule.status === "active";
+  // Iterate through labels: Record<string, string>
   const labels = [];
-  for (const entry of props.schedule?.labels || []) {
+  //TODO figure out labels
+  Object.entries(props.schedule?.labels || {}).map(([index, value]) => {
+    console.log("index", index, "Value", value);
     labels.push(
-      <Tag key={entry.key} style={{ marginLeft: 0 }} type="teal">
-        {entry.key}:{entry.value}
+      <Tag key={index} style={{ marginLeft: 0 }} type="teal">
+        {/* ${value} */}
       </Tag>
     );
-  }
+  });
   const scheduleDescription = props.schedule?.description ?? "---";
   const nextScheduledText = props.schedule.type === "runOnce" ? "Scheduled Execution" : "Next Execution";
   // Convert from UTC to configured timezone to get the correct offset, adjusting for daylight saving time
