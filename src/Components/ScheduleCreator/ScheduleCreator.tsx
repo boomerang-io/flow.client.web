@@ -10,7 +10,7 @@ import {
   ScheduleManagerFormInputs,
   ScheduleDate,
   ScheduleUnion,
-  WorkflowSummary,
+  Workflow,
   DayOfWeekCronAbbreviation,
 } from "Types";
 import styles from "./ScheduleCreator.module.scss";
@@ -22,8 +22,8 @@ interface CreateScheduleProps {
   isModalOpen: boolean;
   onCloseModal: () => void;
   schedule?: Pick<ScheduleDate, "dateSchedule" | "type">;
-  workflow?: WorkflowSummary;
-  workflowOptions?: Array<WorkflowSummary>;
+  workflow?: Workflow;
+  workflowOptions?: Array<Workflow>;
 }
 
 export default function CreateSchedule(props: CreateScheduleProps) {

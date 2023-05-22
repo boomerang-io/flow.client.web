@@ -31,10 +31,10 @@ import type {
   ScheduleUnion,
   Workflow,
   PaginatedWorkflowResponse,
+  PaginatedSchedulesResponse,
 } from "Types";
 import styles from "./Schedules.module.scss";
 
-const defaultStatusArray = scheduleStatusOptions.map((statusObj) => statusObj.value);
 const defaultFromDate = moment().startOf("month").unix();
 const defaultToDate = moment().endOf("month").unix();
 
@@ -51,7 +51,7 @@ export default function Schedules() {
   /**
    * Get schedule and calendar data
    */
-  const { statuses = defaultStatusArray, workflows } = queryString.parse(location.search, queryStringOptions);
+  const { statuses, workflows } = queryString.parse(location.search, queryStringOptions);
 
   /** Retrieve Workflows */
   const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
@@ -74,17 +74,17 @@ export default function Schedules() {
   );
   const getSchedulesUrl = serviceUrl.getSchedules({ query: schedulesUrlQuery });
 
-  const schedulesQuery = useQuery<Array<ScheduleUnion>, string>({
+  const schedulesQuery = useQuery<PaginatedSchedulesResponse, string>({
     queryKey: getSchedulesUrl,
     queryFn: resolver.query(getSchedulesUrl),
   });
 
   const { fromDate = defaultFromDate, toDate = defaultToDate } = queryString.parse(location.search, queryStringOptions);
 
-  const hasScheduleData = Boolean(schedulesQuery.data);
+  const hasScheduleData = Boolean(schedulesQuery.data?.content);
   let userScheduleIds = [];
-  if (schedulesQuery.data) {
-    for (const schedule of schedulesQuery.data) {
+  if (schedulesQuery.data?.content) {
+    for (const schedule of schedulesQuery.data?.content) {
       userScheduleIds.push(schedule.id);
     }
   }
@@ -215,7 +215,8 @@ export default function Schedules() {
               getCalendarUrl={getCalendarUrl}
               getSchedulesUrl={getSchedulesUrl}
               includeStatusFilter={false}
-              schedulesQuery={schedulesQuery}
+              schedulesIsLoading={schedulesQuery.isLoading}
+              schedulesData={schedulesQuery.data}
               setActiveSchedule={handleSetActiveSchedule}
               setIsCreatorOpen={setIsCreatorOpen}
               setIsEditorOpen={setIsEditorOpen}
@@ -224,7 +225,7 @@ export default function Schedules() {
               handleDateRangeChange={handleDateRangeChange}
               hasScheduleData={hasScheduleData}
               getCalendarUrl={getCalendarUrl}
-              schedules={schedulesQuery.data}
+              schedules={schedulesQuery.data?.content}
               setActiveSchedule={handleSetActiveSchedule}
               setIsCreatorOpen={setIsCreatorOpen}
               setIsEditorOpen={setIsEditorOpen}

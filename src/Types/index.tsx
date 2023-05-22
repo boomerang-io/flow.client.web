@@ -247,6 +247,7 @@ type Pageable<T> = {
 
 export type PaginatedTeamResponse = Pageable<FlowTeam>;
 export type PaginatedWorkflowResponse = Pageable<Workflow>;
+export type PaginatedSchedulesResponse = Pageable<ScheduleUnion>;
 
 export interface WorkflowDag {
   gridSize: number;

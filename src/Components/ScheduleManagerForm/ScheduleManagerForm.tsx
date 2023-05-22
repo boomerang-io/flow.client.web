@@ -25,7 +25,7 @@ import {
   FlowTeam,
   ScheduleManagerFormInputs,
   ScheduleUnion,
-  WorkflowSummary,
+  Workflow,
 } from "Types";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./ScheduleManagerForm.module.scss";
@@ -38,15 +38,15 @@ interface CreateEditFormProps {
   modalProps: ComposedModalChildProps;
   schedule?: ScheduleUnion;
   type: "create" | "edit";
-  workflow?: WorkflowSummary;
-  workflowOptions?: Array<WorkflowSummary>;
+  workflow?: Workflow;
+  workflowOptions?: Array<Workflow>;
 }
 
 export default function CreateEditForm(props: CreateEditFormProps) {
   const { teams } = useAppContext();
 
   const [workflowProperties, setWorkflowProperties] = React.useState<Array<DataDrivenInput> | undefined>(
-    props.workflow?.properties.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
+    props.workflow?.config.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
   );
   let initFormValues: Partial<ScheduleManagerFormInputs> = {
     id: props.schedule?.id,
@@ -193,7 +193,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                 id="workflow"
                 initialSelectedItem={formikProps.values.workflow}
                 items={props?.workflowOptions ?? []}
-                itemToString={(workflow: WorkflowSummary) => {
+                itemToString={(workflow: Workflow) => {
                   if (workflow?.scope === "team") {
                     const team = workflow ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId) : undefined;
                     if (team) {
@@ -205,7 +205,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                   }
                   return workflow?.name ?? "";
                 }}
-                onChange={({ selectedItem }: { selectedItem: WorkflowSummary }) => {
+                onChange={({ selectedItem }: { selectedItem: Workflow }) => {
                   formikProps.setFieldValue("workflow", selectedItem);
                   if (selectedItem?.id) {
                     setWorkflowProperties(

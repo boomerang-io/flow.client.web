@@ -5,7 +5,7 @@ import ScheduleManagerForm from "Components/ScheduleManagerForm";
 import moment from "moment-timezone";
 import { cronDayNumberMap } from "Utils/cronHelper";
 import { resolver } from "Config/servicesConfig";
-import { ComposedModalChildProps, ScheduleManagerFormInputs, ScheduleUnion, WorkflowSummary } from "Types";
+import { ComposedModalChildProps, ScheduleManagerFormInputs, ScheduleUnion, Workflow } from "Types";
 import styles from "./ScheduleEditor.module.scss";
 
 interface ScheduleEditorProps {
@@ -15,8 +15,8 @@ interface ScheduleEditorProps {
   isModalOpen: boolean;
   onCloseModal: () => void;
   schedule?: ScheduleUnion;
-  workflow?: WorkflowSummary;
-  workflowOptions?: Array<WorkflowSummary>;
+  workflow?: Workflow;
+  workflowOptions?: Array<Workflow>;
 }
 
 function ScheduleEditor(props: ScheduleEditorProps) {

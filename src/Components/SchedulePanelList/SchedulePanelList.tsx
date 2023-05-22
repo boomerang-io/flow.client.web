@@ -19,7 +19,7 @@ import { DATETIME_LOCAL_DISPLAY_FORMAT } from "Utils/dateHelper";
 import { scheduleStatusOptions, scheduleStatusLabelMap, scheduleTypeLabelMap } from "Constants";
 import { resolver } from "Config/servicesConfig";
 import { Add, CircleFilled, Information, RadioButton, Repeat, RepeatOne } from "@carbon/react/icons";
-import { ScheduleUnion } from "Types";
+import { ScheduleUnion, PaginatedSchedulesResponse } from "Types";
 import styles from "./SchedulePanelList.module.scss";
 
 interface SchedulePanelListProps {
@@ -31,7 +31,8 @@ interface SchedulePanelListProps {
     | ((schedule: ScheduleUnion) => void);
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsCreatorOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  schedulesQuery: UseQueryResult<ScheduleUnion[], any>;
+  schedulesIsLoading: boolean;
+  schedulesData: PaginatedSchedulesResponse | undefined;
 }
 
 export default function SchedulePanelList(props: SchedulePanelListProps) {
@@ -39,7 +40,7 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
   const [selectedStatuses, setSelectedStatuses] = React.useState<Array<string>>([]);
 
   function renderLists() {
-    if (props.schedulesQuery.isLoading) {
+    if (props.schedulesIsLoading) {
       return (
         <div>
           <SkeletonPlaceholder className={styles.listItemSkeleton} />
@@ -50,11 +51,11 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
       );
     }
 
-    if (props.schedulesQuery.data && props.schedulesQuery.data.length === 0) {
+    if (props.schedulesData && props.schedulesData.numberOfElements === 0) {
       return <div>No schedules found</div>;
     }
 
-    const schedules = props.schedulesQuery.data;
+    const schedules = props.schedulesData?.content;
     if (schedules) {
       const filteredSchedules = Boolean(filterQuery)
         ? matchSorter(schedules, filterQuery, {
@@ -97,14 +98,12 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
     }
   }
 
-  const schedules = props.schedulesQuery.data;
+  const schedules = props.schedulesData?.content;
 
   return (
     <section className={styles.listContainer}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
-        <h2>
-          {!props.schedulesQuery.isLoading ? `Existing Schedules (${schedules?.length ?? 0})` : "Loading Schedules..."}
-        </h2>
+        <h2>{!props.schedulesIsLoading ? `Existing Schedules (${schedules?.length ?? 0})` : "Loading Schedules..."}</h2>
         <Button size="sm" renderIcon={Add} onClick={() => props.setIsCreatorOpen(true)} kind="ghost">
           Create a Schedule
         </Button>
