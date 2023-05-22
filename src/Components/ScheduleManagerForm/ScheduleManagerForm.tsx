@@ -194,22 +194,13 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                 initialSelectedItem={formikProps.values.workflow}
                 items={props?.workflowOptions ?? []}
                 itemToString={(workflow: Workflow) => {
-                  if (workflow?.scope === "team") {
-                    const team = workflow ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId) : undefined;
-                    if (team) {
-                      return workflow ? (team ? `${workflow.name} (${team.name})` : workflow.name) : "";
-                    }
-                  }
-                  if (workflow?.scope === "system") {
-                    return `${workflow.name} (System)`;
-                  }
                   return workflow?.name ?? "";
                 }}
                 onChange={({ selectedItem }: { selectedItem: Workflow }) => {
                   formikProps.setFieldValue("workflow", selectedItem);
                   if (selectedItem?.id) {
                     setWorkflowProperties(
-                      selectedItem.properties.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
+                      selectedItem.config?.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
                     );
                   }
                 }}
