@@ -71,7 +71,7 @@ function getRelativePath(navUrl: string) {
   return navUrl.substring(navUrl.indexOf(APP_ROOT) + APP_ROOT.length);
 }
 
-function getSideNavElemProps(item: FlowNavigationItem, close: Function): SideNavElemProps {
+function getSideNavElemProps(item: FlowNavigationItem | FlowNavigationItemChild, close: Function): SideNavElemProps {
   if (isInternalLink(item.link)) {
     return {
       to: getRelativePath(item.link),
@@ -118,7 +118,7 @@ function AppSideNav(props: AppSideNavProps) {
                     );
                   }
 
-                  const elemProps = getSideNavElemProps(item, props.close);
+                  const elemProps = getSideNavElemProps(childItem, props.close);
                   return (
                     <SideNavMenuItem key={childItem.name} {...elemProps}>
                       {childItem.name}
