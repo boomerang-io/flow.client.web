@@ -87,7 +87,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
               />
               <TextArea
                 id="description"
-                labelText="Description"
+                labelText="Description (optional)"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 invalid={Boolean(errors.description && touched.description)}

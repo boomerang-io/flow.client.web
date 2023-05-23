@@ -87,7 +87,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                   id="description"
                   invalid={Boolean(errors.description && touched.description)}
                   invalidText={errors.description}
-                  labelText="Description "
+                  labelText="Description (optional)"
                   onBlur={handleBlur}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
                   value={values.description}

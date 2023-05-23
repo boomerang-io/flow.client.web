@@ -184,9 +184,6 @@ export default function CreateEditForm(props: CreateEditFormProps) {
         <ModalForm noValidate onSubmit={formikProps.handleSubmit}>
           <ModalBody>
             {props.isLoading && <Loading />}
-            <p>
-              <b>About</b>
-            </p>
             {props.includeWorkflowDropdown && (
               <ComboBox
                 helperText="Workflow for this Schedule to execute"

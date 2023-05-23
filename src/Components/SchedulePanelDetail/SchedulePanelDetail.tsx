@@ -7,14 +7,7 @@ import cx from "classnames";
 import moment from "moment-timezone";
 import { DATETIME_LOCAL_DISPLAY_FORMAT } from "Utils/dateHelper";
 import { scheduleStatusLabelMap, scheduleTypeLabelMap } from "Constants";
-import {
-  CircleFilled,
-  Information,
-  SettingsAdjust,
-  RadioButton,
-  Repeat,
-  RepeatOne,
-} from "@carbon/react/icons";
+import { CircleFilled, Information, SettingsAdjust, RadioButton, Repeat, RepeatOne } from "@carbon/react/icons";
 import { ScheduleUnion } from "Types";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import styles from "./SchedulePanelDetail.module.scss";
@@ -43,13 +36,14 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
     );
 
     const labels = [];
-    for (const entry of schedule?.labels || []) {
-      labels.push(
-        <Tag key={entry.key} style={{ marginLeft: 0 }} type="teal">
-          {entry.key}:{entry.value}
-        </Tag>
-      );
-    }
+    //TODO: fix labels
+    // for (const entry of schedule?.labels || []) {
+    //   labels.push(
+    //     <Tag key={entry.key} style={{ marginLeft: 0 }} type="teal">
+    //       {entry.key}:{entry.value}
+    //     </Tag>
+    //   );
+    // }
 
     return (
       <>

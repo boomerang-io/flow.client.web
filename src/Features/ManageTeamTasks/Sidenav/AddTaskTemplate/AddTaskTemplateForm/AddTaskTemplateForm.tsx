@@ -318,7 +318,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                   id="description"
                   invalid={Boolean(errors.description && touched.description)}
                   invalidText={errors.description}
-                  labelText="Description"
+                  labelText="Description (optional)"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.description}

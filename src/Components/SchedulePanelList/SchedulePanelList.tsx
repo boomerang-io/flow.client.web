@@ -162,7 +162,6 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   const labels = [];
   //TODO figure out labels
   Object.entries(props.schedule?.labels || {}).map(([index, value]) => {
-    console.log("index", index, "Value", value);
     labels.push(
       <Tag key={index} style={{ marginLeft: 0 }} type="teal">
         {/* ${value} */}

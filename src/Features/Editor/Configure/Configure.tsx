@@ -311,7 +311,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <p className={styles.descriptionLength}> {`${values.description.length} / 250`}</p>
             <TextArea
               id="description"
-              labelText="Description"
+              labelText="Description (optional)"
               placeholder="Description"
               onBlur={handleBlur}
               onChange={this.handleOnChange}
