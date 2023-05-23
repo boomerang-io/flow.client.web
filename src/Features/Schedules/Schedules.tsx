@@ -92,7 +92,7 @@ export default function Schedules() {
 
   const calendarUrlQuery = queryString.stringify(
     {
-      scheduleIds: userScheduleIds,
+      schedules: userScheduleIds,
       fromDate,
       toDate,
     },

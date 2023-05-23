@@ -24,12 +24,12 @@ function ScheduleEditor(props: ScheduleEditorProps) {
   /**
    * Update schedule
    */
-  const { mutateAsync: updateScheduleMutator, ...editScheduleMutation } = useMutation(resolver.patchSchedule, {});
+  const { mutateAsync: updateScheduleMutator, ...editScheduleMutation } = useMutation(resolver.putSchedule, {});
 
   const handleUpdateSchedule = async (updatedSchedule: ScheduleUnion) => {
     if (props.schedule) {
       // intentionally don't catch error so it can be done by the ScheduleManagerForm
-      await updateScheduleMutator({ body: updatedSchedule, scheduleId: props.schedule.id });
+      await updateScheduleMutator({ body: updatedSchedule });
       notify(
         <ToastNotification
           kind="success"
@@ -74,6 +74,7 @@ function ScheduleEditor(props: ScheduleEditorProps) {
     });
 
     const schedule: Partial<ScheduleUnion> = {
+      id: props.schedule?.id,
       description,
       name,
       type,

@@ -208,12 +208,12 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   /**
    * Disable schedule
    */
-  const { mutateAsync: toggleScheduleStatusMutator, ...toggleStatusMutation } = useMutation(resolver.patchSchedule, {});
+  const { mutateAsync: toggleScheduleStatusMutator, ...toggleStatusMutation } = useMutation(resolver.putSchedule, {});
 
   const handleToggleStatus = async () => {
     const body = { ...props.schedule, status: isActive ? "inactive" : "active" };
     try {
-      await toggleScheduleStatusMutator({ scheduleId: props.schedule.id, body });
+      await toggleScheduleStatusMutator({ body });
       notify(
         <ToastNotification
           kind="success"
