@@ -35,6 +35,7 @@ import type {
 } from "Types";
 import styles from "./Schedules.module.scss";
 
+const defaultStatusArray = scheduleStatusOptions.map((statusObj) => statusObj.value);
 const defaultFromDate = moment().startOf("month").unix();
 const defaultToDate = moment().endOf("month").unix();
 
@@ -51,7 +52,7 @@ export default function Schedules() {
   /**
    * Get schedule and calendar data
    */
-  const { statuses, workflows } = queryString.parse(location.search, queryStringOptions);
+  const { statuses = defaultStatusArray, workflows } = queryString.parse(location.search, queryStringOptions);
 
   /** Retrieve Workflows */
   const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
