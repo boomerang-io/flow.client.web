@@ -160,7 +160,7 @@ export const resolver = {
   patchManageTeamLabels: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamLabels({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
     cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethod.Patch }),
-  putSchedule: ({ body }) => axios.put(serviceUrl.putSchedule(body),
+  putSchedule: ({ body }) => axios.put(serviceUrl.putSchedule(), body),
   postValidateYaml: ({ body }) =>
     axios({
       method: HttpMethod.Post,
