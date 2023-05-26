@@ -271,6 +271,58 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           <Route path={"/home"}>
             <Home />
           </Route>
+          <Route path={"/admin"}>
+            <Switch>
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={() => <Settings />}
+                path={AppPath.Settings}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={() => <GlobalProperties />}
+                path={AppPath.Properties}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={() => <Quotas />}
+                path={AppPath.Quotas}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={() => <TemplateWorkflows />}
+                path={AppPath.TemplateWorkflows}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={() => <TaskTemplates />}
+                path={AppPath.TaskTemplates}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={<Tokens />}
+                path={AppPath.Tokens}
+                userRole={platformRole}
+              />
+              <Route path={AppPath.TeamList}>
+                <Teams />
+              </Route>
+              <Route path={AppPath.TeamApprovers}>
+                <ApproverGroups />
+              </Route>
+              <Route path={AppPath.TeamTokens}>
+                <TeamTokens />
+              </Route>
+              <Route path={AppPath.UserList}>
+                <Users />
+              </Route>
+            </Switch>
+          </Route>
           <Route path={"/:teamId"}>
             <Switch>
               <ProtectedRoute
@@ -284,12 +336,6 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 component={() => <Activity />}
                 path={AppPath.Activity}
                 userRole={activityEnabled ? "*" : ""}
-              />
-              <ProtectedRoute
-                allowedUserRoles={elevatedUserRoles}
-                component={() => <GlobalProperties />}
-                path={AppPath.Properties}
-                userRole={platformRole}
               />
               <ProtectedRoute
                 allowedUserRoles={["*"]}
@@ -310,30 +356,6 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 userRole={teamTasksEnabled ? "*" : ""}
               />
               <ProtectedRoute
-                allowedUserRoles={elevatedUserRoles}
-                component={() => <Quotas />}
-                path={AppPath.Quotas}
-                userRole={platformRole}
-              />
-              <ProtectedRoute
-                allowedUserRoles={elevatedUserRoles}
-                component={() => <Settings />}
-                path={AppPath.Settings}
-                userRole={platformRole}
-              />
-              <ProtectedRoute
-                allowedUserRoles={elevatedUserRoles}
-                component={() => <TemplateWorkflows />}
-                path={AppPath.TemplateWorkflows}
-                userRole={platformRole}
-              />
-              <ProtectedRoute
-                allowedUserRoles={elevatedUserRoles}
-                component={() => <TaskTemplates />}
-                path={AppPath.TaskTemplates}
-                userRole={platformRole}
-              />
-              <ProtectedRoute
                 allowedUserRoles={["*"]}
                 component={() => <TeamProperties />}
                 path={AppPath.TeamProperties}
@@ -345,12 +367,6 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             path={AppPath.TeamTokens}
             userRole={teamTokensEnabled}
           />} */}
-              <ProtectedRoute
-                allowedUserRoles={elevatedUserRoles}
-                component={<Tokens />}
-                path={AppPath.Tokens}
-                userRole={platformRole}
-              />
               <Route path={AppPath.Actions}>
                 <Actions />
               </Route>
@@ -359,18 +375,6 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
               </Route>
               <Route path={AppPath.Schedules}>
                 <Schedules />
-              </Route>
-              <Route path={AppPath.TeamList}>
-                <Teams />
-              </Route>
-              <Route path={AppPath.TeamApprovers}>
-                <ApproverGroups />
-              </Route>
-              <Route path={AppPath.TeamTokens}>
-                <TeamTokens />
-              </Route>
-              <Route path={AppPath.UserList}>
-                <Users />
               </Route>
               <Route path={AppPath.Workflows}>
                 <Workflows />

@@ -55,7 +55,7 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
         header={
           <>
             <HeaderTitle style={{ margin: "0" }}>Teams</HeaderTitle>
-            <HeaderSubtitle>View and manage Flow teams</HeaderSubtitle>
+            <HeaderSubtitle>View and manage teams</HeaderSubtitle>
           </>
         }
       />
@@ -91,11 +91,11 @@ const TeamList: React.FC = () => {
   function updateHistorySearch({
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
-    size = DEFAULT_SIZE,
+    limit = DEFAULT_LIMIT,
     sort = DEFAULT_SORT,
     ...props
   }) {
-    const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props })}`;
+    const queryStr = `?${queryString.stringify({ order, page, limit, sort, ...props })}`;
     history.push({ search: queryStr });
     return;
   }
@@ -195,9 +195,9 @@ const TeamList: React.FC = () => {
 
 const DEFAULT_ORDER = SortDirection.Desc;
 const DEFAULT_PAGE = 0;
-const DEFAULT_SIZE = 10;
+const DEFAULT_LIMIT = 10;
 const DEFAULT_SORT = "name";
-const PAGE_SIZES = [DEFAULT_SIZE, 20, 50, 100];
+const PAGE_SIZES = [DEFAULT_LIMIT, 20, 50, 100];
 
 //for fetching "all" teams? Maybe make request larger?
 const DEFAULT_ALL_TEAM_SIZE = 1000;
@@ -205,7 +205,7 @@ const DEFAULT_ALL_TEAM_SIZE = 1000;
 const allQuery = `?${queryString.stringify({
   order: DEFAULT_ORDER,
   page: DEFAULT_PAGE,
-  size: DEFAULT_ALL_TEAM_SIZE,
+  limit: DEFAULT_ALL_TEAM_SIZE,
   sort: DEFAULT_SORT,
 })}`;
 
@@ -281,7 +281,11 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
                       if (cell.info.header === "isActive") {
                         return (
                           <TableCell key={cell.id} id={cell.id}>
-                            {cell.value ? <CheckmarkFilled aria-label="Active" fill="green" /> : <Misuse aria-label="Inactive" fill="red" />}
+                            {cell.value ? (
+                              <CheckmarkFilled aria-label="Active" fill="green" />
+                            ) : (
+                              <Misuse aria-label="Inactive" fill="red" />
+                            )}
                           </TableCell>
                         );
                       }
