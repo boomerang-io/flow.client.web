@@ -19,7 +19,7 @@ const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onC
 
   //TODO - update the query and mutator as post endpoint different
   const { mutateAsync: importWorkflowMutator, isLoading: isPosting } = useMutation(resolver.postImportWorkflow, {
-    onSuccess: async () => queryClient.invalidateQueries(serviceUrl.getTeams()),
+    onSuccess: async () => queryClient.invalidateQueries(serviceUrl.getMyTeams()),
   });
   const handleImportWorkflow = async (data: WorkflowExport, closeModal: () => void) => {
     let query;

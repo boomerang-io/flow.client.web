@@ -32,7 +32,7 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
   const backToUser = location?.state?.fromUser;
 
   const { mutateAsync: removeTeamMutator } = useMutation(resolver.putUpdateTeam, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id })),
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeam({ teamId: team.id })),
   });
 
   const removeTeam = async () => {

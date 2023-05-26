@@ -40,7 +40,7 @@ export default function AddTeamContent({
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(serviceUrl.getManageTeams({ query: currentQuery }));
+        queryClient.invalidateQueries(serviceUrl.getTeams({ query: currentQuery }));
       },
     }
   );

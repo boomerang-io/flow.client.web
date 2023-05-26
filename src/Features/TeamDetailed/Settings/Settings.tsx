@@ -25,9 +25,13 @@ const query = `?${queryString.stringify({
 })}`;
 
 export default function Settings({ team, teamManagementEnabled }: { team: FlowTeam; teamManagementEnabled: any }) {
-  const teamsUrl = serviceUrl.getManageTeams({ query });
+  const teamsUrl = serviceUrl.getTeams({ query });
 
-  const { data: teamsData, error, isLoading } = useQuery({
+  const {
+    data: teamsData,
+    error,
+    isLoading,
+  } = useQuery({
     queryKey: teamsUrl,
     queryFn: resolver.query(teamsUrl),
   });

@@ -60,11 +60,11 @@ export default function EditorContainer() {
    * Mutations
    */
   const { mutateAsync: mutateSummary, ...summaryMutation } = useMutation(resolver.patchUpdateWorkflowSummary, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeams()),
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getMyTeams()),
   });
   const { mutateAsync: mutateRevision, ...revisionMutation } = useMutation(resolver.postCreateWorkflowRevision, {
     onSuccess: () => {
-      queryClient.invalidateQueries(serviceUrl.getTeams());
+      queryClient.invalidateQueries(serviceUrl.getMyTeams());
       queryClient.invalidateQueries(getSummaryUrl);
     },
   });

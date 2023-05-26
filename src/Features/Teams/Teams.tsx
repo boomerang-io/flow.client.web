@@ -20,9 +20,9 @@ import debounce from "lodash/debounce";
 import queryString from "query-string";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import { SortDirection } from "Constants";
-import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
+import { AppPath, appLink, queryStringOptions, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { ComposedModalChildProps, FlowTeam, ModalTriggerProps, PaginatedResponse } from "Types";
+import { ComposedModalChildProps, ModalTriggerProps, PaginatedTeamResponse } from "Types";
 import styles from "./Teams.module.scss";
 
 const TeamsContainer: React.FC = () => {
@@ -71,17 +71,44 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
   );
 };
 
+const DEFAULT_ORDER = "DESC";
+const DEFAULT_PAGE = 0;
+const DEFAULT_LIMIT = 10;
+const DEFAULT_SORT = "name";
+const PAGE_SIZES = [DEFAULT_LIMIT, 20, 50, 100];
+
 const TeamList: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
   const cancelRequestRef = React.useRef<{} | null>();
   const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
 
-  const teamsUrl = serviceUrl.getManageTeams({ query: allQuery });
+  /**
+   * Prepare queries and get some data
+   */
+  const {
+    order = DEFAULT_ORDER,
+    page = DEFAULT_PAGE,
+    limit = DEFAULT_LIMIT,
+    sort = DEFAULT_SORT,
+  } = queryString.parse(location.search, queryStringOptions);
 
-  const { data: teamsData, error: getTeamError, isLoading: getTeamLoading } = useQuery(teamsUrl);
+  const teamsUrlQuery = queryString.stringify({
+    order,
+    page,
+    limit,
+    sort,
+  });
 
-  const teamsQuery = useQuery(serviceUrl.getManageTeams({ query: location.search }));
+  const teamsUrl = serviceUrl.getTeams({ query: teamsUrlQuery });
+
+  const {
+    data: teamsData,
+    error: teamsIsError,
+    isLoading: teamsIsLoading,
+  } = useQuery<PaginatedTeamResponse, string>(teamsUrl);
+
+  const teamsQuery = useQuery(serviceUrl.getTeams({ query: location.search }));
 
   /**
    * Function that updates url search history to persist state
@@ -110,25 +137,6 @@ const TeamList: React.FC = () => {
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     const query = e.target.value;
     debouncedSearch(query);
-  }
-
-  function handlePaginationChange(pagination: { page: number; pageSize: number }) {
-    updateHistorySearch({
-      ...queryString.parse(location.search),
-      page: pagination.page - 1, // We have to decrement by one to offset the table pagination adjustment
-      size: pagination.pageSize,
-    });
-  }
-
-  function handleSort(e: React.SyntheticEvent, sort: { sortHeaderKey: string }) {
-    const { property, direction } = teamsQuery.data.sort[0];
-    let order = SortDirection.Asc;
-
-    if (sort.sortHeaderKey === property && direction === SortDirection.Asc) {
-      order = SortDirection.Desc;
-    }
-
-    updateHistorySearch({ ...queryString.parse(location.search), order, sort: sort.sortHeaderKey });
   }
 
   function handleNavigateToTeam(teamId: string) {
@@ -164,7 +172,7 @@ const TeamList: React.FC = () => {
               iconDescription="Create new version"
               onClick={openModal}
               size="md"
-              disabled={getTeamError || getTeamLoading}
+              disabled={teamsIsError || teamsIsLoading}
               className={styles.createTeamTrigger}
             >
               Create Team
@@ -176,7 +184,7 @@ const TeamList: React.FC = () => {
               <AddTeamContent
                 closeModal={closeModal}
                 cancelRequestRef={cancelRequestRef}
-                teamRecords={teamsData.records}
+                teamRecords={teamsData.content}
                 currentQuery={location.search}
               />
             );
@@ -185,29 +193,15 @@ const TeamList: React.FC = () => {
       )}
       <TeamListTable
         handleNavigateToTeam={handleNavigateToTeam}
-        handlePaginationChange={handlePaginationChange}
-        handleSort={handleSort}
-        teamsData={teamsQuery.data}
+        location={location}
+        sort={sort}
+        order={order}
+        tableData={teamsQuery.data}
+        updateHistorySearch={updateHistorySearch}
       />
     </FeatureLayout>
   );
 };
-
-const DEFAULT_ORDER = SortDirection.Desc;
-const DEFAULT_PAGE = 0;
-const DEFAULT_LIMIT = 10;
-const DEFAULT_SORT = "name";
-const PAGE_SIZES = [DEFAULT_LIMIT, 20, 50, 100];
-
-//for fetching "all" teams? Maybe make request larger?
-const DEFAULT_ALL_TEAM_SIZE = 1000;
-
-const allQuery = `?${queryString.stringify({
-  order: DEFAULT_ORDER,
-  page: DEFAULT_PAGE,
-  limit: DEFAULT_ALL_TEAM_SIZE,
-  sort: DEFAULT_SORT,
-})}`;
 
 const headers = [
   {
@@ -220,29 +214,47 @@ const headers = [
     key: "users",
   },
   { header: "# of Workflows", key: "workflows" },
-  { header: "Active", key: "isActive" },
+  { header: "Status", key: "status" },
 ];
 
 interface TeamListTableProps {
-  handleNavigateToTeam: (teamId: string) => void;
-  handlePaginationChange: (pagination: { page: number; pageSize: number }) => void;
-  handleSort: (e: React.SyntheticEvent, sort: { sortHeaderKey: string }) => void;
-  teamsData: PaginatedResponse<FlowTeam>;
+  handleNavigateToTeam: Function;
+  location: any;
+  sort: string;
+  order: string;
+  tableData: {
+    number: number;
+    size: number;
+    totalElements: number;
+    content: any;
+  };
+  updateHistorySearch: Function;
 }
 
-const TeamListTable: React.FC<TeamListTableProps> = ({
-  handleNavigateToTeam,
-  handlePaginationChange,
-  handleSort,
-  teamsData,
-}) => {
+function TeamListTable(props: TeamListTableProps) {
+  const { number, size, totalElements, content } = props.tableData;
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
-  const { number: page, sort, totalElements, totalPages, records } = teamsData;
 
-  return records.length > 0 ? (
+  function handlePaginationChange({ page, pageSize }: { page: number; pageSize: number }) {
+    props.updateHistorySearch({
+      ...queryString.parse(props.location.search),
+      page: page - 1, // We have to decrement by one to offset the table pagination adjustment
+      limit: pageSize,
+    });
+  }
+
+  function handleSort(e: any, { sortHeaderKey }: { sortHeaderKey: string }) {
+    let order = "ASC";
+    if (props.order === "ASC") {
+      order = "DESC";
+    }
+    props.updateHistorySearch({ ...queryString.parse(props.location.search), sort: sortHeaderKey, order });
+  }
+
+  return content.length > 0 ? (
     <>
       <DataTable
-        rows={records}
+        rows={content}
         headers={headers}
         render={({ rows, headers, getHeaderProps }: any) => (
           <TableContainer>
@@ -257,8 +269,8 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
                         isSortable: header.sortable,
                         onClick: handleSort,
                       })}
-                      isSortHeader={sort[0].property === header.key}
-                      sortDirection={sort[0].direction}
+                      isSortHeader={props.sort === header.key}
+                      sortDirection={props.order}
                     >
                       {header.header}
                     </TableHeader>
@@ -271,17 +283,17 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
                     className={styles.tableRow}
                     key={row.id}
                     data-testid="user-list-table-row"
-                    onClick={() => handleNavigateToTeam(row.id)}
+                    onClick={() => props.handleNavigateToTeam(row.id)}
                     onKeyDown={(e: React.SyntheticEvent) =>
-                      isAccessibleKeyboardEvent(e) && handleNavigateToTeam(row.id)
+                      isAccessibleKeyboardEvent(e) && props.handleNavigateToTeam(row.id)
                     }
                     tabIndex={-1}
                   >
                     {row.cells.map((cell: any, cellIndex: any) => {
-                      if (cell.info.header === "isActive") {
+                      if (cell.info.header === "status") {
                         return (
                           <TableCell key={cell.id} id={cell.id}>
-                            {cell.value ? (
+                            {cell.value === "active" ? (
                               <CheckmarkFilled aria-label="Active" fill="green" />
                             ) : (
                               <Misuse aria-label="Inactive" fill="red" />
@@ -304,8 +316,8 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
       />
       <Pagination
         onChange={handlePaginationChange}
-        page={page + 1}
-        pageSize={totalPages}
+        page={number + 1}
+        pageSize={size}
         pageSizes={PAGE_SIZES}
         totalItems={totalElements}
       />
@@ -313,4 +325,4 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
   ) : (
     <EmptyState message={null} title="No teams found" />
   );
-};
+}

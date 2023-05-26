@@ -1,14 +1,11 @@
 import React from "react";
 import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
-import { Button,   ModalBody,
-  ModalFooter, InlineNotification,} from "@carbon/react";
+import { Button, ModalBody, ModalFooter, InlineNotification } from "@carbon/react";
 import {
   notify,
   ToastNotification,
-  
   ModalFlowForm,
-
   TextInput,
   Loading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -25,8 +22,12 @@ interface UpdateTeamNameProps {
 
 const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamNameList }) => {
   const queryClient = useQueryClient();
-  const { mutateAsync: updateTeamMutator, isLoading, error } = useMutation(resolver.putUpdateTeam, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id })),
+  const {
+    mutateAsync: updateTeamMutator,
+    isLoading,
+    error,
+  } = useMutation(resolver.putUpdateTeam, {
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeam({ teamId: team.id })),
   });
 
   const updateTeamName = async (values: { name: string }) => {

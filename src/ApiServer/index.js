@@ -76,8 +76,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.flowNavigation;
       });
 
-      this.get(serviceUrl.getTeams({ query: null }), (schema) => {
-        return schema.db.teams[0];
+      this.get(serviceUrl.getMyTeams({ query: null }), (schema) => {
+        return schema.db.myTeams[0];
       });
 
       this.get(serviceUrl.getFeatureFlags(), (schema) => {
@@ -122,8 +122,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.quotas[0];
       });
 
-      this.get(serviceUrl.getManageTeams({ query: null }), (schema) => {
-        return schema.db.manageTeams[0];
+      this.get(serviceUrl.getTeams({ query: null }), (schema) => {
+        return schema.db.teams[0];
       });
 
       this.put(serviceUrl.putActivationApp(), () => {
@@ -212,7 +212,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         const query = request.url.substring(14);
         // eslint-disable-next-line
         const { fromDate = null, toDate = null, teamId = null } = queryString.parse(query);
-        const activeTeam = teamId && schema.db.teams.find(teamId);
+        const activeTeam = teamId && schema.db.myTeams.find(teamId);
         let activeExecutions =
           activeTeam && schema.db.insights[0].executions.filter((team) => team.teamName === activeTeam.name);
         return activeExecutions ? { ...schema.db.insights[0], executions: activeExecutions } : schema.db.insights[0];
@@ -256,7 +256,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         let body = JSON.parse(request.requestBody);
         let workflow = { ...body, id: uuid(), createdDate: Date.now(), revisionCount: 1, status: "active" };
         if (body.flowTeamId) {
-          let flowTeam = schema.teams.findBy({ id: body.flowTeamId });
+          let flowTeam = schema.myTeams.findBy({ id: body.flowTeamId });
           const teamWorkflows = [...flowTeam.workflows];
           teamWorkflows.push(workflow);
           flowTeam.update({ workflows: teamWorkflows });
@@ -274,7 +274,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.del(serviceUrl.getWorkflow({ id: ":workflowId" }), (schema, request) => {
         let { workflowId } = request.params;
-        let flowTeam = schema.teams.where((team) => team.workflows.find((workflow) => workflow.id === workflowId));
+        let flowTeam = schema.myTeams.where((team) => team.workflows.find((workflow) => workflow.id === workflowId));
         let { attrs } = flowTeam.models[0];
         const teamWorkflows = attrs.workflows.filter((workflow) => workflow.id !== workflowId);
         flowTeam.update({ workflows: teamWorkflows });
@@ -385,7 +385,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.approverGroups;
       });
 
-      this.get(serviceUrl.getFlowTeamUsers({ teamId: ":teamId" }), (schema) => {
+      this.get(serviceUrl.getTeamMembers({ teamId: ":teamId" }), (schema) => {
         return schema.db.teamApproverUsers;
       });
 
@@ -412,12 +412,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        * Manage Team
        */
 
-      this.get(serviceUrl.getManageTeam({ teamId: ":teamId" }), (schema, request) => {
+      this.get(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
         return schema.manageTeamDetails.findBy({ id: teamId });
       });
 
-      this.patch(serviceUrl.getManageTeam({ teamId: ":teamId" }), (schema, request) => {
+      this.patch(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
         let activeTeam = schema.manageTeamDetails.findBy({ id: teamId });
@@ -426,7 +426,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return activeTeam;
       });
 
-      this.put(serviceUrl.getManageTeam({ teamId: ":teamId" }), (schema, request) => {
+      this.put(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
         let summary = schema.manageTeamDetails.findBy({ id: teamId });
@@ -444,7 +444,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.post(serviceUrl.getManageTeamsCreate(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
-        const teams = schema.manageTeams.first();
+        const teams = schema.teams.first();
         const updatedRecords = teams.records.concat({ id: uuid(), isActive: true, ...body });
         teams.update({ records: updatedRecords });
         return {};

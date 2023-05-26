@@ -76,7 +76,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
         //TODO should this be invalidate workflows?
-        queryClient.invalidateQueries(serviceUrl.getTeams({ query: "" }));
+        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: "" }));
       }
       return;
     } catch (e) {
@@ -102,8 +102,8 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       } else {
         //todo: fix refresh
         teamState.find((t) => t.id === team.id)?.workflows.push(workflowExport);
-        queryClient.setQueryData(serviceUrl.getTeams({ query: "" }), teamState);
-        queryClient.invalidateQueries(serviceUrl.getTeams({ query: "" }));
+        queryClient.setQueryData(serviceUrl.getMyTeams({ query: "" }), teamState);
+        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: "" }));
       }
       closeModal();
     } catch (err) {

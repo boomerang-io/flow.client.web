@@ -11,10 +11,9 @@ import {
   StructuredListCell,
   StructuredListHead,
   StructuredListRow,
-  StructuredListWrapper
+  StructuredListWrapper,
 } from "@carbon/react";
-import {   notify,
-  ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import EmptyState from "Components/EmptyState";
 import LabelModal from "Components/LabelModal";
 import { resolver, serviceUrl } from "Config/servicesConfig";
@@ -39,7 +38,7 @@ function TeamLabels({ isActive, team, teamManagementEnabled }: TeamLabelsProps) 
 
   const { mutateAsync: updateTeamLabelsMutator, isLoading } = useMutation(resolver.patchManageTeamLabels, {
     onSuccess: () => {
-      queryClient.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id }));
+      queryClient.invalidateQueries(serviceUrl.getTeam({ teamId: team.id }));
     },
   });
 

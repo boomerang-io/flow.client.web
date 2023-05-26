@@ -96,7 +96,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getTeams({ query: activeTeam?.id }));
+        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: activeTeam?.id }));
       }
     } catch {
       notify(
@@ -122,7 +122,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getTeams({ query: activeTeam?.id }));
+        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: activeTeam?.id }));
       }
       return;
     } catch (e) {
@@ -181,7 +181,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
           state: { fromUrl: appLink.workflows({ teamId: activeTeam?.id }), fromText: `${viewType}s` },
         });
       } else {
-        queryClient.invalidateQueries(serviceUrl.getTeams({ query: activeTeam?.id }));
+        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: activeTeam?.id }));
         closeModal();
       }
     } catch (err) {

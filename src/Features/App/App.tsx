@@ -49,7 +49,7 @@ const Home = lazy(() => import("Features/Home"));
 
 const getUserUrl = serviceUrl.getUserProfile();
 const getContextUrl = serviceUrl.getContext();
-const getTeamsUrl = serviceUrl.getTeams({ query: "status=active" });
+const getTeamsUrl = serviceUrl.getMyTeams({ query: "status=active" });
 const featureFlagsUrl = serviceUrl.getFeatureFlags();
 const browser = detect();
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
@@ -57,7 +57,10 @@ const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 export default function App() {
   const location = useLocation();
   const queryClient = useQueryClient();
-  const teamId = location.pathname.startsWith("/home") ? null : location.pathname.split("/").filter(Boolean)[0];
+  const teamId =
+    location.pathname.startsWith("/home") || location.pathname.startsWith("/admin")
+      ? null
+      : location.pathname.split("/").filter(Boolean)[0];
   const query = teamId ? `?teamId=${teamId}` : "";
   const getNavigationUrl = serviceUrl.getNavigation({ query });
 

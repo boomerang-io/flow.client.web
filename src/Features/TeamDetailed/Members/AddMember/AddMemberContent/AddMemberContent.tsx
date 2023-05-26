@@ -2,20 +2,8 @@ import React, { useState, useEffect } from "react";
 import useAxios from "axios-hooks";
 import queryString from "query-string";
 import { useMutation, useQueryClient } from "react-query";
-import {
-  Button,
-  InlineNotification,
-  ModalBody,
-  ModalFooter,
-  Search,
-} from "@carbon/react";
-import {
-  Error,
-  Loading,
-  ModalFlowForm,
-  notify,
-  ToastNotification,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, InlineNotification, ModalBody, ModalFooter, Search } from "@carbon/react";
+import { Error, Loading, ModalFlowForm, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { FlowUser } from "Types";
 import MemberBar from "./MemberBar";
@@ -41,12 +29,13 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
   const [searchQuery, setSearchQuery] = useState("");
   const queryClient = useQueryClient();
 
-  const { mutateAsync: addMemberMutator, isLoading: addMemberisLoading, error: addMemberError } = useMutation(
-    resolver.patchManageTeamUser,
-    {
-      onSuccess: () => queryClient.invalidateQueries(serviceUrl.getManageTeam({ teamId })),
-    }
-  );
+  const {
+    mutateAsync: addMemberMutator,
+    isLoading: addMemberisLoading,
+    error: addMemberError,
+  } = useMutation(resolver.putTeamMember, {
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeam({ teamId })),
+  });
 
   const searchRef = React.useRef<HTMLDivElement | null>();
 

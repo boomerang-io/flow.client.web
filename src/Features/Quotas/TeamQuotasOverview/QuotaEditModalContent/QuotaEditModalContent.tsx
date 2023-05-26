@@ -2,17 +2,8 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useMutation, useQueryClient } from "react-query";
-import {
-  Button,
-  
-  ModalBody,
-  ModalFooter,
-  
-  NumberInput,
- 
-  InlineNotification,
-} from "@carbon/react";
-import {Loading, ModalForm, notify,  ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter, NumberInput, InlineNotification } from "@carbon/react";
+import { Loading, ModalForm, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeamQuotas } from "Types";
 import styles from "./QuotaEditModalContent.module.scss";
@@ -47,7 +38,11 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
   const cancelRequestRef = React.useRef<{} | null>();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: putQuotaMutator, isLoading, error } = useMutation(
+  const {
+    mutateAsync: putQuotaMutator,
+    isLoading,
+    error,
+  } = useMutation(
     (args: { body: {}; id: string }) => {
       const { promise, cancel } = resolver.putTeamQuotas(args);
       if (cancelRequestRef?.current) {
@@ -58,7 +53,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(serviceUrl.getTeamQuotas({ id: teamId }));
-        queryClient.invalidateQueries(serviceUrl.getTeams());
+        queryClient.invalidateQueries(serviceUrl.getMyTeams());
       },
     }
   );
@@ -112,7 +107,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                     min={minValue}
                     //Need a max value in order to work - need to update in case of invalid value
                     max={99999}
-                    onChange={(evt: React.ChangeEvent<HTMLInputElement>, {value}:{value: number}) => {
+                    onChange={(evt: React.ChangeEvent<HTMLInputElement>, { value }: { value: number }) => {
                       //@ts-ignore
                       setFieldValue("quotaFormValue", value);
                     }}

@@ -31,7 +31,7 @@ const allQuery = `?${queryString.stringify({
 const QuotasContainer: React.FC = () => {
   const match = useRouteMatch();
 
-  const teamsUrl = serviceUrl.getManageTeams({ query: allQuery });
+  const teamsUrl = serviceUrl.getTeams({ query: allQuery });
   const { data: teamsData, error: teamsDataError, isLoading: getTeamLoading } = useQuery(teamsUrl);
 
   if (getTeamLoading) {

@@ -47,9 +47,13 @@ function TeamDetailedContainer() {
   const teamId = match?.params?.teamId;
   const { user } = useAppContext();
 
-  const teamDetailsUrl = serviceUrl.getManageTeam({ teamId });
+  const teamDetailsUrl = serviceUrl.getTeam({ teamId });
 
-  const { data: teamDetailsData, error: teamDetailsError, isLoading: teamDetailsIsLoading } = useQuery({
+  const {
+    data: teamDetailsData,
+    error: teamDetailsError,
+    isLoading: teamDetailsIsLoading,
+  } = useQuery({
     queryKey: teamDetailsUrl,
     queryFn: resolver.query(teamDetailsUrl),
   });

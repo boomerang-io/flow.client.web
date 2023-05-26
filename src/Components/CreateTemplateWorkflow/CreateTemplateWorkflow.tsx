@@ -66,7 +66,7 @@ function CreateTemplateWorkflow({ team, workflowList }: CreateTemplateWorkflowPr
           subtitle="Successfully created workflow from template"
         />
       );
-      queryClient.invalidateQueries(serviceUrl.getTeams());
+      queryClient.invalidateQueries(serviceUrl.getMyTeams());
       return;
     } catch (e) {
       console.log(e);

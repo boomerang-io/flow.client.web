@@ -95,7 +95,7 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(serviceUrl.getTeamQuotas({ id: teamId }));
-        queryClient.invalidateQueries(serviceUrl.getTeams());
+        queryClient.invalidateQueries(serviceUrl.getMyTeams());
       },
     }
   );

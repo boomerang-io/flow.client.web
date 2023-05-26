@@ -31,7 +31,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
       teams[specificTeamIndex].workflows = newTeamWorkflows;
       //TODO what am I setting as queryData
       // queryClient.setQueryData(serviceUrl.getTeams(), teams);
-      queryClient.invalidateQueries(serviceUrl.getTeams());
+      queryClient.invalidateQueries(serviceUrl.getMyTeams());
     } catch {
       notify(<ToastNotification kind="error" title="Something's Wrong" subtitle={`Request to leave team failed`} />);
     }
