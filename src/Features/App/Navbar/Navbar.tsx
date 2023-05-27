@@ -19,7 +19,7 @@ interface NavbarProps {
   userData: FlowUser;
 }
 
-export default function Navbar({
+export default function sNavbar({
   handleOnTutorialClick,
   flowNavigationData,
   platformConfigData,

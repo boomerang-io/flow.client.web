@@ -88,11 +88,6 @@ const flowNavigation = [
         link: "/BMRG_APP_ROOT_CONTEXT/admin/tokens",
       },
       {
-        name: "Team Quotas",
-        type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/admin/quotas",
-      },
-      {
         name: "Settings",
         type: "link",
         link: "/BMRG_APP_ROOT_CONTEXT/admin/settings",

@@ -5,41 +5,52 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Tile, Button } from "@carbon/react";
 import { TooltipHover, Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ComposedModalChildProps, ModalTriggerProps, FlowTeamQuotas } from "Types";
+import { ComposedModalChildProps, ModalTriggerProps, FlowTeamQuotas, FlowTeam } from "Types";
 import { Edit } from "@carbon/react/icons";
 import ProgressBar from "Components/ProgressBar";
 import Header from "../Header";
 import QuotaEditModalContent from "./QuotaEditModalContent";
 import EmptyState from "Components/EmptyState";
 import { resolver, serviceUrl } from "Config/servicesConfig";
-import styles from "./TeamQuotasOverview.module.scss";
+import styles from "./Quotas.module.scss";
 
-export function TeamQuotasOverview({ teams }) {
-  const params = useParams();
-  const { teamId = "" } = params;
-  const teamQuotasUrl = serviceUrl.getTeamQuotas({ id: teamId });
+export function Quotas({ team, teamManagementEnabled }: { team: FlowTeam; teamManagementEnabled: any }) {
+  const teamQuotasUrl = serviceUrl.getTeamQuotas({ id: team.id });
 
-  const { data: teamQuotasData, error, isLoading } = useQuery({
+  const {
+    data: teamQuotasData,
+    teamQuotasIsError,
+    teamQuotasIsLoading,
+  } = useQuery({
     queryKey: teamQuotasUrl,
     queryFn: resolver.query(teamQuotasUrl),
   });
 
-  const { data: defaultQuotasData, defaultQuotasError, defaultQuotasIsLoading } = useQuery({
-    queryKey: serviceUrl.getDefaultQuotas(),
-    queryFn: resolver.query(serviceUrl.getDefaultQuotas()),
+  const {
+    data: defaultQuotasData,
+    defaultQuotasError,
+    defaultQuotasIsLoading,
+  } = useQuery({
+    queryKey: serviceUrl.getTeamQuotaDefaults(),
+    queryFn: resolver.query(serviceUrl.getTeamQuotaDefaults()),
   });
 
   const teamData = teams.find((team) => team.id === teamId);
 
-  if (error) return <EmptyState title="Team not found" message="Crikey. We can't find the team you are looking for." />;
+  if (teamQuotasIsError)
+    return (
+      <EmptyState
+        title="Team not found"
+        message="Crikey. An error occurred in getting the Quotas you are looking for."
+      />
+    );
 
-  if (isLoading) {
+  if (teamQuotasIsLoading) {
     return <Loading />;
   }
 
   let workflowLimitPercentage = (teamQuotasData.currentWorkflowCount / teamQuotasData.maxWorkflowCount) * 100;
-  let monthlyExecutionPercentage =
-    (teamQuotasData.currentWorkflowExecutionMonthly / teamQuotasData.maxWorkflowExecutionMonthly) * 100;
+  let monthlyExecutionPercentage = (teamQuotasData.currentRuns / teamQuotasData.maxWorkflowExecutionMonthly) * 100;
 
   if (workflowLimitPercentage > 100) workflowLimitPercentage = 100;
   if (monthlyExecutionPercentage > 100) monthlyExecutionPercentage = 100;
@@ -250,4 +261,4 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
   );
 };
 
-export default TeamQuotasOverview;
+export default Quotas;

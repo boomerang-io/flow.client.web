@@ -13,7 +13,7 @@ export default function WorkflowQuotaModalContent({
   quotas: FlowTeamQuotas;
 }) {
   let workflowLimitPercentage = (quotas.currentWorkflowCount / quotas.maxWorkflowCount) * 100;
-  let monthlyExecutionPercentage = (quotas.currentWorkflowExecutionMonthly / quotas.maxWorkflowExecutionMonthly) * 100;
+  let monthlyExecutionPercentage = (quotas.currentRuns / quotas.maxWorkflowExecutionMonthly) * 100;
 
   if (workflowLimitPercentage > 100) workflowLimitPercentage = 100;
   if (monthlyExecutionPercentage > 100) monthlyExecutionPercentage = 100;
@@ -41,7 +41,7 @@ export default function WorkflowQuotaModalContent({
         <ProgressBar maxValue={quotas.maxWorkflowExecutionMonthly} value={monthlyExecutionPercentage} />
         <p
           className={styles.detailedText}
-        >{`Current usage: ${quotas.currentWorkflowExecutionMonthly} of ${quotas.maxWorkflowExecutionMonthly}`}</p>
+        >{`Current usage: ${quotas.currentRuns} of ${quotas.maxWorkflowExecutionMonthly}`}</p>
         <time className={styles.detailedText}>
           {`Resets on ${moment.utc(quotas.monthlyResetDate).format("MMMM DD, YYYY")}`}
         </time>

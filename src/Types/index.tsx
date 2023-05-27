@@ -449,15 +449,15 @@ export enum FlowTeamStatus {
 export interface FlowTeamQuotas {
   maxWorkflowCount: number;
   maxWorkflowExecutionMonthly: number;
-  currentWorkflowExecutionMonthly: number;
-  currentWorkflowCount: number;
   maxWorkflowStorage: number;
-  maxConcurrentWorkflows: number;
   maxWorkflowExecutionTime: number;
-  monthlyResetDate: string;
-  currentConcurrentWorkflows: number;
+  maxConcurrentWorkflows: number;
+  currentRuns: number;
+  currentWorkflowCount: number;
+  currentConcurrentRuns: number;
   currentAverageExecutionTime: number;
-  currentWorkflowsPersistentStorage: number;
+  currentPersistentStorage: number;
+  monthlyResetDate: string;
 }
 
 export interface PaginatedSort {

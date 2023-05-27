@@ -11,6 +11,7 @@ import {
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Checkmark, Close } from "@carbon/react/icons";
+import moment from "moment";
 import { Link, useLocation } from "react-router-dom";
 import { appLink } from "Config/appConfig";
 import { resolver, serviceUrl } from "Config/servicesConfig";
@@ -39,7 +40,7 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
     try {
       await removeTeamMutator({ teamId: team.id, body: { isActive: false } });
       notify(
-        <ToastNotification title="Add User" subtitle={`Request to close ${team.name} successful`} kind="success" />
+        <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
       );
     } catch (error) {
       // noop
@@ -84,10 +85,7 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
               <p className={styles.statusText}>{isActive ? "Active" : "Inactive"}</p>
             </div>
             <span className={styles.statusDivider}>-</span>
-            {/*<div className={styles.dateText}>
-              Created on
-              <p style={{ marginLeft: "0.3rem" }}>{moment(team.dateCreated).format("MMMM DD, YYYY")}</p>
-            </div>*/}
+            <div className={styles.dateText}>Created on {moment(team.creationDate).format("MMMM DD, YYYY")}</div>
           </div>
         </>
       }
@@ -100,6 +98,7 @@ function TeamDetailedHeader({ isActive, team, teamManagementEnabled }: TeamDetai
             to={{ pathname: appLink.teamWorkflows({ teamId: team.id }), state: location.state }}
           />
           <Tab exact label="Labels" to={{ pathname: appLink.teamLabels({ teamId: team.id }), state: location.state }} />
+          <Tab exact label="Quotas" to={{ pathname: appLink.teamQuotas({ teamId: team.id }), state: location.state }} />
           <Tab
             exact
             label="Settings"

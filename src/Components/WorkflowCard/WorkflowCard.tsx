@@ -233,7 +233,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
   let hasReachedMonthlyRunLimit = false;
 
   if (quotas) {
-    hasReachedMonthlyRunLimit = quotas?.maxWorkflowExecutionMonthly <= quotas?.currentWorkflowExecutionMonthly;
+    hasReachedMonthlyRunLimit = quotas?.maxWorkflowExecutionMonthly <= quotas?.currentRuns;
   }
 
   const canRunManually = workflow?.triggers?.manual?.enable ?? false;

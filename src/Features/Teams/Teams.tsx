@@ -15,6 +15,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import TeamDetailed from "Features/TeamDetailed";
 import EmptyState from "Components/EmptyState";
+import moment from "moment";
 import AddTeamContent from "./AddTeamContent";
 import debounce from "lodash/debounce";
 import queryString from "query-string";
@@ -81,6 +82,7 @@ const TeamList: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
   const cancelRequestRef = React.useRef<{} | null>();
+  // TODO - make this read only
   const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
 
   /**
@@ -210,10 +212,15 @@ const headers = [
     sortable: true,
   },
   {
+    header: "Date Created",
+    key: "creationDate",
+    sortable: true,
+  },
+  {
     header: "# of Users",
     key: "users",
   },
-  { header: "# of Workflows", key: "workflows" },
+  { header: "# of Workflows", key: "quotas" },
   { header: "Status", key: "status" },
 ];
 
@@ -300,6 +307,14 @@ function TeamListTable(props: TeamListTableProps) {
                             )}
                           </TableCell>
                         );
+                      } else if (cell.info.header === "creationDate") {
+                        return (
+                          <TableCell key={cell.id}>
+                            <time>{moment(cell.value).format("YYYY-MM-DD hh:mm A")}</time>
+                          </TableCell>
+                        );
+                      } else if (cell.info.header === "quotas") {
+                        return <TableCell key={cell.id}>{cell.value.currentWorkflowCount}</TableCell>;
                       }
                       return (
                         <TableCell key={cell.id}>

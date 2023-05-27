@@ -36,8 +36,6 @@ type AppPathKey =
   | "ManageTaskTemplateEdit"
   | "ManageTaskTemplateYaml"
   | "Properties"
-  | "Quotas"
-  | "QuotasEdit"
   | "Schedules"
   | "Settings"
   | "TemplateWorkflows"
@@ -48,6 +46,7 @@ type AppPathKey =
   | "TeamSettings"
   | "TeamWorkflows"
   | "TeamLabels"
+  | "TeamQuotas"
   | "TeamList"
   | "TeamApprovers"
   | "TeamProperties"
@@ -89,8 +88,6 @@ export const AppPath: Record<AppPathKey, string> = {
 
   //Admin
   Properties: "/admin/parameters",
-  Quotas: "/admin/quotas",
-  QuotasEdit: "/admin/quotas/:teamId",
   Settings: "/admin/settings",
   TemplateWorkflows: "/admin/template-workflows",
   TaskTemplates: "/admin/task-templates",
@@ -99,6 +96,7 @@ export const AppPath: Record<AppPathKey, string> = {
   Team: "/admin/teams/:teamId",
   TeamSettings: "/admin/teams/:teamId/settings",
   TeamWorkflows: "/admin/teams/:teamId/workflows",
+  TeamQuotas: "/admin/teams/:teamId/quotas",
   TeamLabels: "/admin/teams/:teamId/Labels",
   TeamList: "/admin/teams",
   Tokens: "/admin/tokens",
@@ -154,8 +152,6 @@ export const appLink = {
     `/manage/task-templates/team/${teamId}/${taskId}/${version}/yaml-editor`,
   manageUsers: () => "/admin/users",
   properties: () => "/admin/parameters",
-  quotas: () => "/admin/quotas",
-  quotasEdit: ({ teamId }: TeamIdArg) => `/admin/quotas/${teamId}`,
   schedule: () => "/schedule",
   settings: () => "/admin/settings",
   templateWorkflows: () => "/admin/template-workflows",
@@ -168,6 +164,7 @@ export const appLink = {
   team: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}`,
   teamWorkflows: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/workflows`,
   teamLabels: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/labels`,
+  teamQuotas: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/quotas`,
   teamSettings: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/settings`,
   teamList: () => "/admin/teams",
   teamTokens: () => `/manage/team-tokens`,
