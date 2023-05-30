@@ -2,10 +2,10 @@
   width: 100%;
   height: calc(100vh - 3rem);
   overflow-y: auto;
+  padding: 1.5rem 2rem;
 }
 
 .cardsSection {
-  padding: 1.5rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, 20.625rem);
   column-gap: 1.5rem;
@@ -77,4 +77,20 @@
   :global .cds--btn__icon {
     margin-left: 0 !important;
   }
+}
+
+.actionsContainer {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  width: 100%;
+
+  :global .cds--search {
+    max-width: 24rem;
+  }
+}
+
+.leftActions {
+  min-width: 24rem;
 }

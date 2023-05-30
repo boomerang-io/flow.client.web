@@ -1,4 +1,4 @@
-import { Server, Serializer, Model } from "miragejs";
+import { Server, Serializer, Model, Response } from "miragejs";
 import { inflections } from "inflected";
 import queryString from "query-string";
 import { v4 as uuid } from "uuid";
@@ -44,6 +44,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       tasktemplate: Model,
       team: Model,
       teamApproverUsers: Model,
+      teamNameValidate: Model,
       taskTemplateValidate: Model,
       teamProperties: Model,
       tokens: Model,
@@ -412,6 +413,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        * Manage Team
        */
 
+      this.post(serviceUrl.postTeamValidateName(), (schema, request) => {
+        return new Response(422, {}, { errors: [ 'Name is already taken'] });
+      });
+
       this.get(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
         return schema.manageTeamDetails.findBy({ id: teamId });
@@ -521,7 +526,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return {};
       });
 
-      this.get(serviceUrl.getDefaultQuotas(), (schema, request) => {
+      this.get(serviceUrl.getTeamQuotaDefaults(), (schema, request) => {
         return {
           maxWorkflowCount: 20,
           maxWorkflowExecutionMonthly: 150,

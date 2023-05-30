@@ -20,7 +20,6 @@ import AddTeamContent from "./AddTeamContent";
 import debounce from "lodash/debounce";
 import queryString from "query-string";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
-import { SortDirection } from "Constants";
 import { AppPath, appLink, queryStringOptions, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { ComposedModalChildProps, ModalTriggerProps, PaginatedTeamResponse } from "Types";

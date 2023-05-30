@@ -17,10 +17,15 @@ import { FlowTeam } from "Types";
 interface UpdateTeamNameProps {
   closeModal: () => void;
   team: FlowTeam;
-  teamNameList: string[];
 }
 
-const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamNameList }) => {
+const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team }) => {
+  const {
+    mutateAsync: validateTeamNameMutator,
+    error: validateTeamNameIsError,
+    isLoading: validateTeamNameIsLoading,
+  } = useMutation(resolver.postTeamValidateName);
+
   const queryClient = useQueryClient();
   const {
     mutateAsync: updateTeamMutator,
@@ -49,6 +54,8 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamN
     buttonText = "Try again";
   }
 
+  //TODO - update the error message to include the value of the Text Input
+  //TODO - update to not error on current team name
   return (
     <Formik
       initialValues={{
@@ -58,8 +65,7 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamN
       validationSchema={Yup.object().shape({
         name: Yup.string()
           .required("Enter a team name")
-          .max(100, "Enter team name that is at most 100 characters in length")
-          .notOneOf(teamNameList, "Please try again, select a team name that is not already in use"),
+          .max(100, "Enter team name that is at most 100 characters in length"),
       })}
     >
       {(formikProps) => {
@@ -73,13 +79,14 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamN
                   id="team-update-name-id"
                   data-testid="text-input-team-name"
                   labelText="Name"
-                  helperText="Must be unique"
+                  helperText="Enter a unique Team name."
                   value={values.name}
                   onChange={(value: React.ChangeEvent<HTMLInputElement>) => {
+                    validateTeamNameMutator({ body: { name: value.target.value } });
                     setFieldValue("name", value.target.value);
                   }}
-                  invalid={Boolean(errors.name && !touched.name)}
-                  invalidText={errors.name}
+                  invalid={Boolean(errors.name && !touched.name) || validateTeamNameIsError ? true : false}
+                  invalidText={validateTeamNameIsError ? `The specified name is already taken.` : errors.name}
                 />
                 {error && (
                   <InlineNotification
@@ -96,7 +103,11 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamN
                 Cancel
               </Button>
               {/* @ts-ignore */}
-              <Button disabled={errors.name || isLoading} onClick={handleSubmit} data-testid="save-team-name">
+              <Button
+                disabled={errors.name || isLoading || validateTeamNameIsError || validateTeamNameIsLoading}
+                onClick={handleSubmit}
+                data-testid="save-team-name"
+              >
                 {buttonText}
               </Button>
             </ModalFooter>

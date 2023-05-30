@@ -455,7 +455,8 @@ export interface FlowTeamQuotas {
   currentRuns: number;
   currentWorkflowCount: number;
   currentConcurrentRuns: number;
-  currentAverageExecutionTime: number;
+  currentRunTotalDuration: number;
+  currentRunMedianDuration: number;
   currentPersistentStorage: number;
   monthlyResetDate: string;
 }

@@ -106,6 +106,7 @@ export const serviceUrl = {
   postGlobalToken: () => `${BASE_URL}/global-token`,
   postSchedule: ({ teamId }) => `${BASE_URL}/schedules?team=${teamId}`,
   postTeamToken: () => `${BASE_URL}/team-token`,
+  postTeamValidateName: () => `${BASE_URL}/team/validate-name`,
   postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
   // putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,
@@ -160,6 +161,7 @@ export const resolver = {
   patchManageUser: ({ body, userId }) =>
     cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethod.Patch }),
   putSchedule: ({ body }) => axios.put(serviceUrl.putSchedule(), body),
+  postTeamValidateName: ({ body }) => axios.post(serviceUrl.postTeamValidateName(), body),
   postValidateYaml: ({ body }) =>
     axios({
       method: HttpMethod.Post,
