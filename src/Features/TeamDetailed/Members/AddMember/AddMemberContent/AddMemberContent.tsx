@@ -58,7 +58,7 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
     if (searchQuery) {
       const queryStr = queryString.stringify({ page: 0, size: 20, query: searchQuery });
 
-      fetchUsersList({ url: serviceUrl.getManageUsers({ query: queryStr }) });
+      fetchUsersList({ url: serviceUrl.getUsers({ query: queryStr }) });
       setSearchQuery(searchQuery);
       setUsersListOpen(true);
     } else {

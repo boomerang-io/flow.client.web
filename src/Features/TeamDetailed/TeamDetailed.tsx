@@ -74,14 +74,14 @@ function TeamDetailedContainer() {
 
   if (teamDetailsData) {
     // const teamOwnerIdList = teamDetailsData?.owners?.map((owner) => owner.ownerId);
-    const { isActive } = teamDetailsData;
+    const { status } = teamDetailsData;
     return (
       <div className={styles.container}>
-        <Header isActive={isActive} team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
+        <Header isActive={status === "active"} team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
         <Switch>
           <Route exact path={AppPath.Team}>
             <Members
-              isActive={isActive}
+              isActive={status === "active"}
               team={teamDetailsData}
               memberList={teamDetailsData.users}
               user={user}
@@ -92,7 +92,11 @@ function TeamDetailedContainer() {
             <Workflows team={teamDetailsData} />
           </Route>
           <Route exact path={AppPath.TeamLabels}>
-            <Labels isActive={isActive} team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
+            <Labels
+              isActive={status === "active"}
+              team={teamDetailsData}
+              teamManagementEnabled={teamManagementEnabled}
+            />
           </Route>
           <Route exact path={AppPath.TeamQuotas}>
             <Quotas team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />

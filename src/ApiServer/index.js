@@ -459,7 +459,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        * Manage Users
        */
 
-      this.get(serviceUrl.getManageUsers({ query: null }), (schema, request) => {
+      this.get(serviceUrl.getUsers({ query: null }), (schema, request) => {
         const { query } = request.queryParams;
         const userData = schema.db.manageUsers[0];
         if (query) {

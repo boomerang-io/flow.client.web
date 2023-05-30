@@ -16,13 +16,13 @@ import UserDetailed from "Features/UserDetailed";
 import debounce from "lodash/debounce";
 import moment from "moment";
 import queryString from "query-string";
-import { CREATED_DATE_FORMAT, SortDirection } from "Constants";
+import { CREATED_DATE_FORMAT } from "Constants";
 import { AppPath, appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { FlowUser, PaginatedResponse } from "Types";
 import styles from "./Users.module.scss";
 
-const DEFAULT_ORDER = SortDirection.Desc;
+const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
 const DEFAULT_SIZE = 10;
 const DEFAULT_SORT = "name";
@@ -56,7 +56,7 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
         header={
           <>
             <HeaderTitle style={{ margin: "0" }}>Users</HeaderTitle>
-            <HeaderSubtitle>View and manage Flow users</HeaderSubtitle>
+            <HeaderSubtitle>View and manage users</HeaderSubtitle>
           </>
         }
       />
@@ -76,7 +76,7 @@ const UserList: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const usersQuery = useQuery(serviceUrl.getManageUsers({ query: location.search }));
+  const usersQuery = useQuery(serviceUrl.getUsers({ query: location.search }));
 
   function handleNavigateToUser(userId: string) {
     history.push(appLink.user({ userId }));
@@ -118,15 +118,13 @@ const UserList: React.FC = () => {
     });
   }
 
-  function handleSort(e: React.SyntheticEvent, sort: { sortHeaderKey: string }) {
+  function handleSort(e: any, { sortHeaderKey }: { sortHeaderKey: string }) {
     const { property, direction } = usersQuery.data.sort[0];
-    let order = SortDirection.Asc;
-
-    if (sort.sortHeaderKey === property && direction === SortDirection.Asc) {
-      order = SortDirection.Desc;
+    let order = "ASC";
+    if (sortHeaderKey === property && direction === "ASC") {
+      order = "DESC";
     }
-
-    updateHistorySearch({ ...queryString.parse(location.search), order, sort: sort.sortHeaderKey });
+    updateHistorySearch({ ...queryString.parse(location.search), sort: sortHeaderKey, order });
   }
 
   if (usersQuery.isLoading) {
