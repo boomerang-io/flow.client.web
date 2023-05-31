@@ -1,4 +1,5 @@
-const workflowTemplates = [
+const workflowTemplates = {
+    content: [
   {
     "name" : "mongodb-email-query-results",
     "displayName" : "MongoDB email query results",
@@ -980,6 +981,21 @@ const workflowTemplates = [
           }
       ]
   }
-];
+],
+number: 0,
+size: 2,
+totalElements: 2,
+pageable: "INSTANCE",
+last: true,
+totalPages: 1,
+sort: {
+    sorted: false,
+    empty: true,
+    unsorted: true
+},
+first: true,
+numberOfElements: 2,
+empty: false
+};
 
 export default workflowTemplates;

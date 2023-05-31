@@ -40,7 +40,7 @@ export default function TemplateWorkflows() {
   };
 
   const filteredWorkflows =
-    templatesWorkflowData?.filter((workflow: any) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
+    templatesWorkflowData?.content?.filter((workflow: any) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
 
   return (
     <>
@@ -51,7 +51,7 @@ export default function TemplateWorkflows() {
           subtitle="Define reuseable Workflows available to all teams as Templates."
           handleUpdateFilter={handleUpdateFilter}
           searchQuery={searchQuery}
-          workflowsCount={templatesWorkflowData?.length ?? 0}
+          workflowList={templatesWorkflowData?.content ? templatesWorkflowData.content : []}
           viewType={WorkflowView.Template}
         />
         <div aria-label="Team Workflows" className={styles.content} role="region">
