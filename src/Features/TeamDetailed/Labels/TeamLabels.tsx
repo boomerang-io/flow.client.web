@@ -64,14 +64,12 @@ function TeamLabels({ isActive, team, teamManagementEnabled }: TeamLabelsProps) 
       <Helmet>
         <title>{`Labels - ${team.name}`}</title>
       </Helmet>
-      <Formik initialValues={{ labels: team.labels ?? [] }} onSubmit={handleSubmit}>
+      <Formik initialValues={{ labels: team.labels ?? {} }} onSubmit={handleSubmit}>
         {(formikProps) => {
           const { values, handleSubmit, dirty } = formikProps;
-          const teamLabels = values.labels;
-
+          const teamLabels = Object.entries(values.labels).map(([key, value]) => ({ key, value }));
           const filteredLabelsList = searchQuery ? ms(teamLabels, searchQuery, { keys: ["key", "value"] }) : teamLabels;
-
-          const labelsKeys = values.labels?.map((label) => label.key) ?? [];
+          const labelsKeys = Object.keys(values.labels);
 
           return (
             <FieldArray
@@ -133,9 +131,7 @@ function TeamLabels({ isActive, team, teamManagementEnabled }: TeamLabelsProps) 
                         </StructuredListHead>
                         <StructuredListBody>
                           {sortBy(filteredLabelsList, "key").map((label) => {
-                            const labelIndex = values.labels.findIndex(
-                              (labelFromList) => labelFromList.key === label.key
-                            );
+                            const labelIndex = teamLabels.findIndex((labelFromList) => labelFromList.key === label.key);
                             return (
                               <StructuredListRow key={label.key}>
                                 <StructuredListCell className={styles.labelKeyCell}>{label.key}</StructuredListCell>
