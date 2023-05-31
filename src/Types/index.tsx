@@ -493,7 +493,7 @@ export interface FlowUser extends User {
   teams: string[];
   status: UserStatus;
   platformRole: string;
-  labels?: { key: string; value: string }[];
+  labels?: Record<string, string>;
   settings?: unknown;
 }
 

@@ -9,11 +9,11 @@ import styles from "./Settings.module.scss";
 
 interface UserSettingsProps {
   user: FlowUser;
-  teamManagementEnabled: any;
+  userManagementEnabled: any;
 }
 
-export default function Settings({ user, teamManagementEnabled }: UserSettingsProps) {
-  const canEdit = teamManagementEnabled;
+export default function Settings({ user, userManagementEnabled }: UserSettingsProps) {
+  const canEdit = userManagementEnabled;
 
   return (
     <section aria-label="User Settings" className={styles.settingsContainer}>

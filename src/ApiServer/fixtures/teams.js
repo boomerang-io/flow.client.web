@@ -1,7 +1,7 @@
 const teams = {
   content: [
     {
-      externalREf: "5e73782ee04d700001a00249",
+      externalRef: "5e73782ee04d700001a00249",
       id: "5e7cccb94bbc6e0001c51773",
       status: "inactive",
       creationDate: "2023-05-03T03:18:27.350Z",
