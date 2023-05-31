@@ -461,24 +461,24 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.get(serviceUrl.getUsers({ query: null }), (schema, request) => {
         const { query } = request.queryParams;
-        const userData = schema.db.manageUsers[0];
+        const userData = schema.db.users[0];
         if (query) {
-          userData.records =
-            userData.records.filter((user) => user.name.includes(query) || user.email.includes(query)) ?? [];
+          userData.content =
+            userData.content.filter((user) => user.name.includes(query) || user.email.includes(query)) ?? [];
         }
         return userData;
       });
 
-      this.get(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {
+      this.get(serviceUrl.getUser({ userId: ":userId" }), (schema, request) => {
         const { userId } = request.params;
-        const user = schema.manageUsers.first().attrs.records.find((user) => user.id === userId);
+        const user = schema.db.users[0].content.find((user) => user.id === userId);
         return user;
       });
 
-      this.patch(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {
+      this.patch(serviceUrl.getUser({ userId: ":userId" }), (schema, request) => {
         const { userId } = request.params;
         let body = JSON.parse(request.requestBody);
-        const users = schema.manageUsers.first();
+        const users = schema.users.first();
         const updatedRecords = [];
         for (let user of users.records) {
           if (user.id === userId) {

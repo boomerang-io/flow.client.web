@@ -37,10 +37,10 @@ function UserLabels({ user, userManagementEnabled }: UserLabelsProps) {
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const { mutateAsync: changeUserMutator, isLoading } = useMutation(
-    ({ userId, body }: any) => axios.patch(serviceUrl.resourceManageUser({ userId }), body),
+    ({ userId, body }: any) => axios.patch(serviceUrl.getUser({ userId }), body),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(serviceUrl.resourceManageUser({ userId: user.id }));
+        queryClient.invalidateQueries(serviceUrl.getUser({ userId: user.id }));
       },
     }
   );

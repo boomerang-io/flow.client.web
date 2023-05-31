@@ -54,8 +54,8 @@ type AppPathKey =
   | "Tokens"
   | "User"
   | "UserList"
-  | "UserTeams"
   | "UserLabels"
+  | "UserSettings"
   | "Workflows";
 
 export const AppPath: Record<AppPathKey, string> = {
@@ -101,8 +101,8 @@ export const AppPath: Record<AppPathKey, string> = {
   TeamList: "/admin/teams",
   Tokens: "/admin/tokens",
   User: "/admin/users/:userId",
-  UserTeams: "/admin/users/:userId/teams",
   UserLabels: "/admin/users/:userId/labels",
+  UserSettings: "/admin/users/:userId/settings",
   UserList: "/admin/users",
 };
 
@@ -170,8 +170,8 @@ export const appLink = {
   teamTokens: () => `/manage/team-tokens`,
   tokens: () => `/admin/tokens`,
   user: ({ userId }: UserIdArg) => `/admin/users/${userId}`,
-  userTeams: ({ userId }: UserIdArg) => `/admin/users/${userId}/teams`,
   userLabels: ({ userId }: UserIdArg) => `/admin/users/${userId}/labels`,
+  userSettings: ({ userId }: UserIdArg) => `/admin/users/${userId}/settings`,
   userList: () => "/admin/users",
   workflows: ({ teamId }: TeamIdArg) => `/${teamId}/workflows`,
   workflowActivity: ({ workflowId }: WorkflowIdArg) => `/activity?page=0&size=10&workflowIds=${workflowId}`,

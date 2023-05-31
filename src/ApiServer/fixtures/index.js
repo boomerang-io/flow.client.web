@@ -11,7 +11,7 @@ export { default as featureFlags } from "./featureFlags";
 export { default as insights } from "./insights";
 export { default as manageTeamDetails } from "./manageTeamDetails";
 export { default as teams } from "./teams";
-export { default as manageUsers } from "./manageUsers";
+export { default as users } from "./users";
 export { default as manualTasks } from "./manualTasks";
 export { default as platformConfig } from "./platformConfig";
 export { default as flowNavigation } from "./flowNavigation";

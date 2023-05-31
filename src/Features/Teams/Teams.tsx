@@ -109,8 +109,6 @@ const TeamList: React.FC = () => {
     isLoading: teamsIsLoading,
   } = useQuery<PaginatedTeamResponse, string>(teamsUrl);
 
-  const teamsQuery = useQuery(serviceUrl.getTeams({ query: location.search }));
-
   /**
    * Function that updates url search history to persist state
    * @param {object} query - all of the query params
@@ -144,7 +142,7 @@ const TeamList: React.FC = () => {
     history.push(appLink.team({ teamId }));
   }
 
-  if (teamsQuery.isLoading) {
+  if (teamsIsLoading) {
     return (
       <FeatureLayout handleSearchChange={handleSearchChange}>
         <DataTableSkeleton />
@@ -152,7 +150,7 @@ const TeamList: React.FC = () => {
     );
   }
 
-  if (teamsQuery.isError) {
+  if (teamsIsError) {
     return (
       <FeatureLayout handleSearchChange={handleSearchChange}>
         <ErrorMessage />
@@ -197,7 +195,7 @@ const TeamList: React.FC = () => {
         location={location}
         sort={sort}
         order={order}
-        tableData={teamsQuery.data}
+        tableData={teamsData}
         updateHistorySearch={updateHistorySearch}
       />
     </FeatureLayout>

@@ -2,13 +2,14 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { useFeature } from "flagged";
+import { useAppContext } from "Hooks";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { Box } from "reflexbox";
 import { ErrorMessage, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import Header from "./Header";
 import Labels from "./Labels";
 import Teams from "./Teams";
-import Workflows from "./Workflows";
+import Settings from "./Settings";
 import { FlowUser } from "Types";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -35,12 +36,17 @@ const FeatureLayout = ({ children, isLoading, isError }: FeatureLayoutProps) => 
 
 function TeamDetailedContainer() {
   const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
+  const { teams } = useAppContext();
   const match: { params: { userId: string } } = useRouteMatch();
   const userId = match?.params?.userId;
 
-  const userDetailsUrl = serviceUrl.resourceManageUser({ userId });
+  const userDetailsUrl = serviceUrl.getUser({ userId });
 
-  const { data: userDetailsData, isError: userDetailsIsError, isLoading: userDetailsIsLoading } = useQuery({
+  const {
+    data: userDetailsData,
+    isError: userDetailsIsError,
+    isLoading: userDetailsIsLoading,
+  } = useQuery({
     queryKey: userDetailsUrl,
     queryFn: resolver.query(userDetailsUrl),
   });
@@ -64,13 +70,13 @@ function TeamDetailedContainer() {
         <Header user={userDetailsData} userManagementEnabled={userManagementEnabled} />
         <Switch>
           <Route exact path={AppPath.User}>
-            <Workflows user={userDetailsData} />
-          </Route>
-          <Route exact path={AppPath.UserTeams}>
-            <Teams user={userDetailsData} />
+            <Teams user={userDetailsData} teams={teams} />
           </Route>
           <Route exact path={AppPath.UserLabels}>
             <Labels user={userDetailsData} userManagementEnabled={userManagementEnabled} />
+          </Route>
+          <Route exact path={AppPath.UserSettings}>
+            <Settings user={userDetailsData} userManagementEnabled={userManagementEnabled} />
           </Route>
         </Switch>
       </div>

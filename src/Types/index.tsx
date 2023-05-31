@@ -245,6 +245,7 @@ type Pageable<T> = {
   content: Array<T>;
 };
 
+export type PaginatedUserResponse = Pageable<FlowUser>;
 export type PaginatedTeamResponse = Pageable<FlowTeam>;
 export type PaginatedWorkflowResponse = Pageable<Workflow>;
 export type PaginatedSchedulesResponse = Pageable<ScheduleUnion>;

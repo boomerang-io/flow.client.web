@@ -74,7 +74,7 @@ export const serviceUrl = {
   getTeamMembers: ({ teamId }: TeamIdArg) => `${BASE_URL}/team/${teamId}/members`,
   leaveTeam: ({ id }) => `${BASE_URL}/${id}/leave`,
   getUsers: ({ query }: QueryId) => `${BASE_URL}/user/query${query ? "?" + query : ""}`,
-  getUser: ({ userId }) => `${BASE_URL}/users/${userId}`,
+  getUser: ({ userId }) => `${BASE_URL}/user/${userId}`,
   getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
   // getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
   getUserProfile: () => `${BASE_URL}/user/profile`,
@@ -118,7 +118,6 @@ export const serviceUrl = {
   putWorkflowAction: () => `${BASE_URL}/action/action`,
   resourceApproverGroups: ({ teamId, groupId }) =>
     `${BASE_URL}/teams/${teamId}/approvers${groupId ? "/" + groupId : ""}`,
-  resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
   resourceSettings: () => `${BASE_URL}/settings`,
   workflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
   getWorkflowTemplates: () => `${BASE_URL}/workflowtemplate/query`,
@@ -158,7 +157,7 @@ export const resolver = {
   putTeamMember: ({ teamId, body }) => axios.patch(serviceUrl.putTeamMembers({ teamId }), body),
   patchManageTeamLabels: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamLabels({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
-    cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethod.Patch }),
+    cancellableResolver({ url: serviceUrl.getUser({ userId }), body, method: HttpMethod.Patch }),
   putSchedule: ({ body }) => axios.put(serviceUrl.putSchedule(), body),
   postTeamValidateName: ({ body }) => axios.post(serviceUrl.postTeamValidateName(), body),
   postValidateYaml: ({ body }) =>

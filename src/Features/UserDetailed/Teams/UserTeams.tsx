@@ -13,16 +13,17 @@ import { Link } from "react-router-dom";
 import EmptyState from "Components/EmptyState";
 import { matchSorter as ms } from "match-sorter";
 import { appLink } from "Config/appConfig";
-import { FlowUser } from "Types";
+import { FlowUser, FlowTeam } from "Types";
 import styles from "./UserTeams.module.scss";
 
 interface UserTeamsProps {
   user: FlowUser;
+  teams: Array<FlowTeam>;
 }
 
-function UserTeams({ user }: UserTeamsProps) {
+function UserTeams({ user, teams }: UserTeamsProps) {
   const [searchQuery, setSearchQuery] = React.useState("");
-  const userTeams = user.userTeams ?? [];
+  const userTeams = teams ?? [];
   const filteredTeamsList = searchQuery ? ms(userTeams, searchQuery, { keys: ["name"] }) : userTeams;
 
   return (

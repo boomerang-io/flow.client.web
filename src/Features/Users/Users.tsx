@@ -17,16 +17,16 @@ import debounce from "lodash/debounce";
 import moment from "moment";
 import queryString from "query-string";
 import { CREATED_DATE_FORMAT } from "Constants";
-import { AppPath, appLink } from "Config/appConfig";
+import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { FlowUser, PaginatedResponse } from "Types";
+import { PaginatedUserResponse } from "Types";
 import styles from "./Users.module.scss";
 
 const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
-const DEFAULT_SIZE = 10;
+const DEFAULT_LIMIT = 10;
 const DEFAULT_SORT = "name";
-const PAGE_SIZES = [DEFAULT_SIZE, 20, 50, 100];
+const PAGE_SIZES = [DEFAULT_LIMIT, 20, 50, 100];
 
 const UsersContainer: React.FC = () => {
   return (
@@ -76,7 +76,27 @@ const UserList: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const usersQuery = useQuery(serviceUrl.getUsers({ query: location.search }));
+  const {
+    order = DEFAULT_ORDER,
+    page = DEFAULT_PAGE,
+    limit = DEFAULT_LIMIT,
+    sort = DEFAULT_SORT,
+  } = queryString.parse(location.search, queryStringOptions);
+
+  const usersUrlQuery = queryString.stringify({
+    order,
+    page,
+    limit,
+    sort,
+  });
+
+  const usersUrl = serviceUrl.getUsers({ query: usersUrlQuery });
+
+  const {
+    data: usersData,
+    error: usersIsError,
+    isLoading: usersIsLoading,
+  } = useQuery<PaginatedUserResponse, string>(usersUrl);
 
   function handleNavigateToUser(userId: string) {
     history.push(appLink.user({ userId }));
@@ -90,7 +110,7 @@ const UserList: React.FC = () => {
   function updateHistorySearch({
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
-    size = DEFAULT_SIZE,
+    size = DEFAULT_LIMIT,
     sort = DEFAULT_SORT,
     ...props
   }) {
@@ -110,24 +130,7 @@ const UserList: React.FC = () => {
     debouncedSearch(query);
   }
 
-  function handlePaginationChange(pagination: { page: number; pageSize: number }) {
-    updateHistorySearch({
-      ...queryString.parse(location.search),
-      page: pagination.page - 1, // We have to decrement by one to offset the table pagination adjustment
-      size: pagination.pageSize,
-    });
-  }
-
-  function handleSort(e: any, { sortHeaderKey }: { sortHeaderKey: string }) {
-    const { property, direction } = usersQuery.data.sort[0];
-    let order = "ASC";
-    if (sortHeaderKey === property && direction === "ASC") {
-      order = "DESC";
-    }
-    updateHistorySearch({ ...queryString.parse(location.search), sort: sortHeaderKey, order });
-  }
-
-  if (usersQuery.isLoading) {
+  if (usersIsLoading) {
     return (
       <FeatureLayout handleSearchChange={handleSearchChange}>
         <DataTableSkeleton />
@@ -135,7 +138,7 @@ const UserList: React.FC = () => {
     );
   }
 
-  if (usersQuery.isError) {
+  if (usersIsError) {
     return (
       <FeatureLayout handleSearchChange={handleSearchChange}>
         <ErrorMessage />
@@ -146,9 +149,11 @@ const UserList: React.FC = () => {
     <FeatureLayout handleSearchChange={handleSearchChange}>
       <UsersTable
         handleNavigateToUser={handleNavigateToUser}
-        handlePaginationChange={handlePaginationChange}
-        handleSort={handleSort}
-        usersData={usersQuery.data}
+        location={location}
+        sort={sort}
+        order={order}
+        tableData={usersData}
+        updateHistorySearch={updateHistorySearch}
       />
     </FeatureLayout>
   );
@@ -198,24 +203,42 @@ const headers = [
 
 interface UsersTableProps {
   handleNavigateToUser: (userId: string) => void;
-  handlePaginationChange: (pagination: { page: number; pageSize: number }) => void;
-  handleSort: (e: React.SyntheticEvent, sort: { sortHeaderKey: string }) => void;
-  usersData: PaginatedResponse<FlowUser>;
+  updateHistorySearch: Function;
+  location: any;
+  sort: string;
+  order: string;
+  tableData: {
+    number: number;
+    size: number;
+    totalElements: number;
+    content: any;
+  };
 }
 
-const UsersTable: React.FC<UsersTableProps> = ({
-  handleNavigateToUser,
-  handlePaginationChange,
-  handleSort,
-  usersData,
-}) => {
+function UsersTable(props: UsersTableProps) {
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
-  const { number: page, sort, totalElements, totalPages, records } = usersData;
+  const { number, size, totalElements, content } = props.tableData;
 
-  return records?.length > 0 ? (
+  function handlePaginationChange({ page, pageSize }: { page: number; pageSize: number }) {
+    props.updateHistorySearch({
+      ...queryString.parse(props.location.search),
+      page: page - 1, // We have to decrement by one to offset the table pagination adjustment
+      limit: pageSize,
+    });
+  }
+
+  function handleSort(e: any, { sortHeaderKey }: { sortHeaderKey: string }) {
+    let order = "ASC";
+    if (props.order === "ASC") {
+      order = "DESC";
+    }
+    props.updateHistorySearch({ ...queryString.parse(props.location.search), sort: sortHeaderKey, order });
+  }
+
+  return content?.length > 0 ? (
     <>
       <DataTable
-        rows={records}
+        rows={content}
         headers={headers}
         render={({ rows, headers, getHeaderProps }: any) => (
           <TableContainer>
@@ -230,8 +253,8 @@ const UsersTable: React.FC<UsersTableProps> = ({
                         isSortable: header.sortable,
                         onClick: handleSort,
                       })}
-                      isSortHeader={sort[0].property === header.key}
-                      sortDirection={sort[0].direction}
+                      isSortHeader={props.sort === header.key}
+                      sortDirection={props.order}
                     >
                       {header.header}
                     </TableHeader>
@@ -243,9 +266,9 @@ const UsersTable: React.FC<UsersTableProps> = ({
                   <TableRow
                     className={styles.tableRow}
                     key={row.id}
-                    onClick={() => handleNavigateToUser(row.id)}
+                    onClick={() => props.handleNavigateToUser(row.id)}
                     onKeyDown={(e: React.SyntheticEvent) =>
-                      isAccessibleKeyboardEvent(e) && handleNavigateToUser(row.id)
+                      isAccessibleKeyboardEvent(e) && props.handleNavigateToUser(row.id)
                     }
                     tabIndex={-1}
                   >
@@ -272,8 +295,8 @@ const UsersTable: React.FC<UsersTableProps> = ({
       />
       <Pagination
         onChange={handlePaginationChange}
-        page={page + 1}
-        pageSize={totalPages}
+        page={number + 1}
+        pageSize={size}
         pageSizes={PAGE_SIZES}
         totalItems={totalElements}
       />
@@ -281,6 +304,6 @@ const UsersTable: React.FC<UsersTableProps> = ({
   ) : (
     <EmptyState message="No users found" />
   );
-};
+}
 
 export default UsersContainer;

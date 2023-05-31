@@ -1,22 +1,5 @@
-const manageUsers = {
-  totalPages: 1,
-  totalElements: 2,
-  last: true,
-  sort: [
-    {
-      direction: "ASC",
-      property: "firstLoginDate",
-      ignoreCase: false,
-      nullHandling: "NATIVE",
-      descending: false,
-      ascending: true,
-    },
-  ],
-  first: true,
-  numberOfElements: 2,
-  size: 100,
-  number: 0,
-  records: [
+const users = {
+  content: [
     {
       id: "5f170b3df6ab327e302cb0a5",
       email: "trbula@us.ibm.com",
@@ -145,6 +128,20 @@ const manageUsers = {
       status: "active",
     },
   ],
+  number: 0,
+  size: 3,
+  totalElements: 3,
+  pageable: "INSTANCE",
+  last: true,
+  totalPages: 1,
+  sort: {
+      sorted: false,
+      empty: true,
+      unsorted: true
+  },
+  first: true,
+  numberOfElements: 3,
+  empty: false
 };
 
-export default manageUsers;
+export default users;
