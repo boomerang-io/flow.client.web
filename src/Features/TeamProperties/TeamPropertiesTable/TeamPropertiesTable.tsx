@@ -147,7 +147,7 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
   const totalItems = properties.length;
-  const tableData = properties.map((p, index) => ({ ...p, id: index }));
+  const tableData = properties.map((p, index) => ({ ...p, id: index.toString() }));
 
   return (
     <>
