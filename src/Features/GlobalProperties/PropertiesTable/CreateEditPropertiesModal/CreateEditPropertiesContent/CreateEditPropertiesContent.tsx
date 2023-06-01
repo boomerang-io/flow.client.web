@@ -2,7 +2,14 @@ import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Loading, ModalFlowForm, notify, ToastNotification, TextInput, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  Loading,
+  ModalFlowForm,
+  notify,
+  ToastNotification,
+  TextInput,
+  Toggle,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -17,7 +24,7 @@ type Props = {
   cancelRequestRef: any;
 };
 
-const configUrl = serviceUrl.getGlobalConfiguration();
+const configUrl = serviceUrl.getGlobalParams();
 
 function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKeys, cancelRequestRef }: Props) {
   const initialState = {

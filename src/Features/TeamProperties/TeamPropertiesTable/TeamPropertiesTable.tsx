@@ -147,6 +147,7 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
   const totalItems = properties.length;
+  const tableData = properties.map((p, index) => ({ ...p, id: index }));
 
   return (
     <>
@@ -192,7 +193,7 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
           ) : totalItems > 0 ? (
             <>
               <DataTable
-                rows={properties}
+                rows={tableData}
                 headers={headers}
                 render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
                   <TableContainer>

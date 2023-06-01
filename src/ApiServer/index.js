@@ -135,10 +135,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        * Global Parameters
        */
 
-      this.get(serviceUrl.getGlobalConfiguration({ query: null }), (schema) => {
-        return schema.db.globlaParams.all();
+      this.get(serviceUrl.getGlobalParams({ query: null }), (schema) => {
+        return schema.db.globlaParams[0];
       });
-      this.post(serviceUrl.getGlobalConfiguration(), (schema, request) => {
+      this.post(serviceUrl.getGlobalParams(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         schema.globalParams.create({ id: uuid(), ...body });
         return schema.globalParams.all();

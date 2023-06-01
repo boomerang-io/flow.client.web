@@ -47,7 +47,7 @@ export const serviceUrl = {
   getActions: ({ query }: QueryArg) => `${BASE_URL}/action/query${query ? "?" + query : ""}`,
   getFeatureFlags: () => `${BASE_URL}/features`,
   getNavigation: ({ query }: QueryArg) => `${BASE_URL}/navigation${query}`,
-  getGlobalConfiguration: () => `${BASE_URL}/global-params`,
+  getGlobalParams: () => `${BASE_URL}/global-params`,
   getGlobalProperty: ({ id }: IdArg) => `${BASE_URL}/global-params/${id}`,
   getGlobalTokens: () => `${BASE_URL}/tokens/global-tokens`,
   getInsights: ({ query }: QueryId) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
@@ -216,7 +216,7 @@ export const resolver = {
       method: HttpMethod.Post,
     }),
   postGlobalPropertyRequest: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getGlobalConfiguration(), body, method: HttpMethod.Post }),
+    cancellableResolver({ url: serviceUrl.getGlobalParams(), body, method: HttpMethod.Post }),
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
   postSchedule: ({ teamId, body }) => axios.post(serviceUrl.postSchedule({ teamId }), body),
   postTeamPropertyRequest: ({ id, body }) =>

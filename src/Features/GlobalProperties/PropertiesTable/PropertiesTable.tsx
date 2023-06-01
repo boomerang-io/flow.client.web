@@ -23,7 +23,7 @@ import styles from "./propertiesTable.module.scss";
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
 
-const configUrl = serviceUrl.getGlobalConfiguration();
+const configUrl = serviceUrl.getGlobalParams();
 
 const defaultProperty = {
   value: "",
