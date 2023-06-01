@@ -308,12 +308,6 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
               <Route path={AppPath.TeamList}>
                 <Teams />
               </Route>
-              <Route path={AppPath.TeamApprovers}>
-                <ApproverGroups />
-              </Route>
-              <Route path={AppPath.TeamTokens}>
-                <TeamTokens />
-              </Route>
               <Route path={AppPath.UserList}>
                 <Users />
               </Route>
@@ -357,6 +351,12 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 path={AppPath.TeamProperties}
                 userRole={teamPropertiesEnabled ? "*" : ""}
               />
+              <Route path={AppPath.TeamApprovers}>
+                <ApproverGroups />
+              </Route>
+              <Route path={AppPath.TeamTokens}>
+                <TeamTokens />
+              </Route>
               {/* {<ProtectedRoute
             allowedUserRoles={["*"]}
             component={<TeamTokens />}

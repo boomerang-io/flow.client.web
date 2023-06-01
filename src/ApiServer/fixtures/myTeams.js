@@ -226,7 +226,22 @@ const myTeams = {
         monthlyResetDate: "August 1, 2020",
         currentWorkflowsPersistentStorage: 0,
       },
-      users: [],
+      users: [
+        {
+          id: "61d38d133aa9034ded32cae6",
+          email: "admin@flowabl.io",
+          name: "admin@flowabl.io"
+        },
+        {
+          id: "61d5db083aa9034ded32cae7",
+          email: "boomrng@us.ibm.com",
+          name: "Boomerang Joe"
+        },
+        {
+          id: "61ddfb07c5d30f5de052426b",
+          email: "marcus.d.roy@gmail.com",
+          name: "marcus.d.roy@gmail.com"
+        }],
       parameters: [],
       approverGroups: [],
     },
@@ -397,7 +412,22 @@ const myTeams = {
         monthlymonthlyResetDate: "August 1, 2020",
         currentWorkflowsPersistentStorage: 0,
       },
-      users: [],
+      users: [
+        {
+          id: "61d38d133aa9034ded32cae6",
+          email: "admin@flowabl.io",
+          name: "admin@flowabl.io"
+        },
+        {
+          id: "61d5db083aa9034ded32cae7",
+          email: "boomrng@us.ibm.com",
+          name: "Boomerang Joe"
+        },
+        {
+          id: "61ddfb07c5d30f5de052426b",
+          email: "marcus.d.roy@gmail.com",
+          name: "marcus.d.roy@gmail.com"
+        }],
       parameters: [],
       approverGroups: [],
     },],

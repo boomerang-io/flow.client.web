@@ -20,10 +20,10 @@ function CreateEditGroupModal({ isEdit, approverGroup, approverGroups, team }: C
    */
   let approverGroupNames: string[] = [];
   if (Array.isArray(approverGroups)) {
-    approverGroupNames = approverGroups.map((configurationObj) => configurationObj.groupName.toLowerCase());
+    approverGroupNames = approverGroups.map((configurationObj) => configurationObj.name.toLowerCase());
     if (isEdit && approverGroup) {
       approverGroupNames = approverGroupNames.filter(
-        (approverGroupItem) => approverGroupItem !== approverGroup.groupName.toLowerCase()
+        (approverGroupItem) => approverGroupItem !== approverGroup.name.toLowerCase()
       );
     }
   }
@@ -50,7 +50,7 @@ function CreateEditGroupModal({ isEdit, approverGroup, approverGroups, team }: C
         )
       }
       modalHeaderProps={{
-        title: isEdit && approverGroup ? `Edit ${approverGroup.groupName}` : "Create new group",
+        title: isEdit && approverGroup ? `Edit ${approverGroup.name}` : "Create new group",
         subtitle:
           "Choose a group name, then add users from a selected Team. Groups can only be formed with users from the same Team. Members will receive an email notification about their new permissions.",
       }}

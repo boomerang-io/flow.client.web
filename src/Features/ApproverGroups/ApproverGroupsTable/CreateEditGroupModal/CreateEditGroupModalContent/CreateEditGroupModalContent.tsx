@@ -29,31 +29,31 @@ function RenderMembersList({ members, approvers, setFieldValue }: RenderMembersL
   const [searchQuery, setSearchQuery] = React.useState("");
   const filteredMembers = Boolean(searchQuery)
     ? matchSorter(members, searchQuery, {
-        keys: ["userName", "userEmail"],
+        keys: ["name", "email"],
       })
     : members;
-  const filteredMembersIds = filteredMembers.map((member: Approver) => member.userId);
-  const currentApproversIds = approvers.map((approver: Approver) => approver.userId);
+  const filteredMembersIds = filteredMembers.map((member: Approver) => member.id);
+  const currentApproversIds = approvers.map((approver: Approver) => approver.id);
   const allMembersChecked =
     filteredMembers.length !== 0 &&
     filteredMembers.length ===
-      filteredMembers.filter((member: Approver) => currentApproversIds.includes(member.userId)).length;
+      filteredMembers.filter((member: Approver) => currentApproversIds.includes(member.id)).length;
 
   const handleSelectAllMembers = () => {
     if (!allMembersChecked) {
       setFieldValue("approvers", [
         ...approvers,
-        ...filteredMembers.filter((member: Approver) => !currentApproversIds.includes(member.userId)),
+        ...filteredMembers.filter((member: Approver) => !currentApproversIds.includes(member.id)),
       ]);
     } else
       setFieldValue(
         "approvers",
-        approvers.filter((approver: Approver) => !filteredMembersIds.includes(approver.userId))
+        approvers.filter((approver: Approver) => !filteredMembersIds.includes(approver.id))
       );
   };
 
   const handleSelectMember = ({ member, arrayHelpers }: { member: Approver; arrayHelpers: any }) => {
-    const memberIndex = approvers.findIndex((approver) => approver.userId === member.userId);
+    const memberIndex = approvers.findIndex((approver) => approver.id === member.id);
     if (memberIndex >= 0) arrayHelpers.remove(memberIndex);
     else arrayHelpers.push({ ...member });
   };
@@ -82,13 +82,13 @@ function RenderMembersList({ members, approvers, setFieldValue }: RenderMembersL
             filteredMembers.map((member: Approver, index: number) => (
               <li className={styles.userListCheckItem}>
                 <Checkbox
-                  id={member.userId}
-                  labelText={member.userName}
-                  checked={currentApproversIds.includes(member.userId)}
+                  id={member.id}
+                  labelText={member.name}
+                  checked={currentApproversIds.includes(member.id)}
                   className={styles.userName}
                   onChange={() => handleSelectMember({ member, arrayHelpers })}
                 />
-                <p className={styles.userEmail}>{member.userEmail}</p>
+                <p className={styles.userEmail}>{member.email}</p>
               </li>
             ))
           }
@@ -105,7 +105,7 @@ type RenderEditMembersInGroupProps = {
 };
 
 function RenderEditMembersInGroup({ members, title, isRemove = false }: RenderEditMembersInGroupProps) {
-  const determineMemberIndex = (userId: string) => members.findIndex((approver) => approver.userId === userId);
+  const determineMemberIndex = (userId: string) => members.findIndex((approver) => approver.id === userId);
   return (
     <div className={styles.membersContainer}>
       <p className={styles.listTitle}>{`${title} (${members.length})`}</p>
@@ -117,15 +117,15 @@ function RenderEditMembersInGroup({ members, title, isRemove = false }: RenderEd
               sortBy(members, ["userName"]).map((member) => (
                 <li className={styles.userListItem}>
                   <div className={styles.memberInfo}>
-                    <p className={styles.userName}>{member.userName}</p>
-                    <p className={styles.userEmail}>{member.userEmail}</p>
+                    <p className={styles.userName}>{member.name}</p>
+                    <p className={styles.userEmail}>{member.email}</p>
                   </div>
                   {isRemove ? (
                     <div
                       role="button"
-                      onClick={() => arrayHelpers.remove(determineMemberIndex(member.userId))}
+                      onClick={() => arrayHelpers.remove(determineMemberIndex(member.id))}
                       onKeyDown={(e: any) =>
-                        isAccessibleKeyboardEvent(e) && arrayHelpers.remove(determineMemberIndex(member.userId))
+                        isAccessibleKeyboardEvent(e) && arrayHelpers.remove(determineMemberIndex(member.id))
                       }
                       tabIndex={0}
                     >
@@ -164,7 +164,6 @@ type Props = {
   approverGroup?: ApproverGroup;
   approverGroups: string[];
   team?: FlowTeam | null;
-  // teams: FlowTeam[];
   cancelRequestRef: any;
 };
 
@@ -177,17 +176,19 @@ function CreateEditGroupModalContent({
   cancelRequestRef,
 }: Props) {
   const queryClient = useQueryClient();
-  const flowTeamUsersUrl = serviceUrl.getTeamMembers({ teamId: team?.id });
+  const teamMembers = team?.users;
+  console.log("teamMembers", teamMembers);
+  // const flowTeamUsersUrl = serviceUrl.getTeamMembers({ teamId: team?.id });
 
-  const {
-    data: teamMembers,
-    isLoading: teamMembersIsLoading,
-    error: teamMembersError,
-  } = useQuery({
-    queryKey: flowTeamUsersUrl,
-    queryFn: resolver.query(flowTeamUsersUrl),
-    enabled: Boolean(team?.id),
-  });
+  // const {
+  //   data: teamMembers,
+  //   isLoading: teamMembersIsLoading,
+  //   error: teamMembersError,
+  // } = useQuery({
+  //   queryKey: flowTeamUsersUrl,
+  //   queryFn: resolver.query(flowTeamUsersUrl),
+  //   enabled: Boolean(team?.id),
+  // });
 
   const approverGroupsUrl = serviceUrl.resourceApproverGroups({ teamId: team?.id, groupId: undefined });
 
@@ -233,7 +234,7 @@ function CreateEditGroupModalContent({
 
   const handleSubmit = async (values: any) => {
     values.approvers.forEach((approver: any) => delete approver.id);
-    const newTeamApproverGroup = isEdit ? { ...values, groupId: approverGroup?.groupId } : { ...values };
+    const newTeamApproverGroup = isEdit ? { ...values, groupId: approverGroup?.id } : { ...values };
 
     if (isEdit) {
       try {
@@ -278,8 +279,8 @@ function CreateEditGroupModalContent({
   return (
     <Formik
       initialValues={{
-        groupName: approverGroup && approverGroup.groupName ? approverGroup.groupName : "",
-        approvers: approverGroup && approverGroup.approvers ? sortBy(approverGroup.approvers, ["userName"]) : [],
+        groupName: approverGroup && approverGroup.name ? approverGroup.name : "",
+        approvers: approverGroup && approverGroup.approvers ? sortBy(approverGroup.approvers, ["name"]) : [],
       }}
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({
@@ -293,15 +294,15 @@ function CreateEditGroupModalContent({
       {(props) => {
         const { dirty, values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } =
           props;
-        const currentGroupMembersIds = values.approvers.map((approver) => approver.userId);
-        const sortedTeamMembers = sortBy(teamMembers, ["userName"]);
+        const currentGroupMembersIds = values.approvers.map((approver) => approver.id);
+        const sortedTeamMembers = sortBy(teamMembers, ["name"]);
         const eligibleMembers = teamMembers
-          ? sortedTeamMembers.filter((teamMember) => !currentGroupMembersIds.includes(teamMember.userId))
+          ? sortedTeamMembers.filter((teamMember) => !currentGroupMembersIds.includes(teamMember.id))
           : [];
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
-            {(loading || teamMembersIsLoading) && <Loading />}
+            {loading && <Loading />}
             <ModalBody className={styles.formBody}>
               <div className={styles.input}>
                 <TextInput
@@ -317,9 +318,7 @@ function CreateEditGroupModalContent({
                   invalidText={errors.groupName}
                 />
               </div>
-              {Boolean(teamMembersError) ? (
-                <ErrorMessage />
-              ) : isEdit ? (
+              {isEdit ? (
                 <>
                   <RenderEditMembersInGroup title="Group members" members={values.approvers} isRemove />
                   <RenderEditMembersInGroup title="Team members not in this group" members={eligibleMembers} />
@@ -337,7 +336,7 @@ function CreateEditGroupModalContent({
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={!isValid || loading || !dirty || Boolean(teamMembersError)}>
+              <Button type="submit" disabled={!isValid || loading || !dirty}>
                 {hasError ? "Try Again" : buttonText}
               </Button>
             </ModalFooter>
