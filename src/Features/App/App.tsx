@@ -48,7 +48,7 @@ const Home = lazy(() => import("Features/Home"));
 
 const getUserUrl = serviceUrl.getUserProfile();
 const getContextUrl = serviceUrl.getContext();
-const getTeamsUrl = serviceUrl.getMyTeams({ query: "status=active" });
+const getTeamsUrl = serviceUrl.getMyTeams({ query: "statuses=active" });
 const featureFlagsUrl = serviceUrl.getFeatureFlags();
 const browser = detect();
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
