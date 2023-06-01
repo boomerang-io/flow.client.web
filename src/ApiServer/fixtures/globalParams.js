@@ -1,4 +1,4 @@
-const config = [
+const globalParams = [
   {
     value: "Test value",
     readOnly: false,
@@ -19,4 +19,4 @@ const config = [
   },
 ];
 
-export default config;
+export default globalParams;

@@ -31,7 +31,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       activity: Model,
       approverGroups: Model,
       changelog: Model,
-      config: Model,
+      globalParams: Model,
       featureFlag: Model,
       insights: Model,
       manageTeam: Model,
@@ -132,26 +132,28 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       /**
-       * Global Properties
+       * Global Parameters
        */
 
-      this.get(serviceUrl.getGlobalConfiguration());
+      this.get(serviceUrl.getGlobalConfiguration({ query: null }), (schema) => {
+        return schema.db.globlaParams.all();
+      });
       this.post(serviceUrl.getGlobalConfiguration(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
-        schema.config.create({ id: uuid(), ...body });
-        return schema.config.all();
+        schema.globalParams.create({ id: uuid(), ...body });
+        return schema.globalParams.all();
       });
 
       this.patch(serviceUrl.getGlobalProperty({ id: ":id" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let { id } = request.params;
-        let config = schema.config.find(id);
-        config.update({ ...body });
+        let param = schema.globalParams.find(id);
+        param.update({ ...body });
       });
 
       this.delete(serviceUrl.getGlobalProperty({ id: ":id" }), (schema, request) => {
         let { id } = request.params;
-        schema.db.config.remove({ id });
+        schema.db.globalParams.remove({ id });
       });
 
       /**

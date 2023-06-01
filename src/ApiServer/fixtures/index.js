@@ -5,7 +5,7 @@ export { default as actionsSummary } from "./actionsSummary";
 export { default as approvals } from "./approvals";
 export { default as approverGroups } from "./approverGroups";
 export { default as availableParameters } from "./availableParameters";
-export { default as config } from "./config";
+export { default as globalParams } from "./globalParams";
 export { default as changelogs } from "./changelogs";
 export { default as featureFlags } from "./featureFlags";
 export { default as insights } from "./insights";
