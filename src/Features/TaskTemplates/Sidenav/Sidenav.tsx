@@ -206,7 +206,7 @@ const Task: React.FC<TaskProps> = (props) => {
 
   return (
     <SideNavLink
-      to={appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion })}
+      to={appLink.taskTemplateEdit({ id: task.id, version: task.version.toString() })}
       icon={TaskIcon ? TaskIcon.Icon : Bee}
     >
       <div className={styles.task}>

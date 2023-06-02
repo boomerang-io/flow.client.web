@@ -41,7 +41,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       revision: Model,
       setting: Model,
       summary: Model,
-      tasktemplate: Model,
+      tasktemplates: Model,
       team: Model,
       teamApproverUsers: Model,
       teamNameValidate: Model,
@@ -225,8 +225,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        * Task Templates
        */
       const tasktemplatePath = serviceUrl.getTaskTemplates({ query: null });
-      this.get(tasktemplatePath, (schema, request) => {
-        return schema.db.taskTemplate[0];
+      this.get(tasktemplatePath, (schema) => {
+        return schema.db.taskTemplates[0];
       });
       this.put(tasktemplatePath, (schema, request) => {
         let body = JSON.parse(request.requestBody);

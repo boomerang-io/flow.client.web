@@ -247,6 +247,7 @@ type Pageable<T> = {
 
 export type PaginatedUserResponse = Pageable<FlowUser>;
 export type PaginatedTeamResponse = Pageable<FlowTeam>;
+export type PaginatedTaskTemplateResponse = Pageable<TaskTemplate>;
 export type PaginatedWorkflowResponse = Pageable<Workflow>;
 export type PaginatedSchedulesResponse = Pageable<ScheduleUnion>;
 

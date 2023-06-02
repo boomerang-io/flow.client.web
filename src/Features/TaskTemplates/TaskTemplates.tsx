@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useFeature } from "flagged";
-import { useQuery } from "Hooks";
+import { useQuery } from "react-query";
 import { useQueryClient } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import { Box } from "reflexbox";
@@ -12,25 +12,32 @@ import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
 import TaskTemplateYamlEditor from "./TaskTemplateYamlEditor";
 import orderBy from "lodash/orderBy";
-import { TaskTemplate } from "Types";
+import { TaskTemplate, PaginatedTaskTemplateResponse } from "Types";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
-import { serviceUrl } from "Config/servicesConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./taskTemplates.module.scss";
 
 const TaskTemplatesContainer: React.FC = () => {
   const queryClient = useQueryClient();
   const match = useRouteMatch();
-  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ query: null });
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
-  const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);
+  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ query: `statuses=active` });
+  const {
+    data: taskTemplatesData,
+    error: taskTemplatesDataError,
+    isLoading,
+  } = useQuery<PaginatedTaskTemplateResponse, string>({
+    queryKey: getTaskTemplatesUrl,
+    queryFn: resolver.query(getTaskTemplatesUrl),
+  });
 
   const addTemplateInState = (newTemplate: TaskTemplate) => {
-    const updatedTemplatesData = [...taskTemplatesData];
+    const updatedTemplatesData = [...taskTemplatesData?.content];
     updatedTemplatesData.push(newTemplate);
     queryClient.setQueryData(getTaskTemplatesUrl, orderBy(updatedTemplatesData, "name", "asc"));
   };
   const updateTemplateInState = (updatedTemplate: TaskTemplate) => {
-    const updatedTemplatesData = [...taskTemplatesData];
+    const updatedTemplatesData = [...taskTemplatesData.content];
     const templateToUpdateIndex = updatedTemplatesData.findIndex((template) => template.id === updatedTemplate.id);
     // If we found it
     if (templateToUpdateIndex !== -1) {
@@ -56,7 +63,7 @@ const TaskTemplatesContainer: React.FC = () => {
       <Helmet>
         <title>Task Manager</title>
       </Helmet>
-      <Sidenav taskTemplates={taskTemplatesData.content} addTemplateInState={addTemplateInState} />
+      <Sidenav taskTemplates={taskTemplatesData?.content} addTemplateInState={addTemplateInState} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -66,14 +73,14 @@ const TaskTemplatesContainer: React.FC = () => {
         <Route path={AppPath.TaskTemplateYaml}>
           <TaskTemplateYamlEditor
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesData.content}
+            taskTemplates={taskTemplatesData?.content}
             updateTemplateInState={updateTemplateInState}
           />
         </Route>
         <Route path={AppPath.TaskTemplateEdit}>
           <TaskTemplateOverview
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesData.content}
+            taskTemplates={taskTemplatesData?.content}
             updateTemplateInState={updateTemplateInState}
           />
         </Route>
