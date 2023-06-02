@@ -89,7 +89,11 @@ function TaskTemplatesContainer() {
       <Helmet>
         <title>Team Tasks</title>
       </Helmet>
-      <Sidenav activeTeam={activeTeam} addTemplateInState={addTemplateInState} taskTemplates={taskTemplatesData} />
+      <Sidenav
+        activeTeam={activeTeam}
+        addTemplateInState={addTemplateInState}
+        taskTemplates={taskTemplatesData.content}
+      />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -102,14 +106,14 @@ function TaskTemplatesContainer() {
         <Route path={AppPath.ManageTaskTemplateYaml}>
           <TaskTemplateYamlEditor
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesData}
+            taskTemplates={taskTemplatesData.content}
             updateTemplateInState={updateTemplateInState}
           />
         </Route>
         <Route path={AppPath.ManageTaskTemplateEdit}>
           <TaskTemplateOverview
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesData}
+            taskTemplates={taskTemplatesData.content}
             updateTemplateInState={updateTemplateInState}
           />
         </Route>

@@ -336,7 +336,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
               <ProtectedRoute
                 allowedUserRoles={["*"]}
                 component={() => <ManageTeamTasks />}
-                path={AppPath.ManageTaskTemplatesTeam}
+                path={AppPath.ManageTaskTemplates}
                 userRole={teamTasksEnabled ? "*" : ""}
               />
               <ProtectedRoute

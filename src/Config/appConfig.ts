@@ -32,7 +32,6 @@ type AppPathKey =
   | "Home"
   | "Insights"
   | "ManageTaskTemplates"
-  | "ManageTaskTemplatesTeam"
   | "ManageTaskTemplateEdit"
   | "ManageTaskTemplateYaml"
   | "Properties"
@@ -80,9 +79,8 @@ export const AppPath: Record<AppPathKey, string> = {
 
   //Manage
   ManageTaskTemplates: `/:teamId/manage/task-templates`,
-  ManageTaskTemplatesTeam: `/:teamId/manage/task-templates/team/:teamId`,
-  ManageTaskTemplateEdit: `/:teamId/manage/task-templates/team/:teamId/:taskId/:version`,
-  ManageTaskTemplateYaml: `/:teamId/manage/task-templates/team/:teamId/:taskId/:version/yaml-editor`,
+  ManageTaskTemplateEdit: `/:teamId/manage/task-templates/:name/:version`,
+  ManageTaskTemplateYaml: `/:teamId/manage/task-templates/:name/:version/yaml-editor`,
   TeamApprovers: `/:teamId/manage/approver-groups`,
   TeamProperties: `/:teamId/manage/team-parameters`,
 
