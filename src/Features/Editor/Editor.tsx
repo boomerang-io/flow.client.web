@@ -33,7 +33,7 @@ import ScriptNodeModel from "Utils/dag/scriptNode/ScriptNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
-import { TaskModel, WorkflowSummary, WorkflowRevision, WorkflowView } from "Types";
+import { TaskTemplate, WorkflowSummary, WorkflowRevision, WorkflowView } from "Types";
 import styles from "./editor.module.scss";
 
 export default function EditorContainer() {
@@ -140,7 +140,7 @@ interface EditorStateContainerProps {
       }
     | any;
   setRevisionNumber: (revisionNumber: number) => void;
-  taskTemplatesData: Array<TaskModel>;
+  taskTemplatesData: Array<TaskTemplate>;
   workflowId: string;
 }
 

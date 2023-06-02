@@ -9,13 +9,13 @@ import { CheckboxList } from "@boomerang-io/carbon-addons-boomerang-react";
 import Task from "./Task";
 import { taskIcons } from "Utils/taskIcons";
 import { ChevronLeft, SettingsAdjust, Recommend } from "@carbon/react/icons";
-import { TaskModel } from "Types";
+import { TaskTemplate } from "Types";
 import styles from "./tasks.module.scss";
 
 const FIRST_TASK_CATEGORY = "workflow";
 
 interface TaskProps {
-  tasks: Array<TaskModel>;
+  tasks: Array<TaskTemplate>;
 }
 export default class Tasks extends Component<TaskProps> {
   state = {

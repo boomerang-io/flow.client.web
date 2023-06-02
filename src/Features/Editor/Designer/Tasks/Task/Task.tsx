@@ -4,10 +4,10 @@ import { Tile } from "@carbon/react";
 import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { taskIcons } from "Utils/taskIcons";
 import { Bee, Recommend } from "@carbon/react/icons";
-import { TaskModel } from "Types";
+import { TaskTemplate } from "Types";
 import styles from "./task.module.scss";
 
-const Task: React.FC<TaskModel> = ({ name, icon, verified, scope, taskData }) => {
+const Task: React.FC<TaskTemplate> = ({ name, icon, verified, scope, taskData }) => {
   console.log({ taskData });
   const [isDragActive, setIsDragActive] = React.useState(false);
   const isTeamTask = scope === "team";

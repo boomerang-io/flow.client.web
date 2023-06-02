@@ -411,19 +411,23 @@ export interface ChangeLogItem {
 
 export type ChangeLog = Array<ChangeLogItem>;
 
-export interface TaskModel {
-  category: string;
-  currentVersion: number;
-  description?: string;
+export interface TaskTemplate {
   id: string;
-  icon: string;
-  model: string;
   name: string;
-  revisions: any[];
+  displayName: string;
+  description?: string;
   status: string;
+  category: string;
+  version: number;
+  creationDate: string;
+  labels?: Record<string, string>;
+  icon: string;
+  type: string;
+  changelog: ChangeLogItem;
   scope: string; //global or team
   verified: boolean;
-  taskData: any;
+  config: Array<DataDrivenInput>;
+  spec: any;
 }
 
 export interface FlowTeam {

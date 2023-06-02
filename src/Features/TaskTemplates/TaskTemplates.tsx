@@ -12,7 +12,7 @@ import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
 import TaskTemplateYamlEditor from "./TaskTemplateYamlEditor";
 import orderBy from "lodash/orderBy";
-import { TaskModel } from "Types";
+import { TaskTemplate } from "Types";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./taskTemplates.module.scss";
@@ -24,12 +24,12 @@ const TaskTemplatesContainer: React.FC = () => {
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);
 
-  const addTemplateInState = (newTemplate: TaskModel) => {
+  const addTemplateInState = (newTemplate: TaskTemplate) => {
     const updatedTemplatesData = [...taskTemplatesData];
     updatedTemplatesData.push(newTemplate);
     queryClient.setQueryData(getTaskTemplatesUrl, orderBy(updatedTemplatesData, "name", "asc"));
   };
-  const updateTemplateInState = (updatedTemplate: TaskModel) => {
+  const updateTemplateInState = (updatedTemplate: TaskTemplate) => {
     const updatedTemplatesData = [...taskTemplatesData];
     const templateToUpdateIndex = updatedTemplatesData.findIndex((template) => template.id === updatedTemplate.id);
     // If we found it
@@ -56,7 +56,7 @@ const TaskTemplatesContainer: React.FC = () => {
       <Helmet>
         <title>Task Manager</title>
       </Helmet>
-      <Sidenav taskTemplates={taskTemplatesData} addTemplateInState={addTemplateInState} />
+      <Sidenav taskTemplates={taskTemplatesData.content} addTemplateInState={addTemplateInState} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -66,14 +66,14 @@ const TaskTemplatesContainer: React.FC = () => {
         <Route path={AppPath.TaskTemplateYaml}>
           <TaskTemplateYamlEditor
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesData}
+            taskTemplates={taskTemplatesData.content}
             updateTemplateInState={updateTemplateInState}
           />
         </Route>
         <Route path={AppPath.TaskTemplateEdit}>
           <TaskTemplateOverview
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesData}
+            taskTemplates={taskTemplatesData.content}
             updateTemplateInState={updateTemplateInState}
           />
         </Route>

@@ -15,22 +15,22 @@ import { appLink } from "Config/appConfig";
 import { Bee, ViewOff, Recommend, SettingsAdjust } from "@carbon/react/icons";
 import { taskIcons } from "Utils/taskIcons";
 import { TaskTemplateStatus } from "Constants";
-import { FlowTeam, TaskModel } from "Types";
+import { FlowTeam, TaskTemplate } from "Types";
 import styles from "./sideInfo.module.scss";
 
 const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list";
 
 interface SideInfoProps {
   activeTeam?: FlowTeam | null;
-  addTemplateInState: (newTemplate: TaskModel) => void;
+  addTemplateInState: (newTemplate: TaskTemplate) => void;
   isLoading?: boolean;
-  taskTemplates: TaskModel[];
+  taskTemplates: TaskTemplate[];
 }
 
 const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isLoading, taskTemplates }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
-  const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskModel>>(
+  const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskTemplate>>(
     taskTemplates?.filter((task) => task.status === TaskTemplateStatus.Active) ?? []
   );
   const [openCategories, setOpenCategories] = React.useState(false);
@@ -50,7 +50,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
   const location = useLocation();
 
   let categories = tasksToDisplay
-    ?.reduce((acc: string[], task: TaskModel) => {
+    ?.reduce((acc: string[], task: TaskTemplate) => {
       const newCategory = !acc.find((category) => task.category === category);
       if (newCategory) acc.push(task.category);
       return acc;
@@ -223,7 +223,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
 
 interface TaskProps {
   isActive: boolean;
-  task: TaskModel;
+  task: TaskTemplate;
   activeTeam?: FlowTeam | null;
 }
 const Task: React.FC<TaskProps> = (props) => {

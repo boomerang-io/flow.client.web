@@ -28,7 +28,7 @@ import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath } from "Config/appConfig";
 import { Draggable as DraggableIcon, TrashCan, Archive, Bee, Recommend, Identification } from "@carbon/react/icons";
-import { DataDrivenInput, TaskModel } from "Types";
+import { DataDrivenInput, TaskTemplate } from "Types";
 import styles from "./taskTemplateOverview.module.scss";
 
 const ArchiveText: React.FC = () => (
@@ -221,7 +221,7 @@ const Result: React.FC<ResultProps> = ({
 
 type TaskTemplateOverviewProps = {
   taskTemplates: any[];
-  updateTemplateInState: (args: TaskModel) => void;
+  updateTemplateInState: (args: TaskTemplate) => void;
   editVerifiedTasksEnabled: any;
 };
 
@@ -675,18 +675,18 @@ export function TaskTemplateOverview({
                             values.currentConfig.map((field, index) => (
                               <Draggable key={field.key} draggableId={field.key} index={index}>
                                 {(provided) => (
-                                    <Field
-                                      field={field}
-                                      dragHandleProps={provided.dragHandleProps}
-                                      draggableProps={provided.draggableProps}
-                                      innerRef={provided.innerRef}
-                                      setFieldValue={setFieldValue}
-                                      fields={values.currentConfig}
-                                      deleteConfiguration={deleteConfiguration}
-                                      isOldVersion={isOldVersion}
-                                      isActive={isActive}
-                                      canEdit={canEdit}
-                                    />
+                                  <Field
+                                    field={field}
+                                    dragHandleProps={provided.dragHandleProps}
+                                    draggableProps={provided.draggableProps}
+                                    innerRef={provided.innerRef}
+                                    setFieldValue={setFieldValue}
+                                    fields={values.currentConfig}
+                                    deleteConfiguration={deleteConfiguration}
+                                    isOldVersion={isOldVersion}
+                                    isActive={isActive}
+                                    canEdit={canEdit}
+                                  />
                                 )}
                               </Draggable>
                             ))

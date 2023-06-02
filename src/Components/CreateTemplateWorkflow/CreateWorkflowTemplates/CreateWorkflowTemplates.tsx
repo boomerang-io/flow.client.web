@@ -13,7 +13,7 @@ import { Box } from "reflexbox";
 import WombatMessage from "Components/WombatMessage";
 import workflowIcons from "Assets/workflowIcons";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
-import { WorkflowTemplate, TaskModel } from "Types";
+import { WorkflowTemplate, TaskTemplate } from "Types";
 import { WorkflowDagEngineMode } from "Constants";
 import { Bee } from "@carbon/react/icons";
 import styles from "./createWorkflowTemplate.module.scss";

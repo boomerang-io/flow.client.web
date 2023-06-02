@@ -13,7 +13,7 @@ import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
 import TaskTemplateYamlEditor from "./TaskTemplateYamlEditor";
 import orderBy from "lodash/orderBy";
-import { TaskModel } from "Types";
+import { TaskTemplate } from "Types";
 import { useAppContext } from "Hooks";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
@@ -36,12 +36,12 @@ function TaskTemplatesContainer() {
     enabled: Boolean(activeTeam),
   });
 
-  const addTemplateInState = (newTemplate: TaskModel) => {
+  const addTemplateInState = (newTemplate: TaskTemplate) => {
     const updatedTemplatesData = [...taskTemplatesData];
     updatedTemplatesData.push(newTemplate);
     queryClient.setQueryData(getTaskTemplatesUrl, orderBy(updatedTemplatesData, "name", "asc"));
   };
-  const updateTemplateInState = (updatedTemplate: TaskModel) => {
+  const updateTemplateInState = (updatedTemplate: TaskTemplate) => {
     const updatedTemplatesData = [...taskTemplatesData];
     const templateToUpdateIndex = updatedTemplatesData.findIndex((template) => template.id === updatedTemplate.id);
     // If we found it

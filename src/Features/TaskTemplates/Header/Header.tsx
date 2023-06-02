@@ -20,7 +20,7 @@ import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
 import { Bee, Download, Save, Undo, Reset, ViewOff } from "@carbon/react/icons";
 import { FormikProps } from "formik";
-import { ComposedModalChildProps, ModalTriggerProps, TaskModel } from "Types";
+import { ComposedModalChildProps, ModalTriggerProps, TaskTemplate } from "Types";
 import styles from "./header.module.scss";
 
 interface SaveModalProps {
@@ -168,7 +168,7 @@ interface HeaderProps {
   isActive: boolean;
   isLoading: boolean;
   isOldVersion: boolean;
-  selectedTaskTemplate: TaskModel;
+  selectedTaskTemplate: TaskTemplate;
 }
 
 const Header: React.FC<HeaderProps> = ({
