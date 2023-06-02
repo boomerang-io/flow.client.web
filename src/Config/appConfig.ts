@@ -145,11 +145,11 @@ export const appLink = {
   execution: ({ executionId, workflowId }: ExecutionArgs) => `/activity/${workflowId}/execution/${executionId}`,
   home: () => "/home",
   insights: () => "/insights",
-  manageTaskTemplates: ({ teamId }: TeamIdArg) => `/manage/task-templates/team/${teamId}`,
+  manageTaskTemplates: ({ teamId }: TeamIdArg) => `/${teamId}/manage/task-templates`,
   manageTaskTemplateEdit: ({ teamId, taskId, version }: ManageTaskTemplateArgs) =>
-    `/manage/task-templates/team/${teamId}/${taskId}/${version}`,
+    `/${teamId}/manage/task-templates/${taskId}/${version}`,
   manageTaskTemplateYaml: ({ teamId, taskId, version }: ManageTaskTemplateArgs) =>
-    `/manage/task-templates/team/${teamId}/${taskId}/${version}/yaml-editor`,
+    `/${teamId}/manage/task-templates/${taskId}/${version}/yaml-editor`,
   manageUsers: () => "/admin/users",
   properties: () => "/admin/parameters",
   schedule: () => "/schedule",

@@ -3,27 +3,29 @@ import { Helmet } from "react-helmet";
 import { useFeature } from "flagged";
 import { useQuery } from "Hooks";
 import { useQueryClient } from "react-query";
-import { Route, Switch, useRouteMatch, Redirect, useParams } from "react-router-dom";
+import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import { Box } from "reflexbox";
 import queryString from "query-string";
 import ErrorDragon from "Components/ErrorDragon";
+import { useHistory } from "react-router-dom";
 import WombatMessage from "Components/WombatMessage";
 import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
 import TaskTemplateYamlEditor from "./TaskTemplateYamlEditor";
 import orderBy from "lodash/orderBy";
 import { TaskModel } from "Types";
+import { useAppContext } from "Hooks";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./taskTemplates.module.scss";
 
-const TaskTemplatesContainer: React.FC = () => {
-  const params: { teamId: string } = useParams();
-  const [activeTeam, setActiveTeam] = useState(params?.teamId ?? null);
+function TaskTemplatesContainer() {
+  const { activeTeam } = useAppContext();
+  const history = useHistory();
   const match = useRouteMatch();
   const queryClient = useQueryClient();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ teamId: params?.teamId, scope: "team" }),
+    query: queryString.stringify({ teams: activeTeam?.id }),
   });
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const {
@@ -49,19 +51,18 @@ const TaskTemplatesContainer: React.FC = () => {
     }
   };
 
+  /** Check if there is an active team or redirect to home */
+  if (!activeTeam) {
+    return history.push(appLink.home());
+  }
+
   if (isLoading) {
     return (
       <div className={styles.container}>
         <Helmet>
           <title>Team Tasks</title>
         </Helmet>
-        <Sidenav
-          isLoading
-          activeTeam={activeTeam}
-          addTemplateInState={addTemplateInState}
-          taskTemplates={[]}
-          setActiveTeam={setActiveTeam}
-        />
+        <Sidenav isLoading activeTeam={activeTeam} addTemplateInState={addTemplateInState} taskTemplates={[]} />
         <Box maxWidth="24rem" margin="0 auto">
           <WombatMessage
             className={styles.wombat}
@@ -88,12 +89,7 @@ const TaskTemplatesContainer: React.FC = () => {
       <Helmet>
         <title>Team Tasks</title>
       </Helmet>
-      <Sidenav
-        activeTeam={activeTeam}
-        addTemplateInState={addTemplateInState}
-        taskTemplates={taskTemplatesData}
-        setActiveTeam={setActiveTeam}
-      />
+      <Sidenav activeTeam={activeTeam} addTemplateInState={addTemplateInState} taskTemplates={taskTemplatesData} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -121,6 +117,6 @@ const TaskTemplatesContainer: React.FC = () => {
       </Switch>
     </div>
   );
-};
+}
 
 export default TaskTemplatesContainer;

@@ -9,13 +9,16 @@ import { FlowTeam } from "Types";
 import styles from "./tokens.module.scss";
 
 function TeamTokensContainer() {
-  const [activeTeam, setActiveTeam] = React.useState<FlowTeam|null>(null);
-  const { teams, user } = useAppContext();
+  const { activeTeam, user } = useAppContext();
   const queryClient = useQueryClient();
 
-  const getTeamTokensUrl = serviceUrl.getTeamTokens({teamId: activeTeam?.id});
+  const getTeamTokensUrl = serviceUrl.getTeamTokens({ teamId: activeTeam?.id });
 
-  const { data: tokensData, error: tokensError, isLoading: tokensIsLoading } = useQuery({
+  const {
+    data: tokensData,
+    error: tokensError,
+    isLoading: tokensIsLoading,
+  } = useQuery({
     queryKey: getTeamTokensUrl,
     queryFn: resolver.query(getTeamTokensUrl),
     enabled: Boolean(activeTeam?.id),
@@ -44,8 +47,6 @@ function TeamTokensContainer() {
         isLoading={tokensIsLoading}
         hasError={tokensError}
         tokens={tokensData}
-        teams={teams}
-        setActiveTeam={setActiveTeam}
         activeTeam={activeTeam}
         userType={user.type}
       />

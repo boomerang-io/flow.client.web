@@ -20,7 +20,7 @@ function TeamProperties() {
     error: propertiesError,
   } = useQuery(teamPropertiesUrl, resolver.query(teamPropertiesUrl), { enabled: Boolean(activeTeam?.id) });
 
-  /** Check if there is an active team or redirec to home */
+  /** Check if there is an active team or redirect to home */
   if (!activeTeam) {
     return history.push(appLink.home());
   }

@@ -1,11 +1,9 @@
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { useAppContext } from "Hooks";
 import sortBy from "lodash/sortBy";
 import { matchSorter } from "match-sorter";
 import { Accordion, AccordionItem, Checkbox, Layer, OverflowMenu, Search, SkeletonText } from "@carbon/react";
 import {
-  ComboBox,
   CheckboxList,
   FeatureSideNav as SideNav,
   FeatureSideNavLink as SideNavLink,
@@ -23,21 +21,13 @@ import styles from "./sideInfo.module.scss";
 const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list";
 
 interface SideInfoProps {
-  activeTeam: string | string[] | null;
+  activeTeam?: FlowTeam | null;
   addTemplateInState: (newTemplate: TaskModel) => void;
   isLoading?: boolean;
-  setActiveTeam: Function;
   taskTemplates: TaskModel[];
 }
 
-const SideInfo: React.FC<SideInfoProps> = ({
-  activeTeam,
-  addTemplateInState,
-  isLoading,
-  setActiveTeam,
-  taskTemplates,
-}) => {
-  const { teams } = useAppContext();
+const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isLoading, taskTemplates }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
   const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskModel>>(
@@ -106,30 +96,11 @@ const SideInfo: React.FC<SideInfoProps> = ({
     setActiveFilters([]);
   };
 
-  const teamOptions = teams.map((team) => ({ id: team.id, name: team.name }));
-  const selectedTeam = teamOptions.find((team) => team.id === activeTeam);
-
-  const handleSelectTeam = ({ selectedItem }: { selectedItem: FlowTeam }) => {
-    setActiveTeam(selectedItem?.id);
-    history.push(appLink.manageTaskTemplates({ teamId: selectedItem?.id }));
-  };
-
   if (isLoading) {
     return (
       <SideNav className={styles.container} border="right">
         <h1 className={styles.title}>Task manager</h1>
         <p className={styles.description}>{DESCRIPTION}</p>
-        <Layer>
-          <ComboBox
-            ariaLabel="Team dropdown"
-            id="dropdown-team"
-            initialSelectedItem={selectedTeam}
-            items={teamOptions}
-            itemToString={(item: any) => (item ? item.name : "")}
-            label="Team selection"
-            onChange={handleSelectTeam}
-          />
-        </Layer>
         <div style={{ padding: "1.5rem 1rem" }}>
           <SkeletonText />
           <SkeletonText />
@@ -145,18 +116,6 @@ const SideInfo: React.FC<SideInfoProps> = ({
     <SideNav className={styles.container} border="right">
       <h1 className={styles.title}>Task manager</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
-      <Layer>
-        <ComboBox
-          id="dropdown-team"
-          type="default"
-          label="Team selection"
-          ariaLabel="Dropdown"
-          initialSelectedItem={selectedTeam}
-          items={teamOptions}
-          itemToString={(item: any) => (item ? item.name : "")}
-          onChange={handleSelectTeam}
-        />
-      </Layer>
       {taskTemplates && (
         <div className={styles.tasksContainer}>
           <div className={styles.addTaskContainer}>
@@ -265,7 +224,7 @@ const SideInfo: React.FC<SideInfoProps> = ({
 interface TaskProps {
   isActive: boolean;
   task: TaskModel;
-  activeTeam: string | string[] | null;
+  activeTeam?: FlowTeam | null;
 }
 const Task: React.FC<TaskProps> = (props) => {
   const { task, activeTeam } = props;
@@ -275,7 +234,7 @@ const Task: React.FC<TaskProps> = (props) => {
   return (
     <SideNavLink
       to={appLink.manageTaskTemplateEdit({
-        teamId: activeTeam,
+        teamId: activeTeam?.id,
         taskId: task.id,
         version: task.currentVersion,
       })}
