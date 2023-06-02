@@ -235,8 +235,8 @@ const Task: React.FC<TaskProps> = (props) => {
     <SideNavLink
       to={appLink.manageTaskTemplateEdit({
         teamId: activeTeam?.id,
-        taskId: task.id,
-        version: task.currentVersion,
+        name: task.name,
+        version: task.version.toString(),
       })}
       icon={TaskIcon ? TaskIcon.Icon : Bee}
     >

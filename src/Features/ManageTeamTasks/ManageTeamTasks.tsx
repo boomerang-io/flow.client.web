@@ -117,7 +117,7 @@ function TaskTemplatesContainer() {
             updateTemplateInState={updateTemplateInState}
           />
         </Route>
-        <Redirect to={appLink.manageTaskTemplates({ teamId: activeTeam })} />
+        <Redirect to={appLink.manageTaskTemplates({ teamId: activeTeam.id })} />
       </Switch>
     </div>
   );

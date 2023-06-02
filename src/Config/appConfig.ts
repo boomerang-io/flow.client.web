@@ -118,11 +118,11 @@ interface UserIdArg {
 type TeamRouteArgs = WorkflowIdArg & TeamIdArg;
 interface ManageTaskTemplateArgs {
   teamId: string;
-  taskId: string;
+  name: string;
   version: string;
 }
 interface AdminTaskTemplateArgs {
-  id: string;
+  name: string;
   version: string;
 }
 interface ExecutionArgs {
@@ -144,21 +144,20 @@ export const appLink = {
   home: () => "/home",
   insights: () => "/insights",
   manageTaskTemplates: ({ teamId }: TeamIdArg) => `/${teamId}/manage/task-templates`,
-  manageTaskTemplateEdit: ({ teamId, taskId, version }: ManageTaskTemplateArgs) =>
-    `/${teamId}/manage/task-templates/${taskId}/${version}`,
-  manageTaskTemplateYaml: ({ teamId, taskId, version }: ManageTaskTemplateArgs) =>
-    `/${teamId}/manage/task-templates/${taskId}/${version}/yaml-editor`,
+  manageTaskTemplateEdit: ({ teamId, name, version }: ManageTaskTemplateArgs) =>
+    `/${teamId}/manage/task-templates/${name}/${version}`,
+  manageTaskTemplateYaml: ({ teamId, name, version }: ManageTaskTemplateArgs) =>
+    `/${teamId}/manage/task-templates/${name}/${version}/yaml-editor`,
   manageUsers: () => "/admin/users",
   properties: () => "/admin/parameters",
   schedule: () => "/schedule",
   settings: () => "/admin/settings",
   templateWorkflows: () => "/admin/template-workflows",
   taskTemplates: () => "/admin/task-templates",
-  taskTemplateEdit: ({ id, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${id}/${version}`,
-  taskTemplateYaml: ({ id, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${id}/${version}/yaml-editor`,
+  taskTemplateEdit: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}`,
+  taskTemplateYaml: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}/yaml-editor`,
   teamApprovers: () => `/manage/approver-groups`,
   teamProperties: () => `/manage/team-parameters`,
-  teamTaskTemplates: () => `/manage/task-templates`,
   team: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}`,
   teamWorkflows: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/workflows`,
   teamLabels: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/labels`,
