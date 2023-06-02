@@ -3,7 +3,8 @@ const taskTemplate = [
     id: "5e670a1e2d5e6a302de4f41d",
     description: "Look up Slack user by email address",
     lastModified: "2020-04-30T22:53:11.315+0000",
-    name: "Slack User Look Up",
+    name: "slack-user-look-up",
+    displayName: "Slack User Look Up",
     category: "communication",
     revisions: [
       {
@@ -26,10 +27,10 @@ const taskTemplate = [
       },
     ],
     status: "active",
-    createdDate: "2020-01-09T00:01:00.000+0000",
+    creationDate: "2020-01-09T00:01:00.000+0000",
     icon: "Search",
-    currentVersion: 1,
-    nodeType: "templateTask",
+    version: 1,
+    type: "template",
     verified: true,
   },
   {

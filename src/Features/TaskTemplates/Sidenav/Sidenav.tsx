@@ -19,7 +19,7 @@ import { AppPath } from "Config/appConfig";
 import { TaskModel } from "Types";
 import styles from "./sideInfo.module.scss";
 
-const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list";
+const DESCRIPTION = "Create and import tasks to add to the Workflow Editor task list";
 
 interface SideInfoProps {
   addTemplateInState: (newTemplate: TaskModel) => void;
@@ -121,7 +121,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
             value={searchQuery}
           />
           <OverflowMenu
-          ariaLabel="Filter"
+            ariaLabel="Filter"
             renderIcon={SettingsAdjust}
             style={{
               backgroundColor: showVerified || showArchived || activeFilters.length > 0 ? "#3DDBD9" : "initial",
