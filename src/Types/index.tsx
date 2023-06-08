@@ -628,7 +628,7 @@ export interface FlowNavigationItem {
   icon: string;
   name: string;
   link: string;
-  type: string;
+  type: "link" | "menu" | "divider";
   childLinks: [FlowNavigationItemChild];
 }
 

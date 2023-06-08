@@ -6,6 +6,9 @@ const flowNavigation = [
     link: "/BMRG_APP_ROOT_CONTEXT/home",
   },
   {
+    type: "divider",
+  },
+  {
     name: "Workflows",
     type: "link",
     link: "/BMRG_APP_ROOT_CONTEXT/workflows",
@@ -36,35 +39,56 @@ const flowNavigation = [
     link: "/BMRG_APP_ROOT_CONTEXT/insights",
   },
   {
-    name: "Management",
-    type: "category",
-    icon: "SettingsAdjust",
-    childLinks: [
-      {
-        name: "Team Approvers",
-        type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/manage/approver-groups",
-      },
-      {
-        name: "Team Parameters",
-        type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/manage/team-parameters",
-      },
-      {
-        name: "Team Tasks",
-        type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/manage/task-templates",
-      },
-      {
-        name: "Team Tokens",
-        type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/manage/team-tokens",
-      },
-    ],
+    type: "divider",
   },
   {
+    name: "Task Manager",
+    type: "link",
+    icon: "TaskSettings",
+    link: "/BMRG_APP_ROOT_CONTEXT/manage/team",
+  },
+  {
+    name: "Tokens",
+    type: "link",
+    icon: "Password",
+    link: "/BMRG_APP_ROOT_CONTEXT/manage/tokens",
+  },
+  {
+    name: "Manage Team",
+    type: "link",
+    icon: "SettingsAdjust",
+    link: "/BMRG_APP_ROOT_CONTEXT/manage/team",
+  },
+  // {
+  //   name: "Management",
+  //   type: "menu",
+  //   icon: "SettingsAdjust",
+  //   childLinks: [
+  //     {
+  //       name: "Team Approvers",
+  //       type: "link",
+  //       link: "/BMRG_APP_ROOT_CONTEXT/manage/approver-groups",
+  //     },
+  //     {
+  //       name: "Team Parameters",
+  //       type: "link",
+  //       link: "/BMRG_APP_ROOT_CONTEXT/manage/team-parameters",
+  //     },
+  //     {
+  //       name: "Team Tasks",
+  //       type: "link",
+  //       link: "/BMRG_APP_ROOT_CONTEXT/manage/task-templates",
+  //     },
+  //     {
+  //       name: "Team Tokens",
+  //       type: "link",
+  //       link: "/BMRG_APP_ROOT_CONTEXT/manage/team-tokens",
+  //     },
+  //   ],
+  // },
+  {
     name: "Admin",
-    type: "category",
+    type: "menu",
     icon: "Settings",
     childLinks: [
       {

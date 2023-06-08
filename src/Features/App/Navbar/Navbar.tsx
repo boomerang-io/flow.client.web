@@ -106,7 +106,10 @@ function AppSideNav(props: AppSideNavProps) {
         {props.navLinks ? <SideNavDivider /> : null}
         {props.flowNavigationData.map((item) => {
           const itemIcon = item.icon ? navigationIcons[item.icon as keyof typeof navigationIcons] : FlowData;
-          if (item?.childLinks) {
+          if (item.type === "divider") {
+            return <SideNavDivider />;
+          }
+          if (item.type === "menu" && item?.childLinks) {
             return (
               <SideNavMenu large key={item.name} title={item.name} renderIcon={itemIcon}>
                 {item.childLinks.map((childItem) => {
@@ -128,27 +131,28 @@ function AppSideNav(props: AppSideNavProps) {
               </SideNavMenu>
             );
           }
+          if (item.type === "link") {
+            const sharedProps: SideNavLinkSharedProps = {
+              large: true,
+              renderIcon: itemIcon,
+              key: item.name,
+            };
 
-          const sharedProps: SideNavLinkSharedProps = {
-            large: true,
-            renderIcon: itemIcon,
-            key: item.name,
-          };
+            if (item.disabled) {
+              return (
+                <SideNavLink className={styles.disabledSidenavLink} {...sharedProps}>
+                  {item.name}
+                </SideNavLink>
+              );
+            }
 
-          if (item.disabled) {
+            const elemProps = getSideNavElemProps(item, props.close);
             return (
-              <SideNavLink className={styles.disabledSidenavLink} {...sharedProps}>
+              <SideNavLink {...sharedProps} {...elemProps}>
                 {item.name}
               </SideNavLink>
             );
           }
-
-          const elemProps = getSideNavElemProps(item, props.close);
-          return (
-            <SideNavLink {...sharedProps} {...elemProps}>
-              {item.name}
-            </SideNavLink>
-          );
         })}
       </SideNavItems>
     </SideNav>
