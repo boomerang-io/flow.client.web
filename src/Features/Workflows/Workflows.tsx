@@ -116,14 +116,6 @@ function Layout(props: LayoutProps) {
   return (
     <div className={styles.container}>
       <WorkflowsHeader
-        pretitle={
-          <Breadcrumb noTrailingSlash>
-            <BreadcrumbItem>
-              <Link to={appLink.home()}>Home</Link>
-            </BreadcrumbItem>
-            <BreadcrumbItem isCurrentPage>{props.activeTeam.name}</BreadcrumbItem>
-          </Breadcrumb>
-        }
         title={"Workflows"}
         subtitle="Your playground to create, execute, and collaborate on workflows. Work smarter with automation."
         handleUpdateFilter={props.handleUpdateFilter}

@@ -1,13 +1,20 @@
 //@ts-nocheck
 import React from "react";
 import { useQuery } from "react-query";
-import { Switch, Route, Redirect, useHistory, useLocation, useRouteMatch } from "react-router-dom";
+import { Switch, Route, Redirect, useHistory, useLocation, useRouteMatch, Link } from "react-router-dom";
 import moment from "moment";
 import queryString from "query-string";
 import { Helmet } from "react-helmet";
 import { useAppContext } from "Hooks";
 import { sortByProp } from "@boomerang-io/utils";
-import { DatePicker, DatePickerInput, FilterableMultiSelect, SkeletonPlaceholder } from "@carbon/react";
+import {
+  DatePicker,
+  DatePickerInput,
+  FilterableMultiSelect,
+  SkeletonPlaceholder,
+  Breadcrumb,
+  BreadcrumbItem,
+} from "@carbon/react";
 import {
   ErrorMessage,
   ErrorDragon,
@@ -216,6 +223,19 @@ function Actions() {
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
     const maxDate = moment().format("MM/DD/YYYY");
 
+    const NavigationComponent = () => {
+      return (
+        <Breadcrumb noTrailingSlash>
+          <BreadcrumbItem>
+            <Link to={appLink.home()}>Home</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <p>{activeTeam.name}</p>
+          </BreadcrumbItem>
+        </Breadcrumb>
+      );
+    };
+
     return (
       <div className={styles.container}>
         <Switch>
@@ -234,10 +254,13 @@ function Actions() {
         <Header
           className={styles.header}
           includeBorder={false}
+          nav={<NavigationComponent />}
           header={
             <>
               <HeaderTitle className={styles.headerTitle}>Actions</HeaderTitle>
-              <HeaderSubtitle>View and manage your approvals and manual tasks.</HeaderSubtitle>
+              <HeaderSubtitle className={styles.headerMessage}>
+                View and manage your approvals and manual tasks.
+              </HeaderSubtitle>
             </>
           }
           actions={

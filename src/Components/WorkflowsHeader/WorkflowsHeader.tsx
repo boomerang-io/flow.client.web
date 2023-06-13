@@ -1,5 +1,5 @@
 import React from "react";
-import { Layer, Search } from "@carbon/react";
+import { Layer, Search, Breadcrumb, BreadcrumbItem } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
@@ -7,6 +7,8 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateTemplateWorkflow from "Components/CreateTemplateWorkflow";
 import { FlowTeam, WorkflowView, WorkflowViewType, Workflow } from "Types";
+import { Link } from "react-router-dom";
+import { appLink } from "Config/appConfig";
 import styles from "./workflowsHeader.module.scss";
 
 interface WorkflowsHeaderProps {
@@ -37,13 +39,27 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
     handleUpdateFilter({ query: e.currentTarget?.value ?? "" });
   };
 
+  const NavigationComponent = () => {
+    return (
+      <Breadcrumb noTrailingSlash>
+        <BreadcrumbItem>
+          <Link to={appLink.home()}>Home</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <p>{team.name}</p>
+        </BreadcrumbItem>
+      </Breadcrumb>
+    );
+  };
+
   return (
     <Header
       className={styles.container}
       includeBorder={false}
+      nav={<NavigationComponent />}
       header={
         <>
-          <HeaderSubtitle>{pretitle}</HeaderSubtitle>
+          {Boolean(pretitle) ? <HeaderSubtitle>{pretitle}</HeaderSubtitle> : null}
           <HeaderTitle>{`${title} ${workflowsCountStr}`}</HeaderTitle>
           {Boolean(subtitle) ? <HeaderSubtitle className={styles.headerMessage}>{subtitle}</HeaderSubtitle> : null}
         </>

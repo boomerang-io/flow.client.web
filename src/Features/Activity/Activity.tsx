@@ -192,6 +192,7 @@ function WorkflowActivity() {
     return (
       <div className={styles.container}>
         <ActivityHeader
+          team={activeTeam}
           failedActivities={"--"}
           inProgressActivities={"--"}
           isError={true}
@@ -225,6 +226,7 @@ function WorkflowActivity() {
           <title>Activity</title>
         </Helmet>
         <ActivityHeader
+          team={activeTeam}
           inProgressActivities={wfRunSummaryQuery.data?.inProgress ?? 0}
           isLoading={wfRunSummaryQuery.status === QueryStatus.Loading}
           failedActivities={wfRunSummaryQuery.data?.failure ?? 0}
