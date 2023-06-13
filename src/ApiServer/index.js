@@ -10,7 +10,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     // Prevent pluralization bc our apis are weird
     inflect.irregular("activity", "activity");
     inflect.irregular("config", "config");
-    inflect.irregular("tasktemplates", "tasktemplates");
+    // inflect.irregular("tasktemplates", "tasktemplates");
     inflect.irregular("insights", "insights");
     inflect.irregular("flowNavigation", "flowNavigation");
   });
@@ -41,7 +41,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       revision: Model,
       setting: Model,
       summary: Model,
-      tasktemplates: Model,
+      taskTemplates: Model,
       team: Model,
       teamApproverUsers: Model,
       teamNameValidate: Model,
