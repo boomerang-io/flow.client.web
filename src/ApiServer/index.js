@@ -10,7 +10,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     // Prevent pluralization bc our apis are weird
     inflect.irregular("activity", "activity");
     inflect.irregular("config", "config");
-    // inflect.irregular("tasktemplate", "tasktemplate");
+    inflect.irregular("tasktemplates", "tasktemplates");
     inflect.irregular("insights", "insights");
     inflect.irregular("flowNavigation", "flowNavigation");
   });
@@ -225,7 +225,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        * Task Templates
        */
       const tasktemplatePath = serviceUrl.getTaskTemplates({ query: null });
-      this.get(tasktemplatePath, (schema) => {
+      this.get(serviceUrl.getTaskTemplates({ query: null }), (schema) => {
+        console.log(schema.db.taskTemplates);
         return schema.db.taskTemplates[0];
       });
       this.put(tasktemplatePath, (schema, request) => {

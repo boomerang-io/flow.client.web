@@ -61,8 +61,19 @@ function UserTeams({ user, teams }: UserTeamsProps) {
                   <Link
                     className={styles.viewTeamLink}
                     to={{
-                      pathname: appLink.team({ teamId: team.id }),
-                      state: { fromUser: { name: user.name, id: user.id } },
+                      pathname: appLink.manageTeam({ teamId: team.id }),
+                      state: {
+                        navList: [
+                          {
+                            to: appLink.userList(),
+                            text: "Users",
+                          },
+                          {
+                            to: appLink.user({ userId: user.id }),
+                            text: user.name,
+                          },
+                        ],
+                      },
                     }}
                   >
                     View team

@@ -34,6 +34,7 @@ type AppPathKey =
   | "ManageTaskTemplates"
   | "ManageTaskTemplateEdit"
   | "ManageTaskTemplateYaml"
+  | "ManageTeam"
   | "Properties"
   | "Schedules"
   | "Settings"
@@ -41,16 +42,16 @@ type AppPathKey =
   | "TaskTemplates"
   | "TaskTemplateEdit"
   | "TaskTemplateYaml"
-  | "Team"
-  | "TeamSettings"
-  | "TeamWorkflows"
-  | "TeamLabels"
-  | "TeamQuotas"
-  | "TeamList"
-  | "TeamApprovers"
-  | "TeamProperties"
-  | "TeamTokens"
+  | "ManageTeam"
+  | "ManageTeamSettings"
+  | "ManageTeamWorkflows"
+  | "ManageTeamLabels"
+  | "ManageTeamQuotas"
+  | "ManageTeamApprovers"
+  | "ManageTeamProperties"
+  | "ManageTeamTokens"
   | "Tokens"
+  | "TeamList"
   | "User"
   | "UserList"
   | "UserLabels"
@@ -73,17 +74,22 @@ export const AppPath: Record<AppPathKey, string> = {
   Execution: "/:teamId/activity/:workflowId/execution/:executionId",
   Home: "/home",
   Insights: "/:teamId/insights",
-  TeamTokens: "/:teamId/manage/team-tokens",
   Workflows: "/:teamId/workflows",
   Schedules: "/:teamId/schedules",
-
+  
   //Manage
   ManageTaskTemplates: `/:teamId/manage/task-templates`,
   ManageTaskTemplateEdit: `/:teamId/manage/task-templates/:name/:version`,
   ManageTaskTemplateYaml: `/:teamId/manage/task-templates/:name/:version/yaml-editor`,
-  TeamApprovers: `/:teamId/manage/approver-groups`,
-  TeamProperties: `/:teamId/manage/team-parameters`,
-
+  ManageTeamTokens: "/:teamId/tokens",
+  ManageTeamProperties: `/:teamId/parameters`,
+  ManageTeam: `/:teamId/manage`,
+  ManageTeamSettings: "/:teamId/manage/settings",
+  ManageTeamWorkflows: "/:teamId/manage/workflows",
+  ManageTeamQuotas: "/:teamId/manage/quotas",
+  ManageTeamLabels: "/:teamId/manage/Labels",
+  ManageTeamApprovers: `/:teamId/manage/approver-groups`,
+  
   //Admin
   Properties: "/admin/parameters",
   Settings: "/admin/settings",
@@ -91,11 +97,6 @@ export const AppPath: Record<AppPathKey, string> = {
   TaskTemplates: "/admin/task-templates",
   TaskTemplateEdit: `/admin/task-templates/:id/:version`,
   TaskTemplateYaml: `/admin/task-templates/:id/:version/yaml-editor`,
-  Team: "/admin/teams/:teamId",
-  TeamSettings: "/admin/teams/:teamId/settings",
-  TeamWorkflows: "/admin/teams/:teamId/workflows",
-  TeamQuotas: "/admin/teams/:teamId/quotas",
-  TeamLabels: "/admin/teams/:teamId/Labels",
   TeamList: "/admin/teams",
   Tokens: "/admin/tokens",
   User: "/admin/users/:userId",
@@ -148,6 +149,14 @@ export const appLink = {
     `/${teamId}/manage/task-templates/${name}/${version}`,
   manageTaskTemplateYaml: ({ teamId, name, version }: ManageTaskTemplateArgs) =>
     `/${teamId}/manage/task-templates/${name}/${version}/yaml-editor`,
+  manageTeam: ({ teamId }: TeamIdArg) => `/${teamId}/manage`,
+  manageTeamApprovers: ({ teamId }: TeamIdArg) => `/${teamId}/manage/approver-groups`,
+  manageTeamWorkflows: ({ teamId }: TeamIdArg) => `/${teamId}/manage/workflows`,
+  manageTeamLabels: ({ teamId }: TeamIdArg) => `/${teamId}/manage/labels`,
+  manageTeamQuotas: ({ teamId }: TeamIdArg) => `/${teamId}/manage/quotas`,
+  manageTeamSettings: ({ teamId }: TeamIdArg) => `/${teamId}/manage/settings`,
+  manageTeamTokens: ({ teamId }: TeamIdArg) => `/${teamId}/tokens`,
+  manageTeamParameters: ({ teamId }: TeamIdArg) => `/${teamId}/parameters`,
   manageUsers: () => "/admin/users",
   properties: () => "/admin/parameters",
   schedule: () => "/schedule",
@@ -156,15 +165,7 @@ export const appLink = {
   taskTemplates: () => "/admin/task-templates",
   taskTemplateEdit: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}`,
   taskTemplateYaml: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}/yaml-editor`,
-  teamApprovers: () => `/manage/approver-groups`,
-  teamProperties: () => `/manage/team-parameters`,
-  team: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}`,
-  teamWorkflows: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/workflows`,
-  teamLabels: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/labels`,
-  teamQuotas: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/quotas`,
-  teamSettings: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/settings`,
   teamList: () => "/admin/teams",
-  teamTokens: () => `/manage/team-tokens`,
   tokens: () => `/admin/tokens`,
   user: ({ userId }: UserIdArg) => `/admin/users/${userId}`,
   userLabels: ({ userId }: UserIdArg) => `/admin/users/${userId}/labels`,

@@ -380,10 +380,7 @@ const taskTemplates = {
       description: "Execute an Advanced HTTP Call",
       status: "active",
       labels: {},
-      annotations: {
-        "io.boomerang/kind": "TaskTemplate",
-        "io.boomerang/generation": "3"
-      },
+      annotations: {},
       version: 3,
       creationDate: "2020-01-09T00:01:00.000+00:00",
       changelog: {
@@ -598,10 +595,7 @@ const taskTemplates = {
       description: "Execute an Advanced HTTP Call",
       status: "active",
       labels: {},
-      annotations: {
-        "io.boomerang/kind": "TaskTemplate",
-        "io.boomerang/generation": "3"
-      },
+      annotations: {},
       version: 2,
       creationDate: "2020-01-09T00:01:00.000+00:00",
       changelog: {
@@ -816,10 +810,7 @@ const taskTemplates = {
       description: "Send platform notification to user or team",
       status: "active",
       labels: {},
-      annotations: {
-        "io.boomerang/kind": "TaskTemplate",
-        "io.boomerang/generation": "3"
-      },
+      annotations: {},
       version: 2,
       creationDate: "2020-01-09T00:01:00.000+00:00",
       changelog: {

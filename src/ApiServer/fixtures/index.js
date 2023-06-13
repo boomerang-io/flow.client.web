@@ -16,7 +16,7 @@ export { default as manualTasks } from "./manualTasks";
 export { default as platformConfig } from "./platformConfig";
 export { default as flowNavigation } from "./flowNavigation";
 export { default as profile } from "./profile";
-export { default as tasktemplates } from "./tasktemplates";
+export { default as taskTemplates } from "./taskTemplates";
 export { default as settings } from "./settings";
 export { default as summaries } from "./summaries";
 export { default as revisions } from "./revisions";

@@ -19,6 +19,7 @@ export {
   Launch,
   Locked,
   Password,
+  Parameter,
   Power,
   Restart,
   ReportData,

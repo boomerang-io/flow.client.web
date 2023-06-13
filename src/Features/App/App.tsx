@@ -38,6 +38,7 @@ const Settings = lazy(() => import("Features/Settings"));
 const TemplateWorkflows = lazy(() => import("Features/TemplateWorkflows"));
 const TaskTemplates = lazy(() => import("Features/TaskTemplates"));
 const Teams = lazy(() => import("Features/Teams"));
+const ManageTeam = lazy(() => import("Features/TeamDetailed"));
 const TeamProperties = lazy(() => import("Features/TeamProperties"));
 const TeamTokens = lazy(() => import("Features/TeamTokens"));
 const ManageTeamTasks = lazy(() => import("Features/ManageTeamTasks"));
@@ -348,19 +349,22 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
               <ProtectedRoute
                 allowedUserRoles={["*"]}
                 component={() => <TeamProperties />}
-                path={AppPath.TeamProperties}
+                path={AppPath.ManageTeamProperties}
                 userRole={teamPropertiesEnabled ? "*" : ""}
               />
-              <Route path={AppPath.TeamApprovers}>
+              <Route path={AppPath.ManageTeamApprovers}>
                 <ApproverGroups />
               </Route>
-              <Route path={AppPath.TeamTokens}>
+              <Route path={AppPath.ManageTeamTokens}>
                 <TeamTokens />
+              </Route>
+              <Route path={AppPath.ManageTeam}>
+                <ManageTeam />
               </Route>
               {/* {<ProtectedRoute
             allowedUserRoles={["*"]}
             component={<TeamTokens />}
-            path={AppPath.TeamTokens}
+            path={AppPath.ManaTeamTokens}
             userRole={teamTokensEnabled}
           />} */}
               <Route path={AppPath.Actions}>

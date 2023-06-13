@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { useFeature } from "flagged";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 import { useAppContext } from "Hooks";
 import { Box } from "reflexbox";
 import {
@@ -77,9 +77,9 @@ function TeamDetailedContainer() {
     const { status } = teamDetailsData;
     return (
       <div className={styles.container}>
-        <Header isActive={status === "active"} team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
+        <Header team={teamDetailsData} />
         <Switch>
-          <Route exact path={AppPath.Team}>
+          <Route exact path={AppPath.ManageTeam}>
             <Members
               isActive={status === "active"}
               team={teamDetailsData}
@@ -88,20 +88,20 @@ function TeamDetailedContainer() {
               teamManagementEnabled={teamManagementEnabled}
             />
           </Route>
-          <Route exact path={AppPath.TeamWorkflows}>
+          <Route exact path={AppPath.ManageTeamWorkflows}>
             <Workflows team={teamDetailsData} />
           </Route>
-          <Route exact path={AppPath.TeamLabels}>
+          <Route exact path={AppPath.ManageTeamLabels}>
             <Labels
               isActive={status === "active"}
               team={teamDetailsData}
               teamManagementEnabled={teamManagementEnabled}
             />
           </Route>
-          <Route exact path={AppPath.TeamQuotas}>
+          <Route exact path={AppPath.ManageTeamQuotas}>
             <Quotas team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
           </Route>
-          <Route exact path={AppPath.TeamSettings}>
+          <Route exact path={AppPath.ManageTeamSettings}>
             <Settings team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
           </Route>
         </Switch>

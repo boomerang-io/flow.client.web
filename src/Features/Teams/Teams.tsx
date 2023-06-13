@@ -2,9 +2,9 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "Hooks";
 import { useFeature } from "flagged";
-import { useHistory, useLocation, Route, Switch } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Box } from "reflexbox";
-import { Button, DataTable, DataTableSkeleton, Pagination, Search } from "@carbon/react";
+import { Button, DataTable, DataTableSkeleton, Pagination, Search, Layer } from "@carbon/react";
 import { CheckmarkFilled, Misuse } from "@carbon/react/icons";
 import {
   ComposedModal,
@@ -13,36 +13,20 @@ import {
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import TeamDetailed from "Features/TeamDetailed";
 import EmptyState from "Components/EmptyState";
 import moment from "moment";
 import AddTeamContent from "./AddTeamContent";
 import debounce from "lodash/debounce";
 import queryString from "query-string";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
-import { AppPath, appLink, queryStringOptions, FeatureFlag } from "Config/appConfig";
+import { appLink, queryStringOptions, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { ComposedModalChildProps, ModalTriggerProps, PaginatedTeamResponse } from "Types";
 import styles from "./Teams.module.scss";
 
-const TeamsContainer: React.FC = () => {
-  return (
-    <Switch>
-      <Route path={AppPath.Team}>
-        <TeamDetailed />
-      </Route>
-      <Route path={AppPath.TeamList}>
-        <TeamList />
-      </Route>
-    </Switch>
-  );
-};
-
 interface FeatureLayoutProps {
   handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-
-export default TeamsContainer;
 
 const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchChange }) => {
   return (
@@ -139,7 +123,17 @@ const TeamList: React.FC = () => {
   }
 
   function handleNavigateToTeam(teamId: string) {
-    history.push(appLink.team({ teamId }));
+    history.push({
+      pathname: appLink.manageTeam({ teamId }),
+      state: {
+        navList: [
+          {
+            to: location.pathname,
+            text: "Teams",
+          },
+        ],
+      },
+    });
   }
 
   if (teamsIsLoading) {
@@ -338,3 +332,5 @@ function TeamListTable(props: TeamListTableProps) {
     <EmptyState message={null} title="No teams found" />
   );
 }
+
+export default TeamList;

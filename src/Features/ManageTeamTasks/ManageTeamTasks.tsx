@@ -24,10 +24,10 @@ function TaskTemplatesContainer() {
   const history = useHistory();
   const match = useRouteMatch();
   const queryClient = useQueryClient();
+  const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
     query: queryString.stringify({ teams: activeTeam?.id }),
   });
-  const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const {
     data: taskTemplatesData,
     error: taskTemplatesDataError,

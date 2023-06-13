@@ -47,11 +47,17 @@
   font-size: 0.8rem;
 }
 
+.actionButtons {
+  bottom: 0.25rem;
+  position: absolute;
+  right: 1.5rem;
+  z-index: 1;
+}
+
 .infoContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 1rem;
 }
 
 .userDetailsContainer {
@@ -71,7 +77,6 @@
 .subHeaderContainer {
   display: flex;
   flex-direction: row;
-  margin-bottom: 1rem;
   & > * + * {
     margin-left: 2.5rem;
   }

@@ -30,8 +30,17 @@ interface SideInfoProps {
 const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isLoading, taskTemplates }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
+  //TODO - whats the best way to reduce to the distinct tasks by name with the latest version
+  let distinctTasks = taskTemplates
+    ?.reduce((acc: TaskTemplate[], task: TaskTemplate) => {
+      const distinctTask = !acc.find((tt) => task.name === tt.name);
+      if (distinctTask) acc.push(task);
+      return acc;
+    }, [])
+    .sort();
+  console.log("Distinct Tasks", distinctTasks);
   const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskTemplate>>(
-    taskTemplates?.filter((task) => task.status === TaskTemplateStatus.Active) ?? []
+    distinctTasks?.filter((task) => task.status === "active") ?? []
   );
   const [openCategories, setOpenCategories] = React.useState(false);
   const [showArchived, setShowArchived] = React.useState(false);
@@ -58,7 +67,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
     .sort();
 
   React.useEffect(() => {
-    const tempTaskTemplates = showVerified ? taskTemplates.filter((task) => task.verified === true) : taskTemplates;
+    const tempTaskTemplates = showVerified ? tasksToDisplay.filter((task) => task.verified === true) : tasksToDisplay;
     const newTaskTemplates = showArchived
       ? tempTaskTemplates
       : tempTaskTemplates?.filter((task) => task.status === TaskTemplateStatus.Active);
@@ -116,10 +125,10 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
     <SideNav className={styles.container} border="right">
       <h1 className={styles.title}>Task manager</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
-      {taskTemplates && (
+      {tasksToDisplay && (
         <div className={styles.tasksContainer}>
           <div className={styles.addTaskContainer}>
-            <p className={styles.existingTasks}>{`Existing Tasks (${taskTemplates.length})`}</p>
+            <p className={styles.existingTasks}>{`Existing Tasks (${tasksToDisplay.length})`}</p>
             <AddTaskTemplate
               addTemplateInState={addTemplateInState}
               taskTemplates={taskTemplates}

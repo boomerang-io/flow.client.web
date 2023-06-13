@@ -44,7 +44,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
     },
     {
       itemText: "Manage Team",
-      onClick: () => history.push(appLink.workflows({ teamId: team.id })),
+      onClick: () => history.push(appLink.manageTeam({ teamId: team.id })),
     },
     {
       hasDivider: true,
