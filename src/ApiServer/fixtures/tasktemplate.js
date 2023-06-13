@@ -1,4 +1,4 @@
-const taskTemplates = {
+const tasktemplate = {
   content: [
     {
       id: "647966b186bfa2195a197262",
@@ -990,4 +990,4 @@ const taskTemplates = {
   empty: false
 };
 
-export default taskTemplates;
+export default tasktemplate;
