@@ -94,13 +94,18 @@ function TeamDetailedHeader({ team }: TeamDetailedHeaderProps) {
           />
           <Tab
             exact
-            label="Labels"
-            to={{ pathname: appLink.manageTeamLabels({ teamId: team.id }), state: location.state }}
+            label="Approver Groups"
+            to={{ pathname: appLink.manageTeamApprovers({ teamId: team.id }), state: location.state }}
           />
           <Tab
             exact
             label="Quotas"
             to={{ pathname: appLink.manageTeamQuotas({ teamId: team.id }), state: location.state }}
+          />
+          <Tab
+            exact
+            label="Labels"
+            to={{ pathname: appLink.manageTeamLabels({ teamId: team.id }), state: location.state }}
           />
           <Tab
             exact

@@ -3,7 +3,7 @@ import React from "react";
 import cx from "classnames";
 import { useMutation, useQueryClient } from "react-query";
 import sortBy from "lodash/sortBy";
-import { Button, DataTable, DataTableSkeleton } from "@carbon/react";
+import { Button, DataTable, DataTableSkeleton, Search } from "@carbon/react";
 import {
   ConfirmModal,
   Error404,
@@ -23,41 +23,33 @@ import { FlowTeam, ApproverGroup, Approver } from "Types";
 import { TrashCan } from "@carbon/react/icons";
 import styles from "./approverGroupsTable.module.scss";
 
-const FeatureLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <>
-      <Header
-        className={styles.header}
-        header={
-          <>
-            <HeaderTitle className={styles.headerTitle}>Team Approvers</HeaderTitle>
-            <HeaderSubtitle>Manage groups of users to easily set gate approvers.</HeaderSubtitle>
-          </>
-        }
-      />
-      <div className={styles.tableContainer}>{children}</div>
-    </>
-  );
-};
+// const FeatureLayout = ({ children }: { children: React.ReactNode }) => {
+//   return (
+//     <>
+//       <Header
+//         className={styles.header}
+//         header={
+//           <>
+//             <HeaderTitle className={styles.headerTitle}>Team Approvers</HeaderTitle>
+//             <HeaderSubtitle>Manage groups of users to easily set gate approvers.</HeaderSubtitle>
+//           </>
+//         }
+//       />
+//       <div className={styles.tableContainer}>{children}</div>
+//     </>
+//   );
+// };
 
 type ApproverGroupsTableProps = {
   activeTeam?: FlowTeam | null;
-  approverGroups?: ApproverGroup[];
   userCanEdit: boolean;
-  isLoading: boolean;
-  error: any;
 };
 
-function ApproverGroupsTable({
-  activeTeam,
-  approverGroups = [],
-  userCanEdit,
-  isLoading,
-  error,
-}: ApproverGroupsTableProps) {
+function ApproverGroupsTable({ activeTeam, userCanEdit }: ApproverGroupsTableProps) {
   const queryClient = useQueryClient();
   const [sortKey, setSortKey] = React.useState("name");
   const [sortDirection, setSortDirection] = React.useState("ASC");
+  const approverGroups = activeTeam?.approverGroups ?? [];
 
   /** Delete Team Approver Group */
   const { mutateAsync: deleteApproverGroupMutation } = useMutation(resolver.deleteApproverGroup, {
@@ -204,122 +196,123 @@ function ApproverGroupsTable({
   } = DataTable;
   const totalItems = approverGroups?.length;
 
-  if (isLoading) {
-    return (
-      <FeatureLayout>
-        <DataTableSkeleton
-          data-testid="team-props-loading-skeleton"
-          className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
-          rowCount={3}
-          columnCount={headers.length}
-          headers={headers.map((header) => header.header)}
-        />
-      </FeatureLayout>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <FeatureLayout>
+  //       <DataTableSkeleton
+  //         data-testid="team-props-loading-skeleton"
+  //         className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
+  //         rowCount={3}
+  //         columnCount={headers.length}
+  //         headers={headers.map((header) => header.header)}
+  //       />
+  //     </FeatureLayout>
+  //   );
+  // }
 
-  if (error) {
-    return (
-      <FeatureLayout>
-        <ErrorMessage />
-      </FeatureLayout>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <FeatureLayout>
+  //       <ErrorMessage />
+  //     </FeatureLayout>
+  //   );
+  // }
 
   return (
-    <FeatureLayout>
-      <>
-        <div className={styles.tableHeader}>
-          <div>
-            <h2 className={styles.title}>{`Approver groups (${approverGroups?.length ?? 0})`}</h2>
-            <p className={styles.description}>
-              Create groups of users to be able to set the entire group as approvers for a gate
-            </p>
-          </div>
-          {userCanEdit && (activeTeam || totalItems > 0) && (
-            <CreateEditGroupModal approverGroups={approverGroups} team={activeTeam} />
-          )}
+    <>
+      <section className={styles.actionsContainer}>
+        <div className={styles.leftActions}>
+          <p className={styles.featureDescription}>
+            Create groups of users to be able to set the entire group as approvers for an Action.
+          </p>
+          <p className={styles.memberCountText}>
+            Showing {approverGroups?.length ?? 0} approver group{approverGroups?.length !== 1 ? "s" : ""}
+          </p>
         </div>
-        {totalItems > 0 ? (
+        {userCanEdit && (activeTeam || totalItems > 0) && (
+          <CreateEditGroupModal approverGroups={approverGroups} team={activeTeam} />
+        )}
+      </section>
+      {totalItems > 0 ? (
+        <DataTable
+          rows={sortKeyDirection({
+            array: approverGroups.map((group) => ({ ...group, id: group.id })),
+            sortKey,
+            sortDirection,
+          })}
+          sortRow={(rows: any) => rows}
+          headers={headers}
+          render={({ rows, headers, getHeaderProps, getRowProps }: any) => (
+            <TableContainer>
+              <Table isSortable>
+                <TableHead>
+                  <TableRow className={styles.tableHeadRow}>
+                    <TableExpandHeader />
+                    {headers.map((header: any, key: any) => (
+                      <TableHeader
+                        id={header.key}
+                        key={`mode-table-key-${key}`}
+                        {...getHeaderProps({
+                          header,
+                          className: `${styles.tableHeadHeader} ${styles[header.key]}`,
+                          onClick: handleSort,
+                          isSortable: header.sortable,
+                        })}
+                      >
+                        {header.header}
+                      </TableHeader>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody className={styles.tableBody}>
+                  {rows.map((row: any) => {
+                    return (
+                      <React.Fragment key={row.id}>
+                        <TableExpandRow {...getRowProps({ row })} className={styles.tableRow}>
+                          {row.cells.map((cell: any, cellIndex: any) => (
+                            <TableCell key={cell.id} style={{ padding: "0" }}>
+                              <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
+                            </TableCell>
+                          ))}
+                        </TableExpandRow>
+                        <TableExpandedRow colSpan={headers.length + 1}>{renderSubRow(row)}</TableExpandedRow>
+                      </React.Fragment>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        />
+      ) : (
+        <>
           <DataTable
-            rows={sortKeyDirection({
-              array: approverGroups.map((group) => ({ ...group, id: group.id })),
-              sortKey,
-              sortDirection,
-            })}
-            sortRow={(rows: any) => rows}
+            rows={approverGroups}
             headers={headers}
-            render={({ rows, headers, getHeaderProps, getRowProps }: any) => (
+            render={({ headers }: any) => (
               <TableContainer>
-                <Table isSortable>
+                <Table>
                   <TableHead>
                     <TableRow className={styles.tableHeadRow}>
-                      <TableExpandHeader />
                       {headers.map((header: any, key: any) => (
                         <TableHeader
-                          id={header.key}
-                          key={`mode-table-key-${key}`}
-                          {...getHeaderProps({
-                            header,
-                            className: `${styles.tableHeadHeader} ${styles[header.key]}`,
-                            onClick: handleSort,
-                            isSortable: header.sortable,
-                          })}
+                          key={`no-team-config-table-key-${key}`}
+                          className={`${styles.tableHeadHeader} ${styles[header.key]}`}
                         >
-                          {header.header}
+                          <span className="bx--table-header-label">{header.header}</span>
                         </TableHeader>
                       ))}
                     </TableRow>
                   </TableHead>
-                  <TableBody className={styles.tableBody}>
-                    {rows.map((row: any) => {
-                      return (
-                        <React.Fragment key={row.id}>
-                          <TableExpandRow {...getRowProps({ row })} className={styles.tableRow}>
-                            {row.cells.map((cell: any, cellIndex: any) => (
-                              <TableCell key={cell.id} style={{ padding: "0" }}>
-                                <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
-                              </TableCell>
-                            ))}
-                          </TableExpandRow>
-                          <TableExpandedRow colSpan={headers.length + 1}>{renderSubRow(row)}</TableExpandedRow>
-                        </React.Fragment>
-                      );
-                    })}
-                  </TableBody>
                 </Table>
               </TableContainer>
             )}
           />
-        ) : (
-          <>
-            <DataTable
-              rows={approverGroups}
-              headers={headers}
-              render={({ headers }: any) => (
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header: any, key: any) => (
-                          <TableHeader
-                            key={`no-team-config-table-key-${key}`}
-                            className={`${styles.tableHeadHeader} ${styles[header.key]}`}
-                          >
-                            <span className="bx--table-header-label">{header.header}</span>
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                  </Table>
-                </TableContainer>
-              )}
-            />
-            <Error404 header={null} title="No approver groups" theme="boomerang" />
-          </>
-        )}
-      </>
-    </FeatureLayout>
+          <Error404 header={null} title="No approver groups" theme="boomerang" />
+        </>
+      )}
+    </>
+    // </FeatureLayout>
   );
 }
 

@@ -2,13 +2,13 @@
 @import "Styles/variables";
 @import "Styles/mixins";
 
-.tableContainer {
-  margin: 2.5rem 2.5rem 4.5rem 2.5rem;
-}
+// .tableContainer {
+//   margin: 2.5rem 2.5rem 4.5rem 2.5rem;
+// }
 
-.header {
-  padding: 1rem 2rem 0;
-}
+// .header {
+//   padding: 1rem 2rem 0;
+// }
 
 .title {
   font-size: 1.125rem;
@@ -31,7 +31,7 @@
   align-items: flex-end;
   display: flex;
   justify-content: space-between;
-  margin: 1.5rem 0 1.75rem;
+  // margin: 1.5rem 0 1.75rem;
 }
 
 .dropdown {
@@ -165,4 +165,34 @@
   letter-spacing: 0.02rem;
   line-height: 0.9375rem;
   margin-left: 1rem;
+}
+
+.actionsContainer {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  width: 100%;
+
+  :global .cds--search {
+    max-width: 24rem;
+  }
+}
+
+.leftActions {
+  min-width: 24rem;
+}
+
+.memberCountText {
+  color: var(--cds-text-01);
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.featureDescription {
+  color: var(--cds-text-01);
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  margin-bottom: 1.375rem;
 }

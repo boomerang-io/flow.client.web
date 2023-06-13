@@ -18,6 +18,7 @@ import Settings from "./Settings";
 import Quotas from "./Quotas";
 import Labels from "./Labels";
 import Workflows from "./Workflows";
+import ApproverGroups from "./ApproverGroups";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./teamDetailed.module.scss";
@@ -90,6 +91,9 @@ function TeamDetailedContainer() {
           </Route>
           <Route exact path={AppPath.ManageTeamWorkflows}>
             <Workflows team={teamDetailsData} />
+          </Route>
+          <Route exact path={AppPath.ManageTeamApprovers}>
+            <ApproverGroups team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
           </Route>
           <Route exact path={AppPath.ManageTeamLabels}>
             <Labels

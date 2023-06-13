@@ -27,7 +27,7 @@ import styles from "./app.module.scss";
 const AppActivation = lazy(() => import("./AppActivation"));
 const Activity = lazy(() => import("Features/Activity"));
 const Actions = lazy(() => import("Features/Actions"));
-const ApproverGroups = lazy(() => import("Features/ApproverGroups"));
+const ApproverGroups = lazy(() => import("Features/TeamDetailed/ApproverGroups"));
 const Editor = lazy(() => import("Features/Editor"));
 const Execution = lazy(() => import("Features/Execution"));
 const GlobalProperties = lazy(() => import("Features/GlobalProperties"));
@@ -352,21 +352,12 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 path={AppPath.ManageTeamProperties}
                 userRole={teamPropertiesEnabled ? "*" : ""}
               />
-              <Route path={AppPath.ManageTeamApprovers}>
-                <ApproverGroups />
-              </Route>
               <Route path={AppPath.ManageTeamTokens}>
                 <TeamTokens />
               </Route>
               <Route path={AppPath.ManageTeam}>
                 <ManageTeam />
               </Route>
-              {/* {<ProtectedRoute
-            allowedUserRoles={["*"]}
-            component={<TeamTokens />}
-            path={AppPath.ManaTeamTokens}
-            userRole={teamTokensEnabled}
-          />} */}
               <Route path={AppPath.Actions}>
                 <Actions />
               </Route>
