@@ -24,25 +24,30 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
 import { Run, Bee } from "@carbon/react/icons";
 import workflowIcons from "Assets/workflowIcons";
-import { ComposedModalChildProps, FlowTeamQuotas, ModalTriggerProps, WorkflowSummary } from "Types";
-import { WorkflowScope } from "Constants";
-import styles from "./workflowCard.module.scss";
+import {
+  ComposedModalChildProps,
+  FlowTeamQuotas,
+  ModalTriggerProps,
+  WorkflowSummary,
+  WorkflowView,
+  WorkflowViewType,
+} from "Types";
 // @ts-ignore:next-line
 import { swapValue } from "Utils";
+import styles from "./workflowCard.module.scss";
 
 interface WorkflowCardProps {
-  scope: string;
   teamId: string | null;
   quotas: FlowTeamQuotas | null;
   workflow: WorkflowSummary;
+  viewType: WorkflowViewType;
 }
 
 type FunctionAnyReturn = () => any;
 
-const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, workflow }) => {
-  const { teams } = useAppContext();
+const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, viewType }) => {
+  const { activeTeam } = useAppContext();
   const queryClient = useQueryClient();
-  const type = scope === WorkflowScope.Template ? "Template" : "Workflow";
   const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
@@ -77,39 +82,28 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
    * @returns {Array}
    */
   const formatPropertiesForEdit = () => {
-    const { properties = [] } = workflow;
-    return properties.filter((property) => !property.readOnly);
+    const { params = [] } = workflow;
+    return params.filter((param: any) => !param.readOnly);
   };
 
   const handleDeleteWorkflow = async () => {
     const workflowId = workflow.id;
     try {
       await deleteWorkflowMutator({ id: workflowId });
-      notify(<ToastNotification kind="success" title={`Delete ${type}`} subtitle={`${type} successfully deleted`} />);
-      if (scope === WorkflowScope.Team) {
-        /**
-         * teams query takes a while. optomistic update here
-         */
-        const specificTeam = teams.find((team) => team.id === teamId);
-        const specificTeamIndex = teams.findIndex((team) => team.id === teamId);
-        const newTeamWorkflows = specificTeam?.workflows.filter((workflow) => workflow.id !== workflowId);
-        // @ts-ignore
-        teams[specificTeamIndex].workflows = newTeamWorkflows;
-        queryClient.setQueryData(serviceUrl.getTeams(), teams);
-        queryClient.invalidateQueries(serviceUrl.getTeams());
-      } else if (scope === WorkflowScope.System) {
-        queryClient.invalidateQueries(serviceUrl.getSystemWorkflows());
-      } else if (scope === WorkflowScope.Template) {
-        queryClient.invalidateQueries(serviceUrl.workflowTemplates());
+      notify(
+        <ToastNotification kind="success" title={`Delete ${viewType}`} subtitle={`${viewType} successfully deleted`} />
+      );
+      if (viewType === WorkflowView.Template) {
+        queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getUserWorkflows());
+        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: activeTeam?.id }));
       }
     } catch {
       notify(
         <ToastNotification
           kind="error"
           title="Something's Wrong"
-          subtitle={`Request to delete ${type.toLowerCase()} failed`}
+          subtitle={`Request to delete ${viewType.toLowerCase()} failed`}
         />
       );
     }
@@ -121,18 +115,14 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
       notify(
         <ToastNotification
           kind="success"
-          title={`Duplicate ${type}`}
-          subtitle={`Successfully duplicated ${type.toLowerCase()}`}
+          title={`Duplicate ${viewType}`}
+          subtitle={`Successfully duplicated ${viewType.toLowerCase()}`}
         />
       );
-      if (scope === WorkflowScope.System) {
-        queryClient.invalidateQueries(serviceUrl.getSystemWorkflows());
-      } else if (scope === WorkflowScope.Team) {
-        queryClient.invalidateQueries(serviceUrl.getTeams());
-      } else if (scope === WorkflowScope.Template) {
-        queryClient.invalidateQueries(serviceUrl.workflowTemplates());
+      if (viewType === WorkflowView.Template) {
+        queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getUserWorkflows());
+        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: activeTeam?.id }));
       }
       return;
     } catch (e) {
@@ -140,7 +130,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
         <ToastNotification
           kind="error"
           title="Something's Wrong"
-          subtitle={`Request to duplicate ${type.toLowerCase()} failed`}
+          subtitle={`Request to duplicate ${viewType.toLowerCase()} failed`}
         />
       );
       return;
@@ -148,19 +138,26 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
   };
 
   const handleExportWorkflow = (workflow: WorkflowSummary) => {
-    notify(<ToastNotification kind="info" title={`Export ${type}`} subtitle="Export starting soon" />);
+    notify(<ToastNotification kind="info" title={`Export ${viewType}`} subtitle="Export starting soon" />);
     axios
-      .get(`${BASE_URL}/workflow/export/${workflow.id}`)
+      .get(`${BASE_URL}/workflow/${workflow.id}/export`)
       .then(({ data }) => {
         fileDownload(JSON.stringify(data, null, 4), `${workflow.name}.json`);
       })
       .catch((error) => {
         notify(
-          <ToastNotification kind="error" title="Something's Wrong" subtitle={`Export ${type.toLowerCase()} failed`} />
+          <ToastNotification
+            kind="error"
+            title="Something's Wrong"
+            subtitle={`Export ${viewType.toLowerCase()} failed`}
+          />
         );
       });
   };
 
+  /*
+   * This function is used to handle the execution of a workflow. It only needs to work for WorkflowView.Workflow as Templates cant be executed
+   */
   const handleExecuteWorkflow = async (closeModal: () => void, redirect: boolean = false, properties: {} = {}) => {
     const { id: workflowId } = workflow;
     let newProperties = properties;
@@ -174,23 +171,17 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
       notify(
         <ToastNotification
           kind="success"
-          title={`Run ${type}`}
-          subtitle={`Successfully started ${type.toLowerCase()} execution`}
+          title={`Run ${viewType}`}
+          subtitle={`Successfully started ${viewType.toLowerCase()} execution`}
         />
       );
       if (redirect) {
         history.push({
           pathname: appLink.execution({ executionId: execution.id, workflowId }),
-          state: { fromUrl: appLink.workflows(), fromText: `${type}s` },
+          state: { fromUrl: appLink.workflows({ teamId: activeTeam?.id }), fromText: `${viewType}s` },
         });
       } else {
-        if (scope === WorkflowScope.System) {
-          queryClient.invalidateQueries(serviceUrl.getSystemWorkflows());
-        } else if (scope === WorkflowScope.Team) {
-          queryClient.invalidateQueries(serviceUrl.getTeams());
-        } else {
-          queryClient.invalidateQueries(serviceUrl.getUserWorkflows());
-        }
+        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: activeTeam?.id }));
         closeModal();
       }
     } catch (err) {
@@ -207,7 +198,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
   let menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => history.push(appLink.editorDesigner({ workflowId: workflow.id })),
+      onClick: () => history.push(appLink.editorDesigner({ teamId: activeTeam?.id, workflowId: workflow.id })),
     },
     {
       itemText: "View Activity",
@@ -238,17 +229,14 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
   }
 
   const formattedProperties = formatPropertiesForEdit();
-
   const { name, Icon = Bee } = workflowIcons.find((icon) => icon.name === workflow.icon) ?? {};
-
   let hasReachedMonthlyRunLimit = false;
 
   if (quotas) {
-    hasReachedMonthlyRunLimit = quotas?.maxWorkflowExecutionMonthly <= quotas?.currentWorkflowExecutionMonthly;
+    hasReachedMonthlyRunLimit = quotas?.maxWorkflowExecutionMonthly <= quotas?.currentRuns;
   }
 
   const canRunManually = workflow?.triggers?.manual?.enable ?? false;
-
   const isDisabled = workflowQuotasEnabled && (hasReachedMonthlyRunLimit || !canRunManually);
 
   let loadingText = "";
@@ -263,7 +251,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
 
   return (
     <div className={styles.container}>
-      <Link to={!isDeleting ? appLink.editorDesigner({ workflowId: workflow.id }) : ""}>
+      <Link to={!isDeleting ? appLink.editorDesigner({ teamId: activeTeam?.id, workflowId: workflow.id }) : ""}>
         <section className={styles.details}>
           <div className={styles.iconContainer}>
             <Icon className={styles.icon} alt={`${name}`} />
@@ -272,8 +260,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
             <h1 title={workflow.name} className={styles.name} data-testid="workflow-card-title">
               {workflow.name}
             </h1>
-            <p title={workflow.shortDescription} className={styles.description}>
-              {workflow.shortDescription}
+            <p title={workflow.description} className={styles.description}>
+              {workflow.description}
             </p>
           </div>
         </section>
@@ -295,13 +283,13 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
         {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
           <ComposedModal
             modalHeaderProps={{
-              title: `${type} Parameters`,
-              subtitle: `Provide parameter values for your ${type.toLowerCase()}`,
+              title: `Workflow Parameters`,
+              subtitle: `Provide parameter values for your Workflow`,
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
                 disabled={isDeleting || isDisabled}
-                iconDescription={`Run ${type}`}
+                iconDescription={`Run ${viewType}`}
                 renderIcon={Run}
                 size="md"
                 onClick={openModal}
@@ -328,13 +316,13 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
           <ComposedModal
             composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
             modalHeaderProps={{
-              title: `Execute ${type}`,
-              subtitle: `"Run and View" will navigate you to the ${type.toLowerCase()} exeuction view.`,
+              title: `Execute ${viewType}`,
+              subtitle: `"Run and View" will navigate you to the ${viewType.toLowerCase()} exeuction view.`,
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
                 disabled={isDeleting || isDisabled}
-                iconDescription={`Run ${type}`}
+                iconDescription={`Run ${viewType}`}
                 renderIcon={Run}
                 size="md"
                 onClick={openModal}
@@ -359,7 +347,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
         <div className={styles.templatesWarningIcon}>
           <TooltipHover
             direction="top"
-            tooltipContent={`New version of a task available! To update, edit your ${type.toLowerCase()}.`}
+            tooltipContent={`New version of a task available! To update, edit your ${viewType.toLowerCase()}.`}
           >
             <div>
               <WorkflowWarningButton />
@@ -389,8 +377,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
           onCloseModal={() => setIsUpdateWorkflowModalOpen(false)}
           teamId={teamId}
           workflowId={workflow.id}
-          scope={scope}
-          type={type}
+          type={viewType}
         />
       )}
       {isDeleteModalOpen && (
@@ -406,9 +393,9 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
           onCloseModal={() => {
             setIsDeleteModalOpen(false);
           }}
-          title={`Delete ${type}`}
+          title={`Delete ${viewType}`}
         >
-          {`Are you sure you want to delete this ${type.toLowerCase()}? There's no going back from this decision.`}
+          {`Are you sure you want to delete this ${viewType.toLowerCase()}? There's no going back from this decision.`}
         </ConfirmModal>
       )}
     </div>

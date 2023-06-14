@@ -76,26 +76,15 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children }) => {
 };
 
 interface TeamTokensTableProps {
-  activeTeam: FlowTeam | null;
+  activeTeam?: FlowTeam | null;
   tokens: Token[];
   isLoading: boolean;
   hasError: any;
-  setActiveTeam(args: FlowTeam): void;
   deleteToken(tokenId: string): void;
-  teams: FlowTeam[];
   userType: string;
 }
 
-function TeamTokenComponent({
-  deleteToken,
-  tokens,
-  hasError,
-  isLoading,
-  activeTeam,
-  setActiveTeam,
-  teams,
-  userType,
-}: TeamTokensTableProps) {
+function TeamTokenComponent({ deleteToken, tokens, hasError, isLoading, activeTeam, userType }: TeamTokensTableProps) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [sortKey, setSortKey] = useState("creationDate");
@@ -140,20 +129,6 @@ function TeamTokenComponent({
   if (isLoading) {
     return (
       <FeatureLayout>
-        <div className={styles.dropdown}>
-          <ComboBox
-            data-testid="team-tokens-combobox"
-            id="team-tokens-select"
-            initialSelectedItem={activeTeam?.id ? activeTeam : null}
-            items={sortByProp(teams, "name")}
-            itemToString={(item: { name: string }) => item?.name ?? ""}
-            label="Teams"
-            onChange={({ selectedItem }: { selectedItem: FlowTeam }) => {
-              setActiveTeam(selectedItem);
-            }}
-            placeholder="Select a team"
-          />
-        </div>
         <DataTableSkeleton
           data-testid="token-loading-skeleton"
           className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
@@ -175,120 +150,100 @@ function TeamTokenComponent({
 
   return (
     <FeatureLayout>
-      {teams.length === 0 ? (
-        <NoTeamsRedirectPrompt />
-      ) : (
-        <>
-          <div className={styles.tokenContainer}>
-            <div className={styles.dropdown}>
-              <ComboBox
-                data-testid="team-tokens-combobox"
-                id="team-tokens-select"
-                initialSelectedItem={activeTeam?.id ? activeTeam : null}
-                items={sortByProp(teams, "name")}
-                itemToString={(item: { name: string }) => item?.name ?? ""}
-                label="Teams"
-                onChange={({ selectedItem }: { selectedItem: FlowTeam }) => {
-                  setActiveTeam(selectedItem);
-                }}
-                placeholder="Select a team"
-              />
-            </div>
-            {activeTeam?.id && <CreateToken activeTeam={activeTeam} />}
-          </div>
-          {tokens?.length > 0 ? (
-            <>
-              <DataTable
-                rows={arrayPagination(tokens, page, pageSize, sortKey, sortDirection)}
-                sortRow={(rows: any) => sortByProp(rows, sortKey, sortDirection.toLowerCase())}
-                headers={headers}
-                render={({
-                  rows,
-                  headers,
-                  getHeaderProps,
-                }: {
-                  rows: any;
-                  headers: Array<{ header: string; key: string; sortable: boolean }>;
-                  getHeaderProps: any;
-                }) => (
-                  <TableContainer>
-                    <Table isSortable>
-                      <TableHead>
-                        <TableRow className={styles.tableHeadRow}>
-                          {headers.map((header: { header: string; key: string; sortable: boolean }) => (
-                            <TableHeader
-                              id={header.key}
-                              {...getHeaderProps({
-                                header,
-                                className: `${styles.tableHeadHeader} ${styles[header.key]}`,
-                                isSortable: header.sortable,
-                                onClick: handleSort,
-                              })}
-                              isSortHeader={sortKey === header.key}
-                              sortDirection={sortDirection}
-                            >
-                              {header.header}
-                            </TableHeader>
-                          ))}
-                        </TableRow>
-                      </TableHead>
-                      <TableBody className={styles.tableBody}>
-                        {rows.map((row: any) => (
-                          <TableRow key={row.id}>
-                            {row.cells.map((cell: any, cellIndex: number) => (
-                              <TableCell key={cell.id} style={{ padding: "0" }}>
-                                <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
-                              </TableCell>
-                            ))}
-                          </TableRow>
+      <>
+        <div className={styles.tokenContainer}>{activeTeam?.id && <CreateToken activeTeam={activeTeam} />}</div>
+        {tokens?.length > 0 ? (
+          <>
+            <DataTable
+              rows={arrayPagination(tokens, page, pageSize, sortKey, sortDirection)}
+              sortRow={(rows: any) => sortByProp(rows, sortKey, sortDirection.toLowerCase())}
+              headers={headers}
+              render={({
+                rows,
+                headers,
+                getHeaderProps,
+              }: {
+                rows: any;
+                headers: Array<{ header: string; key: string; sortable: boolean }>;
+                getHeaderProps: any;
+              }) => (
+                <TableContainer>
+                  <Table isSortable>
+                    <TableHead>
+                      <TableRow className={styles.tableHeadRow}>
+                        {headers.map((header: { header: string; key: string; sortable: boolean }) => (
+                          <TableHeader
+                            id={header.key}
+                            {...getHeaderProps({
+                              header,
+                              className: `${styles.tableHeadHeader} ${styles[header.key]}`,
+                              isSortable: header.sortable,
+                              onClick: handleSort,
+                            })}
+                            isSortHeader={sortKey === header.key}
+                            sortDirection={sortDirection}
+                          >
+                            {header.header}
+                          </TableHeader>
                         ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                )}
-              />
-              <Pagination
-                onChange={handlePaginationChange}
-                page={page}
-                pageSize={pageSize}
-                pageSizes={PAGE_SIZES}
-                totalItems={tokens?.length}
-              />
-            </>
-          ) : activeTeam ? (
-            <>
-              <DataTable
-                rows={tokens}
-                headers={headers}
-                render={({ headers }: { headers: Array<{ header: string; key: string; sortable: boolean }> }) => (
-                  <TableContainer>
-                    <Table>
-                      <TableHead>
-                        <TableRow className={styles.tableHeadRow}>
-                          {headers.map((header: { header: string; key: string; sortable: boolean }) => (
-                            <TableHeader
-                              key={header.key}
-                              id={header.key}
-                              className={`${styles.tableHeadHeader} ${styles[header.key]}`}
-                            >
-                              {header.header}
-                            </TableHeader>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody className={styles.tableBody}>
+                      {rows.map((row: any) => (
+                        <TableRow key={row.id}>
+                          {row.cells.map((cell: any, cellIndex: number) => (
+                            <TableCell key={cell.id} style={{ padding: "0" }}>
+                              <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
+                            </TableCell>
                           ))}
                         </TableRow>
-                      </TableHead>
-                    </Table>
-                  </TableContainer>
-                )}
-              />
-              <Error404 title="No teams tokens found" header={null} message={null} theme="boomerang" />
-            </>
-          ) : (
-            <Box maxWidth="20rem" margin="0 auto">
-              <WombatMessage title="Select a team" />
-            </Box>
-          )}
-        </>
-      )}
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
+            />
+            <Pagination
+              onChange={handlePaginationChange}
+              page={page}
+              pageSize={pageSize}
+              pageSizes={PAGE_SIZES}
+              totalItems={tokens?.length}
+            />
+          </>
+        ) : activeTeam ? (
+          <>
+            <DataTable
+              rows={tokens}
+              headers={headers}
+              render={({ headers }: { headers: Array<{ header: string; key: string; sortable: boolean }> }) => (
+                <TableContainer>
+                  <Table>
+                    <TableHead>
+                      <TableRow className={styles.tableHeadRow}>
+                        {headers.map((header: { header: string; key: string; sortable: boolean }) => (
+                          <TableHeader
+                            key={header.key}
+                            id={header.key}
+                            className={`${styles.tableHeadHeader} ${styles[header.key]}`}
+                          >
+                            {header.header}
+                          </TableHeader>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                  </Table>
+                </TableContainer>
+              )}
+            />
+            <Error404 title="No teams tokens found" header={null} message={null} theme="boomerang" />
+          </>
+        ) : (
+          <Box maxWidth="20rem" margin="0 auto">
+            <WombatMessage title="Select a team" />
+          </Box>
+        )}
+      </>
     </FeatureLayout>
   );
 }

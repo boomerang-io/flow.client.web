@@ -1,1 +1,1 @@
-export const requiredWorkflowProps = ["description", "icon", "name", "shortDescription"];
+export const requiredWorkflowProps = ["description", "icon", "name"];

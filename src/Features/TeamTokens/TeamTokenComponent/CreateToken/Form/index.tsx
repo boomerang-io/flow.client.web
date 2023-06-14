@@ -127,7 +127,7 @@ function CreateServiceTokenForm({
                 />
               </DatePicker>
               <TextArea
-                labelText="Description"
+                labelText="Description (optional)"
                 placeholder="Provide a short description for this Token"
                 id="description"
                 data-testid="token-description"

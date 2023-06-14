@@ -13,28 +13,20 @@ type Props = {
 };
 
 function WorkflowActions({ workflow }: Props) {
-  const { id, scope } = workflow;
+  const { id } = workflow;
   const history = useHistory();
-  const { user } = useAppContext();
-  const { type } = user;
-  const systemWorkflowsEnabled = elevatedUserRoles.includes(type);
-
-  // Don't show the edit workflow button if the workflow has system scope and the user doesn't have permission
-  const showEditWorkflow = scope === "team" || (scope === "system" && systemWorkflowsEnabled);
 
   return (
     <div className={styles.container}>
       <p className={styles.messageText}>Read-only</p>
-      {showEditWorkflow && (
-        <Button
-          kind="ghost"
-          size="md"
-          onClick={() => history.push(appLink.editorDesigner({ workflowId: id }))}
-          renderIcon={Edit}
-        >
-          Edit Workflow
-        </Button>
-      )}
+      <Button
+        kind="ghost"
+        size="md"
+        onClick={() => history.push(appLink.editorDesigner({ workflowId: id }))}
+        renderIcon={Edit}
+      >
+        Edit Workflow
+      </Button>
     </div>
   );
 }

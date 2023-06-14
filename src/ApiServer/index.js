@@ -1,4 +1,4 @@
-import { Server, Serializer, Model } from "miragejs";
+import { Server, Serializer, Model, Response } from "miragejs";
 import { inflections } from "inflected";
 import queryString from "query-string";
 import { v4 as uuid } from "uuid";
@@ -31,7 +31,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       activity: Model,
       approverGroups: Model,
       changelog: Model,
-      config: Model,
+      globalParams: Model,
       featureFlag: Model,
       insights: Model,
       manageTeam: Model,
@@ -41,10 +41,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       revision: Model,
       setting: Model,
       summary: Model,
-      systemWorkflows: Model,
       tasktemplate: Model,
       team: Model,
       teamApproverUsers: Model,
+      teamNameValidate: Model,
       taskTemplateValidate: Model,
       teamProperties: Model,
       tokens: Model,
@@ -69,7 +69,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.profile[0];
       });
 
-      this.get(serviceUrl.getPlatformConfig(), (schema) => {
+      this.get(serviceUrl.getContext(), (schema) => {
         return schema.db.platformConfig[0];
       });
 
@@ -77,8 +77,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.flowNavigation;
       });
 
-      this.get(serviceUrl.getTeams(), (schema) => {
-        return schema.db.teams;
+      this.get(serviceUrl.getMyTeams({ query: null }), (schema) => {
+        return schema.db.myTeams[0];
       });
 
       this.get(serviceUrl.getFeatureFlags(), (schema) => {
@@ -100,7 +100,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       this.get(serviceUrl.getSchedules({ query: null }), (schema) => {
-        return schema.db.workflowSchedules;
+        return schema.db.workflowSchedules[0];
       });
 
       this.get(serviceUrl.getWorkflowSchedules({ workflowId: ":workflowId" }), (schema) => {
@@ -111,24 +111,20 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.availableParameters[0].data;
       });
 
-      this.get(serviceUrl.workflowTemplates(), (schema) => {
-        return schema.db.workflowTemplates;
+      this.get(serviceUrl.getWorkflowTemplates(), (schema) => {
+        return schema.db.workflowTemplates[0];
       });
 
-      this.get(serviceUrl.getSystemWorkflows(), (schema) => {
-        return schema.db.systemWorkflows;
-      });
-
-      this.get(serviceUrl.getUserWorkflows(), (schema) => {
-        return schema.db.userWorkflows[0];
+      this.get(serviceUrl.getWorkflows({ query: null }), (schema) => {
+        return schema.db.workflows[0];
       });
 
       this.get(serviceUrl.getTeamQuotas({ id: ":id" }), (schema) => {
         return schema.db.quotas[0];
       });
 
-      this.get(serviceUrl.getManageTeams({ query: null }), (schema) => {
-        return schema.db.manageTeams[0];
+      this.get(serviceUrl.getTeams({ query: null }), (schema) => {
+        return schema.db.teams[0];
       });
 
       this.put(serviceUrl.putActivationApp(), () => {
@@ -136,26 +132,28 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       /**
-       * Global Properties
+       * Global Parameters
        */
 
-      this.get(serviceUrl.getGlobalConfiguration());
-      this.post(serviceUrl.getGlobalConfiguration(), (schema, request) => {
+      this.get(serviceUrl.getGlobalParams({ query: null }), (schema) => {
+        return schema.db.globlaParams[0];
+      });
+      this.post(serviceUrl.getGlobalParams(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
-        schema.config.create({ id: uuid(), ...body });
-        return schema.config.all();
+        schema.globalParams.create({ id: uuid(), ...body });
+        return schema.globalParams.all();
       });
 
       this.patch(serviceUrl.getGlobalProperty({ id: ":id" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let { id } = request.params;
-        let config = schema.config.find(id);
-        config.update({ ...body });
+        let param = schema.globalParams.find(id);
+        param.update({ ...body });
       });
 
       this.delete(serviceUrl.getGlobalProperty({ id: ":id" }), (schema, request) => {
         let { id } = request.params;
-        schema.db.config.remove({ id });
+        schema.db.globalParams.remove({ id });
       });
 
       /**
@@ -217,7 +215,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         const query = request.url.substring(14);
         // eslint-disable-next-line
         const { fromDate = null, toDate = null, teamId = null } = queryString.parse(query);
-        const activeTeam = teamId && schema.db.teams.find(teamId);
+        const activeTeam = teamId && schema.db.myTeams.find(teamId);
         let activeExecutions =
           activeTeam && schema.db.insights[0].executions.filter((team) => team.teamName === activeTeam.name);
         return activeExecutions ? { ...schema.db.insights[0], executions: activeExecutions } : schema.db.insights[0];
@@ -226,8 +224,11 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Task Templates
        */
-      const tasktemplatePath = serviceUrl.getTaskTemplates({ workflowId: null });
-      this.get(tasktemplatePath);
+      const tasktemplatePath = serviceUrl.getTaskTemplates({ query: null });
+      this.get(serviceUrl.getTaskTemplates({ query: null }), (schema) => {
+        console.log(schema.db.tasktemplate);
+        return schema.db.tasktemplate[0];
+      });
       this.put(tasktemplatePath, (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let taskTemplate = schema.tasktemplate.find(body.id);
@@ -261,7 +262,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         let body = JSON.parse(request.requestBody);
         let workflow = { ...body, id: uuid(), createdDate: Date.now(), revisionCount: 1, status: "active" };
         if (body.flowTeamId) {
-          let flowTeam = schema.teams.findBy({ id: body.flowTeamId });
+          let flowTeam = schema.myTeams.findBy({ id: body.flowTeamId });
           const teamWorkflows = [...flowTeam.workflows];
           teamWorkflows.push(workflow);
           flowTeam.update({ workflows: teamWorkflows });
@@ -279,7 +280,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.del(serviceUrl.getWorkflow({ id: ":workflowId" }), (schema, request) => {
         let { workflowId } = request.params;
-        let flowTeam = schema.teams.where((team) => team.workflows.find((workflow) => workflow.id === workflowId));
+        let flowTeam = schema.myTeams.where((team) => team.workflows.find((workflow) => workflow.id === workflowId));
         let { attrs } = flowTeam.models[0];
         const teamWorkflows = attrs.workflows.filter((workflow) => workflow.id !== workflowId);
         flowTeam.update({ workflows: teamWorkflows });
@@ -349,12 +350,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Activity
        */
-      this.get(serviceUrl.getActivity({ query: null }), (schema) => {
-        return schema.db.activityList[0];
+      this.get(serviceUrl.getWorkflowRuns({ query: null }), (schema) => {
+        return schema.db.workflowRuns[0];
       });
 
-      this.get(serviceUrl.getActivitySummary({ query: null }), (schema, request) => {
-        return schema.db.activitySummary[0];
+      this.get(serviceUrl.getWorkflowRunCount({ query: null }), (schema, request) => {
+        return schema.db.workflowRunCount[0];
       });
 
       this.get(serviceUrl.getWorkflowExecution({ executionId: ":id" }), (schema, request) => {
@@ -390,7 +391,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.approverGroups;
       });
 
-      this.get(serviceUrl.getFlowTeamUsers({ teamId: ":teamId" }), (schema) => {
+      this.get(serviceUrl.getTeamMembers({ teamId: ":teamId" }), (schema) => {
         return schema.db.teamApproverUsers;
       });
 
@@ -417,12 +418,16 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        * Manage Team
        */
 
-      this.get(serviceUrl.getManageTeam({ teamId: ":teamId" }), (schema, request) => {
+      this.post(serviceUrl.postTeamValidateName(), (schema, request) => {
+        return new Response(422, {}, { errors: [ 'Name is already taken'] });
+      });
+
+      this.get(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
         return schema.manageTeamDetails.findBy({ id: teamId });
       });
 
-      this.patch(serviceUrl.getManageTeam({ teamId: ":teamId" }), (schema, request) => {
+      this.patch(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
         let activeTeam = schema.manageTeamDetails.findBy({ id: teamId });
@@ -431,7 +436,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return activeTeam;
       });
 
-      this.put(serviceUrl.getManageTeam({ teamId: ":teamId" }), (schema, request) => {
+      this.put(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
         let summary = schema.manageTeamDetails.findBy({ id: teamId });
@@ -449,7 +454,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.post(serviceUrl.getManageTeamsCreate(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
-        const teams = schema.manageTeams.first();
+        const teams = schema.teams.first();
         const updatedRecords = teams.records.concat({ id: uuid(), isActive: true, ...body });
         teams.update({ records: updatedRecords });
         return {};
@@ -459,26 +464,26 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        * Manage Users
        */
 
-      this.get(serviceUrl.getManageUsers({ query: null }), (schema, request) => {
+      this.get(serviceUrl.getUsers({ query: null }), (schema, request) => {
         const { query } = request.queryParams;
-        const userData = schema.db.manageUsers[0];
+        const userData = schema.db.users[0];
         if (query) {
-          userData.records =
-            userData.records.filter((user) => user.name.includes(query) || user.email.includes(query)) ?? [];
+          userData.content =
+            userData.content.filter((user) => user.name.includes(query) || user.email.includes(query)) ?? [];
         }
         return userData;
       });
 
-      this.get(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {
+      this.get(serviceUrl.getUser({ userId: ":userId" }), (schema, request) => {
         const { userId } = request.params;
-        const user = schema.manageUsers.first().attrs.records.find((user) => user.id === userId);
+        const user = schema.db.users[0].content.find((user) => user.id === userId);
         return user;
       });
 
-      this.patch(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {
+      this.patch(serviceUrl.getUser({ userId: ":userId" }), (schema, request) => {
         const { userId } = request.params;
         let body = JSON.parse(request.requestBody);
-        const users = schema.manageUsers.first();
+        const users = schema.users.first();
         const updatedRecords = [];
         for (let user of users.records) {
           if (user.id === userId) {
@@ -526,7 +531,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return {};
       });
 
-      this.get(serviceUrl.getDefaultQuotas(), (schema, request) => {
+      this.get(serviceUrl.getTeamQuotaDefaults(), (schema, request) => {
         return {
           maxWorkflowCount: 20,
           maxWorkflowExecutionMonthly: 150,

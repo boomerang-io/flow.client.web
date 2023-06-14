@@ -1,65 +1,101 @@
 const flowNavigation = [
   {
+    name: "Home",
+    type: "link",
+    icon: "Home",
+    link: "/BMRG_APP_ROOT_CONTEXT/home",
+  },
+  {
+    type: "divider",
+  },
+  {
     name: "Workflows",
     type: "link",
-    icon: "FlowData16",
-    link: "/BMRG_APP_ROOT_CONTEXT/workflows",
+    link: "/BMRG_APP_ROOT_CONTEXT/5e3a35ad8c222700018ccd39/workflows",
   },
   {
     name: "Activity",
     type: "link",
-    icon: "Activity16",
-    link: "/BMRG_APP_ROOT_CONTEXT/activity",
+    icon: "Activity",
+    link: "/BMRG_APP_ROOT_CONTEXT/5e3a35ad8c222700018ccd39/activity",
   },
   {
     name: "Actions",
     type: "link",
-    icon: "Stamp16",
-    link: "/BMRG_APP_ROOT_CONTEXT/actions",
+    icon: "Stamp",
+    link: "/BMRG_APP_ROOT_CONTEXT/5e3a35ad8c222700018ccd39/actions",
   },
   {
+    disabled: true,
     name: "Schedules",
     type: "link",
-    icon: "CalendarHeatMap16",
-    link: "/BMRG_APP_ROOT_CONTEXT/schedules",
+    icon: "CalendarHeatMap",
+    link: "/BMRG_APP_ROOT_CONTEXT/5e3a35ad8c222700018ccd39/schedules",
   },
   {
     name: "Insights",
     type: "link",
-    icon: "ChartScatter16",
-    link: "/BMRG_APP_ROOT_CONTEXT/insights",
+    icon: "ChartScatter",
+    link: "/BMRG_APP_ROOT_CONTEXT/5e3a35ad8c222700018ccd39/insights",
   },
   {
-    name: "Management",
-    type: "category",
-    icon: "SettingsAdjust16",
-    childLinks: [
-      {
-        name: "Team Approvers",
-        type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/manage/approver-groups",
-      },
-      {
-        name: "Team Parameters",
-        type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/manage/team-parameters",
-      },
-      {
-        name: "Team Tasks",
-        type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/manage/task-templates",
-      },
-      {
-        name: "Team Tokens",
-        type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/manage/team-tokens",
-      },
-    ],
+    type: "divider",
   },
+  {
+    name: "Task Manager",
+    type: "link",
+    icon: "TaskSettings",
+    link: "/BMRG_APP_ROOT_CONTEXT/5e3a35ad8c222700018ccd39/manage/task-templates",
+  },
+  {
+    name: "Tokens",
+    type: "link",
+    icon: "Password",
+    link: "/BMRG_APP_ROOT_CONTEXT/5e3a35ad8c222700018ccd39/tokens",
+  },
+  {
+    name: "Parameters",
+    type: "link",
+    icon: "Parameter",
+    link: "/BMRG_APP_ROOT_CONTEXT/5e3a35ad8c222700018ccd39/parameters",
+  },
+  {
+    name: "Manage Team",
+    type: "link",
+    icon: "SettingsAdjust",
+    link: "/BMRG_APP_ROOT_CONTEXT/5e3a35ad8c222700018ccd39/manage",
+  },
+  // {
+  //   name: "Management",
+  //   type: "menu",
+  //   icon: "SettingsAdjust",
+  //   childLinks: [
+  //     {
+  //       name: "Team Approvers",
+  //       type: "link",
+  //       link: "/BMRG_APP_ROOT_CONTEXT/manage/approver-groups",
+  //     },
+  //     {
+  //       name: "Team Parameters",
+  //       type: "link",
+  //       link: "/BMRG_APP_ROOT_CONTEXT/manage/team-parameters",
+  //     },
+  //     {
+  //       name: "Team Tasks",
+  //       type: "link",
+  //       link: "/BMRG_APP_ROOT_CONTEXT/manage/task-templates",
+  //     },
+  //     {
+  //       name: "Team Tokens",
+  //       type: "link",
+  //       link: "/BMRG_APP_ROOT_CONTEXT/manage/team-tokens",
+  //     },
+  //   ],
+  // },
   {
     name: "Admin",
-    type: "category",
-    icon: "Settings16",
+    type: "menu",
+    icon: "Settings",
     childLinks: [
       {
         name: "Teams",
@@ -82,11 +118,6 @@ const flowNavigation = [
         link: "/BMRG_APP_ROOT_CONTEXT/admin/tokens",
       },
       {
-        name: "Team Quotas",
-        type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/admin/quotas",
-      },
-      {
         name: "Settings",
         type: "link",
         link: "/BMRG_APP_ROOT_CONTEXT/admin/settings",
@@ -97,9 +128,9 @@ const flowNavigation = [
         link: "/BMRG_APP_ROOT_CONTEXT/admin/task-templates",
       },
       {
-        name: "System Workflows",
+        name: "Template Workflows",
         type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/admin/system-workflows",
+        link: "/BMRG_APP_ROOT_CONTEXT/admin/template-workflows",
       },
     ],
   },

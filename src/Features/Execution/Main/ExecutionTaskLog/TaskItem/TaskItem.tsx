@@ -11,13 +11,13 @@ import TaskExecutionLog from "./TaskExecutionLog";
 import moment from "moment";
 import dateHelper from "Utils/dateHelper";
 import { executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
-import { ApprovalStatus, ExecutionStatus, WorkflowExecutionStep } from "Types";
+import { ApprovalStatus, RunStatus, WorkflowExecutionStep } from "Types";
 import styles from "./taskItem.module.scss";
 
 import { appLink } from "Config/appConfig";
 
 const logTaskTypes = ["customtask", "template", "script"];
-const logStatusTypes = [ExecutionStatus.Completed, ExecutionStatus.Failure, ExecutionStatus.InProgress];
+const logStatusTypes = [RunStatus.Completed, RunStatus.Failure, RunStatus.InProgress];
 
 type Props = {
   flowActivityId: string;
@@ -96,7 +96,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
       </section>
       {!hidden && (
         <section className={styles.data}>
-          {((flowTaskStatus === ExecutionStatus.Cancelled && duration > 0) ||
+          {((flowTaskStatus === RunStatus.Cancelled && duration > 0) ||
             (logTaskTypes.includes(taskType) && logStatusTypes.includes(runStatus))) && (
             <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
           )}
@@ -129,7 +129,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
               )}
             </ComposedModal>
           )}
-          {flowTaskStatus !== ExecutionStatus.Cancelled &&
+          {flowTaskStatus !== RunStatus.Cancelled &&
             taskType === NodeType.Approval &&
             approval?.status === ApprovalStatus.Submitted && (
               <ComposedModal
@@ -148,7 +148,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                 )}
               </ComposedModal>
             )}
-          {flowTaskStatus !== ExecutionStatus.Cancelled &&
+          {flowTaskStatus !== RunStatus.Cancelled &&
             taskType === NodeType.Manual &&
             approval?.status === ApprovalStatus.Submitted && (
               <ComposedModal

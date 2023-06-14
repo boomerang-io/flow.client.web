@@ -7,7 +7,7 @@ import PropertiesTable from "./PropertiesTable";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./globalProperties.module.scss";
 
-const configUrl = serviceUrl.getGlobalConfiguration();
+const configUrl = serviceUrl.getGlobalParams();
 
 function GlobalPropertiesContainer() {
   const { data, error, isLoading } = useQuery(configUrl);

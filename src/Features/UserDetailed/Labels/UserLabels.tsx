@@ -37,10 +37,10 @@ function UserLabels({ user, userManagementEnabled }: UserLabelsProps) {
   const [searchQuery, setSearchQuery] = React.useState("");
 
   const { mutateAsync: changeUserMutator, isLoading } = useMutation(
-    ({ userId, body }: any) => axios.patch(serviceUrl.resourceManageUser({ userId }), body),
+    ({ userId, body }: any) => axios.patch(serviceUrl.getUser({ userId }), body),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(serviceUrl.resourceManageUser({ userId: user.id }));
+        queryClient.invalidateQueries(serviceUrl.getUser({ userId: user.id }));
       },
     }
   );
@@ -65,14 +65,12 @@ function UserLabels({ user, userManagementEnabled }: UserLabelsProps) {
       <Helmet>
         <title>{`Labels - ${user.name}`}</title>
       </Helmet>
-      <Formik initialValues={{ labels: user.labels ?? [] }} onSubmit={handleSubmit}>
+      <Formik initialValues={{ labels: user.labels ?? {} }} onSubmit={handleSubmit}>
         {(formikProps) => {
           const { values, handleSubmit, dirty } = formikProps;
-          const userLabels = values.labels;
-
+          const userLabels = Object.entries(values.labels).map(([key, value]) => ({ key, value }));
           const filteredLabelsList = searchQuery ? ms(userLabels, searchQuery, { keys: ["key", "value"] }) : userLabels;
-
-          const labelsKeys = values.labels?.map((label) => label.key) ?? [];
+          const labelsKeys = Object.keys(values.labels);
 
           return (
             <FieldArray
@@ -134,9 +132,7 @@ function UserLabels({ user, userManagementEnabled }: UserLabelsProps) {
                         </StructuredListHead>
                         <StructuredListBody>
                           {sortBy(filteredLabelsList, "key").map((label) => {
-                            const labelIndex = values.labels.findIndex(
-                              (labelFromList) => labelFromList.key === label.key
-                            );
+                            const labelIndex = userLabels.findIndex((labelFromList) => labelFromList.key === label.key);
                             return (
                               <StructuredListRow key={label.key}>
                                 <StructuredListCell className={styles.labelKeyCell}>{label.key}</StructuredListCell>

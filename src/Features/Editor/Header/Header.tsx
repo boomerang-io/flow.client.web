@@ -23,8 +23,9 @@ import {
   WorkflowSummary,
   WorkflowRevision,
   WorkflowRevisionState,
+  WorkflowView,
+  WorkflowViewType,
 } from "Types";
-import { WorkflowScope } from "Constants";
 import styles from "./header.module.scss";
 
 interface DesignerHeaderProps {
@@ -35,6 +36,7 @@ interface DesignerHeaderProps {
   revisionState: WorkflowRevisionState;
   revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
   summaryData: WorkflowSummary;
+  viewType: WorkflowViewType;
 }
 
 const DesignerHeader: React.FC<DesignerHeaderProps> = ({
@@ -45,12 +47,13 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   revisionState,
   revisionQuery,
   summaryData,
+  viewType,
 }) => {
   const routeMatch: { params: { workflowId: string } } = useRouteMatch();
   const {
     params: { workflowId },
   } = routeMatch;
-  const { revisionCount, name, scope } = summaryData;
+  const { revisionCount, name } = summaryData;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;
   const isQueryLoading = revisionQuery.status === QueryStatus.Loading;
@@ -67,14 +70,10 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
       nav={
         <Breadcrumb noTrailingSlash>
           <BreadcrumbItem>
-            {scope === WorkflowScope.System ? (
-              <Link to={appLink.systemWorkflows()}>System Workflows</Link>
-            ) : scope === WorkflowScope.Team ? (
+            {viewType === WorkflowView.Workflow ? (
               <Link to={appLink.workflowsTeams()}>Workflows</Link>
-            ) : scope === WorkflowScope.Template ? (
-              <Link to={appLink.templateWorkflows()}>Template Workflows</Link>
             ) : (
-              <Link to={appLink.workflowsMine()}>My Workflows</Link>
+              <Link to={appLink.templateWorkflows()}>Template Workflows</Link>
             )}
           </BreadcrumbItem>
           <BreadcrumbItem isCurrentPage>

@@ -18,10 +18,10 @@ afterEach(() => {
 describe("TeamDetailed --- Snapshot Test", () => {
   it("Capturing Snapshot of TeamDetailed", async () => {
     const { baseElement } = rtlContextRouterRender(
-      <Route path={AppPath.Team}>
+      <Route path={AppPath.ManageTeam}>
         <TeamDetailed />
       </Route>,
-      { route: appLink.team({ teamId: "5e7cccb94bbc6e0001c51773" }) }
+      { route: appLink.manageTeam({ teamId: "5e7cccb94bbc6e0001c51773" }) }
     );
     await screen.findByText("These are the people who have access to workflows for this Team.");
     expect(baseElement).toMatchSnapshot();
@@ -31,10 +31,10 @@ describe("TeamDetailed --- Snapshot Test", () => {
 describe("TeamDetailed --- RTL", () => {
   test("Visit Team Details tabs", async () => {
     rtlContextRouterRender(
-      <Route path={AppPath.Team}>
+      <Route path={AppPath.ManageTeam}>
         <TeamDetailed />
       </Route>,
-      { route: appLink.team({ teamId: "5e7cccb94bbc6e0001c51773" }) }
+      { route: appLink.manageTeam({ teamId: "5e7cccb94bbc6e0001c51773" }) }
     );
     //Members tab
     await screen.findByText("These are the people who have access to workflows for this Team.");

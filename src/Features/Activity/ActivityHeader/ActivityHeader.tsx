@@ -7,8 +7,10 @@ import {
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { SkeletonPlaceholder } from "@carbon/react";
+import { SkeletonPlaceholder, Breadcrumb, BreadcrumbItem } from "@carbon/react";
 import { ArrowDownRight, ArrowUpRight } from "@carbon/react/icons";
+import { Link } from "react-router-dom";
+import { appLink } from "Config/appConfig";
 import styles from "./activityHeader.module.scss";
 
 ActivityHeader.propTypes = {
@@ -17,6 +19,7 @@ ActivityHeader.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   failedActivities: PropTypes.number,
   runActivities: PropTypes.number,
+  team: PropTypes.any,
   succeededActivities: PropTypes.number,
 };
 
@@ -25,6 +28,7 @@ function ActivityHeader({
   isError,
   isLoading,
   runActivities,
+  team,
   succeededActivities,
   failedActivities,
 }) {
@@ -32,14 +36,28 @@ function ActivityHeader({
   const successRatePercentage = Math.round(successRate * 100);
   const emoji = successRatePercentage > 79 ? "🙌" : successRatePercentage > 49 ? "😮" : "😨";
 
+  const NavigationComponent = () => {
+    return (
+      <Breadcrumb noTrailingSlash>
+        <BreadcrumbItem>
+          <Link to={appLink.home()}>Home</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <p>{team.name}</p>
+        </BreadcrumbItem>
+      </Breadcrumb>
+    );
+  };
+
   return (
     <Header
       className={styles.container}
       includeBorder={false}
+      nav={<NavigationComponent />}
       header={
         <>
-          <HeaderSubtitle>This is all of the</HeaderSubtitle>
           <HeaderTitle>Activity</HeaderTitle>
+          <HeaderSubtitle className={styles.headerMessage}>The place to view Workflow Runs</HeaderSubtitle>
         </>
       }
       actions={

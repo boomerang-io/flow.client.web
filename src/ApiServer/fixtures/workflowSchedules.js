@@ -1,6 +1,7 @@
-const workflowSchedules = [
+const workflowSchedules = {
+content: [
   {
-    dateSchedule: "2021-12-07T12:00:00",
+    dateSchedule: "2023-05-07T12:00:00",
     description: "Yep",
     id: "61d6286bc570b75ec2b47884",
     labels: [
@@ -39,6 +40,21 @@ const workflowSchedules = [
     status: "deleted",
     type: "cron",
   },
-];
+],
+number: 0,
+size: 3,
+totalElements: 3,
+pageable: "INSTANCE",
+last: true,
+totalPages: 1,
+sort: {
+    sorted: false,
+    empty: true,
+    unsorted: true
+},
+first: true,
+numberOfElements: 3,
+empty: false
+};
 
 export default workflowSchedules;

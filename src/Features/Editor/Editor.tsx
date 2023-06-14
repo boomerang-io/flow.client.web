@@ -33,7 +33,7 @@ import ScriptNodeModel from "Utils/dag/scriptNode/ScriptNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
-import { TaskModel, WorkflowSummary, WorkflowRevision } from "Types";
+import { TaskTemplate, WorkflowSummary, WorkflowRevision, WorkflowView } from "Types";
 import styles from "./editor.module.scss";
 
 export default function EditorContainer() {
@@ -60,11 +60,11 @@ export default function EditorContainer() {
    * Mutations
    */
   const { mutateAsync: mutateSummary, ...summaryMutation } = useMutation(resolver.patchUpdateWorkflowSummary, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeams()),
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getMyTeams()),
   });
   const { mutateAsync: mutateRevision, ...revisionMutation } = useMutation(resolver.postCreateWorkflowRevision, {
     onSuccess: () => {
-      queryClient.invalidateQueries(serviceUrl.getTeams());
+      queryClient.invalidateQueries(serviceUrl.getMyTeams());
       queryClient.invalidateQueries(getSummaryUrl);
     },
   });
@@ -140,7 +140,7 @@ interface EditorStateContainerProps {
       }
     | any;
   setRevisionNumber: (revisionNumber: number) => void;
-  taskTemplatesData: Array<TaskModel>;
+  taskTemplatesData: Array<TaskTemplate>;
   workflowId: string;
 }
 
@@ -451,6 +451,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             revisionMutation={revisionMutation}
             revisionQuery={revisionQuery}
             summaryData={summaryData}
+            viewType={WorkflowView.Workflow}
           />
           <Switch>
             <Route path={AppPath.EditorDesigner}>

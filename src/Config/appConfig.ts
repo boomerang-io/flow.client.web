@@ -11,9 +11,9 @@ export const CORE_ENV_URL =
 export const BASE_DOCUMENTATION_URL = "https://www.useboomerang.io/docs/boomerang-flow";
 
 //@ts-ignore
-export const isDevEnv = import.meta.env.MODE === Envs.Dev
+export const isDevEnv = import.meta.env.MODE === Envs.Dev;
 //@ts-ignore
-export const isTestEnv = import.meta.env.MODE === Envs.Test
+export const isTestEnv = import.meta.env.MODE === Envs.Test;
 
 type AppPathKey =
   | "Root"
@@ -29,88 +29,79 @@ type AppPathKey =
   | "EditorProperties"
   | "EditorSchedule"
   | "Execution"
+  | "Home"
   | "Insights"
   | "ManageTaskTemplates"
-  | "ManageTaskTemplatesTeam"
   | "ManageTaskTemplateEdit"
   | "ManageTaskTemplateYaml"
+  | "ManageTeam"
   | "Properties"
-  | "Quotas"
-  | "QuotasEdit"
   | "Schedules"
   | "Settings"
-  | "SystemWorkflows"
-  | "SystemManagementWorkflows"
-  | "TemplatesWorkflows"
+  | "TemplateWorkflows"
   | "TaskTemplates"
   | "TaskTemplateEdit"
   | "TaskTemplateYaml"
-  | "Team"
-  | "TeamSettings"
-  | "TeamWorkflows"
-  | "TeamLabels"
-  | "TeamList"
-  | "TeamApprovers"
-  | "TeamProperties"
-  | "TeamTokens"
+  | "ManageTeam"
+  | "ManageTeamSettings"
+  | "ManageTeamWorkflows"
+  | "ManageTeamLabels"
+  | "ManageTeamQuotas"
+  | "ManageTeamApprovers"
+  | "ManageTeamProperties"
+  | "ManageTeamTokens"
   | "Tokens"
+  | "TeamList"
   | "User"
   | "UserList"
-  | "UserTeams"
   | "UserLabels"
-  | "Workflows"
-  | "WorkflowsMine"
-  | "WorkflowsTeams";
+  | "UserSettings"
+  | "Workflows";
 
 export const AppPath: Record<AppPathKey, string> = {
   Root: "/",
   Error: "/error",
-  Activity: "/activity",
-  Actions: "/actions",
-  ActionsApprovals: "/actions/approvals",
-  ActionsManual: "/actions/manual",
-  Editor: "/editor/:workflowId",
-  EditorDesigner: `/editor/:workflowId/workflow`,
-  EditorConfigure: `editor/:workflowId/configure`,
-  EditorChangelog: `/editor/:workflowId/changelog`,
-  EditorProperties: `/editor/:workflowId/parameters`,
-  EditorSchedule: `/editor/:workflowId/schedule`,
-  Execution: "/activity/:workflowId/execution/:executionId",
-  Insights: "/insights",
-  TeamTokens: "/manage/team-tokens",
-  Workflows: "/workflows",
-  WorkflowsMine: "/workflows/mine",
-  WorkflowsTeams: "/workflows/teams",
-
+  Activity: "/:teamId/activity",
+  Actions: "/:teamId/actions",
+  ActionsApprovals: "/:teamId/actions/approvals",
+  ActionsManual: "/:teamId/actions/manual",
+  Editor: "/:teamId/editor/:workflowId",
+  EditorDesigner: `/:teamId/editor/:workflowId/workflow`,
+  EditorConfigure: `/:teamId/editor/:workflowId/configure`,
+  EditorChangelog: `/:teamId/editor/:workflowId/changelog`,
+  EditorProperties: `/:teamId/editor/:workflowId/parameters`,
+  EditorSchedule: `/:teamId/editor/:workflowId/schedule`,
+  Execution: "/:teamId/activity/:workflowId/execution/:executionId",
+  Home: "/home",
+  Insights: "/:teamId/insights",
+  Workflows: "/:teamId/workflows",
+  Schedules: "/:teamId/schedules",
+  
   //Manage
-  ManageTaskTemplates: `/manage/task-templates`,
-  ManageTaskTemplatesTeam: `/manage/task-templates/team/:teamId`,
-  ManageTaskTemplateEdit: `/manage/task-templates/team/:teamId/:taskId/:version`,
-  ManageTaskTemplateYaml: `/manage/task-templates/team/:teamId/:taskId/:version/yaml-editor`,
-  TeamApprovers: `/manage/approver-groups`,
-  TeamProperties: `/manage/team-parameters`,
-
+  ManageTaskTemplates: `/:teamId/manage/task-templates`,
+  ManageTaskTemplateEdit: `/:teamId/manage/task-templates/:name/:version`,
+  ManageTaskTemplateYaml: `/:teamId/manage/task-templates/:name/:version/yaml-editor`,
+  ManageTeamTokens: "/:teamId/tokens",
+  ManageTeamProperties: `/:teamId/parameters`,
+  ManageTeam: `/:teamId/manage`,
+  ManageTeamSettings: "/:teamId/manage/settings",
+  ManageTeamWorkflows: "/:teamId/manage/workflows",
+  ManageTeamQuotas: "/:teamId/manage/quotas",
+  ManageTeamLabels: "/:teamId/manage/Labels",
+  ManageTeamApprovers: `/:teamId/manage/approver-groups`,
+  
   //Admin
   Properties: "/admin/parameters",
-  Quotas: "/admin/quotas",
-  QuotasEdit: "/admin/quotas/:teamId",
-  Schedules: "/schedules",
   Settings: "/admin/settings",
-  SystemWorkflows: "/admin/system-workflows",
-  SystemManagementWorkflows: "/admin/system-workflows/system",
-  TemplatesWorkflows: "/admin/system-workflows/templates",
+  TemplateWorkflows: "/admin/template-workflows",
   TaskTemplates: "/admin/task-templates",
   TaskTemplateEdit: `/admin/task-templates/:id/:version`,
   TaskTemplateYaml: `/admin/task-templates/:id/:version/yaml-editor`,
-  Team: "/admin/teams/:teamId",
-  TeamSettings: "/admin/teams/:teamId/settings",
-  TeamWorkflows: "/admin/teams/:teamId/workflows",
-  TeamLabels: "/admin/teams/:teamId/Labels",
   TeamList: "/admin/teams",
   Tokens: "/admin/tokens",
   User: "/admin/users/:userId",
-  UserTeams: "/admin/users/:userId/teams",
   UserLabels: "/admin/users/:userId/labels",
+  UserSettings: "/admin/users/:userId/settings",
   UserList: "/admin/users",
 };
 
@@ -120,13 +111,19 @@ interface WorkflowIdArg {
 interface TeamIdArg {
   teamId: string;
 }
+
+interface UserIdArg {
+  userId: string
+}
+
+type TeamRouteArgs = WorkflowIdArg & TeamIdArg;
 interface ManageTaskTemplateArgs {
   teamId: string;
-  taskId: string;
+  name: string;
   version: string;
 }
 interface AdminTaskTemplateArgs {
-  id: string;
+  name: string;
   version: string;
 }
 interface ExecutionArgs {
@@ -134,52 +131,47 @@ interface ExecutionArgs {
   workflowId: string;
 }
 
-export const appLink: Record<string, (args?: any) => string> = {
-  activity: () => `/activity`,
-  actions: () => `/actions`,
-  actionsApprovals: () => `/actions/approvals`,
-  actionsManual: () => `/actions/manual`,
-  editorDesigner: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/workflow`,
-  editorConfigure: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/configure`,
-  editorChangelog: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/changelog`,
-  editorProperties: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/parameters`,
-  editorSchedule: ({ workflowId }: WorkflowIdArg) => `/editor/${workflowId}/schedule`,
+export const appLink = {
+  activity: ({ teamId }: TeamIdArg) => `/${teamId}/activity`,
+  actions: ({ teamId }: TeamIdArg) => `/${teamId}/actions`,
+  actionsApprovals: ({ teamId }: TeamIdArg) => `/${teamId}/actions/approvals`,
+  actionsManual: ({ teamId }: TeamIdArg) => `/${teamId}/actions/manual`,
+  editorDesigner: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/editor/${workflowId}/workflow`,
+  editorConfigure: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/editor/${workflowId}/configure`,
+  editorChangelog: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/editor/${workflowId}/changelog`,
+  editorProperties: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/editor/${workflowId}/parameters`,
+  editorSchedule: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/editor/${workflowId}/schedule`,
   execution: ({ executionId, workflowId }: ExecutionArgs) => `/activity/${workflowId}/execution/${executionId}`,
+  home: () => "/home",
   insights: () => "/insights",
-  manageTaskTemplates: ({ teamId }: TeamIdArg) => `/manage/task-templates/team/${teamId}`,
-  manageTaskTemplateEdit: ({ teamId, taskId, version }: ManageTaskTemplateArgs) =>
-    `/manage/task-templates/team/${teamId}/${taskId}/${version}`,
-  manageTaskTemplateYaml: ({ teamId, taskId, version }: ManageTaskTemplateArgs) =>
-    `/manage/task-templates/team/${teamId}/${taskId}/${version}/yaml-editor`,
+  manageTaskTemplates: ({ teamId }: TeamIdArg) => `/${teamId}/manage/task-templates`,
+  manageTaskTemplateEdit: ({ teamId, name, version }: ManageTaskTemplateArgs) =>
+    `/${teamId}/manage/task-templates/${name}/${version}`,
+  manageTaskTemplateYaml: ({ teamId, name, version }: ManageTaskTemplateArgs) =>
+    `/${teamId}/manage/task-templates/${name}/${version}/yaml-editor`,
+  manageTeam: ({ teamId }: TeamIdArg) => `/${teamId}/manage`,
+  manageTeamApprovers: ({ teamId }: TeamIdArg) => `/${teamId}/manage/approver-groups`,
+  manageTeamWorkflows: ({ teamId }: TeamIdArg) => `/${teamId}/manage/workflows`,
+  manageTeamLabels: ({ teamId }: TeamIdArg) => `/${teamId}/manage/labels`,
+  manageTeamQuotas: ({ teamId }: TeamIdArg) => `/${teamId}/manage/quotas`,
+  manageTeamSettings: ({ teamId }: TeamIdArg) => `/${teamId}/manage/settings`,
+  manageTeamTokens: ({ teamId }: TeamIdArg) => `/${teamId}/tokens`,
+  manageTeamParameters: ({ teamId }: TeamIdArg) => `/${teamId}/parameters`,
   manageUsers: () => "/admin/users",
   properties: () => "/admin/parameters",
-  quotas: () => "/admin/quotas",
-  quotasEdit: ({ teamId }: TeamIdArg) => `/admin/quotas/${teamId}`,
   schedule: () => "/schedule",
   settings: () => "/admin/settings",
-  systemWorkflows: () => "/admin/system-workflows",
-  systemManagementWorkflows: () => "/admin/system-workflows/system",
-  templateWorkflows: () => "/admin/system-workflows/templates",
+  templateWorkflows: () => "/admin/template-workflows",
   taskTemplates: () => "/admin/task-templates",
-  taskTemplateEdit: ({ id, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${id}/${version}`,
-  taskTemplateYaml: ({ id, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${id}/${version}/yaml-editor`,
-  teamApprovers: () => `/manage/approver-groups`,
-  teamProperties: () => `/manage/team-parameters`,
-  teamTaskTemplates: () => `/manage/task-templates`,
-  team: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}`,
-  teamWorkflows: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/workflows`,
-  teamLabels: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/labels`,
-  teamSettings: ({ teamId }: TeamIdArg) => `/admin/teams/${teamId}/settings`,
+  taskTemplateEdit: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}`,
+  taskTemplateYaml: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}/yaml-editor`,
   teamList: () => "/admin/teams",
-  teamTokens: () => `/manage/team-tokens`,
   tokens: () => `/admin/tokens`,
-  user: ({ userId }) => `/admin/users/${userId}`,
-  userTeams: ({ userId }) => `/admin/users/${userId}/teams`,
-  userLabels: ({ userId }) => `/admin/users/${userId}/labels`,
+  user: ({ userId }: UserIdArg) => `/admin/users/${userId}`,
+  userLabels: ({ userId }: UserIdArg) => `/admin/users/${userId}/labels`,
+  userSettings: ({ userId }: UserIdArg) => `/admin/users/${userId}/settings`,
   userList: () => "/admin/users",
-  workflows: () => "/workflows",
-  workflowsMine: () => "/workflows/mine",
-  workflowsTeams: () => "/workflows/teams",
+  workflows: ({ teamId }: TeamIdArg) => `/${teamId}/workflows`,
   workflowActivity: ({ workflowId }: WorkflowIdArg) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
   //external apps
   docsWorkflowEditor: () => `${BASE_DOCUMENTATION_URL}/how-to-guide/workflow-editor`,

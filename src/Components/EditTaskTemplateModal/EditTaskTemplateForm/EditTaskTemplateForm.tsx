@@ -4,12 +4,7 @@ import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import orderBy from "lodash/orderBy";
-import {
-  Button,
-  
-  ModalBody,
-  ModalFooter,
-} from "@carbon/react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { Creatable, ModalForm, TextInput, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
@@ -114,7 +109,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                   id="description"
                   invalid={Boolean(errors.description && touched.description)}
                   invalidText={errors.description}
-                  labelText="Description"
+                  labelText="Description (optional)"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.description}

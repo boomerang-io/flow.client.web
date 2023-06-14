@@ -5,7 +5,7 @@ import ScheduleManagerForm from "Components/ScheduleManagerForm";
 import moment from "moment-timezone";
 import { cronDayNumberMap } from "Utils/cronHelper";
 import { resolver } from "Config/servicesConfig";
-import { ComposedModalChildProps, ScheduleManagerFormInputs, ScheduleUnion, WorkflowSummary } from "Types";
+import { ComposedModalChildProps, ScheduleManagerFormInputs, ScheduleUnion, Workflow } from "Types";
 import styles from "./ScheduleEditor.module.scss";
 
 interface ScheduleEditorProps {
@@ -15,8 +15,8 @@ interface ScheduleEditorProps {
   isModalOpen: boolean;
   onCloseModal: () => void;
   schedule?: ScheduleUnion;
-  workflow?: WorkflowSummary;
-  workflowOptions?: Array<WorkflowSummary>;
+  workflow?: Workflow;
+  workflowOptions?: Array<Workflow>;
 }
 
 function ScheduleEditor(props: ScheduleEditorProps) {
@@ -24,12 +24,12 @@ function ScheduleEditor(props: ScheduleEditorProps) {
   /**
    * Update schedule
    */
-  const { mutateAsync: updateScheduleMutator, ...editScheduleMutation } = useMutation(resolver.patchSchedule, {});
+  const { mutateAsync: updateScheduleMutator, ...editScheduleMutation } = useMutation(resolver.putSchedule, {});
 
   const handleUpdateSchedule = async (updatedSchedule: ScheduleUnion) => {
     if (props.schedule) {
       // intentionally don't catch error so it can be done by the ScheduleManagerForm
-      await updateScheduleMutator({ body: updatedSchedule, scheduleId: props.schedule.id });
+      await updateScheduleMutator({ body: updatedSchedule });
       notify(
         <ToastNotification
           kind="success"
@@ -59,13 +59,13 @@ function ScheduleEditor(props: ScheduleEditorProps) {
       ...parameters
     } = values;
 
-    let scheduleLabels: Array<{ key: string; value: string }> = [];
-    if (values.labels.length) {
-      scheduleLabels = values.labels.map((pair: string) => {
-        const [key, value] = pair.split(":");
-        return { key, value };
-      });
-    }
+    let scheduleLabels: Record<string, string> = {};
+    // if (values.labels.length) {
+    //   scheduleLabels = values.labels.map((pair: string) => {
+    //     const [key, value] = pair.split(":");
+    //     return { key, value };
+    //   });
+    // }
 
     // Undo the namespacing of parameter keys and add to parameter object
     const resetParameters: { [key: string]: any } = {};
@@ -74,13 +74,14 @@ function ScheduleEditor(props: ScheduleEditorProps) {
     });
 
     const schedule: Partial<ScheduleUnion> = {
+      id: props.schedule?.id,
       description,
       name,
       type,
       labels: scheduleLabels,
       timezone: timezone.value,
       parameters: resetParameters,
-      workflowId: workflow.id || props.workflow?.id,
+      workflowRef: workflow.id || props.workflow?.id,
     };
 
     if (schedule.type === "runOnce") {

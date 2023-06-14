@@ -1,11 +1,9 @@
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { useAppContext } from "Hooks";
 import sortBy from "lodash/sortBy";
 import { matchSorter } from "match-sorter";
 import { Accordion, AccordionItem, Checkbox, Layer, OverflowMenu, Search, SkeletonText } from "@carbon/react";
 import {
-  ComboBox,
   CheckboxList,
   FeatureSideNav as SideNav,
   FeatureSideNavLink as SideNavLink,
@@ -17,31 +15,32 @@ import { appLink } from "Config/appConfig";
 import { Bee, ViewOff, Recommend, SettingsAdjust } from "@carbon/react/icons";
 import { taskIcons } from "Utils/taskIcons";
 import { TaskTemplateStatus } from "Constants";
-import { FlowTeam, TaskModel } from "Types";
+import { FlowTeam, TaskTemplate } from "Types";
 import styles from "./sideInfo.module.scss";
 
 const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list";
 
 interface SideInfoProps {
-  activeTeam: string | string[] | null;
-  addTemplateInState: (newTemplate: TaskModel) => void;
+  activeTeam?: FlowTeam | null;
+  addTemplateInState: (newTemplate: TaskTemplate) => void;
   isLoading?: boolean;
-  setActiveTeam: Function;
-  taskTemplates: TaskModel[];
+  taskTemplates: TaskTemplate[];
 }
 
-const SideInfo: React.FC<SideInfoProps> = ({
-  activeTeam,
-  addTemplateInState,
-  isLoading,
-  setActiveTeam,
-  taskTemplates,
-}) => {
-  const { teams } = useAppContext();
+const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isLoading, taskTemplates }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
-  const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskModel>>(
-    taskTemplates?.filter((task) => task.status === TaskTemplateStatus.Active) ?? []
+  //TODO - whats the best way to reduce to the distinct tasks by name with the latest version
+  let distinctTasks = taskTemplates
+    ?.reduce((acc: TaskTemplate[], task: TaskTemplate) => {
+      const distinctTask = !acc.find((tt) => task.name === tt.name);
+      if (distinctTask) acc.push(task);
+      return acc;
+    }, [])
+    .sort();
+  console.log("Distinct Tasks", distinctTasks);
+  const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskTemplate>>(
+    distinctTasks?.filter((task) => task.status === "active") ?? []
   );
   const [openCategories, setOpenCategories] = React.useState(false);
   const [showArchived, setShowArchived] = React.useState(false);
@@ -60,7 +59,7 @@ const SideInfo: React.FC<SideInfoProps> = ({
   const location = useLocation();
 
   let categories = tasksToDisplay
-    ?.reduce((acc: string[], task: TaskModel) => {
+    ?.reduce((acc: string[], task: TaskTemplate) => {
       const newCategory = !acc.find((category) => task.category === category);
       if (newCategory) acc.push(task.category);
       return acc;
@@ -68,7 +67,7 @@ const SideInfo: React.FC<SideInfoProps> = ({
     .sort();
 
   React.useEffect(() => {
-    const tempTaskTemplates = showVerified ? taskTemplates.filter((task) => task.verified === true) : taskTemplates;
+    const tempTaskTemplates = showVerified ? tasksToDisplay.filter((task) => task.verified === true) : tasksToDisplay;
     const newTaskTemplates = showArchived
       ? tempTaskTemplates
       : tempTaskTemplates?.filter((task) => task.status === TaskTemplateStatus.Active);
@@ -106,30 +105,11 @@ const SideInfo: React.FC<SideInfoProps> = ({
     setActiveFilters([]);
   };
 
-  const teamOptions = teams.map((team) => ({ id: team.id, name: team.name }));
-  const selectedTeam = teamOptions.find((team) => team.id === activeTeam);
-
-  const handleSelectTeam = ({ selectedItem }: { selectedItem: FlowTeam }) => {
-    setActiveTeam(selectedItem?.id);
-    history.push(appLink.manageTaskTemplates({ teamId: selectedItem?.id }));
-  };
-
   if (isLoading) {
     return (
       <SideNav className={styles.container} border="right">
         <h1 className={styles.title}>Task manager</h1>
         <p className={styles.description}>{DESCRIPTION}</p>
-        <Layer>
-          <ComboBox
-            ariaLabel="Team dropdown"
-            id="dropdown-team"
-            initialSelectedItem={selectedTeam}
-            items={teamOptions}
-            itemToString={(item: any) => (item ? item.name : "")}
-            label="Team selection"
-            onChange={handleSelectTeam}
-          />
-        </Layer>
         <div style={{ padding: "1.5rem 1rem" }}>
           <SkeletonText />
           <SkeletonText />
@@ -145,22 +125,10 @@ const SideInfo: React.FC<SideInfoProps> = ({
     <SideNav className={styles.container} border="right">
       <h1 className={styles.title}>Task manager</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
-      <Layer>
-        <ComboBox
-          id="dropdown-team"
-          type="default"
-          label="Team selection"
-          ariaLabel="Dropdown"
-          initialSelectedItem={selectedTeam}
-          items={teamOptions}
-          itemToString={(item: any) => (item ? item.name : "")}
-          onChange={handleSelectTeam}
-        />
-      </Layer>
-      {taskTemplates && (
+      {tasksToDisplay && (
         <div className={styles.tasksContainer}>
           <div className={styles.addTaskContainer}>
-            <p className={styles.existingTasks}>{`Existing Tasks (${taskTemplates.length})`}</p>
+            <p className={styles.existingTasks}>{`Existing Tasks (${tasksToDisplay.length})`}</p>
             <AddTaskTemplate
               addTemplateInState={addTemplateInState}
               taskTemplates={taskTemplates}
@@ -264,8 +232,8 @@ const SideInfo: React.FC<SideInfoProps> = ({
 
 interface TaskProps {
   isActive: boolean;
-  task: TaskModel;
-  activeTeam: string | string[] | null;
+  task: TaskTemplate;
+  activeTeam?: FlowTeam | null;
 }
 const Task: React.FC<TaskProps> = (props) => {
   const { task, activeTeam } = props;
@@ -275,9 +243,9 @@ const Task: React.FC<TaskProps> = (props) => {
   return (
     <SideNavLink
       to={appLink.manageTaskTemplateEdit({
-        teamId: activeTeam,
-        taskId: task.id,
-        version: task.currentVersion,
+        teamId: activeTeam?.id,
+        name: task.name,
+        version: task.version.toString(),
       })}
       icon={TaskIcon ? TaskIcon.Icon : Bee}
     >

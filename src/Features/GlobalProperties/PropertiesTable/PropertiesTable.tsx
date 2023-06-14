@@ -23,7 +23,7 @@ import styles from "./propertiesTable.module.scss";
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
 
-const configUrl = serviceUrl.getGlobalConfiguration();
+const configUrl = serviceUrl.getGlobalParams();
 
 const defaultProperty = {
   value: "",
@@ -116,7 +116,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
   };
 
   const renderCell = (propertyId: string, cellIndex: number, value: any) => {
-    const property = properties.find((property) => property.id === propertyId);
+    const property = updatedProperties.find((property) => property.id === propertyId);
     const column = headers[cellIndex];
 
     switch (column.key) {
@@ -142,13 +142,14 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
     }
   };
 
-  const newProperties = searchQuery
-    ? matchSorter(properties, searchQuery, { keys: ["label", "key", "description"] })
-    : properties;
+  const updatedProperties = properties.map((p, index) => ({ ...p, id: index.toString() }));
+  const tableData = searchQuery
+    ? matchSorter(updatedProperties, searchQuery, { keys: ["label", "key", "description"] })
+    : updatedProperties;
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
 
-  const totalItems = newProperties.length;
+  const totalItems = tableData.length;
 
   return (
     <>
@@ -178,7 +179,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
         {totalItems > 0 ? (
           <>
             <DataTable
-              rows={newProperties}
+              rows={tableData}
               headers={headers}
               render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
                 <TableContainer>

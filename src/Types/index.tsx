@@ -15,6 +15,9 @@ declare global {
   }
 }
 
+// TODO: FIX THIS
+export type WorkflowSummary = any;
+
 export enum PlatformRole {
   Admin = "admin",
   User = "user",
@@ -31,39 +34,38 @@ export interface SimpleApprover {
   approverEmail: string;
   approverName: string;
   comments: string;
-  actionDate: string;
-  actioned: boolean;
+  date: string;
+  approved: boolean;
 }
 
 export interface Action {
   id: string;
-  activityId: string;
-  taskActivityId: string;
-  workflowId: string;
-  teamId: string;
-  audit: any;
+  taskRunRef: string;
+  workflowRunRef: string;
+  workflowRef: string;
+  teamRef: string;
   status: string;
   type: string;
   creationDate: string;
   taskName: string;
   workflowName: string;
+  teamName: string;
   numberOfApprovals: number;
   approvalsRequired: number;
   actioners: SimpleApprover[];
-  teamName: string;
   instructions: any;
 }
 
 export interface Approver {
-  userName: string;
-  userId: string;
-  userEmail: string;
-  teamApprover?: boolean;
+  name: string;
+  id: string;
+  email: string;
 }
 
 export interface ApproverGroup {
-  groupId: string;
-  groupName: string;
+  id: string;
+  name: string;
+  creationDate: string;
   approvers: Array<Approver>;
 }
 
@@ -126,7 +128,6 @@ export interface CreateWorkflowSummary {
   icon: string;
   name: string;
   revisionCount: number;
-  shortDescription: string;
   properties: Array<any>;
   triggers: {
     event: {
@@ -146,30 +147,31 @@ export interface CreateWorkflowSummary {
   };
 }
 
-export interface WorkflowSummary {
+export interface Workflow {
   id: string;
-  description: string;
-  enableACCIntegration: boolean;
-  storage: {
-    activity: {
-      enabled: boolean;
-      size: number;
-      mountPath: string;
-    };
-    workflow: {
-      enabled: boolean;
-      size: number;
-      mountPath: string;
-    };
-  };
-  icon: string;
   name: string;
-  labels: Array<{ key: string; value: string }>;
-  revisionCount: number;
-  status?: string;
-  scope: "system" | "team" | "user" | "template";
-  shortDescription: string;
-  properties: [DataDrivenInput];
+  creationDate: string;
+  status: WorkflowStatus;
+  version: number;
+  description: string;
+  icon: string;
+  labels?: Record<string, string>;
+  annotations?: Record<string, object>;
+  params?: [
+    {
+      name: string;
+      type: string;
+      description?: string;
+      defaultValue?: object;
+    }
+  ];
+  tasks: [];
+  changelog: {
+    author: string;
+    reason: string;
+    date: string;
+  };
+  config: [DataDrivenInput];
   triggers: {
     manual: {
       enable: boolean;
@@ -195,9 +197,59 @@ export interface WorkflowSummary {
       label: string;
     }
   ];
-  flowTeamId: string;
   templateUpgradesAvailable: boolean;
+  workspaces: [
+    {
+      name: string;
+      description?: string;
+      type: string;
+      optional: boolean;
+      spec?: {
+        accessMode?: string;
+        className?: string;
+        size?: number;
+        mountPath?: string;
+      };
+    }
+  ];
 }
+
+export enum WorkflowStatus {
+  Active = "active",
+  Inactive = "inactive",
+}
+
+export const WorkflowView = {
+  Template: "template",
+  Workflow: "workflow",
+} as const;
+
+export type WorkflowViewType = typeof WorkflowView[keyof typeof WorkflowView];
+
+type PageableSort = {
+  sorted: boolean;
+  empty: boolean;
+  unsorted: boolean;
+};
+
+type Pageable<T> = {
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  size: number;
+  totalPages: number;
+  totalElements: number;
+  numberOfElements: number;
+  sort: PageableSort;
+  content: Array<T>;
+};
+
+export type PaginatedUserResponse = Pageable<FlowUser>;
+export type PaginatedTeamResponse = Pageable<FlowTeam>;
+export type PaginatedTaskTemplateResponse = Pageable<TaskTemplate>;
+export type PaginatedWorkflowResponse = Pageable<Workflow>;
+export type PaginatedSchedulesResponse = Pageable<ScheduleUnion>;
 
 export interface WorkflowDag {
   gridSize: number;
@@ -284,7 +336,7 @@ export interface WorkflowExecutionStep {
     };
   };
   duration: number;
-  flowTaskStatus: ExecutionStatus;
+  flowTaskStatus: RunStatus;
   id: string;
   order: number;
   startTime: string;
@@ -294,7 +346,7 @@ export interface WorkflowExecutionStep {
   preApproved: boolean;
   runWorkflowActivityId: string;
   runWorkflowId: string;
-  runWorkflowActivityStatus: ExecutionStatus;
+  runWorkflowActivityStatus: RunStatus;
   switchValue: string;
   outputs: {
     [key: string]: string;
@@ -313,7 +365,7 @@ export interface WorkflowExecution {
   creationDate: string;
   duration: number;
   id: string;
-  status: ExecutionStatus;
+  status: RunStatus;
   workflowId: string;
   workflowRevisionid: string;
   workflowRevisionVersion: string;
@@ -360,45 +412,59 @@ export interface ChangeLogItem {
 
 export type ChangeLog = Array<ChangeLogItem>;
 
-export interface TaskModel {
-  category: string;
-  currentVersion: number;
-  description?: string;
+export interface TaskTemplate {
   id: string;
-  icon: string;
-  model: string;
   name: string;
-  revisions: any[];
+  displayName: string;
+  description?: string;
   status: string;
+  category: string;
+  version: number;
+  creationDate: string;
+  labels?: Record<string, string>;
+  icon: string;
+  type: string;
+  changelog: ChangeLogItem;
   scope: string; //global or team
   verified: boolean;
-  taskData: any;
+  config: Array<DataDrivenInput>;
+  spec: any;
 }
 
 export interface FlowTeam {
-  higherLevelGroupId: string;
   id: string;
-  isActive: boolean;
-  labels?: { key: string; value: string }[];
   name: string;
-  workflowQuotas: FlowTeamQuotas;
-  users: FlowUser[];
-  workflows: WorkflowSummary[];
+  description?: string;
+  creationDate: string;
+  status: FlowTeamStatus;
+  externalRef?: string;
+  labels?: Record<string, string>;
+  quotas: FlowTeamQuotas;
+  users: Array<FlowUser>;
+  // workflows: Array<WorkflowSummary>;
+  settings?: unknown;
+  parameters: Array<DataDrivenInput>;
+  approverGroups: Array<ApproverGroup>;
+}
+
+export enum FlowTeamStatus {
+  Active = "active",
+  Inactive = "inactive",
 }
 
 export interface FlowTeamQuotas {
   maxWorkflowCount: number;
   maxWorkflowExecutionMonthly: number;
-  currentWorkflowExecutionMonthly: number;
-  currentWorkflowCount: number;
   maxWorkflowStorage: number;
-  maxConcurrentWorkflows: number;
   maxWorkflowExecutionTime: number;
+  maxConcurrentWorkflows: number;
+  currentRuns: number;
+  currentWorkflowCount: number;
+  currentConcurrentRuns: number;
+  currentRunTotalDuration: number;
+  currentRunMedianDuration: number;
+  currentPersistentStorage: number;
   monthlyResetDate: string;
-
-  currentConcurrentWorkflows: number;
-  currentAverageExecutionTime: number;
-  currentWorkflowsPersistentStorage: number;
 }
 
 export interface PaginatedSort {
@@ -426,16 +492,20 @@ export interface FlowUser extends User {
   id: string;
   email: string;
   name: string;
-  ifFirstVisit: boolean;
   type: PlatformRole;
-  firstLoginDate: string;
+  creationDate: string;
   lastLoginDate: string;
-  flowTeams: string[];
+  teams: string[];
   status: UserStatus;
   platformRole: string;
-  labels?: { key: string; value: string }[];
-  workflows?: WorkflowSummary[];
-  userTeams?: FlowTeam[];
+  labels?: Record<string, string>;
+  settings?: unknown;
+}
+
+export interface FlowUserSettings {
+  hasConsented: boolean;
+  isShowHelp: boolean | null;
+  ifFirstVisit: boolean;
 }
 
 export interface Property {
@@ -515,15 +585,16 @@ export interface WorkflowTemplate {
   triggers: { [key: string]: any };
 }
 
-export enum ExecutionStatus {
-  Cancelled = "cancelled",
-  Completed = "completed",
-  Failure = "failure",
-  InProgress = "inProgress",
-  Invalid = "invalid",
+export enum RunStatus {
   NotStarted = "notstarted",
-  Skipped = "skipped",
+  Ready = "ready",
+  Running = "running",
   Waiting = "waiting",
+  Succeeded = "succeeded",
+  Failed = "failed",
+  Invalid = "invalid",
+  Skipped = "skipped",
+  Cancelled = "cancelled",
 }
 
 export interface UserQuotas {
@@ -539,16 +610,12 @@ export interface UserQuotas {
   monthlymonthlyResetDate: string;
 }
 
-export interface UserWorkflow {
-  userQuotas: UserQuotas;
-  workflows: WorkflowSummary[];
-}
-
 export interface FlowNavigationItemChild {
   activeClassName?: string;
   element?: React.ReactNode;
   onClick?: (e: React.SyntheticEvent) => any;
   href?: string;
+  disabled?: boolean;
   large: boolean;
   link: string;
   name: string;
@@ -557,10 +624,11 @@ export interface FlowNavigationItemChild {
 }
 
 export interface FlowNavigationItem {
+  disabled: boolean;
   icon: string;
   name: string;
   link: string;
-  type: string;
+  type: "link" | "menu" | "divider";
   childLinks: [FlowNavigationItemChild];
 }
 
@@ -630,14 +698,14 @@ export interface Schedule {
   id: string;
   name: string;
   description?: string;
-  labels?: Array<{ key: string; value: string }>;
+  labels?: Record<string, string>;
   nextScheduleDate: string;
   parameters?: { [k: string]: any };
   status: ScheduleStatus;
   type: ScheduleType;
   timezone: string;
-  workflowId: string;
-  workflow?: WorkflowSummary;
+  workflowRef: string;
+  workflow?: Workflow;
 }
 
 export interface ScheduleDate extends Schedule {
@@ -679,7 +747,7 @@ export interface ScheduleManagerFormInputs {
   type: ScheduleType;
   timezone: { label: string; value: string };
   time: string;
-  workflow: WorkflowSummary;
+  workflowRef: string;
   [key: string]: any;
 }
 

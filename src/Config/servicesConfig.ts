@@ -1,3 +1,11 @@
+/*
+* This file contains all the service URLs and configurations.
+* 
+* The model is to have a serviceUrl object that contains all the service URLs and a resolver object that holds all the queries and mutations.
+*
+* This depends on the /server to mount the environment variables that are the root prefixes.
+*/
+
 //@ts-nocheck
 import axios, { CancelToken } from "axios";
 import { Envs, HttpMethod } from "Constants";
@@ -13,60 +21,69 @@ export const PRODUCT_SERVICE_ENV_URL =
   import.meta.env.MODE === Envs.Prod && window._SERVER_DATA ? window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL : "/api";
 
 
-export const BASE_URL = `${PRODUCT_SERVICE_ENV_URL}/workflow`;
+export const BASE_URL = `${PRODUCT_SERVICE_ENV_URL}`;
 export const BASE_CORE_URL = CORE_SERVICE_ENV_URL;
 export const BASE_CORE_USERS_URL =  `${CORE_SERVICE_ENV_URL}/users`;
 
+type IdArg = {
+  query: string
+}
+
+type TeamIdArg = {
+  query: string
+}
+type QueryArg = {
+  query: string
+}
+
 export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
-  deleteCancelWorkflow: ({ executionId }) => `${BASE_URL}/activity/${executionId}/cancel`,
+  deleteCancelWorkflow: ({ executionId }) => `${BASE_URL}/workflowrun/${executionId}/cancel`,
   deleteToken: ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
   deleteSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
-  getActivitySummary: ({ query }) => `${BASE_URL}/activity/summary${query ? "?" + query : ""}`,
-  getActivity: ({ query }) => `${BASE_URL}/activity${query ? "?" + query : ""}`,
-  getActionsSummary: ({ query }) => `${BASE_URL}/actions/summary${query ? "?" + query : ""}`,
-  getActions: ({ query }) => `${BASE_URL}/actions${query ? "?" + query : ""}`,
-  getDefaultQuotas: () => `${BASE_URL}/quotas/default`,
+  getWorkflowRunCount: ({ query }: QueryArg) => `${BASE_URL}/workflowrun/count${query ? "?" + query : ""}`,
+  getWorkflowRuns: ({ query }: QueryArg) => `${BASE_URL}/workflowrun/query${query ? "?" + query : ""}`,
+  getActionsSummary: ({ query }: QueryArg) => `${BASE_URL}/action/summary${query ? "?" + query : ""}`,
+  getActions: ({ query }: QueryArg) => `${BASE_URL}/action/query${query ? "?" + query : ""}`,
   getFeatureFlags: () => `${BASE_URL}/features`,
-  getFlowTeamUsers: ({ teamId }) => `${BASE_URL}/teams/${teamId}/members`,
-  getFlowNavigation: ({ query }) => `${BASE_URL}/navigation${query}`,
-  getGlobalConfiguration: () => `${BASE_URL}/config`,
-  getGlobalProperty: ({ id }) => `${BASE_URL}/config/${id}`,
+  getNavigation: ({ query }: QueryArg) => `${BASE_URL}/navigation${query}`,
+  getGlobalParams: () => `${BASE_URL}/global-params`,
+  getGlobalProperty: ({ id }: IdArg) => `${BASE_URL}/global-params/${id}`,
   getGlobalTokens: () => `${BASE_URL}/tokens/global-tokens`,
-  getInsights: ({ query }) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
+  getInsights: ({ query }: QueryId) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
   getManageTeamsCreate: () => `${BASE_URL}/manage/teams`,
-  getManageTeam: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}`,
-  getManageTeamUser: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}/members`,
-  getManageTeamLabels: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}/labels`,
-  getManageTeams: ({ query }) => `${BASE_URL}/manage/teams${query ? "?" + query : ""}`,
-  getManageUsers: ({ query }) => `${BASE_URL}/manage/users${query ? "?" + query : ""}`,
+  getManageTeamLabels: ({ teamId }) => `${BASE_URL}/team/${teamId}/labels`,
   // getPlatformConfig: () => `${BASE_CORE_USERS_URL}/navigation`,
-  getPlatformConfig: () => `${BASE_URL}/users/navigation`,
-  getSchedules: ({ query }) => `${BASE_URL}/schedules${query ? "?" + query : ""}`,
+  getContext: () => `${BASE_URL}/context`,
+  getSchedules: ({ query }: QueryId) => `${BASE_URL}/schedules/query${query ? "?" + query : ""}`,
   getSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
-  getSchedulesCalendars: ({ query }) => `${BASE_URL}/schedules/calendar${query ? "?" + query : ""}`,
-  getScheduleCalendar: ({ scheduleId, query }) =>
-    `${BASE_URL}/schedules/${scheduleId}/calendar${query ? "?" + query : ""}`,
+  getSchedulesCalendars: ({ query }: QueryId) => `${BASE_URL}/schedules/calendars${query ? "?" + query : ""}`,
+  // getScheduleCalendar: ({ scheduleId, query }) =>
+  //   `${BASE_URL}/schedules/${scheduleId}/calendar${query ? "?" + query : ""}`,
   getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedules/validate/cron?cron=${expression}`,
-  getSystemWorkflows: () => `${BASE_URL}/workflows/system`,
-  getTaskTemplates: ({ query }) => `${BASE_URL}/tasktemplate${query ? "?" + query : ""}`,
+  getTaskTemplates: ({ query }: QueryId) => `${BASE_URL}/tasktemplate/query${query ? "?" + query : ""}`,
   getTaskTemplateYaml: ({ id, revision }) => `${BASE_URL}/tasktemplate/${id}/yaml${revision ? `/${revision}` : ""}`,
-  getTeams: () => `${BASE_URL}/teams`,
-  getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/teams/${teamId}/properties/${configurationId}`,
-  getTeamProperties: ({ id }) => `${BASE_URL}/teams/${id}/properties`,
-  getTeamQuotas: ({ id }) => `${BASE_URL}/teams/${id}/quotas`,
+  getTeam: ({ teamId }: QueryId) => `${BASE_URL}/team/${teamId}`,
+  getTeams: ({ query }: QueryId) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
+  getMyTeams: ({ query }: QueryId) => `${BASE_URL}/team/mine${query ? "?" + query : ""}`,
+  getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/team/${teamId}/parameters/${configurationId}`,
+  getTeamProperties: ({ id }) => `${BASE_URL}/team/${id}/parameters`,
+  getTeamQuotas: ({ id }) => `${BASE_URL}/team/${id}/quotas`,
+  getTeamQuotaDefaults: () => `${BASE_URL}/team/quotas/default`,
   getTeamTokens: ({ teamId }) => `${BASE_URL}/tokens/team/${teamId}`,
-  getUsers: () => `${BASE_URL}/users`,
-  getUser: ({ userId }) => `${BASE_URL}/users/${userId}`,
+  getTeamMembers: ({ teamId }: TeamIdArg) => `${BASE_URL}/team/${teamId}/members`,
+  leaveTeam: ({ id }) => `${BASE_URL}/${id}/leave`,
+  getUsers: ({ query }: QueryId) => `${BASE_URL}/user/query${query ? "?" + query : ""}`,
+  getUser: ({ userId }) => `${BASE_URL}/user/${userId}`,
   getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
   // getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
-  getUserProfile: () => `${BASE_URL}/users/profile`,
+  getUserProfile: () => `${BASE_URL}/user/profile`,
   getUserProfileImage: ({ userEmail }) => `${BASE_CORE_USERS_URL}/image/${userEmail}`,
-  getUserWorkflows: () => `${BASE_URL}/workflows/user`,
+  getWorkflows: ({ query }: QueryId) => `${BASE_URL}/workflow/query${query ? "?" + query : ""}`,
   getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
   getWorkflowChangelog: ({ workflowId, query }) =>
     `${BASE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
-  getWorkflowImport: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
+  getWorkflowImport: ({ query }: QueryId) => `${BASE_URL}/workflow/import?${query}`,
   getWorkflowExecution: ({ executionId }) => `${BASE_URL}/activity/${executionId}`,
   getWorkflowExecutionLog: ({ flowActivityId, flowTaskId }) =>
     `${BASE_URL}/activity/${flowActivityId}/log/${flowTaskId}`,
@@ -79,30 +96,31 @@ export const serviceUrl = {
   getWorkflowTaskTemplates: ({ workflowId }) => `${BASE_URL}/tasktemplate/workflow/${workflowId}`,
   patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/properties`,
   patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
-  patchSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
+  putSchedule: () => `${BASE_URL}/schedules`,
   postCreateWorkflow: () => `${BASE_URL}/workflow`,
   postCreateWorkflowRevision: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/revision`,
   postCreateWorkflowToken: ({ workflowId, label }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
   postDuplicateWorkflow: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/duplicate`,
   postExecuteWorkflow: ({ id }) => `${BASE_URL}/execute/${id}`,
   postGlobalToken: () => `${BASE_URL}/global-token`,
-  postSchedule: () => `${BASE_URL}/schedules`,
+  postSchedule: ({ teamId }) => `${BASE_URL}/schedules?team=${teamId}`,
   postTeamToken: () => `${BASE_URL}/team-token`,
+  postTeamValidateName: () => `${BASE_URL}/team/validate-name`,
   postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
   // putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,
-  putActivationApp: () => `${BASE_URL}/users/register`,
+  putActivationApp: () => `${BASE_URL}/activate`,
   putRestoreTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}/activate`,
   putTaskTemplateYaml: ({ id, revision, comment }) =>
     `${BASE_URL}/tasktemplate/${id}/yaml${`/${revision}`}${comment ? "?" + comment : ""}`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
-  putWorkflowAction: () => `${BASE_URL}/actions/action`,
+  putTeamMembers: ({ teamId }) => `${BASE_URL}/team/${teamId}/members`,
+  putWorkflowAction: () => `${BASE_URL}/action/action`,
   resourceApproverGroups: ({ teamId, groupId }) =>
     `${BASE_URL}/teams/${teamId}/approvers${groupId ? "/" + groupId : ""}`,
-  resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
   resourceSettings: () => `${BASE_URL}/settings`,
   workflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
-  workflowTemplates: () => `${BASE_URL}/workflows/template`,
+  getWorkflowTemplates: () => `${BASE_URL}/workflowtemplate/query`,
 };
 
 export const cancellableResolver = ({ url, method, body, headers, ...config }) => {
@@ -131,15 +149,17 @@ export const resolver = {
   deleteTeamPropertyRequest: ({ teamId, configurationId }) =>
     axios.delete(serviceUrl.getTeamProperty({ teamId, configurationId })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
+  leaveTeam: ({ id }) => axios.delete(serviceUrl.leaveTeam({ id })),
   deleteSchedule: ({ scheduleId }) => axios.delete(serviceUrl.deleteSchedule({ scheduleId })),
   deleteToken: ({ tokenId }) => axios.delete(serviceUrl.deleteToken({ tokenId })),
   patchGlobalPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethod.Patch }),
-  patchManageTeamUser: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamUser({ teamId }), body),
+  putTeamMember: ({ teamId, body }) => axios.patch(serviceUrl.putTeamMembers({ teamId }), body),
   patchManageTeamLabels: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamLabels({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
-    cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethod.Patch }),
-  patchSchedule: ({ scheduleId, body }) => axios.patch(serviceUrl.patchSchedule({ scheduleId }), body),
+    cancellableResolver({ url: serviceUrl.getUser({ userId }), body, method: HttpMethod.Patch }),
+  putSchedule: ({ body }) => axios.put(serviceUrl.putSchedule(), body),
+  postTeamValidateName: ({ body }) => axios.post(serviceUrl.postTeamValidateName(), body),
   postValidateYaml: ({ body }) =>
     axios({
       method: HttpMethod.Post,
@@ -166,7 +186,7 @@ export const resolver = {
       body,
       method: HttpMethod.Post,
     }),
-  postCreateTemplate: ({ body }) => axios.post(serviceUrl.workflowTemplates(), body),
+  postCreateTemplate: ({ body }) => axios.post(serviceUrl.getWorkflowTemplates(), body),
   postCreateWorkflow: ({ body }) => axios.post(serviceUrl.postCreateWorkflow(), body),
   postCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
@@ -196,9 +216,9 @@ export const resolver = {
       method: HttpMethod.Post,
     }),
   postGlobalPropertyRequest: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getGlobalConfiguration(), body, method: HttpMethod.Post }),
+    cancellableResolver({ url: serviceUrl.getGlobalParams(), body, method: HttpMethod.Post }),
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
-  postSchedule: ({ body }) => axios.post(serviceUrl.postSchedule(), body),
+  postSchedule: ({ teamId, body }) => axios.post(serviceUrl.postSchedule({ teamId }), body),
   postTeamPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HttpMethod.Post }),
   postWorkflowAvailableParameters: ({ workflowId, body }) =>
@@ -218,7 +238,7 @@ export const resolver = {
     }),
   putPlatformSettings: ({ body }) => axios.put(serviceUrl.resourceSettings(), body),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.putRestoreTaskTemplate({ id })),
-  putUpdateTeam: ({ teamId, body }) => axios.put(serviceUrl.getManageTeam({ teamId }), body),
+  putUpdateTeam: ({ teamId, body }) => axios.put(serviceUrl.getTeam({ teamId }), body),
   putTeamQuotasDefault: ({ id }) =>
     cancellableResolver({ url: serviceUrl.putTeamQuotasDefault({ id }), method: HttpMethod.Put }),
   putTeamQuotas: ({ id, body }) =>

@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  FlowTeam,
-  FlowUser,
-  TaskModel,
-  UserWorkflow,
-  WorkflowExecution,
-  WorkflowRevision,
-  WorkflowSummary,
-} from "Types";
+import { FlowTeam, FlowUser, TaskTemplate, WorkflowExecution, WorkflowRevision, WorkflowSummary } from "Types";
 
 export function createContext<ContextType>() {
   const context = React.createContext<ContextType | undefined>(undefined);
@@ -31,7 +23,7 @@ type AppContext = {
   };
   teams: FlowTeam[];
   user: FlowUser;
-  userWorkflows: UserWorkflow;
+  activeTeam?: FlowTeam;
 };
 
 interface TaskProvider {
@@ -53,7 +45,7 @@ interface EditorContext {
   revisionDispatch?: Function;
   revisionState: WorkflowRevision;
   summaryData: WorkflowSummary;
-  taskTemplatesData: Array<TaskModel>;
+  taskTemplatesData: Array<TaskTemplate>;
 }
 
 export const [useEditorContext, EditorContextProvider] = createContext<EditorContext>();

@@ -9,37 +9,22 @@ import CreateWorkflowContent from "./CreateWorkflowContent";
 import CreateWorkflowTemplates from "./CreateWorkflowTemplates";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import queryString from "query-string";
 import { Template, Add } from "@carbon/react/icons";
-import { FlowTeam, ModalTriggerProps } from "Types";
-import { WorkflowScope } from "Constants";
+import { FlowTeam, ModalTriggerProps, Workflow } from "Types";
 import { FeatureFlag } from "Config/appConfig";
 import styles from "./createWorkflow.module.scss";
 
 interface CreateTemplateWorkflowProps {
-  teams?: FlowTeam[] | null;
-  scope: string;
+  team: FlowTeam;
+  workflowList: Array<Workflow>;
 }
 
-const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams, scope }) => {
+function CreateTemplateWorkflow({ team, workflowList }: CreateTemplateWorkflowProps) {
   const queryClient = useQueryClient();
   const history = useHistory();
-  const { teams: teamsIds } = queryString.parse(history.location.search);
-  const initialSelectedTeam = teams && teamsIds?.length ? teams.find((team) => teamsIds.includes(team.id)) : null;
-
   const workflowQuotasEnabled: boolean = useFeature(FeatureFlag.WorkflowQuotasEnabled);
-  const workflowTemplatesUrl = serviceUrl.workflowTemplates();
-  const userWorkflowsUrl = serviceUrl.getUserWorkflows();
+  const workflowTemplatesUrl = serviceUrl.getWorkflowTemplates();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ query: "" });
-
-  const {
-    data: userWorkflows,
-    isLoading: userWorkflowsIsLoading,
-    isError: userWorkflowsIsError,
-  } = useQuery({
-    queryKey: userWorkflowsUrl,
-    queryFn: resolver.query(userWorkflowsUrl),
-  });
 
   const {
     data: workflowTemplatesData,
@@ -81,14 +66,7 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams, 
           subtitle="Successfully created workflow from template"
         />
       );
-      if (scope === WorkflowScope.System) {
-        queryClient.invalidateQueries(serviceUrl.getSystemWorkflows());
-      } else if (scope === WorkflowScope.Team) {
-        queryClient.invalidateQueries(serviceUrl.getTeams());
-      } else {
-        queryClient.invalidateQueries(serviceUrl.getUserWorkflows());
-      }
-
+      queryClient.invalidateQueries(serviceUrl.getMyTeams());
       return;
     } catch (e) {
       console.log(e);
@@ -119,8 +97,8 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams, 
       }}
     >
       <CreateWorkflowTemplates
-        templatesError={workflowTemplatesError || userWorkflowsIsError || taskTemplatesError}
-        isLoading={workflowTemplatesIsLoading || userWorkflowsIsLoading || taskTempaltesAreLoading}
+        templatesError={workflowTemplatesError || taskTemplatesError}
+        isLoading={workflowTemplatesIsLoading || taskTempaltesAreLoading}
         workflowTemplates={workflowTemplatesData}
         taskTemplates={taskTemplatesData}
       />
@@ -128,14 +106,12 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams, 
         createWorkflow={handleCreateWorkflow}
         createError={createTemplateWorkflowError}
         isLoading={isLoading}
-        scope={scope}
-        team={initialSelectedTeam}
-        teams={teams}
-        userWorkflows={userWorkflows}
+        team={team}
         workflowQuotasEnabled={workflowQuotasEnabled}
+        workflowList={workflowList}
       />
     </ModalFlow>
   );
-};
+}
 
 export default CreateTemplateWorkflow;

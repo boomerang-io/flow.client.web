@@ -3,20 +3,17 @@ import moment from "moment";
 import { ModalBody } from "@carbon/react";
 import ProgressBar from "Components/ProgressBar";
 import { FlowTeamQuotas } from "Types";
-import { WorkflowScope } from "Constants";
 import styles from "./WorkflowQuotaModalContent.module.scss";
 
 export default function WorkflowQuotaModalContent({
   closeModal,
   quotas,
-  scope,
 }: {
   closeModal: () => void;
   quotas: FlowTeamQuotas;
-  scope: string;
 }) {
   let workflowLimitPercentage = (quotas.currentWorkflowCount / quotas.maxWorkflowCount) * 100;
-  let monthlyExecutionPercentage = (quotas.currentWorkflowExecutionMonthly / quotas.maxWorkflowExecutionMonthly) * 100;
+  let monthlyExecutionPercentage = (quotas.currentRuns / quotas.maxWorkflowExecutionMonthly) * 100;
 
   if (workflowLimitPercentage > 100) workflowLimitPercentage = 100;
   if (monthlyExecutionPercentage > 100) monthlyExecutionPercentage = 100;
@@ -25,11 +22,7 @@ export default function WorkflowQuotaModalContent({
     <ModalBody className={styles.container}>
       <hr className={styles.divider} />
       <QuotaSection
-        description={
-          scope === WorkflowScope.Team
-            ? "Number of Workflows that can be created for this team."
-            : "Number of Workflows that can be created."
-        }
+        description="Number of Workflows that can be created."
         title="Number of Workflows"
         value={quotas.currentWorkflowCount}
         valueUnit="Workflows"
@@ -48,7 +41,7 @@ export default function WorkflowQuotaModalContent({
         <ProgressBar maxValue={quotas.maxWorkflowExecutionMonthly} value={monthlyExecutionPercentage} />
         <p
           className={styles.detailedText}
-        >{`Current usage: ${quotas.currentWorkflowExecutionMonthly} of ${quotas.maxWorkflowExecutionMonthly}`}</p>
+        >{`Current usage: ${quotas.currentRuns} of ${quotas.maxWorkflowExecutionMonthly}`}</p>
         <time className={styles.detailedText}>
           {`Resets on ${moment.utc(quotas.monthlyResetDate).format("MMMM DD, YYYY")}`}
         </time>

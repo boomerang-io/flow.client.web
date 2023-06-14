@@ -111,29 +111,13 @@ ConfigureInputsForm.propTypes = {
 };
 
 function ConfigureInputsForm(props) {
-  const { teams, userWorkflows } = useAppContext();
+  const { teams, activeTeam } = useAppContext();
   const { summaryData } = useEditorContext();
   const [activeWorkflowId, setActiveWorkflowId] = useState("");
   const { node, taskNames, nodeConfig } = props;
 
-  const isSystem = summaryData?.scope === "system";
-  const isUser = summaryData?.scope === "user";
-
-  const systemWorkflowsQuery = useQuery(
-    serviceUrl.getSystemWorkflows(),
-    resolver.query(serviceUrl.getSystemWorkflows()),
-    { enabled: isSystem }
-  );
-
   let workflows = [];
-
-  if (isSystem) {
-    workflows = systemWorkflowsQuery.data;
-  } else if (isUser) {
-    workflows = userWorkflows?.workflows;
-  } else {
-    workflows = teams.find((team) => team.id === summaryData?.flowTeamId)?.workflows;
-  }
+  workflows = teams.find((team) => team.id === summaryData?.flowTeamId)?.workflows;
 
   const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
   const workflowProperties = nodeConfig?.inputs?.workflowId
@@ -147,15 +131,7 @@ function ConfigureInputsForm(props) {
         })
       : []
   );
-
-  if (systemWorkflowsQuery.isLoading) {
-    return <Loading />;
-  }
-
-  if (systemWorkflowsQuery.isError) {
-    return <ErrorMessage />;
-  }
-
+  
   const formikSetFieldValue = (value, id, setFieldValue) => {
     setFieldValue(id, value);
   };

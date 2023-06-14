@@ -1,88 +1,84 @@
 import React from "react";
-import { Layer, FilterableMultiSelect, Search } from "@carbon/react";
+import { Layer, Search, Breadcrumb, BreadcrumbItem } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  FeatureNavTab as Tab,
-  FeatureNavTabs as Tabs,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateTemplateWorkflow from "Components/CreateTemplateWorkflow";
+import { FlowTeam, WorkflowView, WorkflowViewType, Workflow } from "Types";
+import { Link } from "react-router-dom";
 import { appLink } from "Config/appConfig";
-import { FlowTeam } from "Types";
-import { WorkflowScope } from "Constants";
 import styles from "./workflowsHeader.module.scss";
 
-type HandleUpdateFilter = (query: { [key: string]: string | string[] | null }) => void;
-
 interface WorkflowsHeaderProps {
-  scope: string;
-  handleUpdateFilter: HandleUpdateFilter;
+  pretitle?: React.ReactNode;
+  title: string;
+  subtitle: string;
+  handleUpdateFilter: (args: { query: string }) => void;
   searchQuery: string | string[] | null;
-  selectedTeams: FlowTeam[] | null;
-  teamsQuery: string[] | null;
-  teams: FlowTeam[] | null;
-  workflowsCount: number;
+  team?: FlowTeam | null;
+  workflowList: Array<Workflow>;
+  viewType: WorkflowViewType;
 }
 
 const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
-  scope,
-  selectedTeams,
+  pretitle,
+  title,
+  subtitle,
   handleUpdateFilter,
   searchQuery,
-  teams,
-  teamsQuery,
-  workflowsCount,
+  team,
+  workflowList,
+  viewType,
 }) => {
+  const workflowsCount = workflowList.length;
+  const workflowsCountStr = workflowsCount > 0 ? `(${workflowsCount})` : "";
+
+  const handleOnSearchInputChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    handleUpdateFilter({ query: e.currentTarget?.value ?? "" });
+  };
+
+  const NavigationComponent = () => {
+    return (
+      <Breadcrumb noTrailingSlash>
+        <BreadcrumbItem>
+          <Link to={appLink.home()}>Home</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <p>{team.name}</p>
+        </BreadcrumbItem>
+      </Breadcrumb>
+    );
+  };
+
   return (
     <Header
       className={styles.container}
       includeBorder={false}
+      nav={<NavigationComponent />}
       header={
         <>
-          <HeaderSubtitle>These are your</HeaderSubtitle>
-          <HeaderTitle>
-            {scope === WorkflowScope.System
-              ? `System Workflows (${workflowsCount})`
-              : scope === WorkflowScope.Template
-              ? `Template Workflows (${workflowsCount})`
-              : scope === WorkflowScope.Team
-              ? `Team Workflows (${workflowsCount})`
-              : `Workflows (${workflowsCount})`}
-          </HeaderTitle>
-          {scope === WorkflowScope.User && (
-            <HeaderSubtitle className={styles.headerMessage}>
-              Your personal playground to create and execute automation and work smarter. Use teams to collaborate on
-              workflows.
-            </HeaderSubtitle>
-          )}
-          {scope === WorkflowScope.Team && (
-            <HeaderSubtitle className={styles.headerMessage}>Shared workflows to collaborate on</HeaderSubtitle>
-          )}
+          {Boolean(pretitle) ? <HeaderSubtitle>{pretitle}</HeaderSubtitle> : null}
+          <HeaderTitle>{`${title} ${workflowsCountStr}`}</HeaderTitle>
+          {Boolean(subtitle) ? <HeaderSubtitle className={styles.headerMessage}>{subtitle}</HeaderSubtitle> : null}
         </>
       }
-      footer={
-        !(scope === WorkflowScope.System || scope === WorkflowScope.Template) ? (
-          <Tabs ariaLabel="Workflows view">
-            <Tab label="My Workflows" to={appLink.workflowsMine()} />
-            <Tab label="Team Workflows" to={appLink.workflowsTeams()} />
-          </Tabs>
-        ) : (
-          <Tabs ariaLabel="Workflows view">
-            <Tab label="System" to={appLink.systemManagementWorkflows()} />
-            <Tab label="Templates" to={appLink.templateWorkflows()} />
-          </Tabs>
-        )
-      }
       actions={
-        <SearchFilterBar
-          scope={scope}
-          selectedTeams={selectedTeams}
-          handleUpdateFilter={handleUpdateFilter}
-          searchQuery={searchQuery}
-          teamsQuery={teamsQuery}
-          teams={teams}
-        />
+        <ActionsBar>
+          {viewType === WorkflowView.Workflow ? <CreateTemplateWorkflow team={team!} workflowList={[]} /> : null}
+          <Layer className={styles.search}>
+            <Search
+              disabled={!workflowsCount || workflowsCount === 0}
+              data-testid="workflows-team-search"
+              id="search-team-workflows"
+              labelText={`Search for a ${viewType}`}
+              onChange={handleOnSearchInputChange}
+              placeholder={`Search for a ${viewType}`}
+              value={searchQuery}
+            />
+          </Layer>
+        </ActionsBar>
       }
     />
   );
@@ -90,70 +86,10 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
 
 export default WorkflowsHeader;
 
-interface SearchFilterBarProps {
-  scope: string;
-  handleUpdateFilter: HandleUpdateFilter;
-  searchQuery: string | string[] | null;
-  selectedTeams: FlowTeam[] | null;
-  teamsQuery: string[] | null;
-  teams: FlowTeam[] | null;
+interface ActionsBarProps {
+  children: React.ReactNode;
 }
 
-const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
-  scope,
-  selectedTeams,
-  handleUpdateFilter,
-  searchQuery,
-  teamsQuery,
-  teams,
-}) => {
-  const handleOnMultiSelectChange = (change: any) => {
-    const selectedItems = change.selectedItems;
-    handleUpdateFilter({ teams: selectedItems.map((team: { id: string }) => team.id) });
-  };
-
-  const handleOnSearchInputChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    handleUpdateFilter({ query: e.currentTarget?.value ?? "" });
-  };
-
-  const isTeamQueryActive = teamsQuery && teamsQuery.length > 0;
-  const hasTeams = teams && teams.length > 0;
-
-  return (
-    <div className={styles.filterContainer}>
-      {scope !== WorkflowScope.Template && <CreateTemplateWorkflow teams={teams} scope={scope} />}
-      <Layer className={styles.search}>
-        <Search
-          disabled={scope === WorkflowScope.Team ? !hasTeams : false}
-          data-testid="workflows-team-search"
-          id="search-team-workflows"
-          labelText={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
-          onChange={handleOnSearchInputChange}
-          placeholder={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
-          value={searchQuery}
-        />
-      </Layer>
-      {teams && scope !== WorkflowScope.User && (
-        <div className={styles.filter}>
-          <FilterableMultiSelect
-            light
-            disabled={!hasTeams}
-            id="b-search-filter__filter"
-            invalid={false}
-            initialSelectedItems={
-              isTeamQueryActive && Array.isArray(selectedTeams)
-                ? selectedTeams.map((team) => ({ id: team.id, text: team.name }))
-                : []
-            }
-            items={Array.isArray(teams) ? teams.map((team) => ({ id: team.id, text: team.name })) : []}
-            itemToString={(team: { text: string }) => (team ? team.text : "")}
-            label={"Choose a team"}
-            onChange={handleOnMultiSelectChange}
-            placeholder={"Choose a team"}
-            titleText={"Filter by Team"}
-          />
-        </div>
-      )}
-    </div>
-  );
+const ActionsBar: React.FC<ActionsBarProps> = (props: ActionsBarProps) => {
+  return <div className={styles.filterContainer}>{props.children}</div>;
 };

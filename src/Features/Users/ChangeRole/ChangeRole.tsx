@@ -44,7 +44,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
     {
       onSuccess: () => {
         closeModal();
-        queryClient.invalidateQueries(serviceUrl.getManageUsers({ query: location.search }));
+        queryClient.invalidateQueries(serviceUrl.getUsers({ query: location.search }));
       },
     }
   );

@@ -11,27 +11,21 @@ import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { WorkflowScope } from "Constants";
 import styles from "./ManualApprovalNodeDesigner.module.scss";
 
 const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigner({
   diagramEngine,
   node: designerNode,
 }) {
-  const {
-    availableParametersQueryData,
-    revisionDispatch,
-    revisionState,
-    summaryData,
-    taskTemplatesData,
-  } = useEditorContext();
+  const { availableParametersQueryData, revisionDispatch, revisionState, summaryData, taskTemplatesData } =
+    useEditorContext();
   const { flowTeamId } = summaryData;
 
   /**
    * Pull data off of context
    */
   const inputProperties = availableParametersQueryData;
-  const isTeamScope = summaryData?.scope === WorkflowScope.Team;
+  const isTeamScope = summaryData?.scope === "Team";
 
   const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
   const nodeConfig = revisionState.config[designerNode.id] ?? {};

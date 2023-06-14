@@ -62,8 +62,6 @@ interface TeamPropertiesTableProps {
   properties: Property[];
   propertiesAreLoading: boolean;
   propertiesError: any;
-  setActiveTeam(args: FlowTeam): void;
-  teams: FlowTeam[];
 }
 
 const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
@@ -71,8 +69,6 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
   properties,
   propertiesAreLoading,
   propertiesError,
-  setActiveTeam,
-  teams,
 }) => {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
@@ -147,6 +143,7 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
   const totalItems = properties.length;
+  const tableData = properties.map((p, index) => ({ ...p, id: index.toString() }));
 
   return (
     <>
@@ -162,95 +159,77 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
           </>
         }
       />
-      {teams.length === 0 ? (
-        <NoTeamsRedirectPrompt />
-      ) : (
-        <div className={styles.tableContainer}>
-          <div className={styles.tableHeader}>
-            <div className={styles.dropdown}>
-              <ComboBox
-                data-testid="team-parameters-combobox"
-                id="team-parameters-select"
-                initialSelectedItem={activeTeam?.id ? activeTeam : null}
-                items={sortByProp(teams, "name")}
-                itemToString={(item: { name: string }) => item?.name ?? ""}
-                label="Teams"
-                onChange={({ selectedItem }: { selectedItem: FlowTeam }) => {
-                  setActiveTeam(selectedItem);
-                }}
-                placeholder="Select a team"
-              />
-            </div>
-            {(activeTeam?.id || totalItems > 0) && (
-              <CreateEditTeamPropertiesModal properties={properties} team={activeTeam} />
-            )}
-          </div>
-          {propertiesAreLoading ? (
-            <DataTableSkeleton />
-          ) : propertiesError ? (
-            <Error />
-          ) : totalItems > 0 ? (
-            <>
-              <DataTable
-                rows={properties}
-                headers={headers}
-                render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
-                  <TableContainer>
-                    <Table isSortable>
-                      <TableHead>
-                        <TableRow className={styles.tableHeadRow}>
-                          {headers.map((header: any, key: any) => (
-                            <TableHeader
-                              key={`mode-table-key-${key}`}
-                              {...getHeaderProps({
-                                className: `${styles.tableHeadHeader} ${styles[header.key]}`,
-                                header,
-                                isSortable: header.sortable,
-                              })}
-                            >
-                              {header.header}
-                            </TableHeader>
-                          ))}
-                        </TableRow>
-                      </TableHead>
-                      <TableBody className={styles.tableBody}>
-                        {rows.map((row: any) => {
-                          return (
-                            <TableRow key={row.id}>
-                              {row.cells.map((cell: any, cellIndex: number) => (
-                                <TableCell key={cell.id}>
-                                  <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
-                                </TableCell>
-                              ))}
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                )}
-              />
-              <Pagination
-                onChange={handlePaginationChange}
-                page={page}
-                pageSize={pageSize}
-                pageSizes={PAGE_SIZES}
-                totalItems={totalItems}
-              />
-            </>
-          ) : (
-            <>
-              {activeTeam ? (
-                <EmptyState title="No team parameters" message={null} />
-              ) : (
-                <Box maxWidth="20rem" margin="0 auto">
-                  <WombatMessage title="Select a team" />
-                </Box>
-              )}
-            </>
+      <div className={styles.tableContainer}>
+        <div className={styles.tableHeader}>
+          {(activeTeam?.id || totalItems > 0) && (
+            <CreateEditTeamPropertiesModal properties={properties} team={activeTeam} />
           )}
         </div>
-      )}
+        {propertiesAreLoading ? (
+          <DataTableSkeleton />
+        ) : propertiesError ? (
+          <Error />
+        ) : totalItems > 0 ? (
+          <>
+            <DataTable
+              rows={tableData}
+              headers={headers}
+              render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
+                <TableContainer>
+                  <Table isSortable>
+                    <TableHead>
+                      <TableRow className={styles.tableHeadRow}>
+                        {headers.map((header: any, key: any) => (
+                          <TableHeader
+                            key={`mode-table-key-${key}`}
+                            {...getHeaderProps({
+                              className: `${styles.tableHeadHeader} ${styles[header.key]}`,
+                              header,
+                              isSortable: header.sortable,
+                            })}
+                          >
+                            {header.header}
+                          </TableHeader>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody className={styles.tableBody}>
+                      {rows.map((row: any) => {
+                        return (
+                          <TableRow key={row.id}>
+                            {row.cells.map((cell: any, cellIndex: number) => (
+                              <TableCell key={cell.id}>
+                                <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
+            />
+            <Pagination
+              onChange={handlePaginationChange}
+              page={page}
+              pageSize={pageSize}
+              pageSizes={PAGE_SIZES}
+              totalItems={totalItems}
+            />
+          </>
+        ) : (
+          <>
+            {activeTeam ? (
+              <EmptyState title="No team parameters" message={null} />
+            ) : (
+              <Box maxWidth="20rem" margin="0 auto">
+                <WombatMessage title="Select a team" />
+              </Box>
+            )}
+          </>
+        )}
+      </div>
     </>
   );
 };

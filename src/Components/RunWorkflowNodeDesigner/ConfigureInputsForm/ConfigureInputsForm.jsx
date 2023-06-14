@@ -113,35 +113,11 @@ function ConfigureInputsForm(props) {
   const { summaryData } = useEditorContext();
   const [activeWorkflowId, setActiveWorkflowId] = useState("");
   const { node, taskNames, nodeConfig } = props;
-  const scope = summaryData?.scope;
-  const isSystem = scope === "system";
-  const isUser = scope === "user";
-
-  const {
-    data: systemWorkflows,
-    error: systemWorkflowsError,
-    isLoading: systemWorkflowsIsLoading,
-  } = useQuery(serviceUrl.getSystemWorkflows(), resolver.query(serviceUrl.getSystemWorkflows()), { enabled: isSystem });
-  const {
-    data: userWorkflows,
-    error: userWorkflowsError,
-    isLoading: userWorkflowsIsLoading,
-  } = useQuery(serviceUrl.getUserWorkflows(), resolver.query(serviceUrl.getUserWorkflows()), { enabled: isUser });
-
-  const error = systemWorkflowsError || userWorkflowsError;
-  const isLoading = systemWorkflowsIsLoading || userWorkflowsIsLoading;
 
   let workflows = [];
-
-  if (isSystem) {
-    workflows = systemWorkflows?.filter((workflow) => workflow.id !== summaryData?.id);
-  } else if (isUser) {
-    workflows = userWorkflows?.workflows ?? [];
-  } else {
-    workflows = teams
-      .find((team) => team.id === summaryData?.flowTeamId)
-      ?.workflows.filter((workflow) => workflow.id !== summaryData?.id);
-  }
+  workflows = teams
+    .find((team) => team.id === summaryData?.flowTeamId)
+    ?.workflows.filter((workflow) => workflow.id !== summaryData?.id);
 
   const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
   const workflowProperties =
@@ -156,14 +132,6 @@ function ConfigureInputsForm(props) {
         })
       : []
   );
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <ErrorMessage />;
-  }
 
   const formikSetFieldValue = (value, id, setFieldValue) => {
     setFieldValue(id, value);

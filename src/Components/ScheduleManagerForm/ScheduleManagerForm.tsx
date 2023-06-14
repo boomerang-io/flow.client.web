@@ -25,7 +25,7 @@ import {
   FlowTeam,
   ScheduleManagerFormInputs,
   ScheduleUnion,
-  WorkflowSummary,
+  Workflow,
 } from "Types";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./ScheduleManagerForm.module.scss";
@@ -38,15 +38,15 @@ interface CreateEditFormProps {
   modalProps: ComposedModalChildProps;
   schedule?: ScheduleUnion;
   type: "create" | "edit";
-  workflow?: WorkflowSummary;
-  workflowOptions?: Array<WorkflowSummary>;
+  workflow?: Workflow;
+  workflowOptions?: Array<Workflow>;
 }
 
 export default function CreateEditForm(props: CreateEditFormProps) {
   const { teams } = useAppContext();
 
   const [workflowProperties, setWorkflowProperties] = React.useState<Array<DataDrivenInput> | undefined>(
-    props.workflow?.properties.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
+    props.workflow?.config.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
   );
   let initFormValues: Partial<ScheduleManagerFormInputs> = {
     id: props.schedule?.id,
@@ -184,32 +184,20 @@ export default function CreateEditForm(props: CreateEditFormProps) {
         <ModalForm noValidate onSubmit={formikProps.handleSubmit}>
           <ModalBody>
             {props.isLoading && <Loading />}
-            <p>
-              <b>About</b>
-            </p>
             {props.includeWorkflowDropdown && (
               <ComboBox
                 helperText="Workflow for this Schedule to execute"
                 id="workflow"
                 initialSelectedItem={formikProps.values.workflow}
                 items={props?.workflowOptions ?? []}
-                itemToString={(workflow: WorkflowSummary) => {
-                  if (workflow?.scope === "team") {
-                    const team = workflow ? teams.find((team: FlowTeam) => team.id === workflow.flowTeamId) : undefined;
-                    if (team) {
-                      return workflow ? (team ? `${workflow.name} (${team.name})` : workflow.name) : "";
-                    }
-                  }
-                  if (workflow?.scope === "system") {
-                    return `${workflow.name} (System)`;
-                  }
+                itemToString={(workflow: Workflow) => {
                   return workflow?.name ?? "";
                 }}
-                onChange={({ selectedItem }: { selectedItem: WorkflowSummary }) => {
+                onChange={({ selectedItem }: { selectedItem: Workflow }) => {
                   formikProps.setFieldValue("workflow", selectedItem);
                   if (selectedItem?.id) {
                     setWorkflowProperties(
-                      selectedItem.properties.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
+                      selectedItem.config?.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
                     );
                   }
                 }}

@@ -27,7 +27,7 @@ import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath } from "Config/appConfig";
 import { Draggable as DraggableIcon, TrashCan, Archive, Bee, Recommend, Identification } from "@carbon/react/icons";
-import { DataDrivenInput, TaskModel } from "Types";
+import { DataDrivenInput, TaskTemplate } from "Types";
 import styles from "./taskTemplateOverview.module.scss";
 
 const ArchiveText: React.FC = () => (
@@ -219,8 +219,8 @@ const Result: React.FC<ResultProps> = ({
 };
 
 type TaskTemplateOverviewProps = {
-  taskTemplates: any[];
-  updateTemplateInState: (args: TaskModel) => void;
+  taskTemplates: TaskTemplate[];
+  updateTemplateInState: (args: TaskTemplate) => void;
   editVerifiedTasksEnabled: any;
 };
 
@@ -263,25 +263,33 @@ export function TaskTemplateOverview({
     }
   );
 
-  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.id) ?? {};
+  if (params.version) {
+  }
+  const taskTemplateVersion = params.version;
+  const taskTemplateName = params.name;
+  const taskTemplatesByName = taskTemplates.filter((taskTemplate) => taskTemplate.name === taskTemplateName);
+  taskTemplatesByName.sort((a, b) => b.version - a.version);
+  let selectedTaskTemplate =
+    taskTemplatesByName.find((taskTemplate) => taskTemplate.version === taskTemplateVersion) ??
+    taskTemplatesByName[taskTemplatesByName.length - 1];
+  // let selectedTaskTemplate: TaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.id && taskTemplate.version == ) ?? {};
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
-
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
-  const invalidVersion = params.version === "0" || params.version > selectedTaskTemplate.currentVersion;
+  const invalidVersion = params.version === "0" || params.version > taskTemplatesByName.length;
 
-  // Checks if the version in url are a valid one. If not, go to the latest version
-  // Need to improve this
-  const currentRevision = selectedTaskTemplate?.revisions
-    ? invalidVersion
-      ? selectedTaskTemplate.revisions[selectedTaskTemplate.currentVersion - 1]
-      : selectedTaskTemplate.revisions.find((revision) => revision?.version?.toString() === params.version)
-    : {};
+  // // Checks if the version in url are a valid one. If not, go to the latest version
+  // // Need to improve this
+  // const currentRevision = selectedTaskTemplate?.revisions
+  //   ? invalidVersion
+  //     ? selectedTaskTemplate.revisions[selectedTaskTemplate.currentVersion - 1]
+  //     : selectedTaskTemplate.revisions.find((revision) => revision?.version?.toString() === params.version)
+  //   : {};
 
-  const isOldVersion = !invalidVersion && params.version !== selectedTaskTemplate?.currentVersion?.toString();
-  const templateNotFound = !selectedTaskTemplate.id;
+  const isOldVersion = !invalidVersion && params.version !== selectedTaskTemplate?.version?.toString();
+  const templateNotFound = !selectedTaskTemplate.name;
 
-  const fieldKeys = currentRevision.config?.map((input: DataDrivenInput) => input.key) ?? [];
-  const resultKeys = currentRevision.result?.map((input: DataDrivenInput) => input.key) ?? [];
+  const fieldKeys = selectedTaskTemplate.config?.map((input: DataDrivenInput) => input.key) ?? [];
+  const resultKeys = selectedTaskTemplate.spec.results?.map((input: DataDrivenInput) => input.key) ?? [];
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -666,18 +674,18 @@ export function TaskTemplateOverview({
                             values.currentConfig.map((field, index) => (
                               <Draggable key={index} draggableId={field.key} index={index}>
                                 {(provided) => (
-                                    <Field
-                                      field={field}
-                                      dragHandleProps={provided.dragHandleProps}
-                                      draggableProps={provided.draggableProps}
-                                      innerRef={provided.innerRef}
-                                      setFieldValue={setFieldValue}
-                                      fields={values.currentConfig}
-                                      deleteConfiguration={deleteConfiguration}
-                                      isOldVersion={isOldVersion}
-                                      isActive={isActive}
-                                      canEdit={canEdit}
-                                    />
+                                  <Field
+                                    field={field}
+                                    dragHandleProps={provided.dragHandleProps}
+                                    draggableProps={provided.draggableProps}
+                                    innerRef={provided.innerRef}
+                                    setFieldValue={setFieldValue}
+                                    fields={values.currentConfig}
+                                    deleteConfiguration={deleteConfiguration}
+                                    isOldVersion={isOldVersion}
+                                    isActive={isActive}
+                                    canEdit={canEdit}
+                                  />
                                 )}
                               </Draggable>
                             ))

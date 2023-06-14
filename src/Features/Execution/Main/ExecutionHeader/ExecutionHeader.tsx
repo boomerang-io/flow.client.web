@@ -20,7 +20,7 @@ import { appLink } from "Config/appConfig";
 import { elevatedUserRoles, QueryStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Catalog, CopyFile, StopOutline, Warning } from "@carbon/react/icons";
-import { ExecutionStatus, WorkflowSummary } from "Types";
+import { RunStatus, WorkflowSummary } from "Types";
 import styles from "./executionHeader.module.scss";
 
 type Props = {
@@ -32,7 +32,7 @@ type Props = {
   version: number;
 };
 
-const cancelSatusTypes = [ExecutionStatus.NotStarted, ExecutionStatus.Waiting, ExecutionStatus.InProgress];
+const cancelSatusTypes = [RunStatus.NotStarted, RunStatus.Waiting, RunStatus.InProgress];
 
 function ExecutionHeader({ history, workflow, workflowExecution, version }: Props) {
   const { state } = history.location;

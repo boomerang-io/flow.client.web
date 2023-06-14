@@ -19,6 +19,16 @@
   display: flex;
 }
 
+.headerActions {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+
+  :global .bx--bmrg-feature-nav-tab {
+    cursor: pointer !important;
+  }
+}
+
 .status {
   align-items: center;
   display: flex;
@@ -35,6 +45,13 @@
 .removedUserDetail {
   color: var(--cds-inverse-support-01);
   font-size: 0.8rem;
+}
+
+.actionButtons {
+  bottom: 0.25rem;
+  position: absolute;
+  right: 1.5rem;
+  z-index: 1;
 }
 
 .infoContainer {
@@ -60,7 +77,6 @@
 .subHeaderContainer {
   display: flex;
   flex-direction: row;
-  margin-bottom: 1rem;
   & > * + * {
     margin-left: 2.5rem;
   }
@@ -73,17 +89,26 @@
   margin-bottom: 0.25rem;
 }
 
+.dataValueEmail {
+  font-size: 1rem;
+  line-height: 1.25;
+  max-width: 16rem;
+  @include text-overflow-ellipsis();
+}
+
 .dataValue {
   font-size: 1rem;
-  line-height: 1.25rem;
+  line-height: 1.25;
   max-width: 16rem;
   text-transform: capitalize;
   @include text-overflow-ellipsis();
 }
 
 .userContainer {
-  margin: 1rem 0 1rem 0;
+  margin: 0rem 0 0rem 0;
   max-width: calc(100% - 30rem);
+  display: flex;
+  align-items: center;
 
   :global .cds--bmrg-avatar {
     path {

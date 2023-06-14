@@ -4,11 +4,12 @@ const quotas = {
   maxWorkflowStorage: 5,
   maxWorkflowExecutionTime: 30,
   maxConcurrentWorkflows: 4,
+  currentRuns: 12,
   currentWorkflowCount: 1,
-  currentConcurrentWorkflows: 0,
-  currentWorkflowExecutionMonthly: 90,
-  currentAverageExecutionTime: 2,
-  currentWorkflowsPersistentStorage: 3,
+  currentConcurrentRuns: 0,
+  currentRunTotalDuration: 300,
+  currentRunMedianDuration: 120,
+  currentPersistentStorage: 3,
 };
 
 export default quotas;

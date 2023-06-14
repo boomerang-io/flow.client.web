@@ -47,7 +47,6 @@ interface FormProps {
   icon: string;
   name: string;
   labels: Array<{ key: string; value: string }>;
-  shortDescription: string;
   triggers: {
     manual: {
       enable: boolean;
@@ -138,7 +137,6 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           labels: summaryData.labels ? summaryData.labels : [],
           // selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: "" },
           selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: null },
-          shortDescription: summaryData?.shortDescription ?? "",
           triggers: {
             manual: {
               enable: summaryData.triggers?.manual?.enable ?? true,
@@ -180,7 +178,6 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           selectedTeam: summaryData?.flowTeamId
             ? Yup.object().shape({ name: Yup.string().required("Team is required") })
             : Yup.object().shape({ id: Yup.mixed() }),
-          shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
           triggers: Yup.object().shape({
             manual: Yup.object().shape({
               enable: Yup.boolean(),
@@ -310,21 +307,11 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             invalid={Boolean(errors.name && touched.name)}
             invalidText={errors.name}
           />
-          <TextInput
-            id="shortDescription"
-            label="Summary"
-            placeholder="Summary"
-            value={values.shortDescription}
-            onBlur={handleBlur}
-            onChange={this.handleOnChange}
-            invalid={Boolean(errors.shortDescription && touched.shortDescription)}
-            invalidText={errors.shortDescription}
-          />
           <div className={styles.descriptionContainer}>
             <p className={styles.descriptionLength}> {`${values.description.length} / 250`}</p>
             <TextArea
               id="description"
-              labelText="Description"
+              labelText="Description (optional)"
               placeholder="Description"
               onBlur={handleBlur}
               onChange={this.handleOnChange}

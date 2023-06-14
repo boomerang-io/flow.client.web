@@ -77,21 +77,16 @@ export default defineConfig(({ mode }) => {
 });
 
 const portForwardMap = {
-  "/api/launchpad": 8080,
-  "/api/catalog": 8080,
-  "/api/admin": 8082,
-  "/api/notifications": 8083,
-  "/api/users": 8084,
-  "/api/support": 8085,
+  "/api": 7000,
 };
 
 // Map service context paths to the local port that you have forwarded
-function createPortforwardConfig(jwt) {
+function createPortforwardConfig(jwt?: string) {
   return Object.entries(portForwardMap).reduce((proxyMap, [path, port]) => {
     proxyMap[path] = {
       changeOrigin: true,
       headers: { Authorization: `Bearer ${jwt}` },
-      rewrite: (path) => path.replace(/^\/api/, ""),
+      rewrite: (path) => path.replace(/^\/api/, "/api/v2"),
       target: `http://localhost:${port}`,
     };
     return proxyMap;

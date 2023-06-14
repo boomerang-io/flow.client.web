@@ -3,7 +3,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useAppContext, useQuery } from "Hooks";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import { Error, Loading, FeatureNavTabs as Tabs } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Error, Loading, ErrorMessage, FeatureNavTabs as Tabs } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DatePicker, DatePickerInput, FilterableMultiSelect } from "@carbon/react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
@@ -14,103 +14,92 @@ import { sortByProp } from "@boomerang-io/utils";
 import ErrorDragon from "Components/ErrorDragon";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { executionStatusList, QueryStatus, elevatedUserRoles, WorkflowScope } from "Constants";
+import { executionStatusList, QueryStatus } from "Constants";
 import { executionOptions } from "Constants/filterOptions";
 import styles from "./Activity.module.scss";
 
 const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
-const DEFAULT_SIZE = 10;
+const DEFAULT_LIMIT = 10;
 const DEFAULT_SORT = "creationDate";
-
-// Defined outside function so only run once
-const activitySummaryQuery = queryString.stringify({
-  fromDate: moment(new Date()).subtract("24", "hours").unix(),
-  toDate: moment(new Date()).unix(),
-});
+const DEFAULT_FROM_DATE = moment().startOf("month").unix();
+const DEFAULT_TO_DATE = moment().endOf("month").unix();
 
 function WorkflowActivity() {
-  const { teams: teamsState, user } = useAppContext();
+  const { activeTeam } = useAppContext();
   const history = useHistory();
   const location = useLocation();
   const match = useRouteMatch();
 
-  const { type: platformRole }: { type: string } = user;
-  const isSystemWorkflowsEnabled = elevatedUserRoles.includes(platformRole);
+  //TODO - this was defined outside so as to only run once but now needs the teamId - how do we make it only run once?
+  const activitySummaryQuery = queryString.stringify({
+    fromDate: DEFAULT_FROM_DATE,
+    toDate: DEFAULT_TO_DATE,
+    teams: activeTeam?.id,
+  });
 
   const {
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
-    size = DEFAULT_SIZE,
+    limit = DEFAULT_LIMIT,
     sort = DEFAULT_SORT,
-    scopes,
-    workflowIds,
+    workflows,
     triggers,
     statuses,
-    teamIds,
     fromDate,
     toDate,
   } = queryString.parse(location.search, queryStringOptions);
 
+  /** Retrieve Workflows */
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
+  const {
+    data: workflowsData,
+    isLoading: workflowsIsLoading,
+    isError: workflowsIsError,
+  } = useQuery<PaginatedWorkflowResponse, string>({
+    queryKey: getWorkflowsUrl,
+    queryFn: resolver.query(getWorkflowsUrl),
+  });
+
   /**** Start get some data ****/
-  const activityQuery = queryString.stringify(
+
+  const wfRunsURLQuery = queryString.stringify(
     {
       order,
       page,
-      size,
+      limit,
       sort,
-      scopes,
       statuses,
-      teamIds,
+      teams: activeTeam?.id,
       triggers,
-      workflowIds,
+      workflows,
       fromDate,
       toDate,
     },
     queryStringOptions
   );
 
-  const activityStatusSummaryQuery = queryString.stringify(
+  const wfRunStatusSummaryURLQuery = queryString.stringify(
     {
-      scopes,
-      teamIds,
+      teams: activeTeam?.id,
       triggers,
-      workflowIds,
+      workflows,
       fromDate,
       toDate,
     },
     queryStringOptions
   );
 
-  const activitySummaryUrl = serviceUrl.getActivitySummary({ query: activitySummaryQuery });
-  const activityStatusSummaryUrl = serviceUrl.getActivitySummary({ query: activityStatusSummaryQuery });
-  const activityUrl = serviceUrl.getActivity({ query: activityQuery });
+  const wfRunSummaryUrl = serviceUrl.getWorkflowRunCount({ query: activitySummaryQuery });
+  const wfRunStatusSummaryUrl = serviceUrl.getWorkflowRunCount({ query: wfRunStatusSummaryURLQuery });
+  const wfRunUrl = serviceUrl.getWorkflowRuns({ query: wfRunsURLQuery });
 
-  const activitySummaryState = useQuery(activitySummaryUrl);
-  const activityStatusSummaryState = useQuery(activityStatusSummaryUrl);
-  const activityState = useQuery(activityUrl);
-
-  const systemUrl = serviceUrl.getSystemWorkflows();
-
-  const {
-    data: systemWorkflowsData,
-    isLoading: systemWorkflowsIsLoading,
-    error: SystemWorkflowsError,
-  } = useQuery(systemUrl, resolver.query(systemUrl), { enabled: isSystemWorkflowsEnabled });
-
-  const {
-    data: userWorkflowsData,
-    isLoading: userWorkflowsIsLoading,
-    isError: userWorkflowsIsError,
-  } = useQuery(serviceUrl.getUserWorkflows(), resolver.query(serviceUrl.getUserWorkflows()));
-
-  if (systemWorkflowsIsLoading || userWorkflowsIsLoading) {
-    return <Loading />;
-  }
-
-  if (SystemWorkflowsError || userWorkflowsIsError) {
-    return <ErrorDragon />;
-  }
+  const wfRunSummaryQuery = useQuery(wfRunSummaryUrl);
+  const wfRunStatusSummaryQuery = useQuery(wfRunStatusSummaryUrl);
+  const wfRunQuery = useQuery({
+    queryKey: wfRunUrl,
+    queryFn: resolver.query(wfRunUrl),
+  });
 
   /**** End get some data ****/
 
@@ -124,43 +113,20 @@ function WorkflowActivity() {
   const updateHistorySearch = ({
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
-    size = DEFAULT_SIZE,
+    limit = DEFAULT_LIMIT,
     sort = DEFAULT_SORT,
     ...props
   }) => {
-    const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props }, queryStringOptions)}`;
+    const queryStr = `?${queryString.stringify({ order, page, limit, sort, ...props }, queryStringOptions)}`;
     history.push({ search: queryStr });
     return;
   };
-
-  function handleSelectScopes({ selectedItems }) {
-    const scopes = selectedItems.length > 0 ? selectedItems.map((scope) => scope.value) : undefined;
-    updateHistorySearch({
-      ...queryString.parse(location.search, queryStringOptions),
-      scopes: scopes,
-      teamIds: undefined,
-      workflowIds: undefined,
-      page: 0,
-    });
-    return;
-  }
-
-  function handleSelectTeams({ selectedItems }) {
-    const teamIds = selectedItems.length > 0 ? selectedItems.map((team) => team.id) : undefined;
-    updateHistorySearch({
-      ...queryString.parse(location.search, queryStringOptions),
-      teamIds,
-      workflowIds: undefined,
-      page: 0,
-    });
-    return;
-  }
 
   function handleSelectWorkflows({ selectedItems }) {
     const workflowIds = selectedItems.length > 0 ? selectedItems.map((worflow) => worflow.id) : undefined;
     updateHistorySearch({
       ...queryString.parse(location.search, queryStringOptions),
-      workflowIds: workflowIds,
+      workflows: workflowIds,
       page: 0,
     });
     return;
@@ -177,11 +143,11 @@ function WorkflowActivity() {
     const {
       order = DEFAULT_ORDER,
       page = DEFAULT_PAGE,
-      size = DEFAULT_SIZE,
+      limit = DEFAULT_LIMIT,
       sort = DEFAULT_SORT,
       ...props
     } = queryString.parse(location.search);
-    const query = queryString.stringify({ order, page, size, sort, ...props, statuses }, queryStringOptions);
+    const query = queryString.stringify({ order, page, limit, sort, ...props, statuses }, queryStringOptions);
     return `?${query}`;
   }
 
@@ -212,39 +178,21 @@ function WorkflowActivity() {
     return;
   };
 
-  function getWorkflowFilter({ teamsData, selectedTeams, systemWorkflowsData = [], userWorkflowsData = [] }) {
+  function getWorkflowFilter() {
     let workflowsList = [];
-    if (!scopes || scopes?.includes(WorkflowScope.Team)) {
-      if (!selectedTeams.length && teamsData) {
-        workflowsList = teamsData.reduce((acc, team) => {
-          acc.push(...team.workflows);
-          return acc;
-        }, []);
-      } else if (selectedTeams) {
-        workflowsList = selectedTeams.reduce((acc, team) => {
-          acc.push(...team.workflows);
-          return acc;
-        }, []);
-      }
+    if (workflowsData.content) {
+      workflowsList = workflowsData.content;
     }
-    if ((!scopes || scopes?.includes(WorkflowScope.System)) && isSystemWorkflowsEnabled) {
-      workflowsList = workflowsList.concat(systemWorkflowsData);
-    }
-    if (!scopes || scopes?.includes(WorkflowScope.User)) {
-      workflowsList = workflowsList.concat(userWorkflowsData);
-    }
-    let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
-    return workflowsFilter;
+    return sortByProp(workflowsList, "name", "ASC");
   }
-
   /** End input handlers */
 
   /** Start Render Logic */
-
-  if (activityState.error) {
+  if (wfRunQuery.error || workflowsIsError) {
     return (
       <div className={styles.container}>
         <ActivityHeader
+          team={activeTeam}
           failedActivities={"--"}
           inProgressActivities={"--"}
           isError={true}
@@ -259,52 +207,18 @@ function WorkflowActivity() {
     );
   }
 
-  if (teamsState || systemWorkflowsData || userWorkflowsData) {
-    const {
-      workflowIds = "",
-      scopes = "",
-      triggers = "",
-      statuses = "",
-      teamIds = "",
-    } = queryString.parse(location.search, queryStringOptions);
-
-    const selectedScopes = typeof scopes === "string" ? [scopes] : scopes;
-    const selectedTeamIds = typeof teamIds === "string" ? [teamIds] : teamIds;
-    const selectedWorkflowIds = typeof workflowIds === "string" ? [workflowIds] : workflowIds;
+  if (activeTeam && workflowsData) {
+    const { workflows = "", triggers = "", statuses = "" } = queryString.parse(location.search, queryStringOptions);
+    const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
     const selectedTriggers = typeof triggers === "string" ? [triggers] : triggers;
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
     const statusIndex = executionStatusList.indexOf(selectedStatuses[0]) + 1;
     // const statusIndex = executionStatusList.indexOf(selectedStatuses[0]);
 
-    const teamsData = teamsState && JSON.parse(JSON.stringify(teamsState));
-
-    const selectedTeams =
-      teamsState &&
-      teamsData.filter((team) => {
-        if (selectedTeamIds.find((id) => id === team.id)) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-
-    const workflowsFilter = getWorkflowFilter({
-      teamsData,
-      selectedTeams,
-      systemWorkflowsData,
-      userWorkflowsData: userWorkflowsData?.workflows,
-    });
-    const { data: statusWorkflowSummary, status: statusSummaryStatus } = activityStatusSummaryState;
+    const { data: statusWorkflowSummary, status: statusSummaryStatus } = wfRunStatusSummaryQuery;
     const maxDate = moment().format("MM/DD/YYYY");
 
     const statusWorkflowSummaryIsLoading = statusSummaryStatus === QueryStatus.Loading;
-
-    const workflowScopeOptions = [
-      { label: "User", value: WorkflowScope.User },
-      { label: "Team", value: WorkflowScope.Team },
-    ];
-
-    if (isSystemWorkflowsEnabled) workflowScopeOptions.push({ label: "System", value: WorkflowScope.System });
 
     return (
       <div className={styles.container}>
@@ -312,163 +226,150 @@ function WorkflowActivity() {
           <title>Activity</title>
         </Helmet>
         <ActivityHeader
-          inProgressActivities={activitySummaryState.data?.inProgress ?? 0}
-          isLoading={activitySummaryState.status === QueryStatus.Loading}
-          failedActivities={activitySummaryState.data?.failure ?? 0}
-          runActivities={activitySummaryState.data?.all ?? 0}
-          succeededActivities={activitySummaryState.data?.completed ?? 0}
+          team={activeTeam}
+          inProgressActivities={wfRunSummaryQuery.data?.inProgress ?? 0}
+          isLoading={wfRunSummaryQuery.status === QueryStatus.Loading}
+          failedActivities={wfRunSummaryQuery.data?.failure ?? 0}
+          runActivities={wfRunSummaryQuery.data?.all ?? 0}
+          succeededActivities={wfRunSummaryQuery.data?.completed ?? 0}
         />
-        <section aria-label="Activity" className={styles.content}>
-          <nav>
-            <Tabs className={styles.tabs}>
-              <Tab
-                to={() => handleSelectStatuses(0)}
-                label={statusWorkflowSummaryIsLoading ? "All" : `All (${statusWorkflowSummary.all})`}
-                isActive={statusIndex === 0}
-              />
-              <Tab
-                to={() => handleSelectStatuses(1)}
-                label={
-                  statusWorkflowSummaryIsLoading ? "In Progress" : `In Progress (${statusWorkflowSummary?.inProgress})`
-                }
-                isActive={statusIndex === 1}
-              />
-              <Tab
-                to={() => handleSelectStatuses(2)}
-                label={statusWorkflowSummaryIsLoading ? "Succeeded" : `Succeeded (${statusWorkflowSummary.completed})`}
-                isActive={statusIndex === 2}
-              />
-              <Tab
-                to={() => handleSelectStatuses(3)}
-                label={statusWorkflowSummaryIsLoading ? "Failed" : `Failed (${statusWorkflowSummary.failure})`}
-                isActive={statusIndex === 3}
-              />
-              <Tab
-                to={() => handleSelectStatuses(4)}
-                label={statusWorkflowSummaryIsLoading ? "Invalid" : `Invalid (${statusWorkflowSummary.invalid})`}
-                isActive={statusIndex === 4}
-              />
-              <Tab
-                to={() => handleSelectStatuses(5)}
-                label={statusWorkflowSummaryIsLoading ? "Waiting" : `Waiting (${statusWorkflowSummary.waiting})`}
-                isActive={statusIndex === 5}
-              />
-              <Tab
-                to={() => handleSelectStatuses(6)}
-                label={statusWorkflowSummaryIsLoading ? "Cancelled" : `Cancelled (${statusWorkflowSummary.cancelled})`}
-                isActive={statusIndex === 6}
-              />
-            </Tabs>
-          </nav>
-          <div className={styles.filtersContainer}>
-            <div className={styles.dataFilters}>
-              <div className={styles.dataFilter}>
-                <FilterableMultiSelect
-                  id="activity-scopes-select"
-                  label="Choose scope(s)"
-                  placeholder="Choose scope(s)"
-                  invalid={false}
-                  onChange={handleSelectScopes}
-                  items={workflowScopeOptions}
-                  itemToString={(scope) => (scope ? scope.label : "")}
-                  initialSelectedItems={workflowScopeOptions.filter((option) =>
-                    Boolean(selectedScopes.find((scope) => scope === option.value))
-                  )}
-                  titleText="Filter by scope"
+        {wfRunQuery.isError ? (
+          <section aria-label="Activity" className={styles.content}>
+            <ErrorMessage />
+          </section>
+        ) : (
+          <section aria-label="Activity" className={styles.content}>
+            <nav>
+              <Tabs className={styles.tabs}>
+                <Tab
+                  to={() => handleSelectStatuses(0)}
+                  label={statusWorkflowSummaryIsLoading ? "All" : `All (${statusWorkflowSummary.status.all})`}
+                  isActive={statusIndex === 0}
                 />
-              </div>
-              {(!scopes || scopes?.includes(WorkflowScope.Team)) && (
+                <Tab
+                  to={() => handleSelectStatuses(1)}
+                  label={statusWorkflowSummaryIsLoading ? "Queued" : `Queued (${statusWorkflowSummary?.status.ready})`}
+                  isActive={statusIndex === 1}
+                />
+                <Tab
+                  to={() => handleSelectStatuses(2)}
+                  label={
+                    statusWorkflowSummaryIsLoading
+                      ? "In Progress"
+                      : `In Progress (${statusWorkflowSummary?.status.running})`
+                  }
+                  isActive={statusIndex === 2}
+                />
+                <Tab
+                  to={() => handleSelectStatuses(3)}
+                  label={
+                    statusWorkflowSummaryIsLoading
+                      ? "Succeeded"
+                      : `Succeeded (${statusWorkflowSummary.status.succeeded})`
+                  }
+                  isActive={statusIndex === 3}
+                />
+                <Tab
+                  to={() => handleSelectStatuses(4)}
+                  label={statusWorkflowSummaryIsLoading ? "Failed" : `Failed (${statusWorkflowSummary.status.failed})`}
+                  isActive={statusIndex === 4}
+                />
+                <Tab
+                  to={() => handleSelectStatuses(5)}
+                  label={
+                    statusWorkflowSummaryIsLoading ? "Invalid" : `Invalid (${statusWorkflowSummary.status.invalid})`
+                  }
+                  isActive={statusIndex === 5}
+                />
+                <Tab
+                  to={() => handleSelectStatuses(6)}
+                  label={
+                    statusWorkflowSummaryIsLoading ? "Waiting" : `Waiting (${statusWorkflowSummary.status.waiting})`
+                  }
+                  isActive={statusIndex === 6}
+                />
+                <Tab
+                  to={() => handleSelectStatuses(7)}
+                  label={
+                    statusWorkflowSummaryIsLoading
+                      ? "Cancelled"
+                      : `Cancelled (${statusWorkflowSummary.status.cancelled})`
+                  }
+                  isActive={statusIndex === 7}
+                />
+              </Tabs>
+            </nav>
+            <div className={styles.filtersContainer}>
+              <div className={styles.dataFilters}>
                 <div className={styles.dataFilter}>
                   <FilterableMultiSelect
-                    id="activity-teams-select"
-                    label="Choose team(s)"
-                    placeholder="Choose team(s)"
+                    id="activity-workflows-select"
+                    label="Choose workflow(s)"
+                    placeholder="Choose workflow(s)"
                     invalid={false}
-                    onChange={handleSelectTeams}
-                    items={teamsData}
-                    itemToString={(team) => (team ? team.name : "")}
-                    initialSelectedItems={selectedTeams}
-                    titleText="Filter by Team"
+                    onChange={handleSelectWorkflows}
+                    items={getWorkflowFilter()}
+                    itemToString={(workflow) => {
+                      return workflow.name;
+                    }}
+                    initialSelectedItems={getWorkflowFilter().filter((workflow) =>
+                      Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
+                    )}
+                    titleText="Filter by Workflow"
                   />
                 </div>
-              )}
-              <div className={styles.dataFilter}>
-                <FilterableMultiSelect
-                  id="activity-workflows-select"
-                  label="Choose workflow(s)"
-                  placeholder="Choose workflow(s)"
-                  invalid={false}
-                  onChange={handleSelectWorkflows}
-                  items={workflowsFilter}
-                  itemToString={(workflow) => {
-                    if (workflow.scope === "team") {
-                      const team = workflow
-                        ? teamsData.find((team: FlowTeam) => team.id === workflow.flowTeamId)
-                        : undefined;
-                      if (team) {
-                        return workflow ? (team ? `${workflow.name} (${team.name})` : workflow.name) : "";
-                      }
-                    }
-                    if (workflow.scope === "system") {
-                      return `${workflow.name} (System)`;
-                    }
-                    return workflow.name;
-                  }}
-                  initialSelectedItems={workflowsFilter.filter((workflow) =>
-                    Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
-                  )}
-                  titleText="Filter by Workflow"
-                />
+                <div className={styles.dataFilter}>
+                  <FilterableMultiSelect
+                    id="activity-triggers-select"
+                    label="Choose trigger type(s)"
+                    placeholder="Choose trigger type(s)"
+                    invalid={false}
+                    onChange={handleSelectTriggers}
+                    items={executionOptions}
+                    itemToString={(item) => (item ? item.label : "")}
+                    initialSelectedItems={executionOptions.filter((option) =>
+                      Boolean(selectedTriggers.find((trigger) => trigger === option.value))
+                    )}
+                    titleText="Filter by trigger"
+                  />
+                </div>
               </div>
-              <div className={styles.dataFilter}>
-                <FilterableMultiSelect
-                  id="activity-triggers-select"
-                  label="Choose trigger type(s)"
-                  placeholder="Choose trigger type(s)"
-                  invalid={false}
-                  onChange={handleSelectTriggers}
-                  items={executionOptions}
-                  itemToString={(item) => (item ? item.label : "")}
-                  initialSelectedItems={executionOptions.filter((option) =>
-                    Boolean(selectedTriggers.find((trigger) => trigger === option.value))
-                  )}
-                  titleText="Filter by trigger"
+              <DatePicker
+                id="activity-date-picker"
+                className={styles.timeFilters}
+                datePickerType="range"
+                maxDate={maxDate}
+                onChange={handleSelectDate}
+                onClose={handleCloseSelectDate}
+              >
+                <DatePickerInput
+                  autoComplete="off"
+                  id="activity-date-picker-start"
+                  labelText="Start date"
+                  placeholder="mm/dd/yyyy"
+                  value={fromDate && moment.unix(fromDate).format("MM/DD/YYYY")}
                 />
-              </div>
+                <DatePickerInput
+                  autoComplete="off"
+                  id="activity-date-picker-end"
+                  labelText="End date"
+                  placeholder="mm/dd/yyyy"
+                  value={toDate && moment.unix(toDate).format("MM/DD/YYYY")}
+                />
+              </DatePicker>
             </div>
-            <DatePicker
-              id="activity-date-picker"
-              className={styles.timeFilters}
-              datePickerType="range"
-              maxDate={maxDate}
-              onChange={handleSelectDate}
-              onClose={handleCloseSelectDate}
-            >
-              <DatePickerInput
-                autoComplete="off"
-                id="activity-date-picker-start"
-                labelText="Start date"
-                placeholder="mm/dd/yyyy"
-                value={fromDate && moment.unix(fromDate).format("MM/DD/YYYY")}
-              />
-              <DatePickerInput
-                autoComplete="off"
-                id="activity-date-picker-end"
-                labelText="End date"
-                placeholder="mm/dd/yyyy"
-                value={toDate && moment.unix(toDate).format("MM/DD/YYYY")}
-              />
-            </DatePicker>
-          </div>
-          <ActivityTable
-            history={history}
-            isLoading={activityState.status === QueryStatus.Loading}
-            location={location}
-            match={match}
-            tableData={activityState.data}
-            updateHistorySearch={updateHistorySearch}
-          />
-        </section>
+            <ActivityTable
+              history={history}
+              isLoading={wfRunQuery.isLoading}
+              location={location}
+              match={match}
+              tableData={wfRunQuery.data}
+              sort={sort}
+              order={order}
+              updateHistorySearch={updateHistorySearch}
+            />
+          </section>
+        )}
       </div>
     );
   }

@@ -1,16 +1,8 @@
 import React from "react";
 import moment from "moment";
 import * as Yup from "yup";
-import {
-  Button,
-  DatePicker,
-  DatePickerInput,
-  InlineNotification,
-  ModalBody,
-  ModalFooter,
-} from "@carbon/react";
-import { ModalFlowForm,   TextArea,
-  Loading, TooltipHover} from "@boomerang-io/carbon-addons-boomerang-react"
+import { Button, DatePicker, DatePickerInput, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
+import { ModalFlowForm, TextArea, Loading, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
 import { Information } from "@carbon/react/icons";
 import { useMutation, useQueryClient } from "react-query";
@@ -116,10 +108,13 @@ function CreateServiceTokenForm({
                   labelText={
                     <div className={styles.inputLabelContainer}>
                       <span>Expiration Date (optional)</span>
-                        <TooltipHover direction="top" tooltipContent="Expiration date will be saved in Coordinated Universal Time (UTC) with the token expiring at
+                      <TooltipHover
+                        direction="top"
+                        tooltipContent="Expiration date will be saved in Coordinated Universal Time (UTC) with the token expiring at
                           the start of the entered day. The token will not expire by default if no expiration date is
-                          entered."><Information />
-
+                          entered."
+                      >
+                        <Information />
                       </TooltipHover>
                     </div>
                   }
@@ -129,8 +124,8 @@ function CreateServiceTokenForm({
                 />
               </DatePicker>
               <TextArea
-              enableCounter
-                labelText="Description"
+                enableCounter
+                labelText="Description (optional)"
                 placeholder="Provide a short description for this Token"
                 id="description"
                 data-testid="token-description"

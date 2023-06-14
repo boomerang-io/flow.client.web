@@ -16,20 +16,20 @@ import { Bee, ViewOff, Recommend, SettingsAdjust } from "@carbon/react/icons";
 import { taskIcons } from "Utils/taskIcons";
 import { TaskTemplateStatus } from "Constants";
 import { AppPath } from "Config/appConfig";
-import { TaskModel } from "Types";
+import { TaskTemplate } from "Types";
 import styles from "./sideInfo.module.scss";
 
-const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list";
+const DESCRIPTION = "Create and import tasks to add to the Workflow Editor task list";
 
 interface SideInfoProps {
-  addTemplateInState: (newTemplate: TaskModel) => void;
-  taskTemplates: TaskModel[];
+  addTemplateInState: (newTemplate: TaskTemplate) => void;
+  taskTemplates: TaskTemplate[];
 }
 
 const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
-  const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskModel>>(
+  const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskTemplate>>(
     taskTemplates.filter((task) => task.status === TaskTemplateStatus.Active) ?? []
   );
   const [openCategories, setOpenCategories] = React.useState(false);
@@ -50,7 +50,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
   const globalMatch = matchPath(location.pathname, { path: AppPath.TaskTemplateEdit });
 
   let categories = tasksToDisplay
-    .reduce((acc: string[], task: TaskModel) => {
+    .reduce((acc: string[], task: TaskTemplate) => {
       const newCategory = !acc.find((category) => task.category === category);
       if (newCategory) acc.push(task.category);
       return acc;
@@ -121,7 +121,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
             value={searchQuery}
           />
           <OverflowMenu
-          ariaLabel="Filter"
+            ariaLabel="Filter"
             renderIcon={SettingsAdjust}
             style={{
               backgroundColor: showVerified || showArchived || activeFilters.length > 0 ? "#3DDBD9" : "initial",
@@ -197,7 +197,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
 
 interface TaskProps {
   isActive: boolean;
-  task: TaskModel;
+  task: TaskTemplate;
 }
 const Task: React.FC<TaskProps> = (props) => {
   const { task } = props;
@@ -206,7 +206,7 @@ const Task: React.FC<TaskProps> = (props) => {
 
   return (
     <SideNavLink
-      to={appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion })}
+      to={appLink.taskTemplateEdit({ name: task.name, version: task.version.toString() })}
       icon={TaskIcon ? TaskIcon.Icon : Bee}
     >
       <div className={styles.task}>

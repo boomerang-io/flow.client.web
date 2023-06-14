@@ -2,8 +2,8 @@ import sortBy from "lodash/sortBy";
 import orderBy from "lodash/orderBy";
 import { ExecutionStatusCopy } from "Constants";
 import { timeSecondsToTimeUnit } from "Utils/timeSecondsToTimeUnit";
-import { InsightsExecution } from "../Insights";
-import { ExecutionStatus } from "Types";
+import { InsightsRuns } from "../Insights";
+import { RunStatus } from "Types";
 
 interface ChartDataItem {
   value: number;
@@ -11,20 +11,20 @@ interface ChartDataItem {
   group: string;
 }
 
-export const parseChartsData = (
-  data: Array<InsightsExecution>,
-  statuses: ExecutionStatus | Array<ExecutionStatus> | null
-) => {
+export const parseChartsData = (data: Array<InsightsRuns>, statuses: RunStatus | Array<RunStatus> | null) => {
   let executionPerWorkflowMap: { [k: string]: { label: string; value: number } } = {};
   let executionDateMap: { [k: string]: { [k: string]: number } } = {};
 
-  let statusListMap: { [k: string]: Array<InsightsExecution> } = {
+  let statusListMap: { [k: string]: Array<InsightsRuns> } = {
     cancelled: [],
-    failure: [],
-    inProgress: [],
+    failed: [],
+    running: [],
     invalid: [],
-    completed: [],
+    succeeded: [],
     waiting: [],
+    skipped: [],
+    ready: [],
+    notstarted: [],
   };
 
   let scatterPlotData: Array<ChartDataItem> = [];
@@ -33,10 +33,10 @@ export const parseChartsData = (
 
   data.forEach((execution) => {
     // Get execution count
-    if (!executionPerWorkflowMap[execution.workflowId]) {
-      executionPerWorkflowMap[execution.workflowId] = { label: execution.workflowName, value: 1 };
+    if (!executionPerWorkflowMap[execution.id]) {
+      executionPerWorkflowMap[execution.id] = { label: execution.workflowName, value: 1 };
     } else {
-      executionPerWorkflowMap[execution.workflowId].value += 1;
+      executionPerWorkflowMap[execution.id].value += 1;
     }
 
     const executionDate = new Date(execution.creationDate);
@@ -58,23 +58,32 @@ export const parseChartsData = (
 
     // Group by status for pie chart
     switch (execution.status) {
-      case ExecutionStatus.Completed:
-        statusListMap.completed.push(execution);
+      case RunStatus.Succeeded:
+        statusListMap.succeeded.push(execution);
         break;
-      case ExecutionStatus.Failure:
-        statusListMap.failure.push(execution);
+      case RunStatus.Failed:
+        statusListMap.failed.push(execution);
         break;
-      case ExecutionStatus.Cancelled:
+      case RunStatus.Cancelled:
         statusListMap.cancelled.push(execution);
         break;
-      case ExecutionStatus.Invalid:
+      case RunStatus.Invalid:
         statusListMap.invalid.push(execution);
         break;
-      case ExecutionStatus.InProgress:
-        statusListMap.inProgress.push(execution);
+      case RunStatus.Running:
+        statusListMap.running.push(execution);
         break;
-      case ExecutionStatus.Waiting:
+      case RunStatus.Waiting:
         statusListMap.waiting.push(execution);
+        break;
+      case RunStatus.NotStarted:
+        statusListMap.notstarted.push(execution);
+        break;
+      case RunStatus.Ready:
+        statusListMap.ready.push(execution);
+        break;
+      case RunStatus.Skipped:
+        statusListMap.skipped.push(execution);
         break;
       default:
       // no-op
@@ -104,7 +113,7 @@ export const parseChartsData = (
 
   for (const [dateStr, statusMap] of Object.entries(executionDateMap)) {
     for (let [status, value] of Object.entries(statusMap)) {
-      const typedStatus: ExecutionStatus = status as ExecutionStatus;
+      const typedStatus: RunStatus = status as RunStatus;
       if (ExecutionStatusCopy[typedStatus]) {
         lineChartData.push({ date: new Date(dateStr), value, group: ExecutionStatusCopy[typedStatus] });
       }
@@ -112,8 +121,8 @@ export const parseChartsData = (
   }
 
   // Default to all of them if no statuses are passed in
-  let selectedStatuses = Object.values(ExecutionStatus).filter(
-    (value) => [ExecutionStatus.NotStarted, ExecutionStatus.Skipped].includes(value) === false
+  let selectedStatuses = Object.values(RunStatus).filter(
+    (value) => [RunStatus.NotStarted, RunStatus.Skipped].includes(value) === false
   );
   if (statuses) {
     if (typeof statuses === "string") {
@@ -123,7 +132,7 @@ export const parseChartsData = (
     }
   }
 
-  const donutData = selectedStatuses.map((status: ExecutionStatus) => {
+  const donutData = selectedStatuses.map((status: RunStatus) => {
     return {
       group: ExecutionStatusCopy[status],
       value: statusListMap[status]?.length || 0,

@@ -10,7 +10,7 @@ import Notes from "./Notes";
 import Tasks from "./Tasks";
 import { TaskTemplateStatus, QueryStatus } from "Constants";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
-import { TaskModel, WorkflowRevision } from "Types";
+import { TaskTemplate, WorkflowRevision } from "Types";
 import styles from "./designer.module.scss";
 import ReactFlow from "Features/Reactflow";
 
@@ -20,7 +20,7 @@ interface DesignerContainerProps {
   notes: string;
   updateNotes: ({ markdown }: { markdown: string }) => void;
   revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
-  tasks: Array<TaskModel>;
+  tasks: Array<TaskTemplate>;
   workflowDagEngine: WorkflowDagEngine | null;
   workflowName: string;
 }
