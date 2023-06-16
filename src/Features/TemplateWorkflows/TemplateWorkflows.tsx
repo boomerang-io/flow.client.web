@@ -46,7 +46,6 @@ export default function TemplateWorkflows() {
     <>
       <div className={styles.container}>
         <WorkflowsHeader
-          pretitle="These are"
           title="Template Workflows"
           subtitle="Define reuseable Workflows available to all teams as Templates."
           handleUpdateFilter={handleUpdateFilter}

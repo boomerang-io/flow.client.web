@@ -202,7 +202,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
     },
     {
       itemText: "View Activity",
-      onClick: () => history.push(appLink.workflowActivity({ workflowId: workflow.id })),
+      onClick: () => history.push(appLink.workflowActivity({ teamId: activeTeam?.id, workflowId: workflow.id })),
     },
     {
       itemText: "Update",

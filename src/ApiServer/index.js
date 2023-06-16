@@ -136,7 +136,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        */
 
       this.get(serviceUrl.getGlobalParams({ query: null }), (schema) => {
-        return schema.db.globlaParams[0];
+        return schema.db.globalParams;
       });
       this.post(serviceUrl.getGlobalParams(), (schema, request) => {
         let body = JSON.parse(request.requestBody);

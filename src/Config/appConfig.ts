@@ -172,7 +172,7 @@ export const appLink = {
   userSettings: ({ userId }: UserIdArg) => `/admin/users/${userId}/settings`,
   userList: () => "/admin/users",
   workflows: ({ teamId }: TeamIdArg) => `/${teamId}/workflows`,
-  workflowActivity: ({ workflowId }: WorkflowIdArg) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
+  workflowActivity: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/activity?page=0&size=10&workflows=${workflowId}`,
   //external apps
   docsWorkflowEditor: () => `${BASE_DOCUMENTATION_URL}/how-to-guide/workflow-editor`,
 };

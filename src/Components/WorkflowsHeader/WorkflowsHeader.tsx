@@ -56,7 +56,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
     <Header
       className={styles.container}
       includeBorder={false}
-      nav={<NavigationComponent />}
+      nav={viewType === WorkflowView.Workflow ? <NavigationComponent /> : null}
       header={
         <>
           {Boolean(pretitle) ? <HeaderSubtitle>{pretitle}</HeaderSubtitle> : null}

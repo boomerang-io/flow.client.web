@@ -24,6 +24,8 @@ function GlobalPropertiesContainer() {
     );
   }
 
+  console.log(data);
+
   return (
     <div className={styles.container}>
       <Helmet>

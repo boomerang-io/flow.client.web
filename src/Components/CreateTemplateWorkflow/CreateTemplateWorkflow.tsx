@@ -99,7 +99,7 @@ function CreateTemplateWorkflow({ team, workflowList }: CreateTemplateWorkflowPr
       <CreateWorkflowTemplates
         templatesError={workflowTemplatesError || taskTemplatesError}
         isLoading={workflowTemplatesIsLoading || taskTempaltesAreLoading}
-        workflowTemplates={workflowTemplatesData?.content}
+        workflowTemplates={templatesWorkflowData?.content ? templatesWorkflowData.content : []}
         taskTemplates={taskTemplatesData}
       />
       <CreateWorkflowContent
