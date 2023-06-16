@@ -579,12 +579,24 @@ export interface WorkflowTemplate {
   description: string;
   creationDate: string;
   markdown: string;
-  parameters: {
-    label: string;
-    type: string;
-  }[];
   version: Number;
-  triggers: { [key: string]: any };
+  labels?: Record<string, string>;
+  annotations?: Record<string, object>;
+  params?: [
+    {
+      name: string;
+      type: string;
+      description?: string;
+      defaultValue?: object;
+    }
+  ];
+  tasks: [];
+  changelog: {
+    author: string;
+    reason: string;
+    date: string;
+  };
+  config: [DataDrivenInput];
 }
 
 export enum RunStatus {
