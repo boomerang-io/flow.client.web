@@ -101,13 +101,13 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
               const { name, Icon = Bee } = workflowIcons.find((icon) => icon.name === template.icon) ?? {};
               return (
                 <Button
-                  className={cx(styles.template, { [styles.active]: selectedWorkflow?.id === template.id })}
+                  className={cx(styles.template, { [styles.active]: selectedWorkflow?.name === template.name })}
                   kind="ghost"
                   size="sm"
                   onClick={() => handleSelectTemplate(template)}
                 >
                   <Icon className={styles.icon} alt={`${name}`} />
-                  <p className={styles.buttonText}>{template.name}</p>
+                  <p className={styles.buttonText}>{template.displayName}</p>
                 </Button>
               );
             })}

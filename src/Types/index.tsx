@@ -573,15 +573,17 @@ export interface ComboBoxItem {
 }
 
 export interface WorkflowTemplate {
-  id: string;
-  icon: string;
   name: string;
+  displayName: string;
+  icon: string;
   description: string;
+  creationDate: string;
+  markdown: string;
   parameters: {
     label: string;
     type: string;
   }[];
-  revision: WorkflowRevision;
+  version: Number;
   triggers: { [key: string]: any };
 }
 

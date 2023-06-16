@@ -3,9 +3,16 @@ import { Helmet } from "react-helmet";
 import cx from "classnames";
 import moment from "moment";
 import queryString from "query-string";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { DatePicker, DatePickerInput, FilterableMultiSelect, SkeletonPlaceholder } from "@carbon/react";
+import {
+  DatePicker,
+  DatePickerInput,
+  FilterableMultiSelect,
+  SkeletonPlaceholder,
+  Breadcrumb,
+  BreadcrumbItem,
+} from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
@@ -22,10 +29,17 @@ import CarbonLineChart from "./CarbonLineChart";
 import CarbonScatterChart from "./CarbonScatterChart";
 import { executionOptions, statusOptions } from "Constants/filterOptions";
 import { parseChartsData } from "./utils/formatData";
-import { queryStringOptions } from "Config/appConfig";
+import { queryStringOptions, appLink } from "Config/appConfig";
 import { timeSecondsToTimeUnit } from "Utils/timeSecondsToTimeUnit";
-import type { RunStatus, PaginatedWorkflowResponse, MultiSelectItem, MultiSelectItems, Workflow } from "Types";
-import styles from "./workflowInsights.module.scss";
+import type {
+  RunStatus,
+  PaginatedWorkflowResponse,
+  MultiSelectItem,
+  MultiSelectItems,
+  Workflow,
+  FlowTeam,
+} from "Types";
+import styles from "./Insights.module.scss";
 
 export interface InsightsRuns {
   id: string;
@@ -102,7 +116,7 @@ export default function Insights() {
 
   if (insightsQuery.error || workflowsIsError) {
     return (
-      <InsightsContainer>
+      <InsightsContainer team={activeTeam}>
         <Selects workflowsData={workflowsData?.content} updateHistorySearch={updateHistorySearch} />
         <ErrorDragon />
       </InsightsContainer>
@@ -111,7 +125,7 @@ export default function Insights() {
 
   if (insightsQuery.isLoading || workflowsIsLoading) {
     return (
-      <InsightsContainer>
+      <InsightsContainer team={activeTeam}>
         <Selects workflowsData={workflowsData?.content} updateHistorySearch={updateHistorySearch} />
         <div className={styles.cardPlaceholderContainer}>
           <SkeletonPlaceholder className={styles.cardPlaceholder} />
@@ -126,7 +140,7 @@ export default function Insights() {
 
   if (insightsQuery.data) {
     return (
-      <InsightsContainer>
+      <InsightsContainer team={activeTeam}>
         <Selects workflowsData={workflowsData?.content} updateHistorySearch={updateHistorySearch} />
         <Graphs data={insightsQuery.data} statuses={statuses as RunStatus | Array<RunStatus> | null} />
       </InsightsContainer>
@@ -136,14 +150,29 @@ export default function Insights() {
   return null;
 }
 
-function InsightsContainer(props: { children: React.ReactNode }) {
+function InsightsContainer(props: { team: FlowTeam; children: React.ReactNode }) {
+  const NavigationComponent = () => {
+    return (
+      <Breadcrumb noTrailingSlash>
+        <BreadcrumbItem>
+          <Link to={appLink.home()}>Home</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <p>{props.team.name}</p>
+        </BreadcrumbItem>
+      </Breadcrumb>
+    );
+  };
+
   return (
     <>
       <Helmet>
         <title>Insights</title>
       </Helmet>
       <Header
+        className={styles.header}
         includeBorder={false}
+        nav={<NavigationComponent />}
         header={
           <>
             <HeaderTitle>Insights</HeaderTitle>

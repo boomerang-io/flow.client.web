@@ -1,8 +1,8 @@
 import React from "react";
 import { useAppContext } from "Hooks";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
 import { useQuery } from "react-query";
-import { Layer, FilterableMultiSelect } from "@carbon/react";
+import { Layer, FilterableMultiSelect, Breadcrumb, BreadcrumbItem } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderSubtitle as HeaderSubtitle,
@@ -18,7 +18,7 @@ import moment from "moment-timezone";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
 import { scheduleStatusOptions } from "Constants";
-import { queryStringOptions } from "Config/appConfig";
+import { queryStringOptions, appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import type { SlotInfo } from "react-big-calendar";
 import type {
@@ -160,10 +160,23 @@ export default function Schedules() {
     const { workflows = "", statuses = "" } = queryString.parse(location.search, queryStringOptions);
     const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
+    const NavigationComponent = () => {
+      return (
+        <Breadcrumb noTrailingSlash>
+          <BreadcrumbItem>
+            <Link to={appLink.home()}>Home</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <p>{activeTeam.name}</p>
+          </BreadcrumbItem>
+        </Breadcrumb>
+      );
+    };
 
     return (
       <div className={styles.container}>
         <Header
+          nav={<NavigationComponent />}
           className={styles.header}
           includeBorder={true}
           header={
