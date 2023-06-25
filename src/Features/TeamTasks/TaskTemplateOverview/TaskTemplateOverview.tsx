@@ -546,7 +546,7 @@ export function TaskTemplateOverview({
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
-              currentRevision={currentRevision}
+              selectedTaskTemplates={taskTemplates.filter((t) => t.name === selectedTaskTemplate.name)}
               formikProps={formikProps}
               handleputRestoreTaskTemplate={handleputRestoreTaskTemplate}
               handleSaveTaskTemplate={handleSaveTaskTemplate}

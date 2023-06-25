@@ -156,7 +156,6 @@ const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, ha
 interface HeaderProps {
   editVerifiedTasksEnabled: boolean;
   cancelRequestRef: object;
-  currentRevision: { version: number };
   formikProps: FormikProps<FormProps>;
   handleSaveTaskTemplate: (
     values: any,
@@ -170,12 +169,13 @@ interface HeaderProps {
   isLoading: boolean;
   isOldVersion: boolean;
   selectedTaskTemplate: TaskTemplate;
+  selectedTaskTemplates: Array<TaskTemplate>;
 }
 
 const Header: React.FC<HeaderProps> = ({
   editVerifiedTasksEnabled,
+  selectedTaskTemplates,
   selectedTaskTemplate,
-  currentRevision,
   formikProps,
   handleSaveTaskTemplate,
   handleputRestoreTaskTemplate,
@@ -187,12 +187,12 @@ const Header: React.FC<HeaderProps> = ({
   const params: { teamId: string; taskId: string; version: string } = useParams();
 
   const TaskIcon = taskIcons.find((icon) => icon.name === selectedTaskTemplate.icon);
-  const revisionCount = selectedTaskTemplate.revisions.length;
-  const lastUpdated = selectedTaskTemplate?.revisions[revisionCount - 1]?.changelog ?? {};
-  const changelogs = selectedTaskTemplate?.revisions?.map((revision) => ({
-    ...revision.changelog,
-    date: moment(revision?.changelog?.date)?.format("MMM DD, YYYY") ?? "---",
-    version: revision.version,
+  const revisionCount = selectedTaskTemplates.length;
+  const lastUpdated = selectedTaskTemplates[revisionCount - 1]?.changelog ?? {};
+  const changelogs = selectedTaskTemplates.map((template) => ({
+    ...template.changelog,
+    date: moment(template?.changelog?.date)?.format("MMM DD, YYYY") ?? "---",
+    version: template.version,
   }));
   changelogs.reverse();
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
@@ -207,8 +207,8 @@ const Header: React.FC<HeaderProps> = ({
             label="Overview"
             to={appLink.manageTaskTemplateEdit({
               teamId: params?.teamId,
-              taskId: selectedTaskTemplate.id,
-              version: currentRevision.version,
+              name: selectedTaskTemplate.name,
+              version: selectedTaskTemplate.version.toString(),
             })}
           />
           <Tab
@@ -216,8 +216,8 @@ const Header: React.FC<HeaderProps> = ({
             label="YAML"
             to={appLink.manageTaskTemplateYaml({
               teamId: params?.teamId,
-              taskId: selectedTaskTemplate.id,
-              version: currentRevision.version,
+              name: selectedTaskTemplate.name,
+              version: selectedTaskTemplate.version.toString(),
             })}
           />
         </Tabs>
@@ -225,8 +225,8 @@ const Header: React.FC<HeaderProps> = ({
       actions={
         <div className={styles.buttons}>
           <VersionSwitcher
-            revisions={selectedTaskTemplate.revisions}
-            currentRevision={currentRevision}
+            revisions={selectedTaskTemplates}
+            currentRevision={selectedTaskTemplate}
             revisionCount={revisionCount}
             canEdit={canEdit}
           />
@@ -264,7 +264,7 @@ const Header: React.FC<HeaderProps> = ({
                   <p
                     className={styles.confirmModalText}
                   >{`This action will create a new version that’s an exact copy of Version ${
-                    currentRevision.version
+                    selectedTaskTemplate.version
                   }, but it shall be named Version ${revisionCount + 1}. Make sure this is what you want to do.`}</p>
                 </>
               }

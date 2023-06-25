@@ -16,34 +16,34 @@ interface VersionSwitcherProps {
 
 const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRevision, revisionCount, canEdit }) => {
   const history = useHistory();
-  const params: { taskId: string; teamId: string } = useParams();
+  const params: { name: string; teamId: string } = useParams();
   const backVersion = () => {
     history.push(
       appLink.manageTaskTemplateEdit({
         teamId: params.teamId,
-        taskId: params.taskId,
-        version: currentRevision.version - 1,
+        name: params.name,
+        version: "" + currentRevision.version - 1,
       })
     );
   };
 
   const fastBackVersion = () => {
-    history.push(appLink.manageTaskTemplateEdit({ teamId: params.teamId, taskId: params.taskId, version: 1 }));
+    history.push(appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: "1" }));
   };
 
   const forwardVersion = () => {
     history.push(
       appLink.manageTaskTemplateEdit({
         teamId: params.teamId,
-        taskId: params.taskId,
-        version: currentRevision.version + 1,
+        name: params.name,
+        version: "" + currentRevision.version + 1,
       })
     );
   };
 
   const fastForwardVersion = () => {
     history.push(
-      appLink.manageTaskTemplateEdit({ teamId: params.teamId, taskId: params.taskId, version: revisions.length })
+      appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: revisions.length })
     );
   };
 

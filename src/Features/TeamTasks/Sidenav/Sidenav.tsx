@@ -75,18 +75,18 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
       activeFilters.length > 0
         ? newTaskTemplates?.filter((task) => activeFilters.includes(task.icon))
         : newTaskTemplates;
-    setTasksToDisplay(matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "name"] }));
+    setTasksToDisplay(matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "displayName"] }));
   }, [taskTemplates, showArchived, showVerified, activeFilters, searchQuery]);
 
   const tasksByCategory = categories?.map((category) => ({
     name: category,
-    tasks: sortBy(tasksToDisplay.filter((task) => task.category === category).sort(), "name"),
+    tasks: sortBy(tasksToDisplay.filter((task) => task.category === category).sort(), "displayName"),
   }));
 
   const handleOnSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
     setSearchQuery(searchQuery);
-    setTasksToDisplay(matchSorter(taskTemplates, searchQuery, { keys: ["category", "name"] }));
+    setTasksToDisplay(matchSorter(taskTemplates, searchQuery, { keys: ["category", "displayName"] }));
   };
 
   const handleCheckboxListChange = (checked: boolean, label: string) => {
