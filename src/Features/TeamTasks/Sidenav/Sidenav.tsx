@@ -213,7 +213,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
                   {category.tasks.map((task) => (
                     //@ts-ignore
                     <Task
-                      key={task.id}
+                      key={task.name}
                       task={task}
                       //@ts-ignore
                       isActive={activeTeam === task.id}

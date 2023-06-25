@@ -239,7 +239,7 @@ export function TaskTemplateOverview({
   const invalidateQueries = () => {
     queryClient.invalidateQueries(
       serviceUrl.getTaskTemplates({
-        query: queryString.stringify({ teamId: params?.teamId, scope: "team" }),
+        query: queryString.stringify({ teams: activeTeam?.id, statuses: "active" }),
       })
     );
     queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
@@ -268,11 +268,14 @@ export function TaskTemplateOverview({
     }
   );
 
-  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.taskId) ?? {};
+  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.name === params.name) ?? {};
+  console.log("selectedTaskTemplate", selectedTaskTemplate.name);
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
-
+  console.log("canEdit", canEdit);
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
+  console.log("isActive", isActive);
   const invalidVersion = params.version === "0" || params.version > selectedTaskTemplate.currentVersion;
+  console.log("invalidVersion", invalidVersion);
 
   // Checks if the version in url are a valid one. If not, go to the latest version
   // Need to improve this

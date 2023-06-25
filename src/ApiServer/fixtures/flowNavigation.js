@@ -45,7 +45,7 @@ const flowNavigation = [
     name: "Task Manager",
     type: "link",
     icon: "TaskSettings",
-    link: "/BMRG_APP_ROOT_CONTEXT/5e3a35ad8c222700018ccd39/manage/task-templates",
+    link: "/BMRG_APP_ROOT_CONTEXT/5e3a35ad8c222700018ccd39/task-templates",
   },
   {
     name: "Tokens",

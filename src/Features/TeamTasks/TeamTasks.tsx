@@ -26,7 +26,7 @@ function TaskTemplatesContainer() {
   const queryClient = useQueryClient();
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ teams: activeTeam?.id }),
+    query: queryString.stringify({ teams: activeTeam?.id, statuses: "active" }),
   });
   const {
     data: taskTemplatesData,
@@ -43,7 +43,7 @@ function TaskTemplatesContainer() {
   };
   const updateTemplateInState = (updatedTemplate: TaskTemplate) => {
     const updatedTemplatesData = [...taskTemplatesData];
-    const templateToUpdateIndex = updatedTemplatesData.findIndex((template) => template.id === updatedTemplate.id);
+    const templateToUpdateIndex = updatedTemplatesData.findIndex((template) => template.name === updatedTemplate.name);
     // If we found it
     if (templateToUpdateIndex !== -1) {
       updatedTemplatesData.splice(templateToUpdateIndex, 1, updatedTemplate);
@@ -64,10 +64,7 @@ function TaskTemplatesContainer() {
         </Helmet>
         <Sidenav isLoading activeTeam={activeTeam} addTemplateInState={addTemplateInState} taskTemplates={[]} />
         <Box maxWidth="24rem" margin="0 auto">
-          <WombatMessage
-            className={styles.wombat}
-            title={`${activeTeam ? "Select a task or create one" : "Select a team"}`}
-          />
+          <WombatMessage className={styles.wombat} title="Retrieving Tasks..." />
         </Box>
       </div>
     );
@@ -97,10 +94,7 @@ function TaskTemplatesContainer() {
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
-            <WombatMessage
-              className={styles.wombat}
-              title={`${activeTeam ? "Select a task or create one" : "Select a team"}`}
-            />
+            <WombatMessage className={styles.wombat} title="Select a task or create one" />
           </Box>
         </Route>
         <Route path={AppPath.ManageTaskTemplateYaml}>

@@ -41,8 +41,8 @@ const Teams = lazy(() => import("Features/Teams"));
 const ManageTeam = lazy(() => import("Features/TeamDetailed"));
 const TeamProperties = lazy(() => import("Features/TeamProperties"));
 const TeamTokens = lazy(() => import("Features/TeamTokens"));
-const ManageTeamTasks = lazy(() => import("Features/ManageTeamTasks"));
-const TaskTemplatesContainer = lazy(() => import("Features/ManageTeamTasks"));
+const TeamTasks = lazy(() => import("Features/TeamTasks"));
+// const TaskTemplatesContainer = lazy(() => import("Features/ManageTeamTasks"));
 const Users = lazy(() => import("Features/Users"));
 const Workflows = lazy(() => import("Features/Workflows"));
 const Home = lazy(() => import("Features/Home"));
@@ -336,16 +336,16 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
               />
               <ProtectedRoute
                 allowedUserRoles={["*"]}
-                component={() => <ManageTeamTasks />}
+                component={() => <TeamTasks />}
                 path={AppPath.ManageTaskTemplates}
                 userRole={teamTasksEnabled ? "*" : ""}
               />
-              <ProtectedRoute
+              {/* <ProtectedRoute
                 allowedUserRoles={["*"]}
                 component={() => <TaskTemplatesContainer />}
                 path={AppPath.ManageTaskTemplates}
                 userRole={teamTasksEnabled ? "*" : ""}
-              />
+              /> */}
               <ProtectedRoute
                 allowedUserRoles={["*"]}
                 component={() => <TeamProperties />}
