@@ -250,7 +250,7 @@ const Task: React.FC<TaskProps> = (props) => {
       icon={TaskIcon ? TaskIcon.Icon : Bee}
     >
       <div className={styles.task}>
-        <p>{task.name}</p>
+        <p>{task.displayName}</p>
         {(task.verified || !taskIsActive) && (
           <div className={styles.iconContainer}>
             {!taskIsActive && (
