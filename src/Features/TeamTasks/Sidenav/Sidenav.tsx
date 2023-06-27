@@ -12,86 +12,46 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import AddTaskTemplate from "./AddTaskTemplate";
 import { appLink } from "Config/appConfig";
-import { Bee, ViewOff, Recommend, SettingsAdjust } from "@carbon/react/icons";
-import { taskIcons } from "Utils/taskIcons";
 import { TaskTemplateStatus } from "Constants";
+import { taskIcons } from "Utils/taskIcons";
+import { Bee, ViewOff, Recommend, SettingsAdjust } from "@carbon/react/icons";
 import { FlowTeam, TaskTemplate } from "Types";
 import styles from "./sideInfo.module.scss";
 
 const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list";
 
+const taskFilterElemList = taskIcons.map((TaskIcon) => ({
+  id: TaskIcon.name,
+  labelText: (
+    <div className={styles.checkboxOption}>
+      <TaskIcon.Icon /> <p>{TaskIcon.name}</p>{" "}
+    </div>
+  ),
+}));
+
 interface SideInfoProps {
-  activeTeam?: FlowTeam | null;
+  activeTeam: FlowTeam;
   addTemplateInState: (newTemplate: TaskTemplate) => void;
   isLoading?: boolean;
   taskTemplates: TaskTemplate[];
 }
 
 const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isLoading, taskTemplates }) => {
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
-  //TODO - whats the best way to reduce to the distinct tasks by name with the latest version
-  let distinctTasks = taskTemplates
-    ?.reduce((acc: TaskTemplate[], task: TaskTemplate) => {
-      const distinctTask = !acc.find((tt) => task.name === tt.name);
-      if (distinctTask) acc.push(task);
-      return acc;
-    }, [])
-    .sort();
-  console.log("Distinct Tasks", distinctTasks);
-  const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskTemplate>>(
-    distinctTasks?.filter((task) => task.status === "active") ?? []
-  );
-  const [openCategories, setOpenCategories] = React.useState(false);
-  const [showArchived, setShowArchived] = React.useState(false);
-  const [showVerified, setShowVerified] = React.useState(false);
-
-  const taskFilters = taskIcons.map((TaskIcon) => ({
-    id: TaskIcon.name,
-    labelText: (
-      <div className={styles.checkboxOption}>
-        <TaskIcon.Icon /> <p>{TaskIcon.name}</p>{" "}
-      </div>
-    ),
-  }));
-
   const history = useHistory();
   const location = useLocation();
-
-  let categories = tasksToDisplay
-    ?.reduce((acc: string[], task: TaskTemplate) => {
-      const newCategory = !acc.find((category) => task.category === category);
-      if (newCategory) acc.push(task.category);
-      return acc;
-    }, [])
-    .sort();
-
-  React.useEffect(() => {
-    const tempTaskTemplates = showVerified ? tasksToDisplay.filter((task) => task.verified === true) : tasksToDisplay;
-    const newTaskTemplates = showArchived
-      ? tempTaskTemplates
-      : tempTaskTemplates?.filter((task) => task.status === TaskTemplateStatus.Active);
-    const tasksFilteredByType =
-      activeFilters.length > 0
-        ? newTaskTemplates?.filter((task) => activeFilters.includes(task.icon))
-        : newTaskTemplates;
-    setTasksToDisplay(matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "displayName"] }));
-  }, [taskTemplates, showArchived, showVerified, activeFilters, searchQuery]);
-
-  const tasksByCategory = categories?.map((category) => ({
-    name: category,
-    tasks: sortBy(tasksToDisplay.filter((task) => task.category === category).sort(), "displayName"),
-  }));
+  const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
+  const [openCategories, setOpenCategories] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [showArchived, setShowArchived] = React.useState(false);
+  const [showVerified, setShowVerified] = React.useState(false);
 
   const handleOnSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
     setSearchQuery(searchQuery);
-    setTasksToDisplay(matchSorter(taskTemplates, searchQuery, { keys: ["category", "displayName"] }));
   };
 
-  const handleCheckboxListChange = (checked: boolean, label: string) => {
+  const handleCheckboxListChange = (_: boolean, label: string) => {
     let filtersState: string[] = [...activeFilters];
-
     let newFilters = [];
     let hasFilter = Boolean(filtersState.find((filter) => filter === label));
     if (hasFilter) newFilters = filtersState.filter((filter) => filter !== label);
@@ -120,6 +80,46 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
       </SideNav>
     );
   }
+
+  //TODO - whats the best way to reduce to the distinct tasks by name with the latest version
+  let distinctTasks = taskTemplates
+    ?.reduce((acc: Record<string, TaskTemplate[]>, task: TaskTemplate) => {
+      if (acc[task.name]) {
+        acc[task.name].push(task)
+        acc[task.name].sort((a, b) => b.version - a.version)
+      } else {
+        acc[task.name] = [task]
+      }
+      return acc;
+    }, {})
+
+  let tasksToDisplay = Object.values(distinctTasks).map(taskList => taskList[0])
+
+  let categories = tasksToDisplay
+    ?.reduce((acc: string[], task: TaskTemplate) => {
+      const newCategory = !acc.find((category) => task.category === category);
+      if (newCategory) acc.push(task.category);
+      return acc;
+    }, [])
+    .sort();
+
+  const tempTaskTemplates = showVerified ? tasksToDisplay.filter((task) => task.verified === true) : tasksToDisplay;
+
+  const newTaskTemplates = showArchived
+    ? tempTaskTemplates
+    : tempTaskTemplates?.filter((task) => task.status === TaskTemplateStatus.Active);
+
+  const tasksFilteredByType =
+    activeFilters.length > 0
+      ? newTaskTemplates?.filter((task) => activeFilters.includes(task.icon))
+      : newTaskTemplates;
+
+  const filteredTasksToDisplay = matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "displayName"] })
+
+  const tasksByCategory = categories?.map((category) => ({
+    name: category,
+    tasks: sortBy(filteredTasksToDisplay.filter((task) => task.category === category).sort(), "displayName"),
+  }));
 
   return (
     <SideNav className={styles.container} border="right">
@@ -185,7 +185,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
                 <p className={styles.sectionTitle}>Filter by Task Type</p>
                 <CheckboxList
                   selectedItems={activeFilters}
-                  options={taskFilters}
+                  options={taskFilterElemList}
                   onChange={(checked: boolean, label: string) => handleCheckboxListChange(checked, label)}
                 />
               </section>
@@ -243,7 +243,7 @@ const Task: React.FC<TaskProps> = (props) => {
   return (
     <SideNavLink
       to={appLink.manageTaskTemplateEdit({
-        teamId: activeTeam?.id,
+        teamId: activeTeam.id,
         name: task.name,
         version: task.version.toString(),
       })}
