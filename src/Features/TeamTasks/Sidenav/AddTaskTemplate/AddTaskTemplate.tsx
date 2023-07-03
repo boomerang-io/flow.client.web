@@ -27,9 +27,9 @@ function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, locat
     return promise;
   });
 
-  const handleAddTaskTemplate = async ({ body, closeModal }) => {
+  const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
     try {
-      let response = await CreateTaskTemplateMutation({ body });
+      let response = await CreateTaskTemplateMutation({ replace, body });
       notify(
         <ToastNotification
           kind="success"
