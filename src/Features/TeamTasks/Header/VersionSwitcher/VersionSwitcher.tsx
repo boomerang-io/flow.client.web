@@ -3,18 +3,22 @@ import cx from "classnames";
 import { useHistory, useParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, PageFirst, PageLast } from "@carbon/react/icons";
 import { appLink } from "Config/appConfig";
+import { TaskTemplate } from "Types";
 import styles from "./VersionSwitcher.module.scss";
 
 interface VersionSwitcherProps {
-  currentRevision: {
-    version: number;
-  };
-  revisionCount: number;
-  revisions: any;
+  selectedTaskTemplate: TaskTemplate;
+  selectedTaskTemplates: Array<TaskTemplate>;
+  versionCount: number;
   canEdit: boolean;
 }
 
-const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRevision, revisionCount, canEdit }) => {
+const VersionSwitcher: React.FC<VersionSwitcherProps> = ({
+  selectedTaskTemplates,
+  selectedTaskTemplate,
+  versionCount,
+  canEdit,
+}) => {
   const history = useHistory();
   const params: { name: string; teamId: string } = useParams();
   const backVersion = () => {
@@ -22,7 +26,7 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRev
       appLink.manageTaskTemplateEdit({
         teamId: params.teamId,
         name: params.name,
-        version: "" + currentRevision.version - 1,
+        version: "" + (selectedTaskTemplate.version - 1),
       })
     );
   };
@@ -36,15 +40,13 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRev
       appLink.manageTaskTemplateEdit({
         teamId: params.teamId,
         name: params.name,
-        version: "" + currentRevision.version + 1,
+        version: "" + (selectedTaskTemplate.version + 1),
       })
     );
   };
 
   const fastForwardVersion = () => {
-    history.push(
-      appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: revisions.length })
-    );
+    history.push(appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: versionCount }));
   };
 
   const renderBackButtons = (enabled: boolean) => {
@@ -76,9 +78,9 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRev
   return (
     <div className={styles.container}>
       <div className={styles.buttonListContainer}>
-        {renderBackButtons(currentRevision.version > 1)}
-        <p className={styles.versionText}>{`Version ${currentRevision?.version || 1}`}</p>
-        {renderForwardButtons(currentRevision.version < revisionCount)}
+        {renderBackButtons(selectedTaskTemplate.version > 1)}
+        <p className={styles.versionText}>{`Version ${selectedTaskTemplate.version || 1}`}</p>
+        {renderForwardButtons(selectedTaskTemplate.version < versionCount)}
       </div>
     </div>
   );

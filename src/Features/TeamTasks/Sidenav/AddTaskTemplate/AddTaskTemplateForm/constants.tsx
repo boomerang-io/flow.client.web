@@ -1,1 +1,1 @@
-export const requiredTaskProps = ["name", "revisions", "currentVersion"];
+export const requiredTaskProps = ["name", "displayName", "version"];

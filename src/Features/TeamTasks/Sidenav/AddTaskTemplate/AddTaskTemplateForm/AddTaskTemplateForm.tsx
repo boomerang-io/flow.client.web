@@ -23,7 +23,7 @@ import styles from "./addTaskTemplateForm.module.scss";
 
 AddTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  taskTemplates: PropTypes.array.isRequired,
+  taskTemplateNames: PropTypes.array.isRequired,
   isLoading: PropTypes.bool,
   handleAddTaskTemplate: PropTypes.func.isRequired,
 };
@@ -66,16 +66,8 @@ const readFile = (file) => {
   });
 };
 
-// const categories = [
-//   {value:"github" , label: "GitHub"},
-//   {value:"boomerang" , label: "Boomerang"},
-//   {value:"artifactory" , label: "Artifactory"},
-//   {value:"utilities" , label: "Utilities"}
-// ];
-
-function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTaskTemplate }) {
+function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleAddTaskTemplate }) {
   const params: { teamId: string } = useParams();
-  let taskTemplateNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
   const orderedIcons = orderBy(taskIcons, ["name"]);
 
   const {
@@ -91,35 +83,30 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       let index = env.indexOf(":");
       return { name: env.substring(0, index), value: env.substring(index + 1, env.length) };
     });
-    let newRevisionConfig = {
-      version: 1,
+    const newTaskTemplateSpec = {
       arguments: Boolean(values.arguments) ? values.arguments.trim().split(/\n{1,}/) : [],
-      image: values.image,
       command: Boolean(values.command) ? values.command.trim().split(/\n{1,}/) : [],
-      script: values.script,
-      workingDir: values.workingDir,
       envs: newEnvs,
-      config:
-        hasFile && Boolean(values.currentRevision) && Boolean(values.currentRevision.config)
-          ? values.currentRevision.config
-          : [],
+      image: values.image,
       results:
         hasFile && Boolean(values.currentRevision) && Boolean(values.currentRevision.results)
           ? values.currentRevision.results
           : [],
-      changelog: { reason: "" },
+      script: values.script,
+      workingDir: values.workingDir,
     };
-    const body = {
+    const body: TaskTemplate = {
       name: values.name,
+      displayName: values.displayName,
       description: values.description,
-      category: values.category,
-      currentVersion: 1,
-      revisions: [newRevisionConfig],
-      icon: values.icon.value,
-      nodeType: "templateTask",
       status: "active",
-      scope: "team",
-      flowTeamId: params?.teamId,
+      category: values.category,
+      version: 1,
+      icon: values.icon.value,
+      type: "template",
+      changelog: { reason: "" },
+      config: hasFile && Boolean(values.config) ? values.config : [],
+      spec: newTaskTemplateSpec,
     };
     await handleAddTaskTemplate({ body, closeModal });
   };
@@ -134,6 +121,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         const currentRevision = fileData.revisions.find((revision) => revision.version === fileData.currentVersion);
         setFieldValue("name", fileData.name);
         setFieldTouched("name", true);
+        setFieldValue("displayName", fileData.displayName);
+        setFieldTouched("displayName", true);
         setFieldValue("description", fileData.description);
         setFieldTouched("description", true);
         setFieldValue("category", fileData.category);
@@ -163,8 +152,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
     <Formik
       initialValues={{
         name: "",
+        displayName: "",
         category: "",
-        // category: categories[0],
         icon: {},
         description: "",
         arguments: "",
@@ -179,6 +168,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         name: Yup.string()
           .required("Name is required")
           .notOneOf(taskTemplateNames, "Enter a unique value for task name"),
+        displayName: Yup.string().required("Enter a display name"),
         category: Yup.string().required("Enter a category"),
         description: Yup.string()
           .lowercase()
@@ -295,6 +285,16 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 onChange={handleChange}
                 placeholder="Enter a name"
                 value={values.name}
+              />
+              <TextInput
+                id="displayName"
+                invalid={Boolean(errors.displayName && touched.displayName)}
+                invalidText={errors.displayName}
+                labelText="Display Name"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                placeholder="Enter a name"
+                value={values.displayName}
               />
               <TextInput
                 id="category"

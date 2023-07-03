@@ -13,12 +13,11 @@ import styles from "./EditTaskTemplateForm.module.scss";
 EditTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func,
   handleEditTaskTemplateModal: PropTypes.func,
-  nodeType: PropTypes.string,
   taskTemplates: PropTypes.array,
   templateData: PropTypes.object,
 };
 
-function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeType, taskTemplates, templateData }) {
+function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, taskTemplates, templateData }) {
   let taskTemplateNames = taskTemplates
     .map((taskTemplate) => taskTemplate.name)
     .filter((templateName) => templateName !== templateData.name);
@@ -37,13 +36,14 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
     <Formik
       initialValues={{
         name: templateData.name,
+        displayName: templateData.displayName,
         category: templateData.category,
         icon: selectedIcon ? { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.icon } : {},
         description: templateData.description,
         arguments: templateData.arguments,
         command: templateData.command,
         image: templateData.image,
-        nodeType: nodeType,
+        type: templateData.type,
         script: templateData.script,
         workingDir: templateData.workingDir,
         envs: formattedEnvs,
@@ -52,6 +52,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         name: Yup.string()
           .required("Name is required")
           .notOneOf(taskTemplateNames, "Enter a unique value for task name"),
+        displayName: Yup.string().required("Enter a display name"),
         category: Yup.string().required("Enter a category"),
         icon: Yup.object().shape({
           value: Yup.string().required(),
@@ -86,6 +87,16 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onChange={handleChange}
                 placeholder="Enter a name"
                 value={values.name}
+              />
+              <TextInput
+                id="displayName"
+                invalid={Boolean(errors.displayName && touched.displayName)}
+                invalidText={errors.displayName}
+                labelText="Display Name"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                placeholder="Enter a name"
+                value={values.displayName}
               />
               <TextInput
                 id="category"

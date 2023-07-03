@@ -220,7 +220,7 @@ const Result: React.FC<ResultProps> = ({
 };
 
 type TaskTemplateOverviewProps = {
-  taskTemplates: any[];
+  taskTemplates: Record<string, TaskTemplate[]>;
   updateTemplateInState: (args: TaskTemplate) => void;
   editVerifiedTasksEnabled: any;
 };
@@ -268,28 +268,25 @@ export function TaskTemplateOverview({
     }
   );
 
-  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.name === params.name) ?? {};
-  console.log("selectedTaskTemplate", selectedTaskTemplate.name);
+  let selectedTaskTemplateVersions = taskTemplates[params.name] ?? [];
+  console.log("selectedTaskTemplateList", selectedTaskTemplateVersions);
+  // Checks if the version in url are a valid one. If not, go to the latest version
+  const invalidVersion = params.version === "0" || params.version > selectedTaskTemplateVersions.length;
+  console.log("invalidVersion", invalidVersion);
+  const selectedTaskTemplateVersion = invalidVersion ? selectedTaskTemplateVersions.length : params.version;
+  console.log("selectedTaskTemplateVersion", selectedTaskTemplateVersion);
+  let selectedTaskTemplate = selectedTaskTemplateVersions.find((t) => t.version == selectedTaskTemplateVersion) ?? {};
+  console.log("selectedTaskTemplate", selectedTaskTemplate);
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
   console.log("canEdit", canEdit);
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
   console.log("isActive", isActive);
-  const invalidVersion = params.version === "0" || params.version > selectedTaskTemplate.currentVersion;
-  console.log("invalidVersion", invalidVersion);
+  const isOldVersion = !invalidVersion && params.version != selectedTaskTemplateVersions.length;
+  console.log("isOldVersion", isOldVersion);
+  const templateNotFound = !selectedTaskTemplate.name;
 
-  // Checks if the version in url are a valid one. If not, go to the latest version
-  // Need to improve this
-  const currentRevision = selectedTaskTemplate?.revisions
-    ? invalidVersion
-      ? selectedTaskTemplate.revisions[selectedTaskTemplate.currentVersion - 1]
-      : selectedTaskTemplate.revisions.find((revision) => revision?.version?.toString() === params.version)
-    : {};
-
-  const isOldVersion = !invalidVersion && params.version !== selectedTaskTemplate?.currentVersion?.toString();
-  const templateNotFound = !selectedTaskTemplate.id;
-
-  const fieldKeys = currentRevision.config?.map((input: DataDrivenInput) => input.key) ?? [];
-  const resultKeys = currentRevision.result?.map((input: DataDrivenInput) => input.key) ?? [];
+  const fieldKeys = selectedTaskTemplate.config?.map((input: DataDrivenInput) => input.key) ?? [];
+  const resultKeys = selectedTaskTemplate.result?.map((input: DataDrivenInput) => input.key) ?? [];
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -299,91 +296,53 @@ export function TaskTemplateOverview({
   };
 
   const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
-    const newRevisions = [].concat(selectedTaskTemplate.revisions);
-    const newVersion = selectedTaskTemplate.revisions.length + 1;
+    let newVersion =
+      requestType === TemplateRequestType.Overwrite
+        ? selectedTaskTemplateVersion
+        : selectedTaskTemplateVersions.length + 1;
 
-    let body = {};
-    let newRevisionConfig = {};
+    let changeReason =
+      requestType === TemplateRequestType.Copy
+        ? "Version copied from ${values.currentConfig.version}"
+        : values.comments;
 
-    if (requestType === TemplateRequestType.Copy) {
-      newRevisionConfig = {
-        ...currentRevision,
-        version: newVersion,
-        changelog: {
-          reason: `Copy new version from ${values.currentConfig.version}`,
-        },
-      };
-      newRevisions.push(newRevisionConfig);
-      body = {
-        ...selectedTaskTemplate,
-        currentVersion: newVersion,
-        revisions: newRevisions,
-      };
-    } else if (requestType === TemplateRequestType.Overwrite) {
-      newRevisionConfig = {
-        version: selectedTaskTemplate.currentVersion,
-        image: values.image,
-        command: Boolean(values.command) ? values.command.trim().split(/\n{1,}/) : [],
-        script: values.script,
-        workingDir: values.workingDir,
-        arguments: Boolean(values.arguments) ? values.arguments.trim().split(/\n{1,}/) : [],
-        config: values.currentConfig,
-        results: values.result,
-        envs: values.envs,
-        changelog: {
-          reason: values.comments,
-        },
-      };
-      newRevisions.splice(selectedTaskTemplate.currentVersion - 1, 1, newRevisionConfig);
-      body = {
-        ...selectedTaskTemplate,
-        name: values.name,
-        icon: values.icon,
-        description: values.description,
-        category: values.category,
-        revisions: newRevisions,
-        scope: "team",
-        flowTeamId: params?.teamId,
-      };
-    } else {
-      newRevisionConfig = {
-        version: newVersion,
-        image: values.image,
-        command: Boolean(values.command) ? values.command.trim().split(/\n{1,}/) : [],
-        script: values.script,
-        workingDir: values.workingDir,
-        arguments: Boolean(values.arguments) ? values.arguments.trim().split(/\n{1,}/) : [],
-        config: values.currentConfig,
-        results: values.result,
-        envs: values.envs,
-        changelog: {
-          reason: values.comments,
-        },
-      };
-      newRevisions.push(newRevisionConfig);
-      body = {
-        ...selectedTaskTemplate,
-        name: values.name,
-        icon: values.icon,
-        description: values.description,
-        category: values.category,
-        currentVersion: newVersion,
-        revisions: newRevisions,
-        scope: "team",
-        flowTeamId: params?.teamId,
-      };
-    }
+    const spec = {
+      arguments: Boolean(values.arguments) ? values.arguments.trim().split(/\n{1,}/) : [],
+      command: Boolean(values.command) ? values.command.trim().split(/\n{1,}/) : [],
+      envs: newEnvs,
+      image: values.image,
+      results:
+        hasFile && Boolean(values.currentRevision) && Boolean(values.currentRevision.results)
+          ? values.currentRevision.results
+          : [],
+      script: values.script,
+      workingDir: values.workingDir,
+    };
+    const body: TaskTemplate = {
+      name: values.name,
+      displayName: values.displayName,
+      description: values.description,
+      status: "active",
+      category: values.category,
+      version: newVersion,
+      icon: values.icon.value,
+      type: "template",
+      changelog: { reason: changeReason },
+      config: hasFile && Boolean(values.config) ? values.config : [],
+      spec: spec,
+    };
 
     try {
       if (requestType !== TemplateRequestType.Copy) {
         typeof setRequestError === "function" && setRequestError(null);
       }
-      let response = await uploadTaskTemplateMutation({ body });
+      let replace = requestType === TemplateRequestType.Overwrite ? "true" : "false";
+      let response = await uploadTaskTemplateMutation({ replace, body });
       notify(
         <ToastNotification
           kind="success"
           title={"Task Template Updated"}
-          subtitle={`Request to update ${body.name} succeeded`}
+          subtitle={`Request to update ${body.displayName} succeeded`}
           data-testid="create-update-task-template-notification"
         />
       );
@@ -479,21 +438,22 @@ export function TaskTemplateOverview({
     <Formik
       initialValues={{
         name: selectedTaskTemplate.name,
+        displayName: selectedTaskTemplate.displayName,
         description: selectedTaskTemplate.description,
         icon: selectedTaskTemplate.icon,
-        image: currentRevision.image,
         category: selectedTaskTemplate.category,
-        currentConfig: currentRevision.config ?? [],
-        arguments: Array.isArray(currentRevision.arguments)
-          ? currentRevision.arguments?.join("\n")
-          : currentRevision.arguments ?? "",
-        command: Array.isArray(currentRevision.command)
-          ? currentRevision.command?.join("\n")
-          : currentRevision.command ?? "",
-        script: currentRevision.script ?? "",
-        workingDir: currentRevision.workingDir ?? "",
-        result: currentRevision.results ?? [],
-        envs: currentRevision.envs ?? [],
+        image: selectedTaskTemplate.spec.image,
+        currentConfig: selectedTaskTemplate.config ?? [],
+        arguments: Array.isArray(selectedTaskTemplate.spec.arguments)
+          ? selectedTaskTemplate.spec.arguments?.join("\n")
+          : selectedTaskTemplate.spec.arguments ?? "",
+        command: Array.isArray(selectedTaskTemplate.spec.command)
+          ? selectedTaskTemplate.spec.command?.join("\n")
+          : selectedTaskTemplate.spec.command ?? "",
+        script: selectedTaskTemplate.spec.script ?? "",
+        workingDir: selectedTaskTemplate.spec.workingDir ?? "",
+        result: selectedTaskTemplate.spec.results ?? [],
+        envs: selectedTaskTemplate.spec.envs ?? [],
         comments: "",
       }}
       enableReinitialize={true}
@@ -521,7 +481,7 @@ export function TaskTemplateOverview({
         return (
           <div className={styles.container}>
             <Helmet>
-              <title>{`Task manager - ${selectedTaskTemplate.name}`}</title>
+              <title>{`Task manager - ${selectedTaskTemplate.displayName}`}</title>
             </Helmet>
             <Prompt
               message={(location) => {
@@ -546,7 +506,7 @@ export function TaskTemplateOverview({
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
-              selectedTaskTemplates={taskTemplates.filter((t) => t.name === selectedTaskTemplate.name)}
+              selectedTaskTemplates={selectedTaskTemplateVersions}
               formikProps={formikProps}
               handleputRestoreTaskTemplate={handleputRestoreTaskTemplate}
               handleSaveTaskTemplate={handleSaveTaskTemplate}
@@ -592,18 +552,18 @@ export function TaskTemplateOverview({
                   <section className={styles.editTitle}>
                     <h1>Basics</h1>
                     <EditTaskTemplateModal
-                      taskTemplates={taskTemplates}
+                      taskTemplates={selectedTaskTemplateVersions}
                       setFieldValue={setFieldValue}
                       fields={values.currentConfig}
                       values={values}
                       isOldVersion={isOldVersion}
                       isActive={isActive}
-                      nodeType={selectedTaskTemplate.nodeType}
                       canEdit={canEdit}
                     />
                   </section>
                   <dl className={styles.detailsDataList}>
                     <DetailDataElements value={values.name} label="Name" />
+                    <DetailDataElements value={values.displayName} label="Display Name" />
                     <DetailDataElements value={values.category} label="Category" />
                     <DetailDataElements value={values.icon} label="Icon" />
                     <DetailDataElements value={values.description} label="Description" />
@@ -626,7 +586,7 @@ export function TaskTemplateOverview({
                               <div className={styles.tooltipContainer}>
                                 <strong>Verified</strong>
                                 <p style={{ marginTop: "0.5rem" }}>
-                                  A task that is fully tested and verified right out of the box.
+                                  A task that is fully tested and verified out of the box.
                                 </p>
                               </div>
                             }
@@ -640,7 +600,7 @@ export function TaskTemplateOverview({
                               <div className={styles.tooltipContainer}>
                                 <strong>Community contribution</strong>
                                 <p style={{ marginTop: "0.5rem" }}>
-                                  Added by a member of the Platform, not validated by the Platform team.
+                                  Added by a member and not validated by the Platform team.
                                 </p>
                               </div>
                             }

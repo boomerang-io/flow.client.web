@@ -13,12 +13,12 @@ import styles from "./addTaskTemplate.module.scss";
 
 AddTaskTemplate.propTypes = {
   addTemplateInState: PropTypes.func.isRequired,
-  taskTemplates: PropTypes.array.isRequired,
+  taskTemplateNames: PropTypes.array.isRequired,
   location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 
-function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location }) {
+function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, location }) {
   const cancelRequestRef = React.useRef();
 
   const { mutateAsync: CreateTaskTemplateMutation, isLoading } = useMutation((args) => {
@@ -81,7 +81,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
         <AddTaskTemplateForm
           handleAddTaskTemplate={handleAddTaskTemplate}
           isLoading={isLoading}
-          taskTemplates={taskTemplates}
+          taskTemplateNames={taskTemplateNames}
           closeModal={closeModal}
         />
       )}

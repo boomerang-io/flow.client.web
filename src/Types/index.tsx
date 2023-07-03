@@ -404,8 +404,7 @@ export interface ChangeLogItem {
   date: string;
   reason: string;
   revisionId: string;
-  userId: string;
-  userName: string;
+  author: string;
   version: number;
   workflowId: string;
 }
@@ -425,10 +424,21 @@ export interface TaskTemplate {
   icon: string;
   type: string;
   changelog: ChangeLogItem;
-  scope: string; //global or team
+  // scope: string; //global or team
   verified: boolean;
   config: Array<DataDrivenInput>;
-  spec: any;
+  spec: TaskTemplateSpec;
+}
+
+export interface TaskTemplateSpec {
+  arguments?: Array<string>;
+  command?: Array<string>;
+  params?: any;
+  envs?: any;
+  image?: string;
+  results?: any;
+  script?: number;
+  workingDir?: string;
 }
 
 export interface FlowTeam {

@@ -811,10 +811,155 @@ const tasktemplate = {
       status: "active",
       labels: {},
       annotations: {},
+      version: 1,
+      creationDate: "2020-01-01T00:01:00.000+00:00",
+      changelog: {
+        author: "5fc9c3163727f831e8946186",
+        reason: "Initial version",
+        date: "2021-06-25T04:36:52.164+00:00"
+      },
+      category: "IBM Services Essentials",
+      type: "template",
+      spec: {
+        arguments: [
+          "ibmessentials",
+          "sendNotification"
+        ],
+        command: [],
+        params: [
+          {
+            name: "type",
+            type: "string",
+            description: "",
+            defaultValue: null
+          },
+          {
+            name: "target",
+            type: "string",
+            description: "",
+            defaultValue: null
+          },
+          {
+            name: "title",
+            type: "string",
+            description: "",
+            defaultValue: null
+          },
+          {
+            name: "message",
+            type: "string",
+            description: "",
+            defaultValue: null
+          }
+        ],
+        envs: [],
+        image: "",
+        results: [],
+        script: "",
+        workingDir: ""
+      },
+      config: [
+        {
+          key: "type",
+          description: "",
+          label: "Target",
+          type: "select",
+          minValueLength: null,
+          maxValueLength: null,
+          options: [
+            {
+              key: "user",
+              value: "user"
+            },
+            {
+              key: "group",
+              value: "group"
+            }
+          ],
+          required: null,
+          placeholder: "",
+          language: null,
+          disabled: null,
+          defaultValue: null,
+          value: null,
+          values: null,
+          readOnly: false,
+          hiddenValue: null,
+          helperText: null
+        },
+        {
+          key: "target",
+          description: "",
+          label: "User or Group",
+          type: "text",
+          minValueLength: null,
+          maxValueLength: null,
+          options: null,
+          required: null,
+          placeholder: "",
+          language: null,
+          disabled: null,
+          defaultValue: null,
+          value: null,
+          values: null,
+          readOnly: false,
+          hiddenValue: null,
+          helperText: null
+        },
+        {
+          key: "title",
+          description: "",
+          label: "Title",
+          type: "text",
+          minValueLength: null,
+          maxValueLength: null,
+          options: null,
+          required: null,
+          placeholder: "",
+          language: null,
+          disabled: null,
+          defaultValue: null,
+          value: null,
+          values: null,
+          readOnly: false,
+          hiddenValue: null,
+          helperText: null
+        },
+        {
+          key: "message",
+          description: "",
+          label: "Message",
+          type: "textarea",
+          minValueLength: null,
+          maxValueLength: null,
+          options: null,
+          required: null,
+          placeholder: "",
+          language: null,
+          disabled: null,
+          defaultValue: null,
+          value: null,
+          values: null,
+          readOnly: false,
+          hiddenValue: null,
+          helperText: null
+        }
+      ],
+      icon: "Message",
+      verified: true
+    },
+    {
+      id: "647966a286bfa2195a197235",
+      name: "send-platform-notification",
+      displayName: "Send Platform Notification Latest",
+      description: "Send platform notification to user or team",
+      status: "active",
+      labels: {},
+      annotations: {},
       version: 2,
       creationDate: "2020-01-09T00:01:00.000+00:00",
       changelog: {
-        author: "5fc9c3163727f831e8946186",
+        author: "Tyson Lawrie",
         reason: "Added new URL input parameter",
         date: "2021-06-25T04:36:52.164+00:00"
       },

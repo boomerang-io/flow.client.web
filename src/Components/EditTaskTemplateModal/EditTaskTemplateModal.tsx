@@ -10,20 +10,20 @@ import styles from "./editTaskTemplateModal.module.scss";
 EditTaskTemplateModal.propTypes = {
   canEdit: PropTypes.bool,
   isActive: PropTypes.bool,
-  nodeType: PropTypes.string.isRequired,
   isOldVersion: PropTypes.bool,
   setFieldValue: PropTypes.func.isRequired,
   taskTemplates: PropTypes.array.isRequired,
   values: PropTypes.object.isRequired,
 };
 
-function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue, taskTemplates, values, canEdit }) {
+function EditTaskTemplateModal({ isActive, isOldVersion, setFieldValue, taskTemplates, values, canEdit }) {
   const handleEditTaskTemplateModal = async ({ newValues }) => {
     let newEnvs = newValues.envs.map((env) => {
       let index = env.indexOf(":");
       return { name: env.substring(0, index), value: env.substring(index + 1, env.length) };
     });
     setFieldValue("name", newValues.name);
+    setFieldValue("displayName", newValues.displayName);
     setFieldValue("description", newValues.description);
     setFieldValue("category", newValues.category);
     setFieldValue("arguments", newValues.arguments);
@@ -59,7 +59,6 @@ function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue
         <EditTaskTemplateForm
           closeModal={closeModal}
           handleEditTaskTemplateModal={handleEditTaskTemplateModal}
-          nodeType={nodeType}
           taskTemplates={taskTemplates}
           templateData={values}
         />

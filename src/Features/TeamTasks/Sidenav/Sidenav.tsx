@@ -33,7 +33,7 @@ interface SideInfoProps {
   activeTeam: FlowTeam;
   addTemplateInState: (newTemplate: TaskTemplate) => void;
   isLoading?: boolean;
-  taskTemplates: TaskTemplate[];
+  taskTemplates: Record<string, TaskTemplate[]>;
 }
 
 const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isLoading, taskTemplates }) => {
@@ -81,20 +81,10 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
     );
   }
 
-  //TODO - whats the best way to reduce to the distinct tasks by name with the latest version
-  let distinctTasks = taskTemplates
-    ?.reduce((acc: Record<string, TaskTemplate[]>, task: TaskTemplate) => {
-      if (acc[task.name]) {
-        acc[task.name].push(task)
-        acc[task.name].sort((a, b) => b.version - a.version)
-      } else {
-        acc[task.name] = [task]
-      }
-      return acc;
-    }, {})
+  // List of distinct task names by latest version
+  let tasksToDisplay = Object.values(taskTemplates).map((taskList) => taskList[0]);
 
-  let tasksToDisplay = Object.values(distinctTasks).map(taskList => taskList[0])
-
+  // List of categories
   let categories = tasksToDisplay
     ?.reduce((acc: string[], task: TaskTemplate) => {
       const newCategory = !acc.find((category) => task.category === category);
@@ -103,6 +93,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
     }, [])
     .sort();
 
+  // Apply various filters
   const tempTaskTemplates = showVerified ? tasksToDisplay.filter((task) => task.verified === true) : tasksToDisplay;
 
   const newTaskTemplates = showArchived
@@ -110,16 +101,16 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
     : tempTaskTemplates?.filter((task) => task.status === TaskTemplateStatus.Active);
 
   const tasksFilteredByType =
-    activeFilters.length > 0
-      ? newTaskTemplates?.filter((task) => activeFilters.includes(task.icon))
-      : newTaskTemplates;
+    activeFilters.length > 0 ? newTaskTemplates?.filter((task) => activeFilters.includes(task.icon)) : newTaskTemplates;
 
-  const filteredTasksToDisplay = matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "displayName"] })
+  const filteredTasksToDisplay = matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "displayName"] });
 
   const tasksByCategory = categories?.map((category) => ({
     name: category,
     tasks: sortBy(filteredTasksToDisplay.filter((task) => task.category === category).sort(), "displayName"),
   }));
+
+  const distinctTaskNames = tasksToDisplay.map((taskTemplate) => taskTemplate.name);
 
   return (
     <SideNav className={styles.container} border="right">
@@ -131,7 +122,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
             <p className={styles.existingTasks}>{`Existing Tasks (${tasksToDisplay.length})`}</p>
             <AddTaskTemplate
               addTemplateInState={addTemplateInState}
-              taskTemplates={taskTemplates}
+              taskTemplateNames={distinctTaskNames}
               history={history}
               location={location}
             />

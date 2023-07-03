@@ -187,8 +187,8 @@ const Header: React.FC<HeaderProps> = ({
   const params: { teamId: string; taskId: string; version: string } = useParams();
 
   const TaskIcon = taskIcons.find((icon) => icon.name === selectedTaskTemplate.icon);
-  const revisionCount = selectedTaskTemplates.length;
-  const lastUpdated = selectedTaskTemplates[revisionCount - 1]?.changelog ?? {};
+  const versionCount = selectedTaskTemplates.length;
+  const lastUpdated = selectedTaskTemplates[versionCount - 1]?.changelog ?? {};
   const changelogs = selectedTaskTemplates.map((template) => ({
     ...template.changelog,
     date: moment(template?.changelog?.date)?.format("MMM DD, YYYY") ?? "---",
@@ -225,9 +225,9 @@ const Header: React.FC<HeaderProps> = ({
       actions={
         <div className={styles.buttons}>
           <VersionSwitcher
-            revisions={selectedTaskTemplates}
-            currentRevision={selectedTaskTemplate}
-            revisionCount={revisionCount}
+            selectedTaskTemplate={selectedTaskTemplate}
+            selectedTaskTemplates={selectedTaskTemplates}
+            versionCount={versionCount}
             canEdit={canEdit}
           />
           {!isOldVersion && isActive && (
@@ -265,7 +265,7 @@ const Header: React.FC<HeaderProps> = ({
                     className={styles.confirmModalText}
                   >{`This action will create a new version that’s an exact copy of Version ${
                     selectedTaskTemplate.version
-                  }, but it shall be named Version ${revisionCount + 1}. Make sure this is what you want to do.`}</p>
+                  }, but it shall be named Version ${versionCount + 1}. Make sure this is what you want to do.`}</p>
                 </>
               }
               affirmativeText="Copy to new version"
@@ -322,10 +322,10 @@ const Header: React.FC<HeaderProps> = ({
         {TaskIcon ? (
           <TaskIcon.Icon style={{ minWidth: "1.5rem", minHeight: "1.5rem", marginRight: "0.75rem" }} />
         ) : (
-          <Bee alt={`${selectedTaskTemplate.name} icon`} className={styles.icon} />
+          <Bee alt={`${selectedTaskTemplate.displayName} icon`} className={styles.icon} />
         )}
-        <h1 className={styles.taskName} title={selectedTaskTemplate.name}>
-          {selectedTaskTemplate.name}
+        <h1 className={styles.taskName} title={selectedTaskTemplate.displayName}>
+          {selectedTaskTemplate.displayName}
         </h1>
         {!isActive && (
           <Tag className={styles.archivedTag} type="gray">
@@ -346,9 +346,9 @@ const Header: React.FC<HeaderProps> = ({
           </a>
         </TooltipHover>
       </div>
-      <p className={styles.lastUpdate}>{`Version ${revisionCount === 1 ? "created" : "updated"} ${moment(
+      <p className={styles.lastUpdate}>{`Version ${versionCount === 1 ? "created" : "updated"} ${moment(
         lastUpdated.date
-      ).format("MMM DD, YYYY")} by ${lastUpdated.userName ?? "---"}`}</p>
+      ).format("MMM DD, YYYY")} by ${lastUpdated.author ?? "---"}`}</p>
     </FeatureHeader>
   );
 };

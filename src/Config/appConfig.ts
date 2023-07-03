@@ -144,7 +144,6 @@ export const appLink = {
   execution: ({ executionId, workflowId }: ExecutionArgs) => `/activity/${workflowId}/execution/${executionId}`,
   home: () => "/home",
   insights: () => "/insights",
-  manageTaskTemplates: ({ teamId }: TeamIdArg) => `/${teamId}/task-templates`,
   manageTaskTemplateEdit: ({ teamId, name, version }: ManageTaskTemplateArgs) =>
     `/${teamId}/task-templates/${name}/${version}`,
   manageTaskTemplateYaml: ({ teamId, name, version }: ManageTaskTemplateArgs) =>

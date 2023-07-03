@@ -56,13 +56,32 @@ function TaskTemplatesContainer() {
     return history.push(appLink.home());
   }
 
+  // Collect the tasks by name and array of sorted by version task templates
+  let taskTemplatesByName = taskTemplatesData?.content.reduce(
+    (acc: Record<string, TaskTemplate[]>, task: TaskTemplate) => {
+      if (acc[task.name]) {
+        acc[task.name].push(task);
+        acc[task.name].sort((a, b) => b.version - a.version);
+      } else {
+        acc[task.name] = [task];
+      }
+      return acc;
+    },
+    {}
+  );
+
   if (isLoading) {
     return (
       <div className={styles.container}>
         <Helmet>
           <title>Team Tasks</title>
         </Helmet>
-        <Sidenav isLoading activeTeam={activeTeam} addTemplateInState={addTemplateInState} taskTemplates={[]} />
+        <Sidenav
+          isLoading
+          activeTeam={activeTeam}
+          addTemplateInState={addTemplateInState}
+          taskTemplates={taskTemplatesByName}
+        />
         <Box maxWidth="24rem" margin="0 auto">
           <WombatMessage className={styles.wombat} title="Retrieving Tasks..." />
         </Box>
@@ -86,11 +105,7 @@ function TaskTemplatesContainer() {
       <Helmet>
         <title>Team Tasks</title>
       </Helmet>
-      <Sidenav
-        activeTeam={activeTeam}
-        addTemplateInState={addTemplateInState}
-        taskTemplates={taskTemplatesData.content}
-      />
+      <Sidenav activeTeam={activeTeam} addTemplateInState={addTemplateInState} taskTemplates={taskTemplatesByName} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -107,11 +122,11 @@ function TaskTemplatesContainer() {
         <Route path={AppPath.ManageTaskTemplateEdit}>
           <TaskTemplateOverview
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesData.content}
+            taskTemplates={taskTemplatesByName}
             updateTemplateInState={updateTemplateInState}
           />
         </Route>
-        <Redirect to={appLink.manageTaskTemplates({ teamId: activeTeam.id })} />
+        <Redirect to={appLink.manageTaskTemplateEdit({ teamId: activeTeam.id })} />
       </Switch>
     </div>
   );
