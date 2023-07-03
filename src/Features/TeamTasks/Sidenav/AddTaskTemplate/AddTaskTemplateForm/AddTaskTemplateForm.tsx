@@ -108,7 +108,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleA
       config: hasFile && Boolean(values.config) ? values.config : [],
       spec: newTaskTemplateSpec,
     };
-    await handleAddTaskTemplate({ body, closeModal });
+    await handleAddTaskTemplate({ replace: "false", body, closeModal });
   };
   const getTemplateData = async ({ file, setFieldValue, setFieldTouched }) => {
     try {
@@ -167,6 +167,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleA
       validationSchema={Yup.object().shape({
         name: Yup.string()
           .required("Name is required")
+          .matches(/^[a-z0-9-]+$/, "Name can only contain lowercase alphanumeric characters and dashes")
           .notOneOf(taskTemplateNames, "Enter a unique value for task name"),
         displayName: Yup.string().required("Enter a display name"),
         category: Yup.string().required("Enter a category"),
@@ -280,10 +281,10 @@ function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleA
                 invalid={Boolean(errors.name && touched.name)}
                 invalidText={errors.name}
                 labelText="Name"
-                helperText="Must be unique"
+                helperText="Must be unique and only contain lowercase alphanumeric characters and dashes"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder="Enter a name"
+                placeholder="my-unique-task-name"
                 value={values.name}
               />
               <TextInput
@@ -293,7 +294,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleA
                 labelText="Display Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder="Enter a name"
+                placeholder="My Unique Task Name"
                 value={values.displayName}
               />
               <TextInput
@@ -318,7 +319,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleA
                   id="description"
                   invalid={Boolean(errors.description && touched.description)}
                   invalidText={errors.description}
-                  labelText="Description (optional)"
+                  labelText="Description"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.description}

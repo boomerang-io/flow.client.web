@@ -22,7 +22,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, locat
   const cancelRequestRef = React.useRef();
 
   const { mutateAsync: CreateTaskTemplateMutation, isLoading } = useMutation((args) => {
-    const { promise, cancel } = resolver.postCreateTaskTemplate(args);
+    const { promise, cancel } = resolver.putCreateTaskTemplate(args);
     cancelRequestRef.current = cancel;
     return promise;
   });
