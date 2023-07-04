@@ -67,7 +67,6 @@ const readFile = (file) => {
 };
 
 function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleAddTaskTemplate }) {
-  const params: { teamId: string } = useParams();
   const orderedIcons = orderBy(taskIcons, ["name"]);
 
   const {
@@ -108,7 +107,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleA
       config: hasFile && Boolean(values.config) ? values.config : [],
       spec: newTaskTemplateSpec,
     };
-    await handleAddTaskTemplate({ replace: "false", team: teamId, body, closeModal });
+    await handleAddTaskTemplate({ replace: "false", body, closeModal });
   };
   const getTemplateData = async ({ file, setFieldValue, setFieldTouched }) => {
     try {

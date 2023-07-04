@@ -7,6 +7,7 @@ import { Button } from "@carbon/react";
 import { notify, ToastNotification, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import AddTaskTemplateForm from "./AddTaskTemplateForm";
 import { resolver } from "Config/servicesConfig";
+import { useAppContext } from "Hooks";
 import { appLink } from "Config/appConfig";
 import { Add } from "@carbon/react/icons";
 import styles from "./addTaskTemplate.module.scss";
@@ -19,6 +20,7 @@ AddTaskTemplate.propTypes = {
 };
 
 function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, location }) {
+  const { activeTeam } = useAppContext();
   const cancelRequestRef = React.useRef();
 
   const { mutateAsync: CreateTaskTemplateMutation, isLoading } = useMutation((args) => {
@@ -27,9 +29,9 @@ function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, locat
     return promise;
   });
 
-  const handleAddTaskTemplate = async ({ replace, team, body, closeModal }) => {
+  const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
     try {
-      let response = await CreateTaskTemplateMutation({ replace, team, body });
+      let response = await CreateTaskTemplateMutation({ replace, team: activeTeam.id, body });
       notify(
         <ToastNotification
           kind="success"
@@ -39,7 +41,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, locat
         />
       );
       addTemplateInState(response.data);
-      history.push(appLink.manageTaskTemplateEdit({ name: response.data.name, version: 1, teamId: team }));
+      history.push(appLink.manageTaskTemplateEdit({ name: response.data.name, version: 1, teamId: activeTeam.id }));
       closeModal();
     } catch (err) {
       if (!isCancel(err)) {
