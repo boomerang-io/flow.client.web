@@ -108,7 +108,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleA
       config: hasFile && Boolean(values.config) ? values.config : [],
       spec: newTaskTemplateSpec,
     };
-    await handleAddTaskTemplate({ replace: "false", body, closeModal });
+    await handleAddTaskTemplate({ replace: "false", team: teamId, body, closeModal });
   };
   const getTemplateData = async ({ file, setFieldValue, setFieldTouched }) => {
     try {

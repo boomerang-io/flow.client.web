@@ -27,9 +27,9 @@ function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, locat
     return promise;
   });
 
-  const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
+  const handleAddTaskTemplate = async ({ replace, team, body, closeModal }) => {
     try {
-      let response = await CreateTaskTemplateMutation({ replace, body });
+      let response = await CreateTaskTemplateMutation({ replace, team, body });
       notify(
         <ToastNotification
           kind="success"
@@ -39,9 +39,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, locat
         />
       );
       addTemplateInState(response.data);
-      history.push(
-        appLink.manageTaskTemplateEdit({ taskId: response.data.id, version: 1, teamId: response.data.flowTeamId })
-      );
+      history.push(appLink.manageTaskTemplateEdit({ name: response.data.name, version: 1, team: team }));
       closeModal();
     } catch (err) {
       if (!isCancel(err)) {
