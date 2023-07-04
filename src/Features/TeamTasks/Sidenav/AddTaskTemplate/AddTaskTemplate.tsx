@@ -39,7 +39,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, locat
         />
       );
       addTemplateInState(response.data);
-      history.push(appLink.manageTaskTemplateEdit({ name: response.data.name, version: 1, team: team }));
+      history.push(appLink.manageTaskTemplateEdit({ name: response.data.name, version: 1, teamId: team }));
       closeModal();
     } catch (err) {
       if (!isCancel(err)) {

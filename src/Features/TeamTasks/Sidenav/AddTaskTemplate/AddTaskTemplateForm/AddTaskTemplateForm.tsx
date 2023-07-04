@@ -104,7 +104,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleA
       version: 1,
       icon: values.icon.value,
       type: "template",
-      changelog: { reason: "" },
+      changelog: { reason: "Add new task" },
       config: hasFile && Boolean(values.config) ? values.config : [],
       spec: newTaskTemplateSpec,
     };
