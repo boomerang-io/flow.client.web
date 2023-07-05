@@ -256,8 +256,6 @@ export function TaskTemplateOverview({
     }
   );
   const { mutateAsync: archiveTaskTemplateMutation, isLoading: archiveIsLoading } = useMutation(
-    // resolver.putStatusTaskTemplate,
-
     (args: { name: string; status: string }) => {
       const { promise } = resolver.postApproverGroupRequest(args);
       return promise;
@@ -267,7 +265,10 @@ export function TaskTemplateOverview({
     }
   );
   const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(
-    resolver.putStatusTaskTemplate,
+    (args: { name: string; status: string }) => {
+      const { promise } = resolver.putStatusTaskTemplate(args);
+      return promise;
+    },
     {
       onSuccess: invalidateQueries,
     }
@@ -401,6 +402,7 @@ export function TaskTemplateOverview({
       );
       updateTemplateInState(response);
     } catch (err) {
+      console.log(err);
       notify(
         <ToastNotification
           kind="error"
