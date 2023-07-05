@@ -80,7 +80,7 @@ export const AppPath: Record<AppPathKey, string> = {
   //Manage
   ManageTaskTemplates: `/:teamId/task-templates`,
   ManageTaskTemplateEdit: `/:teamId/task-templates/:name/:version`,
-  ManageTaskTemplateYaml: `/:teamId/task-templates/:name/:version/yaml-editor`,
+  ManageTaskTemplateYaml: `/:teamId/task-templates/:name/:version/editor`,
   ManageTeamTokens: "/:teamId/tokens",
   ManageTeamProperties: `/:teamId/parameters`,
   ManageTeam: `/:teamId/manage`,
@@ -147,7 +147,7 @@ export const appLink = {
   manageTaskTemplateEdit: ({ teamId, name, version }: ManageTaskTemplateArgs) =>
     `/${teamId}/task-templates/${name}/${version}`,
   manageTaskTemplateYaml: ({ teamId, name, version }: ManageTaskTemplateArgs) =>
-    `/${teamId}/task-templates/${name}/${version}/yaml-editor`,
+    `/${teamId}/task-templates/${name}/${version}/editor`,
   manageTeam: ({ teamId }: TeamIdArg) => `/${teamId}/manage`,
   manageTeamApprovers: ({ teamId }: TeamIdArg) => `/${teamId}/manage/approver-groups`,
   manageTeamWorkflows: ({ teamId }: TeamIdArg) => `/${teamId}/manage/workflows`,

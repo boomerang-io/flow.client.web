@@ -115,7 +115,7 @@ function TaskTemplatesContainer() {
         <Route path={AppPath.ManageTaskTemplateYaml}>
           <TaskTemplateYamlEditor
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesData.content}
+            taskTemplates={taskTemplatesByName}
             updateTemplateInState={updateTemplateInState}
           />
         </Route>

@@ -24,9 +24,17 @@ const VersionHistory: React.FC<VersionHistoryProps> = ({ changelogs }) => {
         title: "Version History",
       }}
       modalTrigger={({ openModal }: ModalTriggerProps) => (
-        <TooltipHover direction="right" content="History">
+        <TooltipHover
+          direction="right"
+          content={
+            <div className={styles.tooltipContainer}>
+              <strong>Version History</strong>
+              <p style={{ marginTop: "0.5rem" }}>View the version changelog in a modal.</p>
+            </div>
+          }
+        >
           <button className={styles.button} onClick={openModal}>
-            <Catalog />
+            <Catalog fill="#0072C3" />
           </button>
         </TooltipHover>
       )}

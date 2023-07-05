@@ -41,6 +41,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, locat
         />
       );
       addTemplateInState(response.data);
+      console.log(response.data);
       history.push(appLink.manageTaskTemplateEdit({ name: response.data.name, version: 1, teamId: activeTeam.id }));
       closeModal();
     } catch (err) {

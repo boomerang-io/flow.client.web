@@ -19,7 +19,7 @@ import { appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
-import { Bee, Download, Save, Undo, Reset, ViewOff } from "@carbon/react/icons";
+import { Bee, Download, Save, Undo, Reset, ViewOff, Recommend, Identification } from "@carbon/react/icons";
 import { FormikProps } from "formik";
 import { ComposedModalChildProps, ModalTriggerProps, TaskTemplate } from "Types";
 import styles from "./header.module.scss";
@@ -213,7 +213,7 @@ const Header: React.FC<HeaderProps> = ({
           />
           <Tab
             exact
-            label="YAML"
+            label="Editor"
             to={appLink.manageTaskTemplateYaml({
               teamId: params?.teamId,
               name: selectedTaskTemplate.name,
@@ -334,7 +334,15 @@ const Header: React.FC<HeaderProps> = ({
           </Tag>
         )}
         <VersionHistory changelogs={changelogs} />
-        <TooltipHover direction="right" content="Export latest saved revision of the YAML">
+        <TooltipHover
+          direction="right"
+          content={
+            <div className={styles.tooltipContainer}>
+              <strong>Export Task</strong>
+              <p style={{ marginTop: "0.5rem" }}>Export the latest saved version as YAML.</p>
+            </div>
+          }
+        >
           <a
             className={styles.exportYaml}
             href={serviceUrl.getTaskTemplateYaml({ id: params.taskId, revision: params.version })}
@@ -342,9 +350,34 @@ const Header: React.FC<HeaderProps> = ({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Download />
+            <Download fill="#0072C3" />
           </a>
         </TooltipHover>
+        {selectedTaskTemplate.verified ? (
+          <TooltipHover
+            direction="right"
+            content={
+              <div className={styles.tooltipContainer}>
+                <strong>Verified Task</strong>
+                <p style={{ marginTop: "0.5rem" }}>A task that is fully tested and verified out of the box.</p>
+              </div>
+            }
+          >
+            <Recommend style={{ marginLeft: "0.5rem" }} />
+          </TooltipHover>
+        ) : (
+          <TooltipHover
+            direction="right"
+            content={
+              <div className={styles.tooltipContainer}>
+                <strong>Community Task</strong>
+                <p style={{ marginTop: "0.5rem" }}>Contributed by a member and not validated by the Platform team.</p>
+              </div>
+            }
+          >
+            <Identification style={{ marginLeft: "0.5rem" }} />
+          </TooltipHover>
+        )}
       </div>
       <p className={styles.lastUpdate}>{`Version ${versionCount === 1 ? "created" : "updated"} ${moment(
         lastUpdated.date

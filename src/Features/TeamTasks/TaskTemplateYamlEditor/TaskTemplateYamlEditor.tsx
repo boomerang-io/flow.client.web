@@ -40,9 +40,9 @@ import "codemirror/addon/comment/comment.js";
 import "Styles/markdown.css";
 
 type TaskTemplateYamlEditorProps = {
-  taskTemplates: any[];
+  taskTemplates: Record<string, TaskTemplate[]>;
   editVerifiedTasksEnabled: any;
-  updateTemplateInState: Function;
+  updateTemplateInState: (args: TaskTemplate) => void;
 };
 
 export function TaskTemplateYamlEditor({
@@ -58,9 +58,11 @@ export function TaskTemplateYamlEditor({
 
   const [docOpen, setDocOpen] = useState(true);
 
-  const { data: yamlData, loading: yamlLoading, error: yamlError } = useQuery(
-    serviceUrl.getTaskTemplateYaml({ id: params.taskId, revision: params.version })
-  );
+  const {
+    data: yamlData,
+    loading: yamlLoading,
+    error: yamlError,
+  } = useQuery(serviceUrl.getTaskTemplateYaml({ name: params.name, version: params.version }));
 
   const invalidateQueries = () => {
     queryClient.invalidateQueries(
@@ -95,9 +97,12 @@ export function TaskTemplateYamlEditor({
     }
   );
 
-  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(resolver.putRestoreTaskTemplate, {
-    onSuccess: invalidateQueries,
-  });
+  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(
+    resolver.putRestoreTaskTemplate,
+    {
+      onSuccess: invalidateQueries,
+    }
+  );
 
   let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.taskId) ?? {};
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
