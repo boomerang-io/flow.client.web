@@ -66,7 +66,7 @@ export function TaskTemplateYamlEditor({
     error: yamlError,
   } = useQuery({
     queryKey: getTaskTemplateYamlUrl,
-    queryFn: resolver.query(getTaskTemplateYamlUrl),
+    queryFn: resolver.queryYaml(getTaskTemplateYamlUrl),
   });
 
   const invalidateQueries = () => {

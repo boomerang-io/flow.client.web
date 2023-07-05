@@ -174,6 +174,14 @@ export const resolver = {
         "content-type": "application/x-yaml",
       },
     }),
+  getTaskTemplateYaml: ({ name, version }) =>
+    axios({
+      method: HttpMethod.Get,
+      url: serviceUrl.getTaskTemplateYaml(name, version),
+      headers: {
+        "accept": "application/x-yaml",
+      },
+    }),
   patchTeamPropertyRequest: ({ teamId, configurationId, body }) =>
     cancellableResolver({
       url: serviceUrl.getTeamProperty({ teamId, configurationId }),
