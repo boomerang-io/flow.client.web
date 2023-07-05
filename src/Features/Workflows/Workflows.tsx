@@ -163,7 +163,7 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ activeTeam, searchQue
                 <TooltipHover
                   direction="top"
                   tooltipText={
-                    "This team has reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact your Team administrator/owner to increase the quota."
+                    "This team has reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact your Team owner to increase the quota."
                   }
                 >
                   <WarningAlt className={styles.warningIcon} />

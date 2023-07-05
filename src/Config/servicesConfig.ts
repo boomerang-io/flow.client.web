@@ -62,7 +62,7 @@ export const serviceUrl = {
   //   `${BASE_URL}/schedules/${scheduleId}/calendar${query ? "?" + query : ""}`,
   getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedules/validate/cron?cron=${expression}`,
   getTaskTemplates: ({ query }: QueryId) => `${BASE_URL}/tasktemplate/query${query ? "?" + query : ""}`,
-  getTaskTemplateYaml: ({ name, version }) => `${BASE_URL}/tasktemplate/${name}/yaml${version ? `?version=${version}` : ""}`,
+  getTaskTemplateYaml: ({ name, version }) => `${BASE_URL}/tasktemplate/${name}${version ? `?version=${version}` : ""}`,
   getTeam: ({ teamId }: QueryId) => `${BASE_URL}/team/${teamId}`,
   getTeams: ({ query }: QueryId) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
   getMyTeams: ({ query }: QueryId) => `${BASE_URL}/team/mine${query ? "?" + query : ""}`,
@@ -140,6 +140,10 @@ export const cancellableResolver = ({ url, method, body, headers, ...config }) =
 
 export const resolver = {
   query: (url) => () => axios.get(url).then((response) => response.data),
+  queryYaml: (url) => () => axios.get(url, { 
+    headers: {
+      "content-type": "application/x-yaml",
+    },}).then((response) => response.data),
   postMutation: (request) => axios.post(request),
   patchMutation: (request) => axios.patch(request),
   putMutation: (request) => axios.put(request),

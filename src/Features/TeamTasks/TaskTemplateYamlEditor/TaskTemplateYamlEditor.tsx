@@ -58,11 +58,16 @@ export function TaskTemplateYamlEditor({
 
   const [docOpen, setDocOpen] = useState(true);
 
+  const getTaskTemplateYamlUrl = serviceUrl.getTaskTemplateYaml({ name: params.name, version: params.version });
+
   const {
     data: yamlData,
     loading: yamlLoading,
     error: yamlError,
-  } = useQuery(serviceUrl.getTaskTemplateYaml({ name: params.name, version: params.version }));
+  } = useQuery({
+    queryKey: getTaskTemplateYamlUrl,
+    queryFn: resolver.query(getTaskTemplateYamlUrl),
+  });
 
   const invalidateQueries = () => {
     queryClient.invalidateQueries(
@@ -104,22 +109,22 @@ export function TaskTemplateYamlEditor({
     }
   );
 
-  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.taskId) ?? {};
-  const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
-
-  const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
-  const invalidVersion = params.version === "0" || params.version > selectedTaskTemplate.currentVersion;
-
+  let selectedTaskTemplateVersions = taskTemplates[params.name] ?? [];
+  console.log("selectedTaskTemplateList", selectedTaskTemplateVersions);
   // Checks if the version in url are a valid one. If not, go to the latest version
-  // Need to improve this
-  const currentRevision = selectedTaskTemplate?.revisions
-    ? invalidVersion
-      ? selectedTaskTemplate.revisions[selectedTaskTemplate.currentVersion - 1]
-      : selectedTaskTemplate.revisions.find((revision) => revision?.version?.toString() === params.version)
-    : {};
-
-  const isOldVersion = !invalidVersion && params.version !== selectedTaskTemplate?.currentVersion?.toString();
-  const templateNotFound = !selectedTaskTemplate.id;
+  const invalidVersion = params.version === "0" || params.version > selectedTaskTemplateVersions.length;
+  console.log("invalidVersion", invalidVersion);
+  const selectedTaskTemplateVersion = invalidVersion ? selectedTaskTemplateVersions.length : params.version;
+  console.log("selectedTaskTemplateVersion", selectedTaskTemplateVersion);
+  let selectedTaskTemplate = selectedTaskTemplateVersions.find((t) => t.version == selectedTaskTemplateVersion) ?? {};
+  console.log("selectedTaskTemplate", selectedTaskTemplate);
+  const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
+  console.log("canEdit", canEdit);
+  const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
+  console.log("isActive", isActive);
+  const isOldVersion = !invalidVersion && params.version != selectedTaskTemplateVersions.length;
+  console.log("isOldVersion", isOldVersion);
+  const templateNotFound = !selectedTaskTemplate.name;
 
   const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
     const newRevisions = [].concat(selectedTaskTemplate.revisions);
@@ -282,7 +287,7 @@ export function TaskTemplateYamlEditor({
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
-              currentRevision={currentRevision}
+              selectedTaskTemplates={selectedTaskTemplateVersions}
               formikProps={formikProps}
               handleputRestoreTaskTemplate={handleputRestoreTaskTemplate}
               handleSaveTaskTemplate={handleSaveTaskTemplate}
