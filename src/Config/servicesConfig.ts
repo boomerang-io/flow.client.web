@@ -142,7 +142,7 @@ export const resolver = {
   query: (url) => () => axios.get(url).then((response) => response.data),
   queryYaml: (url) => () => axios.get(url, { 
     headers: {
-      "content-type": "application/x-yaml",
+      "accept": "application/x-yaml",
     },}).then((response) => response.data),
   postMutation: (request) => axios.post(request),
   patchMutation: (request) => axios.patch(request),
