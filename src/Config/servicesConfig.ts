@@ -37,7 +37,7 @@ type QueryArg = {
 }
 
 export const serviceUrl = {
-  deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
+  // deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
   deleteCancelWorkflow: ({ executionId }) => `${BASE_URL}/workflowrun/${executionId}/cancel`,
   deleteToken: ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
   deleteSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
@@ -110,10 +110,10 @@ export const serviceUrl = {
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
   // putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,
   putActivationApp: () => `${BASE_URL}/activate`,
-  putRestoreTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}/activate`,
   putTaskTemplateYaml: ({ id, revision, comment }) =>
     `${BASE_URL}/tasktemplate/${id}/yaml${`/${revision}`}${comment ? "?" + comment : ""}`,
   putTaskTemplate: ({ replace, team }) => `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
+  putStatusTaskTemplate: ({ name, status }) => `${BASE_URL}/tasktemplate/${name}/${status}`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
   putTeamMembers: ({ teamId }) => `${BASE_URL}/team/${teamId}/members`,
   putWorkflowAction: () => `${BASE_URL}/action/action`,
@@ -148,7 +148,7 @@ export const resolver = {
   patchMutation: (request) => axios.patch(request),
   putMutation: (request) => axios.put(request),
   deleteApproverGroup: ({ teamId, groupId }) => axios.delete(serviceUrl.resourceApproverGroups({ teamId, groupId })),
-  deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
+  // deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   deleteCancelWorkflow: ({ executionId }) => axios.delete(serviceUrl.deleteCancelWorkflow({ executionId })),
   deleteGlobalPropertyRequest: ({ id }) => axios.delete(serviceUrl.getGlobalProperty({ id })),
   deleteTeamPropertyRequest: ({ teamId, configurationId }) =>
@@ -220,6 +220,7 @@ export const resolver = {
       method: HttpMethod.Put,
       headers: { "content-type": "application/x-yaml" },
     }),
+  putStatusTaskTemplate: ({ name, status }) => axios.put(serviceUrl.putStatusTaskTemplate({ name, status })),
   postCreateTeam: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethod.Post }),
   postExecuteWorkflow: ({ id, properties }) =>

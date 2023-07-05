@@ -256,13 +256,13 @@ export function TaskTemplateOverview({
     }
   );
   const { mutateAsync: archiveTaskTemplateMutation, isLoading: archiveIsLoading } = useMutation(
-    resolver.deleteArchiveTaskTemplate,
+    resolver.putStatusTaskTemplate,
     {
       onSuccess: invalidateQueries,
     }
   );
   const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(
-    resolver.putRestoreTaskTemplate,
+    resolver.putStatusTaskTemplate,
     {
       onSuccess: invalidateQueries,
     }
@@ -300,12 +300,14 @@ export function TaskTemplateOverview({
       requestType === TemplateRequestType.Overwrite
         ? selectedTaskTemplateVersion
         : selectedTaskTemplateVersions.length + 1;
-
     let changeReason =
       requestType === TemplateRequestType.Copy
         ? "Version copied from ${values.currentConfig.version}"
         : values.comments;
-
+    let newEnvs = values.envs.map((env) => {
+      let index = env.indexOf(":");
+      return { name: env.substring(0, index), value: env.substring(index + 1, env.length) };
+    });
     const spec = {
       arguments: Boolean(values.arguments) ? values.arguments.trim().split(/\n{1,}/) : [],
       command: Boolean(values.command) ? values.command.trim().split(/\n{1,}/) : [],
@@ -383,7 +385,7 @@ export function TaskTemplateOverview({
 
   const handleArchiveTaskTemplate = async () => {
     try {
-      let response = await archiveTaskTemplateMutation({ id: selectedTaskTemplate.id });
+      let response = await archiveTaskTemplateMutation({ name: selectedTaskTemplate.name, status: disable });
       notify(
         <ToastNotification
           kind="success"
@@ -407,7 +409,7 @@ export function TaskTemplateOverview({
 
   const handleputRestoreTaskTemplate = async () => {
     try {
-      let response = await restoreTaskTemplateMutation({ id: selectedTaskTemplate.id });
+      let response = await restoreTaskTemplateMutation({ name: selectedTaskTemplate.name, status: enable });
       notify(
         <ToastNotification
           kind="success"
