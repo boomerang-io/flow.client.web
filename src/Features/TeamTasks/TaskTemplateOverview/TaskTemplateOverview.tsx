@@ -258,7 +258,7 @@ export function TaskTemplateOverview({
   );
   const { mutateAsync: archiveTaskTemplateMutation, isLoading: archiveIsLoading } = useMutation(
     (args: { name: string; status: string }) => {
-      const { promise } = resolver.postApproverGroupRequest(args);
+      const { promise } = resolver.putStatusTaskTemplate(args);
       return promise;
     },
     {
