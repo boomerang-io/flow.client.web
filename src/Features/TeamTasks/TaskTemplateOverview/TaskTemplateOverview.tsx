@@ -274,6 +274,10 @@ export function TaskTemplateOverview({
       onSuccess: invalidateQueries,
     }
   );
+  const { mutateAsync: downloadTaskTemplateYamlMutation } = useMutation((args: { name: string; version: string }) => {
+    const { promise } = resolver.getTaskTemplateYaml(args);
+    return promise;
+  }, {});
 
   let selectedTaskTemplateVersions = taskTemplates[params.name] ?? [];
   console.log("selectedTaskTemplateList", selectedTaskTemplateVersions);
@@ -392,7 +396,7 @@ export function TaskTemplateOverview({
 
   const handleArchiveTaskTemplate = async () => {
     try {
-      let response = await archiveTaskTemplateMutation({ name: selectedTaskTemplate.name, status: "disable" });
+      let response = await archiveTaskTemplateMutation({ name: params.name, version: params.version });
       notify(
         <ToastNotification
           kind="success"
@@ -434,6 +438,30 @@ export function TaskTemplateOverview({
           title={"Restore Task Template Failed"}
           subtitle={`Unable to restore the task. ${sentenceCase(err.message)}.`}
           data-testid="restore-task-template-notification"
+        />
+      );
+    }
+  };
+
+  const handleDownloadTaskTemplate = async () => {
+    try {
+      await downloadTaskTemplateYamlMutation({ name: params.name, version: params.version });
+      notify(
+        <ToastNotification
+          kind="success"
+          title={"Task Template Download"}
+          subtitle={`Request to download ${params.name} started.`}
+          data-testid="downloaded-task-template-notification"
+        />
+      );
+    } catch (err) {
+      console.log("err", err);
+      notify(
+        <ToastNotification
+          kind="error"
+          title={"Download Task Template Failed"}
+          subtitle={`Unable to download the task template. ${sentenceCase(err.message)}.`}
+          data-testid="download-task-template-notification"
         />
       );
     }
@@ -521,6 +549,7 @@ export function TaskTemplateOverview({
               handleRestoreTaskTemplate={handleRestoreTaskTemplate}
               handleArchiveTaskTemplate={handleArchiveTaskTemplate}
               handleSaveTaskTemplate={handleSaveTaskTemplate}
+              handleDownloadTaskTemplate={handleDownloadTaskTemplate}
               isActive={isActive}
               isLoading={isLoading}
               isOldVersion={isOldVersion}

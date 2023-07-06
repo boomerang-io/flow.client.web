@@ -23,6 +23,7 @@ import { Bee, Download, Save, Archive, Copy, Reset, ViewOff, Recommend, Identifi
 import { FormikProps } from "formik";
 import { ComposedModalChildProps, ModalTriggerProps, TaskTemplate } from "Types";
 import styles from "./header.module.scss";
+import { useQuery } from "react-query";
 
 const ArchiveText: React.FC = () => (
   <>
@@ -179,6 +180,7 @@ interface HeaderProps {
   ) => void;
   handleRestoreTaskTemplate: () => void;
   handleArchiveTaskTemplate: () => void;
+  handleDownloadTaskTemplate: () => void;
   isActive: boolean;
   isLoading: boolean;
   isOldVersion: boolean;
@@ -194,6 +196,7 @@ const Header: React.FC<HeaderProps> = ({
   handleSaveTaskTemplate,
   handleRestoreTaskTemplate,
   handleArchiveTaskTemplate,
+  handleDownloadTaskTemplate,
   isOldVersion,
   isActive,
   isLoading,
@@ -256,7 +259,7 @@ const Header: React.FC<HeaderProps> = ({
             tooltipPosition="bottom"
             kind="ghost"
             renderIcon={Download}
-            onClick={serviceUrl.getTaskTemplateYaml({ name: params.taskId, version: params.version })}
+            onClick={handleDownloadTaskTemplate}
           />
           {!isOldVersion && isActive && (
             <ConfirmModal
