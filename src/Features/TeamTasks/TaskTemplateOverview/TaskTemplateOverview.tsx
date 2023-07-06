@@ -30,6 +30,7 @@ import { appLink, AppPath } from "Config/appConfig";
 import { Draggable as DraggableIcon, TrashCan, Archive, Bee } from "@carbon/react/icons";
 import { DataDrivenInput, TaskTemplate } from "Types";
 import styles from "./taskTemplateOverview.module.scss";
+import { sentenceCase } from "change-case";
 
 const ArchiveText: React.FC = () => (
   <>
@@ -402,12 +403,11 @@ export function TaskTemplateOverview({
       );
       updateTemplateInState(response);
     } catch (err) {
-      console.log(err);
       notify(
         <ToastNotification
           kind="error"
           title={"Archive Task Template Failed"}
-          subtitle={"Something's Wrong"}
+          subtitle={`Unable to archive the task. ${sentenceCase(err.message)}.`}
           data-testid="archive-task-template-notification"
         />
       );
@@ -416,7 +416,7 @@ export function TaskTemplateOverview({
 
   const handleputRestoreTaskTemplate = async () => {
     try {
-      let response = await restoreTaskTemplateMutation({ name: selectedTaskTemplate.name, status: enable });
+      let response = await restoreTaskTemplateMutation({ name: selectedTaskTemplate.name, status: "enable" });
       notify(
         <ToastNotification
           kind="success"
