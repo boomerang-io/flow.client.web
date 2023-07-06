@@ -240,7 +240,7 @@ export function TaskTemplateOverview({
   const invalidateQueries = () => {
     queryClient.invalidateQueries(
       serviceUrl.getTaskTemplates({
-        query: queryString.stringify({ teams: activeTeam?.id, statuses: "active" }),
+        query: queryString.stringify({ teams: params.team }),
       })
     );
     queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
@@ -392,7 +392,7 @@ export function TaskTemplateOverview({
 
   const handleArchiveTaskTemplate = async () => {
     try {
-      let response = await archiveTaskTemplateMutation({ name: selectedTaskTemplate.name, status: disable });
+      let response = await archiveTaskTemplateMutation({ name: selectedTaskTemplate.name, status: "disable" });
       notify(
         <ToastNotification
           kind="success"
@@ -431,7 +431,7 @@ export function TaskTemplateOverview({
         <ToastNotification
           kind="error"
           title={"Restore Task Template Failed"}
-          subtitle={"Something's Wrong"}
+          subtitle={`Unable to restore the task. ${sentenceCase(err.message)}.`}
           data-testid="restore-task-template-notification"
         />
       );
