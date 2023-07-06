@@ -5,14 +5,14 @@ import { useAppContext } from "Hooks";
 import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import TeamTokenComponent from "./TeamTokenComponent";
-import { FlowTeam } from "Types";
+import queryString from "query-string";
 import styles from "./tokens.module.scss";
 
 function TeamTokensContainer() {
   const { activeTeam, user } = useAppContext();
   const queryClient = useQueryClient();
 
-  const getTeamTokensUrl = serviceUrl.getTeamTokens({ teamId: activeTeam?.id });
+  const getTeamTokensUrl = serviceUrl.getTeamTokens({ query: queryString.stringify({ types: "team" }) });
 
   const {
     data: tokensData,
@@ -23,6 +23,8 @@ function TeamTokensContainer() {
     queryFn: resolver.query(getTeamTokensUrl),
     enabled: Boolean(activeTeam?.id),
   });
+
+  console.log({ tokensData });
 
   const { mutateAsync: deleteTokenMutator } = useMutation(resolver.deleteToken, {
     onSuccess: () => queryClient.invalidateQueries([getTeamTokensUrl]),
