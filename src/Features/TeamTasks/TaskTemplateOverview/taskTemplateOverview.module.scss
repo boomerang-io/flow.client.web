@@ -16,53 +16,20 @@
   padding: 1.5rem;
 }
 
-.archiveContainer {
-  height: 25rem !important;
-  width: 30rem !important;
-}
-
 .confirmModalText {
   font-size: 0.875rem;
   margin-bottom: 1rem;
   width: 20rem;
 }
 
-.taskActionsSection {
+.notificationsContainer {
   align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
 
   :global .cds--inline-notification {
-    margin: 0.5rem 0 0 20rem;
-    position: absolute;
-  }
-}
-
-.archive {
-  color: var(--cds-support-01);
-  width: 6.5rem;
-  &:hover,
-  &:focus,
-  &:active {
-    box-shadow: inset 0 0 0 2px var(--cds-danger), inset 0 0 0 3px #f2f4f8;
-    color: var(--cds-support-01);
-    svg,
-    path {
-      fill: var(--cds-support-01) !important;
-    }
-  }
-  svg,
-  path {
-    fill: var(--cds-support-01);
-  }
-  &:disabled {
-    svg {
-      fill: var(--cds-disabled-02);
-    }
-  }
-  &:focus {
-    border-color: var(--cds-support-01);
+    max-width: 100%;
   }
 }
 

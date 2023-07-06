@@ -403,6 +403,7 @@ export function TaskTemplateOverview({
       );
       updateTemplateInState(response);
     } catch (err) {
+      console.log("err", err);
       notify(
         <ToastNotification
           kind="error"
@@ -414,7 +415,7 @@ export function TaskTemplateOverview({
     }
   };
 
-  const handleputRestoreTaskTemplate = async () => {
+  const handleRestoreTaskTemplate = async () => {
     try {
       let response = await restoreTaskTemplateMutation({ name: selectedTaskTemplate.name, status: "enable" });
       notify(
@@ -517,7 +518,8 @@ export function TaskTemplateOverview({
               selectedTaskTemplate={selectedTaskTemplate}
               selectedTaskTemplates={selectedTaskTemplateVersions}
               formikProps={formikProps}
-              handleputRestoreTaskTemplate={handleputRestoreTaskTemplate}
+              handleRestoreTaskTemplate={handleRestoreTaskTemplate}
+              handleArchiveTaskTemplate={handleArchiveTaskTemplate}
               handleSaveTaskTemplate={handleSaveTaskTemplate}
               isActive={isActive}
               isLoading={isLoading}
@@ -525,36 +527,16 @@ export function TaskTemplateOverview({
               cancelRequestRef={cancelRequestRef}
             />
             <div className={styles.content}>
-              <section className={styles.taskActionsSection}>
-                <p className={styles.description}>Build the definition requirements for this task.</p>
+              <section className={styles.notificationsContainer}>
                 {!canEdit && (
                   <InlineNotification
                     lowContrast
+                    hideCloseButton={true}
                     kind="info"
                     title="Verified tasks are not editable"
                     subtitle="Admins can adjust this in global settings"
                   />
                 )}
-                <ConfirmModal
-                  affirmativeAction={() => handleArchiveTaskTemplate(selectedTaskTemplate)}
-                  affirmativeText="Archive this task"
-                  containerClassName={styles.archiveContainer}
-                  children={<ArchiveText />}
-                  title="Archive"
-                  modalTrigger={({ openModal }) => (
-                    <Button
-                      iconDescription="Archive"
-                      renderIcon={Archive}
-                      kind="ghost"
-                      size="md"
-                      disabled={isOldVersion || !isActive || !canEdit}
-                      className={styles.archive}
-                      onClick={openModal}
-                    >
-                      Archive
-                    </Button>
-                  )}
-                />
               </section>
               <div className={styles.detailCardsContainer}>
                 <Tile className={styles.editDetailsCard}>

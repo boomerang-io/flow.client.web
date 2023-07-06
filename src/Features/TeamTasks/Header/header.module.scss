@@ -42,12 +42,44 @@
   }
 }
 
-.copyButton {
-  width: 12.8125rem;
+.iconOnlyTooltip{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
-.resetButton {
-  width: 10.875rem;
+.archiveContainer {
+  height: 25rem !important;
+  width: 30rem !important;
+}
+
+.archiveButton {
+  color: var(--cds-support-01);
+  &:hover,
+  &:focus,
+  &:active {
+    box-shadow: inset 0 0 0 2px var(--cds-danger), inset 0 0 0 3px #f2f4f8;
+    background-color: var(--cds-support-01);
+    svg,
+    path {
+      fill: var(--cds-text-on-color) !important;
+    }
+  }
+  svg,
+  path {
+    fill: var(--cds-support-01);
+  }
+  &:disabled {
+    svg {
+      fill: var(--cds-disabled-02);
+    }
+  }
+  &:focus {
+    border-color: var(--cds-support-01);
+  }
+}
+
+.copyButton {
+  width: 12.8125rem;
 }
 
 .mainActionButton {

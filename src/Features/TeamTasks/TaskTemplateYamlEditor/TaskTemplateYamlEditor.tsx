@@ -297,11 +297,11 @@ export function TaskTemplateYamlEditor({
               cancelRequestRef={cancelRequestRef}
             />
             <div className={styles.content}>
-              <section className={styles.taskActionsSection}>
-                <p className={styles.description}>Build the definition requirements for this task.</p>
+              <section className={styles.notificationsContainer}>
                 {!canEdit && (
                   <InlineNotification
                     lowContrast
+                    hideCloseButton={true}
                     kind="info"
                     title="Verified tasks are not editable"
                     subtitle="Admins can adjust this in global settings"

@@ -28,15 +28,14 @@
   width: 20rem;
 }
 
-.taskActionsSection {
+.notificationsContainer {
   align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
 
   :global .cds--inline-notification {
-    margin: 0.5rem 0 0 20rem;
-    position: absolute;
+    max-width: 100%;
   }
 }
 

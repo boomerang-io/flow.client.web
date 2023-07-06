@@ -19,10 +19,23 @@ import { appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
-import { Bee, Download, Save, Undo, Reset, ViewOff, Recommend, Identification } from "@carbon/react/icons";
+import { Bee, Download, Save, Archive, Copy, Reset, ViewOff, Recommend, Identification } from "@carbon/react/icons";
 import { FormikProps } from "formik";
 import { ComposedModalChildProps, ModalTriggerProps, TaskTemplate } from "Types";
 import styles from "./header.module.scss";
+
+const ArchiveText: React.FC = () => (
+  <>
+    <p className={styles.confirmModalText}>
+      Archive a task when it is no longer supported and shouldn’t be used in new Workflows.
+    </p>
+    <p className={styles.confirmModalText}>
+      Once archived, it will no longer appear in the Workflow Editor, but you can still view it in the Task Manager
+      here. The task will remain functional in any existing Workflows to avoid breakage.
+    </p>
+    <p className={styles.confirmModalText}>You can restore an archived task later, if needed.</p>
+  </>
+);
 
 interface SaveModalProps {
   cancelRequestRef: any;
@@ -164,7 +177,8 @@ interface HeaderProps {
     setRequestError?: (error: any) => void,
     closeModal?: () => void
   ) => void;
-  handleputRestoreTaskTemplate: () => void;
+  handleRestoreTaskTemplate: () => void;
+  handleArchiveTaskTemplate: () => void;
   isActive: boolean;
   isLoading: boolean;
   isOldVersion: boolean;
@@ -178,7 +192,8 @@ const Header: React.FC<HeaderProps> = ({
   selectedTaskTemplate,
   formikProps,
   handleSaveTaskTemplate,
-  handleputRestoreTaskTemplate,
+  handleRestoreTaskTemplate,
+  handleArchiveTaskTemplate,
   isOldVersion,
   isActive,
   isLoading,
@@ -230,6 +245,19 @@ const Header: React.FC<HeaderProps> = ({
             versionCount={versionCount}
             canEdit={canEdit}
           />
+          <Button
+            size="md"
+            hasIconOnly
+            iconDescription={
+              <div className={styles.iconOnlyTooltip}>
+                <p>Download this version as YAML</p>
+              </div>
+            }
+            tooltipPosition="bottom"
+            kind="ghost"
+            renderIcon={Download}
+            onClick={serviceUrl.getTaskTemplateYaml({ name: params.taskId, version: params.version })}
+          />
           {!isOldVersion && isActive && (
             <ConfirmModal
               affirmativeAction={formikProps.resetForm}
@@ -237,19 +265,44 @@ const Header: React.FC<HeaderProps> = ({
               children="You are about to reset to the last save of this version, all unsaved changes will be erased. This action cannot be undone, are you sure you want to reset to the latest save?"
               title="Reset changes"
               modalTrigger={({ openModal }: ModalTriggerProps) => (
-                <TooltipHover direction="bottom" tooltipText={"Restore the last save of this version"}>
-                  <Button
-                    className={styles.resetButton}
-                    disabled={!formikProps.dirty || !canEdit}
-                    size="md"
-                    kind="ghost"
-                    renderIcon={Undo}
-                    onClick={openModal}
-                  >
-                    {" "}
-                    Reset changes
-                  </Button>
-                </TooltipHover>
+                <Button
+                  className={styles.resetButton}
+                  size="md"
+                  hasIconOnly
+                  iconDescription={
+                    <div className={styles.iconOnlyTooltip}>
+                      <p>Restore the last save of this version</p>
+                    </div>
+                  }
+                  tooltipPosition="bottom"
+                  kind="ghost"
+                  renderIcon={Reset}
+                  onClick={openModal}
+                />
+              )}
+            />
+          )}
+          {!isOldVersion && isActive && (
+            <ConfirmModal
+              affirmativeAction={() => handleArchiveTaskTemplate}
+              affirmativeText="Archive this task"
+              containerClassName={styles.archiveContainer}
+              children={<ArchiveText />}
+              title="Archive"
+              modalTrigger={({ openModal }) => (
+                <Button
+                  hasIconOnly
+                  iconDescription={
+                    <div className={styles.iconOnlyTooltip}>
+                      <p>Archive</p>
+                    </div>
+                  }
+                  renderIcon={Archive}
+                  kind="ghost"
+                  size="md"
+                  className={styles.archiveButton}
+                  onClick={openModal}
+                />
               )}
             />
           )}
@@ -275,8 +328,7 @@ const Header: React.FC<HeaderProps> = ({
                   <Button
                     className={styles.copyButton}
                     size="md"
-                    kind="ghost"
-                    renderIcon={Undo}
+                    renderIcon={Copy}
                     onClick={openModal}
                     disabled={!canEdit}
                   >
@@ -295,7 +347,7 @@ const Header: React.FC<HeaderProps> = ({
             />
           ) : (
             <ConfirmModal
-              affirmativeAction={handleputRestoreTaskTemplate}
+              affirmativeAction={handleRestoreTaskTemplate}
               children={
                 <>
                   <p className={styles.confirmModalText}>
@@ -334,25 +386,6 @@ const Header: React.FC<HeaderProps> = ({
           </Tag>
         )}
         <VersionHistory changelogs={changelogs} />
-        <TooltipHover
-          direction="right"
-          content={
-            <div className={styles.tooltipContainer}>
-              <strong>Export Task</strong>
-              <p style={{ marginTop: "0.5rem" }}>Export the latest saved version as YAML.</p>
-            </div>
-          }
-        >
-          <a
-            className={styles.exportYaml}
-            href={serviceUrl.getTaskTemplateYaml({ id: params.taskId, revision: params.version })}
-            download={`${selectedTaskTemplate.name}.yaml`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Download fill="#0072C3" />
-          </a>
-        </TooltipHover>
         {selectedTaskTemplate.verified ? (
           <TooltipHover
             direction="right"

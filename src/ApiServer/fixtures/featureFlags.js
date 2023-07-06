@@ -1,7 +1,7 @@
 const featureFlag = {
   features: {
     activity: true,
-    "enable.verified.tasks.edit": true,
+    "enable.verified.tasks.edit": false,
     "global.parameters": true,
     insights: true,
     "team.management": true,

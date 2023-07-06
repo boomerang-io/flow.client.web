@@ -201,16 +201,20 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
                   open={openCategories}
                   key={`${category.name}${index}`}
                 >
-                  {category.tasks.map((task) => (
-                    //@ts-ignore
-                    <Task
-                      key={task.name}
-                      task={task}
+                  {category.tasks.length > 0 ? (
+                    category.tasks.map((task) => (
                       //@ts-ignore
-                      isActive={activeTeam === task.id}
-                      activeTeam={activeTeam}
-                    />
-                  ))}
+                      <Task
+                        key={task.name}
+                        task={task}
+                        //@ts-ignore
+                        isActive={activeTeam === task.id}
+                        activeTeam={activeTeam}
+                      />
+                    ))
+                  ) : (
+                    <EmptyTask key={`${category.name}-empty`} category={category.name} activeTeam={activeTeam} />
+                  )}
                 </AccordionItem>
               );
             })}
@@ -268,6 +272,24 @@ const Task: React.FC<TaskProps> = (props) => {
         )}
       </div>
     </SideNavLink>
+  );
+};
+
+interface EmptyTaskProps {
+  activeTeam?: FlowTeam | null;
+}
+//TODO make the below a part of the empty state of the component in the add-ons
+const EmptyTask: React.FC<EmptyTaskProps> = (props) => {
+  const { activeTeam } = props;
+
+  return (
+    <div className={`cds--bmrg-feature-sidenav-link`}>
+      <div className={`cds--bmrg-feature-sidenav-link-content`}>
+        <div className={styles.task}>
+          <p>There are no tasks for this category. This may be due to filters applied.</p>
+        </div>
+      </div>
+    </div>
   );
 };
 

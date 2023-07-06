@@ -1118,6 +1118,39 @@ const tasktemplate = {
       icon: "Message",
       verified: true
     },
+    {
+      "name": "tysons-test-inactive-task",
+      "displayName": "Tyson's Test Inactive Task",
+      "description": "This is my wonderful test task",
+      "status": "inactive",
+      "labels": {},
+      "annotations": {
+          "boomerang.io/generation": "4",
+          "boomerang.io/kind": "TaskTemplate"
+      },
+      "version": 1,
+      "creationDate": "2023-07-05T04:16:34.436+00:00",
+      "changelog": {
+          "author": "admin@flowabl.io",
+          "reason": "Initial Task Template",
+          "date": "2023-07-05T04:16:32.653+00:00"
+      },
+      "category": "Test",
+      "type": "template",
+      "spec": {
+          "arguments": [],
+          "command": [],
+          "params": null,
+          "envs": [],
+          "image": null,
+          "results": [],
+          "script": "",
+          "workingDir": ""
+      },
+      "config": [],
+      "icon": "Automated task",
+      "verified": false
+  }
   ],
   number: 0,
   size: 4,
