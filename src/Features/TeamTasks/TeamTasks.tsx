@@ -36,8 +36,12 @@ function TaskTemplatesContainer() {
     enabled: Boolean(activeTeam),
   });
 
+  /**
+   * This adds the new TaskTemplate to the existing taskTemplates
+   * rather then requerying the API for the new templates
+   */
   const addTemplateInState = (newTemplate: TaskTemplate) => {
-    const updatedTemplatesData = [...taskTemplatesData];
+    const updatedTemplatesData = [...taskTemplatesData.content];
     updatedTemplatesData.push(newTemplate);
     queryClient.setQueryData(getTaskTemplatesUrl, orderBy(updatedTemplatesData, "name", "asc"));
   };
@@ -81,6 +85,7 @@ function TaskTemplatesContainer() {
           activeTeam={activeTeam}
           addTemplateInState={addTemplateInState}
           taskTemplates={taskTemplatesByName}
+          getTaskTemplatesUrl={getTaskTemplatesUrl}
         />
         <Box maxWidth="24rem" margin="0 auto">
           <WombatMessage className={styles.wombat} title="Retrieving Tasks..." />

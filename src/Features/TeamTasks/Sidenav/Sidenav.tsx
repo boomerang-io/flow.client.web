@@ -34,9 +34,16 @@ interface SideInfoProps {
   addTemplateInState: (newTemplate: TaskTemplate) => void;
   isLoading?: boolean;
   taskTemplates: Record<string, TaskTemplate[]>;
+  getTaskTemplatesUrl: string;
 }
 
-const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isLoading, taskTemplates }) => {
+const SideInfo: React.FC<SideInfoProps> = ({
+  activeTeam,
+  addTemplateInState,
+  isLoading,
+  taskTemplates,
+  getTaskTemplatesUrl,
+}) => {
   const history = useHistory();
   const location = useLocation();
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
@@ -121,10 +128,10 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, addTemplateInState, isL
           <div className={styles.addTaskContainer}>
             <p className={styles.existingTasks}>{`Existing Tasks (${tasksToDisplay.length})`}</p>
             <AddTaskTemplate
-              addTemplateInState={addTemplateInState}
               taskTemplateNames={distinctTaskNames}
               history={history}
               location={location}
+              getTaskTemplatesUrl={getTaskTemplatesUrl}
             />
           </div>
           <Layer className={styles.tools}>

@@ -1,6 +1,5 @@
 //@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import { isCancel } from "axios";
 import { useMutation } from "react-query";
 import { Button } from "@carbon/react";
@@ -8,22 +7,23 @@ import { notify, ToastNotification, ComposedModal } from "@boomerang-io/carbon-a
 import AddTaskTemplateForm from "./AddTaskTemplateForm";
 import { resolver } from "Config/servicesConfig";
 import { useAppContext } from "Hooks";
+import { useQueryClient } from "react-query";
 import { appLink } from "Config/appConfig";
 import { Add } from "@carbon/react/icons";
 import styles from "./addTaskTemplate.module.scss";
 
-AddTaskTemplate.propTypes = {
-  addTemplateInState: PropTypes.func.isRequired,
-  taskTemplateNames: PropTypes.array.isRequired,
-  location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-};
+interface AddTaskTemplateProps {
+  taskTemplateNames: Array<string>;
+  history: History;
+  getTaskTemplatesUrl: string;
+}
 
-function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, location }) {
+function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: AddTaskTemplateProps) {
   const { activeTeam } = useAppContext();
+  const queryClient = useQueryClient();
   const cancelRequestRef = React.useRef();
 
-  const { mutateAsync: CreateTaskTemplateMutation, isLoading } = useMutation((args) => {
+  const { mutateAsync: createTaskTemplateMutation, isLoading } = useMutation((args) => {
     const { promise, cancel } = resolver.putCreateTaskTemplate(args);
     cancelRequestRef.current = cancel;
     return promise;
@@ -31,7 +31,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, locat
 
   const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
     try {
-      let response = await CreateTaskTemplateMutation({ replace, team: activeTeam.id, body });
+      let response = await createTaskTemplateMutation({ replace, team: activeTeam.id, body });
       notify(
         <ToastNotification
           kind="success"
@@ -40,8 +40,8 @@ function AddTaskTemplate({ addTemplateInState, taskTemplateNames, history, locat
           data-testid="create-task-template-notification"
         />
       );
-      addTemplateInState(response.data);
-      console.log(response.data);
+      console.log(response);
+      await queryClient.invalidateQueries(getTaskTemplatesUrl);
       history.push(appLink.manageTaskTemplateEdit({ name: response.data.name, version: 1, teamId: activeTeam.id }));
       closeModal();
     } catch (err) {

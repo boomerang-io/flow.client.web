@@ -103,11 +103,11 @@ function AppSideNav(props: AppSideNavProps) {
               );
             })
           : undefined}
-        {props.navLinks ? <SideNavDivider /> : null}
-        {props.flowNavigationData.map((item) => {
+        {props.navLinks ? <SideNavDivider key="divider" /> : null}
+        {props.flowNavigationData.map((item, index) => {
           const itemIcon = item.icon ? navigationIcons[item.icon as keyof typeof navigationIcons] : FlowData;
           if (item.type === "divider") {
-            return <SideNavDivider />;
+            return <SideNavDivider key={`divider-${index}`} />;
           }
           if (item.type === "menu" && item?.childLinks) {
             return (
