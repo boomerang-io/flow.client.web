@@ -12,7 +12,9 @@ function TeamTokensContainer() {
   const { activeTeam, user } = useAppContext();
   const queryClient = useQueryClient();
 
-  const getTeamTokensUrl = serviceUrl.getTeamTokens({ query: queryString.stringify({ types: "team" }) });
+  const getTeamTokensUrl = serviceUrl.getTeamTokens({
+    query: queryString.stringify({ types: "team", principals: activeTeam?.id }),
+  });
 
   const {
     data: tokensData,
@@ -23,8 +25,6 @@ function TeamTokensContainer() {
     queryFn: resolver.query(getTeamTokensUrl),
     enabled: Boolean(activeTeam?.id),
   });
-
-  console.log({ tokensData });
 
   const { mutateAsync: deleteTokenMutator } = useMutation(resolver.deleteToken, {
     onSuccess: () => queryClient.invalidateQueries([getTeamTokensUrl]),
@@ -48,7 +48,7 @@ function TeamTokensContainer() {
         deleteToken={deleteToken}
         isLoading={tokensIsLoading}
         hasError={tokensError}
-        tokens={tokensData}
+        tokens={tokensData?.content || []}
         activeTeam={activeTeam}
         userType={user.type}
       />

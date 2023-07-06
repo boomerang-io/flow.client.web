@@ -303,6 +303,7 @@ const Header: React.FC<HeaderProps> = ({
                   tooltipPosition="bottom"
                   renderIcon={Archive}
                   kind="ghost"
+                  // kind="danger--ghost"
                   size="md"
                   className={styles.archiveButton}
                   onClick={openModal}

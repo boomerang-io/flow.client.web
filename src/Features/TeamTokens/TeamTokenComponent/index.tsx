@@ -25,6 +25,11 @@ const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 20, 50, 100];
 
 const headers = [
   {
+    header: "Name",
+    key: "name",
+    sortable: true,
+  },
+  {
     header: "Created By",
     key: "creatorName",
     sortable: true,
@@ -41,7 +46,7 @@ const headers = [
   },
   {
     header: "Expires (UTC)",
-    key: "expiryDate",
+    key: "expirationDate",
     sortable: true,
   },
   {
@@ -96,7 +101,7 @@ function TeamTokenComponent({ deleteToken, tokens, hasError, isLoading, activeTe
     const column = headers[cellIndex];
     switch (column.key) {
       case "creationDate":
-      case "expiryDate":
+      case "expirationDate":
         return (
           <p className={styles.tableTextarea}>
             {value ? moment(value).utc().startOf("day").format("MMMM DD, YYYY") : "---"}
@@ -147,6 +152,8 @@ function TeamTokenComponent({ deleteToken, tokens, hasError, isLoading, activeTe
       </FeatureLayout>
     );
   }
+
+  console.log(tokens);
 
   return (
     <FeatureLayout>

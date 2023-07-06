@@ -540,11 +540,14 @@ export interface PatchProperty {
 
 export interface Token {
   id: string;
+  name: string;
+  type: string;
   creationDate: string;
-  expiryDate: string;
-  creatorId: string;
+  expirationDate: string;
+  principal: string;
   description: string;
-  creatorName: string;
+  valid: boolean;
+  permissions: Array<String>;
 }
 
 export interface TokenRequest {
