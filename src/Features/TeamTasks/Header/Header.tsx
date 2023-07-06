@@ -297,6 +297,7 @@ const Header: React.FC<HeaderProps> = ({
                       <p>Archive</p>
                     </div>
                   }
+                  tooltipPosition="bottom"
                   renderIcon={Archive}
                   kind="ghost"
                   size="md"

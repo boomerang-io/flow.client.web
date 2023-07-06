@@ -527,8 +527,8 @@ export function TaskTemplateOverview({
               cancelRequestRef={cancelRequestRef}
             />
             <div className={styles.content}>
-              <section className={styles.notificationsContainer}>
-                {!canEdit && (
+              {!canEdit && (
+                <section className={styles.notificationsContainer}>
                   <InlineNotification
                     lowContrast
                     hideCloseButton={true}
@@ -536,8 +536,8 @@ export function TaskTemplateOverview({
                     title="Verified tasks are not editable"
                     subtitle="Admins can adjust this in global settings"
                   />
-                )}
-              </section>
+                </section>
+              )}
               <div className={styles.detailCardsContainer}>
                 <Tile className={styles.editDetailsCard}>
                   <section className={styles.editTitle}>

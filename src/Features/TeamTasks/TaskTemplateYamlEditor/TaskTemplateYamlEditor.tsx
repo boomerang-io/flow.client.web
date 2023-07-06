@@ -297,8 +297,8 @@ export function TaskTemplateYamlEditor({
               cancelRequestRef={cancelRequestRef}
             />
             <div className={styles.content}>
-              <section className={styles.notificationsContainer}>
-                {!canEdit && (
+              {!canEdit && (
+                <section className={styles.notificationsContainer}>
                   <InlineNotification
                     lowContrast
                     hideCloseButton={true}
@@ -306,8 +306,8 @@ export function TaskTemplateYamlEditor({
                     title="Verified tasks are not editable"
                     subtitle="Admins can adjust this in global settings"
                   />
-                )}
-              </section>
+                </section>
+              )}
               <section className={styles.yamlContainer}>
                 <CodeMirrorReact
                   className={cx(styles.codeMirrorContainer, { [styles.yamlCollapsed]: !docOpen })}
