@@ -7,13 +7,7 @@ import queryString from "query-string";
 import { useHistory, Prompt, matchPath, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { Button, InlineNotification, Tag, Tile } from "@carbon/react";
-import {
-  ConfirmModal,
-  Loading,
-  notify,
-  ToastNotification,
-  TooltipHover,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import EmptyState from "Components/EmptyState";
 import EditTaskTemplateModal from "Components/EditTaskTemplateModal";
@@ -27,23 +21,11 @@ import { TemplateRequestType, FieldTypes } from "../constants";
 import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath } from "Config/appConfig";
-import { Draggable as DraggableIcon, TrashCan, Archive, Bee } from "@carbon/react/icons";
+import { Draggable as DraggableIcon, TrashCan, Bee } from "@carbon/react/icons";
 import { DataDrivenInput, TaskTemplate } from "Types";
 import styles from "./taskTemplateOverview.module.scss";
+import fileDownload from "js-file-download";
 import { sentenceCase } from "change-case";
-
-const ArchiveText: React.FC = () => (
-  <>
-    <p className={styles.confirmModalText}>
-      Archive a task when it is no longer supported and shouldn’t be used in new Workflows.
-    </p>
-    <p className={styles.confirmModalText}>
-      Once archived, it will no longer appear in the Workflow Editor, but you can still view it in the Task Manager
-      here. The task will remain functional in any existing Workflows to avoid breakage.
-    </p>
-    <p className={styles.confirmModalText}>You can restore an archived task later, if needed.</p>
-  </>
-);
 
 interface DetailDataElementsProps {
   label: string;
@@ -463,29 +445,11 @@ export function TaskTemplateOverview({
         <ToastNotification
           kind="error"
           title={"Download Task Template Failed"}
-          subtitle={`Unable to download the task template. ${sentenceCase(err.message)}.`}
+          subtitle={`Unable to download the task template. ${sentenceCase(err.message)}. Please contact support.`}
           data-testid="download-task-template-notification"
         />
       );
     }
-  };
-
-  const handleExportWorkflow = (workflow: WorkflowSummary) => {
-    notify(<ToastNotification kind="info" title={`Export ${viewType}`} subtitle="Export starting soon" />);
-    axios
-      .get(`${BASE_URL}/workflow/${workflow.id}/export`, { headers: { Accept: "application/x-yaml" } })
-      .then(({ data }) => {
-        fileDownload(JSON.stringify(data, null, 4), `${workflow.name}.json`);
-      })
-      .catch((error) => {
-        notify(
-          <ToastNotification
-            kind="error"
-            title="Something's Wrong"
-            subtitle={`Export ${viewType.toLowerCase()} failed`}
-          />
-        );
-      });
   };
 
   if (templateNotFound)

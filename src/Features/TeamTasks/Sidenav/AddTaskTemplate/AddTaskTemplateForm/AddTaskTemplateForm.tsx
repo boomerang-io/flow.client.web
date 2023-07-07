@@ -395,8 +395,8 @@ function AddTaskTemplateForm({
                 <InlineNotification
                   lowContrast
                   kind="error"
-                  title={`${createError.status} - ${createError.error}`}
-                  subtitle={createError.message}
+                  title="Failed Creating Task Template"
+                  subtitle={`Unable to create the task template. ${sentenceCase(err.message)}. Please contact support.`}
                 />
               )}
             </ModalBody>

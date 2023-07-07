@@ -34,7 +34,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
         <ToastNotification
           kind="success"
           subtitle="Successfully created task template"
-          title="Create Task Template"
+          title={`Task Template ${response.data.displayName} created`}
           data-testid="create-task-template-notification"
         />
       );
