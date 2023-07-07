@@ -90,7 +90,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, ha
             iconDescription="Save a new version or update the current one"
             onClick={openModal}
           >
-            Save...
+            Save
           </Button>
         </TooltipHover>
       )}
@@ -278,7 +278,6 @@ const Header: React.FC<HeaderProps> = ({
               title="Reset changes"
               modalTrigger={({ openModal }: ModalTriggerProps) => (
                 <Button
-                  className={styles.resetButton}
                   size="md"
                   hasIconOnly
                   iconDescription={
@@ -309,12 +308,11 @@ const Header: React.FC<HeaderProps> = ({
                       <p>Archive</p>
                     </div>
                   }
+                  disabled={!canEdit}
                   tooltipPosition="bottom"
                   renderIcon={Archive}
-                  kind="ghost"
-                  // kind="danger--ghost"
+                  kind="danger--ghost"
                   size="md"
-                  className={styles.archiveButton}
                   onClick={openModal}
                 />
               )}
