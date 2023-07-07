@@ -221,13 +221,9 @@ export function TaskTemplateOverview({
   const params = useParams();
   const history = useHistory();
 
-  const invalidateQueries = () => {
-    queryClient.invalidateQueries(
-      serviceUrl.getTaskTemplates({
-        query: queryString.stringify({ teams: params.team }),
-      })
-    );
-    queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
+  const invalidateQueries = async () => {
+    await queryClient.invalidateQueries(getTaskTemplatesUrl);
+    await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
   };
 
   const { mutateAsync: uploadTaskTemplateMutation, isLoading } = useMutation(
@@ -288,10 +284,7 @@ export function TaskTemplateOverview({
       command: Boolean(values.command) ? values.command.trim().split(/\n{1,}/) : [],
       envs: newEnvs,
       image: values.image,
-      results:
-        hasFile && Boolean(values.currentRevision) && Boolean(values.currentRevision.results)
-          ? values.currentRevision.results
-          : [],
+      results: Boolean(values.results) ? values.results : [],
       script: values.script,
       workingDir: values.workingDir,
     };
@@ -305,7 +298,7 @@ export function TaskTemplateOverview({
       icon: values.icon.value,
       type: "template",
       changelog: { reason: changeReason },
-      config: hasFile && Boolean(values.config) ? values.config : [],
+      config: Boolean(values.config) ? values.config : [],
       spec: spec,
     };
 
@@ -332,7 +325,7 @@ export function TaskTemplateOverview({
           version: response.data.currentVersion,
         })
       );
-      updateTemplateInState(response.data);
+      await invalidateQueries();
       if (requestType !== TemplateRequestType.Copy) {
         typeof closeModal === "function" && closeModal();
       }
