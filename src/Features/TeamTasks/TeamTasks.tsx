@@ -134,6 +134,7 @@ function TaskTemplatesContainer() {
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             taskTemplates={taskTemplatesByName}
             updateTemplateInState={updateTemplateInState}
+            getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>
         <Redirect to={appLink.manageTaskTemplates({ teamId: activeTeam.id })} />

@@ -205,12 +205,14 @@ const Result: React.FC<ResultProps> = ({
 type TaskTemplateOverviewProps = {
   taskTemplates: Record<string, TaskTemplate[]>;
   updateTemplateInState: (args: TaskTemplate) => void;
+  getTaskTemplatesUrl: string;
   editVerifiedTasksEnabled: any;
 };
 
 export function TaskTemplateOverview({
   taskTemplates,
   updateTemplateInState,
+  getTaskTemplatesUrl,
   editVerifiedTasksEnabled,
 }: TaskTemplateOverviewProps) {
   const cancelRequestRef = React.useRef();
@@ -238,12 +240,7 @@ export function TaskTemplateOverview({
       onSuccess: invalidateQueries,
     }
   );
-  const { mutateAsync: archiveTaskTemplateMutation, isLoading: archiveIsLoading } = useMutation(
-    (args: { name: string; status: string }) => {
-      const { promise } = resolver.putStatusTaskTemplate(args);
-      return promise;
-    }
-  );
+  const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
   const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(
     (args: { name: string; status: string }) => {
       const { promise } = resolver.putStatusTaskTemplate(args);
@@ -375,7 +372,8 @@ export function TaskTemplateOverview({
 
   const handleArchiveTaskTemplate = async () => {
     try {
-      let response = await archiveTaskTemplateMutation({ name: params.name, status: "disable" });
+      await archiveTaskTemplateMutation.mutateAsync({ name: params.name, status: "disable" });
+      await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
         <ToastNotification
           kind="success"
@@ -384,14 +382,12 @@ export function TaskTemplateOverview({
           data-testid="archive-task-template-notification"
         />
       );
-      updateTemplateInState(response);
     } catch (err) {
-      console.log("err", err);
       notify(
         <ToastNotification
           kind="error"
           title={"Archive Task Template Failed"}
-          subtitle={`Unable to archive the task. ${sentenceCase(err.message)}.`}
+          subtitle={`Unable to archive the task. ${sentenceCase(err.message)}. Please contact support.`}
           data-testid="archive-task-template-notification"
         />
       );
@@ -525,7 +521,7 @@ export function TaskTemplateOverview({
                 return prompt;
               }}
             />
-            {(isLoading || archiveIsLoading || restoreIsLoading) && <Loading />}
+            {(isLoading || archiveTaskTemplateMutation.isLoading || restoreIsLoading) && <Loading />}
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
