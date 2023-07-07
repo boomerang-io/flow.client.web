@@ -204,14 +204,12 @@ const Result: React.FC<ResultProps> = ({
 
 type TaskTemplateOverviewProps = {
   taskTemplates: Record<string, TaskTemplate[]>;
-  updateTemplateInState: (args: TaskTemplate) => void;
   getTaskTemplatesUrl: string;
   editVerifiedTasksEnabled: any;
 };
 
 export function TaskTemplateOverview({
   taskTemplates,
-  updateTemplateInState,
   getTaskTemplatesUrl,
   editVerifiedTasksEnabled,
 }: TaskTemplateOverviewProps) {
@@ -307,7 +305,7 @@ export function TaskTemplateOverview({
         typeof setRequestError === "function" && setRequestError(null);
       }
       let replace = requestType === TemplateRequestType.Overwrite ? "true" : "false";
-      let response = await uploadTaskTemplateMutation({ replace, body });
+      let response = await uploadTaskTemplateMutation({ replace, team: params.teamId, body });
       notify(
         <ToastNotification
           kind="success"
@@ -321,8 +319,8 @@ export function TaskTemplateOverview({
         //@ts-ignore
         appLink.manageTaskTemplateEdit({
           teamId: params.teamId,
-          taskId: params.taskId,
-          version: response.data.currentVersion,
+          name: response.data.name,
+          version: response.data.version,
         })
       );
       await invalidateQueries();

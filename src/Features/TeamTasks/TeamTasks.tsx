@@ -83,7 +83,6 @@ function TaskTemplatesContainer() {
         <Sidenav
           isLoading
           activeTeam={activeTeam}
-          addTemplateInState={addTemplateInState}
           taskTemplates={taskTemplatesByName}
           getTaskTemplatesUrl={getTaskTemplatesUrl}
         />
@@ -110,12 +109,7 @@ function TaskTemplatesContainer() {
       <Helmet>
         <title>Team Tasks</title>
       </Helmet>
-      <Sidenav
-        activeTeam={activeTeam}
-        addTemplateInState={addTemplateInState}
-        taskTemplates={taskTemplatesByName}
-        getTaskTemplatesUrl={getTaskTemplatesUrl}
-      />
+      <Sidenav activeTeam={activeTeam} taskTemplates={taskTemplatesByName} getTaskTemplatesUrl={getTaskTemplatesUrl} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -133,7 +127,6 @@ function TaskTemplatesContainer() {
           <TaskTemplateOverview
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             taskTemplates={taskTemplatesByName}
-            updateTemplateInState={updateTemplateInState}
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>
