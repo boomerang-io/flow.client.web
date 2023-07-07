@@ -241,19 +241,7 @@ export function TaskTemplateOverview({
     }
   );
   const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
-  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(
-    (args: { name: string; status: string }) => {
-      const { promise } = resolver.putStatusTaskTemplate(args);
-      return promise;
-    },
-    {
-      onSuccess: invalidateQueries,
-    }
-  );
-  const { mutateAsync: downloadTaskTemplateYamlMutation } = useMutation((args: { name: string; version: string }) => {
-    const { promise } = resolver.getTaskTemplateYaml(args);
-    return promise;
-  }, {});
+  const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
   let selectedTaskTemplateVersions = taskTemplates[params.name] ?? [];
   console.log("selectedTaskTemplateList", selectedTaskTemplateVersions);
@@ -377,7 +365,7 @@ export function TaskTemplateOverview({
       notify(
         <ToastNotification
           kind="success"
-          title={"Task Template Archive"}
+          title={"Successfully Archived Task Template"}
           subtitle={`Request to archive ${selectedTaskTemplate.name} succeeded`}
           data-testid="archive-task-template-notification"
         />
@@ -396,22 +384,22 @@ export function TaskTemplateOverview({
 
   const handleRestoreTaskTemplate = async () => {
     try {
-      let response = await restoreTaskTemplateMutation({ name: selectedTaskTemplate.name, status: "enable" });
+      await restoreTaskTemplateMutation.mutateAsync({ name: selectedTaskTemplate.name, status: "enable" });
+      await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
         <ToastNotification
           kind="success"
-          title={"Task Template Restore"}
+          title={"Successfully Restored Task Template"}
           subtitle={`Request to restore ${selectedTaskTemplate.name} succeeded`}
           data-testid="restore-task-template-notification"
         />
       );
-      updateTemplateInState(response);
     } catch (err) {
       notify(
         <ToastNotification
           kind="error"
           title={"Restore Task Template Failed"}
-          subtitle={`Unable to restore the task. ${sentenceCase(err.message)}.`}
+          subtitle={`Unable to restore the task. ${sentenceCase(err.message)}. Please contact support.`}
           data-testid="restore-task-template-notification"
         />
       );
@@ -521,7 +509,9 @@ export function TaskTemplateOverview({
                 return prompt;
               }}
             />
-            {(isLoading || archiveTaskTemplateMutation.isLoading || restoreIsLoading) && <Loading />}
+            {(isLoading || archiveTaskTemplateMutation.isLoading || restoreTaskTemplateMutation.isLoading) && (
+              <Loading />
+            )}
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}

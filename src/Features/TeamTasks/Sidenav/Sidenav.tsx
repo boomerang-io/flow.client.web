@@ -31,19 +31,12 @@ const taskFilterElemList = taskIcons.map((TaskIcon) => ({
 
 interface SideInfoProps {
   activeTeam: FlowTeam;
-  addTemplateInState: (newTemplate: TaskTemplate) => void;
   isLoading?: boolean;
   taskTemplates: Record<string, TaskTemplate[]>;
   getTaskTemplatesUrl: string;
 }
 
-const SideInfo: React.FC<SideInfoProps> = ({
-  activeTeam,
-  addTemplateInState,
-  isLoading,
-  taskTemplates,
-  getTaskTemplatesUrl,
-}) => {
+const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, isLoading, taskTemplates, getTaskTemplatesUrl }) => {
   const history = useHistory();
   const location = useLocation();
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);

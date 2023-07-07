@@ -26,7 +26,7 @@ function TaskTemplatesContainer() {
   const queryClient = useQueryClient();
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ teams: activeTeam?.id }),
+    query: queryString.stringify({ teams: activeTeam?.id, statuses: "active,inactive" }),
   });
   const {
     data: taskTemplatesData,
