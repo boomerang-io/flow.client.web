@@ -10,19 +10,19 @@ import "codemirror/theme/material.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { retry: isDevEnv || isTestEnv ? 0 : 3 }
+    queries: { retry: isDevEnv || isTestEnv ? 0 : 3 },
   },
 });
 
 function Root() {
   return (
-      <QueryClientProvider client={queryClient}>
-        <ErrorBoundary>
-          {isDevEnv && <ReactQueryDevtools initialIsOpen={false} />}
-            <BrowserRouter basename={APP_ROOT}>
-              <App />
-            </BrowserRouter>
-        </ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary>
+        {isDevEnv && <ReactQueryDevtools initialIsOpen={false} />}
+        <BrowserRouter basename={APP_ROOT}>
+          <App />
+        </BrowserRouter>
+      </ErrorBoundary>
     </QueryClientProvider>
   );
 }

@@ -261,6 +261,15 @@ const Header: React.FC<HeaderProps> = ({
             renderIcon={Download}
             onClick={handleDownloadTaskTemplate}
           />
+          {/* <a
+            className={styles.exportYaml}
+            href={serviceUrl.getTaskTemplateYaml({ id: params.id, revision: params.version })}
+            download={`${selectedTaskTemplate.name}.yaml`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Download />
+          </a> */}
           {!isOldVersion && isActive && (
             <ConfirmModal
               affirmativeAction={formikProps.resetForm}
@@ -287,7 +296,7 @@ const Header: React.FC<HeaderProps> = ({
           )}
           {!isOldVersion && isActive && (
             <ConfirmModal
-              affirmativeAction={() => handleArchiveTaskTemplate}
+              affirmativeAction={handleArchiveTaskTemplate}
               affirmativeText="Archive this task"
               containerClassName={styles.archiveContainer}
               children={<ArchiveText />}

@@ -21,12 +21,13 @@ import { requiredTaskProps } from "./constants";
 import { resolver } from "Config/servicesConfig";
 import styles from "./addTaskTemplateForm.module.scss";
 
-AddTaskTemplateForm.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-  taskTemplateNames: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool,
-  handleAddTaskTemplate: PropTypes.func.isRequired,
-};
+interface AddTaskTemplateFormProps {
+  closeModal: () => void;
+  taskTemplateNames: Array<string>;
+  isSubmitting: boolean;
+  createError: any;
+  handleAddTaskTemplate: () => void;
+}
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
 
@@ -66,7 +67,13 @@ const readFile = (file) => {
   });
 };
 
-function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleAddTaskTemplate }) {
+function AddTaskTemplateForm({
+  closeModal,
+  isSubmitting,
+  createError,
+  taskTemplateNames,
+  handleAddTaskTemplate,
+}: AddTaskTemplateFormProps) {
   const orderedIcons = orderBy(taskIcons, ["name"]);
 
   const {
@@ -224,7 +231,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleA
         return (
           <ModalFlowForm onSubmit={handleSubmit} className={styles.container}>
             <ModalBody>
-              {isLoading && <Loading />}
+              {isSubmitting && <Loading />}
               <div>
                 <label className={styles.fileUploaderLabel} htmlFor="uploadTemplate">
                   Import task file (optional)
@@ -384,13 +391,21 @@ function AddTaskTemplateForm({ closeModal, taskTemplateNames, isLoading, handleA
                 placeholder="Enter env"
                 values={values.envs || []}
               />
+              {Boolean(createError) && (
+                <InlineNotification
+                  lowContrast
+                  kind="error"
+                  title={`${createError.status} - ${createError.error}`}
+                  subtitle={createError.message}
+                />
+              )}
             </ModalBody>
             <ModalFooter>
               <Button kind="secondary" onClick={closeModal} type="button">
                 Cancel
               </Button>
-              <Button disabled={!isValid || isLoading} type="submit">
-                {!isLoading ? "Create" : "...Creating"}
+              <Button disabled={!isValid || isSubmitting} type="submit">
+                {!isSubmitting ? "Create" : "Creating..."}
               </Button>
             </ModalFooter>
           </ModalFlowForm>

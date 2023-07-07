@@ -212,7 +212,7 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.postGlobalToken(), body, method: HttpMethod.Post }),
   postTeamToken: ({ body }) => cancellableResolver({ url: serviceUrl.postTeamToken(), body, method: HttpMethod.Post }),
   putCreateTaskTemplate: ({ replace, team, body }) =>
-    cancellableResolver({ url: serviceUrl.putTaskTemplate({ replace, team }), body, method: HttpMethod.Put }),
+    axios({ url: serviceUrl.putTaskTemplate({ replace, team }), body, method: HttpMethod.Put }),
   putCreateTaskYaml: ({ id, revision, comment, body }) =>
     cancellableResolver({
       url: serviceUrl.putTaskTemplateYaml({ id, revision, comment }),

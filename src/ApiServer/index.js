@@ -244,7 +244,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.post(serviceUrl.postValidateYaml(), (schema) => {
         return schema.db.taskTemplateValidate[0];
       });
-
+      this.put(serviceUrl.putTaskTemplate({ replace: "true", team: ":teamId" }), (schema, request) => {
+        return {};
+      });
+      
       /**
        * Workflows
        */

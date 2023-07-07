@@ -1,6 +1,5 @@
 //@ts-nocheck
 import React from "react";
-import { isCancel } from "axios";
 import { useMutation } from "react-query";
 import { Button } from "@carbon/react";
 import { notify, ToastNotification, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -19,43 +18,39 @@ interface AddTaskTemplateProps {
 }
 
 function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: AddTaskTemplateProps) {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const { activeTeam } = useAppContext();
   const queryClient = useQueryClient();
   const cancelRequestRef = React.useRef();
 
-  const { mutateAsync: createTaskTemplateMutation, isLoading } = useMutation((args) => {
-    const { promise, cancel } = resolver.putCreateTaskTemplate(args);
-    cancelRequestRef.current = cancel;
-    return promise;
-  });
+  const createTaskTemplateMutation = useMutation(resolver.putCreateTaskTemplate);
 
   const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
+    setIsSubmitting(true);
     try {
-      let response = await createTaskTemplateMutation({ replace, team: activeTeam.id, body });
+      let response = await createTaskTemplateMutation.mutateAsync({ replace, team: activeTeam.id, body });
+      await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
         <ToastNotification
           kind="success"
           subtitle="Successfully created task template"
-          title="Update Task Template"
+          title="Create Task Template"
           data-testid="create-task-template-notification"
         />
       );
-      console.log(response);
-      await queryClient.invalidateQueries(getTaskTemplatesUrl);
-      history.push(appLink.manageTaskTemplateEdit({ name: response.data.name, version: 1, teamId: activeTeam.id }));
+      history.push(
+        appLink.manageTaskTemplateEdit({
+          name: response.data.name,
+          version: response.data.version,
+          teamId: activeTeam.id,
+        })
+      );
       closeModal();
     } catch (err) {
-      if (!isCancel(err)) {
-        const { data } = err && err.response;
-        notify(
-          <ToastNotification
-            kind="error"
-            title={`${data.status} - ${data.error}`}
-            subtitle={data.message}
-            data-testid="create-task-template-notification"
-          />
-        );
-      }
+      console.log(err);
+      // no-op
+    } finally {
+      setIsSubmitting(false);
     }
   };
   return (
@@ -81,7 +76,8 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
       {({ closeModal }) => (
         <AddTaskTemplateForm
           handleAddTaskTemplate={handleAddTaskTemplate}
-          isLoading={isLoading}
+          isSubmitting={isSubmitting}
+          createError={createTaskTemplateMutation.error}
           taskTemplateNames={taskTemplateNames}
           closeModal={closeModal}
         />

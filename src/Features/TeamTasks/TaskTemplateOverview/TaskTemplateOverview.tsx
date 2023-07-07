@@ -260,9 +260,6 @@ export function TaskTemplateOverview({
     (args: { name: string; status: string }) => {
       const { promise } = resolver.putStatusTaskTemplate(args);
       return promise;
-    },
-    {
-      onSuccess: invalidateQueries,
     }
   );
   const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(
@@ -396,7 +393,7 @@ export function TaskTemplateOverview({
 
   const handleArchiveTaskTemplate = async () => {
     try {
-      let response = await archiveTaskTemplateMutation({ name: params.name, version: params.version });
+      let response = await archiveTaskTemplateMutation({ name: params.name, status: "disable" });
       notify(
         <ToastNotification
           kind="success"
@@ -445,7 +442,13 @@ export function TaskTemplateOverview({
 
   const handleDownloadTaskTemplate = async () => {
     try {
-      await downloadTaskTemplateYamlMutation({ name: params.name, version: params.version });
+      const response = await axios.get(
+        serviceUrl.getTaskTemplateYaml({ name: selectedTaskTemplate.name, version: selectedTaskTemplate.version }),
+        {
+          headers: { Accept: "application/x-yaml" },
+        }
+      );
+      fileDownload(response.data, `${selectedTaskTemplate.name}.yaml`);
       notify(
         <ToastNotification
           kind="success"
@@ -465,6 +468,24 @@ export function TaskTemplateOverview({
         />
       );
     }
+  };
+
+  const handleExportWorkflow = (workflow: WorkflowSummary) => {
+    notify(<ToastNotification kind="info" title={`Export ${viewType}`} subtitle="Export starting soon" />);
+    axios
+      .get(`${BASE_URL}/workflow/${workflow.id}/export`, { headers: { Accept: "application/x-yaml" } })
+      .then(({ data }) => {
+        fileDownload(JSON.stringify(data, null, 4), `${workflow.name}.json`);
+      })
+      .catch((error) => {
+        notify(
+          <ToastNotification
+            kind="error"
+            title="Something's Wrong"
+            subtitle={`Export ${viewType.toLowerCase()} failed`}
+          />
+        );
+      });
   };
 
   if (templateNotFound)
