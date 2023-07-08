@@ -47,7 +47,6 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
       );
       closeModal();
     } catch (err) {
-      console.log(err);
       // no-op
     } finally {
       setIsSubmitting(false);

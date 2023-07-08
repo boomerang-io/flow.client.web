@@ -213,6 +213,7 @@ export function TaskTemplateOverview({
   getTaskTemplatesUrl,
   editVerifiedTasksEnabled,
 }: TaskTemplateOverviewProps) {
+  const [isSaving, setIsSaving] = React.useState(false);
   const cancelRequestRef = React.useRef();
   const queryClient = useQueryClient();
 
@@ -224,16 +225,7 @@ export function TaskTemplateOverview({
     await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
   };
 
-  const { mutateAsync: uploadTaskTemplateMutation, isLoading } = useMutation(
-    (args) => {
-      const { promise, cancel } = resolver.putCreateTaskTemplate(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    },
-    {
-      onSuccess: invalidateQueries,
-    }
-  );
+  const applyTaskTemplateMutation = useMutation(resolver.putCreateTaskTemplate);
   const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
   const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
@@ -265,6 +257,7 @@ export function TaskTemplateOverview({
   };
 
   const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
+    setIsSaving(true);
     let newVersion =
       requestType === TemplateRequestType.Overwrite
         ? selectedTaskTemplateVersion
@@ -305,7 +298,8 @@ export function TaskTemplateOverview({
         typeof setRequestError === "function" && setRequestError(null);
       }
       let replace = requestType === TemplateRequestType.Overwrite ? "true" : "false";
-      let response = await uploadTaskTemplateMutation({ replace, team: params.teamId, body });
+      let response = await applyTaskTemplateMutation.mutateAsync({ replace, team: params.teamId, body });
+      await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
         <ToastNotification
           kind="success"
@@ -323,29 +317,28 @@ export function TaskTemplateOverview({
           version: response.data.version,
         })
       );
-      await invalidateQueries();
       if (requestType !== TemplateRequestType.Copy) {
         typeof closeModal === "function" && closeModal();
       }
     } catch (err) {
-      if (!axios.isCancel(err)) {
-        if (requestType !== TemplateRequestType.Copy) {
-          const { title, message: subtitle } = formatErrorMessage({
-            error: err,
-            defaultMessage: "Request to save task template failed.",
-          });
-          setRequestError({ title, subtitle });
-        } else {
-          notify(
-            <ToastNotification
-              kind="error"
-              title={"Update Task Template Failed"}
-              subtitle={"Something's Wrong"}
-              data-testid="update-task-template-notification"
-            />
-          );
-        }
+      if (requestType !== TemplateRequestType.Copy) {
+        const { title, message: subtitle } = formatErrorMessage({
+          error: err,
+          defaultMessage: "Request to save task template failed.",
+        });
+        setRequestError({ title, subtitle });
+      } else {
+        notify(
+          <ToastNotification
+            kind="error"
+            title={"Update Task Template Failed"}
+            subtitle={"Something's Wrong"}
+            data-testid="update-task-template-notification"
+          />
+        );
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -500,9 +493,9 @@ export function TaskTemplateOverview({
                 return prompt;
               }}
             />
-            {(isLoading || archiveTaskTemplateMutation.isLoading || restoreTaskTemplateMutation.isLoading) && (
-              <Loading />
-            )}
+            {(applyTaskTemplateMutation.isLoading ||
+              archiveTaskTemplateMutation.isLoading ||
+              restoreTaskTemplateMutation.isLoading) && <Loading />}
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
@@ -513,7 +506,7 @@ export function TaskTemplateOverview({
               handleSaveTaskTemplate={handleSaveTaskTemplate}
               handleDownloadTaskTemplate={handleDownloadTaskTemplate}
               isActive={isActive}
-              isLoading={isLoading}
+              isLoading={applyTaskTemplateMutation.isLoading}
               isOldVersion={isOldVersion}
               cancelRequestRef={cancelRequestRef}
             />
