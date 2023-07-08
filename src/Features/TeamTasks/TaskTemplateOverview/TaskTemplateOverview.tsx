@@ -294,9 +294,6 @@ export function TaskTemplateOverview({
     };
 
     try {
-      if (requestType !== TemplateRequestType.Copy) {
-        typeof setRequestError === "function" && setRequestError(null);
-      }
       let replace = requestType === TemplateRequestType.Overwrite ? "true" : "false";
       let response = await applyTaskTemplateMutation.mutateAsync({ replace, team: params.teamId, body });
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
@@ -318,6 +315,7 @@ export function TaskTemplateOverview({
         })
       );
       if (requestType !== TemplateRequestType.Copy) {
+        typeof setRequestError === "function" && setRequestError(null);
         typeof closeModal === "function" && closeModal();
       }
     } catch (err) {
@@ -506,7 +504,7 @@ export function TaskTemplateOverview({
               handleSaveTaskTemplate={handleSaveTaskTemplate}
               handleDownloadTaskTemplate={handleDownloadTaskTemplate}
               isActive={isActive}
-              isLoading={applyTaskTemplateMutation.isLoading}
+              isLoading={isSubmitting}
               isOldVersion={isOldVersion}
               cancelRequestRef={cancelRequestRef}
             />
