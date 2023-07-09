@@ -16,6 +16,7 @@ import Header from "./Header";
 import Properties from "./Properties";
 import Schedule from "./Schedule";
 import sortBy from "lodash/sortBy";
+import queryString from "query-string";
 import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utils/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
@@ -36,6 +37,7 @@ import { TaskTemplate, WorkflowSummary, WorkflowRevision, WorkflowView } from "T
 import styles from "./editor.module.scss";
 
 export default function EditorContainer() {
+  const { activeTeam } = useAppContext();
   // Init revision number state is held here so we can easily refect the data on change via react-query
 
   const [revisionNumber, setRevisionNumber] = useState(0);
@@ -44,8 +46,10 @@ export default function EditorContainer() {
 
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
-  const getTaskTemplatesUrl = serviceUrl.getWorkflowTaskTemplates({ workflowId });
-  const getAvailableParametersUrl = serviceUrl.workflowAvailableParameters({ workflowId });
+  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
+    query: queryString.stringify({ teams: activeTeam?.id, statuses: "active" }),
+  });
+  const getAvailableParametersUrl = serviceUrl.getTaskTemplates({ workflowId });
 
   /**
    * Queries
@@ -53,17 +57,17 @@ export default function EditorContainer() {
   const summaryQuery = useQuery(getSummaryUrl);
   const revisionQuery = useQuery(getRevisionUrl, { refetchOnWindowFocus: false });
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
-
   const availableParametersQuery = useQuery(getAvailableParametersUrl);
+
   /**
    * Mutations
    */
   const { mutateAsync: mutateSummary, ...summaryMutation } = useMutation(resolver.patchUpdateWorkflowSummary, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getMyTeams()),
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: null })),
   });
   const { mutateAsync: mutateRevision, ...revisionMutation } = useMutation(resolver.postCreateWorkflowRevision, {
     onSuccess: () => {
-      queryClient.invalidateQueries(serviceUrl.getMyTeams());
+      queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: null }));
       queryClient.invalidateQueries(getSummaryUrl);
     },
   });
@@ -96,7 +100,7 @@ export default function EditorContainer() {
         summaryData={summaryQuery.data}
         summaryMutation={summaryMutation}
         setRevisionNumber={setRevisionNumber}
-        taskTemplatesData={taskTemplatesQuery.data}
+        taskTemplatesData={taskTemplatesQuery.data.content}
         workflowId={workflowId}
       />
     );
@@ -454,13 +458,11 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           <Switch>
             <Route path={AppPath.EditorDesigner}>
               <Designer
-                createNode={handleCreateNode}
                 isModalOpen={isModalOpen}
                 notes={markdown}
                 revisionQuery={revisionQuery}
                 tasks={taskTemplatesData}
                 updateNotes={handleUpdateNotes}
-                workflowDagEngine={workflowDagEngine}
                 workflowName={summaryData.name}
               />
             </Route>
