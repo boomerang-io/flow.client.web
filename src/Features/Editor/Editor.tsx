@@ -16,7 +16,6 @@ import Header from "./Header";
 import Properties from "./Properties";
 import Schedule from "./Schedule";
 import sortBy from "lodash/sortBy";
-import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utils/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
@@ -112,33 +111,33 @@ interface EditorStateContainerProps {
   mutateSummary: MutateFunction<AxiosResponse<any, any>, unknown, { body: any }, unknown>;
   parametersMutation: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
   revisionMutation:
-    | {
-        data: undefined;
-        error: null;
-        isError: false;
-        isIdle: true;
-        isLoading: false;
-        isSuccess: false;
-        status: "idle";
-        mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-        variables: { workflowId: any; body: any } | undefined;
-      }
-    | any;
+  | {
+    data: undefined;
+    error: null;
+    isError: false;
+    isIdle: true;
+    isLoading: false;
+    isSuccess: false;
+    status: "idle";
+    mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+    variables: { workflowId: any; body: any } | undefined;
+  }
+  | any;
   revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
   summaryData: WorkflowSummary;
   summaryMutation:
-    | {
-        data: undefined;
-        error: null;
-        isError: false;
-        isIdle: true;
-        isLoading: false;
-        isSuccess: false;
-        status: "idle";
-        mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-        variables: { workflowId: any; body: any } | undefined;
-      }
-    | any;
+  | {
+    data: undefined;
+    error: null;
+    isError: false;
+    isIdle: true;
+    isLoading: false;
+    isSuccess: false;
+    status: "idle";
+    mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+    variables: { workflowId: any; body: any } | undefined;
+  }
+  | any;
   setRevisionNumber: (revisionNumber: number) => void;
   taskTemplatesData: Array<TaskTemplate>;
   workflowId: string;
@@ -249,7 +248,6 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       revisionState.config,
       revisionState.markdown,
       setRevisionNumber,
-      workflowDagEngine,
       workflowId,
     ]
   );
@@ -371,9 +369,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         const inputs =
           Array.isArray(currentTaskConfig.config) && currentTaskConfig.config.length
             ? currentTaskConfig.config.reduce((accu: { [index: string]: string }, item: { key: string }) => {
-                accu[item.key] = "";
-                return accu;
-              }, {})
+              accu[item.key] = "";
+              return accu;
+            }, {})
             : {};
         revisionDispatch({
           type: RevisionActionTypes.AddNode,
