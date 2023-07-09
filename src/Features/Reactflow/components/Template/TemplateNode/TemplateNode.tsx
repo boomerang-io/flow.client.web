@@ -25,6 +25,7 @@ export default function TaskTemplateNode(props: NodeProps) {
 // might be able to use a hook got get the workflow state from react flow
 
 function TaskTemplateNodeDesigner(props: NodeProps) {
+  console.log("This is being used");
   const reactFlowInstance = useReactFlow();
 
   const { availableParametersQueryData, revisionDispatch, revisionState, taskTemplatesData } = useEditorContext();
@@ -34,6 +35,7 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
   /**
    * TODO: Pull data off of context
    */
+  console.log({ data: props.data });
   const inputProperties = availableParametersQueryData;
 
   const nodeDag: any = revisionState.dag.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};

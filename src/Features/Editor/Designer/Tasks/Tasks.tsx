@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { Component } from "react";
+import { Component } from "react";
 import cx from "classnames";
 import { matchSorter } from "match-sorter";
 import uniqBy from "lodash/uniqBy";
