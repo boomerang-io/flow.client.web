@@ -53,7 +53,7 @@ describe("CreateTemplateWorkflow --- Snapshot Test", () => {
       <Route path={AppPath.WorkflowsTeams}>
         <CreateTemplateWorkflow {...props} />
       </Route>,
-      { route: appLink.workflowsTeams() }
+      { route: appLink.workflows() }
     );
     expect(baseElement).toMatchSnapshot();
   });
