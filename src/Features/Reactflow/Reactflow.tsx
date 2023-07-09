@@ -20,6 +20,7 @@ import ReactFlow, {
   useReactFlow,
   addEdge,
   Connection,
+  XYPosition,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import "./styles.scss";
@@ -29,6 +30,7 @@ import WorkflowEditButton from "Components/WorkflowEditButton";
 import * as GraphComps from "./components";
 import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
 import { EXECUTION_CONDITIONS } from "Utils/taskLinkIcons";
+import { TaskTemplate } from "Types";
 
 type NodeTypeValues = typeof NodeType[keyof typeof NodeType];
 
@@ -47,6 +49,7 @@ const conditionColor = {
 const TaskNode: React.FC<NodeProps> = (props) => {
   // TODO: this along w/ the use of `reactFlowInstance.deleteElements` should probably be a shared hook that can be reused by
   // nodes
+  console.log({ data: props.data })
   const reactFlowInstance = useReactFlow();
   const { isConnectable, type } = props;
   return (
@@ -64,7 +67,7 @@ const TaskNode: React.FC<NodeProps> = (props) => {
         height: "80px",
       }}
     >
-      <h2>{`Task node - ${type}`}</h2>
+      <h2>{props.data?.task?.displayName ?? "Task"}</h2>
       <div style={{ position: "absolute", top: "-0.875rem", right: "-0.875rem", display: "flex", gap: "0.375rem" }}>
         <WorkflowEditButton className={""} onClick={() => console.log("clicked")}>
           Edit
@@ -207,7 +210,7 @@ const nodeTypes: NodeTypes = {
   start: GraphComps.StartNode,
   end: GraphComps.EndNode,
   task: TaskNode,
-  templateTask: GraphComps.TemplateNode,
+  template: TaskNode,
   approval: TaskNode,
   custom: GraphComps.CustomNode,
   decision: GraphComps.DecisionNode,
@@ -315,32 +318,34 @@ function FlowDiagram(props: {
   const onDrop = React.useCallback(
     (event) => {
       event.preventDefault();
-
       const reactFlowBounds = reactFlowWrapper.current?.getBoundingClientRect() ?? { left: 0, top: 0 };
-      const type = event.dataTransfer.getData("application/reactflow");
+      const taskString = event.dataTransfer.getData("application/reactflow") as string
+      const task = JSON.parse(taskString) as TaskTemplate;
 
       // check if the dropped element is valid
-      if (typeof type === "undefined" || !type) {
+      if (typeof task.type === "undefined" || !task) {
         return;
       }
 
       const position = flow?.project({
         x: event.clientX - reactFlowBounds?.left,
         y: event.clientY - reactFlowBounds?.top,
-      });
-      const newNode = {
+      }) as XYPosition
+
+      const newNode: Node = {
         id: getId(),
-        type,
+        type: task.type,
         position,
-        data: { label: `${type} node` },
+        data: { label: `${task.type} node`, task },
       };
 
-      setNodes((nds) => nds.concat(newNode as any));
+      setNodes((nds) => nds.concat(newNode));
     },
     [flow]
   );
 
   const isDisabled = props.mode === WorkflowDagEngineMode.Viewer;
+  console.log({ nodes });
 
   return (
     <div style={{ height: "100%", width: "100%" }}>

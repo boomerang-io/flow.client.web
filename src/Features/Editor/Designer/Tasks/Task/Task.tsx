@@ -7,14 +7,13 @@ import { Bee, Recommend } from "@carbon/react/icons";
 import { TaskTemplate } from "Types";
 import styles from "./task.module.scss";
 
-const Task: React.FC<TaskTemplate> = ({ name, icon, verified, scope, taskData }) => {
-  console.log({ taskData });
+function Task({ name, icon, verified, scope, taskData }: TaskTemplate & { taskData: TaskTemplate }) {
   const [isDragActive, setIsDragActive] = React.useState(false);
   const isTeamTask = scope === "team";
   const TaskIcon = taskIcons.find((currentIcon) => currentIcon.name === icon);
 
-  const onDragStart = (event: any, nodeType: string) => {
-    event.dataTransfer.setData("application/reactflow", nodeType);
+  const onDragStart = (event: any, task: TaskTemplate) => {
+    event.dataTransfer.setData("application/reactflow", JSON.stringify(task));
     event.dataTransfer.effectAllowed = "move";
   };
 
@@ -28,7 +27,7 @@ const Task: React.FC<TaskTemplate> = ({ name, icon, verified, scope, taskData })
         onDragEnd={() => setIsDragActive(false)}
         onDragStart={(event: React.DragEvent<HTMLDivElement>) => {
           setIsDragActive(true);
-          onDragStart(event, taskData.nodeType);
+          onDragStart(event, taskData);
         }}
         tabIndex="0"
         title={name}

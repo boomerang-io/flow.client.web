@@ -9,7 +9,7 @@ import styles from "./BaseNode.module.scss";
 //TODO: add icon
 //TODO: look at what props are required
 
-export default function BaseNode(props: {
+interface BaseNodeProps {
   isConnectable: boolean;
   className?: string;
   subtitleClass?: string;
@@ -17,7 +17,9 @@ export default function BaseNode(props: {
   subtitle?: string;
   children?: React.ReactNode;
   nodeProps: NodeProps;
-}) {
+}
+
+export default function BaseNode(props: BaseNodeProps) {
   const { isConnectable, children, title, subtitle, className, subtitleClass, ...rest } = props;
   const reactFlowInstance = useReactFlow();
   return (
