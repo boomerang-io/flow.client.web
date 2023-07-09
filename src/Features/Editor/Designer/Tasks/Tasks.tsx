@@ -161,7 +161,7 @@ export default class Tasks extends Component<TaskProps> {
                 <Task
                   key={task.id}
                   icon={task.icon}
-                  name={task.name}
+                  name={task.displayName}
                   verified={task.verified}
                   scope={task.scope}
                   taskData={task}
