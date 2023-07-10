@@ -3,7 +3,6 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { Formik } from "formik";
 import axios from "axios";
-import queryString from "query-string";
 import { useHistory, Prompt, matchPath, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { Button, InlineNotification, Tag, Tile } from "@carbon/react";
@@ -23,7 +22,7 @@ import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath } from "Config/appConfig";
 import { Draggable as DraggableIcon, TrashCan, Bee } from "@carbon/react/icons";
 import { DataDrivenInput, TaskTemplate } from "Types";
-import styles from "./taskTemplateOverview.module.scss";
+import styles from "./TaskTemplateOverview.module.scss";
 import fileDownload from "js-file-download";
 import { sentenceCase } from "change-case";
 
@@ -220,12 +219,7 @@ export function TaskTemplateOverview({
   const params = useParams();
   const history = useHistory();
 
-  const invalidateQueries = async () => {
-    await queryClient.invalidateQueries(getTaskTemplatesUrl);
-    await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
-  };
-
-  const applyTaskTemplateMutation = useMutation(resolver.putCreateTaskTemplate);
+  const applyTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
   const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
   const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
@@ -297,6 +291,7 @@ export function TaskTemplateOverview({
       let replace = requestType === TemplateRequestType.Overwrite ? "true" : "false";
       let response = await applyTaskTemplateMutation.mutateAsync({ replace, team: params.teamId, body });
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
+      await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
         <ToastNotification
           kind="success"
@@ -336,7 +331,7 @@ export function TaskTemplateOverview({
         );
       }
     } finally {
-      setIsSubmitting(false);
+      setIsSaving(false);
     }
   };
 
@@ -344,6 +339,7 @@ export function TaskTemplateOverview({
     try {
       await archiveTaskTemplateMutation.mutateAsync({ name: params.name, status: "disable" });
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
+      await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
         <ToastNotification
           kind="success"
@@ -368,6 +364,7 @@ export function TaskTemplateOverview({
     try {
       await restoreTaskTemplateMutation.mutateAsync({ name: selectedTaskTemplate.name, status: "enable" });
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
+      await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
         <ToastNotification
           kind="success"
@@ -476,7 +473,7 @@ export function TaskTemplateOverview({
               message={(location) => {
                 let prompt = true;
                 const templateMatch = matchPath(location.pathname, {
-                  path: AppPath.TaskTemplateEdit,
+                  path: AppPath.TaskTemplateDetail,
                 });
                 if (isDirty && !location.pathname.includes(templateMatch?.params?.id) && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";
@@ -504,7 +501,7 @@ export function TaskTemplateOverview({
               handleSaveTaskTemplate={handleSaveTaskTemplate}
               handleDownloadTaskTemplate={handleDownloadTaskTemplate}
               isActive={isActive}
-              isLoading={isSubmitting}
+              isLoading={isSubmitting || isSaving}
               isOldVersion={isOldVersion}
               cancelRequestRef={cancelRequestRef}
             />

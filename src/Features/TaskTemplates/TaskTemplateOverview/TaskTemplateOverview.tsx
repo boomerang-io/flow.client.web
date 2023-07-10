@@ -242,7 +242,7 @@ export function TaskTemplateOverview({
 
   const { mutateAsync: uploadTaskTemplateMutation, isLoading } = useMutation(
     (args) => {
-      const { promise, cancel } = resolver.putCreateTaskTemplate(args);
+      const { promise, cancel } = resolver.putApplyTaskTemplate(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
@@ -390,7 +390,7 @@ export function TaskTemplateOverview({
       resetForm();
       history.push(
         //@ts-ignore
-        appLink.taskTemplateEdit({ id: params.id, version: response.data.currentVersion })
+        appLink.taskTemplateDetail({ id: params.id, version: response.data.currentVersion })
       );
       updateTemplateInState(response.data);
       if (requestType !== TemplateRequestType.Copy) {
@@ -523,7 +523,7 @@ export function TaskTemplateOverview({
               message={(location) => {
                 let prompt = true;
                 const templateMatch = matchPath(location.pathname, {
-                  path: AppPath.TaskTemplateEdit,
+                  path: AppPath.TaskTemplateDetail,
                 });
                 if (isDirty && !location.pathname.includes(templateMatch?.params?.id) && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";

@@ -47,7 +47,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
 
   const history = useHistory();
   const location = useLocation();
-  const globalMatch = matchPath(location.pathname, { path: AppPath.TaskTemplateEdit });
+  const globalMatch = matchPath(location.pathname, { path: AppPath.TaskTemplateDetail });
 
   let categories = tasksToDisplay
     .reduce((acc: string[], task: TaskTemplate) => {
@@ -206,7 +206,7 @@ const Task: React.FC<TaskProps> = (props) => {
 
   return (
     <SideNavLink
-      to={appLink.taskTemplateEdit({ name: task.name, version: task.version.toString() })}
+      to={appLink.taskTemplateDetail({ name: task.name, version: task.version.toString() })}
       icon={TaskIcon ? TaskIcon.Icon : Bee}
     >
       <div className={styles.task}>

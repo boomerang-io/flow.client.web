@@ -39,7 +39,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
         />
       );
       addTemplateInState(response.data);
-      history.push(appLink.taskTemplateEdit({ id: response.data.id, version: 1 }));
+      history.push(appLink.taskTemplateDetail({ id: response.data.id, version: 1 }));
       closeModal();
     } catch (err) {
       if (!isCancel(err)) {

@@ -18,19 +18,19 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRev
   const history = useHistory();
   const params: { id: string } = useParams();
   const backVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.id, version: currentRevision.version - 1 }));
+    history.push(appLink.taskTemplateDetail({ id: params.id, version: currentRevision.version - 1 }));
   };
 
   const fastBackVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.id, version: 1 }));
+    history.push(appLink.taskTemplateDetail({ id: params.id, version: 1 }));
   };
 
   const forwardVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.id, version: currentRevision.version + 1 }));
+    history.push(appLink.taskTemplateDetail({ id: params.id, version: currentRevision.version + 1 }));
   };
 
   const fastForwardVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.id, version: revisions.length }));
+    history.push(appLink.taskTemplateDetail({ id: params.id, version: revisions.length }));
   };
 
   const renderBackButtons = (enabled: boolean) => {

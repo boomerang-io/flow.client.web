@@ -16,14 +16,12 @@ import VersionHistory from "Components/VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
 import moment from "moment";
 import { appLink } from "Config/appConfig";
-import { serviceUrl } from "Config/servicesConfig";
 import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
 import { Bee, Download, Save, Archive, Copy, Reset, ViewOff, Recommend, Identification } from "@carbon/react/icons";
 import { FormikProps } from "formik";
 import { ComposedModalChildProps, ModalTriggerProps, TaskTemplate } from "Types";
 import styles from "./header.module.scss";
-import { useQuery } from "react-query";
 
 const ArchiveText: React.FC = () => (
   <>
@@ -223,20 +221,34 @@ const Header: React.FC<HeaderProps> = ({
           <Tab
             exact
             label="Overview"
-            to={appLink.manageTaskTemplateEdit({
-              teamId: params?.teamId,
-              name: selectedTaskTemplate.name,
-              version: selectedTaskTemplate.version.toString(),
-            })}
+            to={
+              params.teamId
+                ? appLink.manageTaskTemplateEdit({
+                    teamId: params.teamId,
+                    name: selectedTaskTemplate.name,
+                    version: selectedTaskTemplate.version.toString(),
+                  })
+                : appLink.taskTemplateDetail({
+                    name: selectedTaskTemplate.name,
+                    version: selectedTaskTemplate.version.toString(),
+                  })
+            }
           />
           <Tab
             exact
             label="Editor"
-            to={appLink.manageTaskTemplateYaml({
-              teamId: params?.teamId,
-              name: selectedTaskTemplate.name,
-              version: selectedTaskTemplate.version.toString(),
-            })}
+            to={
+              params.teamId
+                ? appLink.manageTaskTemplateYaml({
+                    teamId: params.teamId,
+                    name: selectedTaskTemplate.name,
+                    version: selectedTaskTemplate.version.toString(),
+                  })
+                : appLink.taskTemplateEditor({
+                    name: selectedTaskTemplate.name,
+                    version: selectedTaskTemplate.version.toString(),
+                  })
+            }
           />
         </Tabs>
       }
@@ -261,15 +273,6 @@ const Header: React.FC<HeaderProps> = ({
             renderIcon={Download}
             onClick={handleDownloadTaskTemplate}
           />
-          {/* <a
-            className={styles.exportYaml}
-            href={serviceUrl.getTaskTemplateYaml({ id: params.id, revision: params.version })}
-            download={`${selectedTaskTemplate.name}.yaml`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Download />
-          </a> */}
           {!isOldVersion && isActive && (
             <ConfirmModal
               affirmativeAction={formikProps.resetForm}

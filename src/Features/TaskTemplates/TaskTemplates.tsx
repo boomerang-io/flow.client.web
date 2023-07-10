@@ -70,14 +70,14 @@ const TaskTemplatesContainer: React.FC = () => {
             <WombatMessage className={styles.wombat} title="Select a task or create one" />
           </Box>
         </Route>
-        <Route path={AppPath.TaskTemplateYaml}>
+        <Route path={AppPath.TaskTemplateEditor}>
           <TaskTemplateYamlEditor
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             taskTemplates={taskTemplatesData?.content}
             updateTemplateInState={updateTemplateInState}
           />
         </Route>
-        <Route path={AppPath.TaskTemplateEdit}>
+        <Route path={AppPath.TaskTemplateDetail}>
           <TaskTemplateOverview
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             taskTemplates={taskTemplatesData?.content}

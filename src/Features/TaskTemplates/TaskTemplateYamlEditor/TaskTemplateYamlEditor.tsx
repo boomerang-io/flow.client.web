@@ -58,9 +58,11 @@ export function TaskTemplateYamlEditor({
 
   const [docOpen, setDocOpen] = useState(true);
 
-  const { data: yamlData, loading: yamlLoading, error: yamlError } = useQuery(
-    serviceUrl.getTaskTemplateYaml({ id: params.id, revision: params.version })
-  );
+  const {
+    data: yamlData,
+    loading: yamlLoading,
+    error: yamlError,
+  } = useQuery(serviceUrl.getTaskTemplateYaml({ id: params.id, revision: params.version }));
 
   const invalidateQueries = () => {
     queryClient.invalidateQueries(serviceUrl.getTaskTemplates({ query: null }));
@@ -73,7 +75,7 @@ export function TaskTemplateYamlEditor({
 
   const { mutateAsync: uploadTaskYamlMutation, isLoading: yamlUploadIsLoading } = useMutation(
     (args) => {
-      const { promise, cancel } = resolver.putCreateTaskYaml(args);
+      const { promise, cancel } = resolver.putApplyTaskTemplateYaml(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
@@ -84,7 +86,7 @@ export function TaskTemplateYamlEditor({
 
   const { mutateAsync: uploadTaskTemplateMutation, isLoading } = useMutation(
     (args) => {
-      const { promise, cancel } = resolver.putCreateTaskTemplate(args);
+      const { promise, cancel } = resolver.putApplyTaskTemplate(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
@@ -93,9 +95,12 @@ export function TaskTemplateYamlEditor({
     }
   );
 
-  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(resolver.putRestoreTaskTemplate, {
-    onSuccess: invalidateQueries,
-  });
+  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(
+    resolver.putRestoreTaskTemplate,
+    {
+      onSuccess: invalidateQueries,
+    }
+  );
 
   let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.id) ?? {};
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
@@ -173,7 +178,7 @@ export function TaskTemplateYamlEditor({
       resetForm();
       history.push(
         //@ts-ignore
-        appLink.taskTemplateYaml({ id: params.id, version: response.data.currentVersion })
+        appLink.taskTemplateEditor({ id: params.id, version: response.data.currentVersion })
       );
       updateTemplateInState(response.data);
       if (requestType !== TemplateRequestType.Copy) {
@@ -253,7 +258,7 @@ export function TaskTemplateYamlEditor({
               message={(location) => {
                 let prompt = true;
                 const templateMatch = matchPath(location.pathname, {
-                  path: AppPath.TaskTemplateEdit,
+                  path: AppPath.TaskTemplateDetail,
                 });
                 if (isDirty && !location.pathname.includes(templateMatch?.params?.id) && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";

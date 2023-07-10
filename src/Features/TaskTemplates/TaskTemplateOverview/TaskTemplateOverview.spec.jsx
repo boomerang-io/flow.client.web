@@ -25,10 +25,10 @@ const props = {
 describe("TaskTemplateOverview --- Snapshot", () => {
   it("Capturing Snapshot of Task Templates", async () => {
     const { baseElement } = rtlContextRouterRender(
-      <Route path={AppPath.TaskTemplateEdit}>
+      <Route path={AppPath.TaskTemplateDetail}>
         <TaskTemplateOverview {...props} />
       </Route>,
-      { route: appLink.taskTemplateEdit({ id: "5e670a1e2d5e6a302de4f41d", version: "1" }) }
+      { route: appLink.taskTemplateDetail({ id: "5e670a1e2d5e6a302de4f41d", version: "1" }) }
     );
     await screen.findByText(/Build the definition requirements for this task/i);
     expect(baseElement).toMatchSnapshot();

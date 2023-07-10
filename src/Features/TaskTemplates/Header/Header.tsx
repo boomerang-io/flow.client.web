@@ -203,12 +203,12 @@ const Header: React.FC<HeaderProps> = ({
           <Tab
             exact
             label="Overview"
-            to={appLink.taskTemplateEdit({ id: selectedTaskTemplate.id, version: currentRevision.version })}
+            to={appLink.taskTemplateDetail({ id: selectedTaskTemplate.id, version: currentRevision.version })}
           />
           <Tab
             exact
             label="YAML"
-            to={appLink.taskTemplateYaml({ id: selectedTaskTemplate.id, version: currentRevision.version })}
+            to={appLink.taskTemplateEditor({ id: selectedTaskTemplate.id, version: currentRevision.version })}
           />
         </Tabs>
       }

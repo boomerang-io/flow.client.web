@@ -23,7 +23,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
   const queryClient = useQueryClient();
   const cancelRequestRef = React.useRef();
 
-  const createTaskTemplateMutation = useMutation(resolver.putCreateTaskTemplate);
+  const createTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
 
   const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
     setIsSubmitting(true);

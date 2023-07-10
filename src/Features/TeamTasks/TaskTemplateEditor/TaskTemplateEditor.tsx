@@ -18,7 +18,8 @@ import { TaskTemplateStatus } from "Constants";
 import { TemplateRequestType } from "../constants";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath } from "Config/appConfig";
-import styles from "./taskTemplateYamlEditor.module.scss";
+import styles from "./TaskTemplateEditor.module.scss";
+import { TaskTemplate } from "Types";
 import ReactMarkdown from "react-markdown";
 import { yamlInstructions } from "Constants";
 
@@ -42,14 +43,15 @@ import "Styles/markdown.css";
 type TaskTemplateYamlEditorProps = {
   taskTemplates: Record<string, TaskTemplate[]>;
   editVerifiedTasksEnabled: any;
-  updateTemplateInState: (args: TaskTemplate) => void;
+  getTaskTemplatesUrl: string;
 };
 
 export function TaskTemplateYamlEditor({
   taskTemplates,
   editVerifiedTasksEnabled,
-  updateTemplateInState,
+  getTaskTemplatesUrl,
 }: TaskTemplateYamlEditorProps) {
+  const [isSaving, setIsSaving] = React.useState(false);
   const cancelRequestRef = React.useRef();
   const queryClient = useQueryClient();
 
@@ -70,44 +72,19 @@ export function TaskTemplateYamlEditor({
   });
 
   const invalidateQueries = () => {
-    queryClient.invalidateQueries(
-      serviceUrl.getTaskTemplates({ query: queryString.stringify({ teamId: params?.teamId, scope: "team" }) })
-    );
+    queryClient.invalidateQueries(getTaskTemplatesUrl);
     queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
+    queryClient.invalidateQueries(getTaskTemplateYamlUrl);
   };
 
   const invalidateYaml = () => {
     queryClient.invalidateQueries(serviceUrl.getTaskTemplateYaml({ id: params.taskId, revision: params.version }));
   };
 
-  const { mutateAsync: uploadTaskYamlMutation, isLoading: yamlUploadIsLoading } = useMutation(
-    (args) => {
-      const { promise, cancel } = resolver.putCreateTaskYaml(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    },
-    {
-      onSuccess: invalidateQueries,
-    }
-  );
-
-  const { mutateAsync: uploadTaskTemplateMutation, isLoading } = useMutation(
-    (args) => {
-      const { promise, cancel } = resolver.putCreateTaskTemplate(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    },
-    {
-      onSuccess: invalidateQueries,
-    }
-  );
-
-  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(
-    resolver.putRestoreTaskTemplate,
-    {
-      onSuccess: invalidateQueries,
-    }
-  );
+  const applyTaskTemplateYamlMutation = useMutation(resolver.putApplyTaskTemplateYaml);
+  const applyTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
+  const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
+  const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
   let selectedTaskTemplateVersions = taskTemplates[params.name] ?? [];
   console.log("selectedTaskTemplateList", selectedTaskTemplateVersions);
@@ -127,51 +104,42 @@ export function TaskTemplateYamlEditor({
   const templateNotFound = !selectedTaskTemplate.name;
 
   const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
-    const newRevisions = [].concat(selectedTaskTemplate.revisions);
-    const newVersion = selectedTaskTemplate.revisions.length + 1;
-
-    let body = {};
-    let newRevisionConfig = {};
-
-    if (requestType === TemplateRequestType.Copy) {
-      newRevisionConfig = {
-        ...currentRevision,
-        version: newVersion,
-        changelog: {
-          reason: `Copy new version from ${currentRevision.version}`,
-        },
-      };
-      newRevisions.push(newRevisionConfig);
-      body = {
-        ...selectedTaskTemplate,
-        currentVersion: newVersion,
-        revisions: newRevisions,
-      };
-    }
+    setIsSaving(true);
+    let newVersion =
+      requestType === TemplateRequestType.Overwrite
+        ? selectedTaskTemplateVersion
+        : selectedTaskTemplateVersions.length + 1;
+    let changeReason =
+      requestType === TemplateRequestType.Copy
+        ? "Version copied from ${values.currentConfig.version}"
+        : values.comments;
 
     try {
-      if (requestType !== TemplateRequestType.Copy) {
-        typeof setRequestError === "function" && setRequestError(null);
-      }
       let response;
       if (requestType === TemplateRequestType.Copy) {
-        response = await uploadTaskTemplateMutation({ body });
+        let body = { ...selectedTaskTemplate, version: newVersion, changelog: { reason: changeReason } };
+        response = await applyTaskTemplateMutation.mutateAsync({
+          replace: false,
+          team: params.teamId,
+          body,
+        });
       } else if (requestType === TemplateRequestType.Overwrite) {
-        response = await uploadTaskYamlMutation({
-          id: params.taskId,
-          revision: parseInt(params.version),
+        response = await applyTaskTemplateYamlMutation.mutateAsync({
+          replace: true,
+          team: params.teamId,
           body: values.yaml,
-          comment: queryString.stringify({ comment: values.comments }),
         });
-        invalidateYaml();
+        queryClient.invalidateQueries(getTaskTemplateYamlUrl);
       } else {
-        response = await uploadTaskYamlMutation({
-          id: params.taskId,
-          revision: parseInt(params.version) + 1,
+        response = await applyTaskTemplateYamlMutation.mutateAsync({
+          replace: false,
+          team: params.teamId,
           body: values.yaml,
-          comment: queryString.stringify({ comment: values.comments }),
         });
+        queryClient.invalidateQueries(getTaskTemplateYamlUrl);
       }
+      queryClient.invalidateQueries(getTaskTemplatesUrl);
+      queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
         <ToastNotification
           kind="success"
@@ -190,57 +158,113 @@ export function TaskTemplateYamlEditor({
           version: response.data.currentVersion,
         })
       );
-      updateTemplateInState(response.data);
       if (requestType !== TemplateRequestType.Copy) {
+        typeof setRequestError === "function" && setRequestError(null);
         typeof closeModal === "function" && closeModal();
       }
     } catch (err) {
-      if (!axios.isCancel(err)) {
-        if (requestType !== TemplateRequestType.Copy) {
-          const { title, message: subtitle } = formatErrorMessage({
-            error: err,
-            defaultMessage: "Request to save task template failed.",
-          });
-          setRequestError({ title, subtitle });
-        } else {
-          notify(
-            <ToastNotification
-              kind="error"
-              title={"Update Task Template Failed"}
-              subtitle={"Something's Wrong"}
-              data-testid="update-task-template-notification"
-            />
-          );
-        }
+      if (requestType !== TemplateRequestType.Copy) {
+        const { title, message: subtitle } = formatErrorMessage({
+          error: err,
+          defaultMessage: "Request to save task template failed.",
+        });
+        setRequestError({ title, subtitle });
+      } else {
+        notify(
+          <ToastNotification
+            kind="error"
+            title={"Update Task Template Failed"}
+            subtitle={"Something's Wrong"}
+            data-testid="update-task-template-notification"
+          />
+        );
       }
+    } finally {
+      setIsSaving(false);
     }
   };
 
-  const handleputRestoreTaskTemplate = async () => {
+  const handleArchiveTaskTemplate = async () => {
     try {
-      let response = await restoreTaskTemplateMutation({ id: selectedTaskTemplate.id });
+      await archiveTaskTemplateMutation.mutateAsync({ name: params.name, status: "disable" });
+      await queryClient.invalidateQueries(getTaskTemplatesUrl);
+      await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
         <ToastNotification
           kind="success"
-          title={"Task Template Restore"}
+          title={"Successfully Archived Task Template"}
+          subtitle={`Request to archive ${selectedTaskTemplate.name} succeeded`}
+          data-testid="archive-task-template-notification"
+        />
+      );
+    } catch (err) {
+      notify(
+        <ToastNotification
+          kind="error"
+          title={"Archive Task Template Failed"}
+          subtitle={`Unable to archive the task. ${sentenceCase(err.message)}. Please contact support.`}
+          data-testid="archive-task-template-notification"
+        />
+      );
+    }
+  };
+
+  const handleRestoreTaskTemplate = async () => {
+    try {
+      await restoreTaskTemplateMutation.mutateAsync({ name: selectedTaskTemplate.name, status: "enable" });
+      await queryClient.invalidateQueries(getTaskTemplatesUrl);
+      await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
+      notify(
+        <ToastNotification
+          kind="success"
+          title={"Successfully Restored Task Template"}
           subtitle={`Request to restore ${selectedTaskTemplate.name} succeeded`}
           data-testid="restore-task-template-notification"
         />
       );
-      updateTemplateInState(response);
     } catch (err) {
       notify(
         <ToastNotification
           kind="error"
           title={"Restore Task Template Failed"}
-          subtitle={"Something's Wrong"}
+          subtitle={`Unable to restore the task. ${sentenceCase(err.message)}. Please contact support.`}
           data-testid="restore-task-template-notification"
         />
       );
     }
   };
 
-  if (yamlLoading || yamlUploadIsLoading) {
+  const handleDownloadTaskTemplate = async () => {
+    try {
+      const response = await axios.get(
+        serviceUrl.getTaskTemplateYaml({ name: selectedTaskTemplate.name, version: selectedTaskTemplate.version }),
+        {
+          headers: { Accept: "application/x-yaml" },
+        }
+      );
+      fileDownload(response.data, `${selectedTaskTemplate.name}.yaml`);
+      notify(
+        <ToastNotification
+          kind="success"
+          title={"Task Template Download"}
+          subtitle={`Request to download ${params.name} started.`}
+          data-testid="downloaded-task-template-notification"
+        />
+      );
+    } catch (err) {
+      console.log("err", err);
+      notify(
+        <ToastNotification
+          kind="error"
+          title={"Download Task Template Failed"}
+          subtitle={`Unable to download the task template. ${sentenceCase(err.message)}. Please contact support.`}
+          data-testid="download-task-template-notification"
+        />
+      );
+    }
+  };
+
+  if (yamlLoading || applyTaskTemplateYamlMutation.isLoading) {
     return <Loading />;
   }
 
@@ -268,7 +292,7 @@ export function TaskTemplateYamlEditor({
               message={(location) => {
                 let prompt = true;
                 const templateMatch = matchPath(location.pathname, {
-                  path: AppPath.TaskTemplateEdit,
+                  path: AppPath.TaskTemplateDetail,
                 });
                 if (isDirty && !location.pathname.includes(templateMatch?.params?.id) && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";
@@ -283,16 +307,20 @@ export function TaskTemplateYamlEditor({
                 return prompt;
               }}
             />
-            {(isLoading || restoreIsLoading) && <Loading />}
+            {(applyTaskTemplateMutation.isLoading ||
+              archiveTaskTemplateMutation.isLoading ||
+              restoreTaskTemplateMutation.isLoading) && <Loading />}
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
               selectedTaskTemplates={selectedTaskTemplateVersions}
               formikProps={formikProps}
-              handleputRestoreTaskTemplate={handleputRestoreTaskTemplate}
+              handleRestoreTaskTemplate={handleRestoreTaskTemplate}
+              handleArchiveTaskTemplate={handleArchiveTaskTemplate}
               handleSaveTaskTemplate={handleSaveTaskTemplate}
+              handleDownloadTaskTemplate={handleDownloadTaskTemplate}
               isActive={isActive}
-              isLoading={isLoading}
+              isLoading={isSubmitting || isSaving}
               isOldVersion={isOldVersion}
               cancelRequestRef={cancelRequestRef}
             />

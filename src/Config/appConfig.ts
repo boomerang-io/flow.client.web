@@ -32,16 +32,16 @@ type AppPathKey =
   | "Home"
   | "Insights"
   | "ManageTaskTemplates"
-  | "ManageTaskTemplateEdit"
-  | "ManageTaskTemplateYaml"
+  | "ManageTaskTemplateDetail"
+  | "ManageTaskTemplateEditor"
   | "ManageTeam"
   | "Properties"
   | "Schedules"
   | "Settings"
   | "TemplateWorkflows"
   | "TaskTemplates"
-  | "TaskTemplateEdit"
-  | "TaskTemplateYaml"
+  | "TaskTemplateDetail"
+  | "TaskTemplateEditor"
   | "ManageTeam"
   | "ManageTeamSettings"
   | "ManageTeamWorkflows"
@@ -79,8 +79,8 @@ export const AppPath: Record<AppPathKey, string> = {
   
   //Manage
   ManageTaskTemplates: `/:teamId/task-templates`,
-  ManageTaskTemplateEdit: `/:teamId/task-templates/:name/:version`,
-  ManageTaskTemplateYaml: `/:teamId/task-templates/:name/:version/editor`,
+  ManageTaskTemplateDetail: `/:teamId/task-templates/:name/:version/detail`,
+  ManageTaskTemplateEditor: `/:teamId/task-templates/:name/:version/editor`,
   ManageTeamTokens: "/:teamId/tokens",
   ManageTeamProperties: `/:teamId/parameters`,
   ManageTeam: `/:teamId/manage`,
@@ -95,8 +95,8 @@ export const AppPath: Record<AppPathKey, string> = {
   Settings: "/admin/settings",
   TemplateWorkflows: "/admin/template-workflows",
   TaskTemplates: "/admin/task-templates",
-  TaskTemplateEdit: `/admin/task-templates/:id/:version`,
-  TaskTemplateYaml: `/admin/task-templates/:id/:version/yaml-editor`,
+  TaskTemplateDetail: `/admin/task-templates/:name/:version/detail`,
+  TaskTemplateEditor: `/admin/task-templates/:name/:version/editor`,
   TeamList: "/admin/teams",
   Tokens: "/admin/tokens",
   User: "/admin/users/:userId",
@@ -164,8 +164,8 @@ export const appLink = {
   settings: () => "/admin/settings",
   templateWorkflows: () => "/admin/template-workflows",
   taskTemplates: () => "/admin/task-templates",
-  taskTemplateEdit: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}`,
-  taskTemplateYaml: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}/yaml-editor`,
+  taskTemplateDetail: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}/detail`,
+  taskTemplateEditor: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}/editor`,
   teamList: () => "/admin/teams",
   tokens: () => `/admin/tokens`,
   user: ({ userId }: UserIdArg) => `/admin/users/${userId}`,

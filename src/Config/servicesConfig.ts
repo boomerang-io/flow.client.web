@@ -110,8 +110,8 @@ export const serviceUrl = {
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
   // putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,
   putActivationApp: () => `${BASE_URL}/activate`,
-  putTaskTemplateYaml: ({ id, revision, comment }) =>
-    `${BASE_URL}/tasktemplate/${id}/yaml${`/${revision}`}${comment ? "?" + comment : ""}`,
+  putTaskTemplateYaml: ({ replace, team }) =>
+    `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
   putTaskTemplate: ({ replace, team }) => `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
   putStatusTaskTemplate: ({ name, status }) => `${BASE_URL}/tasktemplate/${name}/${status}`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
@@ -211,12 +211,12 @@ export const resolver = {
   postGlobalToken: ({ body }) =>
     cancellableResolver({ url: serviceUrl.postGlobalToken(), body, method: HttpMethod.Post }),
   postTeamToken: ({ body }) => cancellableResolver({ url: serviceUrl.postTeamToken(), body, method: HttpMethod.Post }),
-  putCreateTaskTemplate: ({ replace, team, body }) =>
+  putApplyTaskTemplate: ({ replace, team, body }) =>
     axios({ url: serviceUrl.putTaskTemplate({ replace, team }), data: body, method: HttpMethod.Put }),
-  putCreateTaskYaml: ({ id, revision, comment, body }) =>
-    cancellableResolver({
-      url: serviceUrl.putTaskTemplateYaml({ id, revision, comment }),
-      body,
+  putApplyTaskTemplateYaml: ({ replace, team, body }) =>
+  axios({
+      url: serviceUrl.putTaskTemplateYaml({ replace, team }),
+      data: body,
       method: HttpMethod.Put,
       headers: { "content-type": "application/x-yaml" },
     }),

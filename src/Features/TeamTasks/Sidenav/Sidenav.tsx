@@ -18,7 +18,7 @@ import { Bee, ViewOff, Recommend, SettingsAdjust } from "@carbon/react/icons";
 import { FlowTeam, TaskTemplate } from "Types";
 import styles from "./sideInfo.module.scss";
 
-const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list";
+const DESCRIPTION = "Create and import tasks to add to the Workflow Editor task list";
 
 const taskFilterElemList = taskIcons.map((TaskIcon) => ({
   id: TaskIcon.name,
@@ -30,13 +30,13 @@ const taskFilterElemList = taskIcons.map((TaskIcon) => ({
 }));
 
 interface SideInfoProps {
-  activeTeam: FlowTeam;
+  team?: FlowTeam;
   isLoading?: boolean;
   taskTemplates: Record<string, TaskTemplate[]>;
   getTaskTemplatesUrl: string;
 }
 
-const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, isLoading, taskTemplates, getTaskTemplatesUrl }) => {
+const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, getTaskTemplatesUrl }) => {
   const history = useHistory();
   const location = useLocation();
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
@@ -204,16 +204,10 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, isLoading, taskTemplate
                   {category.tasks.length > 0 ? (
                     category.tasks.map((task) => (
                       //@ts-ignore
-                      <Task
-                        key={task.name}
-                        task={task}
-                        //@ts-ignore
-                        isActive={activeTeam === task.id}
-                        activeTeam={activeTeam}
-                      />
+                      <Task key={task.name} task={task} activeTeam={team ?? null} />
                     ))
                   ) : (
-                    <EmptyTask key={`${category.name}-empty`} category={category.name} activeTeam={activeTeam} />
+                    <EmptyTask key={`${category.name}-empty`} />
                   )}
                 </AccordionItem>
               );
@@ -226,7 +220,6 @@ const SideInfo: React.FC<SideInfoProps> = ({ activeTeam, isLoading, taskTemplate
 };
 
 interface TaskProps {
-  isActive: boolean;
   task: TaskTemplate;
   activeTeam?: FlowTeam | null;
 }
@@ -237,11 +230,18 @@ const Task: React.FC<TaskProps> = (props) => {
 
   return (
     <SideNavLink
-      to={appLink.manageTaskTemplateEdit({
-        teamId: activeTeam.id,
-        name: task.name,
-        version: task.version.toString(),
-      })}
+      to={
+        activeTeam
+          ? appLink.manageTaskTemplateEdit({
+              teamId: activeTeam.id,
+              name: task.name,
+              version: task.version.toString(),
+            })
+          : appLink.taskTemplateDetail({
+              name: task.name,
+              version: task.version.toString(),
+            })
+      }
       icon={TaskIcon ? TaskIcon.Icon : Bee}
     >
       <div className={styles.task}>
@@ -275,13 +275,8 @@ const Task: React.FC<TaskProps> = (props) => {
   );
 };
 
-interface EmptyTaskProps {
-  activeTeam?: FlowTeam | null;
-}
 //TODO make the below a part of the empty state of the component in the add-ons
-const EmptyTask: React.FC<EmptyTaskProps> = (props) => {
-  const { activeTeam } = props;
-
+const EmptyTask: React.FC = () => {
   return (
     <div className={`cds--bmrg-feature-sidenav-link`}>
       <div className={`cds--bmrg-feature-sidenav-link-content`}>

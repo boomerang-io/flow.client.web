@@ -23,30 +23,54 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({
   const params: { name: string; teamId: string } = useParams();
   const backVersion = () => {
     history.push(
-      appLink.manageTaskTemplateEdit({
-        teamId: params.teamId,
-        name: params.name,
-        version: "" + (selectedTaskTemplate.version - 1),
-      })
+      params.teamId
+        ? appLink.manageTaskTemplateEdit({
+            teamId: params.teamId,
+            name: params.name,
+            version: "" + (selectedTaskTemplate.version - 1),
+          })
+        : appLink.taskTemplateDetail({
+            name: params.name,
+            version: "" + (selectedTaskTemplate.version - 1),
+          })
     );
   };
 
   const fastBackVersion = () => {
-    history.push(appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: "1" }));
+    history.push(
+      params.teamId
+        ? appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: "1" })
+        : appLink.taskTemplateDetail({
+            name: params.name,
+            version: "1",
+          })
+    );
   };
 
   const forwardVersion = () => {
     history.push(
-      appLink.manageTaskTemplateEdit({
-        teamId: params.teamId,
-        name: params.name,
-        version: "" + (selectedTaskTemplate.version + 1),
-      })
+      params.teamId
+        ? appLink.manageTaskTemplateEdit({
+            teamId: params.teamId,
+            name: params.name,
+            version: "" + (selectedTaskTemplate.version + 1),
+          })
+        : appLink.taskTemplateDetail({
+            name: params.name,
+            version: "" + (selectedTaskTemplate.version + 1),
+          })
     );
   };
 
   const fastForwardVersion = () => {
-    history.push(appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: versionCount }));
+    history.push(
+      params.teamId
+        ? appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: "" + versionCount })
+        : appLink.taskTemplateDetail({
+            name: params.name,
+            version: "" + versionCount,
+          })
+    );
   };
 
   const renderBackButtons = (enabled: boolean) => {
