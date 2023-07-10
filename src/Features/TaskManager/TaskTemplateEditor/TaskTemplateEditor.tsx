@@ -70,16 +70,6 @@ export function TaskTemplateYamlEditor({
     queryFn: resolver.queryYaml(getTaskTemplateYamlUrl),
   });
 
-  const invalidateQueries = () => {
-    queryClient.invalidateQueries(getTaskTemplatesUrl);
-    queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
-    queryClient.invalidateQueries(getTaskTemplateYamlUrl);
-  };
-
-  const invalidateYaml = () => {
-    queryClient.invalidateQueries(serviceUrl.getTaskTemplateYaml({ id: params.taskId, revision: params.version }));
-  };
-
   const applyTaskTemplateYamlMutation = useMutation(resolver.putApplyTaskTemplateYaml);
   const applyTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
   const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
