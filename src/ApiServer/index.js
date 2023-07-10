@@ -566,7 +566,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Manage and Administer Tokens
        */
-      this.get(serviceUrl.getTeamTokens({ query: null }), (schema) => {
+      this.get(serviceUrl.getTokens({ query: null }), (schema) => {
         return schema.db.tokens[0];
       });
 
@@ -578,19 +578,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return {};
       });
 
-      this.post(serviceUrl.postGlobalToken(), (schema, request) => {
-        let body = JSON.parse(request.requestBody);
-        let newToken = {
-          ...body,
-          creatorId: "1",
-          creationDate: Date.now(),
-          creatorName: "Test User",
-          tokenValue: "testglobal",
-        };
-        return schema.tokens.create(newToken);
-      });
-
-      this.post(serviceUrl.postTeamToken(), (schema, request) => {
+      this.post(serviceUrl.postToken(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let newToken = {
           ...body,

@@ -17,7 +17,15 @@
   :global .cds--date-picker__input {
     width: 22rem !important;
   }
+}
 
+.modalLabel {
+  font-size: 0.75rem;
+}
+.modalHelper {
+  color: var(--cds-active-secondary);
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .scopeContainer {

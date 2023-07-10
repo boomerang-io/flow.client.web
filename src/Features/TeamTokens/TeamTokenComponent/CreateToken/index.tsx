@@ -7,7 +7,12 @@ import CreateServiceTokenResult from "./Result";
 import { FlowTeam } from "Types";
 import styles from "./createToken.module.scss";
 
-function CreateServiceTokenButton({ activeTeam }: { activeTeam: FlowTeam | null }) {
+interface CreateServiceTokenButtonProps {
+  activeTeam?: FlowTeam | null;
+  getTeamTokensUrl: string;
+}
+
+function CreateServiceTokenButton({ activeTeam, getTeamTokensUrl }: CreateServiceTokenButtonProps) {
   const [isTokenCreated, setIsTokenCreated] = React.useState(false);
   const cancelRequestRef = React.useRef<any>();
   return (
@@ -43,6 +48,7 @@ function CreateServiceTokenButton({ activeTeam }: { activeTeam: FlowTeam | null 
         setIsTokenCreated={() => setIsTokenCreated(true)}
         cancelRequestRef={cancelRequestRef}
         activeTeam={activeTeam}
+        getTeamTokensUrl={getTeamTokensUrl}
       />
       <CreateServiceTokenResult />
     </ModalFlow>

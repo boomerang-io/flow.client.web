@@ -7,7 +7,6 @@ import { Formik } from "formik";
 import { Information } from "@carbon/react/icons";
 import { useMutation, useQueryClient } from "react-query";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { TokenRequest } from "Types";
 import styles from "./form.module.scss";
 
 const InputKey = {
@@ -31,20 +30,7 @@ function CreateServiceTokenForm({
   cancelRequestRef,
 }: CreateServiceTokenFormProps | any) {
   const queryClient = useQueryClient();
-  const {
-    mutateAsync: postGlobalTokenRequestMutator,
-    isLoading: postGlobalTokenIsLoading,
-    error: postGlobalTokenError,
-  } = useMutation(
-    (args: { body: TokenRequest }) => {
-      const { promise, cancel } = resolver.postGlobalToken(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    },
-    {
-      onSuccess: () => queryClient.invalidateQueries([serviceUrl.getGlobalTokens()]),
-    }
-  );
+  const postTokenRequestMutation = useMutation(resolver.postToken);
 
   const createToken = async (values: any) => {
     const request = {
@@ -53,7 +39,8 @@ function CreateServiceTokenForm({
     };
 
     try {
-      const response = await postGlobalTokenRequestMutator({ body: request });
+      const response = await postTokenRequestMutation.mutateAsync({ body: request });
+      queryClient.invalidateQueries([serviceUrl.getGlobalTokens()]);
       const formData = { token: response.data.tokenValue };
       saveValues(formData);
       setIsTokenCreated();
@@ -133,7 +120,7 @@ function CreateServiceTokenForm({
                 value={values.description}
                 maxCount={200}
               />
-              {postGlobalTokenError ? (
+              {postTokenRequestMutation.error ? (
                 <InlineNotification
                   lowContrast
                   className={styles.errorNotification}
@@ -149,11 +136,11 @@ function CreateServiceTokenForm({
                 Cancel
               </Button>
               <Button
-                disabled={!isValid || isSubmitting || postGlobalTokenIsLoading}
+                disabled={!isValid || isSubmitting || postTokenRequestMutation.isLoading}
                 type="submit"
                 data-testid="create-token-submit"
               >
-                {isSubmitting ? "Creating..." : postGlobalTokenError ? "Try again" : "Create"}
+                {isSubmitting ? "Creating..." : postTokenRequestMutation.error ? "Try again" : "Create"}
               </Button>
             </ModalFooter>
           </ModalFlowForm>

@@ -87,9 +87,18 @@ interface TeamTokensTableProps {
   hasError: any;
   deleteToken(tokenId: string): void;
   userType: string;
+  getTeamTokensUrl: string;
 }
 
-function TeamTokenComponent({ deleteToken, tokens, hasError, isLoading, activeTeam, userType }: TeamTokensTableProps) {
+function TeamTokenComponent({
+  deleteToken,
+  tokens,
+  hasError,
+  isLoading,
+  activeTeam,
+  userType,
+  getTeamTokensUrl,
+}: TeamTokensTableProps) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [sortKey, setSortKey] = useState("creationDate");
@@ -158,7 +167,9 @@ function TeamTokenComponent({ deleteToken, tokens, hasError, isLoading, activeTe
   return (
     <FeatureLayout>
       <>
-        <div className={styles.tokenContainer}>{activeTeam?.id && <CreateToken activeTeam={activeTeam} />}</div>
+        <div className={styles.tokenContainer}>
+          {activeTeam?.id && <CreateToken activeTeam={activeTeam} getTeamTokensUrl={getTeamTokensUrl} />}
+        </div>
         {tokens?.length > 0 ? (
           <>
             <DataTable

@@ -70,7 +70,7 @@ export const serviceUrl = {
   getTeamProperties: ({ id }) => `${BASE_URL}/team/${id}/parameters`,
   getTeamQuotas: ({ id }) => `${BASE_URL}/team/${id}/quotas`,
   getTeamQuotaDefaults: () => `${BASE_URL}/team/quotas/default`,
-  getTeamTokens: ({ query }) => `${BASE_URL}/token/query${query ? "?" + query : ""}`,
+  getTokens: ({ query }) => `${BASE_URL}/token/query${query ? "?" + query : ""}`,
   getTeamMembers: ({ teamId }: TeamIdArg) => `${BASE_URL}/team/${teamId}/members`,
   leaveTeam: ({ id }) => `${BASE_URL}/${id}/leave`,
   getUsers: ({ query }: QueryId) => `${BASE_URL}/user/query${query ? "?" + query : ""}`,
@@ -102,9 +102,8 @@ export const serviceUrl = {
   postCreateWorkflowToken: ({ workflowId, label }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
   postDuplicateWorkflow: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/duplicate`,
   postExecuteWorkflow: ({ id }) => `${BASE_URL}/execute/${id}`,
-  postGlobalToken: () => `${BASE_URL}/global-token`,
   postSchedule: ({ teamId }) => `${BASE_URL}/schedules?team=${teamId}`,
-  postTeamToken: () => `${BASE_URL}/team-token`,
+  postToken: () => `${BASE_URL}/token`,
   postTeamValidateName: () => `${BASE_URL}/team/validate-name`,
   postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
@@ -208,9 +207,7 @@ export const resolver = {
 
   postDuplicateWorkflow: ({ workflowId }) => axios.post(serviceUrl.postDuplicateWorkflow({ workflowId })),
   postTemplateWorkflow: ({ workflowId, body }) => axios.post(serviceUrl.postDuplicateWorkflow({ workflowId }), body),
-  postGlobalToken: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.postGlobalToken(), body, method: HttpMethod.Post }),
-  postTeamToken: ({ body }) => cancellableResolver({ url: serviceUrl.postTeamToken(), body, method: HttpMethod.Post }),
+  postToken: ({ body }) => axios({ url: serviceUrl.postToken(), data: body, method: HttpMethod.Post }),
   putApplyTaskTemplate: ({ replace, team, body }) =>
     axios({ url: serviceUrl.putTaskTemplate({ replace, team }), data: body, method: HttpMethod.Put }),
   putApplyTaskTemplateYaml: ({ replace, team, body }) =>

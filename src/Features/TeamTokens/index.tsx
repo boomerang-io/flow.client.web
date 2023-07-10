@@ -12,7 +12,7 @@ function TeamTokensContainer() {
   const { activeTeam, user } = useAppContext();
   const queryClient = useQueryClient();
 
-  const getTeamTokensUrl = serviceUrl.getTeamTokens({
+  const getTeamTokensUrl = serviceUrl.getTokens({
     query: queryString.stringify({ types: "team", principals: activeTeam?.id }),
   });
 
@@ -51,6 +51,7 @@ function TeamTokensContainer() {
         tokens={tokensData?.content || []}
         activeTeam={activeTeam}
         userType={user.type}
+        getTeamTokensUrl={getTeamTokensUrl}
       />
     </div>
   );
