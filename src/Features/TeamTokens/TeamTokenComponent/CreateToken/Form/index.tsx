@@ -47,8 +47,7 @@ function CreateServiceTokenForm({
     try {
       const response = await tokenRequestMutation.mutateAsync({ body: request });
       queryClient.invalidateQueries(getTeamTokensUrl);
-      const formData = { token: response.data.tokenValue };
-      saveValues(formData);
+      saveValues(response.data);
       setIsTokenCreated();
       goToStep(1);
     } catch (error) {

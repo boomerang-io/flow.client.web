@@ -584,8 +584,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
           ...body,
           creatorId: "1",
           creationDate: Date.now(),
-          creatorName: "Test User",
-          tokenValue: "testteam",
+          principal: "123124314123123",
+          token: "bft_12341241432321321",
         };
         return schema.tokens.create(newToken);
       });
