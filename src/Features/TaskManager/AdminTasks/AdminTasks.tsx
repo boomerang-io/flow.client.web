@@ -21,33 +21,11 @@ const HELMUT_TITLE = "Task Manager";
 
 function TaskTemplatesContainer() {
   const match = useRouteMatch();
-  const queryClient = useQueryClient();
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
     query: queryString.stringify({ statuses: "active,inactive" }),
   });
   const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);
-
-  console.log("taskTemplatesData", taskTemplatesData);
-
-  /**
-   * This adds the new TaskTemplate to the existing taskTemplates
-   * rather then requerying the API for the new templates
-   */
-  const addTemplateInState = (newTemplate: TaskTemplate) => {
-    const updatedTemplatesData = [...taskTemplatesData.content];
-    updatedTemplatesData.push(newTemplate);
-    queryClient.setQueryData(getTaskTemplatesUrl, orderBy(updatedTemplatesData, "name", "asc"));
-  };
-  const updateTemplateInState = (updatedTemplate: TaskTemplate) => {
-    const updatedTemplatesData = [...taskTemplatesData];
-    const templateToUpdateIndex = updatedTemplatesData.findIndex((template) => template.name === updatedTemplate.name);
-    // If we found it
-    if (templateToUpdateIndex !== -1) {
-      updatedTemplatesData.splice(templateToUpdateIndex, 1, updatedTemplate);
-      queryClient.setQueryData(getTaskTemplatesUrl, updatedTemplatesData);
-    }
-  };
 
   // Collect the tasks by name and array of sorted by version task templates
   let taskTemplatesByName = taskTemplatesData?.content.reduce(
@@ -104,7 +82,7 @@ function TaskTemplatesContainer() {
           <TaskTemplateYamlEditor
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             taskTemplates={taskTemplatesByName}
-            updateTemplateInState={updateTemplateInState}
+            getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>
         <Route path={AppPath.TaskTemplateDetail} strict={true}>

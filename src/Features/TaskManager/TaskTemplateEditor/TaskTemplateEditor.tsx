@@ -140,12 +140,16 @@ export function TaskTemplateYamlEditor({
       );
       resetForm();
       history.push(
-        //@ts-ignore
-        appLink.manageTaskTemplateYaml({
-          teamId: params?.teamId,
-          taskId: params.taskId,
-          version: response.data.currentVersion,
-        })
+        params.teamId
+          ? appLink.manageTaskTemplateEdit({
+              teamId: params.teamId,
+              name: response.data.name,
+              version: response.data.version,
+            })
+          : appLink.taskTemplateEdit({
+              name: response.data.name,
+              version: response.data.version,
+            })
       );
       if (requestType !== TemplateRequestType.Copy) {
         typeof setRequestError === "function" && setRequestError(null);

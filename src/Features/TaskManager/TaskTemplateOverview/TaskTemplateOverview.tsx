@@ -301,12 +301,16 @@ export function TaskTemplateOverview({
       );
       resetForm();
       history.push(
-        //@ts-ignore
-        appLink.manageTaskTemplateEdit({
-          teamId: params.teamId,
-          name: response.data.name,
-          version: response.data.version,
-        })
+        params.teamId
+          ? appLink.manageTaskTemplateEdit({
+              teamId: params.teamId,
+              name: response.data.name,
+              version: response.data.version,
+            })
+          : appLink.taskTemplateEdit({
+              name: response.data.name,
+              version: response.data.version,
+            })
       );
       if (requestType !== TemplateRequestType.Copy) {
         typeof setRequestError === "function" && setRequestError(null);
