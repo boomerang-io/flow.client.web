@@ -46,7 +46,6 @@ function CreateServiceTokenButton({ activeTeam, getTeamTokensUrl }: CreateServic
     >
       <CreateServiceTokenForm
         setIsTokenCreated={() => setIsTokenCreated(true)}
-        cancelRequestRef={cancelRequestRef}
         activeTeam={activeTeam}
         getTeamTokensUrl={getTeamTokensUrl}
       />

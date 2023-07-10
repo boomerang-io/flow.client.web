@@ -20,7 +20,6 @@ interface CreateServiceTokenFormProps {
   goToStep: (args: any) => void;
   saveValues: (args: any) => void;
   setIsTokenCreated: () => any;
-  cancelRequestRef: any;
   activeTeam: FlowTeam | null;
   getTeamTokensUrl: string;
 }
@@ -30,22 +29,24 @@ function CreateServiceTokenForm({
   goToStep,
   saveValues,
   setIsTokenCreated,
-  cancelRequestRef,
   activeTeam,
+  getTeamTokensUrl,
 }: CreateServiceTokenFormProps | any) {
   const queryClient = useQueryClient();
   const tokenRequestMutation = useMutation(resolver.postToken);
 
   const createToken = async (values: any) => {
     const request = {
-      expiryDate: values.date ? parseInt(moment.utc(values.date).startOf("day").format("x"), 10) : null,
+      name: values.name,
+      type: values.type,
+      expirationDate: values.date ? parseInt(moment.utc(values.date).startOf("day").format("x"), 10) : null,
       description: values.description,
-      teamId: activeTeam.id,
+      principal: values.principal,
     };
 
     try {
       const response = await tokenRequestMutation.mutateAsync({ body: request });
-      queryClient.invalidateQueries(serviceUrl.getGlobalTokens());
+      queryClient.invalidateQueries(getTeamTokensUrl);
       const formData = { token: response.data.tokenValue };
       saveValues(formData);
       setIsTokenCreated();
