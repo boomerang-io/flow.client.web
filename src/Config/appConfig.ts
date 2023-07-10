@@ -79,7 +79,7 @@ export const AppPath: Record<AppPathKey, string> = {
   
   //Manage
   ManageTaskTemplates: `/:teamId/task-templates`,
-  ManageTaskTemplateDetail: `/:teamId/task-templates/:name/:version/detail`,
+  ManageTaskTemplateDetail: `/:teamId/task-templates/:name/:version`,
   ManageTaskTemplateEditor: `/:teamId/task-templates/:name/:version/editor`,
   ManageTeamTokens: "/:teamId/tokens",
   ManageTeamProperties: `/:teamId/parameters`,
@@ -95,7 +95,7 @@ export const AppPath: Record<AppPathKey, string> = {
   Settings: "/admin/settings",
   TemplateWorkflows: "/admin/template-workflows",
   TaskTemplates: "/admin/task-templates",
-  TaskTemplateDetail: `/admin/task-templates/:name/:version/detail`,
+  TaskTemplateDetail: `/admin/task-templates/:name/:version`,
   TaskTemplateEditor: `/admin/task-templates/:name/:version/editor`,
   TeamList: "/admin/teams",
   Tokens: "/admin/tokens",
@@ -164,7 +164,7 @@ export const appLink = {
   settings: () => "/admin/settings",
   templateWorkflows: () => "/admin/template-workflows",
   taskTemplates: () => "/admin/task-templates",
-  taskTemplateDetail: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}/detail`,
+  taskTemplateDetail: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}`,
   taskTemplateEditor: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}/editor`,
   teamList: () => "/admin/teams",
   tokens: () => `/admin/tokens`,

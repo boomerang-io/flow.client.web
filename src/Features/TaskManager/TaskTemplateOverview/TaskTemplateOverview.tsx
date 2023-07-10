@@ -215,7 +215,6 @@ export function TaskTemplateOverview({
   const [isSaving, setIsSaving] = React.useState(false);
   const cancelRequestRef = React.useRef();
   const queryClient = useQueryClient();
-
   const params = useParams();
   const history = useHistory();
 
