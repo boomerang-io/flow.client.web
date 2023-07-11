@@ -33,7 +33,7 @@ import ScriptNodeModel from "Utils/dag/scriptNode/ScriptNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
-import { TaskTemplate, WorkflowSummary, WorkflowRevision, WorkflowView } from "Types";
+import { TaskTemplate, WorkflowSummary, WorkflowRevision, WorkflowView, PaginatedResponse } from "Types";
 import styles from "./editor.module.scss";
 
 export default function EditorContainer() {
@@ -55,7 +55,7 @@ export default function EditorContainer() {
    * Queries
    */
   const summaryQuery = useQuery(getSummaryUrl);
-  const revisionQuery = useQuery(getRevisionUrl, { refetchOnWindowFocus: false });
+  const revisionQuery = useQuery<PaginatedResponse<WorkflowRevision>>(getRevisionUrl, { refetchOnWindowFocus: false });
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
   const availableParametersQuery = useQuery(getAvailableParametersUrl);
 
@@ -127,7 +127,7 @@ interface EditorStateContainerProps {
     variables: { workflowId: any; body: any } | undefined;
   }
   | any;
-  revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
+  revisionQuery: UseQueryResult<PaginatedResponse<WorkflowRevision>, unknown>;
   summaryData: WorkflowSummary;
   summaryMutation:
   | {

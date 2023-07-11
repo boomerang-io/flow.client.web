@@ -1,5 +1,5 @@
 import { User } from "@boomerang-io/carbon-addons-boomerang-react";
-
+import type { NodeType } from "Constants";
 declare global {
   interface Window {
     _SERVER_DATA: {
@@ -295,15 +295,38 @@ export interface WorkflowDag {
   offsetY: number;
   zoom: number;
 }
+
+export interface WorkflowNode {
+  id: string;
+  positition: {
+    x: number;
+    y: number;
+  },
+  data: {
+    label: string;
+    params: Array<{ name: string; value: string }>
+  }
+  type: typeof NodeType[keyof typeof NodeType]
+}
+
+export interface WorkflowEdge {
+  id: string;
+  source: string;
+  target: string;
+  data: Record<string, any>
+}
 export interface WorkflowRevision {
   changelog: ChangeLogItem;
   config: any;
   dag: WorkflowDag;
   id: string;
+  nodes: Array<WorkflowNode>
+  edges: Array<WorkflowEdge>
   templateUpgradesAvailable: boolean;
   version: number;
   workFlowId: string;
 }
+
 
 export interface WorkflowExport extends WorkflowSummary {
   latestRevision: WorkflowRevision;
@@ -372,23 +395,23 @@ export interface WorkflowExecution {
   trigger: string;
   properties: (
     | {
-        key: string;
-        value: string;
-      }
+      key: string;
+      value: string;
+    }
     | {
-        key: string;
-        value: null;
-      }
+      key: string;
+      value: null;
+    }
   )[];
   outputProperties: (
     | {
-        key: string;
-        value: string;
-      }
+      key: string;
+      value: string;
+    }
     | {
-        key: string;
-        value: null;
-      }
+      key: string;
+      value: null;
+    }
   )[];
   steps: Array<WorkflowExecutionStep>;
   teamName: string;
@@ -495,7 +518,7 @@ export interface PaginatedResponse<RecordType> {
   numberOfElements: number;
   size: number;
   number: number;
-  records: RecordType[];
+  content: RecordType[];
 }
 
 export interface FlowUser extends User {

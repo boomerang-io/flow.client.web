@@ -29,6 +29,7 @@ const DesignerContainer: React.FC<DesignerContainerProps> = ({
   workflowName,
 }) => {
   const isRevisionLoading = revisionQuery.status === QueryStatus.Loading;
+  console.log({ revisionQuery })
   return (
     <div className={styles.container}>
       <Helmet>
@@ -41,7 +42,7 @@ const DesignerContainer: React.FC<DesignerContainerProps> = ({
         <Error />
       ) : (
         <>
-          <Designer isModalOpen={isModalOpen} />
+          <Designer isModalOpen={isModalOpen} revision={revisionQuery.data} />
           <Notes markdown={notes} updateNotes={updateNotes} />
         </>
       )}
@@ -53,12 +54,13 @@ export default DesignerContainer;
 
 interface DesignerProps {
   isModalOpen: boolean;
+  revision?: WorkflowRevision
 }
 
-function Designer({ isModalOpen }: DesignerProps) {
+function Designer({ revision, isModalOpen }: DesignerProps) {
   return (
     <div id="workflow-dag-designer" className={styles.workflowContainer}>
-      <ReactFlow mode="editor" diagram={{ nodes: [], edges: [] }} />
+      <ReactFlow mode="editor" diagram={{ nodes: revision?.nodes, edges: revision?.edges }} />
     </div>
   );
 };

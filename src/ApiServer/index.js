@@ -237,7 +237,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return taskTemplate;
       });
 
-      this.get(serviceUrl.getTaskTemplateYaml({name: null, version: null}), (schema) => {
+      this.get(serviceUrl.getTaskTemplateYaml({ name: null, version: null }), (schema) => {
         console.log(schema.db.tasktemplate);
         return schema.db.tasktemplate[0];
       });
@@ -247,7 +247,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.put(serviceUrl.putTaskTemplate({ replace: "true", team: ":teamId" }), (schema, request) => {
         return {};
       });
-      
+
       /**
        * Workflows
        */
@@ -296,23 +296,25 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       // Workflow Revision
       this.get(serviceUrl.getWorkflowRevision({ workflowId: ":workflowId" }), (schema, request) => {
-        let { workflowId } = request.params;
-        if (workflowId) {
-          return schema.revisions.findBy({ workFlowId: workflowId });
-        } else {
-          return {};
-        }
+        return schema.db.revisions[0];
+        // let { workflowId } = request.params;
+        // if (workflowId) {
+        //   return schema.revisions.findBy({ workFlowId: workflowId });
+        // } else {
+        //   return {};
+        // }
       });
 
       this.get(
         serviceUrl.getWorkflowRevision({ workflowId: ":workflowId", revisionNumber: ":revisionNumber" }),
         (schema, request) => {
-          let { workflowId, revisionNumber } = request.params;
-          if (revisionNumber) {
-            return schema.revisions.findBy({ workFlowId: workflowId, version: revisionNumber });
-          } else {
-            return {};
-          }
+          return schema.db.revisions[0];
+          // let { workflowId, revisionNumber } = request.params;
+          // if (revisionNumber) {
+          //   return schema.revisions.findBy({ workFlowId: workflowId, version: revisionNumber });
+          // } else {
+          //   return {};
+          // }
         }
       );
 
@@ -426,7 +428,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        */
 
       this.post(serviceUrl.postTeamValidateName(), (schema, request) => {
-        return new Response(422, {}, { errors: [ 'Name is already taken'] });
+        return new Response(422, {}, { errors: ["Name is already taken"] });
       });
 
       this.get(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {

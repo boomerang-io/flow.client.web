@@ -89,76 +89,74 @@ function CreateServiceTokenForm({
           <ModalFlowForm className={styles.container} onSubmit={handleSubmit}>
             <ModalBody>
               {isSubmitting && <Loading />}
-              <div>
-                <label className={styles.modalLabel} htmlFor="uploadTemplate">
-                  Create a new new {values.type} token.
-                </label>
-                <p className={styles.modalHelper}>
-                  A token must have a name. If no expiry is set, this token will never expire - this is dangerous
-                </p>
-                <TextInput
-                  id="name"
-                  invalid={Boolean(errors.name && touched.name)}
-                  invalidText={errors.name}
-                  labelText="Name"
-                  helperText="Must be unique and only contain lowercase alphanumeric characters and dashes"
-                  onBlur={handleBlur}
-                  onChange={(value: any) => setFieldValue("name", value.target.value)}
-                  placeholder="my-unique-task-name"
-                  value={values.name}
-                />
-                {/* <TextInput id="type" labelText="Type" onBlur={handleBlur} value={values.type} readOnly disabled /> */}
-                <DatePicker
-                  id="token-date-picker"
-                  dateFormat="Y/m/d"
-                  datePickerType="single"
-                  onChange={(value: any) => handleSelectDate(setFieldValue, "expirationDate", value)}
-                  minDate={moment.utc(new Date()).add(1, "days").format("YYYY/MM/DD")}
-                >
-                  <DatePickerInput
-                    autoComplete="off"
-                    data-testid="token-expiration-id"
-                    id="expirationDate"
-                    dateFormat="MM-DD-YYYY"
-                    invalid={Boolean(errors.expirationDate)}
-                    invalidText={errors.expirationDate}
-                    labelText={
-                      <div className={styles.inputLabelContainer}>
-                        <span>Expiration Date (optional)</span>
-                        <TooltipHover
-                          direction="top"
-                          tooltipContent="Expiration date will be saved in Coordinated Universal Time (UTC) with the token expiring at
+              <label className={styles.modalLabel} htmlFor="uploadTemplate">
+                Create a new new {values.type} token.
+              </label>
+              <p className={styles.modalHelper}>
+                A token must have a name. If no expiry is set, this token will never expire - this is dangerous
+              </p>
+              <TextInput
+                id="name"
+                invalid={Boolean(errors.name && touched.name)}
+                invalidText={errors.name}
+                labelText="Name"
+                helperText="Must be unique and only contain lowercase alphanumeric characters and dashes"
+                onBlur={handleBlur}
+                onChange={(value: any) => setFieldValue("name", value.target.value)}
+                placeholder="my-unique-task-name"
+                value={values.name}
+              />
+              {/* <TextInput id="type" labelText="Type" onBlur={handleBlur} value={values.type} readOnly disabled /> */}
+              <DatePicker
+                id="token-date-picker"
+                dateFormat="Y/m/d"
+                datePickerType="single"
+                onChange={(value: any) => handleSelectDate(setFieldValue, "expirationDate", value)}
+                minDate={moment.utc(new Date()).add(1, "days").format("YYYY/MM/DD")}
+              >
+                <DatePickerInput
+                  autoComplete="off"
+                  data-testid="token-expiration-id"
+                  id="expirationDate"
+                  dateFormat="MM-DD-YYYY"
+                  invalid={Boolean(errors.expirationDate)}
+                  invalidText={errors.expirationDate}
+                  labelText={
+                    <div className={styles.inputLabelContainer}>
+                      <span>Expiration Date (optional)</span>
+                      <TooltipHover
+                        direction="top"
+                        tooltipContent="Expiration date will be saved in Coordinated Universal Time (UTC) with the token expiring at
                           the start of the entered day. The token will not expire by default if no expiration date is
                           entered."
-                        >
-                          <Information />
-                        </TooltipHover>
-                      </div>
-                    }
-                    onChange={(value: any) => handleSelectDate(setFieldValue, "expirationDate", value)}
-                    pattern={null}
-                    placeholder="2063/04/05"
-                  />
-                </DatePicker>
-                <TextArea
-                  labelText="Description (optional)"
-                  placeholder="Provide a short description for this Token"
-                  id="description"
-                  data-testid="token-description"
-                  onChange={(value: any) => setFieldValue("description", value.target.value)}
-                  value={values.description}
+                      >
+                        <Information />
+                      </TooltipHover>
+                    </div>
+                  }
+                  onChange={(value: any) => handleSelectDate(setFieldValue, "expirationDate", value)}
+                  pattern={null}
+                  placeholder="2063/04/05"
                 />
-                {tokenRequestMutation.error ? (
-                  <InlineNotification
-                    lowContrast
-                    className={styles.errorNotification}
-                    kind="error"
-                    title="Error"
-                    subtitle="Failed to create team token"
-                    style={{ marginTop: "1rem" }}
-                  />
-                ) : null}
-              </div>
+              </DatePicker>
+              <TextArea
+                labelText="Description (optional)"
+                placeholder="Provide a short description for this Token"
+                id="description"
+                data-testid="token-description"
+                onChange={(value: any) => setFieldValue("description", value.target.value)}
+                value={values.description}
+              />
+              {tokenRequestMutation.error ? (
+                <InlineNotification
+                  lowContrast
+                  className={styles.errorNotification}
+                  kind="error"
+                  title="Error"
+                  subtitle="Failed to create team token"
+                  style={{ marginTop: "1rem" }}
+                />
+              ) : null}
             </ModalBody>
             <ModalFooter>
               <Button kind="secondary" onClick={closeModal}>

@@ -26,7 +26,7 @@ export function revisionReducer(state, action) {
     }
     case RevisionActionTypes.UpdateNodeConfig: {
       const { nodeId, inputs } = action.data;
-      if(state.config[nodeId])
+      if (state.config[nodeId])
         state.config[nodeId].inputs = Boolean(state.config?.[nodeId]?.inputs)
           ? { ...state.config[nodeId].inputs, ...inputs }
           : { ...inputs };
@@ -35,7 +35,7 @@ export function revisionReducer(state, action) {
     }
     case RevisionActionTypes.UpdateNodeConfigWithResult: {
       const { nodeId, inputs, outputs } = action.data;
-      if(state.config[nodeId]) {
+      if (state.config[nodeId]) {
         state.config[nodeId].inputs = Boolean(state.config?.[nodeId]?.inputs)
           ? { ...state.config[nodeId].inputs, ...inputs }
           : { ...inputs };
@@ -47,12 +47,12 @@ export function revisionReducer(state, action) {
     case RevisionActionTypes.UpdateNodeTaskVersion: {
       const { nodeId, inputs, version } = action.data;
       state.dag.nodes.find((node) => node.nodeId === nodeId).templateUpgradeAvailable = false;
-      if(state.config[nodeId]) {
+      if (state.config[nodeId]) {
         state.config[nodeId].taskVersion = version;
         state.config[nodeId].inputs = Boolean(state.config?.[nodeId]?.inputs)
           ? { ...state.config[nodeId].inputs, ...inputs }
           : { ...inputs };
-        }
+      }
       state.hasUnsavedUpdates = true;
       return state;
     }
@@ -76,12 +76,13 @@ export function revisionReducer(state, action) {
 export function initRevisionReducerState(revisionData) {
   if (revisionData) {
     const { config, ...rest } = revisionData;
-    const normalizedNodesObj = {};
-    config.nodes.forEach((node) => {
-      normalizedNodesObj[node.nodeId] = node;
-    });
+    return { config, ...rest }
+    // const normalizedNodesObj = {};
+    // config.nodes.forEach((node) => {
+    //   normalizedNodesObj[node.nodeId] = node;
+    // });
 
-    return { ...rest, config: normalizedNodesObj };
+    // return { ...rest, config: normalizedNodesObj };
   }
   return {};
 }

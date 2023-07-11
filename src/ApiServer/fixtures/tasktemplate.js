@@ -12,104 +12,101 @@ const tasktemplate = {
       changelog: {
         author: "608fb6fb70bfa94ac91f90cb",
         reason: "",
-        date: "2022-05-13T08:49:42.733+00:00"
+        date: "2022-05-13T08:49:42.733+00:00",
       },
       category: "Utilities",
       type: "template",
       spec: {
-        arguments: [
-          "http",
-          "execute"
-        ],
+        arguments: ["http", "execute"],
         command: [],
         params: [
           {
             name: "url",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "method",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "header",
             type: "string",
             description: "Start a new line for each header",
-            defaultValue: ""
+            defaultValue: "",
           },
           {
             name: "contentType",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "body",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "allowUntrustedCerts",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "outputFilePath",
             type: "string",
             description: "If provided, the result parameter is not filled",
-            defaultValue: ""
+            defaultValue: "",
           },
           {
             name: "successcodes",
             type: "string",
             description: "If left empty, success will be considered: 2xx",
-            defaultValue: "1xx,2xx"
+            defaultValue: "1xx,2xx",
           },
           {
             name: "errorcodes",
             type: "string",
             description: "No retry calls are done for these HTTP status codes",
-            defaultValue: ""
+            defaultValue: "",
           },
           {
             name: "retrycodes",
             type: "string",
             description: "HTTP response codes for which the task will retry the call",
-            defaultValue: "502,503"
+            defaultValue: "502,503",
           },
           {
             name: "retrydelay",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "retrynumber",
             type: "string",
             description: "",
-            defaultValue: "3"
-          }
+            defaultValue: "3",
+          },
         ],
         envs: [],
         image: "",
         results: [
           {
             description: "HTTP execution response content",
-            name: "response"
+            name: "response",
           },
           {
             description: "The received HTTP status code",
-            name: "statusCode"
-          }
+            name: "statusCode",
+          },
         ],
         script: "",
-        workingDir: ""
+        workingDir: "",
       },
       config: [
         {
@@ -129,7 +126,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "method",
@@ -141,32 +138,32 @@ const tasktemplate = {
           options: [
             {
               key: "GET",
-              value: "GET"
+              value: "GET",
             },
             {
               key: "HEAD",
-              value: "HEAD"
+              value: "HEAD",
             },
             {
               key: "PUT",
-              value: "PUT"
+              value: "PUT",
             },
             {
               key: "POST",
-              value: "POST"
+              value: "POST",
             },
             {
               key: "PATCH",
-              value: "PATCH"
+              value: "PATCH",
             },
             {
               key: "OPTIONS",
-              value: "OPTIONS"
+              value: "OPTIONS",
             },
             {
               key: "DELETE",
-              value: "DELETE"
-            }
+              value: "DELETE",
+            },
           ],
           required: null,
           placeholder: "",
@@ -177,7 +174,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "header",
@@ -196,7 +193,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: "Headers to add to the request, such as Authorization"
+          helperText: "Headers to add to the request, such as Authorization",
         },
         {
           key: "contentType",
@@ -215,7 +212,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "body",
@@ -234,7 +231,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "allowUntrustedCerts",
@@ -253,7 +250,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "outputFilePath",
@@ -272,7 +269,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: "File path to store the output response"
+          helperText: "File path to store the output response",
         },
         {
           key: "successcodes",
@@ -291,7 +288,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: ""
+          helperText: "",
         },
         {
           key: "errorcodes",
@@ -310,7 +307,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: "HTTP response codes which marks the call as failed"
+          helperText: "HTTP response codes which marks the call as failed",
         },
         {
           key: "retrycodes",
@@ -329,7 +326,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: "HTTP response codes for retry"
+          helperText: "HTTP response codes for retry",
         },
         {
           key: "retrydelay",
@@ -348,7 +345,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: "Cool down between retries in millis (100, 300000)"
+          helperText: "Cool down between retries in millis (100, 300000)",
         },
         {
           key: "retrynumber",
@@ -367,11 +364,11 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: "Number of retries to be attempted, between (1, 9)"
-        }
+          helperText: "Number of retries to be attempted, between (1, 9)",
+        },
       ],
       icon: "API/HTTP call",
-      verified: true
+      verified: true,
     },
     {
       id: "647966b186bfa2195a197260",
@@ -386,59 +383,56 @@ const tasktemplate = {
       changelog: {
         author: "5e71f175756f7e000192eb6c",
         reason: "",
-        date: "2021-03-31T23:43:36.805+00:00"
+        date: "2021-03-31T23:43:36.805+00:00",
       },
       category: "Utilities",
       type: "template",
       spec: {
-        arguments: [
-          "http",
-          "execute"
-        ],
+        arguments: ["http", "execute"],
         command: [],
         params: [
           {
             name: "url",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "method",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "header",
             type: "string",
             description: "Start a new line for each header",
-            defaultValue: ""
+            defaultValue: "",
           },
           {
             name: "contentType",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "body",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "allowUntrustedCerts",
             type: "string",
             description: "",
-            defaultValue: null
-          }
+            defaultValue: null,
+          },
         ],
         envs: null,
         image: "",
         results: null,
         script: null,
-        workingDir: null
+        workingDir: null,
       },
       config: [
         {
@@ -458,7 +452,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "method",
@@ -470,32 +464,32 @@ const tasktemplate = {
           options: [
             {
               key: "GET",
-              value: "GET"
+              value: "GET",
             },
             {
               key: "HEAD",
-              value: "HEAD"
+              value: "HEAD",
             },
             {
               key: "PUT",
-              value: "PUT"
+              value: "PUT",
             },
             {
               key: "POST",
-              value: "POST"
+              value: "POST",
             },
             {
               key: "PATCH",
-              value: "PATCH"
+              value: "PATCH",
             },
             {
               key: "OPTIONS",
-              value: "OPTIONS"
+              value: "OPTIONS",
             },
             {
               key: "DELETE",
-              value: "DELETE"
-            }
+              value: "DELETE",
+            },
           ],
           required: null,
           placeholder: "",
@@ -506,7 +500,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "header",
@@ -525,7 +519,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: "Headers to add to the request, such as Authorization"
+          helperText: "Headers to add to the request, such as Authorization",
         },
         {
           key: "contentType",
@@ -544,7 +538,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "body",
@@ -563,7 +557,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "allowUntrustedCerts",
@@ -582,11 +576,11 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
-        }
+          helperText: null,
+        },
       ],
       icon: "API/HTTP call",
-      verified: true
+      verified: true,
     },
     {
       id: "647966b086bfa2195a19725e",
@@ -601,59 +595,56 @@ const tasktemplate = {
       changelog: {
         author: "59aebd0b7424530fce952fdc",
         reason: "Point to image 2.0.1.  Added helper text for Headers field",
-        date: "2020-05-15T16:59:20.522+00:00"
+        date: "2020-05-15T16:59:20.522+00:00",
       },
       category: "Utilities",
       type: "template",
       spec: {
-        arguments: [
-          "http",
-          "execute"
-        ],
+        arguments: ["http", "execute"],
         command: [],
         params: [
           {
             name: "url",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "method",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "header",
             type: "string",
             description: "Start a new line for each header",
-            defaultValue: ""
+            defaultValue: "",
           },
           {
             name: "contentType",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "body",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "allowUntrustedCerts",
             type: "string",
             description: "",
-            defaultValue: null
-          }
+            defaultValue: null,
+          },
         ],
         envs: null,
         image: "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.1",
         results: null,
         script: null,
-        workingDir: null
+        workingDir: null,
       },
       config: [
         {
@@ -673,7 +664,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "method",
@@ -685,32 +676,32 @@ const tasktemplate = {
           options: [
             {
               key: "GET",
-              value: "GET"
+              value: "GET",
             },
             {
               key: "HEAD",
-              value: "HEAD"
+              value: "HEAD",
             },
             {
               key: "PUT",
-              value: "PUT"
+              value: "PUT",
             },
             {
               key: "POST",
-              value: "POST"
+              value: "POST",
             },
             {
               key: "PATCH",
-              value: "PATCH"
+              value: "PATCH",
             },
             {
               key: "OPTIONS",
-              value: "OPTIONS"
+              value: "OPTIONS",
             },
             {
               key: "DELETE",
-              value: "DELETE"
-            }
+              value: "DELETE",
+            },
           ],
           required: null,
           placeholder: "",
@@ -721,7 +712,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "header",
@@ -740,7 +731,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: "Headers to add to the request, such as Authorization"
+          helperText: "Headers to add to the request, such as Authorization",
         },
         {
           key: "contentType",
@@ -759,7 +750,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "body",
@@ -778,7 +769,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "allowUntrustedCerts",
@@ -797,11 +788,11 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
-        }
+          helperText: null,
+        },
       ],
       icon: "API/HTTP call",
-      verified: true
+      verified: true,
     },
     {
       id: "647966a286bfa2195a197235",
@@ -816,47 +807,44 @@ const tasktemplate = {
       changelog: {
         author: "5fc9c3163727f831e8946186",
         reason: "Initial version",
-        date: "2021-06-25T04:36:52.164+00:00"
+        date: "2021-06-25T04:36:52.164+00:00",
       },
       category: "IBM Services Essentials",
       type: "template",
       spec: {
-        arguments: [
-          "ibmessentials",
-          "sendNotification"
-        ],
+        arguments: ["ibmessentials", "sendNotification"],
         command: [],
         params: [
           {
             name: "type",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "target",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "title",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "message",
             type: "string",
             description: "",
-            defaultValue: null
-          }
+            defaultValue: null,
+          },
         ],
         envs: [],
         image: "",
         results: [],
         script: "",
-        workingDir: ""
+        workingDir: "",
       },
       config: [
         {
@@ -869,12 +857,12 @@ const tasktemplate = {
           options: [
             {
               key: "user",
-              value: "user"
+              value: "user",
             },
             {
               key: "group",
-              value: "group"
-            }
+              value: "group",
+            },
           ],
           required: null,
           placeholder: "",
@@ -885,7 +873,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "target",
@@ -904,7 +892,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "title",
@@ -923,7 +911,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "message",
@@ -942,11 +930,11 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
-        }
+          helperText: null,
+        },
       ],
       icon: "Message",
-      verified: true
+      verified: true,
     },
     {
       id: "647966a286bfa2195a197235",
@@ -961,53 +949,50 @@ const tasktemplate = {
       changelog: {
         author: "Tyson Lawrie",
         reason: "Added new URL input parameter",
-        date: "2021-06-25T04:36:52.164+00:00"
+        date: "2021-06-25T04:36:52.164+00:00",
       },
       category: "IBM Services Essentials",
       type: "template",
       spec: {
-        arguments: [
-          "ibmessentials",
-          "sendNotification"
-        ],
+        arguments: ["ibmessentials", "sendNotification"],
         command: [],
         params: [
           {
             name: "url",
             type: "string",
             description: "",
-            defaultValue: "https://ess-core-services-notifications/notifications/submit"
+            defaultValue: "https://ess-core-services-notifications/notifications/submit",
           },
           {
             name: "type",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "target",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "title",
             type: "string",
             description: "",
-            defaultValue: null
+            defaultValue: null,
           },
           {
             name: "message",
             type: "string",
             description: "",
-            defaultValue: null
-          }
+            defaultValue: null,
+          },
         ],
         envs: [],
         image: "",
         results: [],
         script: "",
-        workingDir: ""
+        workingDir: "",
       },
       config: [
         {
@@ -1027,7 +1012,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: "Endpoint to the internal platform service"
+          helperText: "Endpoint to the internal platform service",
         },
         {
           key: "type",
@@ -1039,12 +1024,12 @@ const tasktemplate = {
           options: [
             {
               key: "user",
-              value: "user"
+              value: "user",
             },
             {
               key: "group",
-              value: "group"
-            }
+              value: "group",
+            },
           ],
           required: null,
           placeholder: "",
@@ -1055,7 +1040,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "target",
@@ -1074,7 +1059,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "title",
@@ -1093,7 +1078,7 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
+          helperText: null,
         },
         {
           key: "message",
@@ -1112,45 +1097,98 @@ const tasktemplate = {
           values: null,
           readOnly: false,
           hiddenValue: null,
-          helperText: null
-        }
+          helperText: null,
+        },
       ],
       icon: "Message",
-      verified: true
+      verified: true,
     },
     {
-      "name": "tysons-test-inactive-task",
-      "displayName": "Tyson's Test Inactive Task",
-      "description": "This is my wonderful test task",
-      "status": "inactive",
-      "labels": {},
-      "annotations": {
-          "boomerang.io/generation": "4",
-          "boomerang.io/kind": "TaskTemplate"
+      name: "tysons-test-inactive-task",
+      displayName: "Tyson's Test Inactive Task",
+      description: "This is my wonderful test task",
+      status: "inactive",
+      labels: {},
+      annotations: {
+        "boomerang.io/generation": "4",
+        "boomerang.io/kind": "TaskTemplate",
       },
-      "version": 1,
-      "creationDate": "2023-07-05T04:16:34.436+00:00",
-      "changelog": {
-          "author": "admin@flowabl.io",
-          "reason": "Initial Task Template",
-          "date": "2023-07-05T04:16:32.653+00:00"
+      version: 1,
+      creationDate: "2023-07-05T04:16:34.436+00:00",
+      changelog: {
+        author: "admin@flowabl.io",
+        reason: "Initial Task Template",
+        date: "2023-07-05T04:16:32.653+00:00",
       },
-      "category": "Test",
-      "type": "template",
-      "spec": {
-          "arguments": [],
-          "command": [],
-          "params": null,
-          "envs": [],
-          "image": null,
-          "results": [],
-          "script": "",
-          "workingDir": ""
+      category: "Test",
+      type: "template",
+      spec: {
+        arguments: [],
+        command: [],
+        params: null,
+        envs: [],
+        image: null,
+        results: [],
+        script: "",
+        workingDir: "",
       },
-      "config": [],
-      "icon": "Automated task",
-      "verified": false
-  }
+      config: [
+        {
+          key: "duration",
+          description: "",
+          label: "duration",
+          type: "number",
+          minValueLength: null,
+          maxValueLength: null,
+          options: null,
+          required: true,
+          placeholder: "",
+          language: null,
+          disabled: null,
+          defaultValue: "1",
+          value: null,
+          values: null,
+          readOnly: false,
+          hiddenValue: null,
+          helperText: "Wait for a bit",
+        },
+      ],
+      icon: "Automated task",
+      verified: false,
+    },
+    {
+      name: "sleep",
+      displayName: "Sleep",
+      description: "go to sleep",
+      status: "active",
+      labels: {},
+      annotations: {
+        "boomerang.io/generation": "4",
+        "boomerang.io/kind": "TaskTemplate",
+      },
+      version: 1,
+      creationDate: "2023-07-05T04:16:34.436+00:00",
+      changelog: {
+        author: "admin@flowabl.io",
+        reason: "Initial Task Template",
+        date: "2023-07-05T04:16:32.653+00:00",
+      },
+      category: "Utilities",
+      type: "template",
+      spec: {
+        arguments: [],
+        command: [],
+        params: null,
+        envs: [],
+        image: null,
+        results: [],
+        script: "",
+        workingDir: "",
+      },
+      config: [],
+      icon: "Automated task",
+      verified: false,
+    },
   ],
   number: 0,
   size: 4,
@@ -1159,13 +1197,13 @@ const tasktemplate = {
   last: true,
   totalPages: 1,
   sort: {
-      sorted: false,
-      empty: true,
-      unsorted: true
+    sorted: false,
+    empty: true,
+    unsorted: true,
   },
   first: true,
   numberOfElements: 4,
-  empty: false
+  empty: false,
 };
 
 export default tasktemplate;

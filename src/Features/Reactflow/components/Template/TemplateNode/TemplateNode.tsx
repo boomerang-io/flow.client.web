@@ -25,10 +25,10 @@ export default function TaskTemplateNode(props: NodeProps) {
 // might be able to use a hook got get the workflow state from react flow
 
 function TaskTemplateNodeDesigner(props: NodeProps) {
-  console.log("This is being used");
   const reactFlowInstance = useReactFlow();
 
   const { availableParametersQueryData, revisionDispatch, revisionState, taskTemplatesData } = useEditorContext();
+  const nodes = reactFlowInstance.getNodes()
 
   const designerNode: any = {};
 
@@ -38,15 +38,18 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
   console.log({ data: props.data });
   const inputProperties = availableParametersQueryData;
 
-  const nodeDag: any = revisionState.dag.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
+  const nodeDag: any = revisionState.nodes?.find((revisionNode) => revisionNode.type === props.data.templateRef) ?? {};
   const nodeConfig = revisionState.config[designerNode?.id] ?? {};
-  const task = taskTemplatesData?.find((taskTemplate) => taskTemplate.id === designerNode.taskId) ?? {
+  const task = taskTemplatesData?.find((taskTemplate) => taskTemplate.name === props.data.templateRef) ?? {
     name: props.type,
     description: "",
+    icon: ""
   };
 
   // Get the taskNames names from the nodes on the model
   const taskNames: any[] = [];
+
+  console.log({ taskNames, inputProperties, task, nodeConfig, nodeDag, nodes })
 
   /**
    * TODO: Event handlers
@@ -138,7 +141,7 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
   };
 
   return (
-    <BaseNode title={task.name} isConnectable nodeProps={props}>
+    <BaseNode title={task.name} isConnectable nodeProps={props} subtitle={task.description} icon={task.icon}>
       <UpdateTaskVersion />
       <ConfigureTask />
     </BaseNode>

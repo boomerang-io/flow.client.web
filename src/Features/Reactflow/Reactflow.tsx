@@ -7,13 +7,9 @@ import ReactFlow, {
   Edge,
   EdgeTypes,
   Node,
-  MarkerType,
   ReactFlowInstance,
   applyEdgeChanges,
   applyNodeChanges,
-  EdgeProps,
-  getBezierPath,
-  EdgeLabelRenderer,
   Position,
   NodeTypes,
   NodeProps,
@@ -28,23 +24,10 @@ import { NodeType, WorkflowDagEngineMode } from "Constants";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import * as GraphComps from "./components";
-import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
-import { EXECUTION_CONDITIONS } from "Utils/taskLinkIcons";
 import { TaskTemplate } from "Types";
 
 type NodeTypeValues = typeof NodeType[keyof typeof NodeType];
 
-const conditions = {
-  0: "Always",
-  1: "Success",
-  2: "Failure",
-};
-
-const conditionColor = {
-  0: "black",
-  1: "green",
-  2: "red",
-};
 
 const TaskNode: React.FC<NodeProps> = (props) => {
   // TODO: this along w/ the use of `reactFlowInstance.deleteElements` should probably be a shared hook that can be reused by
@@ -92,58 +75,6 @@ const TaskNode: React.FC<NodeProps> = (props) => {
   );
 };
 
-const TaskEdge: React.FC<EdgeProps> = (props: any) => {
-  const { id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, data, style } = props;
-  const [edgePath, labelX, labelY] = getBezierPath({
-    sourceX,
-    sourceY,
-    sourcePosition,
-    targetX,
-    targetY,
-    targetPosition,
-  });
-
-  const mergedStyles = {
-    ...style,
-    stroke: "#0072c3",
-    strokeWidth: "2",
-  };
-
-  const [condition, setCondition] = React.useState(0);
-  const reactFlowInstance = useReactFlow();
-
-  return (
-    <>
-      <path
-        id={id}
-        className="react-flow__edge-path"
-        d={edgePath}
-        markerEnd={`url(#${markerTypes.task}`}
-        style={mergedStyles}
-      />
-      <EdgeLabelRenderer>
-        <div
-          style={{
-            display: "flex",
-            gap: "0.5rem",
-            position: "absolute",
-            transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
-            fontSize: 12,
-            fontWeight: 700,
-            pointerEvents: "all",
-          }}
-          className="nodrag nopan"
-        >
-          <WorkflowCloseButton className="" onClick={() => reactFlowInstance.deleteElements({ edges: [props] })} />
-          <TaskLinkExecutionConditionSwitcher
-            onClick={() => setCondition((condition + 1) % 3)}
-            executionCondition={EXECUTION_CONDITIONS[condition]}
-          />
-        </div>
-      </EdgeLabelRenderer>
-    </>
-  );
-};
 
 function CustomEdgeArrow({ id, color }: any) {
   return (
@@ -185,7 +116,6 @@ export const markerTypes: { [K in NodeTypeValues]: string } = {
   approval: "task-marker",
   acquirelock: "task-marker",
   decision: "decision-marker",
-  end: "task-marker",
   eventwait: "task-marker",
   custom: "task-marker",
   manual: "task-marker",
@@ -195,13 +125,13 @@ export const markerTypes: { [K in NodeTypeValues]: string } = {
   script: "task-marker",
   setwfproperty: "task-marker",
   setwfstatus: "task-marker",
-  start: "task-marker",
-  task: "task-marker",
   template: "task-marker",
+  startend: "task-marker",
+  sleep: "task-marker"
 };
 
 const edgeTypes: EdgeTypes = {
-  task: TaskEdge,
+  task: GraphComps.TemplateEdge,
   decision: GraphComps.DecisionEdge,
 };
 
@@ -209,8 +139,7 @@ const edgeTypes: EdgeTypes = {
 const nodeTypes: NodeTypes = {
   start: GraphComps.StartNode,
   end: GraphComps.EndNode,
-  task: TaskNode,
-  template: TaskNode,
+  template: GraphComps.TemplateNode,
   approval: TaskNode,
   custom: GraphComps.CustomNode,
   decision: GraphComps.DecisionNode,
@@ -228,58 +157,6 @@ const nodeTypes: NodeTypes = {
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
-const initialNodes: Node[] = [
-  {
-    id: "start",
-    position: { x: 200, y: 200 },
-    type: "start",
-    data: {},
-  },
-  {
-    id: "2",
-    position: { x: 800, y: 200 },
-    data: { label: "node" },
-    sourcePosition: Position.Right,
-    targetPosition: Position.Left,
-    type: "task",
-  },
-  {
-    id: "3",
-    position: { x: 800, y: 400 },
-    data: { label: "node" },
-    sourcePosition: Position.Right,
-    targetPosition: Position.Left,
-    type: "decision",
-  },
-  {
-    id: "end",
-    position: { x: 1400, y: 200 },
-    data: { label: "end" },
-    type: "end",
-    targetPosition: Position.Left,
-    deletable: false,
-  },
-];
-
-const initialEdges: Edge[] = [
-  {
-    id: "1-2",
-    source: "1",
-    target: "2",
-    type: "task",
-    data: { text: "hello" },
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-      width: 24,
-      height: 24,
-      color: "var(--cds-interactive-01)",
-    },
-    style: {
-      stroke: "var(--cds-interactive-01)",
-      strokeWidth: "2",
-    },
-  },
-];
 
 function FlowDiagram(props: {
   mode: typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode];
@@ -289,8 +166,8 @@ function FlowDiagram(props: {
    * Set up state and refs
    */
   const reactFlowWrapper = React.useRef<HTMLDivElement>(null);
-  const [nodes, setNodes] = React.useState<Node[]>(initialNodes);
-  const [edges, setEdges] = React.useState<Edge[]>(initialEdges);
+  const [nodes, setNodes] = React.useState<Node[]>(props.diagram.nodes);
+  const [edges, setEdges] = React.useState<Edge[]>(props.diagram.edges);
   const [flow, setFlow] = React.useState<ReactFlowInstance | null>(null);
 
   /**
@@ -336,7 +213,7 @@ function FlowDiagram(props: {
         id: getId(),
         type: task.type,
         position,
-        data: { label: `${task.type} node`, task },
+        data: { label: `${task.type} node`, templateRef: task.name },
       };
 
       setNodes((nds) => nds.concat(newNode));
@@ -369,7 +246,7 @@ function FlowDiagram(props: {
           >
             <MarkerDefinition>
               <CustomEdgeArrow id={markerTypes.decision} color="purple" />
-              <CustomEdgeArrow id={markerTypes.task} color="#0072c3" />
+              <CustomEdgeArrow id={markerTypes.templateTask} color="#0072c3" />
             </MarkerDefinition>
             <Background />
             <Controls />
@@ -391,7 +268,7 @@ function getLinkType(connection: Connection, nodes: Node[]) {
   }
 
   return {
-    type: "task",
+    type: "templateTask",
   };
 }
 

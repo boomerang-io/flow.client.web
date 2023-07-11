@@ -11,5 +11,5 @@ export { ScriptNode } from "./Script";
 export { SetPropertyNode } from "./SetProperty";
 export { SetStatusNode } from "./SetStatus";
 export { StartNode } from "./Start";
-export { TemplateNode } from "./Template";
+export { TemplateEdge, TemplateNode } from "./Template";
 export { WaitNode } from "./Wait";

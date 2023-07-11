@@ -1,1 +1,1 @@
-export { default } from './TaskTemplateEdge';
+export { default } from './TemplateEdge';
