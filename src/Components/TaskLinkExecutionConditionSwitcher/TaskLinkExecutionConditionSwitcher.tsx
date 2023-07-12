@@ -2,7 +2,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import styles from "./TaskLinkExecutionConditionSwitcher.module.scss";
 
 const TaskLinkExecutionConditionSwitcher = React.memo(function TaskLinkExecutionConditionSwitcher({
@@ -17,14 +16,12 @@ const TaskLinkExecutionConditionSwitcher = React.memo(function TaskLinkExecution
     return <Icon className={cx(styles.container, styles[kind], styles[name])} key={name} />;
   } else {
     return (
-      <Icon
-        className={cx(styles.container, styles[kind], styles[name])}
-        key={name}
-        onClick={onClick}
-        onKeyDown={(e) => isAccessibleKeyboardEvent(e) && onClick(e)}
-        role="button"
-        tabIndex={0}
-      />
+      <button onClick={onClick} style={{ lineHeight: 1 }}>
+        <Icon
+          className={cx(styles.container, styles[kind], styles[name])}
+          key={name}
+        />
+      </button>
     );
   }
 });
