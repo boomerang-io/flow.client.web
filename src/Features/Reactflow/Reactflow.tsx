@@ -156,8 +156,8 @@ function FlowDiagram(props: FlowDiagramProps) {
       }
 
       const position = flow?.project({
-        x: event.clientX - reactFlowBounds?.left,
-        y: event.clientY - reactFlowBounds?.top,
+        x: event.clientX - reactFlowBounds?.left - 75,
+        y: event.clientY - reactFlowBounds?.top - 25,
       }) as XYPosition
 
       const newNode: Node = {

@@ -39,11 +39,7 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
 
   const nodeDag: any = revisionState.nodes?.find((revisionNode) => revisionNode.type === props.data.templateRef) ?? {};
   const nodeConfig = revisionState.config[designerNode?.id] ?? {};
-  const task = taskTemplatesData?.find((taskTemplate) => taskTemplate.name === props.data.templateRef) ?? {
-    name: props.type,
-    description: "",
-    icon: ""
-  };
+  const task = taskTemplatesData?.find((taskTemplate) => taskTemplate.name === props.data.templateRef)!
 
   // Get the taskNames names from the nodes on the model
   const taskNames: any[] = [];
@@ -88,7 +84,7 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
           children: "Your changes will not be saved",
         }}
         modalHeaderProps={{
-          title: `Edit ${task.name}`,
+          title: `Edit ${task.displayName}`,
           subtitle: task.description || "Configure the inputs",
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
@@ -140,7 +136,7 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
   };
 
   return (
-    <BaseNode title={task.name} isConnectable nodeProps={props} subtitle={task.description} icon={task.icon}>
+    <BaseNode title={task.displayName} isConnectable nodeProps={props} subtitle={task.description} icon={task.icon}>
       <UpdateTaskVersion />
       <ConfigureTask />
     </BaseNode>

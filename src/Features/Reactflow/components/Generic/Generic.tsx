@@ -8,7 +8,7 @@ import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import BaseNode from "../Base/BaseNode";
 // import cx from "classnames";
-import styles from "./CustomNode.module.scss";
+import styles from "./Generic.module.scss";
 
 export default function CustomNode(props: NodeProps) {
   // use context to determine state of diagram

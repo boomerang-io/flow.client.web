@@ -33,7 +33,7 @@ export default function BaseNode(props: BaseNodeProps) {
 
   return (
     <div className={cx(styles.node, className)} {...rest}>
-      <div style={{ position: "absolute", top: "-0.875rem", right: "-0.875rem", display: "flex", gap: "0.25rem" }}>
+      <div style={{ position: "absolute", top: "-1rem", right: "-0.875rem", display: "flex", gap: "0.25rem" }}>
         <WorkflowCloseButton
           style={{ height: "1.75rem" }}
           className={""}
