@@ -27,7 +27,7 @@ export default function TaskTemplateNode(props: NodeProps) {
 function TaskTemplateNodeDesigner(props: NodeProps) {
   const reactFlowInstance = useReactFlow();
 
-  const { availableParametersQueryData, revisionDispatch, revisionState, taskTemplatesData } = useEditorContext();
+  const { availableParametersQueryData, revisionDispatch, revisionState, taskTemplatesData, mode } = useEditorContext();
   const nodes = reactFlowInstance.getNodes()
 
   const designerNode: any = {};
@@ -35,7 +35,6 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
   /**
    * TODO: Pull data off of context
    */
-  console.log({ data: props.data });
   const inputProperties = availableParametersQueryData;
 
   const nodeDag: any = revisionState.nodes?.find((revisionNode) => revisionNode.type === props.data.templateRef) ?? {};

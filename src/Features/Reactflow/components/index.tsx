@@ -3,6 +3,7 @@ export { ApprovalNode } from "./Approval";
 export { CustomNode } from "./Custom";
 export { DecisionEdge, DecisionNode } from "./Decision";
 export { EndNode } from "./End";
+export { GenericNode } from "./Generic";
 export { ManualNode } from "./Manual";
 export { ReleaseLockNode } from "./ReleaseLock";
 export { RunScheduledWorkflowNode } from "./RunScheduledWorkflow";

@@ -3,17 +3,13 @@ import ReactFlow, {
   ReactFlowProvider,
   Background,
   Controls,
-  Handle,
   Edge,
   EdgeTypes,
   Node,
   ReactFlowInstance,
   applyEdgeChanges,
   applyNodeChanges,
-  Position,
   NodeTypes,
-  NodeProps,
-  useReactFlow,
   addEdge,
   Connection,
   XYPosition,
@@ -21,60 +17,11 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 import "./styles.scss";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
-import WorkflowCloseButton from "Components/WorkflowCloseButton";
-import WorkflowEditButton from "Components/WorkflowEditButton";
 import * as GraphComps from "./components";
 import { TaskTemplate } from "Types";
 
 type NodeTypeValues = typeof NodeType[keyof typeof NodeType];
-
-
-const TaskNode: React.FC<NodeProps> = (props) => {
-  // TODO: this along w/ the use of `reactFlowInstance.deleteElements` should probably be a shared hook that can be reused by
-  // nodes
-  console.log({ data: props.data })
-  const reactFlowInstance = useReactFlow();
-  const { isConnectable, type } = props;
-  return (
-    <div
-      style={{
-        position: "relative",
-        background: "white",
-        color: "black",
-        padding: "0.5rem",
-        borderRadius: "0.25rem",
-        borderColor: "var(--cds-interactive-01)",
-        borderWidth: "2px",
-        borderStyle: "solid",
-        width: "260px",
-        height: "80px",
-      }}
-    >
-      <h2>{props.data?.task?.displayName ?? "Task"}</h2>
-      <div style={{ position: "absolute", top: "-0.875rem", right: "-0.875rem", display: "flex", gap: "0.375rem" }}>
-        <WorkflowEditButton className={""} onClick={() => console.log("clicked")}>
-          Edit
-        </WorkflowEditButton>
-        <WorkflowCloseButton className={""} onClick={() => reactFlowInstance.deleteElements({ nodes: [props] })}>
-          Delete
-        </WorkflowCloseButton>
-      </div>
-      <Handle
-        className="b-startEnd-node__port --right"
-        type="source"
-        position={Position.Right}
-        isConnectable={isConnectable}
-      />
-      <Handle
-        className="b-startEnd-node__port --left"
-        type="target"
-        position={Position.Left}
-        isConnectable={isConnectable}
-      />
-    </div>
-  );
-};
-
+type WorkflowEngineMode = typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode];
 
 function CustomEdgeArrow({ id, color }: any) {
   return (
@@ -115,9 +62,11 @@ export function MarkerDefinition({ children }: MarkerDefinitionsProps) {
 export const markerTypes: { [K in NodeTypeValues]: string } = {
   approval: "task-marker",
   acquirelock: "task-marker",
-  decision: "decision-marker",
-  eventwait: "task-marker",
   custom: "task-marker",
+  decision: "decision-marker",
+  end: "task-marker",
+  eventwait: "task-marker",
+  generic: "task-marker",
   manual: "task-marker",
   releaselock: "task-marker",
   runscheduledworkflow: "task-marker",
@@ -126,42 +75,44 @@ export const markerTypes: { [K in NodeTypeValues]: string } = {
   setwfproperty: "task-marker",
   setwfstatus: "task-marker",
   template: "task-marker",
-  startend: "task-marker",
+  start: "task-marker",
   sleep: "task-marker"
 };
 
 const edgeTypes: EdgeTypes = {
-  task: GraphComps.TemplateEdge,
+  template: GraphComps.TemplateEdge,
   decision: GraphComps.DecisionEdge,
 };
 
 // Replace all of the functionality for the utils/dag/WorkflowDagEngine constructor, registerNodeFactory and factories
-const nodeTypes: NodeTypes = {
+const nodeTypes: { [K in NodeTypeValues]: string } = {
+  acquirelock: GraphComps.AcquireLockNode,
   start: GraphComps.StartNode,
-  end: GraphComps.EndNode,
   template: GraphComps.TemplateNode,
-  approval: TaskNode,
+  approval: GraphComps.TemplateNode,
   custom: GraphComps.CustomNode,
   decision: GraphComps.DecisionNode,
+  end: GraphComps.EndNode,
   eventwait: GraphComps.WaitNode,
+  generic: GraphComps.TemplateNode,
   manual: GraphComps.ManualNode,
-  acquirelock: GraphComps.AcquireLockNode,
   releaselock: GraphComps.ReleaseLockNode,
   runscheduledworkflow: GraphComps.RunScheduledWorkflowNode,
   runworkflow: GraphComps.RunWorkflowNode,
   script: GraphComps.ScriptNode,
   setwfproperty: GraphComps.SetPropertyNode,
   setwfstatus: GraphComps.SetStatusNode,
-};
+} as NodeTypes
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
-
-function FlowDiagram(props: {
-  mode: typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode];
+interface FlowDiagramProps {
+  mode: WorkflowEngineMode,
   diagram: { nodes: Node[]; edges: Edge[] };
-}) {
+}
+
+function FlowDiagram(props: FlowDiagramProps) {
   /**
    * Set up state and refs
    */
@@ -222,12 +173,10 @@ function FlowDiagram(props: {
   );
 
   const isDisabled = props.mode === WorkflowDagEngineMode.Viewer;
-  console.log({ nodes });
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <ReactFlowProvider>
-        {/* <Sidenav /> */}
         <div className="reactflow-wrapper" ref={reactFlowWrapper} style={{ height: "100%", width: "100%" }}>
           <ReactFlow
             nodes={nodes}
@@ -246,7 +195,7 @@ function FlowDiagram(props: {
           >
             <MarkerDefinition>
               <CustomEdgeArrow id={markerTypes.decision} color="purple" />
-              <CustomEdgeArrow id={markerTypes.templateTask} color="#0072c3" />
+              <CustomEdgeArrow id={markerTypes.template} color="#0072c3" />
             </MarkerDefinition>
             <Background />
             <Controls />
@@ -268,48 +217,8 @@ function getLinkType(connection: Connection, nodes: Node[]) {
   }
 
   return {
-    type: "templateTask",
+    type: "template",
   };
 }
-
-// const Sidenav = () => {
-//   const onDragStart = (event: any, nodeType: any) => {
-//     event.dataTransfer.setData("application/reactflow", nodeType);
-//     event.dataTransfer.effectAllowed = "move";
-//   };
-
-//   return (
-//     <aside style={{ background: "white", padding: "1rem", display: "flex", gap: "1rem" }}>
-//       <div className="description">You can drag these nodes to the pane on the right.</div>
-//       <div className="dndnode input" onDragStart={(event) => onDragStart(event, "start")} draggable>
-//         Start Node
-//       </div>
-//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "acquirelock")} draggable>
-//         Acquire Lock
-//       </div>
-//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "approval")} draggable>
-//         Approval
-//       </div>
-//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "releaselock")} draggable>
-//         Release Lock
-//       </div>
-//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "task")} draggable>
-//         Task Node
-//       </div>
-//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "decision")} draggable>
-//         Decision Node
-//       </div>
-//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "setwfproperty")} draggable>
-//         Set Property Node
-//       </div>
-//       <div className="dndnode" onDragStart={(event) => onDragStart(event, "custom")} draggable>
-//         Custom Node
-//       </div>
-//       <div className="dndnode output" onDragStart={(event) => onDragStart(event, "end")} draggable>
-//         End Node
-//       </div>
-//     </aside>
-//   );
-// };
 
 export default FlowDiagram;

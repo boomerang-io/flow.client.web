@@ -103,6 +103,9 @@ export const NodeType = {
   Approval: "approval",
   CustomTask: "custom",
   Decision: "decision",
+  End: "end",
+  EventWait: "eventwait",
+  Generic: "generic",
   Manual: "manual",
   Releaselock: "releaselock",
   RunScheduledWorkflow: "runscheduledworkflow",
@@ -110,9 +113,8 @@ export const NodeType = {
   Script: "script",
   SetProperty: "setwfproperty",
   SetStatus: "setwfstatus",
-  StartEnd: "startend",
-  template: "template",
-  Wait: "eventwait",
+  Start: "start",
+  Template: "template",
   Sleep: "sleep",
 } as const;
 
