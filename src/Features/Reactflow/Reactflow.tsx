@@ -19,6 +19,7 @@ import "./styles.scss";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
 import * as GraphComps from "./components";
 import { TaskTemplate } from "Types";
+import { current } from "immer";
 
 type NodeTypeValues = typeof NodeType[keyof typeof NodeType];
 type WorkflowEngineMode = typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode];
@@ -160,16 +161,26 @@ function FlowDiagram(props: FlowDiagramProps) {
         y: event.clientY - reactFlowBounds?.top - 25,
       }) as XYPosition
 
+
+      // TODO: clean this up - determines how to give the task template a unique name
+      const numTemplateRefInstances = nodes.reduce((prev, currentValue) => {
+        if (currentValue.data.templateRef === task.name) {
+          prev += 1
+        }
+        return prev
+      }, 0)
+
+      const taskName = numTemplateRefInstances ? `${task.displayName} ${numTemplateRefInstances + 1}` : task.displayName
       const newNode: Node = {
         id: getId(),
         type: task.type,
         position,
-        data: { label: `${task.type} node`, templateRef: task.name },
+        data: { name: taskName, templateRef: task.name, templateVersion: task.version, templateUpgradesAvailable: false, params: [] },
       };
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [flow]
+    [flow, nodes]
   );
 
   const isDisabled = props.mode === WorkflowDagEngineMode.Viewer;
@@ -179,6 +190,7 @@ function FlowDiagram(props: FlowDiagramProps) {
       <ReactFlowProvider>
         <div className="reactflow-wrapper" ref={reactFlowWrapper} style={{ height: "100%", width: "100%" }}>
           <ReactFlow
+            fitView
             nodes={nodes}
             onNodesChange={onNodesChange}
             edges={edges}
@@ -192,6 +204,7 @@ function FlowDiagram(props: FlowDiagramProps) {
             nodesDraggable={!isDisabled}
             nodesConnectable={!isDisabled}
             elementsSelectable={!isDisabled}
+
           >
             <MarkerDefinition>
               <CustomEdgeArrow id={markerTypes.decision} color="purple" />

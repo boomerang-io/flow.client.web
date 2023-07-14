@@ -19,7 +19,7 @@ export default [
           y: 400.0,
         },
         data: {
-          label: "start",
+          name: "start",
           params: [],
         },
         type: "start",
@@ -31,7 +31,7 @@ export default [
           y: 400.0,
         },
         data: {
-          label: "end",
+          name: "end",
           params: [],
         },
         type: "end",
@@ -43,7 +43,7 @@ export default [
           y: 400.0,
         },
         data: {
-          label: "Sleep 1",
+          name: "Sleep 1",
           params: [
             {
               name: "duration",
@@ -51,6 +51,7 @@ export default [
             },
           ],
           templateRef: "sleep",
+          templateVersion: 1,
         },
         type: "template",
       },

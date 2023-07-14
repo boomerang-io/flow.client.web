@@ -451,6 +451,7 @@ export interface TaskTemplate {
   verified: boolean;
   config: Array<DataDrivenInput>;
   spec: TaskTemplateSpec;
+  results: Record<string, string>;
 }
 
 export interface TaskTemplateSpec {

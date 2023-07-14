@@ -35,6 +35,7 @@ import { AppPath } from "Config/appConfig";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
 import { TaskTemplate, WorkflowSummary, WorkflowRevision, WorkflowView, PaginatedResponse } from "Types";
 import styles from "./editor.module.scss";
+import { groupTaskTemplatesByName } from "Utils";
 
 export default function EditorContainer() {
   const { activeTeam } = useAppContext();
@@ -49,7 +50,8 @@ export default function EditorContainer() {
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
     query: queryString.stringify({ teams: activeTeam?.id, statuses: "active" }),
   });
-  const getAvailableParametersUrl = serviceUrl.getTaskTemplates({ workflowId });
+
+  const getAvailableParametersUrl = serviceUrl.workflowAvailableParameters({ workflowId });
 
   /**
    * Queries
@@ -100,7 +102,7 @@ export default function EditorContainer() {
         summaryData={summaryQuery.data}
         summaryMutation={summaryMutation}
         setRevisionNumber={setRevisionNumber}
-        taskTemplatesData={taskTemplatesQuery.data.content}
+        taskTemplatesList={taskTemplatesQuery.data.content}
         workflowId={workflowId}
       />
     );
@@ -127,7 +129,7 @@ interface EditorStateContainerProps {
     variables: { workflowId: any; body: any } | undefined;
   }
   | any;
-  revisionQuery: UseQueryResult<PaginatedResponse<WorkflowRevision>, unknown>;
+  revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
   summaryData: WorkflowSummary;
   summaryMutation:
   | {
@@ -143,7 +145,7 @@ interface EditorStateContainerProps {
   }
   | any;
   setRevisionNumber: (revisionNumber: number) => void;
-  taskTemplatesData: Array<TaskTemplate>;
+  taskTemplatesList: Array<TaskTemplate>;
   workflowId: string;
 }
 
@@ -161,7 +163,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   summaryData,
   summaryMutation,
   setRevisionNumber,
-  taskTemplatesData,
+  taskTemplatesList,
   workflowId,
 }) => {
   const location = useLocation();
@@ -422,14 +424,16 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   }, [revisionState.version]);
 
   const store = useMemo(() => {
+    const taskTemplatesData = groupTaskTemplatesByName(taskTemplatesList)
     return {
       availableParametersQueryData,
       revisionDispatch,
       revisionState,
       summaryData,
       taskTemplatesData,
+      mode: WorkflowDagEngineMode.Editor
     };
-  }, [availableParametersQueryData, revisionDispatch, revisionState, summaryData, taskTemplatesData]);
+  }, [availableParametersQueryData, revisionDispatch, revisionState, summaryData, taskTemplatesList]);
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
@@ -461,7 +465,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
                 isModalOpen={isModalOpen}
                 notes={markdown}
                 revisionQuery={revisionQuery}
-                tasks={taskTemplatesData}
+                tasks={taskTemplatesList}
                 updateNotes={handleUpdateNotes}
                 workflowName={summaryData.name}
               />

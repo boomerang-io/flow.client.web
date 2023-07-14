@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 import { useFeature } from "flagged";
 import { useQuery } from "Hooks";
-import { useQueryClient } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import { Box } from "reflexbox";
 import queryString from "query-string";
@@ -11,13 +10,12 @@ import WombatMessage from "Components/WombatMessage";
 import Sidenav from "../Sidenav";
 import TaskTemplateOverview from "../TaskTemplateOverview";
 import TaskTemplateYamlEditor from "../TaskTemplateEditor";
-import orderBy from "lodash/orderBy";
-import { TaskTemplate } from "Types";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
+import { groupTaskTemplatesByName } from "Utils";
 import styles from "../TaskManager.module.scss";
 
-const HELMUT_TITLE = "Task Manager";
+const HELMET_TITLE = "Task Manager";
 
 function TaskTemplatesContainer() {
   const match = useRouteMatch();
@@ -28,24 +26,13 @@ function TaskTemplatesContainer() {
   const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);
 
   // Collect the tasks by name and array of sorted by version task templates
-  let taskTemplatesByName = taskTemplatesData?.content.reduce(
-    (acc: Record<string, TaskTemplate[]>, task: TaskTemplate) => {
-      if (acc[task.name]) {
-        acc[task.name].push(task);
-        acc[task.name].sort((a, b) => b.version - a.version);
-      } else {
-        acc[task.name] = [task];
-      }
-      return acc;
-    },
-    {}
-  );
+  const taskTemplatesByName = groupTaskTemplatesByName(taskTemplatesData?.content)
 
   if (isLoading) {
     return (
       <div className={styles.container}>
         <Helmet>
-          <title>{HELMUT_TITLE}</title>
+          <title>{HELMET_TITLE}</title>
         </Helmet>
         <Sidenav isLoading taskTemplates={taskTemplatesByName} getTaskTemplatesUrl={getTaskTemplatesUrl} />
         <Box maxWidth="24rem" margin="0 auto">
@@ -59,7 +46,7 @@ function TaskTemplatesContainer() {
     return (
       <div className={styles.container}>
         <Helmet>
-          <title>{HELMUT_TITLE}</title>
+          <title>{HELMET_TITLE}</title>
         </Helmet>
         <ErrorDragon />
       </div>
@@ -69,7 +56,7 @@ function TaskTemplatesContainer() {
   return (
     <div className={styles.container}>
       <Helmet>
-        <title>{HELMUT_TITLE}</title>
+        <title>{HELMET_TITLE}</title>
       </Helmet>
       <Sidenav taskTemplates={taskTemplatesByName} getTaskTemplatesUrl={getTaskTemplatesUrl} />
       <Switch>

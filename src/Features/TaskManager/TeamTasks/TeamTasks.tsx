@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 import { useFeature } from "flagged";
 import { useQuery } from "Hooks";
@@ -11,13 +11,13 @@ import WombatMessage from "Components/WombatMessage";
 import Sidenav from "../Sidenav";
 import TaskTemplateOverview from "../TaskTemplateOverview";
 import TaskTemplateYamlEditor from "../TaskTemplateEditor";
-import { TaskTemplate } from "Types";
+import { groupTaskTemplatesByName } from "Utils";
 import { useAppContext } from "Hooks";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "../TaskManager.module.scss";
 
-const HELMUT_TITLE = "Team Task Manager";
+const HELMET_TITLE = "Team Task Manager";
 
 function TaskTemplatesContainer() {
   const { activeTeam } = useAppContext();
@@ -26,11 +26,11 @@ function TaskTemplatesContainer() {
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const getTaskTemplatesUrl = activeTeam
     ? serviceUrl.getTaskTemplates({
-        query: queryString.stringify({ teams: activeTeam?.id, statuses: "active,inactive" }),
-      })
+      query: queryString.stringify({ teams: activeTeam?.id, statuses: "active,inactive" }),
+    })
     : serviceUrl.getTaskTemplates({
-        query: queryString.stringify({ statuses: "active,inactive" }),
-      });
+      query: queryString.stringify({ statuses: "active,inactive" }),
+    });
   const {
     data: taskTemplatesData,
     error: taskTemplatesDataError,
@@ -45,24 +45,13 @@ function TaskTemplatesContainer() {
   }
 
   // Collect the tasks by name and array of sorted by version task templates
-  let taskTemplatesByName = taskTemplatesData?.content.reduce(
-    (acc: Record<string, TaskTemplate[]>, task: TaskTemplate) => {
-      if (acc[task.name]) {
-        acc[task.name].push(task);
-        acc[task.name].sort((a, b) => b.version - a.version);
-      } else {
-        acc[task.name] = [task];
-      }
-      return acc;
-    },
-    {}
-  );
+  const taskTemplatesByName = groupTaskTemplatesByName(taskTemplatesData?.content)
 
   if (isLoading) {
     return (
       <div className={styles.container}>
         <Helmet>
-          <title>{HELMUT_TITLE}</title>
+          <title>{HELMET_TITLE}</title>
         </Helmet>
         <Sidenav
           isLoading
@@ -81,7 +70,7 @@ function TaskTemplatesContainer() {
     return (
       <div className={styles.container}>
         <Helmet>
-          <title>{HELMUT_TITLE}</title>
+          <title>{HELMET_TITLE}</title>
         </Helmet>
         <ErrorDragon />
       </div>
@@ -91,7 +80,7 @@ function TaskTemplatesContainer() {
   return (
     <div className={styles.container}>
       <Helmet>
-        <title>{HELMUT_TITLE}</title>
+        <title>{HELMET_TITLE}</title>
       </Helmet>
       <Sidenav team={activeTeam} taskTemplates={taskTemplatesByName} getTaskTemplatesUrl={getTaskTemplatesUrl} />
       <Switch>

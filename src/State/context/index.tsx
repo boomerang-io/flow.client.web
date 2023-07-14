@@ -46,7 +46,7 @@ interface EditorContext {
   revisionDispatch?: Function;
   revisionState: WorkflowRevision;
   summaryData: WorkflowSummary;
-  taskTemplatesData: Array<TaskTemplate>;
+  taskTemplatesData: Record<string, Array<TaskTemplate>>;
 }
 
 export const [useEditorContext, EditorContextProvider] = createContext<EditorContext>();

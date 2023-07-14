@@ -110,7 +110,6 @@ class WorkflowTaskForm extends Component {
     closeModal: PropTypes.func,
     inputProperties: PropTypes.array,
     node: PropTypes.object.isRequired,
-    nodeConfig: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
     textEditorProps: PropTypes.object,
     task: PropTypes.object.isRequired,
@@ -126,7 +125,6 @@ class WorkflowTaskForm extends Component {
   };
 
   handleOnSave = (values) => {
-    this.props.node.taskName = values.taskName;
     this.props.onSave(values);
     this.props.closeModal();
   };
@@ -190,17 +188,14 @@ class WorkflowTaskForm extends Component {
   };
 
   render() {
-    const { additionalConfig = [], node, task, taskNames, nodeConfig } = this.props;
-    const taskRevisions = task?.revisions ?? [];
+    const { additionalConfig = [], node, task, taskNames } = this.props;
+
     // Find the matching task config for the version
-    const taskVersionConfig = nodeConfig
-      ? taskRevisions.find((revision) => nodeConfig.taskVersion === revision.version)?.config ?? []
-      : [];
+    const taskVersionConfig = task.config
+    console.log({ taskVersionConfig })
     const takenTaskNames = taskNames.filter((name) => name !== node.taskName);
 
-    const taskResults = nodeConfig
-      ? taskRevisions.find((revision) => nodeConfig.taskVersion === revision.version)?.results ?? []
-      : [];
+    const taskResults = task.results
 
     // Add the name input
     const inputs = [
@@ -222,6 +217,9 @@ class WorkflowTaskForm extends Component {
       },
     ];
 
+
+    const initValues = node.params.reduce((accum, current) => { accum[current.name] = current.value; return accum; }, { taskName: node.name });
+
     return (
       <DynamicFormik
         allowCustomPropertySyntax
@@ -231,7 +229,7 @@ class WorkflowTaskForm extends Component {
             .required("Enter a task name")
             .notOneOf(takenTaskNames, "Enter a unique value for task name"),
         })}
-        initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
+        initialValues={initValues}
         inputs={inputs}
         onSubmit={this.handleOnSave}
         dataDrivenInputProps={{
@@ -257,7 +255,7 @@ class WorkflowTaskForm extends Component {
             </ModalFooter>
           </ModalForm>
         )}
-      </DynamicFormik>
+      </DynamicFormik >
     );
   }
 }

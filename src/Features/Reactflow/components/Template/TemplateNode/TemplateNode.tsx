@@ -24,56 +24,61 @@ export default function TaskTemplateNode(props: NodeProps) {
 //TODO: need to figure out how to get the task information from the data, might be the same method as before
 // might be able to use a hook got get the workflow state from react flow
 
-function TaskTemplateNodeDesigner(props: NodeProps) {
+function TaskTemplateNodeDesigner(props: NodeProps<{ name: string, templateRef: string, templateVersion: number, templateUpgradeAvailable: boolean }>) {
   const reactFlowInstance = useReactFlow();
 
-  const { availableParametersQueryData, revisionDispatch, revisionState, taskTemplatesData, mode } = useEditorContext();
+  const { availableParametersQueryData, revisionDispatch, revisionState, taskTemplatesData } = useEditorContext();
   const nodes = reactFlowInstance.getNodes()
 
-  const designerNode: any = {};
 
   /**
    * TODO: Pull data off of context
    */
   const inputProperties = availableParametersQueryData;
-
-  const nodeDag: any = revisionState.nodes?.find((revisionNode) => revisionNode.type === props.data.templateRef) ?? {};
-  const nodeConfig = revisionState.config[designerNode?.id] ?? {};
-  const task = taskTemplatesData?.find((taskTemplate) => taskTemplate.name === props.data.templateRef)!
+  const task = taskTemplatesData[props.data.templateRef]?.find((taskTemplate) => taskTemplate.version === props.data.templateVersion)!
 
   // Get the taskNames names from the nodes on the model
-  const taskNames: any[] = [];
+  const taskNames = nodes.map(node => node.data.name)
 
-  console.log({ taskNames, inputProperties, task, nodeConfig, nodeDag, nodes })
+  console.log({ taskNames, inputProperties, task, nodes })
 
   /**
    * TODO: Event handlers
    */
-  const handleOnUpdateTaskVersion = ({ inputs, version }: any) => {
-    revisionDispatch &&
-      revisionDispatch({
-        type: RevisionActionTypes.UpdateNodeTaskVersion,
-        data: { nodeId: designerNode.id, inputs, version },
-      });
-  };
+  // const handleOnUpdateTaskVersion = ({ inputs, version }: any) => {
+  //   revisionDispatch &&
+  //     revisionDispatch({
+  //       type: RevisionActionTypes.UpdateNodeTaskVersion,
+  //       data: { nodeId: designerNode.id, inputs, version },
+  //     });
+  // };
 
-  const handleOnSaveTaskConfig = (inputs: any) => {
-    revisionDispatch &&
-      revisionDispatch({
-        type: RevisionActionTypes.UpdateNodeConfig,
-        data: { nodeId: designerNode.id, inputs },
-      });
+  // TODO: update this to be  shared method
+  const handleOnSaveTaskConfig = (inputs: Record<string, string>) => {
+    const paramList = inputRecordToParamList(inputs)
+    const newNodes = nodes.map(node => {
+      if (node.id === props.id) {
+        return {
+          ...node,
+          data: { ...node.data, ...paramList }
+        }
+      } else {
+        return node
+      }
+    })
+
+    reactFlowInstance.setNodes(newNodes)
   };
 
   // Delete the node in state and then remove it from reactflow
-  const handleOnDelete = () => {
-    revisionDispatch &&
-      revisionDispatch({
-        type: RevisionActionTypes.DeleteNode,
-        data: { nodeId: designerNode.id },
-      });
-    reactFlowInstance.deleteElements({ nodes: [props] });
-  };
+  // const handleOnDelete = () => {
+  //   revisionDispatch &&
+  //     revisionDispatch({
+  //       type: RevisionActionTypes.DeleteNode,
+  //       data: { nodeId: designerNode.id },
+  //     });
+  //   reactFlowInstance.deleteElements({ nodes: [props] });
+  // };
 
   const ConfigureTask = () => {
     return (
@@ -93,8 +98,7 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
           <WorkflowTaskForm
             closeModal={closeModal}
             inputProperties={inputProperties}
-            node={designerNode}
-            nodeConfig={nodeConfig}
+            node={props.data}
             onSave={handleOnSaveTaskConfig}
             taskNames={taskNames}
             task={task}
@@ -117,7 +121,7 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
             "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
         }}
         modalTrigger={({ openModal }) =>
-          nodeDag?.templateUpgradeAvailable ? (
+          props.data?.templateUpgradeAvailable ? (
             <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />
           ) : null
         }
@@ -136,7 +140,7 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
   };
 
   return (
-    <BaseNode title={task.displayName} isConnectable nodeProps={props} subtitle={task.description} icon={task.icon}>
+    <BaseNode title={props.data.name} isConnectable nodeProps={props} subtitle={task.description} icon={task.icon}>
       <UpdateTaskVersion />
       <ConfigureTask />
     </BaseNode>
@@ -145,4 +149,18 @@ function TaskTemplateNodeDesigner(props: NodeProps) {
 
 function TaskTemplateNodeExecution() {
   <div>TODO</div>;
+}
+
+function inputRecordToParamList(inputRecord: Record<string, string>): { name: string, params: Array<{ name: string; value: string }> } {
+
+  // Pull off taskName from input record to set the new name
+  // TODO: think about making this better
+  const name = inputRecord["taskName"]
+  delete inputRecord["taskName"]
+
+  const params = Object.entries(inputRecord).map(([key, value]) => {
+    return { name: key, value }
+  })
+
+  return { name, params }
 }
