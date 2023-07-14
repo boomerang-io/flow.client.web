@@ -1,12 +1,21 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { NavLink } from "react-router-dom";
-import { SideNav, SideNavDivider, SideNavLink, SideNavItems, SideNavMenu, SideNavMenuItem } from "@carbon/react";
+import { NavLink, Switch } from "react-router-dom";
+import {
+  SideNav,
+  SideNavDivider,
+  SideNavLink,
+  SideNavItems,
+  SideNavMenu,
+  SideNavMenuItem,
+  Switcher,
+  SwitcherItem,
+} from "@carbon/react";
 import { UIShell, HeaderMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
 import { APP_ROOT } from "Config/appConfig";
-import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, PlatformConfig } from "Types";
+import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, PlatformConfig, FlowTeam } from "Types";
 import * as navigationIcons from "Utils/navigationIcons";
-import { FlowData } from "@carbon/react/icons";
+import { FlowData, Workspace, Settings } from "@carbon/react/icons";
 import styles from "./navbar.module.scss";
 
 const skipToContentProps = {
@@ -17,13 +26,15 @@ interface NavbarProps {
   flowNavigationData: Array<FlowNavigationItem>;
   platformConfigData: PlatformConfig;
   userData: FlowUser;
+  teamsData: Array<FlowTeam>;
 }
 
-export default function sNavbar({
+export default function Navbar({
   handleOnTutorialClick,
   flowNavigationData,
   platformConfigData,
   userData,
+  teamsData,
 }: NavbarProps) {
   const { platform } = platformConfigData;
   const appTitle = getAppTitle(platform);
@@ -44,6 +55,32 @@ export default function sNavbar({
           <HeaderMenuItem type="button" onClick={handleOnTutorialClick} text="Tutorial" />,
           <HeaderMenuItem type="link" kind="external" href="https://www.useboomerang.io/flow" text="Docs" />,
         ]}
+        profileMenuItems={[
+          <HeaderMenuItem
+            icon={<Settings />}
+            type="link"
+            kind="app"
+            href={getRelativePath("/profile")}
+            text="Settings"
+          />,
+        ]}
+        rightPanel={{
+          icon: <Workspace size="20" />,
+          component: (
+            <div>
+              <p className={styles.switcherInfo}>Select a team to switch to from the list</p>
+              <Switcher>
+                {teamsData.map((team) => {
+                  return (
+                    <SwitcherItem large key={team.name}>
+                      {team.name}
+                    </SwitcherItem>
+                  );
+                })}
+              </Switcher>
+            </div>
+          ),
+        }}
       />
     </>
   );

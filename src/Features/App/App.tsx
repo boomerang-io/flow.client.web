@@ -179,6 +179,7 @@ export default function App() {
           handleOnTutorialClick={() => setIsTutorialActive(true)}
           platformConfigData={contextQuery.data}
           userData={userQuery.data}
+          teamsData={teamsQuery.data.content}
         />
         <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
         <ErrorBoundary>
@@ -273,6 +274,9 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
       >
         <Switch>
           <Route path={"/home"}>
+            <Home />
+          </Route>
+          <Route path={"/profile"}>
             <Home />
           </Route>
           <Route path={"/admin"}>
