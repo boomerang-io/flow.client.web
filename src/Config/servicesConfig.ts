@@ -161,7 +161,7 @@ export const resolver = {
   putTeamMember: ({ teamId, body }) => axios.patch(serviceUrl.putTeamMembers({ teamId }), body),
   patchManageTeamLabels: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamLabels({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
-    cancellableResolver({ url: serviceUrl.getUser({ userId }), body, method: HttpMethod.Patch }),
+    axios({ url: serviceUrl.getUser({ userId }), data: body, method: HttpMethod.Patch }),
   putSchedule: ({ body }) => axios.put(serviceUrl.putSchedule(), body),
   postTeamValidateName: ({ body }) => axios.post(serviceUrl.postTeamValidateName(), body),
   postValidateYaml: ({ body }) =>

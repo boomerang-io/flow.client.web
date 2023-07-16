@@ -35,19 +35,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
     setSelectedRole(role);
   }, [role]);
 
-  const { mutateAsync: changeUserMutator, isLoading } = useMutation(
-    (args) => {
-      const { promise, cancel } = resolver.patchManageUser(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    },
-    {
-      onSuccess: () => {
-        closeModal();
-        queryClient.invalidateQueries(serviceUrl.getUsers({ query: location.search }));
-      },
-    }
-  );
+  const changeUserMutator = useMutation(resolver.patchManageUser);
 
   const handleOnSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -61,7 +49,9 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
     };
 
     try {
-      await changeUserMutator({ body: request, userId: user.id });
+      await changeUserMutator.mutateAsync({ body: request, userId: user.id });
+      closeModal();
+      queryClient.invalidateQueries(serviceUrl.getUsers({ query: location.search }));
       notify(
         <ToastNotification
           kind="success"
@@ -79,7 +69,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
   return (
     <ModalFlowForm onSubmit={handleOnSubmit}>
       <ModalBody>
-        {isLoading && <Loading />}
+        {changeUserMutator.isLoading && <Loading />}
         <div className={styles.gridContainer}>
           <RadioButtonGroup
             labelPosition="right"
@@ -104,8 +94,8 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
         <Button kind="secondary" onClick={closeModal}>
           Cancel
         </Button>
-        <Button type="submit" disabled={role === selectedRole || isLoading}>
-          {isLoading ? "Updating..." : error ? "Try again" : "Submit"}
+        <Button type="submit" disabled={role === selectedRole || changeUserMutator.isLoading}>
+          {changeUserMutator.isLoading ? "Updating..." : error ? "Try again" : "Submit"}
         </Button>
       </ModalFooter>
     </ModalFlowForm>
