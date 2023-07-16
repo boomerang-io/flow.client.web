@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
+import { useLocation } from "react-router-dom";
 import { Button, ModalBody, ModalFooter, RadioButton, RadioButtonGroup, InlineNotification } from "@carbon/react";
 import { Loading, ModalFlowForm, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { UserType, UserTypeCopy } from "Constants";
@@ -10,7 +11,6 @@ import { FlowUser } from "Types";
 import styles from "./ChangeRole.module.scss";
 
 interface ChangeRoleProps {
-  cancelRequestRef: object;
   closeModal: () => void;
   user: FlowUser | undefined;
 }
@@ -23,8 +23,9 @@ const rolesList = [
   { name: UserTypeCopy[UserType.User], id: UserType.User },
 ];
 
-const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, user }) => {
+const ChangeRole: React.FC<ChangeRoleProps> = ({ closeModal, user }) => {
   const queryClient = useQueryClient();
+  const location = useLocation();
   const role = user?.type;
   const [selectedRole, setSelectedRole] = useState(null);
   const [error, setError] = useState();
@@ -33,19 +34,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
     setSelectedRole(role);
   }, [role]);
 
-  const { mutateAsync: changeUserMutator, isLoading } = useMutation(
-    (args) => {
-      const { promise, cancel } = resolver.patchManageUser(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    },
-    {
-      onSuccess: () => {
-        closeModal();
-        queryClient.invalidateQueries(serviceUrl.getUser({ userId: user.id }));
-      },
-    }
-  );
+  const changeUserMutator = useMutation(resolver.patchManageUser);
 
   const handleOnSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -59,7 +48,9 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
     };
 
     try {
-      await changeUserMutator({ body: request, userId: user.id });
+      await changeUserMutator.mutateAsync({ body: request, userId: user.id });
+      queryClient.invalidateQueries(serviceUrl.getUsers());
+      closeModal();
       notify(
         <ToastNotification
           kind="success"
@@ -77,7 +68,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
   return (
     <ModalFlowForm onSubmit={handleOnSubmit}>
       <ModalBody>
-        {isLoading && <Loading />}
+        {changeUserMutator.isLoading && <Loading />}
         <div className={styles.gridContainer}>
           <RadioButtonGroup
             labelPosition="right"
@@ -102,8 +93,8 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
         <Button kind="secondary" onClick={closeModal}>
           Cancel
         </Button>
-        <Button type="submit" disabled={role === selectedRole || isLoading}>
-          {isLoading ? "Updating..." : error ? "Try again" : "Submit"}
+        <Button type="submit" disabled={role === selectedRole || changeUserMutator.isLoading}>
+          {changeUserMutator.isLoading ? "Updating..." : error ? "Try again" : "Submit"}
         </Button>
       </ModalFooter>
     </ModalFlowForm>

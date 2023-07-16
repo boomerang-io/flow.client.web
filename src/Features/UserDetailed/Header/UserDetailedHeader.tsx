@@ -28,7 +28,6 @@ interface UserDetailedHeaderProps {
 
 function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }: UserDetailedHeaderProps) {
   const location: any = useLocation();
-  const cancelRequestRef = React.useRef<{} | null>();
 
   const backToTeam = location?.state?.fromTeam;
 
@@ -81,7 +80,7 @@ function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }:
             }}
           >
             {({ closeModal }: ComposedModalChildProps) => {
-              return <ChangeRole closeModal={closeModal} cancelRequestRef={cancelRequestRef} user={user} />;
+              return <ChangeRole closeModal={closeModal} user={user} />;
             }}
           </ComposedModal>
         </div>
