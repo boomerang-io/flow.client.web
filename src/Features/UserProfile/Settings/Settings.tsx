@@ -16,16 +16,22 @@ interface UserSettingsProps {
 export default function Settings({ user, userManagementEnabled }: UserSettingsProps) {
   const canEdit = userManagementEnabled;
 
-  const removeUserMutator = useMutation(resolver.putUpdateTeam);
+  const removeUserMutator = useMutation(resolver.deleteUser);
 
   const removeTeam = async () => {
     try {
-      // await removeUserMutator.mutateAsync({ teamId: team.id, body: { isActive: false } });
+      await removeUserMutator.mutateAsync({ userId: user.id });
       notify(
         <ToastNotification title="Close Account" subtitle="Request to close your account successful" kind="success" />
       );
     } catch (error) {
-      // noop
+      notify(
+        <ToastNotification
+          title="Close Account"
+          subtitle={`Unable to close the account. ${error.message}. Please contact support.`}
+          kind="error"
+        />
+      );
     }
   };
 

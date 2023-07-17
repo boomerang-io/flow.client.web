@@ -75,6 +75,7 @@ export const serviceUrl = {
   leaveTeam: ({ id }) => `${BASE_URL}/${id}/leave`,
   getUsers: ({ query }: QueryId) => `${BASE_URL}/user/query${query ? "?" + query : ""}`,
   getUser: ({ userId }) => `${BASE_URL}/user/${userId}`,
+  deleteUser: ({ userId }) => `${BASE_URL}/user/${userId}`,
   getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
   // getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
   getUserProfile: () => `${BASE_URL}/user/profile`,
@@ -156,6 +157,7 @@ export const resolver = {
   leaveTeam: ({ id }) => axios.delete(serviceUrl.leaveTeam({ id })),
   deleteSchedule: ({ scheduleId }) => axios.delete(serviceUrl.deleteSchedule({ scheduleId })),
   deleteToken: ({ tokenId }) => axios.delete(serviceUrl.deleteToken({ tokenId })),
+  deleteUser: ({ userId }) => axios.delete(serviceUrl.deleteUser({ userId })),
   patchGlobalPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethod.Patch }),
   putTeamMember: ({ teamId, body }) => axios.patch(serviceUrl.putTeamMembers({ teamId }), body),
