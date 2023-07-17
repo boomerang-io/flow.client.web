@@ -1,8 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-import { useLocation } from "react-router-dom";
 import { Button, ModalBody, ModalFooter, RadioButton, RadioButtonGroup, InlineNotification } from "@carbon/react";
 import { Loading, ModalFlowForm, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { UserType, UserTypeCopy } from "Constants";
@@ -25,7 +23,6 @@ const rolesList = [
 
 const ChangeRole: React.FC<ChangeRoleProps> = ({ closeModal, user }) => {
   const queryClient = useQueryClient();
-  const location = useLocation();
   const role = user?.type;
   const [selectedRole, setSelectedRole] = useState(null);
   const [error, setError] = useState();
@@ -59,9 +56,8 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ closeModal, user }) => {
         />
       );
     } catch (error) {
-      if (!axios.isCancel(error)) {
-        setError({ title: "Something's Wrong", subtitle: `Request to change ${name}'s platform role failed` });
-      }
+      console.log(error);
+      setError({ title: "Something's Wrong", subtitle: `Request to change ${name}'s platform role failed` });
     }
   };
 
