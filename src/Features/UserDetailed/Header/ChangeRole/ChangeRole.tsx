@@ -46,7 +46,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ closeModal, user }) => {
 
     try {
       await changeUserMutator.mutateAsync({ body: request, userId: user.id });
-      queryClient.invalidateQueries(serviceUrl.getUsers());
+      queryClient.invalidateQueries(serviceUrl.getUsers({ query: null }));
       closeModal();
       notify(
         <ToastNotification
