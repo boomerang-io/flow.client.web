@@ -30,6 +30,7 @@ type AppPathKey =
   | "EditorSchedule"
   | "Execution"
   | "Home"
+  | "Profile"
   | "Insights"
   | "ManageTaskTemplates"
   | "ManageTaskTemplateDetail"
@@ -73,6 +74,7 @@ export const AppPath: Record<AppPathKey, string> = {
   EditorSchedule: `/:teamId/editor/:workflowId/schedule`,
   Execution: "/:teamId/activity/:workflowId/execution/:executionId",
   Home: "/home",
+  Profile: "/profile",
   Insights: "/:teamId/insights",
   Workflows: "/:teamId/workflows",
   Schedules: "/:teamId/schedules",

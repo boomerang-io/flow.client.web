@@ -57,7 +57,13 @@ export default function Navbar({
           <HeaderMenuItem type="link" kind="external" href="https://www.useboomerang.io/flow" text="Docs" />,
         ]}
         profileMenuItems={[
-          <HeaderMenuItem icon={<Settings />} type="link" kind="app" href={appLink.profile()} text="Settings" />,
+          <HeaderMenuItem
+            icon={<Settings />}
+            type="link"
+            kind="app"
+            href={APP_ROOT + appLink.profile()}
+            text="Settings"
+          />,
         ]}
         rightPanel={{
           icon: <Workspace size="20" />,
