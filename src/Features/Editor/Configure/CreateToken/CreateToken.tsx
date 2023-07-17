@@ -17,12 +17,12 @@ import { serviceUrl } from "Config/servicesConfig";
 import styles from "./CreateToken.module.scss";
 
 interface CreateTokenProps {
-  tokenData: [
+  tokenData: Array<
     {
       token: string;
       label: string;
     }
-  ];
+  >,
   formikPropsSetFieldValue: Function;
   workflowId: string;
 }

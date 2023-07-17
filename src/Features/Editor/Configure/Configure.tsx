@@ -6,7 +6,6 @@ import { History } from "history";
 import { Formik, FormikProps, FieldArray } from "formik";
 import { Button, Tag } from "@carbon/react";
 import {
-  ComboBox,
   ComposedModal,
   TextArea,
   TextInput,
@@ -66,47 +65,43 @@ interface FormProps {
       token: string;
     };
   };
-  selectedTeam: { id: null | string };
-
-  tokens: [
+  tokens: Array<
     {
       token: string;
       label: string;
     }
-  ];
+  >
 }
 
 interface ConfigureContainerProps {
   history: History;
-  params: { workflowId: string };
+  params: { teamId: string, workflowId: string };
   quotas: {
     maxActivityStorageSize: string;
     maxWorkflowStorageSize: string;
   };
   summaryData: WorkflowSummary;
   summaryMutation: { status: string };
-  teams: Array<{ id: string }>;
-  updateSummary: ({ values, callback }: { values: object; callback: () => void }) => void;
+  updateSummary: ({ values }: { values: object }) => void;
 }
 
 const ConfigureContainer = React.memo<ConfigureContainerProps>(function ConfigureContainer({
-  history,
   params,
   quotas,
   summaryData,
   summaryMutation,
-  teams,
   updateSummary,
 }) {
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
-  const handleOnSubmit = (values: { selectedTeam: { id: null | string } }) => {
+
+  const handleOnSubmit = (values: any) => {
     updateSummary({
-      values,
-      callback: () => history.push(appLink.editorConfigure({ workflowId: params.workflowId })),
+      values
     });
   };
   const location = useLocation();
-  const isOnConfigurePath = appLink.editorConfigure({ workflowId: params.workflowId }) === location.pathname;
+  const isOnConfigurePath = appLink.editorConfigure({ teamId: params.teamId, workflowId: params.workflowId }) === location.pathname;
+
   return (
     <>
       <Helmet>
@@ -114,7 +109,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
       </Helmet>
       <Formik
         enableReinitialize
-        onSubmit={(values: { selectedTeam: { id: null | string } }) => {
+        onSubmit={(values: any) => {
           handleOnSubmit(values);
         }}
         initialValues={{
@@ -135,8 +130,6 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           icon: summaryData.icon ?? "",
           name: summaryData.name ?? "",
           labels: summaryData.labels ? summaryData.labels : [],
-          // selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: "" },
-          selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: null },
           triggers: {
             manual: {
               enable: summaryData.triggers?.manual?.enable ?? true,
@@ -175,9 +168,6 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           }),
           icon: Yup.string(),
           name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
-          selectedTeam: summaryData?.flowTeamId
-            ? Yup.object().shape({ name: Yup.string().required("Team is required") })
-            : Yup.object().shape({ id: Yup.mixed() }),
           triggers: Yup.object().shape({
             manual: Yup.object().shape({
               enable: Yup.boolean(),
@@ -207,7 +197,6 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
               quotas={quotas}
               summaryData={summaryData}
               summaryMutation={summaryMutation}
-              teams={teams}
               updateSummary={updateSummary}
             />
           ) : null
@@ -230,7 +219,6 @@ interface ConfigureProps {
   summaryMutation: {
     status: string;
   };
-  teams: Array<{ id: string }>;
   updateSummary: ({ values, callback }: { values: object; callback: () => void }) => void;
 }
 
@@ -264,38 +252,19 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
     this.props.formikProps.setFieldValue(id, value);
   };
 
-  handleTeamChange = ({ selectedItem }: { selectedItem: object }) => {
-    this.props.formikProps.setFieldValue("selectedTeam", selectedItem ?? {});
-  };
-
   render() {
     const {
       quotas,
       summaryMutation,
-      teams,
       formikProps: { dirty, errors, handleBlur, handleSubmit, touched, values, setFieldValue },
     } = this.props;
     const isLoading = summaryMutation.status === QueryStatus.Loading;
+
     return (
       <div aria-label="Configure" className={styles.wrapper} role="region">
         <section className={styles.largeCol}>
           <h1 className={styles.header}>General info</h1>
           <p className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</p>
-          {this.props.summaryData?.flowTeamId && (
-            <div className={styles.teamSelect}>
-              <ComboBox
-                id="selectedTeam"
-                initialSelectedItem={values.selectedTeam}
-                invalid={Boolean(errors.selectedTeam)}
-                invalidText={errors.selectedTeam}
-                items={teams}
-                itemToString={(item: { name: string }) => item?.name ?? ""}
-                onChange={this.handleTeamChange}
-                label="Team"
-                placeholder="Select a team"
-              />
-            </div>
-          )}
           <TextInput
             id="name"
             label="Name"
@@ -383,9 +352,8 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                       <div className={styles.informationWrapper}>
                         <p className={styles.webhookTokenLabel}>Schedule</p>
                         <div className={styles.informationCronMessage}>
-                          {`${cronstrue.toString(values.triggers.scheduler.schedule)} in ${
-                            values.triggers.scheduler.timezone
-                          }`}
+                          {`${cronstrue.toString(values.triggers.scheduler.schedule)} in ${values.triggers.scheduler.timezone
+                            }`}
                         </div>
                       </div>
                     )}

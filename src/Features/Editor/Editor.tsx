@@ -263,7 +263,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
    * @param {Object} formikValues - key/value pairs for inputs
    */
   const updateSummary = useCallback(
-    async ({ values: formikValues, callback }) => {
+    async ({ values: formikValues }) => {
       const flowTeamId = formikValues?.selectedTeam?.id;
       const updatedWorkflow = { ...summaryData, ...formikValues, flowTeamId };
 
@@ -273,9 +273,6 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         notify(
           <ToastNotification kind="success" title="Workflow Updated" subtitle={`Successfully updated workflow`} />
         );
-        if (typeof callback === "function") {
-          callback();
-        }
       } catch (err) {
         notify(
           <ToastNotification
@@ -479,49 +476,24 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             <Route path={AppPath.EditorChangelog}>
               <ChangeLog summaryData={summaryData} />
             </Route>
-            <Route
-              path={AppPath.EditorConfigure}
-              children={({
-                history,
-                match: routeMatch,
-              }: {
-                history: History;
-                match: { params: { teamId: string; workflowId: string } };
-              }) => (
-                // Always render parent Configure component so state isn't lost when switching tabs
-                // It is responsible for rendering its children, but Formik form management is always mounted
-                <Configure
-                  history={history}
-                  // isOnRoute={Boolean(routeMatch)}
-                  params={match.params}
-                  summaryData={summaryData}
-                  summaryMutation={summaryMutation}
-                  teams={sortBy(teams, "name")}
-                  updateSummary={updateSummary}
-                  quotas={quotas}
-                />
-              )}
-            />
           </Switch>
           <Route
             path={AppPath.EditorConfigure}
             children={({
               history,
-              match: routeMatch,
+              match,
             }: {
               history: History;
-              match: { params: { workflowId: string } };
+              match: { params: { teamId: string, workflowId: string } };
             }) => (
               // Always render parent Configure component so state isn't lost when switching tabs
               // It is responsible for rendering its children, but Formik form management is always mounted
               <Configure
                 history={history}
-                // isOnRoute={Boolean(routeMatch)}
                 params={match.params}
                 quotas={quotas}
                 summaryData={summaryData}
                 summaryMutation={summaryMutation}
-                teams={sortBy(teams, "name")}
                 updateSummary={updateSummary}
               />
             )}

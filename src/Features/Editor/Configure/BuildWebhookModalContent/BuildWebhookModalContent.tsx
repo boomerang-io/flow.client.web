@@ -42,13 +42,12 @@ interface FormProps {
       token: string;
     };
   };
-  selectedTeam: { id: string | null };
-  tokens: [
+  tokens: Array<
     {
       token: string;
       label: string;
     }
-  ];
+  >
 }
 
 const webhookOptions = [
@@ -73,9 +72,8 @@ const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ wor
   const [activeToken, setactiveToken] = useState(values.tokens.length > 0 ? values.tokens[0] : null);
   const [activeType, setActiveType] = useState({ label: "generic" });
 
-  const webhookURL = `${PRODUCT_SERVICE_ENV_URL}/listener/webhook?workflowId=${workflowId}&type=${
-    activeType.label
-  }&access_token=${encodeURI(activeToken?.token)}`;
+  const webhookURL = `${PRODUCT_SERVICE_ENV_URL}/listener/webhook?workflowId=${workflowId}&type=${activeType.label
+    }&access_token=${encodeURI(activeToken?.token)}`;
 
   const handleChangeToken = (token) => {
     const tokenlabel = token.selectedItem?.label;

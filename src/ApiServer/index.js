@@ -226,7 +226,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        */
       const tasktemplatePath = serviceUrl.getTaskTemplates({ query: null });
       this.get(tasktemplatePath, (schema) => {
-        console.log(schema.db.tasktemplate);
         return schema.db.tasktemplate[0];
       });
       this.put(tasktemplatePath, (schema, request) => {
@@ -238,7 +237,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       this.get(serviceUrl.getTaskTemplateYaml({ name: null, version: null }), (schema) => {
-        console.log(schema.db.tasktemplate);
         return schema.db.tasktemplate[0];
       });
       this.post(serviceUrl.postValidateYaml(), (schema) => {

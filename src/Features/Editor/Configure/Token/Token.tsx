@@ -12,7 +12,7 @@ interface TokenProps {
     token: string;
     label: string;
   };
-  tokenData: [TokenProps["token"]];
+  tokenData: Array<TokenProps["token"]>
   workflowId: string;
   formikPropsSetFieldValue: Function;
 }
