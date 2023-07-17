@@ -301,32 +301,31 @@ export interface WorkflowNode {
   positition: {
     x: number;
     y: number;
-  },
+  };
   data: {
     label: string;
-    params: Array<{ name: string; value: string }>
-  }
-  type: typeof NodeType[keyof typeof NodeType]
+    params: Array<{ name: string; value: string }>;
+  };
+  type: typeof NodeType[keyof typeof NodeType];
 }
 
 export interface WorkflowEdge {
   id: string;
   source: string;
   target: string;
-  data: Record<string, any>
+  data: Record<string, any>;
 }
 export interface WorkflowRevision {
   changelog: ChangeLogItem;
   config: any;
   dag: WorkflowDag;
   id: string;
-  nodes: Array<WorkflowNode>
-  edges: Array<WorkflowEdge>
+  nodes: Array<WorkflowNode>;
+  edges: Array<WorkflowEdge>;
   templateUpgradesAvailable: boolean;
   version: number;
   workFlowId: string;
 }
-
 
 export interface WorkflowExport extends WorkflowSummary {
   latestRevision: WorkflowRevision;
@@ -395,23 +394,23 @@ export interface WorkflowExecution {
   trigger: string;
   properties: (
     | {
-      key: string;
-      value: string;
-    }
+        key: string;
+        value: string;
+      }
     | {
-      key: string;
-      value: null;
-    }
+        key: string;
+        value: null;
+      }
   )[];
   outputProperties: (
     | {
-      key: string;
-      value: string;
-    }
+        key: string;
+        value: string;
+      }
     | {
-      key: string;
-      value: null;
-    }
+        key: string;
+        value: null;
+      }
   )[];
   steps: Array<WorkflowExecutionStep>;
   teamName: string;
@@ -529,11 +528,9 @@ export interface FlowUser extends User {
   type: PlatformRole;
   creationDate: string;
   lastLoginDate: string;
-  teams: string[];
   status: UserStatus;
-  platformRole: string;
   labels?: Record<string, string>;
-  settings?: unknown;
+  settings?: FlowUserSettings;
 }
 
 export interface FlowUserSettings {
@@ -691,7 +688,7 @@ export type PlatformFeatureKey =
   | "support.enabled"
   | "welcome.enabled";
 
-export interface PlatformConfig {
+export interface ContextConfig {
   features: {
     [k in PlatformFeatureKey]: boolean;
   };

@@ -24,6 +24,7 @@ type AppContext = {
   teams: FlowTeam[];
   user: FlowUser;
   activeTeam?: FlowTeam;
+  name: string;
 };
 
 interface TaskProvider {

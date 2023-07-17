@@ -1,7 +1,7 @@
 const platformNavigation = {
   platform: {
     version: "7.1.0",
-    name: "Boomerang Core",
+    name: "Boomerang Flow",
     signOutUrl: "https://launch.boomerangplatform.net/oauth/sign_out?rd=/oauth/sign_out",
     platformName: "Boomerang",
     appName: "Flow",

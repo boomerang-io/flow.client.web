@@ -123,7 +123,7 @@ function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }:
                 </dl>
                 <dl className={styles.detailedInfoContainer}>
                   <dt className={styles.dataTitle}>Date Joined</dt>
-                  <dd className={styles.dataValue}>{moment(user.firstLoginDate).format("YYYY-MM-DD")}</dd>
+                  <dd className={styles.dataValue}>{moment(user.creationDate).format("YYYY-MM-DD")}</dd>
                 </dl>
                 <dl className={styles.detailedInfoContainer}>
                   <dt className={styles.dataTitle}>Last Login</dt>

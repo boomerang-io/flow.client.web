@@ -13,7 +13,7 @@ import {
 } from "@carbon/react";
 import { UIShell, HeaderMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
 import { APP_ROOT } from "Config/appConfig";
-import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, PlatformConfig, FlowTeam } from "Types";
+import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, ContextConfig, FlowTeam } from "Types";
 import * as navigationIcons from "Utils/navigationIcons";
 import { FlowData, Workspace, Settings } from "@carbon/react/icons";
 import styles from "./navbar.module.scss";
@@ -24,7 +24,7 @@ const skipToContentProps = {
 interface NavbarProps {
   handleOnTutorialClick: () => void;
   flowNavigationData: Array<FlowNavigationItem>;
-  platformConfigData: PlatformConfig;
+  contextData: ContextConfig;
   userData: FlowUser;
   teamsData: Array<FlowTeam>;
 }
@@ -32,11 +32,11 @@ interface NavbarProps {
 export default function Navbar({
   handleOnTutorialClick,
   flowNavigationData,
-  platformConfigData,
+  contextData: contextData,
   userData,
   teamsData,
 }: NavbarProps) {
-  const { platform } = platformConfigData;
+  const { platform } = contextData;
   const appTitle = getAppTitle(platform);
   const appName = platform.appName || "Boomerang Flow";
   const platformName = platform.platformName;
@@ -45,7 +45,7 @@ export default function Navbar({
     <>
       <Helmet defaultTitle={appTitle} titleTemplate={`%s - ${appTitle}`} />
       <UIShell
-        config={platformConfigData}
+        config={contextData}
         leftPanel={(args) => <AppSideNav {...args} flowNavigationData={flowNavigationData} />}
         platformName={platformName}
         productName={appName}
@@ -196,7 +196,7 @@ function AppSideNav(props: AppSideNavProps) {
   );
 }
 
-function getAppTitle(platformData: PlatformConfig["platform"]) {
+function getAppTitle(platformData: ContextConfig["platform"]) {
   let appTitle = platformData.platformName;
 
   if (platformData.appName) {

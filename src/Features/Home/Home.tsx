@@ -6,10 +6,10 @@ import { FlowTeam } from "Types";
 import styles from "./home.module.scss";
 
 export default function Home() {
-  const { teams } = useAppContext();
+  const { teams, name } = useAppContext();
   return (
     <>
-      <HomeBanner />
+      <HomeBanner name={name} />
       <div aria-label="My Teams" className={styles.content} role="region">
         {teams && teams.length === 0 ? (
           //TODO - make better component for Create Team

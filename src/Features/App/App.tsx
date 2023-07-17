@@ -21,7 +21,7 @@ import { sortBy } from "lodash";
 import { elevatedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, PaginatedTeamResponse } from "Types";
+import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, ContextConfig, PaginatedTeamResponse } from "Types";
 import styles from "./app.module.scss";
 
 const AppActivation = lazy(() => import("./AppActivation"));
@@ -98,7 +98,7 @@ export default function App() {
     queryFn: fetchUserResolver,
   });
 
-  const contextQuery = useQuery<PlatformConfig, string>({
+  const contextQuery = useQuery<ContextConfig, string>({
     queryKey: getContextUrl,
     queryFn: resolver.query(getContextUrl),
     enabled: Boolean(userQuery.data?.id),
@@ -177,7 +177,7 @@ export default function App() {
         <Navbar
           flowNavigationData={navigationQuery.data}
           handleOnTutorialClick={() => setIsTutorialActive(true)}
-          platformConfigData={contextQuery.data}
+          contextData={contextQuery.data}
           userData={userQuery.data}
           teamsData={teamsQuery.data.content}
         />
@@ -185,7 +185,7 @@ export default function App() {
         <ErrorBoundary>
           <Main
             isTutorialActive={isTutorialActive}
-            platformConfigData={contextQuery.data}
+            contextData={contextQuery.data}
             setIsTutorialActive={setIsTutorialActive}
             setShouldShowBrowserWarning={setShouldShowBrowserWarning}
             shouldShowBrowserWarning={shouldShowBrowserWarning}
@@ -203,7 +203,7 @@ export default function App() {
 
 interface MainProps {
   isTutorialActive: boolean;
-  platformConfigData: PlatformConfig;
+  contextData: ContextConfig;
   setIsTutorialActive: (isTutorialActive: boolean) => void;
   setShouldShowBrowserWarning: (shouldShowBrowserWarning: boolean) => void;
   shouldShowBrowserWarning: boolean;
@@ -215,7 +215,7 @@ interface MainProps {
 
 function Main({
   isTutorialActive,
-  platformConfigData,
+  contextData: contextData,
   setIsTutorialActive,
   setShouldShowBrowserWarning,
   shouldShowBrowserWarning,
@@ -243,7 +243,8 @@ function Main({
         isTutorialActive,
         setIsTutorialActive,
         quotas,
-        communityUrl: platformConfigData?.platform?.communityUrl ?? "",
+        communityUrl: contextData?.platform?.communityUrl ?? "",
+        name: contextData?.platform?.name ?? "",
         teams: sortBy(teamsData, "name"),
         user: userData,
       }}

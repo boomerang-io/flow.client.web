@@ -46,7 +46,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ closeModal, user }) => {
 
     try {
       await changeUserMutator.mutateAsync({ body: request, userId: user.id });
-      queryClient.invalidateQueries(serviceUrl.getUsers({ query: null }));
+      queryClient.invalidateQueries(serviceUrl.getUser({ userId: user.id }));
       closeModal();
       notify(
         <ToastNotification
@@ -56,7 +56,6 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ closeModal, user }) => {
         />
       );
     } catch (error) {
-      console.log(error);
       setError({ title: "Something's Wrong", subtitle: `Request to change ${name}'s platform role failed` });
     }
   };
