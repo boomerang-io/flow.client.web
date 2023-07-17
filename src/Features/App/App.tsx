@@ -45,6 +45,7 @@ const TeamTasks = lazy(() => import("Features/TaskManager/TeamTasks"));
 const AdminTasks = lazy(() => import("Features/TaskManager/AdminTasks"));
 // const TaskTemplatesContainer = lazy(() => import("Features/ManageTeamTasks"));
 const Users = lazy(() => import("Features/Users"));
+const UserProfile = lazy(() => import("Features/UserProfile"));
 const Workflows = lazy(() => import("Features/Workflows"));
 const Home = lazy(() => import("Features/Home"));
 
@@ -278,7 +279,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             <Home />
           </Route>
           <Route path={"/profile"}>
-            <Home />
+            <UserProfile />
           </Route>
           <Route path={"/admin"}>
             <Switch>

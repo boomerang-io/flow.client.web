@@ -143,6 +143,7 @@ export const appLink = {
   editorSchedule: ({ teamId, workflowId }: TeamRouteArgs) => `/${teamId}/editor/${workflowId}/schedule`,
   execution: ({ executionId, workflowId }: ExecutionArgs) => `/activity/${workflowId}/execution/${executionId}`,
   home: () => "/home",
+  profile: () => "/profile",
   insights: () => "/insights",
   manageTaskTemplates: ({ teamId }: TeamIdArg) =>
     `/${teamId}/task-templates`,

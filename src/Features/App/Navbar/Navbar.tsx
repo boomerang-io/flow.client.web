@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { NavLink, Switch } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   SideNav,
   SideNavDivider,
@@ -16,6 +16,7 @@ import { APP_ROOT } from "Config/appConfig";
 import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, ContextConfig, FlowTeam } from "Types";
 import * as navigationIcons from "Utils/navigationIcons";
 import { FlowData, Workspace, Settings } from "@carbon/react/icons";
+import { appLink } from "Config/appConfig";
 import styles from "./navbar.module.scss";
 
 const skipToContentProps = {
@@ -56,13 +57,7 @@ export default function Navbar({
           <HeaderMenuItem type="link" kind="external" href="https://www.useboomerang.io/flow" text="Docs" />,
         ]}
         profileMenuItems={[
-          <HeaderMenuItem
-            icon={<Settings />}
-            type="link"
-            kind="app"
-            href={getRelativePath("/profile")}
-            text="Settings"
-          />,
+          <HeaderMenuItem icon={<Settings />} type="link" kind="app" href={appLink.profile()} text="Settings" />,
         ]}
         rightPanel={{
           icon: <Workspace size="20" />,
