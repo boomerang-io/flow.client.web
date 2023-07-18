@@ -1,7 +1,6 @@
 import React from "react";
 import cx from "classnames";
 import { Handle, Position, useReactFlow, NodeProps } from "reactflow";
-import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import { taskIcons } from "Utils/taskIcons";
 import { Bee } from "@carbon/react/icons";

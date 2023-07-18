@@ -78,7 +78,7 @@ export const AppPath: Record<AppPathKey, string> = {
   Insights: "/:teamId/insights",
   Workflows: "/:teamId/workflows",
   Schedules: "/:teamId/schedules",
-  
+
   //Manage
   ManageTaskTemplates: `/:teamId/task-templates`,
   ManageTaskTemplateDetail: `/:teamId/task-templates/:name/:version`,
@@ -91,7 +91,7 @@ export const AppPath: Record<AppPathKey, string> = {
   ManageTeamQuotas: "/:teamId/manage/quotas",
   ManageTeamLabels: "/:teamId/manage/Labels",
   ManageTeamApprovers: `/:teamId/manage/approver-groups`,
-  
+
   //Admin
   Properties: "/admin/parameters",
   Settings: "/admin/settings",

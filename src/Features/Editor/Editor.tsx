@@ -478,26 +478,16 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             </Route>
           </Switch>
           <Route
-            path={AppPath.EditorConfigure}
-            children={({
-              history,
-              match,
-            }: {
-              history: History;
-              match: { params: { teamId: string, workflowId: string } };
-            }) => (
-              // Always render parent Configure component so state isn't lost when switching tabs
-              // It is responsible for rendering its children, but Formik form management is always mounted
-              <Configure
-                history={history}
-                params={match.params}
-                quotas={quotas}
-                summaryData={summaryData}
-                summaryMutation={summaryMutation}
-                updateSummary={updateSummary}
-              />
-            )}
-          />
+            // Always render parent Configure component so state isn't lost when switching tabs
+            // It is responsible for rendering its children, but Formik form management is always mounted
+            path={AppPath.EditorConfigure}>
+            <Configure
+              quotas={quotas}
+              summaryData={summaryData}
+              summaryMutation={summaryMutation}
+              updateSummary={updateSummary}
+            />
+          </Route>
         </div>
       </>
     </EditorContextProvider>

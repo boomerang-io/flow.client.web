@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Helmet } from "react-helmet";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useFeature } from "flagged";
 import { History } from "history";
 import { Formik, FormikProps, FieldArray } from "formik";
@@ -74,8 +74,6 @@ interface FormProps {
 }
 
 interface ConfigureContainerProps {
-  history: History;
-  params: { teamId: string, workflowId: string };
   quotas: {
     maxActivityStorageSize: string;
     maxWorkflowStorageSize: string;
@@ -86,12 +84,12 @@ interface ConfigureContainerProps {
 }
 
 const ConfigureContainer = React.memo<ConfigureContainerProps>(function ConfigureContainer({
-  params,
   quotas,
   summaryData,
   summaryMutation,
   updateSummary,
 }) {
+  const params = useParams<{ teamId: string, workflowId: string }>()
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
 
   const handleOnSubmit = (values: any) => {
