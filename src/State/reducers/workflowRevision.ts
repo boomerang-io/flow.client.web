@@ -12,24 +12,14 @@ export const RevisionActionTypes = {
 export function revisionReducer(state, action) {
   switch (action.type) {
     case RevisionActionTypes.AddNode: {
-      const { data } = action;
       state.hasUnsavedUpdates = true;
-      state.config[data.nodeId] = data;
       return state;
     }
     case RevisionActionTypes.DeleteNode: {
-      let { nodeId } = action.data;
-      delete state.config[nodeId];
-      state.dag.nodes = state.dag?.nodes?.filter((node) => node.nodeId !== nodeId) ?? [];
       state.hasUnsavedUpdates = true;
       return state;
     }
     case RevisionActionTypes.UpdateNodeConfig: {
-      const { nodeId, inputs } = action.data;
-      if (state.config[nodeId])
-        state.config[nodeId].inputs = Boolean(state.config?.[nodeId]?.inputs)
-          ? { ...state.config[nodeId].inputs, ...inputs }
-          : { ...inputs };
       state.hasUnsavedUpdates = true;
       return state;
     }

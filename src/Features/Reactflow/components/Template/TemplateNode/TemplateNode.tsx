@@ -45,13 +45,13 @@ function TaskTemplateNodeDesigner(props: NodeProps<{ name: string, templateRef: 
   /**
    * TODO: Event handlers
    */
-  // const handleOnUpdateTaskVersion = ({ inputs, version }: any) => {
-  //   revisionDispatch &&
-  //     revisionDispatch({
-  //       type: RevisionActionTypes.UpdateNodeTaskVersion,
-  //       data: { nodeId: designerNode.id, inputs, version },
-  //     });
-  // };
+  const handleOnUpdateTaskVersion = ({ inputs, version }: any) => {
+    revisionDispatch &&
+      revisionDispatch({
+        type: RevisionActionTypes.UpdateNodeTaskVersion,
+        data: { nodeId: designerNode.id, inputs, version },
+      });
+  };
 
   // TODO: update this to be  shared method
   const handleOnSaveTaskConfig = (inputs: Record<string, string>) => {
@@ -68,17 +68,10 @@ function TaskTemplateNodeDesigner(props: NodeProps<{ name: string, templateRef: 
     })
 
     reactFlowInstance.setNodes(newNodes)
+    revisionDispatch && revisionDispatch({
+      type: RevisionActionTypes.UpdateNodeConfig
+    })
   };
-
-  // Delete the node in state and then remove it from reactflow
-  // const handleOnDelete = () => {
-  //   revisionDispatch &&
-  //     revisionDispatch({
-  //       type: RevisionActionTypes.DeleteNode,
-  //       data: { nodeId: designerNode.id },
-  //     });
-  //   reactFlowInstance.deleteElements({ nodes: [props] });
-  // };
 
   const ConfigureTask = () => {
     return (

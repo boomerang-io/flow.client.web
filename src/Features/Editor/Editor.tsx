@@ -297,106 +297,6 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   );
 
   /**
-   * Handle the drop event to create a new node from a task template
-   * @param {Object} diagramApp - object containing the internal state of the DAG
-   * @param {DragEvent} event - dragend event when adding a node to the diagram
-   */
-  const handleCreateNode = useCallback(
-    (diagramApp, event) => {
-      const { taskData } = JSON.parse(event.dataTransfer.getData("application/reactflow"));
-
-      // For naming purposes
-      const nodes: Array<{ id: string; taskId: string }> = Object.values(
-        diagramApp.getDiagramEngine().getDiagramModel().getNodes()
-      );
-
-      const nodesOfSameTypeCount = nodes.filter((node: any) => node.taskId === taskData.id).length;
-
-      const nodeObj = {
-        taskId: taskData.id,
-        taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`,
-        taskVersion: taskData.currentVersion,
-      };
-
-      // Determine the node type
-      let node;
-      switch (taskData.nodeType) {
-        case NodeType.Decision:
-          node = new SwitchNodeModel(nodeObj);
-          break;
-        case NodeType.TemplateTask:
-          node = new TemplateNodeModel(nodeObj);
-          break;
-        case NodeType.CustomTask:
-          node = new CustomNodeModel(nodeObj);
-          break;
-        case NodeType.Manual:
-          node = new ManualTaskNodeModel(nodeObj);
-          break;
-        case NodeType.Approval:
-          node = new ManualApprovalNodeModel(nodeObj);
-          break;
-        case NodeType.SetProperty:
-          node = new SetPropertyNodeModel(nodeObj);
-          break;
-        case NodeType.SetStatus:
-          node = new SetStatusNodeModel(nodeObj);
-          break;
-        case NodeType.Wait:
-          node = new WaitNodeModel(nodeObj);
-          break;
-        case NodeType.Acquirelock:
-          node = new AcquireLockNodeModel(nodeObj);
-          break;
-        case NodeType.Releaselock:
-          node = new ReleaseLockNodeModel(nodeObj);
-          break;
-        case NodeType.RunScheduledWorkflow:
-          node = new RunScheduledWorkflowNodeModel(nodeObj);
-          break;
-        case NodeType.RunWorkflow:
-          node = new RunWorkflowNodeModel(nodeObj);
-          break;
-        case NodeType.Script:
-          node = new ScriptNodeModel(nodeObj);
-          break;
-        default:
-        // no-op
-      }
-      if (node) {
-        const { id, taskId, currentVersion } = node;
-        const currentTaskConfig =
-          taskData.revisions?.find((revision: { version: number }) => revision.version === currentVersion) ?? {};
-
-        // Create inputs object with empty string values by default for service to process easily
-        const inputs =
-          Array.isArray(currentTaskConfig.config) && currentTaskConfig.config.length
-            ? currentTaskConfig.config.reduce((accu: { [index: string]: string }, item: { key: string }) => {
-              accu[item.key] = "";
-              return accu;
-            }, {})
-            : {};
-        revisionDispatch({
-          type: RevisionActionTypes.AddNode,
-          data: {
-            nodeId: id,
-            taskId,
-            inputs,
-            type: taskData.nodeType,
-            taskVersion: currentVersion,
-          },
-        });
-
-        const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
-        node.x = points.x - 110;
-        node.y = points.y - 40;
-        diagramApp.getDiagramEngine().getDiagramModel().addNode(node);
-      }
-    },
-    [revisionDispatch]
-  );
-
-  /**
    *  Simply update the parent state to use a different revision to fetch it w/ react-query
    * @param {string} revisionNumber
    */
@@ -424,13 +324,13 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     const taskTemplatesData = groupTaskTemplatesByName(taskTemplatesList)
     return {
       availableParametersQueryData,
+      mode,
       revisionDispatch,
       revisionState,
       summaryData,
       taskTemplatesData,
-      mode: WorkflowDagEngineMode.Editor
     };
-  }, [availableParametersQueryData, revisionDispatch, revisionState, summaryData, taskTemplatesList]);
+  }, [availableParametersQueryData, mode, revisionDispatch, revisionState, summaryData, taskTemplatesList]);
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine

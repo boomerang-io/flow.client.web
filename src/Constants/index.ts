@@ -113,9 +113,9 @@ export const NodeType = {
   Script: "script",
   SetProperty: "setwfproperty",
   SetStatus: "setwfstatus",
+  Sleep: "sleep",
   Start: "start",
   Template: "template",
-  Sleep: "sleep",
 } as const;
 
 export const QueryStatus = Object.freeze({

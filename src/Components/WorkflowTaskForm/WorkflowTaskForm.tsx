@@ -189,10 +189,7 @@ class WorkflowTaskForm extends Component {
 
   render() {
     const { additionalConfig = [], node, task, taskNames } = this.props;
-
-    // Find the matching task config for the version
     const taskVersionConfig = task.config
-    console.log({ taskVersionConfig })
     const takenTaskNames = taskNames.filter((name) => name !== node.taskName);
 
     const taskResults = task.results

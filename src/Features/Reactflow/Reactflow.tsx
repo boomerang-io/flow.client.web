@@ -9,17 +9,16 @@ import ReactFlow, {
   ReactFlowInstance,
   applyEdgeChanges,
   applyNodeChanges,
-  NodeTypes,
   addEdge,
   Connection,
   XYPosition,
+  NodeProps,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import "./styles.scss";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
 import * as GraphComps from "./components";
 import { TaskTemplate } from "Types";
-import { current } from "immer";
 
 type NodeTypeValues = typeof NodeType[keyof typeof NodeType];
 type WorkflowEngineMode = typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode];
@@ -38,9 +37,9 @@ function CustomEdgeArrow({ id, color }: any) {
     >
       <polyline
         stroke={color}
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1"
         fill={color}
         points="-5,-4 0,0 -5,4 -5,-4"
       ></polyline>
@@ -85,11 +84,8 @@ const edgeTypes: EdgeTypes = {
   decision: GraphComps.DecisionEdge,
 };
 
-// Replace all of the functionality for the utils/dag/WorkflowDagEngine constructor, registerNodeFactory and factories
-const nodeTypes: { [K in NodeTypeValues]: string } = {
+const nodeTypes: { [K in NodeTypeValues]: React.FC<NodeProps> } = {
   acquirelock: GraphComps.AcquireLockNode,
-  start: GraphComps.StartNode,
-  template: GraphComps.TemplateNode,
   approval: GraphComps.TemplateNode,
   custom: GraphComps.CustomNode,
   decision: GraphComps.DecisionNode,
@@ -103,14 +99,17 @@ const nodeTypes: { [K in NodeTypeValues]: string } = {
   script: GraphComps.ScriptNode,
   setwfproperty: GraphComps.SetPropertyNode,
   setwfstatus: GraphComps.SetStatusNode,
-} as NodeTypes
+  start: GraphComps.StartNode,
+  template: GraphComps.TemplateNode,
+  sleep: GraphComps.TemplateNode
+};
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 interface FlowDiagramProps {
   mode: WorkflowEngineMode,
-  diagram: { nodes: Node[]; edges: Edge[] };
+  diagram: { nodes?: Node[]; edges?: Edge[] };
 }
 
 function FlowDiagram(props: FlowDiagramProps) {
@@ -118,8 +117,8 @@ function FlowDiagram(props: FlowDiagramProps) {
    * Set up state and refs
    */
   const reactFlowWrapper = React.useRef<HTMLDivElement>(null);
-  const [nodes, setNodes] = React.useState<Node[]>(props.diagram.nodes);
-  const [edges, setEdges] = React.useState<Edge[]>(props.diagram.edges);
+  const [nodes, setNodes] = React.useState<Node[]>(props.diagram?.nodes ?? []);
+  const [edges, setEdges] = React.useState<Edge[]>(props.diagram?.edges ?? []);
   const [flow, setFlow] = React.useState<ReactFlowInstance | null>(null);
 
   /**
@@ -179,6 +178,7 @@ function FlowDiagram(props: FlowDiagramProps) {
       };
 
       setNodes((nds) => nds.concat(newNode));
+
     },
     [flow, nodes]
   );
