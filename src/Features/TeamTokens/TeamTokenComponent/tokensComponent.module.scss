@@ -112,10 +112,10 @@
   word-break: break-all;
 }
 
-.tokenContainer {
+.buttonContainer {
   align-items: flex-end;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-bottom: 1.25rem;
 }

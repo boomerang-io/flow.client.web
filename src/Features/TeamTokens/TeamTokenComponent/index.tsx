@@ -167,7 +167,7 @@ function TeamTokenComponent({
   return (
     <FeatureLayout>
       <>
-        <div className={styles.tokenContainer}>
+        <div className={styles.buttonContainer}>
           {activeTeam?.id && <CreateToken activeTeam={activeTeam} getTeamTokensUrl={getTeamTokensUrl} />}
         </div>
         {tokens?.length > 0 ? (

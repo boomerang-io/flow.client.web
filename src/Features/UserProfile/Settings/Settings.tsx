@@ -18,7 +18,7 @@ import type { FlowUser, Token as TokenType } from "Types";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import queryString from "query-string";
 import Token from "./Token";
-import CreateToken from "./CreateToken";
+import CreateToken from "./CreateToken/CreateToken";
 import styles from "./Settings.module.scss";
 
 interface UserSettingsProps {

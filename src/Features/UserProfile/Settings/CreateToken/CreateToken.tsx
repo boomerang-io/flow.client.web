@@ -4,7 +4,7 @@ import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Add } from "@carbon/react/icons";
 import CreateServiceTokenForm from "./Form";
 import CreateServiceTokenResult from "./Result";
-import styles from "./createToken.module.scss";
+import styles from "./CreateToken.module.scss";
 
 interface CreateServiceTokenButtonProps {
   principal?: string | null;
