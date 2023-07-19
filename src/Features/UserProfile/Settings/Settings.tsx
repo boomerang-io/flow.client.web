@@ -18,6 +18,7 @@ import type { FlowUser, Token as TokenType } from "Types";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import queryString from "query-string";
 import Token from "./Token";
+import CreateToken from "./CreateToken";
 import styles from "./Settings.module.scss";
 
 interface UserSettingsProps {
@@ -146,6 +147,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
             </StructuredListBody>
           </StructuredListWrapper>
         </dl>
+        <CreateToken tokenData={getTokensQuery.data?.content} userId={user.id} />
       </SettingSection>
       <SettingSection title="Features">
         <div className={styles.detailedListContainer}>
