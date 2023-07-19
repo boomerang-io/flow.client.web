@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
-import { useMutation } from "react-query";
-import { Edit, Close } from "@carbon/react/icons";
-import { Tag, Button } from "@carbon/react";
-import { FlowUser } from "Types";
+import { ConfirmModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { CopyFile, Close } from "@carbon/react/icons";
+import {
+  Tag,
+  Button,
+  SkeletonText,
+  StructuredListWrapper,
+  StructuredListHead,
+  StructuredListRow,
+  StructuredListCell,
+  StructuredListBody,
+} from "@carbon/react";
+import CopyToClipboard from "react-copy-to-clipboard";
+import type { FlowUser, Token as TokenType } from "Types";
 import { resolver, serviceUrl } from "Config/servicesConfig";
+import queryString from "query-string";
+import Token from "./Token";
 import styles from "./Settings.module.scss";
 
 interface UserSettingsProps {
@@ -14,7 +26,31 @@ interface UserSettingsProps {
 }
 
 export default function Settings({ user, userManagementEnabled }: UserSettingsProps) {
+  const [copyTokenText, setCopyTokenText] = useState("Copy Token");
   const canEdit = userManagementEnabled;
+  const queryClient = useQueryClient();
+
+  const getTokensUrl = serviceUrl.getTokens({
+    query: queryString.stringify({ types: "user", principals: user?.id }),
+  });
+
+  const getTokensQuery = useQuery({
+    queryKey: getTokensUrl,
+    queryFn: resolver.query(getTokensUrl),
+    enabled: Boolean(user?.id),
+  });
+
+  const deleteTokenMutator = useMutation(resolver.deleteToken);
+
+  const deleteToken = async (tokenId: string) => {
+    try {
+      await deleteTokenMutator.mutateAsync({ tokenId });
+      queryClient.invalidateQueries([getTokensUrl]);
+      notify(<ToastNotification kind="success" title="Delete Token" subtitle={`Token successfully deleted`} />);
+    } catch (error) {
+      notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete token failed" />);
+    }
+  };
 
   const removeUserMutator = useMutation(resolver.deleteUser);
 
@@ -67,19 +103,88 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
           </div>
         </dl>
       </SettingSection>
-      <SettingSection title="API Tokens">
-        <div className={styles.buttonWithMessageContainer}>
-          <p className={styles.buttonHelperText}>Coming soon.</p>
-        </div>
+      <SettingSection title="Tokens">
+        <dl className={styles.detailedListContainer}>
+          <p className={styles.detailedListDescription}>Learn more about Access Tokens.</p>
+          <StructuredListWrapper
+            className={styles.structuredListWrapper}
+            ariaLabel="Structured list"
+            isCondensed={true}
+            isFlush={true}
+          >
+            <StructuredListHead>
+              <StructuredListRow head>
+                <StructuredListCell head>Name</StructuredListCell>
+                <StructuredListCell head>Creation Date</StructuredListCell>
+                <StructuredListCell head>Expiration Date</StructuredListCell>
+                <StructuredListCell head>Scopes</StructuredListCell>
+                <StructuredListCell head />
+              </StructuredListRow>
+            </StructuredListHead>
+            <StructuredListBody>
+              {getTokensQuery.isLoading ? (
+                <StructuredListRow>
+                  <StructuredListCell>
+                    <SkeletonText data-testid="token-loading-skeleton" />
+                  </StructuredListCell>
+                  <StructuredListCell>
+                    <SkeletonText data-testid="token-loading-skeleton" />
+                  </StructuredListCell>
+                  <StructuredListCell>
+                    <SkeletonText data-testid="token-loading-skeleton" />
+                  </StructuredListCell>
+                  <StructuredListCell>
+                    <SkeletonText data-testid="token-loading-skeleton" />
+                  </StructuredListCell>
+                  <StructuredListCell />
+                </StructuredListRow>
+              ) : (
+                getTokensQuery.data.content?.map((token: TokenType) => (
+                  <Token tokenData={token} deleteToken={deleteToken} />
+                ))
+              )}
+            </StructuredListBody>
+          </StructuredListWrapper>
+        </dl>
       </SettingSection>
       <SettingSection title="Features">
-        <div className={styles.buttonWithMessageContainer}>
-          <p className={styles.buttonHelperText}>There are no special features to be enabled at this time.</p>
+        <div className={styles.detailedListContainer}>
+          <p className={styles.detailedListParagraph}>There are no special features to be enabled at this time.</p>
         </div>
       </SettingSection>
+      <SettingSection title="Your ID">
+        <dl className={styles.detailedListContainer}>
+          <p className={styles.detailedListParagraph}>
+            This is your user ID and can be used when interacting with the API.
+          </p>
+          <div className={styles.detailedListGrid}>
+            <div className={styles.detailedListGridItem}>
+              <dd className={styles.detailedListDescription}>{user.id}</dd>
+            </div>
+            <div className={styles.detailedListGridItem}>
+              <dd className={styles.detailedListDescription}>
+                <TooltipHover direction="top" content={copyTokenText} hideOnClick={false}>
+                  <div>
+                    <CopyToClipboard text={user.id}>
+                      <button
+                        className={styles.actionButton}
+                        onClick={() => setCopyTokenText("Copied Token")}
+                        onMouseLeave={() => setCopyTokenText("Copy Token")}
+                        type="button"
+                      >
+                        <CopyFile fill={"#0072C3"} className={styles.actionIcon} alt="Copy token" />
+                      </button>
+                    </CopyToClipboard>
+                  </div>
+                </TooltipHover>
+              </dd>
+            </div>
+          </div>
+        </dl>
+      </SettingSection>
       <SettingSection title="Close Account">
-        <div className={styles.buttonWithMessageContainer}>
-          <p className={styles.buttonHelperText}>
+        <div className={styles.detailedListContainer}>
+          <p className={styles.detailedListParagraph}>
             Done with your work here? Closing your account means you will no longer be able to access any Teams or
             Workflows you have created. You will also no longer receive any notifications from the platform.
           </p>

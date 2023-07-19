@@ -5,13 +5,7 @@ import { useFeature } from "flagged";
 import { History } from "history";
 import { Formik, FormikProps, FieldArray } from "formik";
 import { Button, Tag } from "@carbon/react";
-import {
-  ComposedModal,
-  TextArea,
-  TextInput,
-  Toggle,
-  TooltipHover,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal, TextArea, TextInput, Toggle, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import cx from "classnames";
 import cronstrue from "cronstrue";
 import capitalize from "lodash/capitalize";
@@ -65,12 +59,10 @@ interface FormProps {
       token: string;
     };
   };
-  tokens: Array<
-    {
-      token: string;
-      label: string;
-    }
-  >
+  tokens: Array<{
+    token: string;
+    label: string;
+  }>;
 }
 
 interface ConfigureContainerProps {
@@ -89,16 +81,17 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
   summaryMutation,
   updateSummary,
 }) {
-  const params = useParams<{ teamId: string, workflowId: string }>()
+  const params = useParams<{ teamId: string; workflowId: string }>();
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
 
   const handleOnSubmit = (values: any) => {
     updateSummary({
-      values
+      values,
     });
   };
   const location = useLocation();
-  const isOnConfigurePath = appLink.editorConfigure({ teamId: params.teamId, workflowId: params.workflowId }) === location.pathname;
+  const isOnConfigurePath =
+    appLink.editorConfigure({ teamId: params.teamId, workflowId: params.workflowId }) === location.pathname;
 
   return (
     <>
@@ -350,8 +343,9 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                       <div className={styles.informationWrapper}>
                         <p className={styles.webhookTokenLabel}>Schedule</p>
                         <div className={styles.informationCronMessage}>
-                          {`${cronstrue.toString(values.triggers.scheduler.schedule)} in ${values.triggers.scheduler.timezone
-                            }`}
+                          {`${cronstrue.toString(values.triggers.scheduler.schedule)} in ${
+                            values.triggers.scheduler.timezone
+                          }`}
                         </div>
                       </div>
                     )}
