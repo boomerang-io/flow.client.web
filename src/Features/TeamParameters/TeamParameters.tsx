@@ -6,9 +6,9 @@ import { useAppContext } from "Hooks";
 import TeamPropertiesTable from "./TeamPropertiesTable";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
-import styles from "./teamProperties.module.scss";
+import styles from "./teamParameters.module.scss";
 
-function TeamProperties() {
+function TeamParameters() {
   const history = useHistory();
   const { activeTeam } = useAppContext();
 
@@ -41,4 +41,4 @@ function TeamProperties() {
   );
 }
 
-export default TeamProperties;
+export default TeamParameters;

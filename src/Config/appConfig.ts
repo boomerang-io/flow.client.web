@@ -49,7 +49,7 @@ type AppPathKey =
   | "ManageTeamLabels"
   | "ManageTeamQuotas"
   | "ManageTeamApprovers"
-  | "ManageTeamProperties"
+  | "ManageTeamParameters"
   | "ManageTeamTokens"
   | "Tokens"
   | "TeamList"
@@ -83,7 +83,7 @@ export const AppPath: Record<AppPathKey, string> = {
   ManageTaskTemplates: `/:teamId/task-templates`,
   ManageTaskTemplateDetail: `/:teamId/task-templates/:name/:version`,
   ManageTaskTemplateEditor: `/:teamId/task-templates/:name/:version/editor`,
-  ManageTeamProperties: `/:teamId/parameters`,
+  ManageTeamParameters: `/:teamId/parameters`,
   ManageTeam: `/:teamId/manage`,
   ManageTeamTokens: "/:teamId/manage/tokens",
   ManageTeamSettings: "/:teamId/manage/settings",

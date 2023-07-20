@@ -1,5 +1,5 @@
 import React from "react";
-import TeamProperties from "./index";
+import TeamParameters from "./index";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { startApiServer } from "ApiServer";
 
@@ -13,16 +13,16 @@ afterEach(() => {
   server.shutdown();
 });
 
-describe("TeamProperties --- Snapshot Test", () => {
-  test("Capturing Snapshot of TeamProperties", () => {
-    const { baseElement } = rtlContextRouterRender(<TeamProperties />);
+describe("TeamParameters --- Snapshot Test", () => {
+  test("Capturing Snapshot of TeamParameters", () => {
+    const { baseElement } = rtlContextRouterRender(<TeamParameters />);
     expect(baseElement).toMatchSnapshot();
   });
 });
 
-describe("TeamProperties --- RTL", () => {
+describe("TeamParameters --- RTL", () => {
   test("Selects team from dropdown and shows table data", async () => {
-    rtlContextRouterRender(<TeamProperties />);
+    rtlContextRouterRender(<TeamParameters />);
     const dropDown = await screen.findByPlaceholderText("Select a team");
     fireEvent.click(dropDown);
     await waitFor(() => {

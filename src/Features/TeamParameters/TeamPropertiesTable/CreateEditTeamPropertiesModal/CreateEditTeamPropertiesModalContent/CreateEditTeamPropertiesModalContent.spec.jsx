@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import CreateEditTeamPropertiesModalContent from "../CreateEditTeamPropertiesModalContent";
+import CreateEditTeamPropertiesModalContent from ".";
 import { screen, fireEvent } from "@testing-library/react";
 
 const mockfn = vi.fn();

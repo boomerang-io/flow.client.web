@@ -39,7 +39,7 @@ const TemplateWorkflows = lazy(() => import("Features/TemplateWorkflows"));
 // const TaskTemplates = lazy(() => import("Features/TaskTemplates"));
 const Teams = lazy(() => import("Features/Teams"));
 const ManageTeam = lazy(() => import("Features/TeamDetailed"));
-const TeamProperties = lazy(() => import("Features/TeamProperties"));
+const TeamParameters = lazy(() => import("Features/TeamParameters"));
 const TeamTasks = lazy(() => import("Features/TaskManager/TeamTasks"));
 const AdminTasks = lazy(() => import("Features/TaskManager/AdminTasks"));
 // const TaskTemplatesContainer = lazy(() => import("Features/ManageTeamTasks"));
@@ -261,7 +261,7 @@ interface AppFeaturesProps {
 const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeaturesProps) {
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
   const insightsEnabled = useFeature(FeatureFlag.InsightsEnabled);
-  const teamPropertiesEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
+  const teamParametersEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
   const teamTasksEnabled = useFeature(FeatureFlag.TeamTasksEnabled);
 
   return (
@@ -348,9 +348,9 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
               />
               <ProtectedRoute
                 allowedUserRoles={["*"]}
-                component={() => <TeamProperties />}
-                path={AppPath.ManageTeamProperties}
-                userRole={teamPropertiesEnabled ? "*" : ""}
+                component={() => <TeamParameters />}
+                path={AppPath.ManageTeamParameters}
+                userRole={teamParametersEnabled ? "*" : ""}
               />
               <Route path={AppPath.ManageTeam}>
                 <ManageTeam />
