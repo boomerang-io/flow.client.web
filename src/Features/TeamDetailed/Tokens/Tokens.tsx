@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Helmet } from "react-helmet";
-import { useAppContext } from "Hooks";
 import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
@@ -9,8 +8,8 @@ import moment from "moment";
 import cx from "classnames";
 import { Box } from "reflexbox";
 import { DataTable, DataTableSkeleton, Pagination } from "@carbon/react";
-import { Error404, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
-import WombatMessage from "Components/WombatMessage";
+import { ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
+import EmptyState from "Components/EmptyState";
 import DeleteToken from "Components/DeleteToken";
 import CreateToken from "Components/CreateToken";
 import { arrayPagination, sortByProp } from "Utils/arrayHelper";
@@ -58,7 +57,6 @@ const HEADERS = [
 ];
 
 function Tokens({ team }: { team: FlowTeam }) {
-  const { activeTeam } = useAppContext();
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
@@ -154,7 +152,7 @@ function Tokens({ team }: { team: FlowTeam }) {
       </Helmet>
       <>
         <div className={styles.buttonContainer}>
-          {activeTeam?.id && <CreateToken type="team" principal={activeTeam.id} getTokensUrl={getTokensUrl} />}
+          {team?.id && <CreateToken type="team" principal={team.id} getTokensUrl={getTokensUrl} />}
         </div>
         {tokensData?.content?.length > 0 ? (
           <>
@@ -215,36 +213,9 @@ function Tokens({ team }: { team: FlowTeam }) {
               totalItems={tokensData?.content?.length}
             />
           </>
-        ) : activeTeam ? (
-          <>
-            <DataTable
-              rows={tokensData?.content}
-              headers={HEADERS}
-              render={({ headers }: { headers: Array<{ header: string; key: string; sortable: boolean }> }) => (
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header: { header: string; key: string; sortable: boolean }) => (
-                          <TableHeader
-                            key={header.key}
-                            id={header.key}
-                            className={`${styles.tableHeadHeader} ${styles[header.key]}`}
-                          >
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                  </Table>
-                </TableContainer>
-              )}
-            />
-            <Error404 title="No teams tokens found" header={null} message={null} theme="boomerang" />
-          </>
         ) : (
           <Box maxWidth="20rem" margin="0 auto">
-            <WombatMessage title="Select a team" />
+            <EmptyState title="No tokens found" />
           </Box>
         )}
       </>
