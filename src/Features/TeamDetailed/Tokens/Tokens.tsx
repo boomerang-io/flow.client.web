@@ -19,7 +19,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import WombatMessage from "Components/WombatMessage";
 import DeleteToken from "./DeleteToken";
-import CreateToken from "./CreateToken";
+import CreateToken from "Components/CreateToken";
 import { arrayPagination, sortByProp } from "Utils/arrayHelper";
 import EmptyState from "Components/EmptyState";
 import { FlowTeam, Token } from "Types";
@@ -33,8 +33,8 @@ const HEADERS = [
     sortable: true,
   },
   {
-    header: "Created By",
-    key: "creatorName",
+    header: "Status",
+    key: "valid",
     sortable: true,
   },
   {
@@ -50,6 +50,11 @@ const HEADERS = [
   {
     header: "Expires (UTC)",
     key: "expirationDate",
+    sortable: true,
+  },
+  {
+    header: "Scopes",
+    key: "permissions",
     sortable: true,
   },
   {
@@ -114,6 +119,10 @@ function Tokens({ team }: { team: FlowTeam }) {
     const tokenDetails = tokensData?.content.find((token: Token) => token.id === tokenItemId);
     const column = HEADERS[cellIndex];
     switch (column.key) {
+      case "permissions":
+        return <p className={styles.tableTextarea}>{value ? tokenDetails.permissions.join(", ") : "---"}</p>;
+      case "valid":
+        return <p className={styles.tableTextarea}>{value ? "Active" : "Inactive"}</p>;
       case "creationDate":
       case "expirationDate":
         return (
@@ -152,7 +161,7 @@ function Tokens({ team }: { team: FlowTeam }) {
       </Helmet>
       <>
         <div className={styles.buttonContainer}>
-          {activeTeam?.id && <CreateToken activeTeam={activeTeam} getTeamTokensUrl={getTokensUrl} />}
+          {activeTeam?.id && <CreateToken type="team" principal={activeTeam.id} getTokensUrl={getTokensUrl} />}
         </div>
         {tokensData?.content?.length > 0 ? (
           <>

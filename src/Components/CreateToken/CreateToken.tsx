@@ -4,15 +4,16 @@ import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Add } from "@carbon/react/icons";
 import CreateServiceTokenForm from "./Form";
 import CreateServiceTokenResult from "./Result";
-import { FlowTeam } from "Types";
-import styles from "./createToken.module.scss";
+import { TokenType } from "Types";
+import styles from "./CreateToken.module.scss";
 
 interface CreateServiceTokenButtonProps {
-  activeTeam?: FlowTeam | null;
-  getTeamTokensUrl: string;
+  type: TokenType;
+  principal?: string | null;
+  getTokensUrl: string;
 }
 
-function CreateServiceTokenButton({ activeTeam, getTeamTokensUrl }: CreateServiceTokenButtonProps) {
+function CreateServiceTokenButton({ type, principal, getTokensUrl }: CreateServiceTokenButtonProps) {
   const [isTokenCreated, setIsTokenCreated] = React.useState(false);
   const cancelRequestRef = React.useRef<any>();
   return (
@@ -29,12 +30,13 @@ function CreateServiceTokenButton({ activeTeam, getTeamTokensUrl }: CreateServic
           style={{ width: "12rem" }}
           size="md"
           data-testid="create-token-button"
+          kind={type === "user" ? "ghost" : "primary"}
         >
-          Create Token
+          Create new token
         </Button>
       )}
       modalHeaderProps={{
-        title: !isTokenCreated ? `Create Team Token` : "Team token successfully created ",
+        title: !isTokenCreated ? `Create new token` : "Token successfully created ",
       }}
       confirmModalProps={{
         title: "Close this?",
@@ -46,8 +48,9 @@ function CreateServiceTokenButton({ activeTeam, getTeamTokensUrl }: CreateServic
     >
       <CreateServiceTokenForm
         setIsTokenCreated={() => setIsTokenCreated(true)}
-        activeTeam={activeTeam}
-        getTeamTokensUrl={getTeamTokensUrl}
+        type={type}
+        principal={principal}
+        getTokensUrl={getTokensUrl}
       />
       <CreateServiceTokenResult />
     </ModalFlow>

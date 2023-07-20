@@ -18,7 +18,7 @@ import type { FlowUser, Token as TokenType } from "Types";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import queryString from "query-string";
 import Token from "./Token";
-import CreateToken from "./CreateToken/CreateToken";
+import CreateToken from "Components/CreateToken";
 import styles from "./Settings.module.scss";
 
 interface UserSettingsProps {
@@ -118,6 +118,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
             <StructuredListHead>
               <StructuredListRow head>
                 <StructuredListCell head>Name</StructuredListCell>
+                <StructuredListCell head>Status</StructuredListCell>
                 <StructuredListCell head>Creation Date</StructuredListCell>
                 <StructuredListCell head>Expiration Date</StructuredListCell>
                 <StructuredListCell head>Scopes</StructuredListCell>
@@ -149,7 +150,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
             </StructuredListBody>
           </StructuredListWrapper>
         </dl>
-        <CreateToken getTokensUrl={getTokensUrl} principal={user.id} />
+        <CreateToken getTokensUrl={getTokensUrl} principal={user.id} type="user" />
       </SettingSection>
       <SettingSection title="Your ID">
         <dl className={styles.detailedListContainer}>
@@ -205,7 +206,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
               <Button
                 disabled={!canEdit}
                 iconDescription="Close"
-                kind="danger"
+                kind="danger--ghost"
                 onClick={openModal}
                 renderIcon={Close}
                 size="md"

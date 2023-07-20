@@ -3,7 +3,7 @@ import { startApiServer } from "ApiServer";
 import userEvent from "@testing-library/user-event";
 import { screen } from "@testing-library/react";
 import { FlowTeam } from "Types";
-import CreateServiceTokenButton from "./index";
+import CreateServiceTokenButton from "./CreateToken";
 
 let server: any;
 const activeTeam: FlowTeam = {

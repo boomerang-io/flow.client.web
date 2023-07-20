@@ -22,7 +22,7 @@ function CreateTokenButton({ principal, getTokensUrl }: CreateServiceTokenButton
       }}
       modalTrigger={({ openModal }: { openModal: () => void }) => (
         <Button kind="ghost" size="md" renderIcon={Add} onClick={openModal} data-testid="create-token-button">
-          Add a new token
+          Create new token
         </Button>
       )}
       modalHeaderProps={{

@@ -31,7 +31,10 @@ const tokens = {
           expirationDate: null,
           valid: true,
           principal: null,
-          permissions: []
+          permissions: [
+            "TOKEN_READ",
+            "TOKEN_DELETE"
+          ]
       },
       {
         id: "60e3a0b4e4b0c9b6e0b0b0b3",
@@ -40,7 +43,7 @@ const tokens = {
           description: null,
           creationDate: "2023-07-06T11:27:32.626+00:00",
           expirationDate: null,
-          valid: true,
+          valid: false,
           principal: "64a4c82bfea180c25e229ceb",
           permissions: []
       }

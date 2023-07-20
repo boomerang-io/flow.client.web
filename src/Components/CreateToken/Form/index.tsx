@@ -6,22 +6,18 @@ import { ModalFlowForm, TextArea, TextInput, Loading, TooltipHover } from "@boom
 import { Formik } from "formik";
 import { Information } from "@carbon/react/icons";
 import { useMutation, useQueryClient } from "react-query";
-import { serviceUrl, resolver } from "Config/servicesConfig";
-import { TeamTokenRequest, FlowTeam } from "Types";
+import { resolver } from "Config/servicesConfig";
+import { TokenType } from "Types";
 import styles from "./form.module.scss";
-
-const InputKey = {
-  ExpiryDate: "date",
-  Description: "description",
-};
 
 interface CreateServiceTokenFormProps {
   closeModal: () => void;
   goToStep: (args: any) => void;
   saveValues: (args: any) => void;
   setIsTokenCreated: () => any;
-  activeTeam: FlowTeam | null;
-  getTeamTokensUrl: string;
+  type: TokenType;
+  principal: string | null;
+  getTokensUrl: string;
 }
 
 function CreateServiceTokenForm({
@@ -29,8 +25,9 @@ function CreateServiceTokenForm({
   goToStep,
   saveValues,
   setIsTokenCreated,
-  activeTeam,
-  getTeamTokensUrl,
+  type,
+  principal,
+  getTokensUrl,
 }: CreateServiceTokenFormProps | any) {
   const queryClient = useQueryClient();
   const tokenRequestMutation = useMutation(resolver.postToken);
@@ -46,7 +43,7 @@ function CreateServiceTokenForm({
 
     try {
       const response = await tokenRequestMutation.mutateAsync({ body: request });
-      queryClient.invalidateQueries(getTeamTokensUrl);
+      queryClient.invalidateQueries(getTokensUrl);
       saveValues(response.data);
       setIsTokenCreated();
       goToStep(1);
@@ -67,10 +64,10 @@ function CreateServiceTokenForm({
     <Formik
       initialValues={{
         name: "",
-        type: "team",
+        type: type,
         expirationDate: "",
         description: "",
-        principal: activeTeam.id,
+        principal: principal,
       }}
       validateOnMount
       onSubmit={(values) => createToken(values)}
@@ -89,11 +86,12 @@ function CreateServiceTokenForm({
           <ModalFlowForm className={styles.container} onSubmit={handleSubmit}>
             <ModalBody>
               {isSubmitting && <Loading />}
-              <label className={styles.modalLabel} htmlFor="uploadTemplate">
-                Create a new new {values.type} token.
-              </label>
               <p className={styles.modalHelper}>
-                A token must have a name. If no expiry is set, this token will never expire - this is dangerous
+                This token will allow{" "}
+                {type === "global"
+                  ? `system wide access access to the APIs. `
+                  : `access to the APIs as if they were ${type === "user" ? "you" : "this " + type}. `}{" "}
+                Be careful how you distribute this token.
               </p>
               <TextInput
                 id="name"
@@ -106,7 +104,6 @@ function CreateServiceTokenForm({
                 placeholder="my-unique-task-name"
                 value={values.name}
               />
-              {/* <TextInput id="type" labelText="Type" onBlur={handleBlur} value={values.type} readOnly disabled /> */}
               <DatePicker
                 id="token-date-picker"
                 dateFormat="Y/m/d"
@@ -121,6 +118,7 @@ function CreateServiceTokenForm({
                   dateFormat="MM-DD-YYYY"
                   invalid={Boolean(errors.expirationDate)}
                   invalidText={errors.expirationDate}
+                  helperText="If no expiry is set, this token will never expire!"
                   labelText={
                     <div className={styles.inputLabelContainer}>
                       <span>Expiration Date (optional)</span>

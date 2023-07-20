@@ -1,8 +1,9 @@
 import React from "react";
-import { ConfirmModal, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { TrashCan } from "@carbon/react/icons";
 import { StructuredListRow, StructuredListCell, Button } from "@carbon/react";
-import type { ModalTriggerProps, Token as TokenType } from "Types";
+import type { Token as TokenType } from "Types";
+import moment from "moment";
 import styles from "./Token.module.scss";
 
 interface TokenProps {
@@ -14,9 +15,16 @@ const Token: React.FC<TokenProps> = ({ tokenData, deleteToken }) => {
   return (
     <StructuredListRow>
       <StructuredListCell>{tokenData.name}</StructuredListCell>
-      <StructuredListCell>{tokenData.creationDate}</StructuredListCell>
-      <StructuredListCell>{tokenData.expirationDate ? tokenData.expirationDate : "---"}</StructuredListCell>
-      <StructuredListCell>{tokenData.permissions ? tokenData.permissions : "---"}</StructuredListCell>
+      <StructuredListCell>{tokenData.valid ? "Active" : "Inactive"}</StructuredListCell>
+      <StructuredListCell>
+        {tokenData.creationDate ? moment(tokenData.creationDate).utc().startOf("day").format("MMMM DD, YYYY") : "---"}
+      </StructuredListCell>
+      <StructuredListCell>
+        {tokenData.expirationDate
+          ? moment(tokenData.expirationDate).utc().startOf("day").format("MMMM DD, YYYY")
+          : "---"}
+      </StructuredListCell>
+      <StructuredListCell>{tokenData.permissions ? tokenData.permissions.join(", ") : "---"}</StructuredListCell>
       <div>
         <ConfirmModal
           modalTrigger={({ openModal }: { openModal: () => void }) => (

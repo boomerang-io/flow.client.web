@@ -562,7 +562,7 @@ export interface PatchProperty {
 export interface Token {
   id: string;
   name: string;
-  type: string;
+  type: TokenType;
   creationDate: string;
   expirationDate: string;
   principal: string;
@@ -570,6 +570,8 @@ export interface Token {
   valid: boolean;
   permissions: Array<String>;
 }
+
+export type TokenType = "user" | "workflow" | "team" | "global";
 
 export interface TokenRequest {
   expiryDate: string | number | null;
