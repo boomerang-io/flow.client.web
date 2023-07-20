@@ -67,7 +67,7 @@ function CreateServiceTokenForm({
     <Formik
       initialValues={{
         name: "",
-        type: "team",
+        type: "user",
         expirationDate: "",
         description: "",
         principal: principal,

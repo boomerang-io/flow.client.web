@@ -147,7 +147,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
             </StructuredListBody>
           </StructuredListWrapper>
         </dl>
-        <CreateToken tokenData={getTokensQuery.data?.content} userId={user.id} />
+        <CreateToken tokenData={getTokensQuery.data?.content} principal={user.id} />
       </SettingSection>
       <SettingSection title="Features">
         <div className={styles.detailedListContainer}>
