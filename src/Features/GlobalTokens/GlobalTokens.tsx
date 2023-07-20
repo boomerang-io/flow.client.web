@@ -72,7 +72,7 @@ function Tokens({ team }: { team: FlowTeam }) {
   const [sortDirection, setSortDirection] = useState("DESC");
 
   const getTokensUrl = serviceUrl.getTokens({
-    query: queryString.stringify({ types: "team", principals: team?.id }),
+    query: queryString.stringify({ types: "global" }),
   });
 
   const {
@@ -108,7 +108,7 @@ function Tokens({ team }: { team: FlowTeam }) {
   const deleteToken = async (tokenId: string) => {
     try {
       await deleteTokenMutator({ tokenId });
-      notify(<ToastNotification kind="success" title="Delete Team Token" subtitle={`Token successfully deleted`} />);
+      notify(<ToastNotification kind="success" title="Delete Token" subtitle={`Token successfully deleted`} />);
     } catch (error) {
       notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete token failed" />);
     }
