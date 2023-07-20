@@ -81,13 +81,13 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
         <section className={styles.readOnly}>
           <Tag className={styles.readOnlyTag}>Read-only</Tag>
           <p className={styles.readOnlyText}>
-            Manage your profile, tokens, activate special features, or close your account. - You don’t have permission
-            to change any of these settings, but you can still see what’s going on behind the scenes.
+            Manage your profile, tokens, special features, or close your account. - You don’t have permission to change
+            any of these settings, but you can still see what’s going on behind the scenes.
           </p>
         </section>
       ) : (
         <p className={styles.settingsDescription}>
-          Manage your profile, tokens, activate special features, or close your account.
+          Manage your profile, tokens, special features, or close your account.
         </p>
       )}
       <SettingSection title="Basic details">

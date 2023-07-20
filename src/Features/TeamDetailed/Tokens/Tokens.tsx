@@ -9,18 +9,12 @@ import moment from "moment";
 import cx from "classnames";
 import { Box } from "reflexbox";
 import { DataTable, DataTableSkeleton, Pagination } from "@carbon/react";
-import {
-  FeatureHeader as Header,
-  FeatureHeaderTitle as HeaderTitle,
-  FeatureHeaderSubtitle as HeaderSubtitle,
-  Error404,
-  ErrorMessage,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Error404, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
 import WombatMessage from "Components/WombatMessage";
-import DeleteToken from "./DeleteToken";
+import DeleteToken from "Components/DeleteToken";
 import CreateToken from "Components/CreateToken";
 import { arrayPagination, sortByProp } from "Utils/arrayHelper";
-import { FlowTeam, Token } from "Types";
+import type { FlowTeam, Token } from "Types";
 import styles from "./Tokens.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;

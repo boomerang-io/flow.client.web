@@ -1,10 +1,8 @@
 import React from "react";
-import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import { TrashCan } from "@carbon/react/icons";
-import { StructuredListRow, StructuredListCell, Button } from "@carbon/react";
+import { StructuredListRow, StructuredListCell } from "@carbon/react";
 import type { Token as TokenType } from "Types";
+import DeleteToken from "Components/DeleteToken";
 import moment from "moment";
-import styles from "./Token.module.scss";
 
 interface TokenProps {
   tokenData: TokenType;
@@ -26,26 +24,7 @@ const Token: React.FC<TokenProps> = ({ tokenData, deleteToken }) => {
       </StructuredListCell>
       <StructuredListCell>{tokenData.permissions ? tokenData.permissions.join(", ") : "---"}</StructuredListCell>
       <div>
-        <ConfirmModal
-          modalTrigger={({ openModal }: { openModal: () => void }) => (
-            <Button
-              className={styles.button}
-              iconDescription="deleteToken"
-              kind="danger--ghost"
-              onClick={openModal}
-              renderIcon={TrashCan}
-              size="sm"
-              data-testid={`delete-token-button-${tokenData.id}`}
-            />
-          )}
-          affirmativeAction={() => deleteToken(tokenData.id)}
-          affirmativeButtonProps={{ kind: "danger" }}
-          affirmativeText="Yes"
-          negativeText="No"
-          title={`Are you sure?`}
-        >
-          The token will be deleted. This action cannot be undone. Are you sure you want to do this?
-        </ConfirmModal>
+        <DeleteToken tokenItem={tokenData} deleteToken={deleteToken} />
       </div>
       <StructuredListCell />
     </StructuredListRow>

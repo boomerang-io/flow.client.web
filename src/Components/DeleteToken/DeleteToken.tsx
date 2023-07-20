@@ -3,7 +3,7 @@ import { Button } from "@carbon/react";
 import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { TrashCan } from "@carbon/react/icons";
 import { Token } from "Types";
-import styles from "./deleteToken.module.scss";
+import styles from "./DeleteToken.module.scss";
 
 interface Props {
   tokenItem: Token;
