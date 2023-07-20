@@ -14,8 +14,8 @@ patchedDependencies:
 
 dependencies:
   '@boomerang-io/carbon-addons-boomerang-react':
-    specifier: 4.0.2
-    version: 4.0.2(@carbon/react@1.16.0)(axios@0.27.2)(formik@2.2.9)(react-dom@17.0.0)(react-query@3.34.12)(react-router-dom@5.3.0)(react@17.0.0)(yup@0.32.11)
+    specifier: 4.0.3-beta.0
+    version: 4.0.3-beta.0(@carbon/react@1.16.0)(axios@0.27.2)(formik@2.2.9)(react-dom@17.0.0)(react-query@3.34.12)(react-router-dom@5.3.0)(react@17.0.0)(yup@0.32.11)
   '@boomerang-io/styles':
     specifier: 1.1.0
     version: 1.1.0
@@ -1689,8 +1689,8 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@boomerang-io/carbon-addons-boomerang-react@4.0.2(@carbon/react@1.16.0)(axios@0.27.2)(formik@2.2.9)(react-dom@17.0.0)(react-query@3.34.12)(react-router-dom@5.3.0)(react@17.0.0)(yup@0.32.11):
-    resolution: {integrity: sha512-oZNVbhBhzWMjFw755uZkyML15SVufL9g6hi4Zn04/E4Ao4eDz07kbcNoO1Hz7+vA31mZO9OoliMFTeuVr+iF+A==}
+  /@boomerang-io/carbon-addons-boomerang-react@4.0.3-beta.0(@carbon/react@1.16.0)(axios@0.27.2)(formik@2.2.9)(react-dom@17.0.0)(react-query@3.34.12)(react-router-dom@5.3.0)(react@17.0.0)(yup@0.32.11):
+    resolution: {integrity: sha512-ITPJTrZhequMuN7ZNxcMRDMk47Ma/B33989WS46ml+zsUGzp6mf2tmPww+dFKn7DQMiXsYj6PuDQRhtIgFfoXQ==}
     peerDependencies:
       '@carbon/react': ^1.14.0
       axios: '>= 0.26.0 < 1'
@@ -8349,7 +8349,7 @@ packages:
     dev: true
 
   /lodash.sortby@4.7.0:
-    resolution: {integrity: sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==}
+    resolution: {integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=}
     dev: false
 
   /lodash.startcase@4.4.0:
