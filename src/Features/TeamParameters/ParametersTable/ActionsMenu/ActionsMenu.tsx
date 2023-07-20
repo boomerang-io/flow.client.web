@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { OverflowMenu, OverflowMenuItem } from "@carbon/react";
 import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import CreateEditTeamPropertiesModal from "../CreateEditTeamPropertiesModal";
-import { FlowTeam, Property } from "Types";
+import CreateEditParametersModal from "../CreateEditParametersModal";
+import { Property } from "Types";
 
 interface OverflowMenuComponentProps {
-  team: FlowTeam;
-  property: Property;
-  properties: Property[];
-  deleteTeamProperty(args: Property): void;
+  parameter: Property;
+  parameters: Property[];
+  handleDelete: (component: Property) => Promise<void>;
+  handleSubmit: (isEdit: boolean, values: any) => Promise<void>;
 }
 
 const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
-  property,
-  properties,
-  deleteTeamProperty,
-  team,
+  parameter,
+  parameters,
+  handleDelete,
+  handleSubmit,
 }) => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -38,7 +38,7 @@ const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
   };
 
   const affirmativeAction = () => {
-    deleteTeamProperty(property);
+    handleDelete(parameter);
     setDeleteModalIsOpen(false);
   };
 
@@ -54,13 +54,13 @@ const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
           <OverflowMenuItem key={index} {...option} />
         ))}
       </OverflowMenu>
-      <CreateEditTeamPropertiesModal
+      <CreateEditParametersModal
         isOpen={editModalIsOpen}
         isEdit
-        property={property}
-        properties={properties}
-        handleEditClose={handleEditClose}
-        team={team}
+        parameter={parameter}
+        parameters={parameters}
+        handleClose={handleEditClose}
+        handleSubmit={handleSubmit}
       />
       <ConfirmModal
         isOpen={deleteModalIsOpen}
@@ -69,9 +69,9 @@ const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
         affirmativeText="Delete"
         negativeText="Cancel"
         onCloseModal={() => setDeleteModalIsOpen(false)}
-        title={`Delete ${property?.label}?`}
+        title={`Delete ${parameter?.label}?`}
       >
-        Your team parameter will be gone. Forever.
+        Your parameter will be gone. Forever.
       </ConfirmModal>
     </>
   );

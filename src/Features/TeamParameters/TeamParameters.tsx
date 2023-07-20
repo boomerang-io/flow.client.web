@@ -1,24 +1,92 @@
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 import { useHistory } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 import { useAppContext } from "Hooks";
 import ParametersTable from "./ParametersTable";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
+import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Property } from "Types";
+import { formatErrorMessage } from "@boomerang-io/utils";
 import styles from "./teamParameters.module.scss";
 
 function TeamParameters() {
   const history = useHistory();
   const { activeTeam } = useAppContext();
+  const queryClient = useQueryClient();
 
   /** Get team properties */
-  const teamPropertiesUrl = serviceUrl.getTeamParameters({ id: activeTeam?.id });
-  const {
-    data: propertiesData,
-    isLoading,
-    error: propertiesError,
-  } = useQuery(teamPropertiesUrl, resolver.query(teamPropertiesUrl), { enabled: Boolean(activeTeam?.id) });
+  const teamParametersUrl = serviceUrl.getTeamParameters({ id: activeTeam?.id });
+  const teamParametersQuery = useQuery(teamParametersUrl, resolver.query(teamParametersUrl), {
+    enabled: Boolean(activeTeam?.id),
+  });
+
+  /** Add / Update / Delete Team parameter */
+  const addTeamPropertyMutation = useMutation(resolver.postTeamPropertyRequest);
+  const updateTeamPropertyMutation = useMutation(resolver.patchTeamPropertyRequest);
+  const deleteTeamPropertyMutation = useMutation(resolver.deleteTeamPropertyRequest);
+
+  const handleSubmit = async (isEdit: boolean, parameter: any) => {
+    if (isEdit) {
+      try {
+        const response = await updateTeamPropertyMutation.mutateAsync({
+          teamId: activeTeam?.id,
+          configurationId: parameter.id,
+          body: parameter,
+        });
+        queryClient.invalidateQueries([teamParametersUrl]);
+        notify(
+          <ToastNotification
+            kind="success"
+            title={"Parameter Updated"}
+            subtitle={`Request to update ${response.data.label} succeeded`}
+            data-testid="create-update-team-prop-notification"
+          />
+        );
+      } catch (err) {}
+    } else {
+      try {
+        const response = await addTeamPropertyMutation.mutateAsync({ id: activeTeam?.id, body: parameter });
+        queryClient.invalidateQueries([teamParametersUrl]);
+        notify(
+          <ToastNotification
+            kind="success"
+            title={"Parameter Created"}
+            subtitle={`Request to create ${response.data.label} succeeded`}
+            data-testid="create-update-team-prop-notification"
+          />
+        );
+      } catch (err) {
+        //no-op
+      }
+    }
+  };
+
+  const handleDelete = async (component: Property) => {
+    try {
+      await deleteTeamPropertyMutation.mutateAsync({ teamId: activeTeam?.id, configurationId: component.id });
+      queryClient.invalidateQueries([teamParametersUrl]);
+      notify(
+        <ToastNotification
+          kind="success"
+          title={"Team Configuration Deleted"}
+          subtitle={`Request to delete ${component.label} succeeded`}
+          data-testid="delete-team-prop-notification"
+        />
+      );
+    } catch (err) {
+      const errorMessages = formatErrorMessage({ error: err, defaultMessage: "Delete Configuration Failed" });
+      notify(
+        <ToastNotification
+          kind="error"
+          title={errorMessages.title}
+          subtitle={errorMessages.message}
+          data-testid="delete-team-prop-notification"
+        />
+      );
+    }
+  };
 
   /** Check if there is an active team or redirect to home */
   if (!activeTeam) {
@@ -31,11 +99,11 @@ function TeamParameters() {
         <title>Team Parameters</title>
       </Helmet>
       <ParametersTable
-        properties={propertiesData ?? []}
-        propertiesAreLoading={isLoading}
-        propertiesError={propertiesError}
-        //@ts-ignore
-        activeTeam={activeTeam}
+        parameters={teamParametersQuery.data ?? []}
+        isLoading={teamParametersQuery.isLoading}
+        hasError={teamParametersQuery.isError}
+        handleDelete={handleDelete}
+        handleSubmit={handleSubmit}
       />
     </div>
   );

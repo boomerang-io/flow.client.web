@@ -1,27 +1,18 @@
 import React, { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
-import { Box } from "reflexbox";
 import { DataTable, Pagination, DataTableSkeleton } from "@carbon/react";
 import {
-  ComboBox,
   Error,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  notify,
-  ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import CreateEditTeamPropertiesModal from "./CreateEditTeamPropertiesModal";
+import CreateEditParametersModal from "./CreateEditParametersModal";
 import ActionsMenu from "./ActionsMenu";
 import EmptyState from "Components/EmptyState";
-import NoTeamsRedirectPrompt from "Components/NoTeamsRedirectPrompt";
-import WombatMessage from "Components/WombatMessage";
 import { InputType, PASSWORD_CONSTANT } from "Constants";
-import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
-import { serviceUrl, resolver } from "Config/servicesConfig";
-import { FlowTeam, Property } from "Types";
+import { Property } from "Types";
 import { Checkmark, Close } from "@carbon/react/icons";
-import styles from "./ParametersTable.module.scss";
+import styles from "./parametersTable.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
@@ -58,52 +49,22 @@ const headers = [
 ];
 
 interface ParametersTableProps {
-  activeTeam: FlowTeam;
-  properties: Property[];
-  propertiesAreLoading: boolean;
-  propertiesError: any;
+  parameters: Property[];
+  isLoading: boolean;
+  hasError: any;
+  handleDelete: (component: Property) => Promise<void>;
+  handleSubmit: (isEdit: boolean, component: Property) => Promise<void>;
 }
 
 const ParametersTable: React.FC<ParametersTableProps> = ({
-  activeTeam,
-  properties,
-  propertiesAreLoading,
-  propertiesError,
+  parameters,
+  isLoading,
+  hasError,
+  handleDelete,
+  handleSubmit,
 }) => {
-  const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
-
-  const teamPropertiesUrl = serviceUrl.getTeamParameters({ id: activeTeam?.id });
-
-  /** Delete Team Property */
-  const { mutateAsync: deleteTeamPropertyMutation } = useMutation(resolver.deleteTeamPropertyRequest, {
-    onSuccess: () => queryClient.invalidateQueries([teamPropertiesUrl]),
-  });
-
-  const deleteTeamProperty = async (component: Property) => {
-    try {
-      await deleteTeamPropertyMutation({ teamId: activeTeam.id, configurationId: component.id });
-      notify(
-        <ToastNotification
-          kind="success"
-          title={"Team Configuration Deleted"}
-          subtitle={`Request to delete ${component.label} succeeded`}
-          data-testid="delete-team-prop-notification"
-        />
-      );
-    } catch (err) {
-      const errorMessages = formatErrorMessage({ error: err, defaultMessage: "Delete Configuration Failed" });
-      notify(
-        <ToastNotification
-          kind="error"
-          title={errorMessages.title}
-          subtitle={errorMessages.message}
-          data-testid="delete-team-prop-notification"
-        />
-      );
-    }
-  };
 
   const handlePaginationChange = ({ page, pageSize }: { page: number; pageSize: number }) => {
     setPage(page);
@@ -111,18 +72,18 @@ const ParametersTable: React.FC<ParametersTableProps> = ({
   };
 
   const renderCell = (propertyId: string, cellIndex: number, value: any) => {
-    const property = properties.find((property) => property.id === propertyId)!;
+    const parameter = parameters.find((parameter) => parameter.id === propertyId)!;
     const column = headers[cellIndex];
     switch (column.key) {
       case "value":
         const determineValue = value
-          ? property && property.type === InputType.Password
+          ? parameter && parameter.type === InputType.Password
             ? PASSWORD_CONSTANT
             : value
           : "---";
         return <p className={styles.tableTextarea}>{determineValue}</p>;
       case "secured":
-        return property && property.type === InputType.Password ? (
+        return parameter && parameter.type === InputType.Password ? (
           <Checkmark size={32} alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
         ) : (
           <Close size={32} alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
@@ -130,10 +91,10 @@ const ParametersTable: React.FC<ParametersTableProps> = ({
       case "actions":
         return (
           <ActionsMenu
-            team={activeTeam}
-            property={property}
-            properties={properties}
-            deleteTeamProperty={deleteTeamProperty}
+            parameter={parameter}
+            parameters={parameters}
+            handleDelete={handleDelete}
+            handleSubmit={handleSubmit}
           />
         );
       default:
@@ -142,8 +103,8 @@ const ParametersTable: React.FC<ParametersTableProps> = ({
   };
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
-  const totalItems = properties.length;
-  const tableData = properties.map((p, index) => ({ ...p, id: index.toString() }));
+  const totalItems = parameters.length;
+  const tableData = parameters.map((p, index) => ({ ...p, id: index.toString() }));
 
   return (
     <>
@@ -161,13 +122,11 @@ const ParametersTable: React.FC<ParametersTableProps> = ({
       />
       <div className={styles.tableContainer}>
         <div className={styles.tableHeader}>
-          {(activeTeam?.id || totalItems > 0) && (
-            <CreateEditTeamPropertiesModal properties={properties} team={activeTeam} />
-          )}
+          {!isLoading && !hasError && <CreateEditParametersModal parameters={parameters} handleSubmit={handleSubmit} />}
         </div>
-        {propertiesAreLoading ? (
+        {isLoading ? (
           <DataTableSkeleton />
-        ) : propertiesError ? (
+        ) : hasError ? (
           <Error />
         ) : totalItems > 0 ? (
           <>
@@ -220,13 +179,7 @@ const ParametersTable: React.FC<ParametersTableProps> = ({
           </>
         ) : (
           <>
-            {activeTeam ? (
-              <EmptyState title="No team parameters" message={null} />
-            ) : (
-              <Box maxWidth="20rem" margin="0 auto">
-                <WombatMessage title="Select a team" />
-              </Box>
-            )}
+            <EmptyState title="No team parameters" message={null} />
           </>
         )}
       </div>

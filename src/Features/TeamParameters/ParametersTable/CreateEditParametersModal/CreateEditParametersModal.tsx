@@ -1,120 +1,54 @@
+//@ts-nocheck
 import React from "react";
-import { useMutation, useQueryClient } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
-import {
-  ModalFlowForm,
-  notify,
-  ToastNotification,
-  Loading,
-  TextInput,
-  Toggle,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { Add } from "@carbon/react/icons";
+import { ModalFlow, ModalFlowForm, Loading, TextInput, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
 import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
-import { PatchProperty, Property, FlowTeam } from "Types";
+import { Property } from "Types";
 import { updatedDiff } from "deep-object-diff";
+import styles from "./createEditparametersModal.module.scss";
 
 type Props = {
-  closeModal: () => void;
-  isEdit: boolean;
-  property: Property;
-  propertyKeys: string[];
-  team: FlowTeam;
-  cancelRequestRef: any;
+  handleClose?: () => void;
+  handleSubmit: (isEdit: boolean, values: any) => Promise<void>;
+  isEdit?: boolean;
+  isOpen?: boolean;
+  parameter?: Property;
+  parameters: Property[];
 };
 
-function CreateEditTeamPropertiesModalContent({
-  closeModal,
-  isEdit,
-  property,
-  propertyKeys,
-  team,
-  cancelRequestRef,
-}: Props) {
+function CreateEditParametersModal({ handleClose, handleSubmit, isEdit, isOpen, parameter, parameters }: Props) {
+  /**
+   * arrays of values for making the key unique
+   * filter out own value if editing a property, pass through all if creating
+   */
+  let parameterKeys: string[] | [] = [];
+  if (Array.isArray(parameters)) {
+    parameterKeys = parameters.map((configurationObj) => configurationObj.key);
+    if (isEdit && parameter) {
+      parameterKeys = parameterKeys.filter((item) => item !== parameter.key);
+    }
+  }
   const initialState = {
-    label: property?.label ?? "",
-    description: property?.description ?? "",
-    key: property?.key ?? "",
-    value: property?.value ?? "",
-    secured: property?.type === InputType.Password ?? false,
+    label: parameter?.label ?? "",
+    description: parameter?.description ?? "",
+    key: parameter?.key ?? "",
+    value: parameter?.value ?? "",
+    secured: parameter?.type === InputType.Password ?? false,
   };
-  const teamPropertiesUrl = serviceUrl.getTeamParameters({ id: team.id });
-  const queryClient = useQueryClient();
 
-  /** Add Team Property */
-  const {
-    mutateAsync: addTeamPropertyMutation,
-    isLoading: addIsLoading,
-    error: addError,
-  } = useMutation(
-    (args: { id: string; body: Property }) => {
-      const { promise, cancel } = resolver.postTeamPropertyRequest(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    },
-    {
-      onSuccess: () => queryClient.invalidateQueries(teamPropertiesUrl),
-    }
-  );
-
-  /** Update Team Property */
-  const {
-    mutateAsync: updateTeamPropertyMutation,
-    isLoading: updateIsLoading,
-    error: updateError,
-  } = useMutation(
-    (args: { teamId: string; configurationId: string; body: PatchProperty }) => {
-      const { promise, cancel } = resolver.patchTeamPropertyRequest(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    },
-    {
-      onSuccess: () => queryClient.invalidateQueries(teamPropertiesUrl),
-    }
-  );
-
-  const loading = addIsLoading || updateIsLoading;
-
-  const handleSubmit = async (values: any) => {
+  const handleInternalSubmit = async (values: any) => {
     const type = values.secured ? InputType.Password : InputType.Text;
-    const newTeamProperty = isEdit ? { ...values, type, id: property.id } : { ...values, type };
-    delete newTeamProperty.secured;
+    const newParameter = isEdit ? { ...values, type, id: parameter.id } : { ...values, type };
+    delete newParameter.secured;
 
     if (isEdit) {
-      const updatedFields = updatedDiff(initialState, newTeamProperty);
-      try {
-        const response = await updateTeamPropertyMutation({
-          teamId: team.id,
-          configurationId: newTeamProperty.id,
-          body: updatedFields,
-        });
-        notify(
-          <ToastNotification
-            kind="success"
-            title={"Parameter Updated"}
-            subtitle={`Request to update ${response.data.label} succeeded`}
-            data-testid="create-update-team-prop-notification"
-          />
-        );
-        closeModal();
-      } catch (err) {}
+      const updatedFields = updatedDiff(initialState, newParameter);
+      handleSubmit(true, updatedFields);
     } else {
-      try {
-        const response = await addTeamPropertyMutation({ id: team.id, body: newTeamProperty });
-        notify(
-          <ToastNotification
-            kind="success"
-            title={"Parameter Created"}
-            subtitle={`Request to create ${response.data.label} succeeded`}
-            data-testid="create-update-team-prop-notification"
-          />
-        );
-        closeModal();
-      } catch (err) {
-        //no-op
-      }
+      handleSubmit(false, newParameter);
     }
   };
 
@@ -124,16 +58,41 @@ function CreateEditTeamPropertiesModalContent({
   };
 
   return (
+    // <ModalFlow
+    //   isOpen={isOpen}
+    //   composedModalProps={{ containerClassName: styles.modalContainer }}
+    //   modalProps={{ shouldCloseOnOverlayClick: false }}
+    //   modalTrigger={({ openModal }: { openModal: () => void }) =>
+    //     !isEdit ? (
+    //       <Button
+    //         data-testid="create-team-parameter-button"
+    //         onClick={openModal}
+    //         iconDescription="Create Parameter"
+    //         renderIcon={Add}
+    //         size="md"
+    //         style={{ minWidth: "9rem" }}
+    //       >
+    //         Create Parameter
+    //       </Button>
+    //     ) : null
+    //   }
+    //   modalHeaderProps={{
+    //     title: isEdit && property ? `Edit ${property.label.toUpperCase()}` : "Create Parameter",
+    //   }}
+    //   onCloseModal={() => {
+    //     if (isEdit) handleClose();
+    //   }}
+    // >
     <Formik
       initialValues={initialState}
-      onSubmit={handleSubmit}
+      onSubmit={handleInternalSubmit}
       validateOnMount
       validationSchema={Yup.object().shape({
         label: Yup.string().required("Enter a label"),
         key: Yup.string()
           .required("Enter a key")
           .max(128, "Key must not be greater than 128 characters")
-          .notOneOf(propertyKeys || [], "Enter a unique key value for this parameter")
+          .notOneOf(parameterKeys || [], "Enter a unique key value for this parameter")
           .test(
             "is-valid-key",
             "Only alphanumeric, hyphen and underscore characters allowed. Must begin with a letter or underscore",
@@ -150,11 +109,10 @@ function CreateEditTeamPropertiesModalContent({
     >
       {(props) => {
         const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
-
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
             <ModalBody aria-label="inputs">
-              {loading && <Loading />}
+              {/* {loading && <Loading />} */}
               <TextInput
                 id="key"
                 labelText="Key"
@@ -214,7 +172,7 @@ function CreateEditTeamPropertiesModalContent({
                 toggled={values.secured}
                 helperText="Once a parameter is securely created - you will not be able to make it unsecure"
               />
-              {addError && (
+              {/* {addError && (
                 <InlineNotification
                   lowContrast
                   kind="error"
@@ -231,7 +189,7 @@ function CreateEditTeamPropertiesModalContent({
                   title={"Something's Wrong"}
                   data-testid="create-update-team-prop-notification"
                 />
-              )}
+              )} */}
             </ModalBody>
             <ModalFooter>
               <Button kind="secondary" type="button" onClick={closeModal}>
@@ -249,7 +207,8 @@ function CreateEditTeamPropertiesModalContent({
         );
       }}
     </Formik>
+    // </ModalFlow>
   );
 }
 
-export default CreateEditTeamPropertiesModalContent;
+export default CreateEditParametersModal;
