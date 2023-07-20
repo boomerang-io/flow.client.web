@@ -25,9 +25,6 @@ function TaskTemplatesContainer() {
   });
   const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);
 
-  // Collect the tasks by name and array of sorted by version task templates
-  const taskTemplatesByName = groupTaskTemplatesByName(taskTemplatesData?.content)
-
   if (isLoading) {
     return (
       <div className={styles.container}>
@@ -52,6 +49,9 @@ function TaskTemplatesContainer() {
       </div>
     );
   }
+
+  // Collect the tasks by name and array of sorted by version task templates
+  const taskTemplatesByName = groupTaskTemplatesByName(taskTemplatesData?.content);
 
   return (
     <div className={styles.container}>

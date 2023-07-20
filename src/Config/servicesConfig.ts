@@ -184,9 +184,9 @@ export const resolver = {
       },
     }),
   patchTeamPropertyRequest: ({ teamId, configurationId, body }) =>
-    cancellableResolver({
+    axios({
       url: serviceUrl.getTeamProperty({ teamId, configurationId }),
-      body,
+      data: body,
       method: HttpMethod.Patch,
     }),
   patchUpdateWorkflowSummary: ({ body }) => axios.patch(serviceUrl.patchUpdateWorkflowSummary(), body),
@@ -233,7 +233,7 @@ export const resolver = {
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
   postSchedule: ({ teamId, body }) => axios.post(serviceUrl.postSchedule({ teamId }), body),
   postTeamPropertyRequest: ({ id, body }) =>
-    cancellableResolver({ url: serviceUrl.getTeamParameters({ id }), body, method: HttpMethod.Post }),
+    axios({ url: serviceUrl.getTeamParameters({ id }), data: body, method: HttpMethod.Post }),
   postWorkflowAvailableParameters: ({ workflowId, body }) =>
     axios.post(serviceUrl.workflowAvailableParameters({ workflowId }), body),
   putActivationApp: ({ body }) =>

@@ -26,11 +26,11 @@ function TaskTemplatesContainer() {
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const getTaskTemplatesUrl = activeTeam
     ? serviceUrl.getTaskTemplates({
-      query: queryString.stringify({ teams: activeTeam?.id, statuses: "active,inactive" }),
-    })
+        query: queryString.stringify({ teams: activeTeam?.id, statuses: "active,inactive" }),
+      })
     : serviceUrl.getTaskTemplates({
-      query: queryString.stringify({ statuses: "active,inactive" }),
-    });
+        query: queryString.stringify({ statuses: "active,inactive" }),
+      });
   const {
     data: taskTemplatesData,
     error: taskTemplatesDataError,
@@ -43,9 +43,6 @@ function TaskTemplatesContainer() {
   if (!activeTeam) {
     return history.push(appLink.home());
   }
-
-  // Collect the tasks by name and array of sorted by version task templates
-  const taskTemplatesByName = groupTaskTemplatesByName(taskTemplatesData?.content)
 
   if (isLoading) {
     return (
@@ -76,6 +73,9 @@ function TaskTemplatesContainer() {
       </div>
     );
   }
+
+  // Collect the tasks by name and array of sorted by version task templates
+  const taskTemplatesByName = groupTaskTemplatesByName(taskTemplatesData?.content);
 
   return (
     <div className={styles.container}>

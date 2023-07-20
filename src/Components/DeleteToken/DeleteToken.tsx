@@ -14,7 +14,7 @@ function DeleteToken({ tokenItem, deleteToken }: Props) {
   const message = "If this token is actively being used, things will likely break.";
   return (
     <ConfirmModal
-      modalTrigger={({ openModal }: { openModal: () => void }) => (
+      modalTrigger={({ openModal }) => (
         <Button
           className={styles.button}
           iconDescription="deleteToken"
