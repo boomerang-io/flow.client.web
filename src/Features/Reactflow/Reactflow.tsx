@@ -204,6 +204,7 @@ function FlowDiagram(props: FlowDiagramProps) {
             nodesDraggable={!isDisabled}
             nodesConnectable={!isDisabled}
             elementsSelectable={!isDisabled}
+            proOptions={{ hideAttribution: true }}
 
           >
             <MarkerDefinition>
