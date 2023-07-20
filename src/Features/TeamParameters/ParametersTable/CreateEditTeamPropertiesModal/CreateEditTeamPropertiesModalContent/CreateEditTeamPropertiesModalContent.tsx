@@ -40,7 +40,7 @@ function CreateEditTeamPropertiesModalContent({
     value: property?.value ?? "",
     secured: property?.type === InputType.Password ?? false,
   };
-  const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: team.id });
+  const teamPropertiesUrl = serviceUrl.getTeamParameters({ id: team.id });
   const queryClient = useQueryClient();
 
   /** Add Team Property */

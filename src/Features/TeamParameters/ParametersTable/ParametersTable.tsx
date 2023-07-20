@@ -21,7 +21,7 @@ import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, Property } from "Types";
 import { Checkmark, Close } from "@carbon/react/icons";
-import styles from "./teamPropertiesTable.module.scss";
+import styles from "./ParametersTable.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
@@ -57,14 +57,14 @@ const headers = [
   },
 ];
 
-interface TeamPropertiesTableProps {
+interface ParametersTableProps {
   activeTeam: FlowTeam;
   properties: Property[];
   propertiesAreLoading: boolean;
   propertiesError: any;
 }
 
-const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
+const ParametersTable: React.FC<ParametersTableProps> = ({
   activeTeam,
   properties,
   propertiesAreLoading,
@@ -74,7 +74,7 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
 
-  const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: activeTeam?.id });
+  const teamPropertiesUrl = serviceUrl.getTeamParameters({ id: activeTeam?.id });
 
   /** Delete Team Property */
   const { mutateAsync: deleteTeamPropertyMutation } = useMutation(resolver.deleteTeamPropertyRequest, {
@@ -234,4 +234,4 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
   );
 };
 
-export default TeamPropertiesTable;
+export default ParametersTable;

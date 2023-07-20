@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import TeamPropertiesTable from ".";
+import ParametersTable from ".";
 import { screen, fireEvent } from "@testing-library/react";
 
 const mockfn = vi.fn();
@@ -108,16 +108,16 @@ beforeEach(() => {
   document.body.setAttribute("id", "app");
 });
 
-describe("TeamPropertiesTable --- Snapshot Test", () => {
-  test("Capturing Snapshot of TeamPropertiesTable", () => {
-    const { baseElement } = global.rtlContextRouterRender(<TeamPropertiesTable {...props} />);
+describe("ParametersTable --- Snapshot Test", () => {
+  test("Capturing Snapshot of ParametersTable", () => {
+    const { baseElement } = global.rtlContextRouterRender(<ParametersTable {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
 
-describe("TeamPropertiesTable --- RTL", () => {
-  test("TeamPropertiesTable - ComboBox Functionality correctly", () => {
-    global.rtlContextRouterRender(<TeamPropertiesTable {...props} />);
+describe("ParametersTable --- RTL", () => {
+  test("ParametersTable - ComboBox Functionality correctly", () => {
+    global.rtlContextRouterRender(<ParametersTable {...props} />);
     const comboBoxElement = screen.getByPlaceholderText(/Select a team/i);
     fireEvent.click(comboBoxElement);
 
@@ -127,8 +127,8 @@ describe("TeamPropertiesTable --- RTL", () => {
     expect(screen.queryAllByText(/Please select a team to manage properties./i)).toHaveLength(0);
   });
 
-  test("TeamPropertiesTable -  test it renders table with data", async () => {
-    global.rtlContextRouterRender(<TeamPropertiesTable {...propsWithProperties} />);
+  test("ParametersTable -  test it renders table with data", async () => {
+    global.rtlContextRouterRender(<ParametersTable {...propsWithProperties} />);
     const { data } = mockReduxTeamConfig.teamProperties;
     // eslint-disable-next-line
     expect(screen.getByText(data[0].value)).toBeInTheDocument();

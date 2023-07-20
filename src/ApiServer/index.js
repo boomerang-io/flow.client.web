@@ -159,12 +159,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Team Propertiies
        */
-      this.get(serviceUrl.getTeamProperties({ id: ":id" }), (schema, request) => {
+      this.get(serviceUrl.getTeamParameters({ id: ":id" }), (schema, request) => {
         let { id } = request.params;
         let property = schema.teamProperties.find(id);
         return property && property.properties ? property.properties : [];
       });
-      this.post(serviceUrl.getTeamProperties({ id: ":id" }), (schema, request) => {
+      this.post(serviceUrl.getTeamParameters({ id: ":id" }), (schema, request) => {
         /**
          * find team record, update the list of properties for that team
          */

@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useAppContext } from "Hooks";
-import TeamPropertiesTable from "./TeamPropertiesTable";
+import ParametersTable from "./ParametersTable";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import styles from "./teamParameters.module.scss";
@@ -13,7 +13,7 @@ function TeamParameters() {
   const { activeTeam } = useAppContext();
 
   /** Get team properties */
-  const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: activeTeam?.id });
+  const teamPropertiesUrl = serviceUrl.getTeamParameters({ id: activeTeam?.id });
   const {
     data: propertiesData,
     isLoading,
@@ -30,7 +30,7 @@ function TeamParameters() {
       <Helmet>
         <title>Team Parameters</title>
       </Helmet>
-      <TeamPropertiesTable
+      <ParametersTable
         properties={propertiesData ?? []}
         propertiesAreLoading={isLoading}
         propertiesError={propertiesError}

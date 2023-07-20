@@ -67,7 +67,7 @@ export const serviceUrl = {
   getTeams: ({ query }: QueryId) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
   getMyTeams: ({ query }: QueryId) => `${BASE_URL}/team/mine${query ? "?" + query : ""}`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/team/${teamId}/parameters/${configurationId}`,
-  getTeamProperties: ({ id }) => `${BASE_URL}/team/${id}/parameters`,
+  getTeamParameters: ({ id }) => `${BASE_URL}/team/${id}/parameters`,
   getTeamQuotas: ({ id }) => `${BASE_URL}/team/${id}/quotas`,
   getTeamQuotaDefaults: () => `${BASE_URL}/team/quotas/default`,
   getTokens: ({ query }) => `${BASE_URL}/token/query${query ? "?" + query : ""}`,
@@ -233,7 +233,7 @@ export const resolver = {
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
   postSchedule: ({ teamId, body }) => axios.post(serviceUrl.postSchedule({ teamId }), body),
   postTeamPropertyRequest: ({ id, body }) =>
-    cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HttpMethod.Post }),
+    cancellableResolver({ url: serviceUrl.getTeamParameters({ id }), body, method: HttpMethod.Post }),
   postWorkflowAvailableParameters: ({ workflowId, body }) =>
     axios.post(serviceUrl.workflowAvailableParameters({ workflowId }), body),
   putActivationApp: ({ body }) =>
