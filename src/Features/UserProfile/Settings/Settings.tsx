@@ -81,13 +81,13 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
         <section className={styles.readOnly}>
           <Tag className={styles.readOnlyTag}>Read-only</Tag>
           <p className={styles.readOnlyText}>
-            Manage your profile - You don’t have permission to change any of these settings, but you can still see
-            what’s going on behind the scenes.
+            Manage your profile, tokens, activate special features, or close your account. - You don’t have permission
+            to change any of these settings, but you can still see what’s going on behind the scenes.
           </p>
         </section>
       ) : (
         <p className={styles.settingsDescription}>
-          Manage your profile, activate special features, or close your account.
+          Manage your profile, tokens, activate special features, or close your account.
         </p>
       )}
       <SettingSection title="Basic details">
@@ -106,12 +106,14 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
       </SettingSection>
       <SettingSection title="Tokens">
         <dl className={styles.detailedListContainer}>
-          <p className={styles.detailedListDescription}>Learn more about Access Tokens.</p>
+          <p className={styles.detailedListParagraph}>
+            Personal access tokens allow other apps to access the APIs as if they were you. All of your access will be
+            shared. Be careful how you distribute these tokens!
+          </p>
           <StructuredListWrapper
             className={styles.structuredListWrapper}
             ariaLabel="Structured list"
             isCondensed={true}
-            isFlush={true}
           >
             <StructuredListHead>
               <StructuredListRow head>
@@ -147,12 +149,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
             </StructuredListBody>
           </StructuredListWrapper>
         </dl>
-        <CreateToken tokenData={getTokensQuery.data?.content} principal={user.id} />
-      </SettingSection>
-      <SettingSection title="Features">
-        <div className={styles.detailedListContainer}>
-          <p className={styles.detailedListParagraph}>There are no special features to be enabled at this time.</p>
-        </div>
+        <CreateToken getTokensUrl={getTokensUrl} principal={user.id} />
       </SettingSection>
       <SettingSection title="Your ID">
         <dl className={styles.detailedListContainer}>
@@ -184,14 +181,19 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
           </div>
         </dl>
       </SettingSection>
+      <SettingSection title="Features">
+        <div className={styles.detailedListContainer}>
+          <p className={styles.detailedListParagraph}>There are no special features to be enabled at this time.</p>
+        </div>
+      </SettingSection>
       <SettingSection title="Close Account">
         <div className={styles.detailedListContainer}>
           <p className={styles.detailedListParagraph}>
-            Done with your work here? Closing your account means you will no longer be able to access any Teams or
-            Workflows you have created. You will also no longer receive any notifications from the platform.
+            Done with your work here? Closing your account means you will no longer be able to access any items you have
+            created. You will also no longer receive any notifications from the platform.
           </p>
-          <p className={styles.buttonHelperText}>
-            This action cannot be undone. Be sure you want to permanently delete all of the data stored.
+          <p className={styles.detailedListParagraph}>
+            This action cannot be undone. Be sure you want to permanently delete your access.
           </p>
           <ConfirmModal
             affirmativeAction={() => removeTeam()}

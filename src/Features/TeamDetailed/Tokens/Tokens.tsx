@@ -1,29 +1,32 @@
 import React, { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Helmet } from "react-helmet";
+import { useAppContext } from "Hooks";
+import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import queryString from "query-string";
+import styles from "./tokens.module.scss";
 import moment from "moment";
 import cx from "classnames";
 import { Box } from "reflexbox";
 import { DataTable, DataTableSkeleton, Pagination } from "@carbon/react";
 import {
-  ComboBox,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
   Error404,
   ErrorMessage,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import NoTeamsRedirectPrompt from "Components/NoTeamsRedirectPrompt";
 import WombatMessage from "Components/WombatMessage";
 import DeleteToken from "./DeleteToken";
 import CreateToken from "./CreateToken";
 import { arrayPagination, sortByProp } from "Utils/arrayHelper";
+import EmptyState from "Components/EmptyState";
 import { FlowTeam, Token } from "Types";
-import { UserRole } from "Constants";
-import styles from "./tokensComponent.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 20, 50, 100];
-
-const headers = [
+const HEADERS = [
   {
     header: "Name",
     key: "name",
@@ -56,58 +59,60 @@ const headers = [
   },
 ];
 
-interface FeatureLayoutProps {
-  children: React.ReactNode;
-}
-
-const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children }) => {
-  return (
-    <div className={styles.container}>
-      <Header
-        className={styles.header}
-        includeBorder={false}
-        header={
-          <>
-            <HeaderTitle className={styles.headerTitle}>Team Tokens</HeaderTitle>
-            <HeaderSubtitle>
-              Set team-level tokens that are accessible to all workflows owned by the team.
-            </HeaderSubtitle>
-          </>
-        }
-      />
-      <div className={styles.content}>{children}</div>
-    </div>
-  );
-};
-
-interface TeamTokensTableProps {
-  activeTeam?: FlowTeam | null;
-  tokens: Token[];
-  isLoading: boolean;
-  hasError: any;
-  deleteToken(tokenId: string): void;
-  userType: string;
-  getTeamTokensUrl: string;
-}
-
-function TeamTokenComponent({
-  deleteToken,
-  tokens,
-  hasError,
-  isLoading,
-  activeTeam,
-  userType,
-  getTeamTokensUrl,
-}: TeamTokensTableProps) {
+function Tokens({ team }: { team: FlowTeam }) {
+  const { activeTeam } = useAppContext();
+  const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [sortKey, setSortKey] = useState("creationDate");
   const [sortDirection, setSortDirection] = useState("DESC");
-  const deleteTokenAvailable = userType === UserRole.Admin;
+
+  const getTokensUrl = serviceUrl.getTokens({
+    query: queryString.stringify({ types: "team", principals: team?.id }),
+  });
+
+  const {
+    data: tokensData,
+    error: tokensError,
+    isLoading: tokensIsLoading,
+  } = useQuery({
+    queryKey: getTokensUrl,
+    queryFn: resolver.query(getTokensUrl),
+    enabled: Boolean(team?.id),
+  });
+
+  const { mutateAsync: deleteTokenMutator } = useMutation(resolver.deleteToken, {
+    onSuccess: () => queryClient.invalidateQueries([getTokensUrl]),
+  });
+
+  if (tokensIsLoading) {
+    return (
+      <DataTableSkeleton
+        data-testid="token-loading-skeleton"
+        className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
+        rowCount={DEFAULT_PAGE_SIZE}
+        columnCount={HEADERS.length}
+        headers={HEADERS.map((header) => header.header)}
+      />
+    );
+  }
+
+  if (tokensError) {
+    return <ErrorMessage />;
+  }
+
+  const deleteToken = async (tokenId: string) => {
+    try {
+      await deleteTokenMutator({ tokenId });
+      notify(<ToastNotification kind="success" title="Delete Team Token" subtitle={`Token successfully deleted`} />);
+    } catch (error) {
+      notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete token failed" />);
+    }
+  };
 
   const renderCell = (tokenItemId: string, cellIndex: number, value: string) => {
-    const tokenDetails = tokens.find((token: Token) => token.id === tokenItemId);
-    const column = headers[cellIndex];
+    const tokenDetails = tokensData?.content.find((token: Token) => token.id === tokenItemId);
+    const column = HEADERS[cellIndex];
     switch (column.key) {
       case "creationDate":
       case "expirationDate":
@@ -117,7 +122,7 @@ function TeamTokenComponent({
           </p>
         );
       case "delete":
-        return tokenDetails && tokenDetails.id && deleteTokenAvailable ? (
+        return tokenDetails && tokenDetails.id ? (
           <DeleteToken tokenItem={tokenDetails} deleteToken={deleteToken} />
         ) : (
           ""
@@ -140,42 +145,21 @@ function TeamTokenComponent({
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
 
-  if (isLoading) {
-    return (
-      <FeatureLayout>
-        <DataTableSkeleton
-          data-testid="token-loading-skeleton"
-          className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
-          rowCount={DEFAULT_PAGE_SIZE}
-          columnCount={headers.length}
-          headers={headers.map((header) => header.header)}
-        />
-      </FeatureLayout>
-    );
-  }
-
-  if (hasError) {
-    return (
-      <FeatureLayout>
-        <ErrorMessage />
-      </FeatureLayout>
-    );
-  }
-
-  console.log(tokens);
-
   return (
-    <FeatureLayout>
+    <section aria-label={`${team.name} Team Tokens`} className={styles.container}>
+      <Helmet>
+        <title>{`Tokens - ${team.name}`}</title>
+      </Helmet>
       <>
         <div className={styles.buttonContainer}>
-          {activeTeam?.id && <CreateToken activeTeam={activeTeam} getTeamTokensUrl={getTeamTokensUrl} />}
+          {activeTeam?.id && <CreateToken activeTeam={activeTeam} getTeamTokensUrl={getTokensUrl} />}
         </div>
-        {tokens?.length > 0 ? (
+        {tokensData?.content?.length > 0 ? (
           <>
             <DataTable
-              rows={arrayPagination(tokens, page, pageSize, sortKey, sortDirection)}
+              rows={arrayPagination(tokensData?.content, page, pageSize, sortKey, sortDirection)}
               sortRow={(rows: any) => sortByProp(rows, sortKey, sortDirection.toLowerCase())}
-              headers={headers}
+              headers={HEADERS}
               render={({
                 rows,
                 headers,
@@ -226,14 +210,14 @@ function TeamTokenComponent({
               page={page}
               pageSize={pageSize}
               pageSizes={PAGE_SIZES}
-              totalItems={tokens?.length}
+              totalItems={tokensData?.content?.length}
             />
           </>
         ) : activeTeam ? (
           <>
             <DataTable
-              rows={tokens}
-              headers={headers}
+              rows={tokensData?.content}
+              headers={HEADERS}
               render={({ headers }: { headers: Array<{ header: string; key: string; sortable: boolean }> }) => (
                 <TableContainer>
                   <Table>
@@ -262,8 +246,8 @@ function TeamTokenComponent({
           </Box>
         )}
       </>
-    </FeatureLayout>
+    </section>
   );
 }
 
-export default TeamTokenComponent;
+export default Tokens;

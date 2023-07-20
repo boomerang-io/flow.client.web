@@ -35,7 +35,9 @@ const Token: React.FC<TokenProps> = ({ tokenData, deleteToken }) => {
           affirmativeText="Yes"
           negativeText="No"
           title={`Are you sure?`}
-        />
+        >
+          The token will be deleted. This action cannot be undone. Are you sure you want to do this?
+        </ConfirmModal>
       </div>
       <StructuredListCell />
     </StructuredListRow>

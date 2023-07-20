@@ -353,9 +353,6 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 path={AppPath.ManageTeamProperties}
                 userRole={teamPropertiesEnabled ? "*" : ""}
               />
-              <Route path={AppPath.ManageTeamTokens}>
-                <TeamTokens />
-              </Route>
               <Route path={AppPath.ManageTeam}>
                 <ManageTeam />
               </Route>

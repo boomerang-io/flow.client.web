@@ -17,6 +17,7 @@ import Members from "./Members";
 import Settings from "./Settings";
 import Quotas from "./Quotas";
 import Labels from "./Labels";
+import Tokens from "./Tokens";
 import Workflows from "./Workflows";
 import ApproverGroups from "./ApproverGroups";
 import { AppPath, FeatureFlag } from "Config/appConfig";
@@ -95,15 +96,18 @@ function TeamDetailedContainer() {
           <Route exact path={AppPath.ManageTeamApprovers}>
             <ApproverGroups team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
           </Route>
+          <Route exact path={AppPath.ManageTeamQuotas}>
+            <Quotas team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
+          </Route>
+          <Route exact path={AppPath.ManageTeamTokens}>
+            <Tokens team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
+          </Route>
           <Route exact path={AppPath.ManageTeamLabels}>
             <Labels
               isActive={status === "active"}
               team={teamDetailsData}
               teamManagementEnabled={teamManagementEnabled}
             />
-          </Route>
-          <Route exact path={AppPath.ManageTeamQuotas}>
-            <Quotas team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
           </Route>
           <Route exact path={AppPath.ManageTeamSettings}>
             <Settings team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />

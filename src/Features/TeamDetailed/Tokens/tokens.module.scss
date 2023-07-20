@@ -1,17 +1,23 @@
-@import "@boomerang-io/styles/lib/colors";
-
 .container {
-  background: var(--cds-ui-background);
-  color: var(--cds-text-01);
-  height: calc(100vh - 3rem);
-  overflow-y: auto;
+  height: calc(100vh - 13.65rem) !important;
+  overflow: auto;
+  padding: 1.5rem 2rem;
+
+  :global .cds--bmrg-error-page {
+    width: 100%;
+  }
+
+  :global .cds--structured-list {
+    max-width: 100rem;
+  }
+
+  :global .cds--structured-list-td {
+    line-height: 1rem;
+    padding: 1rem 1rem;
+  }
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  margin: 2.5rem 2.5rem 4.5rem 2.5rem;
-}
+
 
 .dropdown {
   width: 20rem;
