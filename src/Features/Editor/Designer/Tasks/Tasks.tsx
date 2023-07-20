@@ -11,6 +11,7 @@ import { taskIcons } from "Utils/taskIcons";
 import { ChevronLeft, SettingsAdjust, Recommend } from "@carbon/react/icons";
 import { TaskTemplate } from "Types";
 import styles from "./tasks.module.scss";
+import { groupTaskTemplatesByName } from "Utils";
 
 const FIRST_TASK_CATEGORY = "workflow";
 
@@ -113,8 +114,11 @@ export default class Tasks extends Component<TaskProps> {
     matchSorter(tasksToDisplay, searchQuery, { keys: ["category", "name"] });
 
   determineTasks = () => {
+    const taskTemplatesByName = groupTaskTemplatesByName(this.state.tasksToDisplay)
+    // List of distinct task names by latest version
+    const tasksToDisplay = Object.values(taskTemplatesByName).map((taskList) => taskList[0]);
     //Create object with keys as the categories and values as tasks
-    const sortedTasksByCategory = sortByProp(this.state.tasksToDisplay, "category");
+    const sortedTasksByCategory = sortByProp(tasksToDisplay, "category");
     const catgegoriesWithTasks = sortedTasksByCategory.reduce((accum, task) => {
       const formattedCategory = task.category;
       if (!accum[formattedCategory]) {
