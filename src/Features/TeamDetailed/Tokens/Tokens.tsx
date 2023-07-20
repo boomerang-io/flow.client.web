@@ -5,7 +5,6 @@ import { useAppContext } from "Hooks";
 import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
-import styles from "./tokens.module.scss";
 import moment from "moment";
 import cx from "classnames";
 import { Box } from "reflexbox";
@@ -22,6 +21,7 @@ import DeleteToken from "./DeleteToken";
 import CreateToken from "Components/CreateToken";
 import { arrayPagination, sortByProp } from "Utils/arrayHelper";
 import { FlowTeam, Token } from "Types";
+import styles from "./Tokens.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 20, 50, 100];

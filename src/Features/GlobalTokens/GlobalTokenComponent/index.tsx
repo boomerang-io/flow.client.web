@@ -61,7 +61,9 @@ const FeatureLayout = ({ children }: FeatureLayoutProps) => {
         header={
           <>
             <HeaderTitle className={styles.headerTitle}>Global Tokens</HeaderTitle>
-            <FeatureHeaderSubtitle className={styles.headerTitle}>Create tokens that can be used globally</FeatureHeaderSubtitle>
+            <FeatureHeaderSubtitle className={styles.headerTitle}>
+              Create tokens that can be used globally
+            </FeatureHeaderSubtitle>
           </>
         }
       />

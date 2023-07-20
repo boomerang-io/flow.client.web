@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { Helmet } from "react-helmet";
 import { useAppContext } from "Hooks";
 import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
-import styles from "./tokens.module.scss";
 import moment from "moment";
 import cx from "classnames";
 import { Box } from "reflexbox";
@@ -17,11 +15,12 @@ import {
   Error404,
   ErrorMessage,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import WombatMessage from "Components/WombatMessage";
+import EmptyState from "Components/EmptyState";
 import DeleteToken from "./DeleteToken";
 import CreateToken from "Components/CreateToken";
 import { arrayPagination, sortByProp } from "Utils/arrayHelper";
 import { FlowTeam, Token } from "Types";
+import styles from "./GlobalTokens.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 20, 50, 100];
@@ -63,6 +62,28 @@ const HEADERS = [
   },
 ];
 
+interface FeatureLayoutProps {
+  children: React.ReactNode;
+}
+
+const FeatureLayout = ({ children }: FeatureLayoutProps) => {
+  return (
+    <div className={styles.container}>
+      <Header
+        className={styles.header}
+        includeBorder={false}
+        header={
+          <>
+            <HeaderTitle className={styles.headerTitle}>Global Tokens</HeaderTitle>
+            <HeaderSubtitle className={styles.headerTitle}>Create tokens that can be used globally</HeaderSubtitle>
+          </>
+        }
+      />
+      <div className={styles.content}>{children}</div>
+    </div>
+  );
+};
+
 function Tokens({ team }: { team: FlowTeam }) {
   const { activeTeam } = useAppContext();
   const queryClient = useQueryClient();
@@ -91,18 +112,24 @@ function Tokens({ team }: { team: FlowTeam }) {
 
   if (tokensIsLoading) {
     return (
-      <DataTableSkeleton
-        data-testid="token-loading-skeleton"
-        className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
-        rowCount={DEFAULT_PAGE_SIZE}
-        columnCount={HEADERS.length}
-        headers={HEADERS.map((header) => header.header)}
-      />
+      <FeatureLayout>
+        <DataTableSkeleton
+          data-testid="token-loading-skeleton"
+          className={cx(`cds--skeleton`, `cds--data-table`, styles.tableSkeleton)}
+          rowCount={DEFAULT_PAGE_SIZE}
+          columnCount={HEADERS.length}
+          headers={HEADERS.map((header) => header.header)}
+        />
+      </FeatureLayout>
     );
   }
 
   if (tokensError) {
-    return <ErrorMessage />;
+    return (
+      <FeatureLayout>
+        <ErrorMessage />
+      </FeatureLayout>
+    );
   }
 
   const deleteToken = async (tokenId: string) => {
@@ -154,107 +181,102 @@ function Tokens({ team }: { team: FlowTeam }) {
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
 
   return (
-    <section aria-label={`${team.name} Team Tokens`} className={styles.container}>
-      <Helmet>
-        <title>{`Tokens - ${team.name}`}</title>
-      </Helmet>
-      <>
-        <div className={styles.buttonContainer}>
-          {activeTeam?.id && <CreateToken type="team" principal={activeTeam.id} getTokensUrl={getTokensUrl} />}
-        </div>
-        {tokensData?.content?.length > 0 ? (
-          <>
-            <DataTable
-              rows={arrayPagination(tokensData?.content, page, pageSize, sortKey, sortDirection)}
-              sortRow={(rows: any) => sortByProp(rows, sortKey, sortDirection.toLowerCase())}
-              headers={HEADERS}
-              render={({
-                rows,
-                headers,
-                getHeaderProps,
-              }: {
-                rows: any;
-                headers: Array<{ header: string; key: string; sortable: boolean }>;
-                getHeaderProps: any;
-              }) => (
-                <TableContainer>
-                  <Table isSortable>
-                    <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header: { header: string; key: string; sortable: boolean }) => (
-                          <TableHeader
-                            id={header.key}
-                            {...getHeaderProps({
-                              header,
-                              className: `${styles.tableHeadHeader} ${styles[header.key]}`,
-                              isSortable: header.sortable,
-                              onClick: handleSort,
-                            })}
-                            isSortHeader={sortKey === header.key}
-                            sortDirection={sortDirection}
-                          >
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody className={styles.tableBody}>
-                      {rows.map((row: any) => (
-                        <TableRow key={row.id}>
-                          {row.cells.map((cell: any, cellIndex: number) => (
-                            <TableCell key={cell.id} style={{ padding: "0" }}>
-                              <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
-                            </TableCell>
-                          ))}
-                        </TableRow>
+    <FeatureLayout>
+      <div className={styles.buttonContainer}>
+        {activeTeam?.id && <CreateToken type="team" principal={activeTeam.id} getTokensUrl={getTokensUrl} />}
+      </div>
+      {tokensData?.content?.length > 0 ? (
+        <>
+          <DataTable
+            rows={arrayPagination(tokensData?.content, page, pageSize, sortKey, sortDirection)}
+            sortRow={(rows: any) => sortByProp(rows, sortKey, sortDirection.toLowerCase())}
+            headers={HEADERS}
+            render={({
+              rows,
+              headers,
+              getHeaderProps,
+            }: {
+              rows: any;
+              headers: Array<{ header: string; key: string; sortable: boolean }>;
+              getHeaderProps: any;
+            }) => (
+              <TableContainer>
+                <Table isSortable>
+                  <TableHead>
+                    <TableRow className={styles.tableHeadRow}>
+                      {headers.map((header: { header: string; key: string; sortable: boolean }) => (
+                        <TableHeader
+                          id={header.key}
+                          {...getHeaderProps({
+                            header,
+                            className: `${styles.tableHeadHeader} ${styles[header.key]}`,
+                            isSortable: header.sortable,
+                            onClick: handleSort,
+                          })}
+                          isSortHeader={sortKey === header.key}
+                          sortDirection={sortDirection}
+                        >
+                          {header.header}
+                        </TableHeader>
                       ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
-            />
-            <Pagination
-              onChange={handlePaginationChange}
-              page={page}
-              pageSize={pageSize}
-              pageSizes={PAGE_SIZES}
-              totalItems={tokensData?.content?.length}
-            />
-          </>
-        ) : activeTeam ? (
-          <>
-            <DataTable
-              rows={tokensData?.content}
-              headers={HEADERS}
-              render={({ headers }: { headers: Array<{ header: string; key: string; sortable: boolean }> }) => (
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header: { header: string; key: string; sortable: boolean }) => (
-                          <TableHeader
-                            key={header.key}
-                            id={header.key}
-                            className={`${styles.tableHeadHeader} ${styles[header.key]}`}
-                          >
-                            {header.header}
-                          </TableHeader>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody className={styles.tableBody}>
+                    {rows.map((row: any) => (
+                      <TableRow key={row.id}>
+                        {row.cells.map((cell: any, cellIndex: number) => (
+                          <TableCell key={cell.id} style={{ padding: "0" }}>
+                            <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
+                          </TableCell>
                         ))}
                       </TableRow>
-                    </TableHead>
-                  </Table>
-                </TableContainer>
-              )}
-            />
-            <Error404 title="No teams tokens found" header={null} message={null} theme="boomerang" />
-          </>
-        ) : (
-          <Box maxWidth="20rem" margin="0 auto">
-            <WombatMessage title="Select a team" />
-          </Box>
-        )}
-      </>
-    </section>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+          />
+          <Pagination
+            onChange={handlePaginationChange}
+            page={page}
+            pageSize={pageSize}
+            pageSizes={PAGE_SIZES}
+            totalItems={tokensData?.content?.length}
+          />
+        </>
+      ) : activeTeam ? (
+        <>
+          <DataTable
+            rows={tokensData?.content}
+            headers={HEADERS}
+            render={({ headers }: { headers: Array<{ header: string; key: string; sortable: boolean }> }) => (
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow className={styles.tableHeadRow}>
+                      {headers.map((header: { header: string; key: string; sortable: boolean }) => (
+                        <TableHeader
+                          key={header.key}
+                          id={header.key}
+                          className={`${styles.tableHeadHeader} ${styles[header.key]}`}
+                        >
+                          {header.header}
+                        </TableHeader>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                </Table>
+              </TableContainer>
+            )}
+          />
+          <Error404 title="No tokens found" header={null} message={null} theme="boomerang" />
+        </>
+      ) : (
+        <Box maxWidth="20rem" margin="0 auto">
+          <EmptyState title="No tokens found" message="" />
+        </Box>
+      )}
+    </FeatureLayout>
   );
 }
 
