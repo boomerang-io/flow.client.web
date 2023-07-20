@@ -40,7 +40,6 @@ const TemplateWorkflows = lazy(() => import("Features/TemplateWorkflows"));
 const Teams = lazy(() => import("Features/Teams"));
 const ManageTeam = lazy(() => import("Features/TeamDetailed"));
 const TeamProperties = lazy(() => import("Features/TeamProperties"));
-const TeamTokens = lazy(() => import("Features/TeamTokens"));
 const TeamTasks = lazy(() => import("Features/TaskManager/TeamTasks"));
 const AdminTasks = lazy(() => import("Features/TaskManager/AdminTasks"));
 // const TaskTemplatesContainer = lazy(() => import("Features/ManageTeamTasks"));
