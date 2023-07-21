@@ -7,6 +7,8 @@ import { Property } from "Types";
 interface OverflowMenuComponentProps {
   parameter: Property;
   parameters: Property[];
+  isSubmitting: boolean;
+  errorSubmitting: boolean;
   handleDelete: (component: Property) => Promise<void>;
   handleSubmit: (isEdit: boolean, values: any) => Promise<void>;
 }
@@ -14,6 +16,8 @@ interface OverflowMenuComponentProps {
 const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
   parameter,
   parameters,
+  isSubmitting,
+  errorSubmitting,
   handleDelete,
   handleSubmit,
 }) => {
@@ -55,12 +59,14 @@ const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
         ))}
       </OverflowMenu>
       <CreateEditParametersModal
-        isOpen={editModalIsOpen}
-        isEdit
-        parameter={parameter}
-        parameters={parameters}
         handleClose={handleEditClose}
         handleSubmit={handleSubmit}
+        isEdit
+        isOpen={editModalIsOpen}
+        isSubmitting={isSubmitting}
+        error={errorSubmitting}
+        parameter={parameter}
+        parameters={parameters}
       />
       <ConfirmModal
         isOpen={deleteModalIsOpen}

@@ -46,7 +46,9 @@ const headers = [
 interface ParametersTableProps {
   parameters: Property[];
   isLoading: boolean;
-  hasError: any;
+  isSubmitting: boolean;
+  errorLoading: boolean;
+  errorSubmitting: boolean;
   handleDelete: (component: Property) => Promise<void>;
   handleSubmit: (isEdit: boolean, component: Property) => Promise<void>;
 }
@@ -54,7 +56,9 @@ interface ParametersTableProps {
 const ParametersTable: React.FC<ParametersTableProps> = ({
   parameters,
   isLoading,
-  hasError,
+  errorLoading,
+  errorSubmitting,
+  isSubmitting,
   handleDelete,
   handleSubmit,
 }) => {
@@ -105,11 +109,18 @@ const ParametersTable: React.FC<ParametersTableProps> = ({
     <>
       <div className={styles.tableContainer}>
         <div className={styles.tableActions}>
-          {!isLoading && !hasError && <CreateEditParametersModal parameters={parameters} handleSubmit={handleSubmit} />}
+          {!isLoading && !errorLoading && (
+            <CreateEditParametersModal
+              parameters={parameters}
+              handleSubmit={handleSubmit}
+              isSubmitting={isSubmitting}
+              error={errorSubmitting}
+            />
+          )}
         </div>
         {isLoading ? (
           <DataTableSkeleton />
-        ) : hasError ? (
+        ) : errorLoading ? (
           <Error />
         ) : totalItems > 0 ? (
           <>

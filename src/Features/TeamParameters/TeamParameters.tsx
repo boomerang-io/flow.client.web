@@ -134,7 +134,9 @@ function TeamParameters() {
       <ParametersTable
         parameters={teamParametersQuery.data ?? []}
         isLoading={teamParametersQuery.isLoading}
-        hasError={teamParametersQuery.isError}
+        isSubmitting={updateTeamPropertyMutation.isLoading}
+        errorLoading={teamParametersQuery.isError}
+        errorSubmitting={updateTeamPropertyMutation.isError}
         handleDelete={handleDelete}
         handleSubmit={handleSubmit}
       />

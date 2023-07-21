@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { Add } from "@carbon/react/icons";
-import { ModalFlow, ModalFlowForm, TextInput, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal, ModalFlowForm, TextInput, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
 import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { Property } from "Types";
 import { updatedDiff } from "deep-object-diff";
@@ -15,11 +15,22 @@ type Props = {
   handleSubmit: (isEdit: boolean, values: any) => Promise<void>;
   isEdit?: boolean;
   isOpen?: boolean;
+  isSubmitting?: boolean;
+  error: boolean;
   parameter?: Property;
   parameters: Property[];
 };
 
-function CreateEditParametersModal({ handleClose, handleSubmit, isEdit, isOpen, parameter, parameters }: Props) {
+function CreateEditParametersModal({
+  handleClose,
+  handleSubmit,
+  isEdit,
+  isOpen,
+  isSubmitting,
+  error,
+  parameter,
+  parameters,
+}: Props) {
   /**
    * arrays of values for making the key unique
    * filter out own value if editing a property, pass through all if creating
@@ -53,27 +64,27 @@ function CreateEditParametersModal({ handleClose, handleSubmit, isEdit, isOpen, 
   };
 
   return (
-    //TODO - make ComposedModal
-    <ModalFlow
+    <ComposedModal
       isOpen={isOpen}
       composedModalProps={{ containerClassName: styles.modalContainer }}
-      modalProps={{ shouldCloseOnOverlayClick: false }}
-      modalTrigger={({ openModal }: { openModal: () => void }) =>
+      confirmModalProps={{ shouldCloseOnOverlayClick: false }}
+      modalTrigger={({ openModal }) =>
         !isEdit ? (
           <Button
-            data-testid="create-team-parameter-button"
+            data-testid="create-parameter-button"
             onClick={openModal}
-            iconDescription="Create Parameter"
+            iconDescription="Create new parameter"
             renderIcon={Add}
             size="md"
             style={{ minWidth: "9rem" }}
           >
-            Create Parameter
+            Create new parameter
           </Button>
         ) : null
       }
       modalHeaderProps={{
         title: isEdit && parameter ? `Edit ${parameter.label.toUpperCase()}` : "Create Parameter",
+        subtitle: "Parameters are available within the Workflows and Tasks.",
       }}
       onCloseModal={() => {
         if (isEdit) handleClose();
@@ -82,13 +93,15 @@ function CreateEditParametersModal({ handleClose, handleSubmit, isEdit, isOpen, 
       {({ closeModal }) => (
         <Form
           handleSubmit={handleInternalSubmit}
+          initialState={initialState}
           isSubmitting={isSubmitting}
-          createError={createTaskTemplateMutation.error}
-          taskTemplateNames={taskTemplateNames}
+          isEdit={isEdit}
+          error={error}
           closeModal={closeModal}
+          parameterKeys={parameterKeys}
         />
       )}
-    </ModalFlow>
+    </ComposedModal>
   );
 }
 
@@ -96,11 +109,13 @@ type FormProps = {
   closeModal: () => void;
   handleSubmit: (values: any) => void;
   isSubmitting: boolean;
-  error: string | null;
+  isEdit: boolean;
+  error: boolean;
   initialState: any;
+  parameterKeys: Array<string>;
 };
 
-function Form({ closeModal, handleSubmit, isSubmitting, error, initialState }: FormProps) {
+function Form({ closeModal, handleSubmit, isSubmitting, isEdit, error, initialState, parameterKeys }: FormProps) {
   // Check if key contains alpahanumeric, underscore, dash, and period chars
   const validateKey = (key: any) => {
     return PROPERTY_KEY_REGEX.test(key);
