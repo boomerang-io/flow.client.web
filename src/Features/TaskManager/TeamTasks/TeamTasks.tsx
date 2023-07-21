@@ -50,12 +50,7 @@ function TaskTemplatesContainer() {
         <Helmet>
           <title>{HELMET_TITLE}</title>
         </Helmet>
-        <Sidenav
-          isLoading
-          team={activeTeam}
-          taskTemplates={taskTemplatesByName}
-          getTaskTemplatesUrl={getTaskTemplatesUrl}
-        />
+        <Sidenav isLoading team={activeTeam} getTaskTemplatesUrl={getTaskTemplatesUrl} />
         <Box maxWidth="24rem" margin="0 auto">
           <WombatMessage className={styles.wombat} title="Retrieving Tasks..." />
         </Box>

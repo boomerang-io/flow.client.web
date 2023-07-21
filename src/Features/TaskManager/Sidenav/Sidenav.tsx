@@ -32,7 +32,7 @@ const taskFilterElemList = taskIcons.map((TaskIcon) => ({
 interface SideInfoProps {
   team?: FlowTeam;
   isLoading?: boolean;
-  taskTemplates: Record<string, TaskTemplate[]>;
+  taskTemplates?: Record<string, TaskTemplate[]>;
   getTaskTemplatesUrl: string;
 }
 

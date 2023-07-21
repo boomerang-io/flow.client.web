@@ -58,6 +58,7 @@ function CreateEditParametersModal({ handleClose, handleSubmit, isEdit, isOpen, 
   };
 
   return (
+    //TODO - make ComposedModal
     // <ModalFlow
     //   isOpen={isOpen}
     //   composedModalProps={{ containerClassName: styles.modalContainer }}
