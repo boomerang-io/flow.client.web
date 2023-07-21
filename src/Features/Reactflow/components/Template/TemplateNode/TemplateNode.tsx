@@ -3,15 +3,15 @@ import { NodeProps, useReactFlow } from "reactflow";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
-import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import BaseNode from "../../Base/BaseNode";
 import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { useEditorContext } from "Hooks";
 import styles from "./TemplateNode.module.scss";
+import { WorkflowNode } from "Types";
 
-export default function TaskTemplateNode(props: NodeProps) {
+export default function TaskTemplateNode(props: WorkflowNode) {
   // use context to determine state of diagram
   // render the correct component based on the mode of the diagram
   return <TaskTemplateNodeDesigner {...props} />;
@@ -21,31 +21,28 @@ export default function TaskTemplateNode(props: NodeProps) {
 // WorkflowCloseButton and WorkflowEditButtons, maybe even the ports as well
 // I think we can implement everything then optimize though
 
-//TODO: need to figure out how to get the task information from the data, might be the same method as before
-// might be able to use a hook got get the workflow state from react flow
-
-function TaskTemplateNodeDesigner(props: NodeProps<{ name: string, templateRef: string, templateVersion: number, templateUpgradeAvailable: boolean }>) {
+function TaskTemplateNodeDesigner(props: WorkflowNode) {
   const reactFlowInstance = useReactFlow();
 
   const { availableParametersQueryData, revisionDispatch, revisionState, taskTemplatesData } = useEditorContext();
-  const nodes = reactFlowInstance.getNodes()
+  const nodes = reactFlowInstance.getNodes();
 
-
-  /**
-   * TODO: Pull data off of context
-   */
   const inputProperties = availableParametersQueryData;
-  const task = taskTemplatesData[props.data.templateRef]?.find((taskTemplate) => taskTemplate.version === props.data.templateVersion)!
+
+  // Find the matching task template based on the name and version
+  const task = taskTemplatesData[props.data.templateRef]?.find(
+    (taskTemplate) => taskTemplate.version === props.data.templateVersion
+  )!;
 
   // Get the taskNames names from the nodes on the model
-  const taskNames = nodes.map(node => node.data.name)
+  const taskNames = nodes.map((node) => node.data.name);
 
-  console.log({ taskNames, inputProperties, task, nodes })
+  console.log({ taskNames, inputProperties, task, nodes });
 
   /**
    * TODO: Event handlers
    */
-  const handleOnUpdateTaskVersion = ({ inputs, version }: any) => {
+  const handleOnUpdateTaskVersion = ({ inputs, version }: { inputs: any; version: string }) => {
     revisionDispatch &&
       revisionDispatch({
         type: RevisionActionTypes.UpdateNodeTaskVersion,
@@ -53,30 +50,30 @@ function TaskTemplateNodeDesigner(props: NodeProps<{ name: string, templateRef: 
       });
   };
 
-  // TODO: update this to be  shared method
+  // TODO: update this to be shared method
   const handleOnSaveTaskConfig = (inputs: Record<string, string>) => {
-    const paramList = inputRecordToParamList(inputs)
-    const newNodes = nodes.map(node => {
+    const paramList = inputRecordToParamList(inputs);
+    const newNodes = nodes.map((node) => {
       if (node.id === props.id) {
         return {
           ...node,
-          data: { ...node.data, ...paramList }
-        }
+          data: { ...node.data, ...paramList },
+        };
       } else {
-        return node
+        return node;
       }
-    })
+    });
 
-    reactFlowInstance.setNodes(newNodes)
-    revisionDispatch && revisionDispatch({
-      type: RevisionActionTypes.UpdateNodeConfig
-    })
+    reactFlowInstance.setNodes(newNodes);
+    revisionDispatch &&
+      revisionDispatch({
+        type: RevisionActionTypes.UpdateNodeConfig,
+      });
   };
 
   const ConfigureTask = () => {
     return (
       <ComposedModal
-        composedModalProps={{}}
         confirmModalProps={{
           title: "Are you sure?",
           children: "Your changes will not be saved",
@@ -123,9 +120,10 @@ function TaskTemplateNodeDesigner(props: NodeProps<{ name: string, templateRef: 
           <TaskUpdateModal
             closeModal={closeModal}
             inputProperties={inputProperties}
-            nodeConfig={nodeConfig}
+            node={props.data}
             onSave={handleOnUpdateTaskVersion}
-            task={task}
+            currentTaskTemplateVersion={task}
+            latestTaskTemplateVersion={taskTemplatesData[props.data.templateRef][0]}
           />
         )}
       </ComposedModal>
@@ -134,8 +132,8 @@ function TaskTemplateNodeDesigner(props: NodeProps<{ name: string, templateRef: 
 
   return (
     <BaseNode title={props.data.name} isConnectable nodeProps={props} subtitle={task.description} icon={task.icon}>
-      <UpdateTaskVersion />
       <ConfigureTask />
+      <UpdateTaskVersion />
     </BaseNode>
   );
 }
@@ -144,16 +142,18 @@ function TaskTemplateNodeExecution() {
   <div>TODO</div>;
 }
 
-function inputRecordToParamList(inputRecord: Record<string, string>): { name: string, params: Array<{ name: string; value: string }> } {
-
+function inputRecordToParamList(inputRecord: Record<string, string>): {
+  name: string;
+  params: Array<{ name: string; value: string }>;
+} {
   // Pull off taskName from input record to set the new name
   // TODO: think about making this better
-  const name = inputRecord["taskName"]
-  delete inputRecord["taskName"]
+  const name = inputRecord["taskName"];
+  delete inputRecord["taskName"];
 
   const params = Object.entries(inputRecord).map(([key, value]) => {
-    return { name: key, value }
-  })
+    return { name: key, value };
+  });
 
-  return { name, params }
+  return { name, params };
 }

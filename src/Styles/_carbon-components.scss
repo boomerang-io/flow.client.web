@@ -2,30 +2,34 @@
 @use "sass:map";
 
 // Carbon base styles and utilities
-@use '@carbon/react/scss/config' with ($use-akamai-cdn: true);
-@use '@carbon/react/scss/reset';
-@use '@carbon/react/scss/motion';
-@use '@carbon/react/scss/type';
+@use "@carbon/react/scss/config" with (
+  $use-akamai-cdn: true
+);
+@use "@carbon/react/scss/reset";
+@use "@carbon/react/scss/motion";
+@use "@carbon/react/scss/type";
 
 // Themes
 @use "@boomerang-io/carbon-addons-boomerang-react/scss/global/themes/boomerang";
-@use '@carbon/react/scss/compat/themes' as compat;
-@use '@carbon/react/scss/compat/theme' with (
+@use "@carbon/react/scss/compat/themes" as compat;
+@use "@carbon/react/scss/compat/theme" with (
   $theme: map.merge(compat.$white, boomerang.$theme)
 );
 
 // More base styles, components, and component tokens
-@use '@carbon/react/scss/fonts';
-@use '@carbon/react/scss/grid';
-@use '@carbon/react/scss/layer';
-@use '@carbon/react/scss/zone';
-@use '@carbon/react/scss/components/button/tokens' as button;
-@use '@carbon/react/scss/components/notification/tokens' as notification;
-@use '@carbon/react/scss/components/tag/tokens' as tag;
-@use '@carbon/react/scss/components';
+@use "@carbon/react/scss/fonts";
+@use "@carbon/react/scss/grid";
+@use "@carbon/react/scss/layer";
+@use "@carbon/react/scss/zone";
+@use "@carbon/react/scss/components/button/tokens" as button;
+@use "@carbon/react/scss/components/notification/tokens" as notification;
+@use "@carbon/react/scss/components/tag/tokens" as tag;
+@use "@carbon/react/scss/components";
 
 // Addons library with boomerang enabled
-@use '@boomerang-io/carbon-addons-boomerang-react/scss/global' with ($use-theme-boomerang: true);
+@use "@boomerang-io/carbon-addons-boomerang-react/scss/global" with (
+  $use-theme-boomerang: true
+);
 
 // Finally include the theme to include all of the css custom properties
 [data-carbon-theme="boomerang"] {
@@ -42,6 +46,10 @@
 
 .cds--date-picker__calendar {
   padding: 0rem;
+}
+
+.cds--text-area {
+  width: 100%;
 }
 
 :root {

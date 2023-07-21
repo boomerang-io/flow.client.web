@@ -1,5 +1,6 @@
 import { User } from "@boomerang-io/carbon-addons-boomerang-react";
 import type { NodeType } from "Constants";
+import { NodeProps } from "reactflow";
 declare global {
   interface Window {
     _SERVER_DATA: {
@@ -296,18 +297,13 @@ export interface WorkflowDag {
   zoom: number;
 }
 
-export interface WorkflowNode {
-  id: string;
-  positition: {
-    x: number;
-    y: number;
-  };
-  data: {
-    label: string;
-    params: Array<{ name: string; value: string }>;
-  };
-  type: typeof NodeType[keyof typeof NodeType];
-}
+export type WorkflowNode = NodeProps<{
+  name: string;
+  templateRef: string;
+  templateVersion: number;
+  templateUpgradeAvailable: boolean;
+  params: Array<{ name: string; value: string }>;
+}>;
 
 export interface WorkflowEdge {
   id: string;
@@ -325,6 +321,15 @@ export interface WorkflowRevision {
   templateUpgradesAvailable: boolean;
   version: number;
   workFlowId: string;
+}
+
+export interface WorkflowParameter {
+  defaultValue: string;
+  description: string;
+  key: string;
+  label: string;
+  required: boolean;
+  type: string;
 }
 
 export interface WorkflowExport extends WorkflowSummary {

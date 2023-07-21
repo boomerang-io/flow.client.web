@@ -52,6 +52,7 @@ export default [
           ],
           templateRef: "sleep",
           templateVersion: 1,
+          templateUpgradeAvailable: true,
         },
         type: "template",
       },

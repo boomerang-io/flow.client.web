@@ -189,10 +189,10 @@ class WorkflowTaskForm extends Component {
 
   render() {
     const { additionalConfig = [], node, task, taskNames } = this.props;
-    const taskVersionConfig = task.config
-    const takenTaskNames = taskNames.filter((name) => name !== node.taskName);
+    const taskVersionConfig = task.config;
+    const takenTaskNames = taskNames.filter((name) => name !== node.name);
 
-    const taskResults = task.results
+    const taskResults = task.results;
 
     // Add the name input
     const inputs = [
@@ -214,8 +214,11 @@ class WorkflowTaskForm extends Component {
       },
     ];
 
-
-    const initValues = node.params.reduce((accum, current) => { accum[current.name] = current.value; return accum; }, { taskName: node.name });
+    const initValues = { taskName: node.name };
+    task.config.forEach((input) => {
+      const initialValue = node.params[input.key];
+      initValues[input.key] = Boolean(initialValue) ? initialValue : input.defaultValue;
+    });
 
     return (
       <DynamicFormik
@@ -239,20 +242,22 @@ class WorkflowTaskForm extends Component {
         textInputProps={this.textInputProps}
         toggleProps={this.toggleProps}
       >
-        {({ inputs, formikProps }) => (
-          <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
-            <ModalBody aria-label="inputs">{inputs}</ModalBody>
-            <ModalFooter>
-              <Button kind="secondary" onClick={this.props.closeModal}>
-                Cancel
-              </Button>
-              <Button type="submit" disabled={!formikProps.isValid}>
-                Apply
-              </Button>
-            </ModalFooter>
-          </ModalForm>
-        )}
-      </DynamicFormik >
+        {({ inputs, formikProps }) =>
+          console.log(formikProps) || (
+            <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
+              <ModalBody aria-label="inputs">{inputs}</ModalBody>
+              <ModalFooter>
+                <Button kind="secondary" onClick={this.props.closeModal}>
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={!formikProps.isValid}>
+                  Apply
+                </Button>
+              </ModalFooter>
+            </ModalForm>
+          )
+        }
+      </DynamicFormik>
     );
   }
 }

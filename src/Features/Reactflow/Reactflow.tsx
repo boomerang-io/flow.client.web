@@ -13,12 +13,13 @@ import ReactFlow, {
   Connection,
   XYPosition,
   NodeProps,
+  EdgeProps,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import "./styles.scss";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
 import * as GraphComps from "./components";
-import { TaskTemplate } from "Types";
+import { TaskTemplate, WorkflowNode } from "Types";
 
 type NodeTypeValues = typeof NodeType[keyof typeof NodeType];
 type WorkflowEngineMode = typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode];
@@ -76,12 +77,27 @@ export const markerTypes: { [K in NodeTypeValues]: string } = {
   setwfstatus: "task-marker",
   template: "task-marker",
   start: "task-marker",
-  sleep: "task-marker"
+  sleep: "task-marker",
 };
 
-const edgeTypes: EdgeTypes = {
-  template: GraphComps.TemplateEdge,
+const edgeTypes: { [K in NodeTypeValues]: React.FC<EdgeProps> } = {
+  acquirelock: GraphComps.TemplateEdge,
+  approval: GraphComps.TemplateEdge,
+  custom: GraphComps.TemplateEdge,
   decision: GraphComps.DecisionEdge,
+  end: GraphComps.TemplateEdge,
+  eventwait: GraphComps.TemplateEdge,
+  generic: GraphComps.TemplateEdge,
+  manual: GraphComps.TemplateEdge,
+  releaselock: GraphComps.TemplateEdge,
+  runscheduledworkflow: GraphComps.TemplateEdge,
+  runworkflow: GraphComps.TemplateEdge,
+  script: GraphComps.TemplateEdge,
+  setwfproperty: GraphComps.TemplateEdge,
+  setwfstatus: GraphComps.TemplateEdge,
+  start: GraphComps.TemplateEdge,
+  template: GraphComps.TemplateEdge,
+  sleep: GraphComps.TemplateEdge,
 };
 
 const nodeTypes: { [K in NodeTypeValues]: React.FC<NodeProps> } = {
@@ -101,14 +117,14 @@ const nodeTypes: { [K in NodeTypeValues]: React.FC<NodeProps> } = {
   setwfstatus: GraphComps.SetStatusNode,
   start: GraphComps.StartNode,
   template: GraphComps.TemplateNode,
-  sleep: GraphComps.TemplateNode
+  sleep: GraphComps.TemplateNode,
 };
 
 let id = 0;
 const getId = () => `dndnode_${id++}`;
 
 interface FlowDiagramProps {
-  mode: WorkflowEngineMode,
+  mode: WorkflowEngineMode;
   diagram: { nodes?: Node[]; edges?: Edge[] };
 }
 
@@ -147,7 +163,7 @@ function FlowDiagram(props: FlowDiagramProps) {
     (event) => {
       event.preventDefault();
       const reactFlowBounds = reactFlowWrapper.current?.getBoundingClientRect() ?? { left: 0, top: 0 };
-      const taskString = event.dataTransfer.getData("application/reactflow") as string
+      const taskString = event.dataTransfer.getData("application/reactflow") as string;
       const task = JSON.parse(taskString) as TaskTemplate;
 
       // check if the dropped element is valid
@@ -158,27 +174,34 @@ function FlowDiagram(props: FlowDiagramProps) {
       const position = flow?.project({
         x: event.clientX - reactFlowBounds?.left - 75,
         y: event.clientY - reactFlowBounds?.top - 25,
-      }) as XYPosition
-
+      }) as XYPosition;
 
       // TODO: clean this up - determines how to give the task template a unique name
       const numTemplateRefInstances = nodes.reduce((prev, currentValue) => {
         if (currentValue.data.templateRef === task.name) {
-          prev += 1
+          prev += 1;
         }
-        return prev
-      }, 0)
+        return prev;
+      }, 0);
 
-      const taskName = numTemplateRefInstances ? `${task.displayName} ${numTemplateRefInstances + 1}` : task.displayName
+      const taskName = numTemplateRefInstances
+        ? `${task.displayName} ${numTemplateRefInstances + 1}`
+        : task.displayName;
+
       const newNode: Node = {
         id: getId(),
         type: task.type,
         position,
-        data: { name: taskName, templateRef: task.name, templateVersion: task.version, templateUpgradesAvailable: false, params: [] },
+        data: {
+          name: taskName,
+          templateRef: task.name,
+          templateVersion: task.version,
+          templateUpgradesAvailable: false,
+          params: [],
+        },
       };
 
       setNodes((nds) => nds.concat(newNode));
-
     },
     [flow, nodes]
   );
@@ -191,21 +214,20 @@ function FlowDiagram(props: FlowDiagramProps) {
         <div className="reactflow-wrapper" ref={reactFlowWrapper} style={{ height: "100%", width: "100%" }}>
           <ReactFlow
             fitView
-            nodes={nodes}
-            onNodesChange={onNodesChange}
             edges={edges}
-            onEdgesChange={onEdgesChange}
             edgeTypes={edgeTypes}
+            elementsSelectable={!isDisabled}
+            nodesConnectable={!isDisabled}
+            nodes={nodes}
+            nodesDraggable={!isDisabled}
             nodeTypes={nodeTypes}
             onConnect={onConnect}
-            onInit={setFlow}
-            onDrop={onDrop}
             onDragOver={onDragOver}
-            nodesDraggable={!isDisabled}
-            nodesConnectable={!isDisabled}
-            elementsSelectable={!isDisabled}
+            onDrop={onDrop}
+            onEdgesChange={onEdgesChange}
+            onNodesChange={onNodesChange}
+            onInit={setFlow}
             proOptions={{ hideAttribution: true }}
-
           >
             <MarkerDefinition>
               <CustomEdgeArrow id={markerTypes.decision} color="purple" />
@@ -223,16 +245,7 @@ function FlowDiagram(props: FlowDiagramProps) {
 function getLinkType(connection: Connection, nodes: Node[]) {
   const { source } = connection;
   const node = nodes.find((node) => node.id === source) as Node;
-
-  if (node.type === "decision") {
-    return {
-      type: "decision",
-    };
-  }
-
-  return {
-    type: "template",
-  };
+  return { type: node.type };
 }
 
 export default FlowDiagram;

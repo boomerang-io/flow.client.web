@@ -14,12 +14,22 @@ import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { WarningFilled, WarningAlt } from "@carbon/react/icons";
 import styles from "./taskUpdateModal.module.scss";
+import { TaskTemplate, WorkflowNode, WorkflowParameter } from "Types";
+
+interface TaskUpdateModalProps {
+  closeModal: any;
+  currentTaskTemplateVersion: TaskTemplate;
+  inputProperties: Record<string, any>;
+  latestTaskTemplateVersion: TaskTemplate;
+  node: WorkflowNode["data"];
+  onSave: ({ inputs: any, version: string }) => void;
+}
 
 const UpdateType = {
   Add: "add",
   Remove: "remove",
   NoChange: "none",
-};
+} as const;
 
 const TextEditorInput = (props) => {
   return (
@@ -29,23 +39,12 @@ const TextEditorInput = (props) => {
   );
 };
 
-/**
- * @param {parameter} inputProperties - parameter object for workflow
- * {
- *   defaultValue: String
- *   description: String
- *   key: String
- *   label: String
- *   required: Bool
- *   type: String
- * }
- */
-function formatAutoSuggestProperties(inputProperties) {
+const formatAutoSuggestProperties = (inputProperties: Array<WorkflowParameter>) => {
   return inputProperties.map((parameter) => ({
     value: `$(${parameter})`,
     label: parameter,
   }));
-}
+};
 
 const formikSetFieldValue = (value, id, setFieldValue) => {
   setFieldValue(id, value);
@@ -75,12 +74,11 @@ const toggleProps = ({ input, formikProps }) => {
   };
 };
 
-export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfig, onSave, task }) {
-  const currentTaskTemplateVersion = task.revisions.find((revision) => revision.version === nodeConfig.taskVersion);
-  const newTaskTemplateVersion = task.revisions[task.revisions.length - 1];
+export default function TaskUpdateModal(props: TaskUpdateModalProps) {
+  const { currentTaskTemplateVersion, latestTaskTemplateVersion, closeModal, inputProperties, node, onSave } = props;
 
   // Handle edge case of not finding the versions for some reason
-  if (!currentTaskTemplateVersion?.config || !newTaskTemplateVersion?.config) {
+  if (!currentTaskTemplateVersion?.config || !latestTaskTemplateVersion?.config) {
     return (
       <ModalForm>
         <EmptyState
@@ -92,32 +90,34 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
   }
 
   const removedInputs = currentTaskTemplateVersion.config
-    .filter((input) => !newTaskTemplateVersion.config.find((newInput) => newInput.key === input.key))
+    .filter((input) => !latestTaskTemplateVersion.config.find((newInput) => newInput.key === input.key))
     .map((input) => input?.key);
 
-  const addedInputs = newTaskTemplateVersion.config
+  const addedInputs = latestTaskTemplateVersion.config
     .filter((input) => !currentTaskTemplateVersion.config.find((currentInput) => currentInput.key === input.key))
     .map((input) => `['${input?.key}']`);
 
   const handleSubmit = (values) => {
-    onSave({ version: newTaskTemplateVersion.version, inputs: values });
+    onSave({ version: latestTaskTemplateVersion.version, inputs: values });
     closeModal();
   };
-  const formatInitialValues = {};
-  newTaskTemplateVersion.config.forEach((input) => {
-    const initialValue = nodeConfig.inputs[input.key];
-    formatInitialValues[input.key] = Boolean(initialValue) ? initialValue : input.defaultValue;
+
+  const initValues = {};
+  latestTaskTemplateVersion.config.forEach((input) => {
+    const initialValue = node.params[input.key];
+    initValues[input.key] = Boolean(initialValue) ? initialValue : input.defaultValue;
   });
+
   return (
     <DynamicFormik
       allowCustomPropertySyntax
       validateOnMount
-      initialValues={formatInitialValues}
-      inputs={newTaskTemplateVersion.config}
-      onSubmit={handleSubmit}
       dataDrivenInputProps={{
         TextEditor: TextEditorInput,
       }}
+      initialValues={initValues}
+      inputs={latestTaskTemplateVersion.config}
+      onSubmit={handleSubmit}
       textEditorProps={textAreaProps(inputProperties)}
       toggleProps={toggleProps}
     >
@@ -132,35 +132,35 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
                 version={currentTaskTemplateVersion.version}
               >
                 {currentTaskTemplateVersion.config.map((input) => (
-                  <StateHilighter
+                  <StateHighlighter
                     key={input.key}
                     type={removedInputs.includes(input.key) ? UpdateType.Remove : UpdateType.NoChange}
                   >
                     <DataDrivenInput
                       {...input}
                       readOnly
-                      value={Boolean(nodeConfig.inputs[input.key]) ? nodeConfig.inputs[input.key] : input.defaultValue}
                       id={`${input.key}-current`}
                       orientation={input.type === "boolean" ? "vertical" : undefined}
+                      value={Boolean(node.params[input.key]) ? node.params[input.key] : input.defaultValue}
                     />
-                  </StateHilighter>
+                  </StateHighlighter>
                 ))}
               </VersionSection>
               <div style={{ width: "1rem" }} />
               <VersionSection
                 latest
-                description={newTaskTemplateVersion.description}
-                name={newTaskTemplateVersion.name}
+                description={latestTaskTemplateVersion.description}
+                name={latestTaskTemplateVersion.name}
                 subtitle="Latest version available"
-                version={newTaskTemplateVersion.version}
+                version={latestTaskTemplateVersion.version}
               >
                 {inputs.map((input) => (
-                  <StateHilighter
+                  <StateHighlighter
                     key={input.props.id}
                     type={addedInputs.includes(input.props.id) ? UpdateType.Add : UpdateType.NoChange}
                   >
                     {input}
-                  </StateHilighter>
+                  </StateHighlighter>
                 ))}
               </VersionSection>
             </ModalBody>
@@ -179,47 +179,50 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
   );
 }
 
-function VersionSection({ children, description, latest, name, subtitle, version }) {
+interface VersionSectionProps {
+  children: React.ReactNode;
+  latest: string;
+  subtitle: string;
+  version: string;
+}
+
+function VersionSection({ children, latest, subtitle, version }: VersionSectionProps) {
   return (
     <section className={styles.versionSection}>
       <header className={cx(styles.versionHeader, { [styles.latest]: latest })}>
         <h2 className={styles.versionSubtitle}>{`Version ${version}`}</h2>
         <h1 className={styles.versionTitle}>{subtitle}</h1>
       </header>
-      <div className={styles.versionInputsContainer}>
-        {/* <section className={styles.versionMetadata}>
-          <h1 className={styles.versionName}>{name}</h1>
-          <p className={styles.versionDescription}>{description}</p>
-        </section> */}
-        {children}
-      </div>
+      <div className={styles.versionInputsContainer}>{children}</div>
     </section>
   );
 }
 
 const ChangeToAppearanceMap = {
   [UpdateType.Add]: {
-    icon: <WarningAlt fill="#DA1E28" />,
+    icon: <WarningFilled fill="#F1C21B" />,
     className: "add",
     text: "This field has been added.",
   },
   [UpdateType.Remove]: {
-    icon: <WarningFilled fill="#F1C21B" />,
+    icon: <WarningAlt fill="#DA1E28" />,
     className: "remove",
     text: "This field has been removed.",
   },
 };
-function StateHilighter({ children, hidden, type }) {
+
+function StateHighlighter({ children, hidden, type }) {
   const { className, icon, text } = ChangeToAppearanceMap[type] ?? {};
 
   if (hidden) {
-    return <div className={styles.stateHilighter}>{children}</div>;
+    return <div className={styles.stateHighlighter}>{children}</div>;
   }
+
   return (
     <>
-      <div className={cx(styles.stateHilighter, styles[className])}>{children}</div>
+      <div className={cx(styles.stateHighlighter, styles[className])}>{children}</div>
       {text && (
-        <p className={styles.stateHilighterText}>
+        <p className={styles.stateHighlighterText}>
           {icon}
           <span>{text}</span>
         </p>
