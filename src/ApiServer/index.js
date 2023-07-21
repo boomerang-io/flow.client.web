@@ -177,7 +177,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.teamProperties.all();
       });
       this.patch(
-        serviceUrl.getTeamProperty({ teamId: ":teamId", configurationId: ":configurationId" }),
+        serviceUrl.getTeamParameter({ teamId: ":teamId", configurationId: ":configurationId" }),
         (schema, request) => {
           /**
            * find team record, update the list of properties for that team
@@ -193,7 +193,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
       );
       this.delete(
-        serviceUrl.getTeamProperty({ teamId: ":teamId", configurationId: ":configurationId" }),
+        serviceUrl.getTeamParameter({ teamId: ":teamId", configurationId: ":configurationId" }),
         (schema, request) => {
           /**
            * find team record, update the list of properties for that team

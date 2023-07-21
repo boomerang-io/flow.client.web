@@ -66,7 +66,7 @@ export const serviceUrl = {
   getTeam: ({ teamId }: QueryId) => `${BASE_URL}/team/${teamId}`,
   getTeams: ({ query }: QueryId) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
   getMyTeams: ({ query }: QueryId) => `${BASE_URL}/team/mine${query ? "?" + query : ""}`,
-  getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/team/${teamId}/parameters/${configurationId}`,
+  getTeamParameter: ({ id, key }) => `${BASE_URL}/team/${id}/parameters/${key}`,
   getTeamParameters: ({ id }) => `${BASE_URL}/team/${id}/parameters`,
   getTeamQuotas: ({ id }) => `${BASE_URL}/team/${id}/quotas`,
   getTeamQuotaDefaults: () => `${BASE_URL}/team/quotas/default`,
@@ -151,8 +151,8 @@ export const resolver = {
   // deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   deleteCancelWorkflow: ({ executionId }) => axios.delete(serviceUrl.deleteCancelWorkflow({ executionId })),
   deleteGlobalPropertyRequest: ({ id }) => axios.delete(serviceUrl.getGlobalProperty({ id })),
-  deleteTeamPropertyRequest: ({ teamId, configurationId }) =>
-    axios.delete(serviceUrl.getTeamProperty({ teamId, configurationId })),
+  deleteTeamParameter: ({ id, key }) =>
+    axios.delete(serviceUrl.getTeamParameter({ id, key })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
   leaveTeam: ({ id }) => axios.delete(serviceUrl.leaveTeam({ id })),
   deleteSchedule: ({ scheduleId }) => axios.delete(serviceUrl.deleteSchedule({ scheduleId })),
@@ -183,9 +183,9 @@ export const resolver = {
         "accept": "application/x-yaml",
       },
     }),
-  patchTeamPropertyRequest: ({ teamId, configurationId, body }) =>
+  patchTeamParameter: ({ id, key, body }) =>
     axios({
-      url: serviceUrl.getTeamProperty({ teamId, configurationId }),
+      url: serviceUrl.getTeamParameter({ id, key }),
       data: body,
       method: HttpMethod.Patch,
     }),
@@ -232,7 +232,7 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.getGlobalParams(), body, method: HttpMethod.Post }),
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
   postSchedule: ({ teamId, body }) => axios.post(serviceUrl.postSchedule({ teamId }), body),
-  postTeamPropertyRequest: ({ id, body }) =>
+  postTeamParameter: ({ id, body }) =>
     axios({ url: serviceUrl.getTeamParameters({ id }), data: body, method: HttpMethod.Post }),
   postWorkflowAvailableParameters: ({ workflowId, body }) =>
     axios.post(serviceUrl.workflowAvailableParameters({ workflowId }), body),

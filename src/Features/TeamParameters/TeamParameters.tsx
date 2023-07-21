@@ -30,16 +30,16 @@ function TeamParameters() {
   });
 
   /** Add / Update / Delete Team parameter */
-  const addTeamPropertyMutation = useMutation(resolver.postTeamPropertyRequest);
-  const updateTeamPropertyMutation = useMutation(resolver.patchTeamPropertyRequest);
-  const deleteTeamPropertyMutation = useMutation(resolver.deleteTeamPropertyRequest);
+  const addTeamPropertyMutation = useMutation(resolver.postTeamParameter);
+  const updateTeamPropertyMutation = useMutation(resolver.patchTeamParameter);
+  const deleteTeamPropertyMutation = useMutation(resolver.deleteTeamParameter);
 
   const handleSubmit = async (isEdit: boolean, parameter: any) => {
     if (isEdit) {
       try {
         const response = await updateTeamPropertyMutation.mutateAsync({
-          teamId: activeTeam?.id,
-          configurationId: parameter.id,
+          id: activeTeam?.id,
+          key: parameter.key,
           body: parameter,
         });
         queryClient.invalidateQueries([teamParametersUrl]);
@@ -70,15 +70,15 @@ function TeamParameters() {
     }
   };
 
-  const handleDelete = async (component: Property) => {
+  const handleDelete = async (parameter: Property) => {
     try {
-      await deleteTeamPropertyMutation.mutateAsync({ teamId: activeTeam?.id, configurationId: component.id });
+      await deleteTeamPropertyMutation.mutateAsync({ id: activeTeam?.id, key: parameter.key });
       queryClient.invalidateQueries([teamParametersUrl]);
       notify(
         <ToastNotification
           kind="success"
           title={"Team Configuration Deleted"}
-          subtitle={`Request to delete ${component.label} succeeded`}
+          subtitle={`Request to delete ${parameter.label} succeeded`}
           data-testid="delete-team-prop-notification"
         />
       );
