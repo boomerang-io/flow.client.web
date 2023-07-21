@@ -8,7 +8,7 @@ import { ComposedModal, ModalFlowForm, TextInput, Toggle } from "@boomerang-io/c
 import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { Property } from "Types";
 import { updatedDiff } from "deep-object-diff";
-import styles from "./createEditparametersModal.module.scss";
+import styles from "./createEditParametersModal.module.scss";
 
 type Props = {
   handleClose?: () => void;
