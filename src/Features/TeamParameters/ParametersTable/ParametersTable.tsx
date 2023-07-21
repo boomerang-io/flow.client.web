@@ -70,8 +70,8 @@ const ParametersTable: React.FC<ParametersTableProps> = ({
     setPageSize(pageSize);
   };
 
-  const renderCell = (propertyId: string, cellIndex: number, value: any) => {
-    const parameter = parameters.find((parameter) => parameter.id === propertyId)!;
+  const renderCell = (propertyId: number, cellIndex: number, value: any) => {
+    const parameter = parameters[propertyId]!;
     const column = headers[cellIndex];
     switch (column.key) {
       case "value":
@@ -92,6 +92,8 @@ const ParametersTable: React.FC<ParametersTableProps> = ({
           <ActionsMenu
             parameter={parameter}
             parameters={parameters}
+            isSubmitting={isSubmitting}
+            errorSubmitting={errorSubmitting}
             handleDelete={handleDelete}
             handleSubmit={handleSubmit}
           />

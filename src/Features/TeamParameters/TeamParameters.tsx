@@ -30,14 +30,14 @@ function TeamParameters() {
   });
 
   /** Add / Update / Delete Team parameter */
-  const addTeamPropertyMutation = useMutation(resolver.postTeamParameter);
-  const updateTeamPropertyMutation = useMutation(resolver.patchTeamParameter);
-  const deleteTeamPropertyMutation = useMutation(resolver.deleteTeamParameter);
+  const addParameterMutation = useMutation(resolver.postTeamParameter);
+  const updateParameterMutation = useMutation(resolver.patchTeamParameter);
+  const deleteParameterMutation = useMutation(resolver.deleteTeamParameter);
 
   const handleSubmit = async (isEdit: boolean, parameter: any) => {
     if (isEdit) {
       try {
-        const response = await updateTeamPropertyMutation.mutateAsync({
+        const response = await updateParameterMutation.mutateAsync({
           id: activeTeam?.id,
           key: parameter.key,
           body: parameter,
@@ -54,7 +54,7 @@ function TeamParameters() {
       } catch (err) {}
     } else {
       try {
-        const response = await addTeamPropertyMutation.mutateAsync({ id: activeTeam?.id, body: parameter });
+        const response = await addParameterMutation.mutateAsync({ id: activeTeam?.id, body: parameter });
         queryClient.invalidateQueries([teamParametersUrl]);
         notify(
           <ToastNotification
@@ -72,7 +72,7 @@ function TeamParameters() {
 
   const handleDelete = async (parameter: Property) => {
     try {
-      await deleteTeamPropertyMutation.mutateAsync({ id: activeTeam?.id, key: parameter.key });
+      await deleteParameterMutation.mutateAsync({ id: activeTeam?.id, key: parameter.key });
       queryClient.invalidateQueries([teamParametersUrl]);
       notify(
         <ToastNotification
@@ -134,9 +134,9 @@ function TeamParameters() {
       <ParametersTable
         parameters={teamParametersQuery.data ?? []}
         isLoading={teamParametersQuery.isLoading}
-        isSubmitting={updateTeamPropertyMutation.isLoading}
+        isSubmitting={updateParameterMutation.isLoading}
         errorLoading={teamParametersQuery.isError}
-        errorSubmitting={updateTeamPropertyMutation.isError}
+        errorSubmitting={updateParameterMutation.isError}
         handleDelete={handleDelete}
         handleSubmit={handleSubmit}
       />

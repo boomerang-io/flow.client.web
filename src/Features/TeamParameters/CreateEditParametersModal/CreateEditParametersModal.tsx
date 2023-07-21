@@ -42,6 +42,8 @@ function CreateEditParametersModal({
       parameterKeys = parameterKeys.filter((item) => item !== parameter.key);
     }
   }
+
+  console.log("parameter", parameter);
   const initialState = {
     label: parameter?.label ?? "",
     description: parameter?.description ?? "",
