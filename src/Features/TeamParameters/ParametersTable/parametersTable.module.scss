@@ -14,11 +14,12 @@
   }
 }
 
-.tableHeader {
+.tableActions {
   align-items: flex-end;
   display: flex;
-  justify-content: space-between;
-  margin: 1.5rem 0;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 1.25rem;
 }
 
 .dropdown {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { OverflowMenu, OverflowMenuItem } from "@carbon/react";
 import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import CreateEditParametersModal from "../CreateEditParametersModal";
+import CreateEditParametersModal from "../../CreateEditParametersModal";
 import { Property } from "Types";
 
 interface OverflowMenuComponentProps {

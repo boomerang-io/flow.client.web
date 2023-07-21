@@ -1,12 +1,19 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import { useAppContext } from "Hooks";
 import ParametersTable from "./ParametersTable";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
-import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Breadcrumb, BreadcrumbItem } from "@carbon/react";
+import {
+  notify,
+  ToastNotification,
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Property } from "Types";
 import { formatErrorMessage } from "@boomerang-io/utils";
 import styles from "./teamParameters.module.scss";
@@ -93,11 +100,37 @@ function TeamParameters() {
     return history.push(appLink.home());
   }
 
+  const NavigationComponent = () => {
+    return (
+      <Breadcrumb noTrailingSlash>
+        <BreadcrumbItem>
+          <Link to={appLink.home()}>Home</Link>
+        </BreadcrumbItem>
+        <BreadcrumbItem isCurrentPage>
+          <p>{activeTeam?.name}</p>
+        </BreadcrumbItem>
+      </Breadcrumb>
+    );
+  };
+
   return (
     <div className={styles.container}>
       <Helmet>
         <title>Team Parameters</title>
       </Helmet>
+      <Header
+        className={styles.header}
+        includeBorder={false}
+        nav={<NavigationComponent />}
+        header={
+          <>
+            <HeaderTitle className={styles.headerTitle}>Team Parameters</HeaderTitle>
+            <HeaderSubtitle>
+              Set team-level parameters that are accessible to all workflows owned by the team.
+            </HeaderSubtitle>
+          </>
+        }
+      />
       <ParametersTable
         parameters={teamParametersQuery.data ?? []}
         isLoading={teamParametersQuery.isLoading}

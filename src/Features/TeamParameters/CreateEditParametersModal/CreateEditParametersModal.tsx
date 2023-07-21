@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { Add } from "@carbon/react/icons";
-import { ModalFlow, ModalFlowForm, Loading, TextInput, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalFlow, ModalFlowForm, TextInput, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
 import { InputType, PROPERTY_KEY_REGEX, PASSWORD_CONSTANT } from "Constants";
 import { Property } from "Types";
 import { updatedDiff } from "deep-object-diff";
@@ -52,41 +52,63 @@ function CreateEditParametersModal({ handleClose, handleSubmit, isEdit, isOpen, 
     }
   };
 
+  return (
+    //TODO - make ComposedModal
+    <ModalFlow
+      isOpen={isOpen}
+      composedModalProps={{ containerClassName: styles.modalContainer }}
+      modalProps={{ shouldCloseOnOverlayClick: false }}
+      modalTrigger={({ openModal }: { openModal: () => void }) =>
+        !isEdit ? (
+          <Button
+            data-testid="create-team-parameter-button"
+            onClick={openModal}
+            iconDescription="Create Parameter"
+            renderIcon={Add}
+            size="md"
+            style={{ minWidth: "9rem" }}
+          >
+            Create Parameter
+          </Button>
+        ) : null
+      }
+      modalHeaderProps={{
+        title: isEdit && parameter ? `Edit ${parameter.label.toUpperCase()}` : "Create Parameter",
+      }}
+      onCloseModal={() => {
+        if (isEdit) handleClose();
+      }}
+    >
+      {({ closeModal }) => (
+        <Form
+          handleSubmit={handleInternalSubmit}
+          isSubmitting={isSubmitting}
+          createError={createTaskTemplateMutation.error}
+          taskTemplateNames={taskTemplateNames}
+          closeModal={closeModal}
+        />
+      )}
+    </ModalFlow>
+  );
+}
+
+type FormProps = {
+  closeModal: () => void;
+  handleSubmit: (values: any) => void;
+  isSubmitting: boolean;
+  error: string | null;
+  initialState: any;
+};
+
+function Form({ closeModal, handleSubmit, isSubmitting, error, initialState }: FormProps) {
   // Check if key contains alpahanumeric, underscore, dash, and period chars
   const validateKey = (key: any) => {
     return PROPERTY_KEY_REGEX.test(key);
   };
-
   return (
-    //TODO - make ComposedModal
-    // <ModalFlow
-    //   isOpen={isOpen}
-    //   composedModalProps={{ containerClassName: styles.modalContainer }}
-    //   modalProps={{ shouldCloseOnOverlayClick: false }}
-    //   modalTrigger={({ openModal }: { openModal: () => void }) =>
-    //     !isEdit ? (
-    //       <Button
-    //         data-testid="create-team-parameter-button"
-    //         onClick={openModal}
-    //         iconDescription="Create Parameter"
-    //         renderIcon={Add}
-    //         size="md"
-    //         style={{ minWidth: "9rem" }}
-    //       >
-    //         Create Parameter
-    //       </Button>
-    //     ) : null
-    //   }
-    //   modalHeaderProps={{
-    //     title: isEdit && property ? `Edit ${property.label.toUpperCase()}` : "Create Parameter",
-    //   }}
-    //   onCloseModal={() => {
-    //     if (isEdit) handleClose();
-    //   }}
-    // >
     <Formik
       initialValues={initialState}
-      onSubmit={handleInternalSubmit}
+      onSubmit={handleSubmit}
       validateOnMount
       validationSchema={Yup.object().shape({
         label: Yup.string().required("Enter a label"),
@@ -113,7 +135,6 @@ function CreateEditParametersModal({ handleClose, handleSubmit, isEdit, isOpen, 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
             <ModalBody aria-label="inputs">
-              {/* {loading && <Loading />} */}
               <TextInput
                 id="key"
                 labelText="Key"
@@ -173,24 +194,15 @@ function CreateEditParametersModal({ handleClose, handleSubmit, isEdit, isOpen, 
                 toggled={values.secured}
                 helperText="Once a parameter is securely created - you will not be able to make it unsecure"
               />
-              {/* {addError && (
+              {error && (
                 <InlineNotification
                   lowContrast
                   kind="error"
-                  subtitle={"Request to create parameter failed"}
+                  subtitle={`Request to ${isEdit ? "create" : "update"} parameter failed`}
                   title={"Something's Wrong"}
-                  data-testid="create-update-team-prop-notification"
+                  data-testid="create-update-parameter-notification"
                 />
               )}
-              {updateError && (
-                <InlineNotification
-                  lowContrast
-                  kind="error"
-                  subtitle={"Request to update parameter failed"}
-                  title={"Something's Wrong"}
-                  data-testid="create-update-team-prop-notification"
-                />
-              )} */}
             </ModalBody>
             <ModalFooter>
               <Button kind="secondary" type="button" onClick={closeModal}>
@@ -199,16 +211,15 @@ function CreateEditParametersModal({ handleClose, handleSubmit, isEdit, isOpen, 
               <Button
                 data-testid="team-parameter-create-edit-submission-button"
                 type="submit"
-                disabled={!isValid || loading}
+                disabled={!isValid || isSubmitting}
               >
-                {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating..." : "Create"}
+                {isEdit ? (isSubmitting ? "Saving..." : "Save") : isSubmitting ? "Creating..." : "Create"}
               </Button>
             </ModalFooter>
           </ModalFlowForm>
         );
       }}
     </Formik>
-    // </ModalFlow>
   );
 }
 

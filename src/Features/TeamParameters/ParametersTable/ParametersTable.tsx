@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { DataTable, Pagination, DataTableSkeleton } from "@carbon/react";
-import {
-  Error,
-  FeatureHeader as Header,
-  FeatureHeaderTitle as HeaderTitle,
-  FeatureHeaderSubtitle as HeaderSubtitle,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-import CreateEditParametersModal from "./CreateEditParametersModal";
+import { Error } from "@boomerang-io/carbon-addons-boomerang-react";
+import CreateEditParametersModal from "../CreateEditParametersModal";
 import ActionsMenu from "./ActionsMenu";
 import EmptyState from "Components/EmptyState";
 import { InputType, PASSWORD_CONSTANT } from "Constants";
@@ -108,20 +103,8 @@ const ParametersTable: React.FC<ParametersTableProps> = ({
 
   return (
     <>
-      <Header
-        className={styles.header}
-        includeBorder={false}
-        header={
-          <>
-            <HeaderTitle className={styles.headerTitle}>Team Parameters</HeaderTitle>
-            <HeaderSubtitle>
-              Set team-level parameters that are accessible to all workflows owned by the team.
-            </HeaderSubtitle>
-          </>
-        }
-      />
       <div className={styles.tableContainer}>
-        <div className={styles.tableHeader}>
+        <div className={styles.tableActions}>
           {!isLoading && !hasError && <CreateEditParametersModal parameters={parameters} handleSubmit={handleSubmit} />}
         </div>
         {isLoading ? (
