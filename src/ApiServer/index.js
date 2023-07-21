@@ -135,23 +135,23 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        * Global Parameters
        */
 
-      this.get(serviceUrl.getGlobalParams({ query: null }), (schema) => {
+      this.get(serviceUrl.getGlobalParameters({ query: null }), (schema) => {
         return schema.db.globalParams;
       });
-      this.post(serviceUrl.getGlobalParams(), (schema, request) => {
+      this.post(serviceUrl.getGlobalParameters(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         schema.globalParams.create({ id: uuid(), ...body });
         return schema.globalParams.all();
       });
 
-      this.patch(serviceUrl.getGlobalProperty({ id: ":id" }), (schema, request) => {
+      this.patch(serviceUrl.getGlobalParameter({ id: ":id" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let { id } = request.params;
         let param = schema.globalParams.find(id);
         param.update({ ...body });
       });
 
-      this.delete(serviceUrl.getGlobalProperty({ id: ":id" }), (schema, request) => {
+      this.delete(serviceUrl.getGlobalParameter({ id: ":id" }), (schema, request) => {
         let { id } = request.params;
         schema.db.globalParams.remove({ id });
       });

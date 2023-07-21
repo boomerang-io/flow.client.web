@@ -47,8 +47,8 @@ export const serviceUrl = {
   getActions: ({ query }: QueryArg) => `${BASE_URL}/action/query${query ? "?" + query : ""}`,
   getFeatureFlags: () => `${BASE_URL}/features`,
   getNavigation: ({ query }: QueryArg) => `${BASE_URL}/navigation${query}`,
-  getGlobalParams: () => `${BASE_URL}/global-params`,
-  getGlobalProperty: ({ id }: IdArg) => `${BASE_URL}/global-params/${id}`,
+  getGlobalParameters: () => `${BASE_URL}/global-params`,
+  getGlobalParameter: ({ key }: IdArg) => `${BASE_URL}/global-params/${key}`,
   getGlobalTokens: () => `${BASE_URL}/tokens/global-tokens`,
   getInsights: ({ query }: QueryId) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
   getManageTeamsCreate: () => `${BASE_URL}/manage/teams`,
@@ -150,7 +150,7 @@ export const resolver = {
   deleteApproverGroup: ({ teamId, groupId }) => axios.delete(serviceUrl.resourceApproverGroups({ teamId, groupId })),
   // deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   deleteCancelWorkflow: ({ executionId }) => axios.delete(serviceUrl.deleteCancelWorkflow({ executionId })),
-  deleteGlobalPropertyRequest: ({ id }) => axios.delete(serviceUrl.getGlobalProperty({ id })),
+  deleteGlobalParameter: ({ key }) => axios.delete(serviceUrl.getGlobalParameter({ key })),
   deleteTeamParameter: ({ id, key }) =>
     axios.delete(serviceUrl.getTeamParameter({ id, key })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
@@ -158,8 +158,8 @@ export const resolver = {
   deleteSchedule: ({ scheduleId }) => axios.delete(serviceUrl.deleteSchedule({ scheduleId })),
   deleteToken: ({ tokenId }) => axios.delete(serviceUrl.deleteToken({ tokenId })),
   deleteUser: ({ userId }) => axios.delete(serviceUrl.deleteUser({ userId })),
-  patchGlobalPropertyRequest: ({ id, body }) =>
-    cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethod.Patch }),
+  patchGlobalParameter: ({ key, body }) =>
+    axios({ url: serviceUrl.getGlobalParameter({ key }), data: body, method: HttpMethod.Patch }),
   putTeamMember: ({ teamId, body }) => axios.patch(serviceUrl.putTeamMembers({ teamId }), body),
   patchManageTeamLabels: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamLabels({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
@@ -228,8 +228,8 @@ export const resolver = {
       body: { properties },
       method: HttpMethod.Post,
     }),
-  postGlobalPropertyRequest: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getGlobalParams(), body, method: HttpMethod.Post }),
+  postGlobalParameter: ({ body }) =>
+    axios({ url: serviceUrl.getGlobalParameters(), data: body, method: HttpMethod.Post }),
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
   postSchedule: ({ teamId, body }) => axios.post(serviceUrl.postSchedule({ teamId }), body),
   postTeamParameter: ({ id, body }) =>

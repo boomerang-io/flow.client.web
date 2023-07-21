@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { useHistory, Link } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import { useAppContext } from "Hooks";
-import ParametersTable from "./ParametersTable";
+import ParametersTable from "../ParametersTable";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import { Breadcrumb, BreadcrumbItem } from "@carbon/react";

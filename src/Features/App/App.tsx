@@ -30,7 +30,7 @@ const Actions = lazy(() => import("Features/Actions"));
 // const ApproverGroups = lazy(() => import("Features/TeamDetailed/ApproverGroups"));
 const Editor = lazy(() => import("Features/Editor"));
 const Execution = lazy(() => import("Features/Execution"));
-const GlobalProperties = lazy(() => import("Features/GlobalProperties"));
+const GlobalParameters = lazy(() => import("Features/Parameters/GlobalParameters"));
 const Tokens = lazy(() => import("Features/GlobalTokens/GlobalTokens"));
 const Insights = lazy(() => import("Features/Insights"));
 const Schedules = lazy(() => import("Features/Schedules"));
@@ -39,7 +39,7 @@ const TemplateWorkflows = lazy(() => import("Features/TemplateWorkflows"));
 // const TaskTemplates = lazy(() => import("Features/TaskTemplates"));
 const Teams = lazy(() => import("Features/Teams"));
 const ManageTeam = lazy(() => import("Features/TeamDetailed"));
-const TeamParameters = lazy(() => import("Features/TeamParameters"));
+const TeamParameters = lazy(() => import("Features/Parameters/TeamParameters"));
 const TeamTasks = lazy(() => import("Features/TaskManager/TeamTasks"));
 const AdminTasks = lazy(() => import("Features/TaskManager/AdminTasks"));
 // const TaskTemplatesContainer = lazy(() => import("Features/ManageTeamTasks"));
@@ -290,7 +290,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
               />
               <ProtectedRoute
                 allowedUserRoles={elevatedUserRoles}
-                component={() => <GlobalProperties />}
+                component={() => <GlobalParameters />}
                 path={AppPath.Properties}
                 userRole={platformRole}
               />
