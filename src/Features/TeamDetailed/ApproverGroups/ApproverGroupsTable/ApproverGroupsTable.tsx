@@ -42,10 +42,10 @@ import styles from "./approverGroupsTable.module.scss";
 
 type ApproverGroupsTableProps = {
   activeTeam?: FlowTeam | null;
-  userCanEdit: boolean;
+  canEdit: boolean;
 };
 
-function ApproverGroupsTable({ activeTeam, userCanEdit }: ApproverGroupsTableProps) {
+function ApproverGroupsTable({ activeTeam, canEdit }: ApproverGroupsTableProps) {
   const queryClient = useQueryClient();
   const [sortKey, setSortKey] = React.useState("name");
   const [sortDirection, setSortDirection] = React.useState("ASC");
@@ -120,7 +120,7 @@ function ApproverGroupsTable({ activeTeam, userCanEdit }: ApproverGroupsTablePro
       case "approvers":
         return <p className={styles.text}>{value?.length ?? "0"}</p>;
       case "actions":
-        return userCanEdit ? (
+        return canEdit ? (
           <div className={styles.actionsContainer}>
             <CreateEditGroupModal
               isEdit
@@ -229,9 +229,7 @@ function ApproverGroupsTable({ activeTeam, userCanEdit }: ApproverGroupsTablePro
             Showing {approverGroups?.length ?? 0} approver group{approverGroups?.length !== 1 ? "s" : ""}
           </p>
         </div>
-        {userCanEdit && (activeTeam || totalItems > 0) && (
-          <CreateEditGroupModal approverGroups={approverGroups} team={activeTeam} />
-        )}
+        {canEdit && <CreateEditGroupModal approverGroups={approverGroups} team={activeTeam} />}
       </section>
       {totalItems > 0 ? (
         <DataTable

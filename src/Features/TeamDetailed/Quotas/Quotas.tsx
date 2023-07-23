@@ -14,7 +14,7 @@ import EmptyState from "Components/EmptyState";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import styles from "./Quotas.module.scss";
 
-function Quotas({ team, teamManagementEnabled }: { team: FlowTeam; teamManagementEnabled: any }) {
+function Quotas({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   const teamQuotasUrl = serviceUrl.getTeamQuotas({ id: team.id });
 
   const {
@@ -72,6 +72,7 @@ function Quotas({ team, teamManagementEnabled }: { team: FlowTeam; teamManagemen
               defaultQuotasIsLoading={defaultQuotasIsLoading}
               defaultQuotasData={defaultQuotasData}
               selectedTeam={team}
+              disabled={!canEdit}
             />
           </div>
         </section>
@@ -91,6 +92,7 @@ function Quotas({ team, teamManagementEnabled }: { team: FlowTeam; teamManagemen
             quotaProperty="maxWorkflowCount"
             quotaValue={teamQuotasData.maxWorkflowCount}
             teamQuotasData={teamQuotasData}
+            disabled={!canEdit}
           >
             <h3 className={styles.detailedHeading}> {`${teamQuotasData.maxWorkflowCount} Workflows`}</h3>
             <ProgressBar
@@ -115,6 +117,7 @@ function Quotas({ team, teamManagementEnabled }: { team: FlowTeam; teamManagemen
             quotaProperty="maxWorkflowExecutionMonthly"
             quotaValue={teamQuotasData.maxWorkflowExecutionMonthly}
             teamQuotasData={teamQuotasData}
+            disabled={!canEdit}
           >
             <h3 className={styles.detailedHeading}> {`${teamQuotasData.maxWorkflowExecutionMonthly} per month`}</h3>
             <ProgressBar
@@ -140,6 +143,7 @@ function Quotas({ team, teamManagementEnabled }: { team: FlowTeam; teamManagemen
             quotaProperty="maxWorkflowStorage"
             quotaValue={teamQuotasData.maxWorkflowStorage}
             teamQuotasData={teamQuotasData}
+            disabled={!canEdit}
           >
             <h5 className={styles.persistentStorage}>Persistent Storage</h5>
             <dt className={styles.subtitle}>Size limit</dt>
@@ -159,6 +163,7 @@ function Quotas({ team, teamManagementEnabled }: { team: FlowTeam; teamManagemen
             quotaProperty="maxWorkflowExecutionTime"
             quotaValue={teamQuotasData.maxWorkflowExecutionTime}
             teamQuotasData={teamQuotasData}
+            disabled={!canEdit}
           >
             <h3 className={styles.detailedHeading}> {`${teamQuotasData.maxWorkflowExecutionTime} minutes`}</h3>
           </QuotaCard>
@@ -176,6 +181,7 @@ function Quotas({ team, teamManagementEnabled }: { team: FlowTeam; teamManagemen
             quotaProperty="maxConcurrentWorkflows"
             quotaValue={teamQuotasData.maxConcurrentWorkflows}
             teamQuotasData={teamQuotasData}
+            disabled={!canEdit}
           >
             <h3 className={styles.detailedHeading}> {`${teamQuotasData.maxConcurrentWorkflows} Workflows`}</h3>
           </QuotaCard>
@@ -198,7 +204,7 @@ interface QuotaCardProps {
   teamId: string;
   quotaProperty: string;
   quotaValue: number;
-
+  disabled: boolean;
   minValue: number;
   teamQuotasData: FlowTeamQuotas;
 }
@@ -216,6 +222,7 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
   teamId,
   quotaProperty,
   quotaValue,
+  disabled,
   minValue,
   teamQuotasData,
 }) => {
@@ -240,6 +247,7 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
                 onClick={openModal}
                 renderIcon={Edit}
                 size="md"
+                disabled={disabled}
               />
             </TooltipHover>
           )}

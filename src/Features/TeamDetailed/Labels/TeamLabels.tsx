@@ -22,9 +22,8 @@ import { FlowTeam } from "Types";
 import styles from "./TeamLabels.module.scss";
 
 interface TeamLabelsProps {
-  isActive: boolean;
+  canEdit: boolean;
   team: FlowTeam;
-  teamManagementEnabled: any;
 }
 
 interface Label {
@@ -32,7 +31,7 @@ interface Label {
   value: string;
 }
 
-function TeamLabels({ isActive, team, teamManagementEnabled }: TeamLabelsProps) {
+function TeamLabels({ canEdit, team }: TeamLabelsProps) {
   const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = React.useState("");
 
@@ -56,8 +55,6 @@ function TeamLabels({ isActive, team, teamManagementEnabled }: TeamLabelsProps) 
       notify(<ToastNotification kind="error" title="Something's Wrong" subtitle={`Request to save labels failed.`} />);
     }
   };
-
-  const canEdit = isActive && teamManagementEnabled;
 
   return (
     <section aria-label={`${team.name} Labels`} className={styles.container}>

@@ -176,7 +176,7 @@ function CreateEditGroupModalContent({
   cancelRequestRef,
 }: Props) {
   const queryClient = useQueryClient();
-  const teamMembers = team?.users;
+  const teamMembers = team?.members;
   console.log("teamMembers", teamMembers);
   // const flowTeamUsersUrl = serviceUrl.getTeamMembers({ teamId: team?.id });
 

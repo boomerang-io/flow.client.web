@@ -2,7 +2,14 @@ import React from "react";
 import moment from "moment";
 import * as Yup from "yup";
 import { Button, DatePicker, DatePickerInput, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
-import { ModalFlowForm, TextArea, TextInput, Loading, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  ModalFlowForm,
+  TextArea,
+  TextInput,
+  CheckboxList,
+  Loading,
+  TooltipHover,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
 import { Information } from "@carbon/react/icons";
 import { useMutation, useQueryClient } from "react-query";
@@ -10,6 +17,24 @@ import { resolver } from "Config/servicesConfig";
 import { TokenType } from "Types";
 import styles from "./form.module.scss";
 
+const PERMISSION_SCOPES = [
+  {
+    id: "ANY_READ",
+    labelText: "Read",
+  },
+  {
+    id: "ANY_WRITE",
+    labelText: "Write",
+  },
+  {
+    id: "ANY_DELETE",
+    labelText: "Delete",
+  },
+  {
+    id: "ANY_ACTION",
+    labelText: "Action",
+  },
+];
 interface CreateServiceTokenFormProps {
   closeModal: () => void;
   goToStep: (args: any) => void;
@@ -29,6 +54,7 @@ function CreateServiceTokenForm({
   principal,
   getTokensUrl,
 }: CreateServiceTokenFormProps | any) {
+  const [scopes, setScopes] = React.useState<Array<string>>([]);
   const queryClient = useQueryClient();
   const tokenRequestMutation = useMutation(resolver.postToken);
 
@@ -39,8 +65,10 @@ function CreateServiceTokenForm({
       expirationDate: values.date ? parseInt(moment.utc(values.date).startOf("day").format("x"), 10) : null,
       description: values.description,
       principal: values.principal,
+      permissions: values.permissions,
     };
 
+    console.log("request", request);
     try {
       const response = await tokenRequestMutation.mutateAsync({ body: request });
       queryClient.invalidateQueries(getTokensUrl);
@@ -60,6 +88,11 @@ function CreateServiceTokenForm({
     }
   };
 
+  const handleCheckboxListChange = (setFieldValue: any, value: any, checked: boolean, label: string) => {
+    value = checked ? [...value, label] : value.filter((item: string) => item !== label);
+    setFieldValue("permissions", value);
+  };
+
   return (
     <Formik
       initialValues={{
@@ -68,6 +101,7 @@ function CreateServiceTokenForm({
         expirationDate: "",
         description: "",
         principal: principal,
+        permissions: ["ANY_READ", "ANY_WRITE"],
       }}
       validateOnMount
       onSubmit={(values) => createToken(values)}
@@ -103,6 +137,15 @@ function CreateServiceTokenForm({
                 onChange={(value: any) => setFieldValue("name", value.target.value)}
                 placeholder="my-unique-task-name"
                 value={values.name}
+              />
+              <CheckboxList
+                id="permissions"
+                selectedItems={values.permissions}
+                labelText="Permission Scopes"
+                options={PERMISSION_SCOPES}
+                onChange={(checked: boolean, label: string) =>
+                  handleCheckboxListChange(setFieldValue, values.permissions, checked, label)
+                }
               />
               <DatePicker
                 id="token-date-picker"

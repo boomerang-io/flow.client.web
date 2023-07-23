@@ -478,7 +478,7 @@ export interface FlowTeam {
   externalRef?: string;
   labels?: Record<string, string>;
   quotas: FlowTeamQuotas;
-  users: Array<FlowUser>;
+  members: Array<FlowUser>;
   // workflows: Array<WorkflowSummary>;
   settings?: unknown;
   parameters: Array<DataDrivenInput>;

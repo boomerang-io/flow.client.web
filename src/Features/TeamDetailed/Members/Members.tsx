@@ -20,20 +20,17 @@ import RemoveMember from "./RemoveMember";
 import styles from "./Members.module.scss";
 
 interface MemberProps {
-  isActive: boolean;
+  canEdit: boolean;
   memberList: FlowUser[];
   team: FlowTeam;
-  teamManagementEnabled: any;
   user: FlowUser;
 }
 
-const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, teamManagementEnabled, user }) => {
+const Members: React.FC<MemberProps> = ({ canEdit, memberList = [], team, user }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const filteredMemberList = searchQuery ? ms(memberList, searchQuery, { keys: ["name", "email"] }) : memberList;
 
   const memberIdList = memberList?.map((member) => member.id);
-
-  const canEdit = isActive && teamManagementEnabled;
 
   return (
     <section aria-label={`${team.name} Team Members`} className={styles.container}>

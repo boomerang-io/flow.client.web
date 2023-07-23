@@ -41,7 +41,7 @@ const teams = {
             helperText: null,
           },
         ],
-      users: [
+      members: [
         {
           id: "kg3p380ad09662744c240e47",
           email: "mdroy@us.ibm.com",
@@ -108,7 +108,7 @@ const teams = {
           helperText: null,
         },
       ],
-      users: [
+      members: [
         {
           id: "kg3p380ad09662744c240e47",
           email: "mdroy@us.ibm.com",
@@ -142,7 +142,7 @@ const teams = {
         monthlyResetDate: "August 1, 2020",
         currentWorkflowsPersistentStorage: 0,
       },
-      users: [
+      members: [
         {
           id: "61d38d133aa9034ded32cae6",
           email: "admin@flowabl.io",
@@ -181,7 +181,7 @@ const teams = {
         monthlymonthlyResetDate: "August 1, 2020",
         currentWorkflowsPersistentStorage: 0,
       },
-      users: [
+      members: [
         {
           id: "61d38d133aa9034ded32cae6",
           email: "admin@flowabl.io",

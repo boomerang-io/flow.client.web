@@ -9,7 +9,7 @@ import { appLink } from "Config/appConfig";
 import { FlowTeam } from "Types";
 import styles from "./approverGroups.module.scss";
 
-function ApproverGroups({ team, teamManagementEnabled }: { team: FlowTeam; teamManagementEnabled: any }) {
+function ApproverGroups({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   // const history = useHistory();
   // const { activeTeam } = useAppContext();
 
@@ -25,14 +25,12 @@ function ApproverGroups({ team, teamManagementEnabled }: { team: FlowTeam; teamM
   //   return history.push(appLink.home());
   // }
 
-  const userCanEdit = true;
-
   return (
     <section aria-label={`${team.name} Team Approvers`} className={styles.container}>
       <Helmet>
         <title>Team Approvers</title>
       </Helmet>
-      <ApproverGroupsTable activeTeam={team} userCanEdit={userCanEdit} />
+      <ApproverGroupsTable activeTeam={team} canEdit={canEdit} />
     </section>
   );
 }

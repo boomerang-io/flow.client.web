@@ -34,7 +34,7 @@ function CreateEditGroupModal({ isEdit, approverGroup, approverGroups, team }: C
       composedModalProps={{ containerClassName: styles.modalContainer, shouldCloseOnOverlayClick: false }}
       modalTrigger={({ openModal }: any) =>
         !isEdit ? (
-          <Button renderIcon={Add} size="md" kind="ghost" onClick={openModal}>
+          <Button renderIcon={Add} size="md" kind="primary" onClick={openModal}>
             Create new group
           </Button>
         ) : (

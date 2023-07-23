@@ -10,8 +10,7 @@ import { FlowTeam } from "Types";
 import styles from "./Settings.module.scss";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 
-export default function Settings({ team, teamManagementEnabled }: { team: FlowTeam; teamManagementEnabled: any }) {
-  const canEdit = teamManagementEnabled;
+export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   const queryClient = useQueryClient();
 
   const { mutateAsync: removeTeamMutator } = useMutation(resolver.putUpdateTeam, {

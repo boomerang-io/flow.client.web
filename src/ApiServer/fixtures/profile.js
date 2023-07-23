@@ -1,9 +1,9 @@
 const profile = {
   id: "59aebd0c7424530fce952fde",
-  email: "trbula@us.ibm.com",
-  name: "Timothy Bula",
+  email: "tyson@flowabl.io",
+  name: "Tyson Lawrie",
   isFirstVisit: false,
-  type: "admin",
+  type: "user",
   isShowHelp: true,
   firstLoginDate: "2017-09-05T22:12:58.000+0000",
   lastLoginDate: "2020-05-29T17:34:09.089+0000",

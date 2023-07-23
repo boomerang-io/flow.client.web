@@ -18,6 +18,7 @@ interface RestoreDefaultsProps {
   defaultQuotasError: object;
   defaultQuotasIsLoading: boolean;
   selectedTeam: FlowTeam;
+  disabled: boolean;
 }
 
 const RestoreDefaults: React.FC<RestoreDefaultsProps> = ({
@@ -25,6 +26,7 @@ const RestoreDefaults: React.FC<RestoreDefaultsProps> = ({
   defaultQuotasData,
   defaultQuotasError,
   defaultQuotasIsLoading,
+  disabled,
 }) => {
   return (
     <ComposedModal
@@ -36,7 +38,7 @@ const RestoreDefaults: React.FC<RestoreDefaultsProps> = ({
         subtitle: "This will change all quotas to the following default values. This action cannot be undone.",
       }}
       modalTrigger={({ openModal }: ModalTriggerProps) => (
-        <Button className={styles.resetButton} size="md" renderIcon={Reset} onClick={openModal}>
+        <Button className={styles.resetButton} size="md" renderIcon={Reset} onClick={openModal} disabled={disabled}>
           Restore defaults
         </Button>
       )}

@@ -15,7 +15,7 @@ import { UIShell, HeaderMenuItem } from "@boomerang-io/carbon-addons-boomerang-r
 import { APP_ROOT } from "Config/appConfig";
 import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, ContextConfig, FlowTeam } from "Types";
 import * as navigationIcons from "Utils/navigationIcons";
-import { FlowData, Workspace, Settings } from "@carbon/react/icons";
+import { FlowData, ArrowsHorizontal, Settings } from "@carbon/react/icons";
 import { appLink } from "Config/appConfig";
 import styles from "./navbar.module.scss";
 
@@ -66,7 +66,7 @@ export default function Navbar({
           />,
         ]}
         rightPanel={{
-          icon: <Workspace size="20" />,
+          icon: <ArrowsHorizontal size="20" />,
           component: (
             <div>
               <p className={styles.switcherInfo}>Select a team to switch to from the list</p>

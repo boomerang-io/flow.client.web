@@ -35,7 +35,7 @@ const FeatureLayout: React.FC = ({ children }) => {
         header={
           <>
             <HeaderTitle style={{ margin: "0" }}>Teams</HeaderTitle>
-            <HeaderSubtitle>View and manage Flow teams</HeaderSubtitle>
+            <HeaderSubtitle>View and manage your teams</HeaderSubtitle>
           </>
         }
       />
@@ -75,42 +75,32 @@ function TeamDetailedContainer() {
     );
 
   if (teamDetailsData) {
+    const canEdit = teamManagementEnabled && teamDetailsData.status === "active";
     // const teamOwnerIdList = teamDetailsData?.owners?.map((owner) => owner.ownerId);
-    const { status } = teamDetailsData;
     return (
       <div className={styles.container}>
         <Header team={teamDetailsData} />
         <Switch>
           <Route exact path={AppPath.ManageTeam}>
-            <Members
-              isActive={status === "active"}
-              team={teamDetailsData}
-              memberList={teamDetailsData.users}
-              user={user}
-              teamManagementEnabled={teamManagementEnabled}
-            />
+            <Members canEdit={canEdit} team={teamDetailsData} memberList={teamDetailsData.members} user={user} />
           </Route>
           <Route exact path={AppPath.ManageTeamWorkflows}>
             <Workflows team={teamDetailsData} />
           </Route>
           <Route exact path={AppPath.ManageTeamApprovers}>
-            <ApproverGroups team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
+            <ApproverGroups team={teamDetailsData} canEdit={canEdit} />
           </Route>
           <Route exact path={AppPath.ManageTeamQuotas}>
-            <Quotas team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
+            <Quotas team={teamDetailsData} canEdit={canEdit && user?.type === "admin"} />
           </Route>
           <Route exact path={AppPath.ManageTeamTokens}>
-            <Tokens team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
+            <Tokens team={teamDetailsData} />
           </Route>
           <Route exact path={AppPath.ManageTeamLabels}>
-            <Labels
-              isActive={status === "active"}
-              team={teamDetailsData}
-              teamManagementEnabled={teamManagementEnabled}
-            />
+            <Labels team={teamDetailsData} canEdit={canEdit} />
           </Route>
           <Route exact path={AppPath.ManageTeamSettings}>
-            <Settings team={teamDetailsData} teamManagementEnabled={teamManagementEnabled} />
+            <Settings team={teamDetailsData} canEdit={canEdit} />
           </Route>
         </Switch>
       </div>
