@@ -193,43 +193,17 @@ function CreateEditGroupModalContent({
   const approverGroupsUrl = serviceUrl.resourceApproverGroups({ teamId: team?.id, groupId: undefined });
 
   /** Add Approver Group */
-  const {
-    mutateAsync: addTeamApproverGroupMutation,
-    isLoading: addIsLoading,
-    error: addError,
-  } = useMutation(
-    (args: { teamId: string | undefined; body: ApproverGroup }) => {
-      const { promise, cancel } = resolver.postApproverGroupRequest(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    },
-    {
-      onSuccess: () => queryClient.invalidateQueries(approverGroupsUrl),
-    }
-  );
+  const addTeamApproverGroupMutation = useMutation(resolver.postApproverGroupRequest);
 
   /** Update Approver Group */
-  const {
-    mutateAsync: updateTeamApproverGroupMutation,
-    isLoading: updateIsLoading,
-    error: updateError,
-  } = useMutation(
-    (args: { teamId: string | undefined; body: ApproverGroup }) => {
-      const { promise, cancel } = resolver.putApproverGroupRequest(args);
-      cancelRequestRef.current = cancel;
-      return promise;
-    },
-    {
-      onSuccess: () => queryClient.invalidateQueries(approverGroupsUrl),
-    }
-  );
+  const updateTeamApproverGroupMutation = useMutation(resolver.putApproverGroupRequest);
 
-  const loading = addIsLoading || updateIsLoading;
+  const loading = addTeamApproverGroupMutation.isLoading || updateTeamApproverGroupMutation.isLoading;
+  const hasError = Boolean(addTeamApproverGroupMutation.isError) || Boolean(updateTeamApproverGroupMutation.isError);
 
-  const hasError = Boolean(addError) || Boolean(updateError);
   const { title, message: subtitle } = formatErrorMessage({
-    error: addError || updateError,
-    defaultMessage: `${Boolean(addError) ? "Create" : "Update"} Approver Group Failed`,
+    error: addTeamApproverGroupMutation.error || updateTeamApproverGroupMutation.error,
+    defaultMessage: `${!isEdit ? "Create" : "Update"} Approver Group Failed`,
   });
 
   const handleSubmit = async (values: any) => {
@@ -238,10 +212,11 @@ function CreateEditGroupModalContent({
 
     if (isEdit) {
       try {
-        const response: any = await updateTeamApproverGroupMutation({
+        const response: any = await updateTeamApproverGroupMutation.mutateAsync({
           teamId: team?.id,
           body: newTeamApproverGroup,
         });
+        queryClient.invalidateQueries(approverGroupsUrl);
         notify(
           <ToastNotification
             kind="success"
@@ -256,7 +231,11 @@ function CreateEditGroupModalContent({
       }
     } else {
       try {
-        const response: any = await addTeamApproverGroupMutation({ teamId: team?.id, body: newTeamApproverGroup });
+        const response: any = await addTeamApproverGroupMutation.mutateAsync({
+          teamId: team?.id,
+          body: newTeamApproverGroup,
+        });
+        queryClient.invalidateQueries(approverGroupsUrl);
         notify(
           <ToastNotification
             kind="success"

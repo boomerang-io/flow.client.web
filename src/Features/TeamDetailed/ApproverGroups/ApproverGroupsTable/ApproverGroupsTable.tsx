@@ -52,10 +52,7 @@ function ApproverGroupsTable({ activeTeam, canEdit }: ApproverGroupsTableProps) 
   const approverGroups = activeTeam?.approverGroups ?? [];
 
   /** Delete Team Approver Group */
-  const { mutateAsync: deleteApproverGroupMutation } = useMutation(resolver.deleteApproverGroup, {
-    onSuccess: () =>
-      queryClient.invalidateQueries(serviceUrl.resourceApproverGroups({ teamId: activeTeam?.id, groupId: undefined })),
-  });
+  const deleteApproverGroupMutation = useMutation(resolver.deleteApproverGroup);
 
   const headers = [
     {
@@ -82,7 +79,9 @@ function ApproverGroupsTable({ activeTeam, canEdit }: ApproverGroupsTableProps) 
 
   const deleteApproverGroup = async (approverGroup: ApproverGroup) => {
     try {
-      await deleteApproverGroupMutation({ teamId: activeTeam?.id, groupId: approverGroup.id });
+      await deleteApproverGroupMutation.mutateAsync({ teamId: activeTeam?.id, groupId: approverGroup.id });
+      //TODO - once we figure out if approverGroups are on the team or separate API call, we know what to invalidate
+      // queryClient.invalidateQueries(serviceUrl.resourceApproverGroups({ teamId: activeTeam?.id, groupId: undefined })),
       notify(
         <ToastNotification
           kind="success"
