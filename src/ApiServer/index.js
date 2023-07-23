@@ -35,7 +35,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       featureFlag: Model,
       insights: Model,
       manageTeam: Model,
-      manageTeamDetail: Model,
       manageUser: Model,
       quotas: Model,
       revision: Model,
@@ -431,13 +430,13 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.get(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
-        return schema.manageTeamDetails.findBy({ id: teamId });
+        return schema.db.myTeams[0].content.filter(t => t.id === teamId);
       });
 
       this.patch(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
-        let activeTeam = schema.manageTeamDetails.findBy({ id: teamId });
+        let activeTeam = schema.db.myTeams[0].content.filter(t => t.id === teamId);
         let activeUsers = activeTeam.users.filter((user) => body.includes(user.id));
         activeTeam.update({ users: activeUsers });
         return activeTeam;
@@ -446,7 +445,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.put(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
-        let summary = schema.manageTeamDetails.findBy({ id: teamId });
+        let summary = schema.db.myTeams[0].content.filter(t => t.id === teamId);
         summary.update(body);
         return summary;
       });
@@ -454,7 +453,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.patch(serviceUrl.getManageTeamLabels({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
-        let activeTeam = schema.manageTeamDetails.findBy({ id: teamId });
+        let activeTeam = schema.db.myTeams[0].content.filter(t => t.id === teamId);
         activeTeam.update({ labels: body });
         return activeTeam;
       });

@@ -9,7 +9,6 @@ export { default as globalParams } from "./globalParams";
 export { default as changelogs } from "./changelogs";
 export { default as featureFlags } from "./featureFlags";
 export { default as insights } from "./insights";
-export { default as manageTeamDetails } from "./manageTeamDetails";
 export { default as teams } from "./teams";
 export { default as users } from "./users";
 export { default as manualTasks } from "./manualTasks";

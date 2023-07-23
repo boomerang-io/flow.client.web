@@ -226,7 +226,7 @@ const myTeams = {
         monthlyResetDate: "August 1, 2020",
         currentWorkflowsPersistentStorage: 0,
       },
-      users: [
+      members: [
         {
           id: "61d38d133aa9034ded32cae6",
           email: "admin@flowabl.io",
@@ -412,7 +412,7 @@ const myTeams = {
         monthlymonthlyResetDate: "August 1, 2020",
         currentWorkflowsPersistentStorage: 0,
       },
-      users: [
+      members: [
         {
           id: "61d38d133aa9034ded32cae6",
           email: "admin@flowabl.io",

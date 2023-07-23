@@ -118,7 +118,7 @@ export const serviceUrl = {
   putTeamMembers: ({ teamId }) => `${BASE_URL}/team/${teamId}/members`,
   putWorkflowAction: () => `${BASE_URL}/action/action`,
   resourceApproverGroups: ({ teamId, groupId }) =>
-    `${BASE_URL}/teams/${teamId}/approvers${groupId ? "/" + groupId : ""}`,
+    `${BASE_URL}/team/${teamId}/approvers${groupId ? "/" + groupId : ""}`,
   resourceSettings: () => `${BASE_URL}/settings`,
   workflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
   getWorkflowTemplates: () => `${BASE_URL}/workflowtemplate/query`,
@@ -195,9 +195,9 @@ export const resolver = {
   // postAddService: ({ body }) =>
   //   cancellableResolver({ url: serviceUrl.postAddService(), body, method: HttpMethod.Post }),
   postApproverGroupRequest: ({ body, teamId }) =>
-    cancellableResolver({
+    axios({
       url: serviceUrl.resourceApproverGroups({ teamId }),
-      body,
+      date: body,
       method: HttpMethod.Post,
     }),
   postCreateTemplate: ({ body }) => axios.post(serviceUrl.getWorkflowTemplates(), body),
@@ -244,9 +244,9 @@ export const resolver = {
       validateStatus: (status) => status >= 200 && status < 300,
     }),
   putApproverGroupRequest: ({ body, teamId }) =>
-    cancellableResolver({
+    axios({
       url: serviceUrl.resourceApproverGroups({ teamId }),
-      body,
+      data: body,
       method: HttpMethod.Put,
     }),
   putPlatformSettings: ({ body }) => axios.put(serviceUrl.resourceSettings(), body),
