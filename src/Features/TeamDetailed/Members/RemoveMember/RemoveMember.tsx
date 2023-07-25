@@ -15,7 +15,7 @@ interface RemoveMemberProps {
 }
 const RemoveMember: React.FC<RemoveMemberProps> = ({ member, memberIdList, teamId, teamName, userId }) => {
   const queryClient = useQueryClient();
-  const { mutateAsync: leaveTeamMutator, isLoading } = useMutation(resolver.putTeamMember, {
+  const { mutateAsync: leaveTeamMutator, isLoading } = useMutation(resolver.patchTeamMembers, {
     onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeam({ teamId })),
   });
 

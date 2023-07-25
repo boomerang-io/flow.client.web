@@ -160,7 +160,7 @@ export const resolver = {
   deleteUser: ({ userId }) => axios.delete(serviceUrl.deleteUser({ userId })),
   patchGlobalParameter: ({ key, body }) =>
     axios({ url: serviceUrl.getGlobalParameter({ key }), data: body, method: HttpMethod.Patch }),
-  putTeamMember: ({ teamId, body }) => axios.patch(serviceUrl.putTeamMembers({ teamId }), body),
+  patchTeamMembers: ({ teamId, body }) => axios.patch(serviceUrl.putTeamMembers({ teamId }), body),
   patchManageTeamLabels: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamLabels({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
     axios({ url: serviceUrl.getUser({ userId }), data: body, method: HttpMethod.Patch }),

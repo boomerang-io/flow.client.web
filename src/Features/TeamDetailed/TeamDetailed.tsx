@@ -82,7 +82,13 @@ function TeamDetailedContainer() {
         <Header team={teamDetailsData} />
         <Switch>
           <Route exact path={AppPath.ManageTeam}>
-            <Members canEdit={canEdit} team={teamDetailsData} memberList={teamDetailsData.members} user={user} />
+            <Members
+              canEdit={canEdit}
+              team={teamDetailsData}
+              memberList={teamDetailsData.members}
+              user={user}
+              teamDetailsUrl={teamDetailsUrl}
+            />
           </Route>
           <Route exact path={AppPath.ManageTeamWorkflows}>
             <Workflows team={teamDetailsData} />

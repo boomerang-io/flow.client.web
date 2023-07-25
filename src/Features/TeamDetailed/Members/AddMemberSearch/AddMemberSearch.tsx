@@ -1,41 +1,83 @@
 import React, { useState, useEffect } from "react";
-import useAxios from "axios-hooks";
-import queryString from "query-string";
-import { useMutation, useQueryClient } from "react-query";
+import { useQuery } from "Hooks";
+import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Add } from "@carbon/react/icons";
 import { Button, InlineNotification, ModalBody, ModalFooter, Search } from "@carbon/react";
-import { Error, Loading, ModalForm, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
-import { resolver, serviceUrl } from "Config/servicesConfig";
-import { FlowUser } from "Types";
+import { Error, Loading, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
+import { serviceUrl } from "Config/servicesConfig";
+import { FlowUser, PaginatedUserResponse } from "Types";
 import MemberBar from "./MemberBar";
-import styles from "./AddMemberContent.module.scss";
+import styles from "./AddMemberSearch.module.scss";
+
+enum Role {
+  Member = "member",
+  Owner = "owner",
+}
+
+interface Member {
+  id?: string;
+  email: string;
+  role: Role;
+}
+
+interface AddMemberSearchProps {
+  memberList: FlowUser[];
+  handleSubmit: Function;
+  isSubmitting: boolean;
+  error: any;
+}
+
+function AddMemberSearch({ memberList, handleSubmit, isSubmitting, error }: AddMemberSearchProps) {
+  return (
+    <ComposedModal
+      modalTrigger={({ openModal }: { openModal: Function }) => (
+        <Button
+          renderIcon={Add}
+          kind="ghost"
+          onClick={() => {
+            openModal();
+          }}
+          iconDescription="Add members"
+          size="md"
+          data-testid="add-members-button"
+        >
+          Add Existing Members
+        </Button>
+      )}
+      composedModalProps={{ containerClassName: styles.modal }}
+      modalHeaderProps={{
+        title: "Add existing members",
+        subtitle: `Search for existing members to add to this team`,
+      }}
+    >
+      {({ closeModal }: { closeModal: Function }) => (
+        <AddMemberContent
+          closeModal={closeModal}
+          memberList={memberList}
+          handleSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+          errorSubmit={error}
+        />
+      )}
+    </ComposedModal>
+  );
+}
 
 interface AddMemberContentProps {
   closeModal: Function;
   memberList: FlowUser[];
-  memberIdList: string[];
-  teamId: string;
-  teamName: string;
+  handleSubmit: Function;
+  isSubmitting: boolean;
+  errorSubmit: any;
 }
-const AddMemberContent: React.FC<AddMemberContentProps> = ({
-  closeModal,
-  memberList,
-  memberIdList,
-  teamId,
-  teamName,
-}) => {
-  const [{ data: usersList, error }, fetchUsersList] = useAxios({ method: "get" }, { manual: true });
+
+function AddMemberContent({ closeModal, memberList, handleSubmit, isSubmitting, errorSubmit }: AddMemberContentProps) {
+  const [userList, setUserList] = useState<FlowUser[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<FlowUser[]>([]);
   const [usersListOpen, setUsersListOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const queryClient = useQueryClient();
-
-  const {
-    mutateAsync: addMemberMutator,
-    isLoading: addMemberisLoading,
-    error: addMemberError,
-  } = useMutation(resolver.patchTeamMembers, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeam({ teamId })),
-  });
+  const usersUrl = serviceUrl.getUsers({ query: null });
+  const userQuery = useQuery<PaginatedUserResponse, string>(usersUrl);
 
   const searchRef = React.useRef<HTMLDivElement | null>();
 
@@ -56,9 +98,7 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
     const searchQuery = e.currentTarget?.value;
 
     if (searchQuery) {
-      const queryStr = queryString.stringify({ page: 0, size: 20, query: searchQuery });
-
-      fetchUsersList({ url: serviceUrl.getUsers({ query: queryStr }) });
+      setUserList(userQuery.data?.content || []);
       setSearchQuery(searchQuery);
       setUsersListOpen(true);
     } else {
@@ -68,7 +108,7 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
   };
 
   const addUser = (id: string) => {
-    const user = usersList.records.find((user: FlowUser) => user.id === id);
+    const user = userList.find((user: FlowUser) => user.id === id);
     setSelectedUsers(selectedUsers.concat(user));
     setUsersListOpen(false);
   };
@@ -80,35 +120,29 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
     setSelectedUsers(users);
   };
 
-  const handleSubmit = async (e: React.SyntheticEvent<HTMLButtonElement>) => {
+  const handleInternalSubmit = async (e: React.SyntheticEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    const addUserRequestData = memberIdList.concat(selectedUsers.map((user) => user.id));
+    const addMemberRequestData: Array<Member> = selectedUsers.map((user) => ({
+      id: user.id,
+      email: user.email,
+      role: Role.Member,
+    }));
 
     try {
-      await addMemberMutator({ teamId, body: addUserRequestData });
-      selectedUsers.forEach((user) => {
-        return notify(
-          <ToastNotification
-            title="Add User"
-            subtitle={`Request to add ${user.name} to ${teamName} submitted`}
-            kind="success"
-          />
-        );
-      });
+      await handleSubmit({ request: addMemberRequestData });
       closeModal();
     } catch (error) {
       // noop
     }
   };
 
-  if (error) {
+  if (userQuery.error) {
     return <Error />;
   }
 
   let usersListRecords: FlowUser[] = [];
-  if (usersList && usersList.records?.length > 0) {
-    usersListRecords = usersList.records.filter((record: FlowUser) => {
+  if (userList && userList?.length > 0) {
+    usersListRecords = userList.filter((record: FlowUser) => {
       return (
         !memberList?.some((member) => member.id === record.id) &&
         !selectedUsers?.some((selectedUser) => selectedUser.id === record.id)
@@ -131,9 +165,9 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
   };
 
   return (
-    <ModalForm onSubmit={handleSubmit}>
+    <ModalForm onSubmit={handleInternalSubmit}>
       <ModalBody>
-        {addMemberisLoading && <Loading />}
+        {isSubmitting && <Loading />}
         <div ref={searchRef as React.RefObject<HTMLDivElement>} className={styles.search}>
           <Search
             autoComplete="off"
@@ -144,7 +178,7 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
             value={searchQuery}
             onClick={() => setUsersListOpen(!usersListOpen)}
           />
-          {usersList && usersListOpen && <UsersInfo />}
+          {userList && usersListOpen && <UsersInfo />}
         </div>
         <p className={styles.sectionTitle}>{`${selectedUsers.length} users selected`}</p>
         {selectedUsers.length > 0 && (
@@ -154,7 +188,7 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
             ))}
           </ul>
         )}
-        {addMemberError && (
+        {errorSubmit && (
           <InlineNotification
             lowContrast
             kind="error"
@@ -167,12 +201,12 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
         <Button onClick={closeModal} kind="secondary" type="button">
           Cancel
         </Button>
-        <Button disabled={selectedUsers.length === 0 || addMemberisLoading} type="submit">
-          {addMemberisLoading ? "Adding..." : addMemberError ? "Try Again" : "Add to team"}
+        <Button disabled={selectedUsers.length === 0 || isSubmitting} type="submit">
+          {isSubmitting ? "Adding..." : errorSubmit ? "Try Again" : "Add to team"}
         </Button>
       </ModalFooter>
     </ModalForm>
   );
-};
+}
 
-export default AddMemberContent;
+export default AddMemberSearch;

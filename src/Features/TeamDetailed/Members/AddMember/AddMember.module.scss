@@ -2,3 +2,29 @@
   max-height: 43.4375rem;
   max-width: 37.5rem;
 }
+
+.addMemberContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.roleDropdown {
+  min-width: 8rem;
+}
+
+.roleButton {
+  min-height: 1.875rem;
+  line-height: 1rem;
+}
+
+.tileContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.addMemberTile {
+  width: 50%;
+  height: 6.25rem;
+  background-color: white;
+}

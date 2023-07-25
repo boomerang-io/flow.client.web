@@ -27,12 +27,12 @@ const PERMISSION_SCOPES = [
     labelText: "Write",
   },
   {
-    id: "ANY_DELETE",
-    labelText: "Delete",
-  },
-  {
     id: "ANY_ACTION",
     labelText: "Action",
+  },
+  {
+    id: "ANY_DELETE",
+    labelText: "Delete",
   },
 ];
 interface CreateServiceTokenFormProps {
@@ -101,7 +101,7 @@ function CreateServiceTokenForm({
         expirationDate: "",
         description: "",
         principal: principal,
-        permissions: ["ANY_READ", "ANY_WRITE"],
+        permissions: ["ANY_READ"],
       }}
       validateOnMount
       onSubmit={(values) => createToken(values)}
@@ -140,6 +140,7 @@ function CreateServiceTokenForm({
               />
               <CheckboxList
                 id="permissions"
+                helperText="Select at least one permission."
                 selectedItems={values.permissions}
                 labelText="Permission Scopes"
                 options={PERMISSION_SCOPES}

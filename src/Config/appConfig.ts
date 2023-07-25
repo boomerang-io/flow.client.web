@@ -89,7 +89,7 @@ export const AppPath: Record<AppPathKey, string> = {
   ManageTeamSettings: "/:teamId/manage/settings",
   ManageTeamWorkflows: "/:teamId/manage/workflows",
   ManageTeamQuotas: "/:teamId/manage/quotas",
-  ManageTeamLabels: "/:teamId/manage/Labels",
+  ManageTeamLabels: "/:teamId/manage/labels",
   ManageTeamApprovers: `/:teamId/manage/approver-groups`,
 
   //Admin
