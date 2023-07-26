@@ -45,7 +45,7 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
     }));
 
     try {
-      await handleSubmit({ request: addMemberRequestData });
+      await handleSubmit(addMemberRequestData);
       closeModal();
     } catch (error) {
       // noop

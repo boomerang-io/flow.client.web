@@ -129,7 +129,7 @@ function AddMemberContent({ closeModal, memberList, handleSubmit, isSubmitting, 
     }));
 
     try {
-      await handleSubmit({ request: addMemberRequestData });
+      await handleSubmit(addMemberRequestData);
       closeModal();
     } catch (error) {
       // noop
