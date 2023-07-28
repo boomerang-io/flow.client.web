@@ -9,8 +9,9 @@ import { FlowUser } from "Types";
 import styles from "./AddMember.module.scss";
 
 enum Role {
-  Member = "member",
   Owner = "owner",
+  Editor = "editor",
+  Reader = "reader",
 }
 
 interface Member {
@@ -42,7 +43,7 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
     e.preventDefault();
     const addMemberRequestData: Array<Member> = members.map((user) => ({
       email: user.email,
-      role: Role.Member,
+      role: Role.Editor,
     }));
 
     try {
@@ -82,7 +83,7 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
             {isSubmitting && <Loading />}
             <div className={styles.addMemberContainer}>
               <Formik
-                initialValues={{ email: "", role: Role.Member }}
+                initialValues={{ email: "", role: Role.Editor }}
                 onSubmit={(values: any) => handleAdd(values)}
                 validateOnMount
                 validationSchema={Yup.object().shape({

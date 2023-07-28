@@ -10,8 +10,9 @@ import MemberBar from "./MemberBar";
 import styles from "./AddMemberSearch.module.scss";
 
 enum Role {
-  Member = "member",
   Owner = "owner",
+  Editor = "editor",
+  Reader = "reader",
 }
 
 interface Member {
@@ -125,7 +126,7 @@ function AddMemberContent({ closeModal, memberList, handleSubmit, isSubmitting, 
     const addMemberRequestData: Array<Member> = selectedUsers.map((user) => ({
       id: user.id,
       email: user.email,
-      role: Role.Member,
+      role: Role.Editor,
     }));
 
     try {
