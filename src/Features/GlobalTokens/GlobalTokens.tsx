@@ -179,7 +179,7 @@ function Tokens() {
   return (
     <FeatureLayout>
       <div className={styles.buttonContainer}>
-        <CreateToken type="team" getTokensUrl={getTokensUrl} />
+        <CreateToken type="team" getTokensUrl={getTokensUrl} principal="**" />
       </div>
       {tokensData?.content?.length > 0 ? (
         <>

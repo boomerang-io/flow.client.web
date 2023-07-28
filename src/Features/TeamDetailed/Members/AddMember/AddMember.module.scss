@@ -28,3 +28,9 @@
   height: 6.25rem;
   background-color: white;
 }
+
+.divider {
+  border-bottom: 0.0625rem solid var(--cds-active-ui);
+  margin: 1rem 0;
+  width: 100%;
+}

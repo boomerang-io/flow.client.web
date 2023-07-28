@@ -16,23 +16,12 @@ import {
 } from "@carbon/react";
 import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { appLink } from "Config/appConfig";
-import { FlowTeam, FlowUser } from "Types";
+import { FlowTeam, FlowUser, Member } from "Types";
 import EmptyState from "Components/EmptyState";
 import AddMember from "./AddMember";
 import AddMemberSearch from "./AddMemberSearch";
 import RemoveMember from "./RemoveMember";
 import styles from "./Members.module.scss";
-
-enum Role {
-  Member = "member",
-  Owner = "owner",
-}
-
-interface Member {
-  id?: string;
-  email: string;
-  role: Role;
-}
 
 interface MemberProps {
   canEdit: boolean;

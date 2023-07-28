@@ -13,7 +13,7 @@ import { resolver, serviceUrl } from "Config/servicesConfig";
 export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   const queryClient = useQueryClient();
 
-  const { mutateAsync: removeTeamMutator } = useMutation(resolver.putUpdateTeam, {
+  const { mutateAsync: removeTeamMutator } = useMutation(resolver.patchUpdateTeam, {
     onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeam({ teamId: team.id })),
   });
 

@@ -538,6 +538,17 @@ export interface FlowUser extends User {
   settings?: FlowUserSettings;
 }
 
+export interface Member {
+  id?: string;
+  email: string;
+  role: MemberRole;
+}
+
+export enum MemberRole {
+  Member = "member",
+  Owner = "owner",
+}
+
 export interface FlowUserSettings {
   hasConsented: boolean;
   isShowHelp: boolean | null;

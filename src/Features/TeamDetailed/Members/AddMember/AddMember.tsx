@@ -4,6 +4,7 @@ import { Button, ModalBody, ModalFooter, InlineNotification, Dropdown, TextInput
 import { ComposedModal, ModalForm, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
 import { Add } from "@carbon/react/icons";
+import MemberCard from "Components/MemberCard";
 import { FlowUser } from "Types";
 import styles from "./AddMember.module.scss";
 
@@ -125,9 +126,15 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
                 }}
               </Formik>
             </div>
+            <div className={styles.divider} />
             <div>
               {members.map((member) => (
-                <MemberTile email={member.email} role={member.role} handleDelete={() => handleRemove(member.email)} />
+                <MemberCard
+                  email={member.email}
+                  role={member.role}
+                  handleRemove={() => handleRemove(member.email)}
+                  isRemoving={false}
+                />
               ))}
             </div>
             {error && (
@@ -151,16 +158,6 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
       )}
     </ComposedModal>
   );
-}
-
-interface MemberTileProps {
-  email: string;
-  role: "owner" | "member";
-  handleDelete: Function | null;
-}
-
-function MemberTile({ email, role, handleDelete }: MemberTileProps) {
-  return <div className={styles.addMemberTile}>{email}</div>;
 }
 
 export default AddMember;

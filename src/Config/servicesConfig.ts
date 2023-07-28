@@ -76,8 +76,6 @@ export const serviceUrl = {
   getUsers: ({ query }: QueryId) => `${BASE_URL}/user/query${query ? "?" + query : ""}`,
   getUser: ({ userId }) => `${BASE_URL}/user/${userId}`,
   deleteUser: ({ userId }) => `${BASE_URL}/user/${userId}`,
-  getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
-  // getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
   getUserProfile: () => `${BASE_URL}/user/profile`,
   getUserProfileImage: ({ userEmail }) => `${BASE_CORE_USERS_URL}/image/${userEmail}`,
   getWorkflows: ({ query }: QueryId) => `${BASE_URL}/workflow/query${query ? "?" + query : ""}`,
@@ -108,7 +106,6 @@ export const serviceUrl = {
   postTeamValidateName: () => `${BASE_URL}/team/validate-name`,
   postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
-  // putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,
   putActivationApp: () => `${BASE_URL}/activate`,
   putTaskTemplateYaml: ({ replace, team }) =>
     `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
@@ -251,7 +248,7 @@ export const resolver = {
     }),
   putPlatformSettings: ({ body }) => axios.put(serviceUrl.resourceSettings(), body),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.putRestoreTaskTemplate({ id })),
-  putUpdateTeam: ({ teamId, body }) => axios.put(serviceUrl.getTeam({ teamId }), body),
+  patchUpdateTeam: ({ teamId, body }) => axios.patch(serviceUrl.getTeam({ teamId }), body),
   putTeamQuotasDefault: ({ id }) =>
     cancellableResolver({ url: serviceUrl.putTeamQuotasDefault({ id }), method: HttpMethod.Put }),
   putTeamQuotas: ({ id, body }) =>

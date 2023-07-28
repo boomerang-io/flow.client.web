@@ -1,14 +1,17 @@
 import React from "react";
 import moment from "moment";
 import * as Yup from "yup";
+import { useAppContext } from "Hooks";
 import { Button, DatePicker, DatePickerInput, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import {
   ModalFlowForm,
   TextArea,
   TextInput,
   CheckboxList,
+  RadioGroup,
   Loading,
   TooltipHover,
+  ComboBoxMultiSelect,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
 import { Information } from "@carbon/react/icons";
@@ -17,24 +20,11 @@ import { resolver } from "Config/servicesConfig";
 import { TokenType } from "Types";
 import styles from "./form.module.scss";
 
-const PERMISSION_SCOPES = [
-  {
-    id: "ANY_READ",
-    labelText: "Read",
-  },
-  {
-    id: "ANY_WRITE",
-    labelText: "Write",
-  },
-  {
-    id: "ANY_ACTION",
-    labelText: "Action",
-  },
-  {
-    id: "ANY_DELETE",
-    labelText: "Delete",
-  },
+const ACCESS_TYPE_OPTIONS = [
+  { labelText: "All teams", value: "all" },
+  { labelText: "Only select teams", value: "select" },
 ];
+
 interface CreateServiceTokenFormProps {
   closeModal: () => void;
   goToStep: (args: any) => void;
@@ -54,19 +44,50 @@ function CreateServiceTokenForm({
   principal,
   getTokensUrl,
 }: CreateServiceTokenFormProps | any) {
-  const [scopes, setScopes] = React.useState<Array<string>>([]);
+  const { teams } = useAppContext();
+  const [accessType, setAccessType] = React.useState<string>("all");
   const queryClient = useQueryClient();
   const tokenRequestMutation = useMutation(resolver.postToken);
 
+  const teamsComboxBoxList = teams.map((team: any) => ({
+    label: team.name,
+    value: team.id,
+    disabled: team.satus === "active" ? true : false,
+  }));
+
+  const permissionsList = [
+    {
+      id: `**/${principal}/read`,
+      labelText: "Read",
+    },
+    {
+      id: `**/${principal}/write`,
+      labelText: "Write",
+    },
+    {
+      id: `**/${principal}/action`,
+      labelText: "Action",
+    },
+    {
+      id: `**/${principal}/delete`,
+      labelText: "Delete",
+    },
+  ];
+
   const createToken = async (values: any) => {
-    const request = {
+    let request = {
       name: values.name,
       type: values.type,
       expirationDate: values.date ? parseInt(moment.utc(values.date).startOf("day").format("x"), 10) : null,
       description: values.description,
       principal: values.principal,
-      permissions: values.permissions,
     };
+
+    if (type === "user") {
+      request = { ...request, teams: values.teams.map((t) => t.value) };
+    } else {
+      request = { ...request, permissions: values.permissions };
+    }
 
     console.log("request", request);
     try {
@@ -101,7 +122,8 @@ function CreateServiceTokenForm({
         expirationDate: "",
         description: "",
         principal: principal,
-        permissions: ["ANY_READ"],
+        permissions: [`**/${principal}/read`],
+        teams: [],
       }}
       validateOnMount
       onSubmit={(values) => createToken(values)}
@@ -138,16 +160,41 @@ function CreateServiceTokenForm({
                 placeholder="my-unique-task-name"
                 value={values.name}
               />
-              <CheckboxList
-                id="permissions"
-                helperText="Select at least one permission."
-                selectedItems={values.permissions}
-                labelText="Permission Scopes"
-                options={PERMISSION_SCOPES}
-                onChange={(checked: boolean, label: string) =>
-                  handleCheckboxListChange(setFieldValue, values.permissions, checked, label)
-                }
-              />
+              {type === "user" ? (
+                <>
+                  {" "}
+                  <RadioGroup
+                    id="access-type"
+                    name="accesstype"
+                    defaultSelected={accessType}
+                    tooltipContent="Selecting 'All Teams' will allow this token to access all current and future teams this user has access. Selecting 'Select Teams' will allow you to specify at least one team this token can access. Access is based on the role in the current or future team."
+                    labelText="Team Permissions"
+                    onChange={(value) => setAccessType(value)}
+                    options={ACCESS_TYPE_OPTIONS}
+                    orientation="vertical"
+                  />
+                  <ComboBoxMultiSelect
+                    onChange={({ selectedItems }) => setFieldValue("teams", selectedItems)}
+                    id="access-teams"
+                    items={teamsComboxBoxList}
+                    placeholder="Choose teams"
+                    titleText="Select Teams"
+                    selectedItems={values.teams}
+                    disabled={accessType === "all"}
+                  />
+                </>
+              ) : (
+                <CheckboxList
+                  id="permissions"
+                  helperText="Select at least one permission."
+                  selectedItems={values.permissions}
+                  labelText="Permissions"
+                  options={permissionsList}
+                  onChange={(checked: boolean, label: string) =>
+                    handleCheckboxListChange(setFieldValue, values.permissions, checked, label)
+                  }
+                />
+              )}
               <DatePicker
                 id="token-date-picker"
                 dateFormat="Y/m/d"
