@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { ConfirmModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { CopyFile, Close } from "@carbon/react/icons";
+import { CopyFile, Close, Help } from "@carbon/react/icons";
 import {
   Tag,
   Button,
@@ -121,7 +121,15 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
                 <StructuredListCell head>Status</StructuredListCell>
                 <StructuredListCell head>Creation Date</StructuredListCell>
                 <StructuredListCell head>Expiration Date</StructuredListCell>
-                <StructuredListCell head>Scopes</StructuredListCell>
+                <StructuredListCell head className={styles.structuredListHeader}>
+                  Permissions
+                  <TooltipHover
+                    direction="top"
+                    tooltipText="Permissions in the format SCOPE / PRINCIPAL / ACTION. Read more about permissions in the documentation."
+                  >
+                    <Help className={styles.structuredListHeaderHoverIcon} />
+                  </TooltipHover>
+                </StructuredListCell>
                 <StructuredListCell head />
               </StructuredListRow>
             </StructuredListHead>

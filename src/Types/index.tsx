@@ -540,13 +540,14 @@ export interface FlowUser extends User {
 
 export interface Member {
   id?: string;
-  email: string;
-  role: MemberRole;
+  email?: string;
+  role?: MemberRole;
 }
 
 export enum MemberRole {
-  Member = "member",
   Owner = "owner",
+  Editor = "editor",
+  Reader = "reader",
 }
 
 export interface FlowUserSettings {

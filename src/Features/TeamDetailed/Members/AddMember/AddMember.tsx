@@ -5,19 +5,8 @@ import { ComposedModal, ModalForm, Loading } from "@boomerang-io/carbon-addons-b
 import { Formik } from "formik";
 import { Add } from "@carbon/react/icons";
 import MemberCard from "Components/MemberCard";
-import { FlowUser } from "Types";
+import { FlowUser, Member, MemberRole } from "Types";
 import styles from "./AddMember.module.scss";
-
-enum Role {
-  Owner = "owner",
-  Editor = "editor",
-  Reader = "reader",
-}
-
-interface Member {
-  email: string;
-  role: Role;
-}
 
 interface AddMemberProps {
   memberList: FlowUser[];
@@ -43,7 +32,7 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
     e.preventDefault();
     const addMemberRequestData: Array<Member> = members.map((user) => ({
       email: user.email,
-      role: Role.Editor,
+      role: MemberRole.Editor,
     }));
 
     try {
@@ -83,7 +72,7 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
             {isSubmitting && <Loading />}
             <div className={styles.addMemberContainer}>
               <Formik
-                initialValues={{ email: "", role: Role.Editor }}
+                initialValues={{ email: "", role: MemberRole.Editor }}
                 onSubmit={(values: any) => handleAdd(values)}
                 validateOnMount
                 validationSchema={Yup.object().shape({
@@ -91,7 +80,7 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
                     .email("Invalid email address")
                     .notOneOf(memberEmailList)
                     .required("Email is required"),
-                  role: Yup.string().oneOf(Object.values(Role)).required("Role is required"),
+                  role: Yup.string().oneOf(Object.values(MemberRole)).required("Role is required"),
                 })}
               >
                 {({ errors, isValid, touched, handleBlur, handleChange, setFieldValue, values, handleSubmit }) => {
@@ -113,7 +102,7 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
                         onChange={({ selectedItem }: any) => {
                           setFieldValue("role", selectedItem);
                         }}
-                        items={Object.values(Role)}
+                        items={Object.values(MemberRole)}
                         value={values.role}
                         label="Role"
                         titleText="Role"
@@ -128,7 +117,7 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
               </Formik>
             </div>
             <div className={styles.divider} />
-            <div>
+            <div className={styles.tileContainer}>
               {members.map((member) => (
                 <MemberCard
                   email={member.email}

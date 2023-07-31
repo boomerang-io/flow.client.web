@@ -3,24 +3,29 @@ import { useMutation, useQueryClient } from "react-query";
 import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { TrashCan } from "@carbon/react/icons";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { FlowUser } from "Types";
+import { FlowUser, Member } from "Types";
 import styles from "./RemoveMember.module.scss";
 
 interface RemoveMemberProps {
   member: FlowUser;
-  memberIdList: string[];
   teamId: string;
   teamName: string;
   userId: string;
 }
-const RemoveMember: React.FC<RemoveMemberProps> = ({ member, memberIdList, teamId, teamName, userId }) => {
+
+const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamId, teamName, userId }) => {
   const queryClient = useQueryClient();
-  const { mutateAsync: leaveTeamMutator, isLoading } = useMutation(resolver.patchTeamMembers, {
+  const { mutateAsync: leaveTeamMutator, isLoading } = useMutation(resolver.deleteTeamMembers, {
     onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeam({ teamId })),
   });
 
   async function handleCreateLeaveTeamRequest() {
-    const leaveTeamData = memberIdList.filter((id) => id !== member.id);
+    const leaveTeamData: Array<Member> = [
+      {
+        id: member.id,
+      },
+    ];
+    console.log("request", leaveTeamData);
     try {
       await leaveTeamMutator({ teamId, body: leaveTeamData });
       notify(

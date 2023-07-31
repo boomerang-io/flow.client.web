@@ -38,7 +38,6 @@ const Members: React.FC<MemberProps> = ({ canEdit, memberList = [], team, user, 
   const queryClient = useQueryClient();
 
   const handleSubmit = async (request: Array<Member>) => {
-    console.log("request", request);
     try {
       await addMemberMutator.mutateAsync({ teamId: team.id, body: request });
       queryClient.invalidateQueries([teamDetailsUrl]);
@@ -121,15 +120,7 @@ const Members: React.FC<MemberProps> = ({ canEdit, memberList = [], team, user, 
                   <StructuredListCell>{member.email}</StructuredListCell>
                   <StructuredListCell>{moment(member.firstLoginDate).format("MMMM D, YYYY")}</StructuredListCell>
                   <StructuredListCell>
-                    {canEdit && (
-                      <RemoveMember
-                        member={member}
-                        memberIdList={memberIdList}
-                        teamId={team.id}
-                        teamName={team.name}
-                        userId={user.id}
-                      />
-                    )}
+                    {canEdit && <RemoveMember member={member} teamId={team.id} teamName={team.name} userId={user.id} />}
                   </StructuredListCell>
                   <StructuredListCell>
                     <Link

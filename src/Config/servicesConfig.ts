@@ -112,7 +112,7 @@ export const serviceUrl = {
   putTaskTemplate: ({ replace, team }) => `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
   putStatusTaskTemplate: ({ name, status }) => `${BASE_URL}/tasktemplate/${name}/${status}`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
-  putTeamMembers: ({ teamId }) => `${BASE_URL}/team/${teamId}/members`,
+  resourceTeamMembers: ({ teamId }) => `${BASE_URL}/team/${teamId}/members`,
   putWorkflowAction: () => `${BASE_URL}/action/action`,
   resourceApproverGroups: ({ teamId, groupId }) =>
     `${BASE_URL}/team/${teamId}/approvers${groupId ? "/" + groupId : ""}`,
@@ -148,6 +148,7 @@ export const resolver = {
   // deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   deleteCancelWorkflow: ({ executionId }) => axios.delete(serviceUrl.deleteCancelWorkflow({ executionId })),
   deleteGlobalParameter: ({ key }) => axios.delete(serviceUrl.getGlobalParameter({ key })),
+  deleteTeamMembers: ({ teamId, body }) => axios.delete(serviceUrl.resourceTeamMembers({ teamId }), body),
   deleteTeamParameter: ({ id, key }) =>
     axios.delete(serviceUrl.getTeamParameter({ id, key })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
@@ -157,7 +158,7 @@ export const resolver = {
   deleteUser: ({ userId }) => axios.delete(serviceUrl.deleteUser({ userId })),
   patchGlobalParameter: ({ key, body }) =>
     axios({ url: serviceUrl.getGlobalParameter({ key }), data: body, method: HttpMethod.Patch }),
-  patchTeamMembers: ({ teamId, body }) => axios.patch(serviceUrl.putTeamMembers({ teamId }), body),
+  patchTeamMembers: ({ teamId, body }) => axios.patch(serviceUrl.resourceTeamMembers({ teamId }), body),
   patchManageTeamLabels: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamLabels({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
     axios({ url: serviceUrl.getUser({ userId }), data: body, method: HttpMethod.Patch }),

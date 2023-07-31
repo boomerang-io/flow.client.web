@@ -32,8 +32,12 @@ const tokens = {
           valid: true,
           principal: null,
           permissions: [
-            "TOKEN_READ",
-            "TOKEN_DELETE"
+            "**/64b8d5a5040e205ee3383ab1/READ",
+            "**/64b8d5a5040e205ee3383ab1/WRITE", 
+            "**/64b8d5a5040e205ee3383ab1/ACTION", 
+            "**/61d67184c124cb2c190f4696/READ", 
+            "**/61d67184c124cb2c190f4696/WRITE",
+            "**/64b8d63b040e205ee3383abd/**"
           ]
       },
       {

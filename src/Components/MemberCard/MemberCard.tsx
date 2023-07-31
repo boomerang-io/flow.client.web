@@ -23,7 +23,6 @@ function MemberCard({ email, role, handleRemove, isRemoving }: MemberCardProps) 
             {role}
           </p>
         </div>
-        <ArrowRight size={24} className={styles.cardIcon} />
       </section>
       {isRemoving ? (
         <InlineLoading

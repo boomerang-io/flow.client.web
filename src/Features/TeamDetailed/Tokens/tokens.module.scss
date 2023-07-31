@@ -17,8 +17,6 @@
   }
 }
 
-
-
 .dropdown {
   width: 20rem;
 }
@@ -124,4 +122,12 @@
   flex-direction: row;
   justify-content: flex-end;
   margin-bottom: 1.25rem;
+}
+
+.headerWithIcon {
+  display: flex;
+}
+
+.headerHoverIcon {
+  margin-left: 0.25rem;
 }

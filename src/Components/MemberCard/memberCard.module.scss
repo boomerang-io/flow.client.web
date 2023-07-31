@@ -2,12 +2,10 @@
 
 .container {
   display: flex;
-  background-color: var(--cds-ui-01);
+  background-color: var(--cds-ui-02);
   flex-direction: column;
   justify-content: space-between;
-  min-width: 19.375rem;
-  width: 19.375rem;
-  height: 10.31255rem;
+  height: 6rem;
   position: relative;
   @include border-radius();
 
@@ -49,7 +47,6 @@
   justify-content: space-between;
   height: 6.5rem;
   padding: 1rem;
-  margin-top: 1.5rem;
 }
 
 .cardIcon {

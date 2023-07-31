@@ -19,14 +19,9 @@
 }
 
 .tileContainer {
+  align-items: flex-start;
   display: flex;
   gap: 1rem;
-}
-
-.addMemberTile {
-  width: 50%;
-  height: 6.25rem;
-  background-color: white;
 }
 
 .divider {

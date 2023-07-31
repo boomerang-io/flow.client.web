@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Helmet } from "react-helmet";
-import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
 import moment from "moment";
@@ -13,6 +13,7 @@ import EmptyState from "Components/EmptyState";
 import DeleteToken from "Components/DeleteToken";
 import CreateToken from "Components/CreateToken";
 import { arrayPagination, sortByProp } from "Utils/arrayHelper";
+import { Help } from "@carbon/react/icons";
 import type { FlowTeam, Token } from "Types";
 import styles from "./tokens.module.scss";
 
@@ -45,7 +46,7 @@ const HEADERS = [
     sortable: true,
   },
   {
-    header: "Scopes",
+    header: "Permissions",
     key: "permissions",
     sortable: true,
   },
@@ -185,7 +186,19 @@ function Tokens({ team }: { team: FlowTeam }) {
                             isSortHeader={sortKey === header.key}
                             sortDirection={sortDirection}
                           >
-                            {header.header}
+                            {header.header === "Permissions" ? (
+                              <div className={styles.headerWithIcon}>
+                                {header.header}
+                                <TooltipHover
+                                  direction="top"
+                                  tooltipText="Permissions in the format SCOPE / PRINCIPAL / ACTION. Read more about permissions in the documentation."
+                                >
+                                  <Help className={styles.headerHoverIcon} />
+                                </TooltipHover>
+                              </div>
+                            ) : (
+                              header.header
+                            )}
                           </TableHeader>
                         ))}
                       </TableRow>

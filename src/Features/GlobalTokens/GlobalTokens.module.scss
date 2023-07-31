@@ -115,11 +115,18 @@
   margin-bottom: 1.25rem;
 }
 
-
 .buttonContainer {
   align-items: flex-end;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   margin-bottom: 1.25rem;
+}
+
+.headerWithIcon {
+  display: flex;
+}
+
+.headerHoverIcon {
+  margin-left: 0.25rem;
 }
