@@ -164,31 +164,12 @@ type Props = {
   approverGroup?: ApproverGroup;
   approverGroups: string[];
   team?: FlowTeam | null;
-  cancelRequestRef: any;
 };
 
-function CreateEditGroupModalContent({
-  closeModal,
-  isEdit = false,
-  approverGroup,
-  approverGroups,
-  team,
-  cancelRequestRef,
-}: Props) {
+function CreateEditGroupModalContent({ closeModal, isEdit = false, approverGroup, approverGroups, team }: Props) {
   const queryClient = useQueryClient();
   const teamMembers = team?.members;
   console.log("teamMembers", teamMembers);
-  // const flowTeamUsersUrl = serviceUrl.getTeamMembers({ teamId: team?.id });
-
-  // const {
-  //   data: teamMembers,
-  //   isLoading: teamMembersIsLoading,
-  //   error: teamMembersError,
-  // } = useQuery({
-  //   queryKey: flowTeamUsersUrl,
-  //   queryFn: resolver.query(flowTeamUsersUrl),
-  //   enabled: Boolean(team?.id),
-  // });
 
   const approverGroupsUrl = serviceUrl.resourceApproverGroups({ teamId: team?.id, groupId: undefined });
 
@@ -207,8 +188,13 @@ function CreateEditGroupModalContent({
   });
 
   const handleSubmit = async (values: any) => {
-    values.approvers.forEach((approver: any) => delete approver.id);
-    const newTeamApproverGroup = isEdit ? { ...values, groupId: approverGroup?.id } : { ...values };
+    const approverIds = values.approvers.map((approver: any) => approver.id);
+    // values.approvers.forEach((approver: any) => delete approver.id);
+    const newTeamApproverGroup = {
+      name: values.groupName,
+      groupId: isEdit ? approverGroup?.id : null,
+      approvers: approverIds,
+    };
 
     if (isEdit) {
       try {
@@ -221,7 +207,7 @@ function CreateEditGroupModalContent({
           <ToastNotification
             kind="success"
             title={"Approver Group Updated"}
-            subtitle={`Request to update ${response.data.groupName} succeeded`}
+            subtitle={`Request to update ${response.data.name} succeeded`}
             data-testid="create-update-approver-group-notification"
           />
         );
@@ -240,7 +226,7 @@ function CreateEditGroupModalContent({
           <ToastNotification
             kind="success"
             title={"Approver Group Created"}
-            subtitle={`Request to create ${response.data.groupName} succeeded`}
+            subtitle={`Request to create ${response.data.name} succeeded`}
             data-testid="create-update-approver-group-notification"
           />
         );

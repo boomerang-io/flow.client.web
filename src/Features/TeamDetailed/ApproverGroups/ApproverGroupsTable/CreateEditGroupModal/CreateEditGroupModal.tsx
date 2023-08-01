@@ -64,7 +64,6 @@ function CreateEditGroupModal({ isEdit, approverGroup, approverGroups, team }: C
           approverGroup={approverGroup}
           approverGroups={approverGroupNames}
           team={team}
-          cancelRequestRef={cancelRequestRef}
           closeModal={closeModal}
         />
       )}
