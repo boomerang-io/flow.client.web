@@ -195,7 +195,7 @@ export const resolver = {
   postApproverGroupRequest: ({ body, teamId }) =>
     axios({
       url: serviceUrl.resourceApproverGroups({ teamId }),
-      date: body,
+      data: body,
       method: HttpMethod.Post,
     }),
   postCreateTemplate: ({ body }) => axios.post(serviceUrl.getWorkflowTemplates(), body),

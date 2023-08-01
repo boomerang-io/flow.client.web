@@ -15,9 +15,7 @@ interface RemoveMemberProps {
 
 const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamId, teamName, userId }) => {
   const queryClient = useQueryClient();
-  const { mutateAsync: leaveTeamMutator, isLoading } = useMutation(resolver.deleteTeamMembers, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeam({ teamId })),
-  });
+  const leaveTeamMutator = useMutation(resolver.deleteTeamMembers);
 
   async function handleCreateLeaveTeamRequest() {
     const leaveTeamData: Array<Member> = [
@@ -27,7 +25,8 @@ const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamId, teamName, u
     ];
     console.log("request", leaveTeamData);
     try {
-      await leaveTeamMutator({ teamId, body: leaveTeamData });
+      await leaveTeamMutator.mutateAsync({ teamId, body: leaveTeamData });
+      queryClient.invalidateQueries(serviceUrl.getTeam({ teamId }));
       notify(
         <ToastNotification
           title="Remove User Requested"
@@ -51,8 +50,8 @@ const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamId, teamName, u
   return (
     <ConfirmModal
       affirmativeAction={handleCreateLeaveTeamRequest}
-      affirmativeButtonProps={{ kind: "danger", disabled: isLoading, "data-testid": "remove-member" }}
-      negativeButtonsProps={{ disabled: isLoading }}
+      affirmativeButtonProps={{ kind: "danger", disabled: leaveTeamMutator.isLoading, "data-testid": "remove-member" }}
+      negativeButtonsProps={{ disabled: leaveTeamMutator.isLoading }}
       children={`Are you sure you want to remove ${member.name} from ${teamName}? The user will lose access to all team workflows.`}
       title={`Remove from Team`}
       modalTrigger={({ openModal }: { openModal: () => void }) => (
