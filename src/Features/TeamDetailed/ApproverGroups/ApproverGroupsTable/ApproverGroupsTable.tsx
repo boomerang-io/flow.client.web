@@ -120,7 +120,7 @@ function ApproverGroupsTable({ activeTeam, canEdit }: ApproverGroupsTableProps) 
         return <p className={styles.text}>{value?.length ?? "0"}</p>;
       case "actions":
         return canEdit ? (
-          <div className={styles.actionsContainer}>
+          <div className={styles.tableActions}>
             <CreateEditGroupModal
               isEdit
               approverGroup={approverGroup}
