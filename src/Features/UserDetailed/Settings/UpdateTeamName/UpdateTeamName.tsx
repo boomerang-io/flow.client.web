@@ -32,7 +32,7 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team }) => 
     isLoading,
     error,
   } = useMutation(resolver.patchUpdateTeam, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeam({ teamId: team.id })),
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id })),
   });
 
   const updateTeamName = async (values: { name: string }) => {

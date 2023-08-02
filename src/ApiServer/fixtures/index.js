@@ -19,7 +19,7 @@ export { default as tasktemplate } from "./tasktemplate";
 export { default as settings } from "./settings";
 export { default as summaries } from "./summaries";
 export { default as revisions } from "./revisions";
-export { default as myTeams } from "./myTeams";
+export { default as team } from "./team";
 export { default as teamApproverUsers } from "./teamApproverUsers";
 export { default as tokens } from "./tokens";
 export { default as teamProperties } from "./teamProperties";

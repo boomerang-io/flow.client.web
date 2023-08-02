@@ -50,7 +50,7 @@ function TeamDetailedContainer() {
   const teamId = match?.params?.teamId;
   const { user } = useAppContext();
 
-  const teamDetailsUrl = serviceUrl.getTeam({ teamId });
+  const teamDetailsUrl = serviceUrl.resourceTeam({ teamId });
 
   const {
     data: teamDetailsData,

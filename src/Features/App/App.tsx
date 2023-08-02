@@ -50,7 +50,6 @@ const Home = lazy(() => import("Features/Home"));
 
 const getUserUrl = serviceUrl.getUserProfile();
 const getContextUrl = serviceUrl.getContext();
-const getTeamsUrl = serviceUrl.getMyTeams({ query: "statuses=active" });
 const featureFlagsUrl = serviceUrl.getFeatureFlags();
 const browser = detect();
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
@@ -59,11 +58,14 @@ export default function App() {
   const location = useLocation();
   const queryClient = useQueryClient();
   const teamId =
-    location.pathname.startsWith("/home") || location.pathname.startsWith("/admin")
+    location.pathname.startsWith("/home") ||
+    location.pathname.startsWith("/admin") ||
+    location.pathname.startsWith("/profile")
       ? null
       : location.pathname.split("/").filter(Boolean)[0];
   const query = teamId ? `?teamId=${teamId}` : "";
   const getNavigationUrl = serviceUrl.getNavigation({ query });
+  const getTeamUrl = serviceUrl.resourceTeam({ teamId: teamId });
 
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
     !supportedBrowsers.includes(browser?.name ?? "")
@@ -110,21 +112,25 @@ export default function App() {
     enabled: Boolean(userQuery.data?.id),
   });
 
-  const teamsQuery = useQuery<PaginatedTeamResponse, string>({
-    queryKey: getTeamsUrl,
-    queryFn: resolver.query(getTeamsUrl),
+  const teamQuery = useQuery<PaginatedTeamResponse, string>({
+    queryKey: getTeamUrl,
+    queryFn: resolver.query(getTeamUrl),
     enabled: Boolean(userQuery.data?.id),
   });
 
   const isLoading =
     userQuery.isLoading ||
     contextQuery.isLoading ||
-    teamsQuery.isLoading ||
+    // teamsQuery.isLoading ||
     featureQuery.isLoading ||
     navigationQuery.isLoading;
 
   const hasError =
-    userQuery.isError || contextQuery.isError || teamsQuery.isError || featureQuery.isError || navigationQuery.isError;
+    userQuery.isError ||
+    contextQuery.isError ||
+    // teamsQuery.isError ||
+    featureQuery.isError ||
+    navigationQuery.isError;
 
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
@@ -156,7 +162,7 @@ export default function App() {
   }
 
   // Context Data needed for the app to render
-  if (userQuery.data && contextQuery.data && teamsQuery.data && featureQuery.data && navigationQuery.data) {
+  if (userQuery.data && contextQuery.data && featureQuery.data && navigationQuery.data) {
     const feature = featureQuery.data.features;
     return (
       <FlagsProvider
@@ -179,7 +185,6 @@ export default function App() {
           handleOnTutorialClick={() => setIsTutorialActive(true)}
           contextData={contextQuery.data}
           userData={userQuery.data}
-          teamsData={teamsQuery.data.content}
         />
         <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
         <ErrorBoundary>
@@ -189,10 +194,9 @@ export default function App() {
             setIsTutorialActive={setIsTutorialActive}
             setShouldShowBrowserWarning={setShouldShowBrowserWarning}
             shouldShowBrowserWarning={shouldShowBrowserWarning}
-            teamsData={teamsQuery.data.content}
+            teamData={teamQuery.data}
             userData={userQuery.data}
             quotas={featureQuery.data.quotas}
-            activeTeamId={teamId}
           />
         </ErrorBoundary>
       </FlagsProvider>
@@ -207,10 +211,9 @@ interface MainProps {
   setIsTutorialActive: (isTutorialActive: boolean) => void;
   setShouldShowBrowserWarning: (shouldShowBrowserWarning: boolean) => void;
   shouldShowBrowserWarning: boolean;
-  teamsData: Array<FlowTeam>;
+  teamData: FlowTeam | null;
   userData: FlowUser;
   quotas: FlowFeatures["quotas"];
-  activeTeamId: string | null;
 }
 
 function Main({
@@ -219,10 +222,9 @@ function Main({
   setIsTutorialActive,
   setShouldShowBrowserWarning,
   shouldShowBrowserWarning,
-  teamsData,
+  teamData,
   userData,
   quotas,
-  activeTeamId,
 }: MainProps) {
   const { id: userId, type: platformRole } = userData;
 
@@ -234,18 +236,17 @@ function Main({
   if (shouldShowBrowserWarning) {
     return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
   }
-  let activeTeam = teamsData.find((team) => team.id === activeTeamId);
 
   return (
     <AppContextProvider
       value={{
-        activeTeam,
+        activeTeam: teamData,
         isTutorialActive,
         setIsTutorialActive,
         quotas,
         communityUrl: contextData?.platform?.communityUrl ?? "",
         name: contextData?.platform?.name ?? "",
-        teams: sortBy(teamsData, "name"),
+        teams: sortBy(userData.teams, "name"),
         user: userData,
       }}
     >

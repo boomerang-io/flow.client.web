@@ -34,7 +34,7 @@ interface MemberProps {
 const Members: React.FC<MemberProps> = ({ canEdit, memberList = [], team, user, teamDetailsUrl }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const filteredMemberList = searchQuery ? ms(memberList, searchQuery, { keys: ["name", "email"] }) : memberList;
-  const addMemberMutator = useMutation(resolver.patchTeamMembers);
+  const addMemberMutator = useMutation(resolver.patchTeam);
   const queryClient = useQueryClient();
 
   const handleSubmit = async (request: Array<Member>) => {

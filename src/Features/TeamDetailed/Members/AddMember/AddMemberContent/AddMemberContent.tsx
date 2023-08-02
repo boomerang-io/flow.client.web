@@ -33,8 +33,8 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
     mutateAsync: addMemberMutator,
     isLoading: addMemberisLoading,
     error: addMemberError,
-  } = useMutation(resolver.patchTeamMembers, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeam({ teamId })),
+  } = useMutation(resolver.patchTeam, {
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId })),
   });
 
   const searchRef = React.useRef<HTMLDivElement | null>();

@@ -26,7 +26,7 @@ const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamId, teamName, u
     console.log("request", leaveTeamData);
     try {
       await leaveTeamMutator.mutateAsync({ teamId, body: leaveTeamData });
-      queryClient.invalidateQueries(serviceUrl.getTeam({ teamId }));
+      queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId }));
       notify(
         <ToastNotification
           title="Remove User Requested"

@@ -27,7 +27,6 @@ interface NavbarProps {
   flowNavigationData: Array<FlowNavigationItem>;
   contextData: ContextConfig;
   userData: FlowUser;
-  teamsData: Array<FlowTeam>;
 }
 
 export default function Navbar({
@@ -35,7 +34,6 @@ export default function Navbar({
   flowNavigationData,
   contextData: contextData,
   userData,
-  teamsData,
 }: NavbarProps) {
   const { platform } = contextData;
   const appTitle = getAppTitle(platform);
@@ -71,7 +69,7 @@ export default function Navbar({
             <div>
               <p className={styles.switcherInfo}>Select a team to switch to from the list</p>
               <Switcher>
-                {teamsData.map((team) => {
+                {userData.teams.map((team) => {
                   return (
                     <SwitcherItem large key={team.name}>
                       {team.name}

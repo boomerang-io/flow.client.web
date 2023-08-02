@@ -37,7 +37,7 @@ function TeamLabels({ canEdit, team }: TeamLabelsProps) {
 
   const { mutateAsync: updateTeamLabelsMutator, isLoading } = useMutation(resolver.patchManageTeamLabels, {
     onSuccess: () => {
-      queryClient.invalidateQueries(serviceUrl.getTeam({ teamId: team.id }));
+      queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
     },
   });
 

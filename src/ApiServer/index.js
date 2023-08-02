@@ -76,9 +76,9 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.flowNavigation;
       });
 
-      this.get(serviceUrl.getMyTeams({ query: null }), (schema) => {
-        return schema.db.myTeams[0];
-      });
+      // this.get(serviceUrl.getMyTeams({ query: null }), (schema) => {
+      //   return schema.db.myTeams[0];
+      // });
 
       this.get(serviceUrl.getFeatureFlags(), (schema) => {
         return schema.db.featureFlags[0];
@@ -428,32 +428,33 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return new Response(422, {}, { errors: ["Name is already taken"] });
       });
 
-      this.get(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
-        let { teamId } = request.params;
-        return schema.db.myTeams[0].content.find(t => t.id === teamId);
+      this.get(serviceUrl.resourceTeam({ teamId: ":teamId" }), (schema, request) => {
+        // let { teamId } = request.params;
+        return schema.db.team[0];
       });
 
-      this.patch(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
-        let { teamId } = request.params;
+      this.patch(serviceUrl.resourceTeam({ teamId: ":teamId" }), (schema, request) => {
+        // let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
-        let activeTeam = schema.db.myTeams[0].content.find(t => t.id === teamId);
+        // let activeTeam = schema.db.myTeams[0].content.find(t => t.id === teamId);
+        let activeTeam = schema.db.team[0];
         let activeUsers = activeTeam.users.filter((user) => body.includes(user.id));
         activeTeam.update({ users: activeUsers });
         return activeTeam;
       });
 
-      this.put(serviceUrl.getTeam({ teamId: ":teamId" }), (schema, request) => {
-        let { teamId } = request.params;
-        let body = JSON.parse(request.requestBody);
-        let summary = schema.db.myTeams[0].content.find(t => t.id === teamId);
-        summary.update(body);
-        return summary;
+      this.put(serviceUrl.resourceTeam({ teamId: ":teamId" }), (schema, request) => {
+        // let { teamId } = request.params;
+        // let body = JSON.parse(request.requestBody);
+        // let activeTeam = schema.db.myTeams[0].content.find(t => t.id === teamId);
+        return schema.db.team[0];
       });
 
       this.patch(serviceUrl.getManageTeamLabels({ teamId: ":teamId" }), (schema, request) => {
-        let { teamId } = request.params;
+        // let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
-        let activeTeam = schema.db.myTeams[0].content.find(t => t.id === teamId);
+        // let activeTeam = schema.db.myTeams[0].content.find(t => t.id === teamId);
+        let activeTeam = schema.db.team[0];
         activeTeam.update({ labels: body });
         return activeTeam;
       });
