@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useHistory, Link } from "react-router-dom";
 import { useMutation } from "react-query";
-import { useAppContext } from "Hooks";
+import { useTeamContext } from "Hooks";
 import ParametersTable from "../ParametersTable";
 import { resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
@@ -20,7 +20,7 @@ import styles from "./teamParameters.module.scss";
 
 function TeamParameters() {
   const history = useHistory();
-  const { activeTeam } = useAppContext();
+  const { team } = useTeamContext();
 
   /** Add / Update / Delete Team parameter */
   const parameterMutation = useMutation(resolver.patchTeam);
@@ -29,7 +29,7 @@ function TeamParameters() {
   const handleSubmit = async (isEdit: boolean, parameter: DataDrivenInput) => {
     try {
       const response = await parameterMutation.mutateAsync({
-        teamId: activeTeam?.id,
+        teamId: team?.id,
         body: { parameters: [parameter] },
       });
       if (isEdit) {
@@ -58,7 +58,7 @@ function TeamParameters() {
 
   const handleDelete = async (parameter: DataDrivenInput) => {
     try {
-      await deleteParameterMutation.mutateAsync({ id: activeTeam?.id, body: [parameter.key] });
+      await deleteParameterMutation.mutateAsync({ id: team?.id, body: [parameter.key] });
       notify(
         <ToastNotification
           kind="success"
@@ -81,7 +81,7 @@ function TeamParameters() {
   };
 
   /** Check if there is an active team or redirect to home */
-  if (!activeTeam) {
+  if (!team) {
     return history.push(appLink.home());
   }
 
@@ -92,7 +92,7 @@ function TeamParameters() {
           <Link to={appLink.home()}>Home</Link>
         </BreadcrumbItem>
         <BreadcrumbItem isCurrentPage>
-          <p>{activeTeam?.name}</p>
+          <p>{team?.name}</p>
         </BreadcrumbItem>
       </Breadcrumb>
     );
@@ -117,7 +117,7 @@ function TeamParameters() {
         }
       />
       <ParametersTable
-        parameters={activeTeam.parameters ?? []}
+        parameters={team.parameters ?? []}
         isLoading={false}
         isSubmitting={parameterMutation.isLoading}
         errorSubmitting={parameterMutation.isError}

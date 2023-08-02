@@ -111,7 +111,7 @@ ConfigureInputsForm.propTypes = {
 };
 
 function ConfigureInputsForm(props) {
-  const { teams, activeTeam } = useAppContext();
+  const { teams } = useAppContext();
   const { summaryData } = useEditorContext();
   const [activeWorkflowId, setActiveWorkflowId] = useState("");
   const { node, taskNames, nodeConfig } = props;

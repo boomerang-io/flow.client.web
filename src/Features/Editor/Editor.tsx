@@ -4,7 +4,7 @@ import { AxiosResponse } from "axios";
 import { History } from "history";
 import { UseQueryResult, MutateFunction, UseMutateFunction } from "react-query";
 import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
-import { useAppContext, useIsModalOpen, useQuery } from "Hooks";
+import { useTeamContext, useIsModalOpen, useQuery } from "Hooks";
 import { useImmerReducer } from "use-immer";
 import { useMutation, useQueryClient } from "react-query";
 import { Prompt, Route, Switch, useLocation, useParams, useRouteMatch } from "react-router-dom";
@@ -38,7 +38,7 @@ import styles from "./editor.module.scss";
 import { groupTaskTemplatesByName } from "Utils";
 
 export default function EditorContainer() {
-  const { activeTeam } = useAppContext();
+  const { team } = useTeamContext();
   // Init revision number state is held here so we can easily refect the data on change via react-query
 
   const [revisionNumber, setRevisionNumber] = useState(0);
@@ -48,7 +48,7 @@ export default function EditorContainer() {
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ teams: activeTeam?.id, statuses: "active" }),
+    query: queryString.stringify({ teams: team?.id, statuses: "active" }),
   });
 
   const getAvailableParametersUrl = serviceUrl.workflowAvailableParameters({ workflowId });
@@ -117,33 +117,33 @@ interface EditorStateContainerProps {
   mutateSummary: MutateFunction<AxiosResponse<any, any>, unknown, { body: any }, unknown>;
   parametersMutation: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
   revisionMutation:
-  | {
-    data: undefined;
-    error: null;
-    isError: false;
-    isIdle: true;
-    isLoading: false;
-    isSuccess: false;
-    status: "idle";
-    mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-    variables: { workflowId: any; body: any } | undefined;
-  }
-  | any;
+    | {
+        data: undefined;
+        error: null;
+        isError: false;
+        isIdle: true;
+        isLoading: false;
+        isSuccess: false;
+        status: "idle";
+        mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+        variables: { workflowId: any; body: any } | undefined;
+      }
+    | any;
   revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
   summaryData: WorkflowSummary;
   summaryMutation:
-  | {
-    data: undefined;
-    error: null;
-    isError: false;
-    isIdle: true;
-    isLoading: false;
-    isSuccess: false;
-    status: "idle";
-    mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-    variables: { workflowId: any; body: any } | undefined;
-  }
-  | any;
+    | {
+        data: undefined;
+        error: null;
+        isError: false;
+        isIdle: true;
+        isLoading: false;
+        isSuccess: false;
+        status: "idle";
+        mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+        variables: { workflowId: any; body: any } | undefined;
+      }
+    | any;
   setRevisionNumber: (revisionNumber: number) => void;
   taskTemplatesList: Array<TaskTemplate>;
   workflowId: string;
@@ -321,7 +321,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   }, [revisionState.version]);
 
   const store = useMemo(() => {
-    const taskTemplatesData = groupTaskTemplatesByName(taskTemplatesList)
+    const taskTemplatesData = groupTaskTemplatesByName(taskTemplatesList);
     return {
       availableParametersQueryData,
       mode,
@@ -380,7 +380,8 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           <Route
             // Always render parent Configure component so state isn't lost when switching tabs
             // It is responsible for rendering its children, but Formik form management is always mounted
-            path={AppPath.EditorConfigure}>
+            path={AppPath.EditorConfigure}
+          >
             <Configure
               quotas={quotas}
               summaryData={summaryData}

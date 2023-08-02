@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppContext } from "Hooks";
+import { useTeamContext } from "Hooks";
 import { useMutation, useQueryClient } from "react-query";
 import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import ScheduleManagerForm from "Components/ScheduleManagerForm";
@@ -29,7 +29,7 @@ interface CreateScheduleProps {
 
 export default function CreateSchedule(props: CreateScheduleProps) {
   const queryClient = useQueryClient();
-  const { activeTeam } = useAppContext();
+  const { team } = useTeamContext();
   /**
    * Create schedule
    */
@@ -37,7 +37,7 @@ export default function CreateSchedule(props: CreateScheduleProps) {
 
   const handleCreateSchedule = async (schedule: ScheduleUnion) => {
     // intentionally don't handle error so it can be done by the ScheduleManagerForm
-    await createScheduleMutator({ teamId: activeTeam?.id, body: schedule });
+    await createScheduleMutator({ teamId: team?.id, body: schedule });
     notify(
       <ToastNotification
         kind="success"

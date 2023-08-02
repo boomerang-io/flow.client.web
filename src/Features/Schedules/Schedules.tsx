@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppContext } from "Hooks";
+import { useTeamContext } from "Hooks";
 import { useHistory, useLocation, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Layer, FilterableMultiSelect, Breadcrumb, BreadcrumbItem } from "@carbon/react";
@@ -42,7 +42,7 @@ const defaultToDate = moment().endOf("month").unix();
 export default function Schedules() {
   const history = useHistory();
   const location = useLocation();
-  const { activeTeam } = useAppContext();
+  const { team } = useTeamContext();
   const [activeSchedule, setActiveSchedule] = React.useState<ScheduleUnion | undefined>();
   const [newSchedule, setNewSchedule] = React.useState<Pick<ScheduleDate, "dateSchedule" | "type"> | undefined>();
   const [isPanelOpen, setIsPanelOpen] = React.useState(false);
@@ -55,7 +55,7 @@ export default function Schedules() {
   const { statuses = defaultStatusArray, workflows } = queryString.parse(location.search, queryStringOptions);
 
   /** Retrieve Workflows */
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
   const {
     data: workflowsData,
     isLoading: workflowsIsLoading,
@@ -68,7 +68,7 @@ export default function Schedules() {
   const schedulesUrlQuery = queryString.stringify(
     {
       statuses,
-      teams: activeTeam?.id,
+      teams: team?.id,
       workflows,
     },
     queryStringOptions
@@ -156,7 +156,7 @@ export default function Schedules() {
     return sortByProp(workflowsList, "name", "ASC");
   }
 
-  if (activeTeam && workflowsData) {
+  if (team && workflowsData) {
     const { workflows = "", statuses = "" } = queryString.parse(location.search, queryStringOptions);
     const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
@@ -167,7 +167,7 @@ export default function Schedules() {
             <Link to={appLink.home()}>Home</Link>
           </BreadcrumbItem>
           <BreadcrumbItem isCurrentPage>
-            <p>{activeTeam.name}</p>
+            <p>{team.name}</p>
           </BreadcrumbItem>
         </Breadcrumb>
       );

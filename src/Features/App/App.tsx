@@ -1,9 +1,9 @@
 import React, { lazy, useState, Suspense } from "react";
 import axios from "axios";
 import { FlagsProvider, useFeature } from "flagged";
-import { AppContextProvider } from "State/context";
+import { AppContextProvider, TeamContextProvider } from "State/context";
 import { useQuery, useQueryClient } from "react-query";
-import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import { Switch, Route, Redirect, useLocation, useParams } from "react-router-dom";
 import {
   DelayedRender,
   Error404,
@@ -65,7 +65,6 @@ export default function App() {
       : location.pathname.split("/").filter(Boolean)[0];
   const query = teamId ? `?teamId=${teamId}` : "";
   const getNavigationUrl = serviceUrl.getNavigation({ query });
-  const getTeamUrl = serviceUrl.resourceTeam({ teamId: teamId });
 
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
     !supportedBrowsers.includes(browser?.name ?? "")
@@ -112,25 +111,10 @@ export default function App() {
     enabled: Boolean(userQuery.data?.id),
   });
 
-  const teamQuery = useQuery<PaginatedTeamResponse, string>({
-    queryKey: getTeamUrl,
-    queryFn: resolver.query(getTeamUrl),
-    enabled: Boolean(userQuery.data?.id),
-  });
-
   const isLoading =
-    userQuery.isLoading ||
-    contextQuery.isLoading ||
-    // teamsQuery.isLoading ||
-    featureQuery.isLoading ||
-    navigationQuery.isLoading;
+    userQuery.isLoading || contextQuery.isLoading || featureQuery.isLoading || navigationQuery.isLoading;
 
-  const hasError =
-    userQuery.isError ||
-    contextQuery.isError ||
-    // teamsQuery.isError ||
-    featureQuery.isError ||
-    navigationQuery.isError;
+  const hasError = userQuery.isError || contextQuery.isError || featureQuery.isError || navigationQuery.isError;
 
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
@@ -194,7 +178,6 @@ export default function App() {
             setIsTutorialActive={setIsTutorialActive}
             setShouldShowBrowserWarning={setShouldShowBrowserWarning}
             shouldShowBrowserWarning={shouldShowBrowserWarning}
-            teamData={teamQuery.data}
             userData={userQuery.data}
             quotas={featureQuery.data.quotas}
           />
@@ -211,7 +194,6 @@ interface MainProps {
   setIsTutorialActive: (isTutorialActive: boolean) => void;
   setShouldShowBrowserWarning: (shouldShowBrowserWarning: boolean) => void;
   shouldShowBrowserWarning: boolean;
-  teamData: FlowTeam | null;
   userData: FlowUser;
   quotas: FlowFeatures["quotas"];
 }
@@ -222,7 +204,6 @@ function Main({
   setIsTutorialActive,
   setShouldShowBrowserWarning,
   shouldShowBrowserWarning,
-  teamData,
   userData,
   quotas,
 }: MainProps) {
@@ -240,7 +221,6 @@ function Main({
   return (
     <AppContextProvider
       value={{
-        activeTeam: teamData,
         isTutorialActive,
         setIsTutorialActive,
         quotas,
@@ -322,55 +302,57 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             </Switch>
           </Route>
           <Route path={"/:teamId"}>
-            <Switch>
-              <ProtectedRoute
-                allowedUserRoles={["*"]}
-                component={() => <Execution />}
-                path={AppPath.Execution}
-                userRole={activityEnabled ? "*" : ""}
-              />
-              <ProtectedRoute
-                allowedUserRoles={["*"]}
-                component={() => <Activity />}
-                path={AppPath.Activity}
-                userRole={activityEnabled ? "*" : ""}
-              />
-              <ProtectedRoute
-                allowedUserRoles={["*"]}
-                component={() => <Insights />}
-                path={AppPath.Insights}
-                userRole={insightsEnabled ? "*" : "none"}
-              />
-              <ProtectedRoute
-                allowedUserRoles={["*"]}
-                component={() => <TeamTasks />}
-                path={AppPath.ManageTaskTemplates}
-                userRole={teamTasksEnabled ? "*" : ""}
-              />
-              <ProtectedRoute
-                allowedUserRoles={["*"]}
-                component={() => <TeamParameters />}
-                path={AppPath.ManageTeamParameters}
-                userRole={teamParametersEnabled ? "*" : ""}
-              />
-              <Route path={AppPath.ManageTeam}>
-                <ManageTeam />
-              </Route>
-              <Route path={AppPath.Actions}>
-                <Actions />
-              </Route>
-              <Route path={AppPath.Editor}>
-                <Editor />
-              </Route>
-              <Route path={AppPath.Schedules}>
-                <Schedules />
-              </Route>
-              <Route path={AppPath.Workflows}>
-                <Workflows />
-              </Route>
-              <Redirect exact from="/" to={AppPath.Workflows} />
-              <Route path="*" component={() => <Error404 theme="boomerang" />} />
-            </Switch>
+            <TeamContainer>
+              <Switch>
+                <ProtectedRoute
+                  allowedUserRoles={["*"]}
+                  component={() => <Execution />}
+                  path={AppPath.Execution}
+                  userRole={activityEnabled ? "*" : ""}
+                />
+                <ProtectedRoute
+                  allowedUserRoles={["*"]}
+                  component={() => <Activity />}
+                  path={AppPath.Activity}
+                  userRole={activityEnabled ? "*" : ""}
+                />
+                <ProtectedRoute
+                  allowedUserRoles={["*"]}
+                  component={() => <Insights />}
+                  path={AppPath.Insights}
+                  userRole={insightsEnabled ? "*" : "none"}
+                />
+                <ProtectedRoute
+                  allowedUserRoles={["*"]}
+                  component={() => <TeamTasks />}
+                  path={AppPath.ManageTaskTemplates}
+                  userRole={teamTasksEnabled ? "*" : ""}
+                />
+                <ProtectedRoute
+                  allowedUserRoles={["*"]}
+                  component={() => <TeamParameters />}
+                  path={AppPath.ManageTeamParameters}
+                  userRole={teamParametersEnabled ? "*" : ""}
+                />
+                <Route path={AppPath.ManageTeam}>
+                  <ManageTeam />
+                </Route>
+                <Route path={AppPath.Actions}>
+                  <Actions />
+                </Route>
+                <Route path={AppPath.Editor}>
+                  <Editor />
+                </Route>
+                <Route path={AppPath.Schedules}>
+                  <Schedules />
+                </Route>
+                <Route path={AppPath.Workflows}>
+                  <Workflows />
+                </Route>
+                <Redirect exact from="/" to={AppPath.Workflows} />
+                <Route path="*" component={() => <Error404 theme="boomerang" />} />
+              </Switch>
+            </TeamContainer>
           </Route>
           <Redirect to="/home" />
         </Switch>
@@ -379,3 +361,31 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
     </main>
   );
 });
+
+function TeamContainer(props: { children: React.ReactNode }) {
+  const { teamId }: { teamId: string } = useParams();
+  const getTeamUrl = serviceUrl.resourceTeam({ teamId: teamId });
+
+  const teamQuery = useQuery<FlowTeam>({
+    queryKey: getTeamUrl,
+    queryFn: resolver.query(getTeamUrl),
+  });
+
+  if (teamQuery.isLoading || teamQuery.error) {
+    return null;
+  }
+
+  if (teamQuery.data) {
+    return (
+      <TeamContextProvider
+        value={{
+          team: teamQuery.data,
+        }}
+      >
+        {props.children}
+      </TeamContextProvider>
+    );
+  }
+
+  return null;
+}

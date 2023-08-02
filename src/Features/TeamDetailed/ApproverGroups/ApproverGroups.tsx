@@ -30,7 +30,7 @@ function ApproverGroups({ team, canEdit }: { team: FlowTeam; canEdit: boolean })
       <Helmet>
         <title>Team Approvers</title>
       </Helmet>
-      <ApproverGroupsTable activeTeam={team} canEdit={canEdit} />
+      <ApproverGroupsTable team={team} canEdit={canEdit} />
     </section>
   );
 }

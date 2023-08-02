@@ -1,5 +1,4 @@
 import React from "react";
-import { useAppContext } from "Hooks";
 import { Button, InlineNotification, ModalBody, ModalFooter, RadioButtonGroup, RadioButton } from "@carbon/react";
 import {
   Creatable,
@@ -43,8 +42,6 @@ interface CreateEditFormProps {
 }
 
 export default function CreateEditForm(props: CreateEditFormProps) {
-  const { teams } = useAppContext();
-
   const [workflowProperties, setWorkflowProperties] = React.useState<Array<DataDrivenInput> | undefined>(
     props.workflow?.config.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
   );

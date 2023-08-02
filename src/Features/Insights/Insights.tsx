@@ -18,7 +18,7 @@ import {
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { useAppContext } from "Hooks";
+import { useTeamContext } from "Hooks";
 import { useQuery } from "react-query";
 import { sortByProp } from "@boomerang-io/utils";
 import ErrorDragon from "Components/ErrorDragon";
@@ -64,7 +64,7 @@ const defaultFromDate = now.subtract(3, "months").valueOf();
 const defaultToDate = moment().endOf("day").valueOf();
 
 export default function Insights() {
-  const { activeTeam } = useAppContext();
+  const { team } = useTeamContext();
   const history = useHistory();
   const location = useLocation();
 
@@ -82,7 +82,7 @@ export default function Insights() {
   const insightsSearchParams = queryString.stringify(
     {
       statuses,
-      teams: activeTeam?.id,
+      teams: team?.id,
       triggers,
       workflows,
       fromDate,
@@ -104,7 +104,7 @@ export default function Insights() {
   }
 
   /** Retrieve Workflows */
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
   const {
     data: workflowsData,
     isLoading: workflowsIsLoading,
@@ -116,7 +116,7 @@ export default function Insights() {
 
   if (insightsQuery.error || workflowsIsError) {
     return (
-      <InsightsContainer team={activeTeam}>
+      <InsightsContainer team={team}>
         <Selects workflowsData={workflowsData?.content} updateHistorySearch={updateHistorySearch} />
         <ErrorDragon />
       </InsightsContainer>
@@ -125,7 +125,7 @@ export default function Insights() {
 
   if (insightsQuery.isLoading || workflowsIsLoading) {
     return (
-      <InsightsContainer team={activeTeam}>
+      <InsightsContainer team={team}>
         <Selects workflowsData={workflowsData?.content} updateHistorySearch={updateHistorySearch} />
         <div className={styles.cardPlaceholderContainer}>
           <SkeletonPlaceholder className={styles.cardPlaceholder} />
@@ -140,7 +140,7 @@ export default function Insights() {
 
   if (insightsQuery.data) {
     return (
-      <InsightsContainer team={activeTeam}>
+      <InsightsContainer team={team}>
         <Selects workflowsData={workflowsData?.content} updateHistorySearch={updateHistorySearch} />
         <Graphs data={insightsQuery.data} statuses={statuses as RunStatus | Array<RunStatus> | null} />
       </InsightsContainer>

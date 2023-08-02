@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useAppContext } from "Hooks";
+import { useTeamContext } from "Hooks";
 import { useFeature } from "flagged";
 import { useMutation, useQueryClient } from "react-query";
 import { Link, useHistory } from "react-router-dom";
@@ -46,7 +46,7 @@ interface WorkflowCardProps {
 type FunctionAnyReturn = () => any;
 
 const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, viewType }) => {
-  const { activeTeam } = useAppContext();
+  const { team } = useTeamContext();
   const queryClient = useQueryClient();
   const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -96,7 +96,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: activeTeam?.id }));
+        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: team?.id }));
       }
     } catch {
       notify(
@@ -122,7 +122,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: activeTeam?.id }));
+        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: team?.id }));
       }
       return;
     } catch (e) {
@@ -178,10 +178,10 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       if (redirect) {
         history.push({
           pathname: appLink.execution({ executionId: execution.id, workflowId }),
-          state: { fromUrl: appLink.workflows({ teamId: activeTeam?.id }), fromText: `${viewType}s` },
+          state: { fromUrl: appLink.workflows({ teamId: team?.id }), fromText: `${viewType}s` },
         });
       } else {
-        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: activeTeam?.id }));
+        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: team?.id }));
         closeModal();
       }
     } catch (err) {
@@ -198,11 +198,11 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
   let menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => history.push(appLink.editorDesigner({ teamId: activeTeam?.id, workflowId: workflow.id })),
+      onClick: () => history.push(appLink.editorDesigner({ teamId: team?.id, workflowId: workflow.id })),
     },
     {
       itemText: "View Activity",
-      onClick: () => history.push(appLink.workflowActivity({ teamId: activeTeam?.id, workflowId: workflow.id })),
+      onClick: () => history.push(appLink.workflowActivity({ teamId: team?.id, workflowId: workflow.id })),
     },
     {
       itemText: "Update",
@@ -251,7 +251,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
 
   return (
     <div className={styles.container}>
-      <Link to={!isDeleting ? appLink.editorDesigner({ teamId: activeTeam?.id, workflowId: workflow.id }) : ""}>
+      <Link to={!isDeleting ? appLink.editorDesigner({ teamId: team?.id, workflowId: workflow.id }) : ""}>
         <section className={styles.details}>
           <div className={styles.iconContainer}>
             <Icon className={styles.icon} alt={`${name}`} />

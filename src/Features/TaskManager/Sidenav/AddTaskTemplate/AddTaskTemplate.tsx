@@ -5,7 +5,7 @@ import { Button } from "@carbon/react";
 import { notify, ToastNotification, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import AddTaskTemplateForm from "./AddTaskTemplateForm";
 import { resolver } from "Config/servicesConfig";
-import { useAppContext } from "Hooks";
+import { useTeamContext } from "Hooks";
 import { useQueryClient } from "react-query";
 import { appLink } from "Config/appConfig";
 import { Add } from "@carbon/react/icons";
@@ -19,7 +19,7 @@ interface AddTaskTemplateProps {
 
 function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: AddTaskTemplateProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const { activeTeam } = useAppContext();
+  const { team } = useTeamContext();
   const queryClient = useQueryClient();
   const cancelRequestRef = React.useRef();
 
@@ -28,7 +28,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
   const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
     setIsSubmitting(true);
     try {
-      let response = await createTaskTemplateMutation.mutateAsync({ replace, team: activeTeam.id, body });
+      let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team.id, body });
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
         <ToastNotification
@@ -42,7 +42,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
         appLink.manageTaskTemplateEdit({
           name: response.data.name,
           version: response.data.version,
-          teamId: activeTeam.id,
+          teamId: team.id,
         })
       );
       closeModal();

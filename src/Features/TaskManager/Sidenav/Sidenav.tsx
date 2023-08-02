@@ -204,7 +204,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
                   {category.tasks.length > 0 ? (
                     category.tasks.map((task) => (
                       //@ts-ignore
-                      <Task key={task.name} task={task} activeTeam={team ?? null} />
+                      <Task key={task.name} task={task} team={team ?? null} />
                     ))
                   ) : (
                     <EmptyTask key={`${category.name}-empty`} />

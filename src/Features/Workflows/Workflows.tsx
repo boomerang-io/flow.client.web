@@ -1,8 +1,8 @@
 import React from "react";
 import { useFeature } from "flagged";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
-import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
+import { Button } from "@carbon/react";
 import { ComposedModal, Error, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { WarningAlt } from "@carbon/react/icons";
 import queryString from "query-string";
@@ -13,7 +13,7 @@ import WorkflowCard from "Components/WorkflowCard";
 import { WorkflowCardSkeleton } from "Components/WorkflowCard";
 import WorkflowsHeader from "Components/WorkflowsHeader";
 import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
-import { useAppContext } from "Hooks";
+import { useTeamContext } from "Hooks";
 import { FeatureFlag, appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import {
@@ -27,20 +27,20 @@ import {
 import styles from "./workflows.module.scss";
 
 export default function Workflows() {
-  const { activeTeam } = useAppContext();
+  const { team } = useTeamContext();
   const history = useHistory();
   const location = useLocation();
 
-  console.log("activeTeam", activeTeam);
+  console.log("activeTeam", team);
 
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
   const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>({
     queryKey: getWorkflowsUrl,
     queryFn: resolver.query(getWorkflowsUrl),
   });
 
   // TODO: make this smarter bc we shouldn't get to the route without an active team
-  if (!activeTeam) {
+  if (!team) {
     return history.push(appLink.home());
   }
 
@@ -62,12 +62,7 @@ export default function Workflows() {
 
   if (workflowsQuery.isLoading) {
     return (
-      <Layout
-        activeTeam={activeTeam}
-        handleUpdateFilter={handleUpdateFilter}
-        searchQuery={safeSearchQuery}
-        workflowList={[]}
-      >
+      <Layout team={team} handleUpdateFilter={handleUpdateFilter} searchQuery={safeSearchQuery} workflowList={[]}>
         <WorkflowCardSkeleton />
       </Layout>
     );
@@ -75,12 +70,7 @@ export default function Workflows() {
 
   if (workflowsQuery.error) {
     return (
-      <Layout
-        activeTeam={activeTeam}
-        handleUpdateFilter={handleUpdateFilter}
-        searchQuery={safeSearchQuery}
-        workflowList={[]}
-      >
+      <Layout team={team} handleUpdateFilter={handleUpdateFilter} searchQuery={safeSearchQuery} workflowList={[]}>
         <Error />
       </Layout>
     );
@@ -89,16 +79,12 @@ export default function Workflows() {
   if (workflowsQuery.data) {
     return (
       <Layout
-        activeTeam={activeTeam}
+        team={team}
         handleUpdateFilter={handleUpdateFilter}
         searchQuery={safeSearchQuery}
         workflowList={workflowsQuery.data.content}
       >
-        <WorkflowContent
-          activeTeam={activeTeam}
-          searchQuery={safeSearchQuery}
-          workflowList={workflowsQuery.data.content}
-        />
+        <WorkflowContent team={team} searchQuery={safeSearchQuery} workflowList={workflowsQuery.data.content} />
       </Layout>
     );
   }
@@ -107,7 +93,7 @@ export default function Workflows() {
 }
 
 interface LayoutProps {
-  activeTeam: FlowTeam;
+  team: FlowTeam;
   children: React.ReactNode;
   handleUpdateFilter: (args: { query: string }) => void;
   searchQuery: string;
@@ -134,7 +120,7 @@ function Layout(props: LayoutProps) {
 }
 
 interface WorkflowContentProps {
-  activeTeam: FlowTeam;
+  team: FlowTeam;
   searchQuery: string;
   workflowList: Array<Workflow>;
 }

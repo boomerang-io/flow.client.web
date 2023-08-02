@@ -1,9 +1,9 @@
 //@ts-nocheck
 import React from "react";
 import { Helmet } from "react-helmet";
-import { useAppContext, useQuery } from "Hooks";
+import { useTeamContext, useQuery } from "Hooks";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import { Error, Loading, ErrorMessage, FeatureNavTabs as Tabs } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Error, ErrorMessage, FeatureNavTabs as Tabs } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DatePicker, DatePickerInput, FilterableMultiSelect } from "@carbon/react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
@@ -11,7 +11,6 @@ import Tab from "./Tab";
 import moment from "moment";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
-import ErrorDragon from "Components/ErrorDragon";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { executionStatusList, QueryStatus } from "Constants";
@@ -26,7 +25,7 @@ const DEFAULT_FROM_DATE = moment().startOf("month").unix();
 const DEFAULT_TO_DATE = moment().endOf("month").unix();
 
 function WorkflowActivity() {
-  const { activeTeam } = useAppContext();
+  const { team } = useTeamContext();
   const history = useHistory();
   const location = useLocation();
   const match = useRouteMatch();
@@ -35,7 +34,7 @@ function WorkflowActivity() {
   const activitySummaryQuery = queryString.stringify({
     fromDate: DEFAULT_FROM_DATE,
     toDate: DEFAULT_TO_DATE,
-    teams: activeTeam?.id,
+    teams: team?.id,
   });
 
   const {
@@ -51,7 +50,7 @@ function WorkflowActivity() {
   } = queryString.parse(location.search, queryStringOptions);
 
   /** Retrieve Workflows */
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
   const {
     data: workflowsData,
     isLoading: workflowsIsLoading,
@@ -70,7 +69,7 @@ function WorkflowActivity() {
       limit,
       sort,
       statuses,
-      teams: activeTeam?.id,
+      teams: team?.id,
       triggers,
       workflows,
       fromDate,
@@ -81,7 +80,7 @@ function WorkflowActivity() {
 
   const wfRunStatusSummaryURLQuery = queryString.stringify(
     {
-      teams: activeTeam?.id,
+      teams: team?.id,
       triggers,
       workflows,
       fromDate,
@@ -192,7 +191,7 @@ function WorkflowActivity() {
     return (
       <div className={styles.container}>
         <ActivityHeader
-          team={activeTeam}
+          team={team}
           failedActivities={"--"}
           inProgressActivities={"--"}
           isError={true}
@@ -207,7 +206,7 @@ function WorkflowActivity() {
     );
   }
 
-  if (activeTeam && workflowsData) {
+  if (team && workflowsData) {
     const { workflows = "", triggers = "", statuses = "" } = queryString.parse(location.search, queryStringOptions);
     const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
     const selectedTriggers = typeof triggers === "string" ? [triggers] : triggers;
@@ -226,7 +225,7 @@ function WorkflowActivity() {
           <title>Activity</title>
         </Helmet>
         <ActivityHeader
-          team={activeTeam}
+          team={team}
           inProgressActivities={wfRunSummaryQuery.data?.inProgress ?? 0}
           isLoading={wfRunSummaryQuery.status === QueryStatus.Loading}
           failedActivities={wfRunSummaryQuery.data?.failure ?? 0}

@@ -6,7 +6,7 @@ import { FlowTeam } from "Types";
 import CreateServiceTokenButton from "./CreateToken";
 
 let server: any;
-const activeTeam: FlowTeam = {
+const team: FlowTeam = {
   higherLevelGroupId: "5c41596cf32aa30001e9d444",
   id: "5e3a35ad8c222700018ccd39",
   name: "IBM Services Engineering",
@@ -93,7 +93,7 @@ afterEach(() => {
 
 describe("CreateServiceTokenButton --- Snapshot", () => {
   it("Capturing Snapshot of CreateServiceTokenButton", async () => {
-    const { baseElement } = global.rtlQueryRender(<CreateServiceTokenButton activeTeam={activeTeam} />);
+    const { baseElement } = global.rtlQueryRender(<CreateServiceTokenButton team={activeTeam} />);
     await screen.findByText(/Create Token/i);
     expect(baseElement).toMatchSnapshot();
   });
@@ -101,7 +101,7 @@ describe("CreateServiceTokenButton --- Snapshot", () => {
 
 describe("CreateServiceTokenButton --- RTL", () => {
   it("Open token creation modal", async () => {
-    global.rtlQueryRender(<CreateServiceTokenButton activeTeam={activeTeam} />);
+    global.rtlQueryRender(<CreateServiceTokenButton team={activeTeam} />);
     const button = screen.getByTestId(/create-token-button/i);
     expect(screen.queryByText(/Create Team Token/i)).not.toBeInTheDocument();
     userEvent.click(button);
@@ -109,7 +109,7 @@ describe("CreateServiceTokenButton --- RTL", () => {
   });
 
   it("Fill out form", async () => {
-    global.rtlQueryRender(<CreateServiceTokenButton activeTeam={activeTeam} />);
+    global.rtlQueryRender(<CreateServiceTokenButton team={activeTeam} />);
     const button = screen.getByTestId(/create-token-button/i);
     expect(screen.queryByText(/Create Team Token/i)).not.toBeInTheDocument();
     userEvent.click(button);

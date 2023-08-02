@@ -5,7 +5,7 @@ import { Switch, Route, Redirect, useHistory, useLocation, useRouteMatch, Link }
 import moment from "moment";
 import queryString from "query-string";
 import { Helmet } from "react-helmet";
-import { useAppContext } from "Hooks";
+import { useTeamContext } from "Hooks";
 import { sortByProp } from "@boomerang-io/utils";
 import {
   DatePicker,
@@ -42,13 +42,13 @@ const DEFAULT_FROM_DATE = moment(new Date()).subtract("24", "hours").unix();
 const DEFAULT_TO_DATE = moment(new Date()).unix();
 
 function Actions() {
-  const { activeTeam } = useAppContext();
+  const { team } = useTeamContext();
   const history = useHistory();
   const location = useLocation();
   const match = useRouteMatch();
 
   const summaryQuery = queryString.stringify({
-    teams: activeTeam?.id,
+    teams: team?.id,
     fromDate: DEFAULT_FROM_DATE,
     toDate: DEFAULT_TO_DATE,
   });
@@ -95,7 +95,7 @@ function Actions() {
       limit,
       sort,
       statuses,
-      teams: activeTeam?.id,
+      teams: team?.id,
       type: actionType,
       workflows,
       fromDate,
@@ -106,7 +106,7 @@ function Actions() {
 
   const actionsUrlSummaryQuery = queryString.stringify(
     {
-      teams: activeTeam?.id,
+      teams: team?.id,
       workflows,
       fromDate,
       toDate,
@@ -134,7 +134,7 @@ function Actions() {
   });
 
   /** Retrieve Workflows */
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
   const {
     data: workflowsData,
     isLoading: workflowsIsLoading,
@@ -217,7 +217,7 @@ function Actions() {
     return sortByProp(workflowsList, "name", "ASC");
   }
 
-  if (activeTeam && workflowsData.content) {
+  if (team && workflowsData.content) {
     const { workflows = "", statuses = "" } = queryString.parse(location.search, queryStringOptions);
     const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
@@ -230,7 +230,7 @@ function Actions() {
             <Link to={appLink.home()}>Home</Link>
           </BreadcrumbItem>
           <BreadcrumbItem isCurrentPage>
-            <p>{activeTeam.name}</p>
+            <p>{team.name}</p>
           </BreadcrumbItem>
         </Breadcrumb>
       );
@@ -293,7 +293,7 @@ function Actions() {
                 exact
                 label={`Approvals (${approvalsNumber})`}
                 to={{
-                  pathname: appLink.actionsApprovals({ teamId: activeTeam.id }),
+                  pathname: appLink.actionsApprovals({ teamId: team.id }),
                   search: location.search,
                 }}
               />
@@ -301,7 +301,7 @@ function Actions() {
                 exact
                 label={`Manual (${manualTasksNumber})`}
                 to={{
-                  pathname: appLink.actionsManual({ teamId: activeTeam.id }),
+                  pathname: appLink.actionsManual({ teamId: team.id }),
                   search: location.search,
                 }}
               />

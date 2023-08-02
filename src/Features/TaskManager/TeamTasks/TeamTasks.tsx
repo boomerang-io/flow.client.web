@@ -12,7 +12,7 @@ import Sidenav from "../Sidenav";
 import TaskTemplateOverview from "../TaskTemplateOverview";
 import TaskTemplateYamlEditor from "../TaskTemplateEditor";
 import { groupTaskTemplatesByName } from "Utils";
-import { useAppContext } from "Hooks";
+import { useTeamContext } from "Hooks";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "../TaskManager.module.scss";
@@ -20,13 +20,13 @@ import styles from "../TaskManager.module.scss";
 const HELMET_TITLE = "Team Task Manager";
 
 function TaskTemplatesContainer() {
-  const { activeTeam } = useAppContext();
+  const { team } = useTeamContext();
   const history = useHistory();
   const match = useRouteMatch();
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
-  const getTaskTemplatesUrl = activeTeam
+  const getTaskTemplatesUrl = team
     ? serviceUrl.getTaskTemplates({
-        query: queryString.stringify({ teams: activeTeam?.id, statuses: "active,inactive" }),
+        query: queryString.stringify({ teams: team?.id, statuses: "active,inactive" }),
       })
     : serviceUrl.getTaskTemplates({
         query: queryString.stringify({ statuses: "active,inactive" }),
@@ -36,11 +36,11 @@ function TaskTemplatesContainer() {
     error: taskTemplatesDataError,
     isLoading,
   } = useQuery(getTaskTemplatesUrl, {
-    enabled: Boolean(activeTeam),
+    enabled: Boolean(team),
   });
 
   /** Check if there is an active team or redirect to home */
-  if (!activeTeam) {
+  if (!team) {
     return history.push(appLink.home());
   }
 
@@ -50,7 +50,7 @@ function TaskTemplatesContainer() {
         <Helmet>
           <title>{HELMET_TITLE}</title>
         </Helmet>
-        <Sidenav isLoading team={activeTeam} getTaskTemplatesUrl={getTaskTemplatesUrl} />
+        <Sidenav isLoading team={team} getTaskTemplatesUrl={getTaskTemplatesUrl} />
         <Box maxWidth="24rem" margin="0 auto">
           <WombatMessage className={styles.wombat} title="Retrieving Tasks..." />
         </Box>
@@ -77,7 +77,7 @@ function TaskTemplatesContainer() {
       <Helmet>
         <title>{HELMET_TITLE}</title>
       </Helmet>
-      <Sidenav team={activeTeam} taskTemplates={taskTemplatesByName} getTaskTemplatesUrl={getTaskTemplatesUrl} />
+      <Sidenav team={team} taskTemplates={taskTemplatesByName} getTaskTemplatesUrl={getTaskTemplatesUrl} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -98,7 +98,7 @@ function TaskTemplatesContainer() {
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>
-        <Redirect to={appLink.manageTaskTemplates({ teamId: activeTeam.id })} />
+        <Redirect to={appLink.manageTaskTemplates({ teamId: team.id })} />
       </Switch>
     </div>
   );

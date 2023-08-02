@@ -23,7 +23,6 @@ type AppContext = {
   };
   teams: FlowTeam[] | null; // TODO - check if we need this
   user: FlowUser;
-  activeTeam?: FlowTeam | null;
   name: string;
 };
 
@@ -51,3 +50,9 @@ interface EditorContext {
 }
 
 export const [useEditorContext, EditorContextProvider] = createContext<EditorContext>();
+
+interface TeamContext {
+  team: FlowTeam;
+}
+
+export const [useTeamContext, TeamContextProvider] = createContext<TeamContext>();
