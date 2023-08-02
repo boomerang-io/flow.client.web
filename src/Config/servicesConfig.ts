@@ -41,6 +41,7 @@ export const serviceUrl = {
   deleteCancelWorkflow: ({ executionId }) => `${BASE_URL}/workflowrun/${executionId}/cancel`,
   deleteToken: ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
   deleteSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
+  deleteTeamMembers: ({ teamId }) => `${BASE_URL}/team/${teamId}/members`,
   getWorkflowRunCount: ({ query }: QueryArg) => `${BASE_URL}/workflowrun/count${query ? "?" + query : ""}`,
   getWorkflowRuns: ({ query }: QueryArg) => `${BASE_URL}/workflowrun/query${query ? "?" + query : ""}`,
   getActionsSummary: ({ query }: QueryArg) => `${BASE_URL}/action/summary${query ? "?" + query : ""}`,
@@ -143,7 +144,7 @@ export const resolver = {
   // deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   deleteCancelWorkflow: ({ executionId }) => axios.delete(serviceUrl.deleteCancelWorkflow({ executionId })),
   deleteGlobalParameter: ({ key }) => axios.delete(serviceUrl.getGlobalParameter({ key })),
-  deleteTeamMembers: ({ id, body }) => axios.delete(serviceUrl.resourceTeamMembers({ id }), body),
+  deleteTeamMembers: ({ id, body }) => axios.delete(serviceUrl.deleteTeamMembers({ id }), body),
   deleteTeamParameters: ({ id, body }) =>
     axios.delete(serviceUrl.resourceTeamParameters({ id }), body),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
