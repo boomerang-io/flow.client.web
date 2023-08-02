@@ -158,12 +158,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Team Propertiies
        */
-      this.get(serviceUrl.getTeamParameters({ id: ":id" }), (schema, request) => {
+      this.get(serviceUrl.resourceTeamParameters({ id: ":id" }), (schema, request) => {
         let { id } = request.params;
         let property = schema.teamProperties.find(id);
         return property && property.properties ? property.properties : [];
       });
-      this.post(serviceUrl.getTeamParameters({ id: ":id" }), (schema, request) => {
+      this.post(serviceUrl.resourceTeamParameters({ id: ":id" }), (schema, request) => {
         /**
          * find team record, update the list of properties for that team
          */
@@ -176,7 +176,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.teamProperties.all();
       });
       this.patch(
-        serviceUrl.getTeamParameter({ teamId: ":teamId", configurationId: ":configurationId" }),
+        serviceUrl.resourceTeamParameters({ teamId: ":teamId", configurationId: ":configurationId" }),
         (schema, request) => {
           /**
            * find team record, update the list of properties for that team
@@ -192,7 +192,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
       );
       this.delete(
-        serviceUrl.getTeamParameter({ teamId: ":teamId", configurationId: ":configurationId" }),
+        serviceUrl.resourceTeamParameters({ teamId: ":teamId", configurationId: ":configurationId" }),
         (schema, request) => {
           /**
            * find team record, update the list of properties for that team
@@ -395,10 +395,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        */
       this.get(serviceUrl.resourceApproverGroups({ teamId: ":teamId" }), (schema) => {
         return schema.db.approverGroups;
-      });
-
-      this.get(serviceUrl.getTeamMembers({ teamId: ":teamId" }), (schema) => {
-        return schema.db.teamApproverUsers;
       });
 
       //Delete approver group

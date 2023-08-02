@@ -5,7 +5,7 @@ import CreateEditParametersModal from "../CreateEditParametersModal";
 import ActionsMenu from "./ActionsMenu";
 import EmptyState from "Components/EmptyState";
 import { InputType, PASSWORD_CONSTANT } from "Constants";
-import { Property } from "Types";
+import { DataDrivenInput } from "Types";
 import { Checkmark, Close } from "@carbon/react/icons";
 import styles from "./parametersTable.module.scss";
 
@@ -44,20 +44,20 @@ const headers = [
 ];
 
 interface ParametersTableProps {
-  parameters: Property[];
+  parameters: Array<DataDrivenInput>;
   isLoading: boolean;
   isSubmitting: boolean;
   errorLoading: boolean;
   errorSubmitting: boolean;
-  handleDelete: (component: Property) => Promise<void>;
-  handleSubmit: (isEdit: boolean, component: Property) => Promise<void>;
+  handleDelete: (parameter: DataDrivenInput) => Promise<void>;
+  handleSubmit: (isEdit: boolean, parameter: DataDrivenInput) => Promise<void>;
 }
 
 const ParametersTable: React.FC<ParametersTableProps> = ({
   parameters,
-  isLoading,
-  errorLoading,
   errorSubmitting,
+  errorLoading,
+  isLoading,
   isSubmitting,
   handleDelete,
   handleSubmit,

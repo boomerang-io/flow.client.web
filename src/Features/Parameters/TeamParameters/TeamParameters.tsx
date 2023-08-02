@@ -1,10 +1,10 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useHistory, Link } from "react-router-dom";
-import { useQuery, useQueryClient, useMutation } from "react-query";
+import { useMutation } from "react-query";
 import { useAppContext } from "Hooks";
 import ParametersTable from "../ParametersTable";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import { Breadcrumb, BreadcrumbItem } from "@carbon/react";
 import {
@@ -14,35 +14,25 @@ import {
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Property } from "Types";
+import { DataDrivenInput } from "Types";
 import { formatErrorMessage } from "@boomerang-io/utils";
 import styles from "./teamParameters.module.scss";
 
 function TeamParameters() {
   const history = useHistory();
   const { activeTeam } = useAppContext();
-  const queryClient = useQueryClient();
-
-  /** Get team properties */
-  const teamParametersUrl = serviceUrl.getTeamParameters({ id: activeTeam?.id });
-  const teamParametersQuery = useQuery(teamParametersUrl, resolver.query(teamParametersUrl), {
-    enabled: Boolean(activeTeam?.id),
-  });
 
   /** Add / Update / Delete Team parameter */
-  const addParameterMutation = useMutation(resolver.postTeamParameter);
-  const updateParameterMutation = useMutation(resolver.patchTeamParameter);
-  const deleteParameterMutation = useMutation(resolver.deleteTeamParameter);
+  const parameterMutation = useMutation(resolver.patchTeam);
+  const deleteParameterMutation = useMutation(resolver.deleteTeamParameters);
 
-  const handleSubmit = async (isEdit: boolean, parameter: any) => {
-    if (isEdit) {
-      try {
-        const response = await updateParameterMutation.mutateAsync({
-          id: activeTeam?.id,
-          key: parameter.key,
-          body: parameter,
-        });
-        queryClient.invalidateQueries([teamParametersUrl]);
+  const handleSubmit = async (isEdit: boolean, parameter: DataDrivenInput) => {
+    try {
+      const response = await parameterMutation.mutateAsync({
+        teamId: activeTeam?.id,
+        body: { parameters: [parameter] },
+      });
+      if (isEdit) {
         notify(
           <ToastNotification
             kind="success"
@@ -51,11 +41,7 @@ function TeamParameters() {
             data-testid="create-update-team-prop-notification"
           />
         );
-      } catch (err) {}
-    } else {
-      try {
-        const response = await addParameterMutation.mutateAsync({ id: activeTeam?.id, body: parameter });
-        queryClient.invalidateQueries([teamParametersUrl]);
+      } else {
         notify(
           <ToastNotification
             kind="success"
@@ -64,16 +50,15 @@ function TeamParameters() {
             data-testid="create-update-team-prop-notification"
           />
         );
-      } catch (err) {
-        //no-op
       }
+    } catch (err) {
+      //no-op
     }
   };
 
-  const handleDelete = async (parameter: Property) => {
+  const handleDelete = async (parameter: DataDrivenInput) => {
     try {
-      await deleteParameterMutation.mutateAsync({ id: activeTeam?.id, key: parameter.key });
-      queryClient.invalidateQueries([teamParametersUrl]);
+      await deleteParameterMutation.mutateAsync({ id: activeTeam?.id, body: [parameter.key] });
       notify(
         <ToastNotification
           kind="success"
@@ -132,11 +117,11 @@ function TeamParameters() {
         }
       />
       <ParametersTable
-        parameters={teamParametersQuery.data ?? []}
-        isLoading={teamParametersQuery.isLoading}
-        isSubmitting={updateParameterMutation.isLoading}
-        errorLoading={teamParametersQuery.isError}
-        errorSubmitting={updateParameterMutation.isError}
+        parameters={activeTeam.parameters ?? []}
+        isLoading={false}
+        isSubmitting={parameterMutation.isLoading}
+        errorSubmitting={parameterMutation.isError}
+        errorLoading={false}
         handleDelete={handleDelete}
         handleSubmit={handleSubmit}
       />

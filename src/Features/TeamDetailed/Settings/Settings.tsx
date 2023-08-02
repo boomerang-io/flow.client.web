@@ -98,7 +98,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
               <Button
                 disabled={!canEdit}
                 iconDescription="Close"
-                kind="danger"
+                kind="danger--ghost"
                 onClick={openModal}
                 renderIcon={Close}
                 size="md"

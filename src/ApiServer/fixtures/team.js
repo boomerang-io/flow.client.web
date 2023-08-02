@@ -21,19 +21,41 @@ const team = {
         {
           id: "61d38d133aa9034ded32cae6",
           email: "admin@flowabl.io",
-          name: "admin@flowabl.io"
+          name: "admin@flowabl.io",
+          role: "Editor"
         },
         {
           id: "61d5db083aa9034ded32cae7",
           email: "boomrng@us.ibm.com",
-          name: "Boomerang Joe"
+          name: "Boomerang Joe",
+          role: "Owner"
         },
         {
           id: "61ddfb07c5d30f5de052426b",
           email: "marcus.d.roy@gmail.com",
-          name: "marcus.d.roy@gmail.com"
+          name: "marcus.d.roy@gmail.com",
+          role: "Owner"
         }],
-      parameters: [],
+      parameters: [
+        {
+            "key": "test",
+            "description": "This is a test",
+            "label": "Test",
+            "type": "text",
+            "minValueLength": null,
+            "maxValueLength": null,
+            "options": null,
+            "required": null,
+            "placeholder": null,
+            "language": null,
+            "disabled": null,
+            "defaultValue": null,
+            "value": "test value",
+            "values": null,
+            "readOnly": false,
+            "hiddenValue": null,
+            "helperText": null
+        }],
       approverGroups: [
         {
             "id": "64c89095f12a60116b98e83e",

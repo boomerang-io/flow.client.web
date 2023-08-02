@@ -52,61 +52,51 @@ function TeamDetailedContainer() {
 
   const teamDetailsUrl = serviceUrl.resourceTeam({ teamId });
 
-  const {
-    data: teamDetailsData,
-    error: teamDetailsError,
-    isLoading: teamDetailsIsLoading,
-  } = useQuery({
+  const teamDetailsQuery = useQuery({
     queryKey: teamDetailsUrl,
     queryFn: resolver.query(teamDetailsUrl),
   });
 
-  if (teamDetailsIsLoading)
+  if (teamDetailsQuery.isLoading)
     return (
       <FeatureLayout>
         <Loading />
       </FeatureLayout>
     );
-  if (teamDetailsError)
+  if (teamDetailsQuery.error)
     return (
       <FeatureLayout>
         <ErrorMessage />
       </FeatureLayout>
     );
 
-  if (teamDetailsData) {
-    const canEdit = teamManagementEnabled && teamDetailsData.status === "active";
+  if (teamDetailsQuery.data) {
+    const canEdit = teamManagementEnabled && teamDetailsQuery.data.status === "active";
     // const teamOwnerIdList = teamDetailsData?.owners?.map((owner) => owner.ownerId);
     return (
       <div className={styles.container}>
-        <Header team={teamDetailsData} />
+        <Header team={teamDetailsQuery.data} />
         <Switch>
           <Route exact path={AppPath.ManageTeam}>
-            <Members
-              canEdit={canEdit}
-              team={teamDetailsData}
-              memberList={teamDetailsData.members}
-              user={user}
-              teamDetailsUrl={teamDetailsUrl}
-            />
+            <Members canEdit={canEdit} team={teamDetailsQuery.data} user={user} teamDetailsUrl={teamDetailsUrl} />
           </Route>
           <Route exact path={AppPath.ManageTeamWorkflows}>
-            <Workflows team={teamDetailsData} />
+            <Workflows team={teamDetailsQuery.data} />
           </Route>
           <Route exact path={AppPath.ManageTeamApprovers}>
-            <ApproverGroups team={teamDetailsData} canEdit={canEdit} />
+            <ApproverGroups team={teamDetailsQuery.data} canEdit={canEdit} />
           </Route>
           <Route exact path={AppPath.ManageTeamQuotas}>
-            <Quotas team={teamDetailsData} canEdit={canEdit && user?.type === "admin"} />
+            <Quotas team={teamDetailsQuery.data} canEdit={canEdit && user?.type === "admin"} />
           </Route>
           <Route exact path={AppPath.ManageTeamTokens}>
-            <Tokens team={teamDetailsData} />
+            <Tokens team={teamDetailsQuery.data} />
           </Route>
           <Route exact path={AppPath.ManageTeamLabels}>
-            <Labels team={teamDetailsData} canEdit={canEdit} />
+            <Labels team={teamDetailsQuery.data} canEdit={canEdit} />
           </Route>
           <Route exact path={AppPath.ManageTeamSettings}>
-            <Settings team={teamDetailsData} canEdit={canEdit} />
+            <Settings team={teamDetailsQuery.data} canEdit={canEdit} />
           </Route>
         </Switch>
       </div>

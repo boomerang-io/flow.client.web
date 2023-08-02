@@ -25,21 +25,20 @@ import styles from "./Members.module.scss";
 
 interface MemberProps {
   canEdit: boolean;
-  memberList: FlowUser[];
   team: FlowTeam;
   user: FlowUser;
   teamDetailsUrl: string;
 }
 
-const Members: React.FC<MemberProps> = ({ canEdit, memberList = [], team, user, teamDetailsUrl }) => {
+const Members: React.FC<MemberProps> = ({ canEdit, team, user, teamDetailsUrl }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
-  const filteredMemberList = searchQuery ? ms(memberList, searchQuery, { keys: ["name", "email"] }) : memberList;
+  const filteredMemberList = searchQuery ? ms(team.members, searchQuery, { keys: ["name", "email"] }) : team.members;
   const addMemberMutator = useMutation(resolver.patchTeam);
   const queryClient = useQueryClient();
 
   const handleSubmit = async (request: Array<Member>) => {
     try {
-      await addMemberMutator.mutateAsync({ teamId: team.id, body: request });
+      await addMemberMutator.mutateAsync({ teamId: team.id, body: { members: request } });
       queryClient.invalidateQueries([teamDetailsUrl]);
       request.forEach((user: Member) => {
         return notify(
@@ -54,8 +53,6 @@ const Members: React.FC<MemberProps> = ({ canEdit, memberList = [], team, user, 
       // noop
     }
   };
-
-  const memberIdList = memberList?.map((member) => member.id);
 
   const isAdmin = user?.type === "admin";
   return (
@@ -80,14 +77,14 @@ const Members: React.FC<MemberProps> = ({ canEdit, memberList = [], team, user, 
           <div className={styles.rightActions}>
             {isAdmin && (
               <AddMemberSearch
-                memberList={memberList}
+                memberList={team.members}
                 handleSubmit={handleSubmit}
                 isSubmitting={addMemberMutator.isLoading}
                 error={addMemberMutator.error}
               />
             )}
             <AddMember
-              memberList={memberList}
+              memberList={team.members}
               handleSubmit={handleSubmit}
               isSubmitting={addMemberMutator.isLoading}
               error={addMemberMutator.error}
@@ -101,9 +98,7 @@ const Members: React.FC<MemberProps> = ({ canEdit, memberList = [], team, user, 
             <StructuredListRow head>
               <StructuredListCell head>Name</StructuredListCell>
               <StructuredListCell head>Email</StructuredListCell>
-
-              <StructuredListCell head>Added on</StructuredListCell>
-              <StructuredListCell head />
+              <StructuredListCell head>Role</StructuredListCell>
               <StructuredListCell head />
               <StructuredListCell head />
             </StructuredListRow>
@@ -118,10 +113,7 @@ const Members: React.FC<MemberProps> = ({ canEdit, memberList = [], team, user, 
                     </div>
                   </StructuredListCell>
                   <StructuredListCell>{member.email}</StructuredListCell>
-                  <StructuredListCell>{moment(member.firstLoginDate).format("MMMM D, YYYY")}</StructuredListCell>
-                  <StructuredListCell>
-                    {canEdit && <RemoveMember member={member} teamId={team.id} teamName={team.name} userId={user.id} />}
-                  </StructuredListCell>
+                  <StructuredListCell>{member.role}</StructuredListCell>
                   <StructuredListCell>
                     <Link
                       className={styles.viewMemberLink}
@@ -132,6 +124,9 @@ const Members: React.FC<MemberProps> = ({ canEdit, memberList = [], team, user, 
                     >
                       View user
                     </Link>
+                  </StructuredListCell>
+                  <StructuredListCell>
+                    {canEdit && <RemoveMember member={member} teamId={team.id} teamName={team.name} userId={user.id} />}
                   </StructuredListCell>
                 </StructuredListRow>
               );
