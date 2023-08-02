@@ -5,11 +5,11 @@ import { ComposedModal, ModalForm, Loading } from "@boomerang-io/carbon-addons-b
 import { Formik } from "formik";
 import { Add } from "@carbon/react/icons";
 import MemberCard from "Components/MemberCard";
-import { FlowUser, Member, MemberRole } from "Types";
+import { Member, MemberRole } from "Types";
 import styles from "./AddMember.module.scss";
 
 interface AddMemberProps {
-  memberList: FlowUser[];
+  memberList: Array<Member>;
   handleSubmit: Function;
   isSubmitting: boolean;
   error: any;

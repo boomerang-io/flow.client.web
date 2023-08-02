@@ -21,9 +21,9 @@ type AppContext = {
     maxActivityStorageSize: string;
     maxWorkflowStorageSize: string;
   };
-  teams: FlowTeam[];
+  teams: FlowTeam[] | null; // TODO - check if we need this
   user: FlowUser;
-  activeTeam?: FlowTeam;
+  activeTeam?: FlowTeam | null;
   name: string;
 };
 

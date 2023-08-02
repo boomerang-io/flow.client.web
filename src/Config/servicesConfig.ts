@@ -41,6 +41,7 @@ export const serviceUrl = {
   deleteCancelWorkflow: ({ executionId }) => `${BASE_URL}/workflowrun/${executionId}/cancel`,
   deleteToken: ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
   deleteSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
+  deleteTeamMembers: ({ teamId }) => `${BASE_URL}/team/${teamId}/members`,
   getWorkflowRunCount: ({ query }: QueryArg) => `${BASE_URL}/workflowrun/count${query ? "?" + query : ""}`,
   getWorkflowRuns: ({ query }: QueryArg) => `${BASE_URL}/workflowrun/query${query ? "?" + query : ""}`,
   getActionsSummary: ({ query }: QueryArg) => `${BASE_URL}/action/summary${query ? "?" + query : ""}`,
@@ -63,16 +64,10 @@ export const serviceUrl = {
   getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedules/validate/cron?cron=${expression}`,
   getTaskTemplates: ({ query }: QueryId) => `${BASE_URL}/tasktemplate/query${query ? "?" + query : ""}`,
   getTaskTemplateYaml: ({ name, version }) => `${BASE_URL}/tasktemplate/${name}${version ? `?version=${version}` : ""}`,
-  getTeam: ({ teamId }: QueryId) => `${BASE_URL}/team/${teamId}`,
   getTeams: ({ query }: QueryId) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
-  getMyTeams: ({ query }: QueryId) => `${BASE_URL}/team/mine${query ? "?" + query : ""}`,
-  getTeamParameter: ({ id, key }) => `${BASE_URL}/team/${id}/parameters/${key}`,
-  getTeamParameters: ({ id }) => `${BASE_URL}/team/${id}/parameters`,
   getTeamQuotas: ({ id }) => `${BASE_URL}/team/${id}/quotas`,
   getTeamQuotaDefaults: () => `${BASE_URL}/team/quotas/default`,
   getTokens: ({ query }) => `${BASE_URL}/token/query${query ? "?" + query : ""}`,
-  getTeamMembers: ({ teamId }: TeamIdArg) => `${BASE_URL}/team/${teamId}/members`,
-  leaveTeam: ({ id }) => `${BASE_URL}/${id}/leave`,
   getUsers: ({ query }: QueryId) => `${BASE_URL}/user/query${query ? "?" + query : ""}`,
   getUser: ({ userId }) => `${BASE_URL}/user/${userId}`,
   deleteUser: ({ userId }) => `${BASE_URL}/user/${userId}`,
@@ -112,11 +107,12 @@ export const serviceUrl = {
   putTaskTemplate: ({ replace, team }) => `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
   putStatusTaskTemplate: ({ name, status }) => `${BASE_URL}/tasktemplate/${name}/${status}`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
-  resourceTeamMembers: ({ teamId }) => `${BASE_URL}/team/${teamId}/members`,
+  resourceTeam: ({ teamId }) => `${BASE_URL}/team/${teamId}`,
   putWorkflowAction: () => `${BASE_URL}/action/action`,
   resourceApproverGroups: ({ teamId, groupId }) =>
     `${BASE_URL}/team/${teamId}/approvers${groupId ? "/" + groupId : ""}`,
   resourceSettings: () => `${BASE_URL}/settings`,
+  resourceTeamParameters: ({ id }) => `${BASE_URL}/team/${id}/parameters`,
   workflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
   getWorkflowTemplates: () => `${BASE_URL}/workflowtemplate/query`,
 };
@@ -148,9 +144,9 @@ export const resolver = {
   // deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   deleteCancelWorkflow: ({ executionId }) => axios.delete(serviceUrl.deleteCancelWorkflow({ executionId })),
   deleteGlobalParameter: ({ key }) => axios.delete(serviceUrl.getGlobalParameter({ key })),
-  deleteTeamMembers: ({ teamId, body }) => axios.delete(serviceUrl.resourceTeamMembers({ teamId }), body),
-  deleteTeamParameter: ({ id, key }) =>
-    axios.delete(serviceUrl.getTeamParameter({ id, key })),
+  deleteTeamMembers: ({ id, body }) => axios.delete(serviceUrl.deleteTeamMembers({ id }), body),
+  deleteTeamParameters: ({ id, body }) =>
+    axios.delete(serviceUrl.resourceTeamParameters({ id }), body),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
   leaveTeam: ({ id }) => axios.delete(serviceUrl.leaveTeam({ id })),
   deleteSchedule: ({ scheduleId }) => axios.delete(serviceUrl.deleteSchedule({ scheduleId })),
@@ -158,7 +154,7 @@ export const resolver = {
   deleteUser: ({ userId }) => axios.delete(serviceUrl.deleteUser({ userId })),
   patchGlobalParameter: ({ key, body }) =>
     axios({ url: serviceUrl.getGlobalParameter({ key }), data: body, method: HttpMethod.Patch }),
-  patchTeamMembers: ({ teamId, body }) => axios.patch(serviceUrl.resourceTeamMembers({ teamId }), body),
+  patchTeam: ({ teamId, body }) => axios.patch(serviceUrl.resourceTeam({ teamId }), body),
   patchManageTeamLabels: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamLabels({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
     axios({ url: serviceUrl.getUser({ userId }), data: body, method: HttpMethod.Patch }),
@@ -231,7 +227,7 @@ export const resolver = {
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
   postSchedule: ({ teamId, body }) => axios.post(serviceUrl.postSchedule({ teamId }), body),
   postTeamParameter: ({ id, body }) =>
-    axios({ url: serviceUrl.getTeamParameters({ id }), data: body, method: HttpMethod.Post }),
+    axios({ url: serviceUrl.resourceTeamParameters({ id }), data: body, method: HttpMethod.Post }),
   postWorkflowAvailableParameters: ({ workflowId, body }) =>
     axios.post(serviceUrl.workflowAvailableParameters({ workflowId }), body),
   putActivationApp: ({ body }) =>
@@ -249,7 +245,7 @@ export const resolver = {
     }),
   putPlatformSettings: ({ body }) => axios.put(serviceUrl.resourceSettings(), body),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.putRestoreTaskTemplate({ id })),
-  patchUpdateTeam: ({ teamId, body }) => axios.patch(serviceUrl.getTeam({ teamId }), body),
+  patchUpdateTeam: ({ teamId, body }) => axios.patch(serviceUrl.resourceTeam({ teamId }), body),
   putTeamQuotasDefault: ({ id }) =>
     cancellableResolver({ url: serviceUrl.putTeamQuotasDefault({ id }), method: HttpMethod.Put }),
   putTeamQuotas: ({ id, body }) =>

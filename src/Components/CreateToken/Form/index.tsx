@@ -57,19 +57,19 @@ function CreateServiceTokenForm({
 
   const permissionsList = [
     {
-      id: `**/${principal}/read`,
+      id: `**/${principal}/Read`,
       labelText: "Read",
     },
     {
-      id: `**/${principal}/write`,
+      id: `**/${principal}/Write`,
       labelText: "Write",
     },
     {
-      id: `**/${principal}/action`,
+      id: `**/${principal}/Action`,
       labelText: "Action",
     },
     {
-      id: `**/${principal}/delete`,
+      id: `**/${principal}/Delete`,
       labelText: "Delete",
     },
   ];
@@ -122,7 +122,7 @@ function CreateServiceTokenForm({
         expirationDate: "",
         description: "",
         principal: principal,
-        permissions: [`**/${principal}/read`],
+        permissions: [`**/${principal}/Read`],
         teams: [],
       }}
       validateOnMount

@@ -32,7 +32,32 @@ const profile = {
   notificationSettings: {},
   status: "active",
   projects: null,
-  teams: null,
+  teams: [
+      {
+          id: "61d67184c124cb2c190f4696",
+          name: "Tyson Team",
+          creationDate: "2023-07-20T06:31:56.322+00:00",
+          status: "active",
+          externalRef: null,
+          labels: {}
+      },
+      {
+          id: "64b8d5a5040e205ee3383ab1",
+          name: "admin-flowabl-io Personal Team",
+          creationDate: "2023-07-20T06:35:17.481+00:00",
+          status: "active",
+          externalRef: null,
+          labels: {}
+      },
+      {
+          id: "64b8d63b040e205ee3383abd",
+          name: "system",
+          creationDate: "2023-07-20T06:37:47.889+00:00",
+          status: "active",
+          externalRef: null,
+          labels: {}
+      }
+  ],
   hasConsented: true,
 };
 

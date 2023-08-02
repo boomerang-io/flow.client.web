@@ -1,11 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import ParametersTable from "../ParametersTable";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { appLink } from "Config/appConfig";
-import { Breadcrumb, BreadcrumbItem } from "@carbon/react";
 import {
   notify,
   ToastNotification,
@@ -13,7 +10,7 @@ import {
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Property } from "Types";
+import { DataDrivenInput } from "Types";
 import { formatErrorMessage } from "@boomerang-io/utils";
 import styles from "./globalParameters.module.scss";
 
@@ -29,7 +26,7 @@ function GlobalParameters() {
   const updateParameterMutation = useMutation(resolver.patchGlobalParameter);
   const deleteParameterMutation = useMutation(resolver.deleteGlobalParameter);
 
-  const handleSubmit = async (isEdit: boolean, parameter: any) => {
+  const handleSubmit = async (isEdit: boolean, parameter: DataDrivenInput) => {
     if (isEdit) {
       try {
         const response = await updateParameterMutation.mutateAsync({
@@ -64,7 +61,7 @@ function GlobalParameters() {
     }
   };
 
-  const handleDelete = async (parameter: Property) => {
+  const handleDelete = async (parameter: DataDrivenInput) => {
     try {
       await deleteParameterMutation.mutateAsync({ key: parameter.key });
       queryClient.invalidateQueries([parametersUrl]);

@@ -14,7 +14,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
   const queryClient = useQueryClient();
 
   const { mutateAsync: removeTeamMutator } = useMutation(resolver.patchUpdateTeam, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getTeam({ teamId: team.id })),
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id })),
   });
 
   const removeTeam = async () => {
@@ -98,7 +98,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
               <Button
                 disabled={!canEdit}
                 iconDescription="Close"
-                kind="danger"
+                kind="danger--ghost"
                 onClick={openModal}
                 renderIcon={Close}
                 size="md"

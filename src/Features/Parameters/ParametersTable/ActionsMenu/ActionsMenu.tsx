@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { OverflowMenu, OverflowMenuItem } from "@carbon/react";
 import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditParametersModal from "../../CreateEditParametersModal";
-import { Property } from "Types";
+import { DataDrivenInput } from "Types";
 
 interface OverflowMenuComponentProps {
-  parameter: Property;
-  parameters: Property[];
+  parameter: DataDrivenInput;
+  parameters: DataDrivenInput[];
   isSubmitting: boolean;
   errorSubmitting: boolean;
-  handleDelete: (component: Property) => Promise<void>;
-  handleSubmit: (isEdit: boolean, values: any) => Promise<void>;
+  handleDelete: (parameter: DataDrivenInput) => Promise<void>;
+  handleSubmit: (isEdit: boolean, parameter: any) => Promise<void>;
 }
 
 const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({

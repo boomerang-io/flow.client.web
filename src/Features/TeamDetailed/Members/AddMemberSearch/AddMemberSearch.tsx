@@ -5,24 +5,12 @@ import { Add } from "@carbon/react/icons";
 import { Button, InlineNotification, ModalBody, ModalFooter, Search } from "@carbon/react";
 import { Error, Loading, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl } from "Config/servicesConfig";
-import { FlowUser, PaginatedUserResponse } from "Types";
+import { Member, MemberRole, PaginatedUserResponse } from "Types";
 import MemberBar from "./MemberBar";
 import styles from "./AddMemberSearch.module.scss";
 
-enum Role {
-  Owner = "owner",
-  Editor = "editor",
-  Reader = "reader",
-}
-
-interface Member {
-  id?: string;
-  email: string;
-  role: Role;
-}
-
 interface AddMemberSearchProps {
-  memberList: FlowUser[];
+  memberList: Array<Member>;
   handleSubmit: Function;
   isSubmitting: boolean;
   error: any;
@@ -66,15 +54,15 @@ function AddMemberSearch({ memberList, handleSubmit, isSubmitting, error }: AddM
 
 interface AddMemberContentProps {
   closeModal: Function;
-  memberList: FlowUser[];
+  memberList: Array<Member>;
   handleSubmit: Function;
   isSubmitting: boolean;
   errorSubmit: any;
 }
 
 function AddMemberContent({ closeModal, memberList, handleSubmit, isSubmitting, errorSubmit }: AddMemberContentProps) {
-  const [userList, setUserList] = useState<FlowUser[]>([]);
-  const [selectedUsers, setSelectedUsers] = useState<FlowUser[]>([]);
+  const [userList, setUserList] = useState<Member[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<Member[]>([]);
   const [usersListOpen, setUsersListOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const usersUrl = serviceUrl.getUsers({ query: null });
@@ -109,14 +97,14 @@ function AddMemberContent({ closeModal, memberList, handleSubmit, isSubmitting, 
   };
 
   const addUser = (id: string) => {
-    const user = userList.find((user: FlowUser) => user.id === id);
+    const user = userList.find((user: Member) => user.id === id);
     setSelectedUsers(selectedUsers.concat(user));
     setUsersListOpen(false);
   };
 
   const removeUser = (id: string) => {
     const users = [...selectedUsers];
-    const userIndex = users.findIndex((user: FlowUser) => user.id === id);
+    const userIndex = users.findIndex((user: Member) => user.id === id);
     users.splice(userIndex, 1);
     setSelectedUsers(users);
   };
@@ -126,7 +114,7 @@ function AddMemberContent({ closeModal, memberList, handleSubmit, isSubmitting, 
     const addMemberRequestData: Array<Member> = selectedUsers.map((user) => ({
       id: user.id,
       email: user.email,
-      role: Role.Editor,
+      role: MemberRole.Editor,
     }));
 
     try {
@@ -141,9 +129,9 @@ function AddMemberContent({ closeModal, memberList, handleSubmit, isSubmitting, 
     return <Error />;
   }
 
-  let usersListRecords: FlowUser[] = [];
+  let usersListRecords: Member[] = [];
   if (userList && userList?.length > 0) {
-    usersListRecords = userList.filter((record: FlowUser) => {
+    usersListRecords = userList.filter((record: Member) => {
       return (
         !memberList?.some((member) => member.id === record.id) &&
         !selectedUsers?.some((selectedUser) => selectedUser.id === record.id)

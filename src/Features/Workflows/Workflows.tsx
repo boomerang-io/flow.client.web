@@ -31,11 +31,18 @@ export default function Workflows() {
   const history = useHistory();
   const location = useLocation();
 
+  console.log("activeTeam", activeTeam);
+
   const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${activeTeam?.id}` });
   const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>({
     queryKey: getWorkflowsUrl,
     queryFn: resolver.query(getWorkflowsUrl),
   });
+
+  // TODO: make this smarter bc we shouldn't get to the route without an active team
+  if (!activeTeam) {
+    return history.push(appLink.home());
+  }
 
   const { query: searchQuery = "" } = queryString.parse(location.search, {
     arrayFormat: "comma",
@@ -51,11 +58,6 @@ export default function Workflows() {
     safeSearchQuery = searchQuery.join().toLowerCase();
   } else if (searchQuery) {
     safeSearchQuery = searchQuery.toLowerCase();
-  }
-
-  // TODO: make this smarter bc we shouldn't get to the route without an active team
-  if (!activeTeam) {
-    return history.push(appLink.home());
   }
 
   if (workflowsQuery.isLoading) {
