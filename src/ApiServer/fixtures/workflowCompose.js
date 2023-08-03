@@ -18,19 +18,19 @@ const workflowsCompose = [
     tokens: [{ token: "268CD9268194A7B58888DC4B8FB4E6BF1358D01CEBB97F8670C544B4F076DD63", label: "default" }],
     nodes: [
       {
-        id: "start",
+        id: "64cafb1706ca9f65f338ae3b",
         position: { x: 300.0, y: 400.0 },
         data: { name: "start", params: [], templateRef: null, templateVersion: null, templateUpgradesAvailable: false },
         type: "start",
       },
       {
-        id: "end",
+        id: "64cafb1706ca9f65f338ae3c",
         position: { x: 1000.0, y: 400.0 },
         data: { name: "end", params: [], templateRef: null, templateVersion: null, templateUpgradesAvailable: false },
         type: "end",
       },
       {
-        id: "Create Spreadsheet 1",
+        id: "64cafb1706ca9f65f338ae3e",
         position: { x: 592.0, y: 397.0 },
         data: {
           name: "Create Spreadsheet 1",
@@ -55,12 +55,14 @@ const workflowsCompose = [
     ],
     edges: [
       {
+        id: "64cafb1706ca9f65f338ae3d",
         source: "Create Spreadsheet 1",
         target: "end",
         type: "template",
         data: { decisionCondition: "", executionCondition: "always" },
       },
       {
+        id: "64cafb1706ca9f65f338ae3f",
         source: "start",
         target: "Create Spreadsheet 1",
         type: "start",
