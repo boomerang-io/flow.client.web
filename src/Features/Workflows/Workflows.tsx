@@ -108,7 +108,7 @@ function Layout(props: LayoutProps) {
         subtitle="Your playground to create, execute, and collaborate on workflows. Work smarter with automation."
         handleUpdateFilter={props.handleUpdateFilter}
         searchQuery={props.searchQuery}
-        team={props.activeTeam}
+        team={props.team}
         workflowList={props.workflowList}
         viewType={WorkflowView.Workflow}
       />
@@ -125,10 +125,10 @@ interface WorkflowContentProps {
   workflowList: Array<Workflow>;
 }
 
-const WorkflowContent: React.FC<WorkflowContentProps> = ({ activeTeam, searchQuery, workflowList }) => {
+const WorkflowContent: React.FC<WorkflowContentProps> = ({ team, searchQuery, workflowList }) => {
   const hasWorkflows = workflowList.length > 0;
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
-  const hasReachedWorkflowLimit = activeTeam.quotas.maxWorkflowCount <= activeTeam.quotas.currentWorkflowCount;
+  const hasReachedWorkflowLimit = team.quotas.maxWorkflowCount <= team.quotas.currentWorkflowCount;
 
   const filteredWorkflowList = Boolean(searchQuery)
     ? matchSorter(workflowList, searchQuery, { keys: ["name"] })
@@ -146,7 +146,7 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ activeTeam, searchQue
             <div className={styles.quotaDescriptionContainer}>
               <p
                 className={styles.teamQuotaText}
-              >{`Workflow quota - ${activeTeam.quotas.currentWorkflowCount} of ${activeTeam.quotas.maxWorkflowCount} used`}</p>
+              >{`Workflow quota - ${team.quotas.currentWorkflowCount} of ${team.quotas.maxWorkflowCount} used`}</p>
               {hasReachedWorkflowLimit && (
                 <TooltipHover
                   direction="top"
@@ -164,7 +164,7 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ activeTeam, searchQue
                 shouldCloseOnOverlayClick: true,
               }}
               modalHeaderProps={{
-                title: `Team quotas - ${activeTeam.name}`,
+                title: `Team quotas - ${team.name}`,
                 subtitle:
                   "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an admin.",
               }}
@@ -175,7 +175,7 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ activeTeam, searchQue
               )}
             >
               {({ closeModal }: ComposedModalChildProps) => (
-                <WorkflowQuotaModalContent closeModal={closeModal} quotas={activeTeam.quotas} />
+                <WorkflowQuotaModalContent closeModal={closeModal} quotas={team.quotas} />
               )}
             </ComposedModal>
           </div>
@@ -191,15 +191,15 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ activeTeam, searchQue
         {filteredWorkflowList.map((workflow) => (
           <WorkflowCard
             key={workflow.id}
-            quotas={activeTeam.quotas}
-            teamId={activeTeam.id}
+            quotas={team.quotas}
+            teamId={team.id}
             viewType={WorkflowView.Workflow}
             workflow={workflow}
           />
         ))}
         <CreateWorkflow
           hasReachedWorkflowLimit={hasReachedWorkflowLimit}
-          team={activeTeam}
+          team={team}
           viewType={WorkflowView.Workflow}
           workflows={workflowList}
         />

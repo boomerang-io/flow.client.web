@@ -45,7 +45,7 @@ type ApproverGroupsTableProps = {
   canEdit: boolean;
 };
 
-function ApproverGroupsTable({ activeTeam, canEdit }: ApproverGroupsTableProps) {
+function ApproverGroupsTable({ team, canEdit }: ApproverGroupsTableProps) {
   const queryClient = useQueryClient();
   const [sortKey, setSortKey] = React.useState("name");
   const [sortDirection, setSortDirection] = React.useState("ASC");
@@ -121,12 +121,7 @@ function ApproverGroupsTable({ activeTeam, canEdit }: ApproverGroupsTableProps) 
       case "actions":
         return canEdit ? (
           <div className={styles.tableActions}>
-            <CreateEditGroupModal
-              isEdit
-              approverGroup={approverGroup}
-              approverGroups={approverGroups}
-              team={activeTeam}
-            />
+            <CreateEditGroupModal isEdit approverGroup={approverGroup} approverGroups={approverGroups} team={team} />
             <ConfirmModal
               modalTrigger={({ openModal }: any) => (
                 <Button

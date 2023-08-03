@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { EditorContextProvider } from "State/context";
 import { AxiosResponse } from "axios";
-import { History } from "history";
 import { UseQueryResult, MutateFunction, UseMutateFunction } from "react-query";
 import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
-import { useTeamContext, useIsModalOpen, useQuery } from "Hooks";
+import { useAppContext, useTeamContext, useIsModalOpen, useQuery } from "Hooks";
 import { useImmerReducer } from "use-immer";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQueryClient, UseMutationResult } from "react-query";
 import { Prompt, Route, Switch, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import { Loading, Error, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import ChangeLog from "./ChangeLog";
@@ -15,25 +14,11 @@ import Designer from "./Designer";
 import Header from "./Header";
 import Properties from "./Properties";
 import Schedule from "./Schedule";
-import sortBy from "lodash/sortBy";
 import queryString from "query-string";
-import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
-import SwitchNodeModel from "Utils/dag/switchNode/SwitchNodeModel";
-import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
-import ManualApprovalNodeModel from "Utils/dag/manualApprovalNode/ManualApprovalNodeModel";
-import ManualTaskNodeModel from "Utils/dag/manualTaskNode/ManualTaskNodeModel";
-import SetPropertyNodeModel from "Utils/dag/setPropertyNode/setPropertyNodeModel";
-import SetStatusNodeModel from "Utils/dag/setStatusNode/setStatusNodeModel";
-import WaitNodeModel from "Utils/dag/waitNode/waitNodeModel";
-import AcquireLockNodeModel from "Utils/dag/acquireLockNode/AcquireLockNodeModel";
-import ReleaseLockNodeModel from "Utils/dag/releaseLockNode/ReleaseLockNodeModel";
-import RunScheduledWorkflowNodeModel from "Utils/dag/runScheduledWorkflowNode/RunScheduledWorkflowNodeModel";
-import RunWorkflowNodeModel from "Utils/dag/runWorkflowNode/RunWorkflowNodeModel";
-import ScriptNodeModel from "Utils/dag/scriptNode/ScriptNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
-import { NodeType, WorkflowDagEngineMode } from "Constants";
-import { TaskTemplate, WorkflowSummary, WorkflowRevision, WorkflowView, PaginatedResponse } from "Types";
+import { WorkflowDagEngineMode } from "Constants";
+import { ChangeLog as ChangeLogType, TaskTemplate, WorkflowView, Workflow } from "Types";
 import styles from "./editor.module.scss";
 import { groupTaskTemplatesByName } from "Utils";
 
@@ -41,12 +26,13 @@ export default function EditorContainer() {
   const { team } = useTeamContext();
   // Init revision number state is held here so we can easily refect the data on change via react-query
 
-  const [revisionNumber, setRevisionNumber] = useState(0);
+  const [revisionNumber, setRevisionNumber] = useState<string>("");
   const { workflowId }: { workflowId: string } = useParams();
   const queryClient = useQueryClient();
 
-  const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
-  const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
+  const getChangelogUrl = serviceUrl.getWorkflowChangelog({ id: workflowId });
+  const getWorkflowUrl = serviceUrl.getWorkflowCompose({ id: workflowId, version: revisionNumber });
+
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
     query: queryString.stringify({ teams: team?.id, statuses: "active" }),
   });
@@ -56,51 +42,50 @@ export default function EditorContainer() {
   /**
    * Queries
    */
-  const summaryQuery = useQuery(getSummaryUrl);
-  const revisionQuery = useQuery<PaginatedResponse<WorkflowRevision>>(getRevisionUrl, { refetchOnWindowFocus: false });
+  const changeLogQuery = useQuery(getChangelogUrl);
+  const workflowQuery = useQuery(getWorkflowUrl);
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
   const availableParametersQuery = useQuery(getAvailableParametersUrl);
 
   /**
    * Mutations
    */
-  const { mutateAsync: mutateSummary, ...summaryMutation } = useMutation(resolver.patchUpdateWorkflowSummary, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: null })),
-  });
-  const { mutateAsync: mutateRevision, ...revisionMutation } = useMutation(resolver.postCreateWorkflowRevision, {
+  const revisionMutator = useMutation(resolver.postCreateWorkflowRevision, {
     onSuccess: () => {
-      queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: null }));
-      queryClient.invalidateQueries(getSummaryUrl);
+      queryClient.invalidateQueries(getWorkflowUrl);
     },
   });
-  const { mutateAsync: parametersMutation } = useMutation(resolver.postWorkflowAvailableParameters, {
+
+  const parametersMutator = useMutation(resolver.postWorkflowAvailableParameters, {
     onSuccess: (response) =>
       queryClient.setQueryData(serviceUrl.workflowAvailableParameters({ workflowId }), response.data),
   });
 
   // Only show loading for the summary and task templates
   // Revision takes longer and we want to show a separate loading animation for it, plus prevent remounting everything
-  if (summaryQuery.isLoading || taskTemplatesQuery.isLoading || availableParametersQuery.isLoading) {
+  if (
+    workflowQuery.isLoading ||
+    changeLogQuery.isLoading ||
+    taskTemplatesQuery.isLoading ||
+    availableParametersQuery.isLoading
+  ) {
     return <Loading />;
   }
 
-  if (summaryQuery.error || taskTemplatesQuery.error || availableParametersQuery.error) {
+  if (workflowQuery.error || changeLogQuery.error || taskTemplatesQuery.error || availableParametersQuery.error) {
     return <Error />;
   }
 
   // Don't block render if we don't have the revision data. We want to render the header and sidenav regardless
   // prevents unnecessary remounting when creating a new version or navigating to a previous one
-  if (summaryQuery.data && taskTemplatesQuery.data && availableParametersQuery.data) {
+  if (workflowQuery.data && changeLogQuery.data && taskTemplatesQuery.data && availableParametersQuery.data) {
     return (
       <EditorStateContainer
         availableParametersQueryData={availableParametersQuery.data}
-        mutateRevision={mutateRevision}
-        mutateSummary={mutateSummary}
-        parametersMutation={parametersMutation}
-        revisionMutation={revisionMutation}
-        revisionQuery={revisionQuery}
-        summaryData={summaryQuery.data}
-        summaryMutation={summaryMutation}
+        parametersMutator={parametersMutator}
+        changeLogData={changeLogQuery.data}
+        revisionMutator={revisionMutator}
+        revisionQuery={workflowQuery}
         setRevisionNumber={setRevisionNumber}
         taskTemplatesList={taskTemplatesQuery.data.content}
         workflowId={workflowId}
@@ -113,38 +98,11 @@ export default function EditorContainer() {
 
 interface EditorStateContainerProps {
   availableParametersQueryData: Array<string>;
-  mutateRevision: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-  mutateSummary: MutateFunction<AxiosResponse<any, any>, unknown, { body: any }, unknown>;
-  parametersMutation: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-  revisionMutation:
-    | {
-        data: undefined;
-        error: null;
-        isError: false;
-        isIdle: true;
-        isLoading: false;
-        isSuccess: false;
-        status: "idle";
-        mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-        variables: { workflowId: any; body: any } | undefined;
-      }
-    | any;
-  revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
-  summaryData: WorkflowSummary;
-  summaryMutation:
-    | {
-        data: undefined;
-        error: null;
-        isError: false;
-        isIdle: true;
-        isLoading: false;
-        isSuccess: false;
-        status: "idle";
-        mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-        variables: { workflowId: any; body: any } | undefined;
-      }
-    | any;
-  setRevisionNumber: (revisionNumber: number) => void;
+  changeLogData: ChangeLogType;
+  revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+  parametersMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+  revisionQuery: UseQueryResult<Workflow, unknown>;
+  setRevisionNumber: (revisionNumber: string) => void;
   taskTemplatesList: Array<TaskTemplate>;
   workflowId: string;
 }
@@ -155,13 +113,10 @@ interface EditorStateContainerProps {
  */
 const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   availableParametersQueryData,
-  mutateRevision,
-  mutateSummary,
-  parametersMutation,
-  revisionMutation,
+  changeLogData,
+  revisionMutator,
+  parametersMutator,
   revisionQuery,
-  summaryData,
-  summaryMutation,
   setRevisionNumber,
   taskTemplatesList,
   workflowId,
@@ -178,7 +133,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     initRevisionReducerState(revisionQuery.data)
   );
 
-  const [revisionConfig, setRevisionConfig] = useState<WorkflowRevision>({ ...revisionState });
+  const [revisionConfig, setRevisionConfig] = useState<Workflow>({ ...revisionState });
   // Reset the reducer state if there is new data
   useEffect(() => {
     if (revisionQuery.data) {
@@ -204,9 +159,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         dag: revisionState.dag,
       };
       setRevisionConfig(revisionState);
-      parametersMutation({ workflowId, body: revision });
+      parametersMutator.mutateAsync({ workflowId, body: revision });
     }
-  }, [parametersMutation, workflowId, revisionState, revisionConfig]);
+  }, [parametersMutator, workflowId, revisionState, revisionConfig]);
 
   /**
    *
@@ -230,7 +185,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       };
 
       try {
-        const { data } = await mutateRevision({ workflowId, body: revision });
+        const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
         notify(
           <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
         );
@@ -248,7 +203,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       }
     },
     [
-      mutateRevision,
+      revisionMutator,
       queryClient,
       revisionDispatch,
       revisionState.config,
@@ -265,10 +220,10 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   const updateSummary = useCallback(
     async ({ values: formikValues }) => {
       const flowTeamId = formikValues?.selectedTeam?.id;
-      const updatedWorkflow = { ...summaryData, ...formikValues, flowTeamId };
+      const updatedWorkflow = { ...revisionQuery.data, ...formikValues, flowTeamId };
 
       try {
-        const { data } = await mutateSummary({ body: updatedWorkflow });
+        const { data } = await revisionMutator.mutateAsync({ workflowId, body: updatedWorkflow });
         queryClient.setQueryData(serviceUrl.getWorkflowSummary({ workflowId }), data);
         notify(
           <ToastNotification kind="success" title="Workflow Updated" subtitle={`Successfully updated workflow`} />
@@ -283,7 +238,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         );
       }
     },
-    [mutateSummary, queryClient, summaryData, workflowId]
+    [revisionMutator, queryClient, revisionQuery, workflowId]
   );
 
   const handleUpdateNotes = useCallback(
@@ -300,11 +255,11 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
    *  Simply update the parent state to use a different revision to fetch it w/ react-query
    * @param {string} revisionNumber
    */
-  const handleChangeRevision = (revisionNumber: number) => {
+  const handleChangeRevision = (revisionNumber: string) => {
     return setRevisionNumber(revisionNumber);
   };
 
-  const { revisionCount } = summaryData;
+  const revisionCount = changeLogData.length;
   const { markdown, version } = revisionState;
   const mode = version === revisionCount ? WorkflowDagEngineMode.Editor : WorkflowDagEngineMode.Viewer;
 
@@ -327,10 +282,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       mode,
       revisionDispatch,
       revisionState,
-      summaryData,
       taskTemplatesData,
     };
-  }, [availableParametersQueryData, mode, revisionDispatch, revisionState, summaryData, taskTemplatesList]);
+  }, [availableParametersQueryData, mode, revisionDispatch, revisionState, taskTemplatesList]);
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
@@ -347,14 +301,14 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         />
         <div className={styles.container}>
           <Header
+            changeLog={changeLogData}
             changeRevision={handleChangeRevision}
             createRevision={handleCreateRevision}
             isOnDesigner={location.pathname.endsWith("/workflow")}
             revisionState={revisionState}
-            revisionMutation={revisionMutation}
-            revisionQuery={revisionQuery}
-            summaryData={summaryData}
             viewType={WorkflowView.Workflow}
+            revisionCount={revisionCount}
+            revisionMutator={revisionMutator}
           />
           <Switch>
             <Route path={AppPath.EditorDesigner}>
@@ -364,17 +318,17 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
                 revisionQuery={revisionQuery}
                 tasks={taskTemplatesList}
                 updateNotes={handleUpdateNotes}
-                workflowName={summaryData.name}
+                workflowName={revisionState.displayName}
               />
             </Route>
             <Route path={AppPath.EditorProperties}>
-              <Properties summaryData={summaryData} />
+              <Properties summaryData={revisionState} />
             </Route>
             <Route path={AppPath.EditorSchedule}>
-              <Schedule summaryData={summaryData} />
+              <Schedule summaryData={revisionState} />
             </Route>
             <Route path={AppPath.EditorChangelog}>
-              <ChangeLog summaryData={summaryData} />
+              <ChangeLog summaryData={revisionState} />
             </Route>
           </Switch>
           <Route
@@ -384,8 +338,8 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           >
             <Configure
               quotas={quotas}
-              summaryData={summaryData}
-              summaryMutation={summaryMutation}
+              summaryData={revisionState}
+              summaryMutation={revisionMutator}
               updateSummary={updateSummary}
             />
           </Route>

@@ -26,6 +26,7 @@ export { default as teamProperties } from "./teamProperties";
 export { default as workflows } from "./workflows";
 export { default as quotas } from "./quotas";
 export { default as workflowCalendar } from "./workflowCalendar";
+export { default as workflowCompose } from "./workflowCompose";
 export { default as workflowExecution } from "./workflowExecution";
 export { default as workflowSchedules } from "./workflowSchedules";
 export { default as workflowTemplates } from "./workflowTemplates";

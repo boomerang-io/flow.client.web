@@ -233,7 +233,7 @@ const Task: React.FC<TaskProps> = (props) => {
       to={
         activeTeam
           ? appLink.manageTaskTemplateEdit({
-              teamId: activeTeam.id,
+              teamId: team.id,
               name: task.name,
               version: task.version.toString(),
             })

@@ -7,7 +7,7 @@ import styles from "./VersionSwitcher.module.scss";
 interface VersionSwitcherProps {
   currentRevision: number;
   disabled: boolean;
-  onChangeVersion(revisionNumber: number): void;
+  onChangeVersion(revisionNumber: string): void;
   revisionCount: number;
 }
 

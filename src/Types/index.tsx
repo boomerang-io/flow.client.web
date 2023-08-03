@@ -16,9 +16,6 @@ declare global {
   }
 }
 
-// TODO: FIX THIS
-export type WorkflowSummary = any;
-
 export enum PlatformRole {
   Admin = "admin",
   User = "user",
@@ -113,7 +110,6 @@ export interface FormikSetFieldValue {
 
 export interface CreateWorkflowSummary {
   description: string;
-  enableACCIntegration: boolean;
   storage: {
     activity: {
       enabled: boolean;
@@ -311,17 +307,6 @@ export interface WorkflowEdge {
   target: string;
   data: Record<string, any>;
 }
-export interface WorkflowRevision {
-  changelog: ChangeLogItem;
-  config: any;
-  dag: WorkflowDag;
-  id: string;
-  nodes: Array<WorkflowNode>;
-  edges: Array<WorkflowEdge>;
-  templateUpgradesAvailable: boolean;
-  version: number;
-  workFlowId: string;
-}
 
 export interface WorkflowParameter {
   defaultValue: string;
@@ -332,12 +317,12 @@ export interface WorkflowParameter {
   type: string;
 }
 
-export interface WorkflowExport extends WorkflowSummary {
-  latestRevision: WorkflowRevision;
+export interface WorkflowExport extends Workflow {
+  latestRevision: Workflow;
   flowTeamId: string;
 }
 
-export interface WorkflowRevisionState extends WorkflowRevision {
+export interface WorkflowRevisionState extends Workflow {
   hasUnsavedUpdates: boolean;
 }
 
@@ -427,16 +412,14 @@ export interface WorkflowExecution {
   initiatedByUserName: string;
   scope: string;
 }
-export interface ChangeLogItem {
+export interface ChangeLogEntry {
   date: string;
   reason: string;
-  revisionId: string;
   author: string;
   version: number;
-  workflowId: string;
 }
 
-export type ChangeLog = Array<ChangeLogItem>;
+export type ChangeLog = Array<ChangeLogEntry>;
 
 export interface TaskTemplate {
   id: string;

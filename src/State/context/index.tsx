@@ -45,7 +45,6 @@ interface EditorContext {
   availableParametersQueryData?: any;
   revisionDispatch?: Function;
   revisionState: WorkflowRevision;
-  summaryData: WorkflowSummary;
   taskTemplatesData: Record<string, Array<TaskTemplate>>;
 }
 

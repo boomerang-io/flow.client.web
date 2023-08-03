@@ -1,10 +1,9 @@
 import React from "react";
 import { Link, useRouteMatch } from "react-router-dom";
-import { Breadcrumb, BreadcrumbItem, Button, InlineLoading } from "@carbon/react";
+import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
 import {
   ConfirmModal,
   ComposedModal,
-  DelayedRender,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureNavTab as Tab,
@@ -13,50 +12,46 @@ import {
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
 import { appLink } from "Config/appConfig";
-import { QueryStatus } from "Constants";
 import { Add, DocumentExport } from "@carbon/react/icons";
 import { AxiosResponse } from "axios";
-import { UseQueryResult, MutateFunction } from "react-query";
+import { UseMutationResult } from "react-query";
 import {
   ModalTriggerProps,
   ComposedModalChildProps,
-  WorkflowSummary,
-  WorkflowRevision,
   WorkflowRevisionState,
   WorkflowView,
   WorkflowViewType,
+  ChangeLog,
 } from "Types";
 import styles from "./header.module.scss";
 
 interface DesignerHeaderProps {
+  changeLog: ChangeLog;
   createRevision: (reason: string, callback?: () => any) => void;
-  changeRevision: (revisionNumber: number) => void;
+  changeRevision: (revisionNumber: string) => void;
   isOnDesigner: boolean;
-  revisionMutation: MutateFunction<AxiosResponse<any>, Error>;
+  revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
   revisionState: WorkflowRevisionState;
-  revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
-  summaryData: WorkflowSummary;
   viewType: WorkflowViewType;
+  revisionCount: number;
 }
 
 const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   createRevision,
   changeRevision,
   isOnDesigner,
-  revisionMutation,
+  revisionCount,
+  revisionMutator,
   revisionState,
-  revisionQuery,
-  summaryData,
   viewType,
 }) => {
-  const routeMatch: { params: { teamId: string, workflowId: string } } = useRouteMatch();
+  const routeMatch: { params: { teamId: string; workflowId: string } } = useRouteMatch();
   const {
     params: { teamId, workflowId },
   } = routeMatch;
-  const { revisionCount, name } = summaryData;
+  const { name } = revisionState;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;
-  const isQueryLoading = revisionQuery.status === QueryStatus.Loading;
   const performActionButtonText = currentRevision < revisionCount ? "Set version to latest" : "Create new version";
 
   // Need to hardcode that the version is being reset in the change log for now based on the current implementation
@@ -95,17 +90,12 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
         <section className={styles.workflowButtons}>
           <VersionSwitcher
             currentRevision={currentRevision}
-            disabled={isQueryLoading || !isOnDesigner}
+            disabled={!isOnDesigner}
             onChangeVersion={changeRevision}
             revisionCount={revisionCount}
           />
           <div className={styles.workflowActionContainer}>
             <>
-              {isQueryLoading && (
-                <DelayedRender>
-                  <InlineLoading description="Loading version..." style={{ height: "2.5rem" }} />
-                </DelayedRender>
-              )}
               <ConfirmModal
                 affirmativeAction={resetVersionToLatestWithMessage}
                 children="A new version will be created"
@@ -118,7 +108,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
                     onClick={openModal}
                     renderIcon={DocumentExport}
                     size="md"
-                    style={!isPreviousVersion || isQueryLoading ? { display: "none" } : null}
+                    style={!isPreviousVersion ? { display: "none" } : null}
                   >
                     {performActionButtonText}
                   </Button>
@@ -138,7 +128,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
                     onClick={openModal}
                     renderIcon={Add}
                     size="md"
-                    style={isPreviousVersion || isQueryLoading ? { display: "none" } : null}
+                    style={isPreviousVersion ? { display: "none" } : null}
                   >
                     {performActionButtonText}
                   </Button>
@@ -148,7 +138,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
                   <VersionCommentForm
                     closeModal={closeModal}
                     createRevision={createRevision}
-                    revisionMutation={revisionMutation}
+                    revisionMutator={revisionMutator}
                   />
                 )}
               </ComposedModal>

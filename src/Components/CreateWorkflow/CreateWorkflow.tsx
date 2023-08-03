@@ -68,7 +68,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       await createWorkflowRevisionMutator({ workflowId, body: workflowRevision });
 
       queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
-      history.push(appLink.editorDesigner({ teamId: team?.id, workflowId: workflowId }));
+      history.push(appLink.editorDesigner({ teamId: team?.id!, workflowId: workflowId }));
       notify(
         <ToastNotification kind="success" title={`Create ${viewType}`} subtitle={`${viewType} successfully created`} />
       );

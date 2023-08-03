@@ -1,20 +1,14 @@
 //@ts-nocheck
 import React, { Component } from "react";
-import { MutationResult } from "react-query";
-import { AxiosResponse } from "axios";
-import {
-  Button,
-  InlineNotification,
-  ModalBody,
-  ModalFooter,
-} from "@carbon/react";
+import { UseMutationResult } from "react-query";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { Loading, ModalForm, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import { QueryStatus } from "Constants";
 
 interface VersionCommentFormProps {
   closeModal(): void;
   createRevision: (reason: string, callback?: () => any) => void;
-  revisionMutation: MutationResult<AxiosResponse<any>, Error>;
+  revisionMutator: UseMutationResult<any>;
 }
 
 class VersionCommentForm extends Component<VersionCommentFormProps> {
@@ -41,8 +35,8 @@ class VersionCommentForm extends Component<VersionCommentFormProps> {
   };
 
   render() {
-    const { revisionMutation } = this.props;
-    const isCreatingRevision = revisionMutation.status === QueryStatus.Loading;
+    const { revisionMutator } = this.props;
+    const isCreatingRevision = revisionMutator.status === QueryStatus.Loading;
     return (
       <ModalForm>
         <ModalBody>
@@ -58,7 +52,7 @@ class VersionCommentForm extends Component<VersionCommentFormProps> {
             placeholder="Enter version comment"
             value={this.state.versionComment}
           />
-          {revisionMutation.error && (
+          {revisionMutator.error && (
             <InlineNotification
               lowContrast
               kind="error"

@@ -26,12 +26,21 @@ export const BASE_CORE_URL = CORE_SERVICE_ENV_URL;
 export const BASE_CORE_USERS_URL =  `${CORE_SERVICE_ENV_URL}/users`;
 
 type IdArg = {
-  query: string
+  id: string
+}
+
+type WorkflowIdArg ={
+  workflowId: string;
 }
 
 type TeamIdArg = {
-  query: string
+  teamId: string
 }
+
+type VersionArg = {
+  version: string
+}
+
 type QueryArg = {
   query: string
 }
@@ -63,7 +72,7 @@ export const serviceUrl = {
   //   `${BASE_URL}/schedules/${scheduleId}/calendar${query ? "?" + query : ""}`,
   getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedules/validate/cron?cron=${expression}`,
   getTaskTemplates: ({ query }: QueryId) => `${BASE_URL}/tasktemplate/query${query ? "?" + query : ""}`,
-  getTaskTemplateYaml: ({ name, version }) => `${BASE_URL}/tasktemplate/${name}${version ? `?version=${version}` : ""}`,
+  getTaskTemplateYaml: ({ name, version }: { name: string} & Partial<VersionArg>) => `${BASE_URL}/tasktemplate/${name}${version ? `?version=${version}` : ""}`,
   getTeams: ({ query }: QueryId) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
   getTeamQuotas: ({ id }) => `${BASE_URL}/team/${id}/quotas`,
   getTeamQuotaDefaults: () => `${BASE_URL}/team/quotas/default`,
@@ -74,9 +83,10 @@ export const serviceUrl = {
   getUserProfile: () => `${BASE_URL}/user/profile`,
   getUserProfileImage: ({ userEmail }) => `${BASE_CORE_USERS_URL}/image/${userEmail}`,
   getWorkflows: ({ query }: QueryId) => `${BASE_URL}/workflow/query${query ? "?" + query : ""}`,
-  getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
-  getWorkflowChangelog: ({ workflowId, query }) =>
-    `${BASE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
+  getWorkflow: ({ id, version }: IdArg & Partial<VersionArg> ) => `${BASE_URL}/workflow/${id}${version ? `?version=${version}` : ""}`,
+  getWorkflowCompose: ({ id, version }: IdArg & Partial<VersionArg> ) => `${BASE_URL}/workflow/${id}/compose${version ? `?version=${version}` : ""}`,
+  getWorkflowChangelog: ({ id }: IdArg) =>
+    `${BASE_URL}/workflow/${id}/changelog`,
   getWorkflowImport: ({ query }: QueryId) => `${BASE_URL}/workflow/import?${query}`,
   getWorkflowExecution: ({ executionId }) => `${BASE_URL}/activity/${executionId}`,
   getWorkflowExecutionLog: ({ flowActivityId, flowTaskId }) =>
@@ -96,7 +106,7 @@ export const serviceUrl = {
   postCreateWorkflowToken: ({ workflowId, label }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
   postDuplicateWorkflow: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/duplicate`,
   postExecuteWorkflow: ({ id }) => `${BASE_URL}/execute/${id}`,
-  postSchedule: ({ teamId }) => `${BASE_URL}/schedules?team=${teamId}`,
+  postSchedule: ({ teamId }: TeamIdArg) => `${BASE_URL}/schedules?team=${teamId}`,
   postToken: () => `${BASE_URL}/token`,
   postTeamValidateName: () => `${BASE_URL}/team/validate-name`,
   postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
