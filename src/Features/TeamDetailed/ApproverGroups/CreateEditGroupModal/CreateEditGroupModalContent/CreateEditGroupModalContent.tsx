@@ -164,45 +164,39 @@ type Props = {
   approverGroup?: ApproverGroup;
   approverGroups: string[];
   team?: FlowTeam | null;
+  teamDetailsUrl: string;
 };
 
-function CreateEditGroupModalContent({ closeModal, isEdit = false, approverGroup, approverGroups, team }: Props) {
+function CreateEditGroupModalContent({
+  closeModal,
+  isEdit = false,
+  approverGroup,
+  approverGroups,
+  team,
+  teamDetailsUrl,
+}: Props) {
   const queryClient = useQueryClient();
   const teamMembers = team?.members;
-  console.log("teamMembers", teamMembers);
-
-  const approverGroupsUrl = serviceUrl.resourceApproverGroups({ teamId: team?.id, groupId: undefined });
-
-  /** Add Approver Group */
-  const addTeamApproverGroupMutation = useMutation(resolver.postApproverGroupRequest);
-
-  /** Update Approver Group */
-  const updateTeamApproverGroupMutation = useMutation(resolver.putApproverGroupRequest);
-
-  const loading = addTeamApproverGroupMutation.isLoading || updateTeamApproverGroupMutation.isLoading;
-  const hasError = Boolean(addTeamApproverGroupMutation.isError) || Boolean(updateTeamApproverGroupMutation.isError);
+  const approverGroupMutator = useMutation(resolver.patchTeam);
 
   const { title, message: subtitle } = formatErrorMessage({
-    error: addTeamApproverGroupMutation.error || updateTeamApproverGroupMutation.error,
+    error: approverGroupMutator.error,
     defaultMessage: `${!isEdit ? "Create" : "Update"} Approver Group Failed`,
   });
 
   const handleSubmit = async (values: any) => {
-    const approverIds = values.approvers.map((approver: any) => approver.id);
-    // values.approvers.forEach((approver: any) => delete approver.id);
-    const newTeamApproverGroup = {
+    const mutatedApproverGroup = {
       name: values.groupName,
       groupId: isEdit ? approverGroup?.id : null,
-      approvers: approverIds,
+      approvers: values.approvers.map((approver: any) => approver.id),
     };
-
-    if (isEdit) {
-      try {
-        const response: any = await updateTeamApproverGroupMutation.mutateAsync({
-          teamId: team?.id,
-          body: newTeamApproverGroup,
-        });
-        queryClient.invalidateQueries(approverGroupsUrl);
+    try {
+      const response: any = await approverGroupMutator.mutateAsync({
+        teamId: team?.id,
+        body: { approverGroups: [mutatedApproverGroup] },
+      });
+      queryClient.invalidateQueries(teamDetailsUrl);
+      if (isEdit) {
         notify(
           <ToastNotification
             kind="success"
@@ -211,17 +205,7 @@ function CreateEditGroupModalContent({ closeModal, isEdit = false, approverGroup
             data-testid="create-update-approver-group-notification"
           />
         );
-        closeModal();
-      } catch (err) {
-        //noop
-      }
-    } else {
-      try {
-        const response: any = await addTeamApproverGroupMutation.mutateAsync({
-          teamId: team?.id,
-          body: newTeamApproverGroup,
-        });
-        queryClient.invalidateQueries(approverGroupsUrl);
+      } else {
         notify(
           <ToastNotification
             kind="success"
@@ -230,16 +214,16 @@ function CreateEditGroupModalContent({ closeModal, isEdit = false, approverGroup
             data-testid="create-update-approver-group-notification"
           />
         );
-        closeModal();
-      } catch (err) {
-        //noop
       }
+      closeModal();
+    } catch (err) {
+      //noop
     }
   };
 
   const loadingText = isEdit ? "Saving..." : "Creating...";
   const normalText = isEdit ? "Save" : "Create group";
-  const buttonText = loading ? loadingText : normalText;
+  const buttonText = approverGroupMutator.isLoading ? loadingText : normalText;
 
   return (
     <Formik
@@ -267,7 +251,7 @@ function CreateEditGroupModalContent({ closeModal, isEdit = false, approverGroup
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
-            {loading && <Loading />}
+            {approverGroupMutator.isLoading && <Loading />}
             <ModalBody className={styles.formBody}>
               <div className={styles.input}>
                 <TextInput
@@ -295,14 +279,16 @@ function CreateEditGroupModalContent({ closeModal, isEdit = false, approverGroup
                   setFieldValue={setFieldValue}
                 />
               )}
-              {hasError && <InlineNotification lowContrast kind="error" subtitle={subtitle} title={title} />}
+              {approverGroupMutator.error && (
+                <InlineNotification lowContrast kind="error" subtitle={subtitle} title={title} />
+              )}
             </ModalBody>
             <ModalFooter>
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={!isValid || loading || !dirty}>
-                {hasError ? "Try Again" : buttonText}
+              <Button type="submit" disabled={!isValid || approverGroupMutator.isLoading || !dirty}>
+                {approverGroupMutator.error ? "Try Again" : buttonText}
               </Button>
             </ModalFooter>
           </ModalFlowForm>

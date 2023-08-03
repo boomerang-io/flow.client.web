@@ -64,7 +64,7 @@ export interface ApproverGroup {
   id: string;
   name: string;
   creationDate: string;
-  approvers: Array<Approver>;
+  approvers: Array<Member>;
 }
 
 export interface DataDrivenInput {

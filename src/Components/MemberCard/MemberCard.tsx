@@ -1,12 +1,12 @@
 import React from "react";
 import { InlineLoading, Button } from "@carbon/react";
-import { ArrowRight } from "@carbon/react/icons";
 import { TrashCan } from "@carbon/react/icons";
+import { MemberRole } from "Types";
 import styles from "./memberCard.module.scss";
 
 interface MemberCardProps {
   email: string;
-  role: string;
+  role: MemberRole;
   handleRemove: Function;
   isRemoving: boolean;
 }

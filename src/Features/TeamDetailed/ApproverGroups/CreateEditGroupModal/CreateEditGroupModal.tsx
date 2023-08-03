@@ -11,9 +11,16 @@ type CreateEditGroupModalProps = {
   approverGroups: ApproverGroup[];
   isEdit?: boolean;
   team?: FlowTeam | null;
+  teamDetailsUrl: string;
 };
 
-function CreateEditGroupModal({ isEdit, approverGroup, approverGroups, team }: CreateEditGroupModalProps) {
+function CreateEditGroupModal({
+  isEdit,
+  approverGroup,
+  approverGroups,
+  team,
+  teamDetailsUrl,
+}: CreateEditGroupModalProps) {
   /**
    * arrays of values for making the key unique
    * filter out own value if editing a approverGroup, pass through all if creating
@@ -65,6 +72,7 @@ function CreateEditGroupModal({ isEdit, approverGroup, approverGroups, team }: C
           approverGroups={approverGroupNames}
           team={team}
           closeModal={closeModal}
+          teamDetailsUrl={teamDetailsUrl}
         />
       )}
     </ComposedModal>

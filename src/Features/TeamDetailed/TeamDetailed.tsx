@@ -84,7 +84,7 @@ function TeamDetailedContainer() {
             <Workflows team={teamDetailsQuery.data} />
           </Route>
           <Route exact path={AppPath.ManageTeamApprovers}>
-            <ApproverGroups team={teamDetailsQuery.data} canEdit={canEdit} />
+            <ApproverGroups team={teamDetailsQuery.data} canEdit={canEdit} teamDetailsUrl={teamDetailsUrl} />
           </Route>
           <Route exact path={AppPath.ManageTeamQuotas}>
             <Quotas team={teamDetailsQuery.data} canEdit={canEdit && user?.type === "admin"} />

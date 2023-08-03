@@ -33,12 +33,12 @@ interface MemberProps {
 const Members: React.FC<MemberProps> = ({ canEdit, team, user, teamDetailsUrl }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const filteredMemberList = searchQuery ? ms(team.members, searchQuery, { keys: ["name", "email"] }) : team.members;
-  const addMemberMutator = useMutation(resolver.patchTeam);
+  const memberMutator = useMutation(resolver.patchTeam);
   const queryClient = useQueryClient();
 
   const handleSubmit = async (request: Array<Member>) => {
     try {
-      await addMemberMutator.mutateAsync({ teamId: team.id, body: { members: request } });
+      await memberMutator.mutateAsync({ teamId: team.id, body: { members: request } });
       queryClient.invalidateQueries([teamDetailsUrl]);
       request.forEach((user: Member) => {
         return notify(
@@ -79,15 +79,15 @@ const Members: React.FC<MemberProps> = ({ canEdit, team, user, teamDetailsUrl })
               <AddMemberSearch
                 memberList={team.members}
                 handleSubmit={handleSubmit}
-                isSubmitting={addMemberMutator.isLoading}
-                error={addMemberMutator.error}
+                isSubmitting={memberMutator.isLoading}
+                error={memberMutator.error}
               />
             )}
             <AddMember
               memberList={team.members}
               handleSubmit={handleSubmit}
-              isSubmitting={addMemberMutator.isLoading}
-              error={addMemberMutator.error}
+              isSubmitting={memberMutator.isLoading}
+              error={memberMutator.error}
             />
           </div>
         )}
