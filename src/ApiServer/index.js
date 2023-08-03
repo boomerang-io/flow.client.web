@@ -285,7 +285,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.get(serviceUrl.getWorkflowCompose({ id: ":id", version: null }), (schema, request) => {
         let { id } = request.params;
-        return schema.db.workflowCompose[0];
+        return schema.db.workflowCompose.findBy({ id });
       });
 
       this.del(serviceUrl.getWorkflow({ id: ":workflowId" }), (schema, request) => {

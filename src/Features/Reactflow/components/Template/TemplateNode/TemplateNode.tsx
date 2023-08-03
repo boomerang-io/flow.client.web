@@ -30,9 +30,11 @@ function TaskTemplateNodeDesigner(props: WorkflowNode) {
   const inputProperties = availableParametersQueryData;
 
   // Find the matching task template based on the name and version
-  const task = taskTemplatesData[props.data.templateRef]?.find(
-    (taskTemplate) => taskTemplate.version === props.data.templateVersion
-  )!;
+  const taskTemplateList = taskTemplatesData[props.data.templateRef];
+  const task =
+    taskTemplateList?.find((taskTemplate) => taskTemplate.version === props.data.templateVersion) ??
+    taskTemplatesData[props.data.templateRef]?.[0] ??
+    {};
 
   // Get the taskNames names from the nodes on the model
   const taskNames = nodes.map((node) => node.data.name);

@@ -4,7 +4,6 @@ import ReactFlow, {
   Background,
   Controls,
   Edge,
-  EdgeTypes,
   Node,
   ReactFlowInstance,
   applyEdgeChanges,
@@ -19,7 +18,7 @@ import "reactflow/dist/style.css";
 import "./styles.scss";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
 import * as GraphComps from "./components";
-import { TaskTemplate, WorkflowNode } from "Types";
+import { TaskTemplate } from "Types";
 
 type NodeTypeValues = typeof NodeType[keyof typeof NodeType];
 type WorkflowEngineMode = typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode];
@@ -144,6 +143,7 @@ function FlowDiagram(props: FlowDiagramProps) {
   const onEdgesChange = React.useCallback((changes) => setEdges(applyEdgeChanges(changes, edges)), [edges]);
   const onConnect = React.useCallback(
     (connection: Connection) =>
+      console.log({ connection }) ||
       setEdges((edges) => addEdge({ ...connection, ...getLinkType(connection, nodes) }, edges)),
     [setEdges, nodes]
   );
@@ -177,11 +177,11 @@ function FlowDiagram(props: FlowDiagramProps) {
       }) as XYPosition;
 
       // TODO: clean this up - determines how to give the task template a unique name
-      const numTemplateRefInstances = nodes.reduce((prev, currentValue) => {
-        if (currentValue.data.templateRef === task.name) {
-          prev += 1;
+      const numTemplateRefInstances = nodes.reduce((accum, currentNode) => {
+        if (currentNode.data.templateRef === task.name) {
+          accum += 1;
         }
-        return prev;
+        return accum;
       }, 0);
 
       const taskName = numTemplateRefInstances
@@ -189,7 +189,7 @@ function FlowDiagram(props: FlowDiagramProps) {
         : task.displayName;
 
       const newNode: Node = {
-        id: getId(),
+        id: taskName,
         type: task.type,
         position,
         data: {
@@ -207,7 +207,7 @@ function FlowDiagram(props: FlowDiagramProps) {
   );
 
   const isDisabled = props.mode === WorkflowDagEngineMode.Viewer;
-
+  console.log(edges);
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <ReactFlowProvider>
