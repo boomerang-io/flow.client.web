@@ -56,15 +56,15 @@ const workflowsCompose = [
     edges: [
       {
         id: "64cafb1706ca9f65f338ae3d",
-        source: "Create Spreadsheet 1",
-        target: "end",
+        source: "64cafb1706ca9f65f338ae3e",
+        target: "64cafb1706ca9f65f338ae3c",
         type: "template",
         data: { decisionCondition: "", executionCondition: "always" },
       },
       {
         id: "64cafb1706ca9f65f338ae3f",
-        source: "start",
-        target: "Create Spreadsheet 1",
+        source: "64cafb1706ca9f65f338ae3b",
+        target: "64cafb1706ca9f65f338ae3e",
         type: "start",
         data: { decisionCondition: "", executionCondition: "always" },
       },
