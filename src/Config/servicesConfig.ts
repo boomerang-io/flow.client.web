@@ -51,6 +51,7 @@ export const serviceUrl = {
   deleteToken: ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
   deleteSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
   deleteTeamMembers: ({ teamId }) => `${BASE_URL}/team/${teamId}/members`,
+  leaveTeam: ({ id }: IdArg) => `${BASE_URL}/team/${id}/leave`,
   getWorkflowRunCount: ({ query }: QueryArg) => `${BASE_URL}/workflowrun/count${query ? "?" + query : ""}`,
   getWorkflowRuns: ({ query }: QueryArg) => `${BASE_URL}/workflowrun/query${query ? "?" + query : ""}`,
   getActionsSummary: ({ query }: QueryArg) => `${BASE_URL}/action/summary${query ? "?" + query : ""}`,

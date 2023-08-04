@@ -17,22 +17,16 @@ interface TeamCardProps {
 
 const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
   const { teams } = useAppContext();
-  const queryClient = useQueryClient();
   const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false);
-
   const history = useHistory();
 
-  const { mutateAsync: leaveTeamMutator, isLoading: isLeaving } = useMutation(resolver.leaveTeam, {});
-
+  const leaveTeamMutator = useMutation(resolver.leaveTeam);
   const handleLeaveTeam = async () => {
     try {
-      await leaveTeamMutator({ id: team.id });
+      await leaveTeamMutator.mutateAsync({ id: team.id });
       notify(<ToastNotification kind="success" title={`Leave Team`} subtitle={`${team.name} successfully left`} />);
-      // @ts-ignore
-      teams[specificTeamIndex].workflows = newTeamWorkflows;
-      //TODO what am I setting as queryData
-      // queryClient.setQueryData(serviceUrl.getTeams(), teams);
-      queryClient.invalidateQueries(serviceUrl.getMyTeams());
+      // TODO - invalidate profile query
+      // queryClient.invalidateQueries(serviceUrl.getMyTeams());
     } catch {
       notify(<ToastNotification kind="error" title="Something's Wrong" subtitle={`Request to leave team failed`} />);
     }
@@ -57,7 +51,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
 
   return (
     <div className={styles.container}>
-      <Link to={!isLeaving ? appLink.workflows({ teamId: team.id }) : ""}>
+      <Link to={!leaveTeamMutator.isLoading ? appLink.workflows({ teamId: team.id }) : ""}>
         <div className={styles.content}>
           <h1 title={team.name} className={styles.name} data-testid="workflow-card-title">
             {team.name}
@@ -75,7 +69,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
             <div className={styles.detailItem}>
               <div className={styles.detailLabel}>Status</div>
               <div className={styles.detailValue}>
-                {isLeaving ? (
+                {leaveTeamMutator.isLoading ? (
                   <InlineLoading
                     description="Leaving.."
                     style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
@@ -100,7 +94,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
         </div>
         <ArrowRight size={24} className={styles.cardIcon} />
       </Link>
-      {!isLeaving ? (
+      {!leaveTeamMutator.isLoading ? (
         <OverflowMenu
           flipped
           ariaLabel="Overflow card menu"
