@@ -13,13 +13,12 @@ import { resolver, serviceUrl } from "Config/servicesConfig";
 export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   const queryClient = useQueryClient();
 
-  const { mutateAsync: removeTeamMutator } = useMutation(resolver.patchUpdateTeam, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id })),
-  });
+  const { mutateAsync: removeTeamMutator } = useMutation(resolver.patchUpdateTeam);
 
-  const removeTeam = async () => {
+  const handleRemoveTeam = async () => {
     try {
       await removeTeamMutator({ teamId: team.id, body: { isActive: false } });
+      queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
       notify(
         <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
       );
@@ -89,7 +88,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
             access to the Services will be revoked.
           </p>
           <ConfirmModal
-            affirmativeAction={() => removeTeam()}
+            affirmativeAction={() => handleRemoveTeam()}
             affirmativeButtonProps={{ kind: "danger", "data-testid": "confirm-close-team" }}
             title={`Close ${team.name}?`}
             negativeText="Cancel"

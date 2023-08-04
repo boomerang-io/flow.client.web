@@ -6,7 +6,8 @@ import { InlineLoading, OverflowMenu, OverflowMenuItem } from "@carbon/react";
 import { ConfirmModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { ArrowRight } from "@carbon/react/icons";
+import { ArrowRight, Checkmark, Close } from "@carbon/react/icons";
+import moment from "moment";
 import { FlowTeam } from "Types";
 import styles from "./teamCard.module.scss";
 
@@ -57,24 +58,49 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
   return (
     <div className={styles.container}>
       <Link to={!isLeaving ? appLink.workflows({ teamId: team.id }) : ""}>
-        <section className={styles.details}>
-          <div className={styles.descriptionContainer}>
-            <h1 title={team.name} className={styles.name} data-testid="workflow-card-title">
-              {team.name}
-            </h1>
-            <p title={team.description} className={styles.description}>
-              {team.description}
-            </p>
+        <div className={styles.content}>
+          <h1 title={team.name} className={styles.name} data-testid="workflow-card-title">
+            {team.name}
+          </h1>
+          {/* TODO - change name to display name and put the name slug underneath in small font */}
+          <div className={styles.details}>
+            <div className={styles.detailItem}>
+              <div className={styles.detailLabel}>Workflows</div>
+              <div className={styles.detailValue}>12</div>
+            </div>
+            <div className={styles.detailItem}>
+              <div className={styles.detailLabel}>Members</div>
+              <div className={styles.detailValue}>2</div>
+            </div>
+            <div className={styles.detailItem}>
+              <div className={styles.detailLabel}>Status</div>
+              <div className={styles.detailValue}>
+                {isLeaving ? (
+                  <InlineLoading
+                    description="Leaving.."
+                    style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
+                  />
+                ) : (
+                  <div className={styles.detailStatus}>
+                    {team.status === "active" ? (
+                      <Checkmark style={{ fill: "#009d9a" }} />
+                    ) : (
+                      <Close style={{ fill: "#da1e28" }} />
+                    )}
+                    <p>{team.status === "active" ? "Active" : "Inactive"}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className={styles.detailItem}>
+              <div className={styles.detailLabel}>Creation Date</div>
+              <div className={styles.detailValue}>{moment(team.creationDate).format("YYYY-MM-DD")}</div>
+            </div>
           </div>
-          <ArrowRight size={24} className={styles.cardIcon} />
-        </section>
+        </div>
+        <ArrowRight size={24} className={styles.cardIcon} />
       </Link>
-      {isLeaving ? (
-        <InlineLoading
-          description="Leaving.."
-          style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
-        />
-      ) : (
+      {!isLeaving ? (
         <OverflowMenu
           flipped
           ariaLabel="Overflow card menu"
@@ -85,7 +111,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
             <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
           ))}
         </OverflowMenu>
-      )}
+      ) : null}
       {isLeaveModalOpen && (
         <ConfirmModal
           affirmativeAction={handleLeaveTeam}

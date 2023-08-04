@@ -28,6 +28,9 @@ dependencies:
   '@carbon/charts-react':
     specifier: ^1.6.1
     version: 1.6.1(d3@7.4.4)(react-dom@17.0.0)(react@17.0.0)(sass@1.62.1)
+  '@carbon/pictograms-react':
+    specifier: ^11.46.1
+    version: 11.46.1(react@17.0.0)
   '@carbon/react':
     specifier: 1.16.0
     version: 1.16.0(react-dom@17.0.0)(react@17.0.0)(sass@1.62.1)
@@ -1815,6 +1818,10 @@ packages:
     resolution: {integrity: sha512-iFWIfjKABjusb+gUz6s0FdEBHe8Ms63CKDxozhtiSZ9LfF9X5QQztO8df3szqcNsmw30pYhSnm+zJwifO9tdRw==}
     dev: false
 
+  /@carbon/icon-helpers@10.43.1:
+    resolution: {integrity: sha512-1f2qKDi7Kg/aH3WWZNUAtDaab0SsfpM9UJgU9fezeELM2hXkOaLp0uXu9+4cvil2x9/L08IG525TQnls2gFv+A==}
+    dev: false
+
   /@carbon/icons-react@10.49.0(react@17.0.0):
     resolution: {integrity: sha512-Lzz0A/DfR0fBye0pyxA/7+EPr1e0GeA5qYlxoOwOVJrp/L2vFuKPOe7QLBHkNgKly/BAdqN9Uo1IHKbp6Zljeg==}
     requiresBuild: true
@@ -1845,6 +1852,18 @@ packages:
 
   /@carbon/motion@11.10.0:
     resolution: {integrity: sha512-eKQTBvfgTI+txk4BjRTjObOnQ9/uWSRurzIQK4qXsRJZuxvyJTChw+0pKMjohfpzOOnv5E1XxyfM3MWURaGe6Q==}
+    dev: false
+
+  /@carbon/pictograms-react@11.46.1(react@17.0.0):
+    resolution: {integrity: sha512-FPwkeBbwedW04r2tLUspwTvE5HuA6arrZv60TE4tkwN5EjlQDHXG2Urv868YZh2VV60YtSv4CCrk+ywwpFG6lw==}
+    requiresBuild: true
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      '@carbon/icon-helpers': 10.43.1
+      '@carbon/telemetry': 0.1.0
+      prop-types: 15.8.1
+      react: 17.0.0
     dev: false
 
   /@carbon/react@1.16.0(react-dom@17.0.0)(react@17.0.0)(sass@1.62.1):
