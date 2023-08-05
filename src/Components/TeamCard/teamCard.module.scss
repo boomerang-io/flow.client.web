@@ -2,7 +2,6 @@
 
 .container {
   display: flex;
-  background-color: var(--cds-ui-01);
   flex-direction: column;
   justify-content: space-between;
   max-width: 18rem;
@@ -12,9 +11,14 @@
   @include border-radius();
 
   a {
+    background-color: var(--cds-ui-01);
     height: 100%;
+    transition: background-color 0.15s ease;
     &:focus {
       @include focus-outline($offset: 0rem);
+    }
+    &:hover {
+      background-color: var(--cds-background-hover);
     }
     &[disabled] {
       pointer-events: none;
@@ -85,9 +89,9 @@
 }
 
 .detailStatus {
-    align-items: center;
-    display: flex;
-  }
+  align-items: center;
+  display: flex;
+}
 
 .cardIcon {
   bottom: 1rem;

@@ -2,20 +2,24 @@
 
 .container {
   display: flex;
-  background-color: var(--cds-ui-01);
   flex-direction: column;
   justify-content: space-between;
   max-width: 15rem;
   min-width: 15rem;
   height: 18rem;
   position: relative;
-  padding: 1rem;
   @include border-radius();
 
   a {
+    background-color: var(--cds-layer-02);
     height: 100%;
+    padding: 1rem;
+    transition: background-color 0.15s ease;
     &:focus {
       @include focus-outline($offset: 0rem);
+    }
+    &:hover {
+      background-color: var(--cds-background-hover);
     }
     &[disabled] {
       pointer-events: none;
