@@ -39,7 +39,11 @@ const profile = {
           creationDate: "2023-07-20T06:31:56.322+00:00",
           status: "active",
           externalRef: null,
-          labels: {}
+          labels: {},
+          insights: {
+              "workflows": 3,
+              "members": 1
+          }
       },
       {
           id: "64b8d5a5040e205ee3383ab1",
@@ -47,7 +51,11 @@ const profile = {
           creationDate: "2023-07-20T06:35:17.481+00:00",
           status: "active",
           externalRef: null,
-          labels: {}
+          labels: {},
+          insights: {
+              "workflows": 1,
+              "members": 12
+          }
       },
       {
           id: "64b8d63b040e205ee3383abd",
@@ -55,7 +63,11 @@ const profile = {
           creationDate: "2023-07-20T06:37:47.889+00:00",
           status: "active",
           externalRef: null,
-          labels: {}
+          labels: {},
+          insights: {
+              "workflows": 7,
+              "members": 1
+          }
       }
   ],
   hasConsented: true,

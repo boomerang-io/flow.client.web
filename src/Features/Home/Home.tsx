@@ -41,7 +41,7 @@ const TeamContent: React.FC<TeamContentProps> = ({ teams }) => {
           </nav>
         </Section>
       </Layer>
-      <Section title="Explore and Learn">
+      <Section title="Explore and learn">
         <nav className={styles.sectionLinks}>
           <LearnCard
             icon={<Workflows style={{ height: "1.5rem", width: "1.5rem" }} />}
@@ -71,13 +71,36 @@ const TeamContent: React.FC<TeamContentProps> = ({ teams }) => {
             icon={<Gear style={{ height: "1.5rem", width: "1.5rem" }} />}
             key="manage"
             title="Manage your team"
-            description="TBA."
+            description="Everything you need to manage your team effectively. Its members, workflows, approver groups, quotas, tokens, and more."
             link="https://useboomerang.io/docs"
             tags={["Next steps"]}
           />
         </nav>
       </Section>
-
+      <Section title="Understand key concepts">
+        <nav className={styles.sectionLinks}>
+          <div className={styles.conceptItem}>
+            <h2>Workflows</h2>
+            <p>This is an item</p>
+          </div>
+          <div className={styles.conceptItem}>
+            <h2>Actions</h2>
+            <p>This is an item</p>
+          </div>
+          <div className={styles.conceptItem}>
+            <h2>Tasks</h2>
+            <p>This is an item</p>
+          </div>
+          <div className={styles.conceptItem}>
+            <h2>Task Manager</h2>
+            <p>This is an item</p>
+          </div>
+          <div className={styles.conceptItem}>
+            <h2>Tokens</h2>
+            <p>This is an item</p>
+          </div>
+        </nav>
+      </Section>
     </>
   );
 };

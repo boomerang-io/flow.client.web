@@ -82,7 +82,6 @@
   font-weight: var(--cds-body-long-01-font-weight, 400);
   line-height: var(--cds-body-long-01-line-height, 1.42857);
   letter-spacing: var(--cds-body-long-01-letter-spacing, 0.16px);
-  @include multiline-text-overflow-ellipsis();
 }
 
 .bottom {

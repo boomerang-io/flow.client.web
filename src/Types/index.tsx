@@ -468,6 +468,21 @@ export interface FlowTeam {
   approverGroups: Array<ApproverGroup>;
 }
 
+// As part of the Profile
+export interface FlowTeamSummary {
+  id: string;
+  name: string;
+  description?: string;
+  creationDate: string;
+  status: FlowTeamStatus;
+  externalRef?: string;
+  labels?: Record<string, string>;
+  insights: {
+    workflows: number;
+    members: number;
+  };
+}
+
 export enum FlowTeamStatus {
   Active = "active",
   Inactive = "inactive",
