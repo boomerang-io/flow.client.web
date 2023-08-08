@@ -111,25 +111,11 @@
   }
 }
 
-.readOnlyTag {
+.notificationsContainer {
   align-items: center;
-  background: var(--cds-ui-01);
-  border-radius: 0.875rem;
   display: flex;
-  font-size: 0.875rem;
-  height: 1.875rem;
-  justify-content: center;
-  letter-spacing: 0;
-  margin-bottom: 0.75rem;
-  width: 6.0625rem;
-}
-
-.readOnlyText {
-  color: var(--cds-text-01);
-  font-size: 0.875rem;
-  letter-spacing: 0;
-  line-height: 1.125rem;
-  max-width: 42rem;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .settingsDescription {
@@ -137,7 +123,6 @@
   line-height: 1.125rem;
   max-width: 41.25rem;
 }
-
 
 .sectionContainer {
   border-top: 0.0625rem solid var(--cds-active-ui);

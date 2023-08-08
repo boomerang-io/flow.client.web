@@ -7,27 +7,18 @@ import {
   notify,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { Reset } from "@carbon/react/icons";
-import { ModalTriggerProps, FlowTeam, ComposedModalChildProps, FlowTeamQuotas } from "Types";
+import { ModalTriggerProps, FlowTeam, ComposedModalChildProps } from "Types";
 import styles from "./RestoreDefaults.module.scss";
 
 interface RestoreDefaultsProps {
-  defaultQuotasData: FlowTeamQuotas;
-  defaultQuotasError: object;
-  defaultQuotasIsLoading: boolean;
-  selectedTeam: FlowTeam;
+  team: FlowTeam;
   disabled: boolean;
 }
 
-const RestoreDefaults: React.FC<RestoreDefaultsProps> = ({
-  selectedTeam,
-  defaultQuotasData,
-  defaultQuotasError,
-  defaultQuotasIsLoading,
-  disabled,
-}) => {
+const RestoreDefaults: React.FC<RestoreDefaultsProps> = ({ team, disabled }) => {
   return (
     <ComposedModal
       composedModalProps={{
@@ -43,59 +34,27 @@ const RestoreDefaults: React.FC<RestoreDefaultsProps> = ({
         </Button>
       )}
     >
-      {({ closeModal }: ComposedModalChildProps) => (
-        <RestoreModalContent
-          closeModal={closeModal}
-          defaultQuotas={defaultQuotasData}
-          defaultQuotasError={defaultQuotasError}
-          defaultQuotasIsLoading={defaultQuotasIsLoading}
-          teamId={selectedTeam.id}
-        />
-      )}
+      {({ closeModal }: ComposedModalChildProps) => <RestoreModalContent closeModal={closeModal} teamId={team.id} />}
     </ComposedModal>
   );
 };
 
 interface restoreDefaultProps {
   closeModal: Function;
-  defaultQuotas: FlowTeamQuotas;
-  defaultQuotasError: object;
-  defaultQuotasIsLoading: boolean;
   teamId: string;
 }
 
-const RestoreModalContent: React.FC<restoreDefaultProps> = ({
-  closeModal,
-  defaultQuotas,
-  defaultQuotasError,
-  defaultQuotasIsLoading,
-  teamId,
-}) => {
-  const cancelRequestRef = React.useRef<{} | null>();
-  const queryClient = useQueryClient();
+const RestoreModalContent: React.FC<restoreDefaultProps> = ({ closeModal, teamId }) => {
+  const defaultQuotasQuery = useQuery({
+    queryKey: serviceUrl.getTeamQuotaDefaults(),
+    queryFn: resolver.query(serviceUrl.getTeamQuotaDefaults()),
+  });
 
-  const {
-    mutateAsync: defaultQuotasMutator,
-    isLoading,
-    error,
-  } = useMutation(
-    (args: { id: string }) => {
-      const { promise, cancel } = resolver.putTeamQuotasDefault(args);
-      if (cancelRequestRef?.current) {
-        cancelRequestRef.current = cancel;
-      }
-      return promise;
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(serviceUrl.getTeamQuotas({ id: teamId }));
-      },
-    }
-  );
+  const resetQuotasMutator = useMutation(resolver.deleteTeamQuotas);
 
   const handleRestoreDefaultQuota = async () => {
     try {
-      await defaultQuotasMutator({ id: teamId });
+      await resetQuotasMutator.mutateAsync({ id: teamId });
       closeModal();
       notify(
         <ToastNotification
@@ -110,49 +69,53 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({
   };
 
   let buttonText = "Save";
-  if (isLoading) {
+  if (resetQuotasMutator.isLoading) {
     buttonText = "Saving...";
-  } else if (error) {
+  } else if (resetQuotasMutator.error) {
     buttonText = "Try again";
   }
   return (
     <ModalForm>
       <ModalBody className={styles.modalBodyContainer}>
-        {defaultQuotasIsLoading ? (
+        {defaultQuotasQuery.isLoading ? (
           <Loading />
         ) : (
           <div className={styles.gridContainer}>
             <section>
               <dt className={styles.detailedTitle}>Maximum number of Workflows </dt>
               <dt className={styles.detailedData}>
-                {defaultQuotasError ? "---" : `${defaultQuotas.maxWorkflowCount} Workflows`}{" "}
+                {defaultQuotasQuery.error ? "---" : `${defaultQuotasQuery.data.maxWorkflowCount} Workflows`}{" "}
               </dt>
             </section>
             <section>
               <dt className={styles.detailedTitle}>Maximum Workflow executions </dt>
               <dt className={styles.detailedData}>
-                {defaultQuotasError ? "---" : `${defaultQuotas.maxWorkflowExecutionMonthly} per month`}
+                {defaultQuotasQuery.error ? "---" : `${defaultQuotasQuery.data.maxWorkflowExecutionMonthly} per month`}
               </dt>
             </section>
             <section>
               <dt className={styles.detailedTitle}>Storage limit</dt>
               <dt className={styles.detailedData}>
-                {defaultQuotasError ? "---" : `${defaultQuotas.maxWorkflowExecutionMonthly}GB per Workflow`}
+                {defaultQuotasQuery.error
+                  ? "---"
+                  : `${defaultQuotasQuery.data.maxWorkflowExecutionMonthly}GB per Workflow`}
               </dt>
             </section>
             <section>
               <dt className={styles.detailedTitle}>Maximum Workflow duration</dt>
-              <dt className={styles.detailedData}>{`${defaultQuotas.maxWorkflowExecutionTime} minutes`}</dt>
+              <dt className={styles.detailedData}>
+                {defaultQuotasQuery.error ? "---" : `${defaultQuotasQuery.data.maxWorkflowExecutionTime} minutes`}
+              </dt>
             </section>
             <section>
               <dt className={styles.detailedTitle}>Maximum concurrent Workflows</dt>
               <dt className={styles.detailedData}>
-                {defaultQuotasError ? "---" : `${defaultQuotas.maxConcurrentWorkflows} Workflows`}
+                {defaultQuotasQuery.error ? "---" : `${defaultQuotasQuery.data.maxConcurrentWorkflows} Workflows`}
               </dt>
             </section>
           </div>
         )}
-        {error && (
+        {resetQuotasMutator.error && (
           <InlineNotification
             lowContrast
             kind="error"
@@ -165,7 +128,7 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({
         <Button kind="secondary" type="button" onClick={closeModal}>
           Cancel
         </Button>
-        <Button disabled={isLoading} onClick={handleRestoreDefaultQuota}>
+        <Button disabled={resetQuotasMutator.isLoading} onClick={handleRestoreDefaultQuota}>
           {buttonText}
         </Button>
       </ModalFooter>

@@ -92,9 +92,9 @@ function TeamDetailedContainer() {
           <Route exact path={AppPath.ManageTeamTokens}>
             <Tokens team={teamDetailsQuery.data} />
           </Route>
-          <Route exact path={AppPath.ManageTeamLabels}>
+          {/* <Route exact path={AppPath.ManageTeamLabels}>
             <Labels team={teamDetailsQuery.data} canEdit={canEdit} />
-          </Route>
+          </Route> */}
           <Route exact path={AppPath.ManageTeamSettings}>
             <Settings team={teamDetailsQuery.data} canEdit={canEdit} />
           </Route>

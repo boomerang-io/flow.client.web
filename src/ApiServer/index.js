@@ -119,9 +119,9 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.workflows[0];
       });
 
-      this.get(serviceUrl.getTeamQuotas({ id: ":id" }), (schema) => {
-        return schema.db.quotas[0];
-      });
+      // this.get(serviceUrl.getTeamQuotas({ id: ":id" }), (schema) => {
+      //   return schema.db.quotas[0];
+      // });
 
       this.get(serviceUrl.getTeams({ query: null }), (schema) => {
         return schema.db.teams[0];
@@ -508,37 +508,37 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        * Quotas
        */
 
-      this.patch(serviceUrl.getTeamQuotas({ id: ":id" }), (schema, request) => {
-        let body = JSON.parse(request.requestBody);
-        const quotas = schema.quotas.first();
+      // this.patch(serviceUrl.getTeamQuotas({ id: ":id" }), (schema, request) => {
+      //   let body = JSON.parse(request.requestBody);
+      //   const quotas = schema.quotas.first();
 
-        const key = Object.keys(body)[0];
-        const value = Object.values(body)[0];
+      //   const key = Object.keys(body)[0];
+      //   const value = Object.values(body)[0];
 
-        quotas.update({ [key]: value });
-        return {};
-      });
+      //   quotas.update({ [key]: value });
+      //   return {};
+      // });
 
-      this.put(serviceUrl.putTeamQuotasDefault({ id: ":id" }), (schema, request) => {
-        const quotas = schema.quotas.first();
-        const defaultConfig = {
-          maxWorkflowCount: 20,
-          maxWorkflowExecutionMonthly: 150,
-          maxWorkflowStorage: 10,
-          maxWorkflowExecutionTime: 30,
-          maxConcurrentWorkflows: 4,
-        };
+      // this.put(serviceUrl.putTeamQuotasDefault({ id: ":id" }), (schema, request) => {
+      //   const quotas = schema.quotas.first();
+      //   const defaultConfig = {
+      //     maxWorkflowCount: 20,
+      //     maxWorkflowExecutionMonthly: 150,
+      //     maxWorkflowStorage: 10,
+      //     maxWorkflowExecutionTime: 30,
+      //     maxConcurrentWorkflows: 4,
+      //   };
 
-        quotas.update(defaultConfig);
-        return {};
-      });
+      //   quotas.update(defaultConfig);
+      //   return {};
+      // });
 
-      this.put(serviceUrl.getTeamQuotas({ id: ":id" }), (schema, request) => {
-        let body = JSON.parse(request.requestBody);
-        const quotas = schema.quotas.first();
-        quotas.update(body);
-        return {};
-      });
+      // this.put(serviceUrl.getTeamQuotas({ id: ":id" }), (schema, request) => {
+      //   let body = JSON.parse(request.requestBody);
+      //   const quotas = schema.quotas.first();
+      //   quotas.update(body);
+      //   return {};
+      // });
 
       this.get(serviceUrl.getTeamQuotaDefaults(), (schema, request) => {
         return {

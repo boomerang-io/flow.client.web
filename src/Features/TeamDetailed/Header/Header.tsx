@@ -107,11 +107,11 @@ function TeamDetailedHeader({ team }: TeamDetailedHeaderProps) {
             label="Tokens"
             to={{ pathname: appLink.manageTeamTokens({ teamId: team.id }), state: location.state }}
           />
-          <Tab
+          {/* <Tab
             exact
             label="Labels"
             to={{ pathname: appLink.manageTeamLabels({ teamId: team.id }), state: location.state }}
-          />
+          /> */}
           <Tab
             exact
             label="Settings"

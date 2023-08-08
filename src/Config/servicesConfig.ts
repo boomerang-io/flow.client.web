@@ -75,7 +75,7 @@ export const serviceUrl = {
   getTaskTemplates: ({ query }: QueryId) => `${BASE_URL}/tasktemplate/query${query ? "?" + query : ""}`,
   getTaskTemplateYaml: ({ name, version }: { name: string} & Partial<VersionArg>) => `${BASE_URL}/tasktemplate/${name}${version ? `?version=${version}` : ""}`,
   getTeams: ({ query }: QueryId) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
-  getTeamQuotas: ({ id }) => `${BASE_URL}/team/${id}/quotas`,
+  deleteTeamQuotas: ({ id }: IdArg) => `${BASE_URL}/team/${id}/quotas`,
   getTeamQuotaDefaults: () => `${BASE_URL}/team/quotas/default`,
   getTokens: ({ query }) => `${BASE_URL}/token/query${query ? "?" + query : ""}`,
   getUsers: ({ query }: QueryId) => `${BASE_URL}/user/query${query ? "?" + query : ""}`,
@@ -117,7 +117,7 @@ export const serviceUrl = {
     `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
   putTaskTemplate: ({ replace, team }) => `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
   putStatusTaskTemplate: ({ name, status }) => `${BASE_URL}/tasktemplate/${name}/${status}`,
-  putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
+  postTeamQuotasReset: ({ id }) => `${BASE_URL}/teams/${id}/quotas/reset`,
   resourceTeam: ({ teamId }) => `${BASE_URL}/team/${teamId}`,
   putWorkflowAction: () => `${BASE_URL}/action/action`,
   resourceApproverGroups: ({ teamId, groupId }) =>
@@ -257,10 +257,8 @@ export const resolver = {
   putPlatformSettings: ({ body }) => axios.put(serviceUrl.resourceSettings(), body),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.putRestoreTaskTemplate({ id })),
   patchUpdateTeam: ({ teamId, body }) => axios.patch(serviceUrl.resourceTeam({ teamId }), body),
-  putTeamQuotasDefault: ({ id }) =>
-    cancellableResolver({ url: serviceUrl.putTeamQuotasDefault({ id }), method: HttpMethod.Put }),
-  putTeamQuotas: ({ id, body }) =>
-    cancellableResolver({ url: serviceUrl.getTeamQuotas({ id }), body, method: HttpMethod.Put }),
+  deleteTeamQuotas: ({ id }) =>
+    axios({ url: serviceUrl.deleteTeamQuotas({ id }), method: HttpMethod.Delete }),
   putWorkflowAction: ({ body }) =>
     cancellableResolver({ url: serviceUrl.putWorkflowAction(), body, method: HttpMethod.Put }),
 };

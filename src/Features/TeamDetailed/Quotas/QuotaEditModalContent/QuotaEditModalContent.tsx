@@ -1,10 +1,10 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { Button, ModalBody, ModalFooter, NumberInput, InlineNotification } from "@carbon/react";
 import { Loading, ModalForm, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { resolver } from "Config/servicesConfig";
 import { FlowTeamQuotas } from "Types";
 import styles from "./QuotaEditModalContent.module.scss";
 
@@ -35,33 +35,12 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
   minValue,
   teamQuotasData,
 }) => {
-  const cancelRequestRef = React.useRef<{} | null>();
-  const queryClient = useQueryClient();
-
-  const {
-    mutateAsync: putQuotaMutator,
-    isLoading,
-    error,
-  } = useMutation(
-    (args: { body: {}; id: string }) => {
-      const { promise, cancel } = resolver.putTeamQuotas(args);
-      if (cancelRequestRef?.current) {
-        cancelRequestRef.current = cancel;
-      }
-      return promise;
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(serviceUrl.getTeamQuotas({ id: teamId }));
-        queryClient.invalidateQueries(serviceUrl.getMyTeams());
-      },
-    }
-  );
+  const updateTeamMutator = useMutation(resolver.patchUpdateTeam);
 
   const handleOnSubmit = async (values: { quotaFormValue: number | string }) => {
-    let body = { ...teamQuotasData, [quotaProperty]: values.quotaFormValue };
+    let quotas = { ...teamQuotasData, [quotaProperty]: values.quotaFormValue };
     try {
-      await putQuotaMutator({ id: teamId, body });
+      await updateTeamMutator.mutateAsync({ teamId: teamId, body: { quotas: quotas } });
       closeModal();
       notify(
         <ToastNotification kind="success" title="Update Team Quotas" subtitle="Team quota successfully updated" />
@@ -72,9 +51,9 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
   };
 
   let buttonText = "Save";
-  if (isLoading) {
+  if (updateTeamMutator.isLoading) {
     buttonText = "Saving...";
-  } else if (error) {
+  } else if (updateTeamMutator.error) {
     buttonText = "Try again";
   }
 
@@ -94,7 +73,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
           <ModalForm>
             <ModalBody className={styles.modalBodyContainer}>
               <div className={styles.modalInputContainer}>
-                {isLoading && <Loading />}
+                {updateTeamMutator.isLoading && <Loading />}
                 <dt className={styles.detailedTitle}>{detailedTitle}</dt>
                 <dt className={styles.detailedData}>{detailedData}</dt>
                 <div className={styles.inputContainer}>
@@ -116,7 +95,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                   />
                   {inputUnits && <span className={styles.inputUnits}>{inputUnits}</span>}
                 </div>
-                {error && (
+                {updateTeamMutator.error && (
                   <InlineNotification
                     lowContrast
                     kind="error"
@@ -130,7 +109,10 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
-              <Button disabled={errors.quotaFormValue || isLoading || !dirty} onClick={() => handleOnSubmit(values)}>
+              <Button
+                disabled={errors.quotaFormValue || updateTeamMutator.isLoading || !dirty}
+                onClick={() => handleOnSubmit(values)}
+              >
                 {buttonText}
               </Button>
             </ModalFooter>

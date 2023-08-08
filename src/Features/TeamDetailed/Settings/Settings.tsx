@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useMutation, useQueryClient } from "react-query";
-import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
+import { InlineNotification, Button } from "@carbon/react";
 import { ConfirmModal, ComposedModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import UpdateTeamName from "./UpdateTeamName";
 import { Tag } from "@carbon/react";
@@ -33,18 +33,20 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
         <title>{`Settings - ${team.name}`}</title>
       </Helmet>
       {!canEdit ? (
-        <section className={styles.readOnly}>
-          <Tag className={styles.readOnlyTag}>Read-only</Tag>
-          <p className={styles.readOnlyText}>
-            You don’t have permission to change any of these settings, but you can still see what’s going on behind the
-            scenes.
-          </p>
+        <section className={styles.notificationsContainer}>
+          <InlineNotification
+            lowContrast
+            hideCloseButton={true}
+            kind="info"
+            title="Read-only"
+            subtitle="You don’t have permission to change these settings, but you can still see what’s going on behind the
+            scenes."
+          />
         </section>
-      ) : (
-        <p className={styles.settingsDescription}>
-          These are configurable settings for this Team – only Admins have the ability to make changes here
-        </p>
-      )}
+      ) : null}
+      <p className={styles.settingsDescription}>
+        Configurable settings for this Team – Team Owners & Admins have the ability to make changes here.
+      </p>
       <SettingSection
         title="Basic details"
         editModal={
@@ -80,6 +82,11 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
             </div>
           </div>
         </dl>
+      </SettingSection>
+      <SettingSection title="Labels">
+        <div className={styles.buttonWithMessageContainer}>
+          <p className={styles.buttonHelperText}>Coming soon - labels are not yet enabled via this page.</p>
+        </div>
       </SettingSection>
       <SettingSection title="Close Team">
         <div className={styles.buttonWithMessageContainer}>
