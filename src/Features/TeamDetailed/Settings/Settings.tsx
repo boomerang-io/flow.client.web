@@ -197,15 +197,25 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
                               </Button>
                             )}
                           />
-                          <Button
-                            kind="danger--ghost"
-                            iconDescription="delete label"
-                            renderIcon={TrashCan}
-                            size="sm"
-                            onClick={() => handleRemoveLabel(label)}
+                          <ConfirmModal
+                            modalTrigger={({ openModal }) => (
+                              <Button
+                                kind="danger--ghost"
+                                iconDescription="delete label"
+                                renderIcon={TrashCan}
+                                size="sm"
+                                onClick={openModal}
+                                data-testid={`delete-token-button-${label}`}
+                              />
+                            )}
+                            affirmativeAction={() => handleRemoveLabel(label)}
+                            affirmativeButtonProps={{ kind: "danger" }}
+                            affirmativeText="Yes"
+                            negativeText="No"
+                            title={`Are you sure?`}
                           >
                             Delete
-                          </Button>
+                          </ConfirmModal>
                         </StructuredListCell>
                       </>
                     )}
