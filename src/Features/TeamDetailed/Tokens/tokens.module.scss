@@ -131,3 +131,14 @@
 .headerHoverIcon {
   margin-left: 0.25rem;
 }
+
+.notificationsContainer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  :global .cds--inline-notification {
+    max-width: 100%;
+  }
+}

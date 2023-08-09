@@ -202,3 +202,14 @@
   line-height: 1.125rem;
   margin-bottom: 1.375rem;
 }
+
+.notificationsContainer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  :global .cds--inline-notification {
+    max-width: 100%;
+  }
+}

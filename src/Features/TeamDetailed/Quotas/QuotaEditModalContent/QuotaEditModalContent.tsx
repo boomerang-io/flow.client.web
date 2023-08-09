@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Button, ModalBody, ModalFooter, NumberInput, InlineNotification } from "@carbon/react";
 import { Loading, ModalForm, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { resolver } from "Config/servicesConfig";
@@ -20,6 +20,7 @@ interface QuotaEditProps {
   quotaValue: number;
   minValue: number;
   teamQuotasData: FlowTeamQuotas;
+  teamDetailsUrl: string;
 }
 
 const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
@@ -34,13 +35,16 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
   quotaValue,
   minValue,
   teamQuotasData,
+  teamDetailsUrl,
 }) => {
+  const queryClient = useQueryClient();
   const updateTeamMutator = useMutation(resolver.patchUpdateTeam);
 
   const handleOnSubmit = async (values: { quotaFormValue: number | string }) => {
-    let quotas = { ...teamQuotasData, [quotaProperty]: values.quotaFormValue };
+    let quotas = { [quotaProperty]: values.quotaFormValue };
     try {
       await updateTeamMutator.mutateAsync({ teamId: teamId, body: { quotas: quotas } });
+      queryClient.invalidateQueries(teamDetailsUrl);
       closeModal();
       notify(
         <ToastNotification kind="success" title="Update Team Quotas" subtitle="Team quota successfully updated" />

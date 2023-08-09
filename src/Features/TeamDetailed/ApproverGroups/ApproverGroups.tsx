@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { resolver } from "Config/servicesConfig";
 import { useMutation, useQueryClient } from "react-query";
 import sortBy from "lodash/sortBy";
-import { Button, DataTable } from "@carbon/react";
+import { Button, DataTable, InlineNotification } from "@carbon/react";
 import { ConfirmModal, Error404, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditGroupModal from "./CreateEditGroupModal";
 import moment from "moment";
@@ -176,10 +176,22 @@ function ApproverGroups({
       <Helmet>
         <title>Team Approvers</title>
       </Helmet>
+      {!canEdit ? (
+        <section className={styles.notificationsContainer}>
+          <InlineNotification
+            lowContrast
+            hideCloseButton={true}
+            kind="info"
+            title="Read-only"
+            subtitle="You don’t have permission to create Approver Groups, but you can still see what’s going on behind the
+            scenes."
+          />
+        </section>
+      ) : null}
       <section className={styles.actionsContainer}>
         <div className={styles.leftActions}>
           <p className={styles.featureDescription}>
-            Create groups of users to be able to set the entire group as approvers for an Action.
+            Create groups of users to be able to set the entire group as an approver in an Action.
           </p>
           <p className={styles.memberCountText}>
             Showing {approverGroups?.length ?? 0} approver group{approverGroups?.length !== 1 ? "s" : ""}

@@ -87,10 +87,14 @@ function TeamDetailedContainer() {
             <ApproverGroups team={teamDetailsQuery.data} canEdit={canEdit} teamDetailsUrl={teamDetailsUrl} />
           </Route>
           <Route exact path={AppPath.ManageTeamQuotas}>
-            <Quotas team={teamDetailsQuery.data} canEdit={canEdit && user?.type === "admin"} />
+            <Quotas
+              team={teamDetailsQuery.data}
+              canEdit={canEdit && user?.type === "admin"}
+              teamDetailsUrl={teamDetailsUrl}
+            />
           </Route>
           <Route exact path={AppPath.ManageTeamTokens}>
-            <Tokens team={teamDetailsQuery.data} />
+            <Tokens team={teamDetailsQuery.data} canEdit={canEdit} />
           </Route>
           {/* <Route exact path={AppPath.ManageTeamLabels}>
             <Labels team={teamDetailsQuery.data} canEdit={canEdit} />

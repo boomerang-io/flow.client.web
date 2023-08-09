@@ -3,6 +3,7 @@
 .settingsContainer {
   padding: 1.5rem 2rem;
   position: relative;
+  overflow: auto;
 
   :global .cds--bmrg-toggle {
     margin-bottom: 2rem;
@@ -62,6 +63,19 @@
   }
 }
 
+.detailedListContainer {
+  margin-top: 0.5rem;
+  width: 60rem;
+}
+
+.detailedListParagraph {
+  color: var(--cds-text-02);
+  font-size: 0.75rem;
+  font-style: normal !important;
+  line-height: 0.9375rem;
+  margin-bottom: 1rem !important;
+  max-width: 41.2rem;
+}
 
 .detailedListGrid {
   display: grid;
@@ -168,4 +182,17 @@
 .closeTeamButton {
   margin-left: -0.5rem;
   padding: 0.1875rem 0.5rem !important;
+}
+
+.structuredListWrapper {
+  max-width: 75rem;
+  margin-top:0.25rem;
+}
+
+.structuredListHeader {
+  display: flex;
+}
+
+.structuredListHeaderHoverIcon {
+  margin-left: 0.25rem;
 }

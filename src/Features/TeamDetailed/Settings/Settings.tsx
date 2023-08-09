@@ -2,22 +2,41 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useMutation, useQueryClient } from "react-query";
 import { InlineNotification, Button } from "@carbon/react";
-import { ConfirmModal, ComposedModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  ConfirmModal,
+  ComposedModal,
+  notify,
+  ToastNotification,
+  TooltipHover,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import UpdateTeamName from "./UpdateTeamName";
-import { Tag } from "@carbon/react";
-import { Edit, Close } from "@carbon/react/icons";
+import {
+  StructuredListWrapper,
+  StructuredListHead,
+  StructuredListRow,
+  StructuredListCell,
+  StructuredListBody,
+} from "@carbon/react";
+import { Edit, Close, TrashCan } from "@carbon/react/icons";
+import sortBy from "lodash/sortBy";
 import { FlowTeam } from "Types";
+import LabelModal from "Components/LabelModal";
 import styles from "./Settings.module.scss";
 import { resolver, serviceUrl } from "Config/servicesConfig";
+
+interface Label {
+  key: string;
+  value: string;
+}
 
 export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   const queryClient = useQueryClient();
 
-  const { mutateAsync: removeTeamMutator } = useMutation(resolver.patchUpdateTeam);
+  const removeTeamMutator = useMutation(resolver.patchUpdateTeam);
 
   const handleRemoveTeam = async () => {
     try {
-      await removeTeamMutator({ teamId: team.id, body: { isActive: false } });
+      await removeTeamMutator.mutateAsync({ teamId: team.id, body: { isActive: false } });
       queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
       notify(
         <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
@@ -26,6 +45,51 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
       // noop
     }
   };
+
+  const handleAddLabel = async (value: Label) => {
+    console.log("handleAddLabel", value);
+    const newLabels = [...teamLabels, value];
+    const newLabelsRecord = newLabels.reduce((acc, label) => {
+      acc[label.key] = label.value;
+      return acc;
+    }, {} as Record<string, string>);
+
+    try {
+      await removeTeamMutator.mutateAsync({ teamId: team.id, body: { labels: newLabelsRecord } });
+      queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
+      notify(
+        <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
+      );
+    } catch (error) {
+      // noop
+    }
+  };
+
+  const handleRemoveLabel = async (value: Label) => {
+    console.log("handleRemoveLabel", value);
+
+    const newLabels = teamLabels.filter((label) => label.key !== value.key);
+    const newLabelsRecord = newLabels.reduce((acc, label) => {
+      acc[label.key] = label.value;
+      return acc;
+    }, {} as Record<string, string>);
+
+    console.log("newLabels", newLabelsRecord);
+
+    try {
+      await removeTeamMutator.mutateAsync({ teamId: team.id, body: { labels: newLabelsRecord } });
+      queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
+      notify(
+        <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
+      );
+    } catch (error) {
+      // noop
+    }
+  };
+
+  // Convert Record/Map of Labels to Array of Label Object
+  const teamLabels = team.labels ? Object.entries(team.labels).map(([key, value]) => ({ key, value })) : [];
+  const labelsKeys = team.labels ? Object.keys(team.labels) : [];
 
   return (
     <section aria-label="Team Settings" className={styles.settingsContainer}>
@@ -87,6 +151,71 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
         <div className={styles.buttonWithMessageContainer}>
           <p className={styles.buttonHelperText}>Coming soon - labels are not yet enabled via this page.</p>
         </div>
+      </SettingSection>
+      <SettingSection title="Labels">
+        <dl className={styles.detailedListContainer}>
+          <p className={styles.detailedListParagraph}>
+            Personal access tokens allow other apps to access the APIs as if they were you. All of your access will be
+            shared. Be careful how you distribute these tokens!
+          </p>
+          <StructuredListWrapper
+            className={styles.structuredListWrapper}
+            ariaLabel="Structured list"
+            isCondensed={true}
+          >
+            <StructuredListHead>
+              <StructuredListRow head>
+                <StructuredListCell head>Key</StructuredListCell>
+                <StructuredListCell head>Value</StructuredListCell>
+                <StructuredListCell head />
+              </StructuredListRow>
+            </StructuredListHead>
+            <StructuredListBody>
+              {sortBy(teamLabels, "key").map((label: Label) => {
+                const labelIndex = teamLabels.findIndex((labelFromList) => labelFromList.key === label.key);
+                return (
+                  <StructuredListRow key={label.key}>
+                    <StructuredListCell className={styles.labelKeyCell}>{label.key}</StructuredListCell>
+                    <StructuredListCell>{label.value}</StructuredListCell>
+                    {canEdit && (
+                      <>
+                        <StructuredListCell>
+                          <LabelModal
+                            action={handleAddLabel}
+                            isEdit
+                            labelsKeys={labelsKeys.filter((labelKey) => labelKey !== label.key)}
+                            selectedLabel={label}
+                            modalTrigger={({ openModal }: { openModal: Function }) => (
+                              <Button
+                                kind="ghost"
+                                iconDescription="edit label"
+                                renderIcon={Edit}
+                                size="sm"
+                                onClick={openModal}
+                              >
+                                Edit
+                              </Button>
+                            )}
+                          />
+                          <Button
+                            kind="danger--ghost"
+                            iconDescription="delete label"
+                            renderIcon={TrashCan}
+                            size="sm"
+                            onClick={() => handleRemoveLabel(label)}
+                          >
+                            Delete
+                          </Button>
+                        </StructuredListCell>
+                      </>
+                    )}
+                  </StructuredListRow>
+                );
+              })}
+            </StructuredListBody>
+          </StructuredListWrapper>
+        </dl>
+        {/* <CreateToken getTokensUrl={getTokensUrl} principal={user.id} type="user" /> */}
       </SettingSection>
       <SettingSection title="Close Team">
         <div className={styles.buttonWithMessageContainer}>

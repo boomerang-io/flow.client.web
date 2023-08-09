@@ -4,6 +4,11 @@ const team = {
       description: "Flow Team for IBM Services Engineering",
       creationDate: "2023-05-04T03:18:27.350Z",
       status: "active",
+      labels: {
+        "key1": "value1",
+        "key2": "value2",
+        "key3": "value3",
+      },
       quotas: {
         maxWorkflowCount: 10,
         maxWorkflowExecutionMonthly: 100,

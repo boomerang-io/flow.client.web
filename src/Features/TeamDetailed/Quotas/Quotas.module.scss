@@ -1,7 +1,6 @@
 .container {
   width: 100%;
   height: calc(100vh - 3rem);
-  overflow-y: auto;
   padding: 1.5rem 2rem;
 }
 
@@ -95,6 +94,12 @@
   min-width: 24rem;
 }
 
+.featureDescription {
+  color: var(--cds-text-01);
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  margin-bottom: 1.375rem;
+}
 
 .notificationsContainer {
   align-items: center;

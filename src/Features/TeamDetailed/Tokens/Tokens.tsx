@@ -7,7 +7,7 @@ import queryString from "query-string";
 import moment from "moment";
 import cx from "classnames";
 import { Box } from "reflexbox";
-import { DataTable, DataTableSkeleton, Pagination } from "@carbon/react";
+import { DataTable, DataTableSkeleton, Pagination, InlineNotification } from "@carbon/react";
 import { ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
 import EmptyState from "Components/EmptyState";
 import DeleteToken from "Components/DeleteToken";
@@ -57,7 +57,7 @@ const HEADERS = [
   },
 ];
 
-function Tokens({ team }: { team: FlowTeam }) {
+function Tokens({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
@@ -152,6 +152,18 @@ function Tokens({ team }: { team: FlowTeam }) {
         <title>{`Tokens - ${team.name}`}</title>
       </Helmet>
       <>
+        {!canEdit ? (
+          <section className={styles.notificationsContainer}>
+            <InlineNotification
+              lowContrast
+              hideCloseButton={true}
+              kind="info"
+              title="Read-only"
+              subtitle="You don’t have permission to create Tokens, but you can still see what’s going on behind the
+            scenes."
+            />
+          </section>
+        ) : null}
         <div className={styles.buttonContainer}>
           {team?.id && <CreateToken type="team" principal={team.id} getTokensUrl={getTokensUrl} />}
         </div>

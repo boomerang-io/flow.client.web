@@ -3,7 +3,6 @@ import { useFeature } from "flagged";
 import { useAppContext } from "Hooks";
 import Header from "./Header";
 import Settings from "./Settings";
-import { FlowUser } from "Types";
 import { FeatureFlag } from "Config/appConfig";
 import styles from "./UserProfile.module.scss";
 
