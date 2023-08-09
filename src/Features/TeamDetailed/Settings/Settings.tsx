@@ -17,7 +17,7 @@ import {
   StructuredListCell,
   StructuredListBody,
 } from "@carbon/react";
-import { Edit, Close, TrashCan } from "@carbon/react/icons";
+import { Edit, Close, TrashCan, Add } from "@carbon/react/icons";
 import sortBy from "lodash/sortBy";
 import { FlowTeam } from "Types";
 import LabelModal from "Components/LabelModal";
@@ -32,11 +32,11 @@ interface Label {
 export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   const queryClient = useQueryClient();
 
-  const removeTeamMutator = useMutation(resolver.patchUpdateTeam);
+  const patchTeamMutator = useMutation(resolver.patchUpdateTeam);
 
   const handleRemoveTeam = async () => {
     try {
-      await removeTeamMutator.mutateAsync({ teamId: team.id, body: { isActive: false } });
+      await patchTeamMutator.mutateAsync({ teamId: team.id, body: { isActive: false } });
       queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
       notify(
         <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
@@ -55,7 +55,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
     }, {} as Record<string, string>);
 
     try {
-      await removeTeamMutator.mutateAsync({ teamId: team.id, body: { labels: newLabelsRecord } });
+      await patchTeamMutator.mutateAsync({ teamId: team.id, body: { labels: newLabelsRecord } });
       queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
       notify(
         <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
@@ -77,7 +77,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
     console.log("newLabels", newLabelsRecord);
 
     try {
-      await removeTeamMutator.mutateAsync({ teamId: team.id, body: { labels: newLabelsRecord } });
+      await patchTeamMutator.mutateAsync({ teamId: team.id, body: { labels: newLabelsRecord } });
       queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
       notify(
         <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
@@ -148,16 +148,8 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
         </dl>
       </SettingSection>
       <SettingSection title="Labels">
-        <div className={styles.buttonWithMessageContainer}>
-          <p className={styles.buttonHelperText}>Coming soon - labels are not yet enabled via this page.</p>
-        </div>
-      </SettingSection>
-      <SettingSection title="Labels">
         <dl className={styles.detailedListContainer}>
-          <p className={styles.detailedListParagraph}>
-            Personal access tokens allow other apps to access the APIs as if they were you. All of your access will be
-            shared. Be careful how you distribute these tokens!
-          </p>
+          <p className={styles.detailedListParagraph}>Create custom labels can be useful when querying the API.</p>
           <StructuredListWrapper
             className={styles.structuredListWrapper}
             ariaLabel="Structured list"
@@ -222,6 +214,15 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
                   </StructuredListRow>
                 );
               })}
+              <LabelModal
+                action={handleAddLabel}
+                labelsKeys={labelsKeys}
+                modalTrigger={({ openModal }: { openModal: Function }) => (
+                  <Button kind="ghost" iconDescription="add a new label" renderIcon={Add} size="md" onClick={openModal}>
+                    Add a new label
+                  </Button>
+                )}
+              />
             </StructuredListBody>
           </StructuredListWrapper>
         </dl>
