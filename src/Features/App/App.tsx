@@ -1,9 +1,10 @@
 import React, { lazy, useState, Suspense } from "react";
 import axios from "axios";
 import { FlagsProvider, useFeature } from "flagged";
-import { AppContextProvider, TeamContextProvider } from "State/context";
+import { AppContextProvider, TeamContextProvider, useAppContext } from "State/context";
 import { useQuery, useQueryClient } from "react-query";
 import { Switch, Route, Redirect, useLocation, useParams } from "react-router-dom";
+import { Button } from "@carbon/react";
 import {
   DelayedRender,
   Error404,
@@ -11,17 +12,18 @@ import {
   NotificationsContainer,
   ProtectedRoute,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import Joyride, { CallBackProps, TooltipRenderProps, STATUS } from "react-joyride";
 import ErrorBoundary from "Components/ErrorBoundary";
 import ErrorDragon from "Components/ErrorDragon";
-import OnBoardExpContainer from "Features/Tutorial";
 import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
 import { sortBy } from "lodash";
 import { elevatedUserRoles } from "Constants";
+import { ArrowRight, ArrowLeft, Close } from "@carbon/react/icons";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, ContextConfig, PaginatedTeamResponse } from "Types";
+import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, ContextConfig } from "Types";
 import styles from "./app.module.scss";
 
 const AppActivation = lazy(() => import("./AppActivation"));
@@ -170,7 +172,9 @@ export default function App() {
           contextData={contextQuery.data}
           userData={userQuery.data}
         />
-        <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
+        {
+          //<OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
+        }
         <ErrorBoundary>
           <Main
             isTutorialActive={isTutorialActive}
@@ -356,6 +360,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           </Route>
           <Redirect to="/home" />
         </Switch>
+        <Tutorial />
       </Suspense>
       <NotificationsContainer enableMultiContainer />
     </main>
@@ -388,4 +393,103 @@ function TeamContainer(props: { children: React.ReactNode }) {
   }
 
   return null;
+}
+
+/**
+ * TODO: MOVE THIS TO OWN COMPONENT
+ * AND DETERMINE WHEN TO RENDER WHICH TUTORIAL
+ * BASED ON THE PATH
+ */
+const home_steps = [
+  {
+    disableBeacon: true,
+    target: "#your-teams",
+    content: "This is my awesome feature!",
+  },
+  {
+    disableBeacon: true,
+    target: "#explore",
+    content: "This is my awesome again!",
+  },
+];
+
+const workflows_steps = [
+  {
+    disableBeacon: true,
+    target: "#my-workflows",
+    content: "This is my awesome feature!",
+  },
+];
+
+const stepMapper = {
+  ":teamId/workflows": workflows_steps,
+};
+
+function Tutorial() {
+  const location = useLocation();
+  console.log({ location });
+  const { setIsTutorialActive, isTutorialActive } = useAppContext();
+  const handleJoyrideCallback = (data: CallBackProps) => {
+    const { action, status } = data;
+
+    if (action === "close") {
+      setIsTutorialActive(false);
+    }
+
+    if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
+      setIsTutorialActive(false);
+    }
+  };
+
+  if (!isTutorialActive) {
+    return null;
+  }
+
+  return (
+    <Joyride
+      continuous
+      callback={handleJoyrideCallback}
+      steps={workflows_steps}
+      tooltipComponent={({
+        continuous,
+        index,
+        step,
+        backProps,
+        primaryProps,
+        closeProps,
+        tooltipProps,
+      }: TooltipRenderProps) => {
+        return (
+          <div
+            {...tooltipProps}
+            style={{
+              background: "white",
+              padding: "1rem",
+              borderRadius: "0.25rem",
+              height: "10rem",
+              width: "20rem",
+            }}
+          >
+            {step.title && <h2>{step.title}</h2>}
+            <div>{step.content}</div>
+            <footer>
+              {index > 0 && (
+                <Button {...backProps} renderIcon={ArrowLeft} size="sm" kind="secondary">
+                  Back
+                </Button>
+              )}
+              {continuous && (
+                <Button {...primaryProps} renderIcon={ArrowRight} size="sm">
+                  Next
+                </Button>
+              )}
+              <Button {...closeProps} hasIconOnly renderIcon={Close} label="Close" size="sm">
+                Close
+              </Button>
+            </footer>
+          </div>
+        );
+      }}
+    />
+  );
 }

@@ -4,7 +4,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Button } from "@carbon/react";
 import { ComposedModal, Error, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
-import { WarningAlt } from "@carbon/react/icons";
+import { ArrowRight, ArrowLeft, Close, WarningAlt } from "@carbon/react/icons";
 import queryString from "query-string";
 import { matchSorter } from "match-sorter";
 import CreateWorkflow from "Components/CreateWorkflow";
@@ -30,8 +30,6 @@ export default function Workflows() {
   const { team } = useTeamContext();
   const history = useHistory();
   const location = useLocation();
-
-  console.log("activeTeam", team);
 
   const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
   const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>({
@@ -112,7 +110,7 @@ function Layout(props: LayoutProps) {
         workflowList={props.workflowList}
         viewType={WorkflowView.Workflow}
       />
-      <div aria-label="My Workflows" className={styles.content} role="region">
+      <div aria-label="My Workflows" className={styles.content} role="region" id="my-workflows">
         <section className={styles.sectionContainer}>{props.children}</section>
       </div>
     </div>
