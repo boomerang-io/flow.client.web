@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Link, useHistory } from "react-router-dom";
 import { InlineLoading, OverflowMenu, OverflowMenuItem } from "@carbon/react";
 import { ConfirmModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import { appLink } from "Config/appConfig";
-import { resolver } from "Config/servicesConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import { ArrowRight, Checkmark, Close } from "@carbon/react/icons";
 import moment from "moment";
 import { FlowTeam, FlowTeamSummary } from "Types";
@@ -16,6 +16,7 @@ interface TeamCardProps {
 
 const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
   const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false);
+  const queryClient = useQueryClient();
   const history = useHistory();
 
   const leaveTeamMutator = useMutation(resolver.leaveTeam);
@@ -23,8 +24,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
     try {
       await leaveTeamMutator.mutateAsync({ id: team.id });
       notify(<ToastNotification kind="success" title={`Leave Team`} subtitle={`${team.name} successfully left`} />);
-      // TODO - invalidate profile query
-      // queryClient.invalidateQueries(serviceUrl.getMyTeams());
+      queryClient.invalidateQueries(serviceUrl.getUserProfile());
     } catch {
       notify(<ToastNotification kind="error" title="Something's Wrong" subtitle={`Request to leave team failed`} />);
     }
@@ -34,6 +34,14 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
     {
       itemText: "View Workflows",
       onClick: () => history.push(appLink.workflows({ teamId: team.id })),
+    },
+    {
+      itemText: "View Actions",
+      onClick: () => history.push(appLink.actions({ teamId: team.id })),
+    },
+    {
+      itemText: "View Activity",
+      onClick: () => history.push(appLink.activity({ teamId: team.id })),
     },
     {
       itemText: "Manage Team",

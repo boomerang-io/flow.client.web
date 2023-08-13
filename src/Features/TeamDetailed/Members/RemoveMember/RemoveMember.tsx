@@ -23,7 +23,6 @@ const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamId, teamName, u
         id: member.id,
       },
     ];
-    console.log("request", leaveTeamData);
     try {
       await leaveTeamMutator.mutateAsync({ id: teamId, body: leaveTeamData });
       queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId }));
