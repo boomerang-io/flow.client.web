@@ -12,41 +12,25 @@ import { useLocation } from "react-router-dom";
 export default function Home() {
   const location = useLocation();
   console.log({ location });
-  const { teams, name } = useAppContext();
+  const { teams, name, user } = useAppContext();
   return (
     <div className={styles.container}>
       <HomeBanner name={name} />
-      <div aria-label="My Teams" className={styles.content} role="region">
-        {teams && teams.length === 0 ? (
-          //TODO - make better component for Create Team
-          <EmptyState />
-        ) : (
-          <TeamContent teams={teams} />
-        )}
+      <div className={styles.welcome}>
+        <h1>Welcome, {user.name}</h1>
       </div>
-    </div>
-  );
-}
-
-interface TeamContentProps {
-  teams: FlowTeam[];
-}
-
-const TeamContent: React.FC<TeamContentProps> = ({ teams }) => {
-  return (
-    <>
-      <Layer>
-        <div id="your-teams">
+      <div>
+        <Layer>
           <Section title="Your Teams">
             <nav className={styles.sectionLinks}>
-              {teams.map((team) => (
-                <TeamCard key={team.id} team={team} />
-              ))}
+              {teams && teams.length === 0 ? (
+                <EmptyState />
+              ) : (
+                teams?.map((team) => <TeamCard key={team.id} team={team} />)
+              )}
             </nav>
           </Section>
-        </div>
-      </Layer>
-      <div id="explore">
+        </Layer>
         <Section title="Explore and learn">
           <nav className={styles.sectionLinks}>
             <LearnCard
@@ -84,19 +68,19 @@ const TeamContent: React.FC<TeamContentProps> = ({ teams }) => {
           </nav>
         </Section>
       </div>
-      <Section title="Understand key concepts">
+      <Section title="Key concepts">
         <nav className={styles.sectionLinks}>
           <div className={styles.conceptItem}>
             <h2>Workflows</h2>
-            <p>This is an item</p>
+            <p>The representation of the tasks and actions to consistently automate a process.</p>
           </div>
           <div className={styles.conceptItem}>
             <h2>Actions</h2>
-            <p>This is an item</p>
+            <p>Manual or approval based tasks that need human interaction</p>
           </div>
           <div className={styles.conceptItem}>
             <h2>Tasks</h2>
-            <p>This is an item</p>
+            <p>The discrete piece of work that performs the execution or action within a workflow</p>
           </div>
           <div className={styles.conceptItem}>
             <h2>Task Manager</h2>
@@ -108,9 +92,9 @@ const TeamContent: React.FC<TeamContentProps> = ({ teams }) => {
           </div>
         </nav>
       </Section>
-    </>
+    </div>
   );
-};
+}
 
 interface SectionProps {
   children: React.ReactNode;

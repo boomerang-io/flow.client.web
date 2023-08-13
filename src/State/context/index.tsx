@@ -1,5 +1,5 @@
 import React from "react";
-import { FlowTeam, FlowUser, TaskTemplate, WorkflowExecution, WorkflowRevision, WorkflowSummary } from "Types";
+import { FlowTeam, FlowUser, TaskTemplate, WorkflowExecution, WorkflowRevision } from "Types";
 
 export function createContext<ContextType>() {
   const context = React.createContext<ContextType | undefined>(undefined);
