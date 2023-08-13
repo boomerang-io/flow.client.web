@@ -84,11 +84,7 @@ export default function Home() {
           </div>
           <div className={styles.conceptItem}>
             <h2>Task Manager</h2>
-            <p>This is an item</p>
-          </div>
-          <div className={styles.conceptItem}>
-            <h2>Tokens</h2>
-            <p>This is an item</p>
+            <p>The centralized place to define and manage the Tasks available to Workflows.</p>
           </div>
         </nav>
       </Section>

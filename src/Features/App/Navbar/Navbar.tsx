@@ -10,6 +10,7 @@ import {
   SideNavMenuItem,
   Switcher,
   SwitcherItem,
+  SwitcherDivider,
 } from "@carbon/react";
 import { UIShell, HeaderMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
 import { APP_ROOT } from "Config/appConfig";
@@ -66,18 +67,19 @@ export default function Navbar({
         rightPanel={{
           icon: <ArrowsHorizontal size="20" />,
           component: (
-            <div>
-              <p className={styles.switcherInfo}>Select a team to switch to from the list</p>
-              <Switcher>
-                {userData.teams.map((team) => {
-                  return (
-                    <SwitcherItem large key={team.name}>
-                      {team.name}
-                    </SwitcherItem>
-                  );
-                })}
-              </Switcher>
-            </div>
+            <Switcher>
+              <li className={styles.switcherInfo}>
+                <span>Your Teams</span>
+              </li>
+              <SwitcherDivider />
+              {userData.teams.map((team) => {
+                return (
+                  <SwitcherItem large key={team.name} href={APP_ROOT + appLink.workflows({ teamId: team.id })}>
+                    {team.name}
+                  </SwitcherItem>
+                );
+              })}
+            </Switcher>
           ),
         }}
       />
