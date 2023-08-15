@@ -3,11 +3,9 @@
 
 .container {
   // background-color: #07192b;
-  max-height: 14.25rem;
-  min-height: 14.25rem;
   overflow: hidden;
   position: relative;
-  padding: 2rem 2.5rem 2.5rem;
+  padding: 0rem 2.5rem 3rem;
   transition: max-height $carbon-motion--timing--productive $carbon-motion--easing--productive,
     min-height $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 100%;

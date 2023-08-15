@@ -16,7 +16,6 @@ import Header from "./Header";
 import Members from "./Members";
 import Settings from "./Settings";
 import Quotas from "./Quotas";
-import Labels from "./Labels";
 import Tokens from "./Tokens";
 import Workflows from "./Workflows";
 import ApproverGroups from "./ApproverGroups";

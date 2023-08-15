@@ -14,6 +14,9 @@
     background-color: var(--cds-layer-02);
     height: 100%;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     transition: background-color 0.15s ease;
     &:focus {
       @include focus-outline($offset: 0rem);
@@ -87,8 +90,6 @@
 .bottom {
   display: flex;
   justify-content: space-between;
-  position: absolute;
-  bottom: 1rem;
   align-items: center;
 }
 

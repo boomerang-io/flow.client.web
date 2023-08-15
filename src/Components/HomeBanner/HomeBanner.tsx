@@ -9,7 +9,7 @@ export default function HomeBanner({ name }: HomeBannerProps) {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <h1 className={styles.title}>Welcome to {name}</h1>
+        <h1 className={styles.title}>{name}</h1>
         <p className={styles.subtitle}>Turn ideation into automation.</p>
       </div>
     </div>

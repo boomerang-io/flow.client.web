@@ -52,6 +52,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
       itemText: "Leave",
       isDelete: true,
       onClick: () => setIsLeaveModalOpen(true),
+      disabled: false,
     },
   ];
 

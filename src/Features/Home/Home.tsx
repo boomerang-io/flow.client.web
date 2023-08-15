@@ -1,11 +1,11 @@
 import HomeBanner from "Components/HomeBanner";
 import TeamCard from "Components/TeamCard";
 import LearnCard from "Components/LearnCard";
+import cx from "classnames";
 import { Layer } from "@carbon/react";
 import { Workflows, PlanningAnalytics, PlayerFlow, Gear } from "@carbon/pictograms-react";
 import { useAppContext } from "Hooks";
 import EmptyState from "Components/EmptyState";
-import { FlowTeam } from "Types";
 import styles from "./home.module.scss";
 import { useLocation } from "react-router-dom";
 
@@ -31,7 +31,7 @@ export default function Home() {
             </nav>
           </Section>
         </Layer>
-        <Section title="Explore and learn">
+        <Section title="Explore and learn" hasBorder>
           <nav className={styles.sectionLinks}>
             <LearnCard
               icon={<Workflows style={{ height: "1.5rem", width: "1.5rem" }} />}
@@ -68,7 +68,7 @@ export default function Home() {
           </nav>
         </Section>
       </div>
-      <Section title="Key concepts">
+      <Section title="Key concepts" hasBorder>
         <nav className={styles.sectionLinks}>
           <div className={styles.conceptItem}>
             <h2>Workflows</h2>
@@ -95,11 +95,12 @@ export default function Home() {
 interface SectionProps {
   children: React.ReactNode;
   title: string;
+  hasBorder?: boolean;
 }
 
-const Section: React.FC<SectionProps> = ({ children, title }) => {
+const Section: React.FC<SectionProps> = ({ children, title, hasBorder = false }) => {
   return (
-    <section className={styles.section}>
+    <section className={cx(styles.section, { [styles.sectionBorder]: hasBorder })}>
       <h1 className={styles.sectionTitle}>{title}</h1>
       {children}
     </section>
