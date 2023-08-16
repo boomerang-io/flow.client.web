@@ -144,24 +144,24 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     }
   }, [revisionDispatch, revisionQuery.data]);
 
-  //Triggers the POST request for refresh availableParameters
-  useEffect(() => {
-    if (JSON.stringify(revisionConfig) !== JSON.stringify(revisionState)) {
-      const normilzedConfig = Object.values(revisionState.config).map((config: any) => ({
-        ...config,
-        currentVersion: undefined,
-        taskVersion: config.currentVersion || config.taskVersion,
-      }));
-      const revisionConfig = { nodes: Object.values(normilzedConfig) };
-      const revision = {
-        changelog: revisionState.changelog,
-        config: revisionConfig,
-        dag: revisionState.dag,
-      };
-      setRevisionConfig(revisionState);
-      parametersMutator.mutateAsync({ workflowId, body: revision });
-    }
-  }, [parametersMutator, workflowId, revisionState, revisionConfig]);
+  // //Triggers the POST request for refresh availableParameters
+  // useEffect(() => {
+  //   if (JSON.stringify(revisionConfig) !== JSON.stringify(revisionState)) {
+  //     const normilzedConfig = Object.values(revisionState.config).map((config: any) => ({
+  //       ...config,
+  //       currentVersion: undefined,
+  //       taskVersion: config.currentVersion || config.taskVersion,
+  //     }));
+  //     const revisionConfig = { nodes: Object.values(normilzedConfig) };
+  //     const revision = {
+  //       changelog: revisionState.changelog,
+  //       config: revisionConfig,
+  //       dag: revisionState.dag,
+  //     };
+  //     setRevisionConfig(revisionState);
+  //     parametersMutator.mutateAsync({ workflowId, body: revision });
+  //   }
+  // }, [parametersMutator, workflowId, revisionState, revisionConfig]);
 
   /**
    *

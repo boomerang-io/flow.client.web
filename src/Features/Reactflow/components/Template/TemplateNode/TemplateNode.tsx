@@ -24,7 +24,7 @@ export default function TaskTemplateNode(props: WorkflowNode) {
 function TaskTemplateNodeDesigner(props: WorkflowNode) {
   const reactFlowInstance = useReactFlow();
 
-  const { availableParametersQueryData, revisionDispatch, revisionState, taskTemplatesData } = useEditorContext();
+  const { availableParametersQueryData, revisionDispatch, taskTemplatesData } = useEditorContext();
   const nodes = reactFlowInstance.getNodes();
 
   const inputProperties = availableParametersQueryData;
@@ -39,7 +39,7 @@ function TaskTemplateNodeDesigner(props: WorkflowNode) {
   // Get the taskNames names from the nodes on the model
   const taskNames = nodes.map((node) => node.data.name);
 
-  console.log({ taskNames, inputProperties, task, nodes });
+  console.log({ data: props.data, taskNames, inputProperties, task, nodes });
 
   /**
    * TODO: Event handlers
@@ -52,7 +52,6 @@ function TaskTemplateNodeDesigner(props: WorkflowNode) {
       });
   };
 
-  // TODO: update this to be shared method
   const handleOnSaveTaskConfig = (inputs: Record<string, string>) => {
     const paramList = inputRecordToParamList(inputs);
     const newNodes = nodes.map((node) => {
@@ -133,7 +132,7 @@ function TaskTemplateNodeDesigner(props: WorkflowNode) {
   };
 
   return (
-    <BaseNode title={props.data.name} isConnectable nodeProps={props} subtitle={task.description} icon={task.icon}>
+    <BaseNode isConnectable title={props.data.name} nodeProps={props} subtitle={task.description} icon={task.icon}>
       <ConfigureTask />
       <UpdateTaskVersion />
     </BaseNode>

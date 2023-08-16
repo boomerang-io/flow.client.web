@@ -207,7 +207,6 @@ function FlowDiagram(props: FlowDiagramProps) {
   );
 
   const isDisabled = props.mode === WorkflowDagEngineMode.Viewer;
-  console.log(edges);
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <ReactFlowProvider>

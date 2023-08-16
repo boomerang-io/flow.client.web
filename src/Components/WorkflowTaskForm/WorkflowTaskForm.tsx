@@ -216,7 +216,7 @@ class WorkflowTaskForm extends Component {
 
     const initValues = { taskName: node.name };
     task.config.forEach((input) => {
-      const initialValue = node.params[input.key];
+      const initialValue = node.params.find((param) => param.name === input.key)?.["value"] ?? "";
       initValues[input.key] = Boolean(initialValue) ? initialValue : input.defaultValue;
     });
 
