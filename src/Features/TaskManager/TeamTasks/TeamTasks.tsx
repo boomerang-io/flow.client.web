@@ -24,13 +24,9 @@ function TaskTemplatesContainer() {
   const history = useHistory();
   const match = useRouteMatch();
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
-  const getTaskTemplatesUrl = team
-    ? serviceUrl.getTaskTemplates({
-        query: queryString.stringify({ teams: team?.id, statuses: "active,inactive" }),
-      })
-    : serviceUrl.getTaskTemplates({
-        query: queryString.stringify({ statuses: "active,inactive" }),
-      });
+  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
+    query: queryString.stringify({ teams: team?.id, statuses: "active,inactive" }),
+  });
   const {
     data: taskTemplatesData,
     error: taskTemplatesDataError,

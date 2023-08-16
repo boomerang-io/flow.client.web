@@ -68,7 +68,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
   if (isLoading) {
     return (
       <SideNav className={styles.container} border="right">
-        <h1 className={styles.title}>Task manager</h1>
+        <h1 className={styles.title}>{team ? "Team " : ""}Task manager</h1>
         <p className={styles.description}>{DESCRIPTION}</p>
         <div style={{ padding: "1.5rem 1rem" }}>
           <SkeletonText />
@@ -114,7 +114,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
 
   return (
     <SideNav className={styles.container} border="right">
-      <h1 className={styles.title}>Task manager</h1>
+      <h1 className={styles.title}>{team ? "Team " : ""}Task manager</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
       {tasksToDisplay && (
         <div className={styles.tasksContainer}>
