@@ -74,9 +74,9 @@ export const serviceUrl = {
   getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedules/validate/cron?cron=${expression}`,
   getTaskTemplates: ({ query }: QueryId) => `${BASE_URL}/tasktemplate/query${query ? "?" + query : ""}`,
   getTaskTemplate: ({ id, version }: IdArg & VersionArg) =>
-  `${BASE_URL}/tasktemplates/${id}${version ? `?version=${version}` : ""}`,
+  `${BASE_URL}/tasktemplate/${id}${version ? `?version=${version}` : ""}`,
   getTaskTemplateChangelog: ({ id }: IdArg) =>
-  `${BASE_URL}/tasktemplates/${id}/changelog`,
+  `${BASE_URL}/tasktemplate/${id}/changelog`,
   getTaskTemplateYaml: ({ name, version }: { name: string} & Partial<VersionArg>) => `${BASE_URL}/tasktemplate/${name}${version ? `?version=${version}` : ""}`,
   getTeams: ({ query }: QueryId) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
   deleteTeamQuotas: ({ id }: IdArg) => `${BASE_URL}/team/${id}/quotas`,
