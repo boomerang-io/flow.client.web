@@ -76,6 +76,16 @@ export function TaskTemplateYamlEditor({
   const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
   const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
+  if (getTaskTemplateYamlQuery.isLoading || getChangelogQuery.isLoading || applyTaskTemplateYamlMutation.isLoading) {
+    return <Loading />;
+  }
+
+  if (getTaskTemplateYamlQuery.error || getChangelogQuery.error) {
+    return (
+      <EmptyState title="Task Template not found" message="Crikey. We can't find the template you are looking for." />
+    );
+  }
+
   const selectedTaskTemplate = taskTemplates.filter((t) => t.name === params.name)[0];
   console.log("selectedTaskTemplate", selectedTaskTemplate);
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
@@ -247,15 +257,6 @@ export function TaskTemplateYamlEditor({
       );
     }
   };
-
-  if (getTaskTemplateYamlQuery.isLoading || getChangelogQuery.isLoading || applyTaskTemplateYamlMutation.isLoading) {
-    return <Loading />;
-  }
-
-  if (getChangelogQuery.error || getTaskTemplateYamlQuery.error)
-    return (
-      <EmptyState title="Task Template not found" message="Crikey. We can't find the template you are looking for." />
-    );
 
   return (
     <Formik
