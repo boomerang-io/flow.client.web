@@ -71,7 +71,7 @@ export function TaskTemplateYamlEditor({ editVerifiedTasksEnabled, getTaskTempla
   const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
   const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
-  const selectedTaskTemplate = getTaskTemplateQuery.data;
+  const selectedTaskTemplate = getTaskTemplateYamlUrl.data;
   console.log("selectedTaskTemplate", selectedTaskTemplate);
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
   console.log("canEdit", canEdit);
