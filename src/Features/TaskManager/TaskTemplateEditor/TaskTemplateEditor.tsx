@@ -40,11 +40,16 @@ import "codemirror/addon/comment/comment.js";
 import "Styles/markdown.css";
 
 type TaskTemplateYamlEditorProps = {
+  taskTemplates: Array<TaskTemplate>;
   editVerifiedTasksEnabled: any;
   getTaskTemplatesUrl: string;
 };
 
-export function TaskTemplateYamlEditor({ editVerifiedTasksEnabled, getTaskTemplatesUrl }: TaskTemplateYamlEditorProps) {
+export function TaskTemplateYamlEditor({
+  taskTemplates,
+  editVerifiedTasksEnabled,
+  getTaskTemplatesUrl,
+}: TaskTemplateYamlEditorProps) {
   const [isSaving, setIsSaving] = React.useState(false);
   const cancelRequestRef = React.useRef();
   const queryClient = useQueryClient();
@@ -71,7 +76,7 @@ export function TaskTemplateYamlEditor({ editVerifiedTasksEnabled, getTaskTempla
   const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
   const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
-  const selectedTaskTemplate = getTaskTemplateYamlUrl.data;
+  const selectedTaskTemplate = taskTemplates.filter((t) => t.name === params.name)[0];
   console.log("selectedTaskTemplate", selectedTaskTemplate);
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
   console.log("canEdit", canEdit);
@@ -257,7 +262,7 @@ export function TaskTemplateYamlEditor({ editVerifiedTasksEnabled, getTaskTempla
   return (
     <Formik
       initialValues={{
-        yaml: yamlData ?? "",
+        yaml: getTaskTemplateYamlQuery.data ?? "",
       }}
       enableReinitialize={true}
     >
