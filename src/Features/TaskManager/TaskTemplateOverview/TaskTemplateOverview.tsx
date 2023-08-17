@@ -205,6 +205,7 @@ const Result: React.FC<ResultProps> = ({
 };
 
 type TaskTemplateOverviewProps = {
+  taskTemplates: Array<TaskTemplate>;
   getTaskTemplatesUrl: string;
   editVerifiedTasksEnabled: any;
 };
@@ -536,7 +537,7 @@ export function TaskTemplateOverview({ getTaskTemplatesUrl, editVerifiedTasksEna
                   <section className={styles.editTitle}>
                     <h1>Basics</h1>
                     <EditTaskTemplateModal
-                      taskTemplates={selectedTaskTemplateVersions}
+                      taskTemplates={taskTemplates}
                       setFieldValue={setFieldValue}
                       fields={values.currentConfig}
                       values={values}
