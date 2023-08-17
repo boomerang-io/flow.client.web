@@ -210,7 +210,11 @@ type TaskTemplateOverviewProps = {
   editVerifiedTasksEnabled: any;
 };
 
-export function TaskTemplateOverview({ getTaskTemplatesUrl, editVerifiedTasksEnabled }: TaskTemplateOverviewProps) {
+export function TaskTemplateOverview({
+  taskTemplates,
+  getTaskTemplatesUrl,
+  editVerifiedTasksEnabled,
+}: TaskTemplateOverviewProps) {
   const [isSaving, setIsSaving] = React.useState(false);
   const cancelRequestRef = React.useRef();
   const queryClient = useQueryClient();
