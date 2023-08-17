@@ -50,15 +50,12 @@ function TaskTemplatesContainer() {
     );
   }
 
-  // Collect the tasks by name and array of sorted by version task templates
-  const taskTemplatesByName = groupTaskTemplatesByName(taskTemplatesData?.content);
-
   return (
     <div className={styles.container}>
       <Helmet>
         <title>{HELMET_TITLE}</title>
       </Helmet>
-      <Sidenav taskTemplates={taskTemplatesByName} getTaskTemplatesUrl={getTaskTemplatesUrl} />
+      <Sidenav taskTemplates={taskTemplatesData?.content} getTaskTemplatesUrl={getTaskTemplatesUrl} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -68,14 +65,14 @@ function TaskTemplatesContainer() {
         <Route path={AppPath.TaskTemplateEditor} strict={true}>
           <TaskTemplateYamlEditor
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesByName}
+            taskTemplates={taskTemplatesData?.content}
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>
         <Route path={AppPath.TaskTemplateDetail} strict={true}>
           <TaskTemplateOverview
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesByName}
+            taskTemplates={taskTemplatesData?.content}
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>

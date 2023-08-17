@@ -32,7 +32,7 @@ const taskFilterElemList = taskIcons.map((TaskIcon) => ({
 interface SideInfoProps {
   team?: FlowTeam;
   isLoading?: boolean;
-  taskTemplates?: Record<string, TaskTemplate[]>;
+  taskTemplates?: Array<TaskTemplate>;
   getTaskTemplatesUrl: string;
 }
 
@@ -81,11 +81,8 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
     );
   }
 
-  // List of distinct task names by latest version
-  let tasksToDisplay = Object.values(taskTemplates).map((taskList) => taskList[0]);
-
   // List of categories
-  let categories = tasksToDisplay
+  let categories = taskTemplates
     ?.reduce((acc: string[], task: TaskTemplate) => {
       const newCategory = !acc.find((category) => task.category === category);
       if (newCategory) acc.push(task.category);
@@ -94,37 +91,40 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
     .sort();
 
   // Apply various filters
-  const tempTaskTemplates = showVerified ? tasksToDisplay.filter((task) => task.verified === true) : tasksToDisplay;
+  const tasksFilteredByVerified = showVerified ? taskTemplates.filter((task) => task.verified === true) : taskTemplates;
 
-  const newTaskTemplates = showArchived
-    ? tempTaskTemplates
-    : tempTaskTemplates?.filter((task) => task.status === TaskTemplateStatus.Active);
+  const tasksFilteredByStatus = showArchived
+    ? tasksFilteredByVerified
+    : tasksFilteredByVerified?.filter((task) => task.status === TaskTemplateStatus.Active);
 
   const tasksFilteredByType =
-    activeFilters.length > 0 ? newTaskTemplates?.filter((task) => activeFilters.includes(task.icon)) : newTaskTemplates;
+    activeFilters.length > 0
+      ? tasksFilteredByStatus?.filter((task) => activeFilters.includes(task.icon))
+      : tasksFilteredByStatus;
 
-  const filteredTasksToDisplay = matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "displayName"] });
+  const filteredTaskTemplates = matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "displayName"] });
 
   const tasksByCategory = categories?.map((category) => ({
     name: category,
-    tasks: sortBy(filteredTasksToDisplay.filter((task) => task.category === category).sort(), "displayName"),
+    tasks: sortBy(filteredTaskTemplates.filter((task) => task.category === category).sort(), "displayName"),
   }));
 
-  const distinctTaskNames = tasksToDisplay.map((taskTemplate) => taskTemplate.name);
+  const distinctTaskNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
 
   return (
     <SideNav className={styles.container} border="right">
       <h1 className={styles.title}>{team ? "Team " : ""}Task manager</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
-      {tasksToDisplay && (
+      {taskTemplates && (
         <div className={styles.tasksContainer}>
           <div className={styles.addTaskContainer}>
-            <p className={styles.existingTasks}>{`Existing Tasks (${tasksToDisplay.length})`}</p>
+            <p className={styles.existingTasks}>{`Existing Tasks (${taskTemplates.length})`}</p>
             <AddTaskTemplate
               taskTemplateNames={distinctTaskNames}
               history={history}
               location={location}
               getTaskTemplatesUrl={getTaskTemplatesUrl}
+              team={team}
             />
           </div>
           <Layer className={styles.tools}>
@@ -183,7 +183,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
             </OverflowMenu>
           </Layer>
           <div className={styles.tasksInfo}>
-            <p className={styles.info}>{`Showing ${tasksToDisplay.length} tasks`}</p>
+            <p className={styles.info}>{`Showing ${taskTemplates.length} tasks`}</p>
             <button className={styles.expandCollapse} onClick={() => setOpenCategories(!openCategories)}>
               {openCategories ? "Collapse all" : "Expand all"}
             </button>
@@ -221,23 +221,23 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
 
 interface TaskProps {
   task: TaskTemplate;
-  activeTeam?: FlowTeam | null;
+  team?: FlowTeam | null;
 }
 const Task: React.FC<TaskProps> = (props) => {
-  const { task, activeTeam } = props;
+  const { task, team } = props;
   const TaskIcon = taskIcons.find((icon) => icon.name === task.icon);
   const taskIsActive = task.status === TaskTemplateStatus.Active;
 
   return (
     <SideNavLink
       to={
-        activeTeam
+        team
           ? appLink.manageTaskTemplateEdit({
               teamId: team.id,
               name: task.name,
               version: task.version.toString(),
             })
-          : appLink.taskTemplateDetail({
+          : appLink.adminTaskTemplateDetail({
               name: task.name,
               version: task.version.toString(),
             })

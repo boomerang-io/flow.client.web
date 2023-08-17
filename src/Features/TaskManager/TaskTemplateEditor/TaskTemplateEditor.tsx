@@ -40,7 +40,7 @@ import "codemirror/addon/comment/comment.js";
 import "Styles/markdown.css";
 
 type TaskTemplateYamlEditorProps = {
-  taskTemplates: Record<string, TaskTemplate[]>;
+  taskTemplates: Array<TaskTemplate>;
   editVerifiedTasksEnabled: any;
   getTaskTemplatesUrl: string;
 };

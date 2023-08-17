@@ -20,7 +20,7 @@ import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
 import { Bee, Download, Save, Archive, Copy, Reset, ViewOff, Recommend, Identification } from "@carbon/react/icons";
 import { FormikProps } from "formik";
-import { ComposedModalChildProps, ModalTriggerProps, TaskTemplate } from "Types";
+import { ComposedModalChildProps, ModalTriggerProps, TaskTemplate, ChangeLog } from "Types";
 import styles from "./header.module.scss";
 
 const ArchiveText: React.FC = () => (
@@ -183,13 +183,13 @@ interface HeaderProps {
   isLoading: boolean;
   isOldVersion: boolean;
   selectedTaskTemplate: TaskTemplate;
-  selectedTaskTemplates: Array<TaskTemplate>;
+  changelog: ChangeLog;
 }
 
 const Header: React.FC<HeaderProps> = ({
   editVerifiedTasksEnabled,
-  selectedTaskTemplates,
   selectedTaskTemplate,
+  changelog,
   formikProps,
   handleSaveTaskTemplate,
   handleRestoreTaskTemplate,
@@ -203,14 +203,9 @@ const Header: React.FC<HeaderProps> = ({
   const params: { teamId: string; taskId: string; version: string } = useParams();
 
   const TaskIcon = taskIcons.find((icon) => icon.name === selectedTaskTemplate.icon);
-  const versionCount = selectedTaskTemplates.length;
-  const lastUpdated = selectedTaskTemplates[versionCount - 1]?.changelog ?? {};
-  const changelogs = selectedTaskTemplates.map((template) => ({
-    ...template.changelog,
-    date: moment(template?.changelog?.date)?.format("MMM DD, YYYY") ?? "---",
-    version: template.version,
-  }));
-  changelogs.reverse();
+  const versionCount = changelog.length;
+  const lastUpdated = changelog[versionCount - 1] ?? {};
+  changelog.reverse();
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
 
   return (
@@ -228,7 +223,7 @@ const Header: React.FC<HeaderProps> = ({
                     name: selectedTaskTemplate.name,
                     version: selectedTaskTemplate.version.toString(),
                   })
-                : appLink.taskTemplateDetail({
+                : appLink.adminTaskTemplateDetail({
                     name: selectedTaskTemplate.name,
                     version: selectedTaskTemplate.version.toString(),
                   })
@@ -244,7 +239,7 @@ const Header: React.FC<HeaderProps> = ({
                     name: selectedTaskTemplate.name,
                     version: selectedTaskTemplate.version.toString(),
                   })
-                : appLink.taskTemplateEditor({
+                : appLink.adminTaskTemplateEditor({
                     name: selectedTaskTemplate.name,
                     version: selectedTaskTemplate.version.toString(),
                   })
@@ -254,12 +249,7 @@ const Header: React.FC<HeaderProps> = ({
       }
       actions={
         <div className={styles.buttons}>
-          <VersionSwitcher
-            selectedTaskTemplate={selectedTaskTemplate}
-            selectedTaskTemplates={selectedTaskTemplates}
-            versionCount={versionCount}
-            canEdit={canEdit}
-          />
+          <VersionSwitcher selectedTaskTemplate={selectedTaskTemplate} versionCount={versionCount} canEdit={canEdit} />
           <Button
             size="md"
             hasIconOnly
@@ -400,7 +390,7 @@ const Header: React.FC<HeaderProps> = ({
             Archived
           </Tag>
         )}
-        <VersionHistory changelogs={changelogs} />
+        <VersionHistory changelog={changelog} />
         {selectedTaskTemplate.verified ? (
           <TooltipHover
             direction="right"

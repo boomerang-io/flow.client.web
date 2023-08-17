@@ -11,7 +11,6 @@ import WombatMessage from "Components/WombatMessage";
 import Sidenav from "../Sidenav";
 import TaskTemplateOverview from "../TaskTemplateOverview";
 import TaskTemplateYamlEditor from "../TaskTemplateEditor";
-import { groupTaskTemplatesByName } from "Utils";
 import { useTeamContext } from "Hooks";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
@@ -65,15 +64,12 @@ function TaskTemplatesContainer() {
     );
   }
 
-  // Collect the tasks by name and array of sorted by version task templates
-  const taskTemplatesByName = groupTaskTemplatesByName(taskTemplatesData?.content);
-
   return (
     <div className={styles.container}>
       <Helmet>
         <title>{HELMET_TITLE}</title>
       </Helmet>
-      <Sidenav team={team} taskTemplates={taskTemplatesByName} getTaskTemplatesUrl={getTaskTemplatesUrl} />
+      <Sidenav team={team} taskTemplates={taskTemplatesData?.content} getTaskTemplatesUrl={getTaskTemplatesUrl} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -83,14 +79,14 @@ function TaskTemplatesContainer() {
         <Route path={AppPath.ManageTaskTemplateEditor} strict={true}>
           <TaskTemplateYamlEditor
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesByName}
+            taskTemplates={taskTemplatesData?.content}
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>
         <Route path={AppPath.ManageTaskTemplateDetail} strict={true}>
           <TaskTemplateOverview
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            taskTemplates={taskTemplatesByName}
+            taskTemplates={taskTemplatesData?.content}
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>

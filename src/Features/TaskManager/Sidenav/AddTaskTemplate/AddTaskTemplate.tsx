@@ -5,7 +5,6 @@ import { Button } from "@carbon/react";
 import { notify, ToastNotification, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import AddTaskTemplateForm from "./AddTaskTemplateForm";
 import { resolver } from "Config/servicesConfig";
-import { useTeamContext } from "Hooks";
 import { useQueryClient } from "react-query";
 import { appLink } from "Config/appConfig";
 import { Add } from "@carbon/react/icons";
@@ -15,11 +14,11 @@ interface AddTaskTemplateProps {
   taskTemplateNames: Array<string>;
   history: History;
   getTaskTemplatesUrl: string;
+  team?: FlowTeam;
 }
 
 function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: AddTaskTemplateProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const { team } = useTeamContext();
   const queryClient = useQueryClient();
   const cancelRequestRef = React.useRef();
 
@@ -39,11 +38,16 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
         />
       );
       history.push(
-        appLink.manageTaskTemplateEdit({
-          name: response.data.name,
-          version: response.data.version,
-          teamId: team.id,
-        })
+        team
+          ? appLink.manageTaskTemplateEdit({
+              teamId: team.id,
+              name: task.name,
+              version: task.version.toString(),
+            })
+          : appLink.adminTaskTemplateDetail({
+              name: task.name,
+              version: task.version.toString(),
+            })
       );
       closeModal();
     } catch (err) {

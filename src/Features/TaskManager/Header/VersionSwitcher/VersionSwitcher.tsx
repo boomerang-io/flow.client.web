@@ -3,22 +3,16 @@ import cx from "classnames";
 import { useHistory, useParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, PageFirst, PageLast } from "@carbon/react/icons";
 import { appLink } from "Config/appConfig";
-import { TaskTemplate } from "Types";
+import { TaskTemplate, ChangeLog } from "Types";
 import styles from "./VersionSwitcher.module.scss";
 
 interface VersionSwitcherProps {
   selectedTaskTemplate: TaskTemplate;
-  selectedTaskTemplates: Array<TaskTemplate>;
   versionCount: number;
   canEdit: boolean;
 }
 
-const VersionSwitcher: React.FC<VersionSwitcherProps> = ({
-  selectedTaskTemplates,
-  selectedTaskTemplate,
-  versionCount,
-  canEdit,
-}) => {
+const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate, versionCount, canEdit }) => {
   const history = useHistory();
   const params: { name: string; teamId: string } = useParams();
   const backVersion = () => {
@@ -29,7 +23,7 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({
             name: params.name,
             version: "" + (selectedTaskTemplate.version - 1),
           })
-        : appLink.taskTemplateDetail({
+        : appLink.adminTaskTemplateDetail({
             name: params.name,
             version: "" + (selectedTaskTemplate.version - 1),
           })
@@ -40,7 +34,7 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({
     history.push(
       params.teamId
         ? appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: "1" })
-        : appLink.taskTemplateDetail({
+        : appLink.adminTaskTemplateDetail({
             name: params.name,
             version: "1",
           })
@@ -55,7 +49,7 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({
             name: params.name,
             version: "" + (selectedTaskTemplate.version + 1),
           })
-        : appLink.taskTemplateDetail({
+        : appLink.adminTaskTemplateDetail({
             name: params.name,
             version: "" + (selectedTaskTemplate.version + 1),
           })
@@ -66,7 +60,7 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({
     history.push(
       params.teamId
         ? appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: "" + versionCount })
-        : appLink.taskTemplateDetail({
+        : appLink.adminTaskTemplateDetail({
             name: params.name,
             version: "" + versionCount,
           })

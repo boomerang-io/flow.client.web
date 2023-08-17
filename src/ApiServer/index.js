@@ -235,7 +235,9 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         taskTemplate.update({ ...body });
         return taskTemplate;
       });
-
+      this.get(serviceUrl.getTaskTemplate({ name: null, version: null }), (schema) => {
+        return schema.db.tasktemplate[0];
+      });
       this.get(serviceUrl.getTaskTemplateYaml({ name: null, version: null }), (schema) => {
         return schema.db.tasktemplate[0];
       });

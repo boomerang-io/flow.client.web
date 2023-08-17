@@ -5,10 +5,13 @@ import { Formik } from "formik";
 import axios from "axios";
 import { useHistory, Prompt, matchPath, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
+import { useQuery } from "Hooks";
 import { Button, InlineNotification, Tag, Tile } from "@carbon/react";
 import { Loading, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import EmptyState from "Components/EmptyState";
+import { Box } from "reflexbox";
+import WombatMessage from "Components/WombatMessage";
 import EditTaskTemplateModal from "Components/EditTaskTemplateModal";
 import TemplateParametersModal from "Components/TemplateParametersModal";
 import PreviewConfig from "Components/PreviewConfig";
@@ -202,42 +205,56 @@ const Result: React.FC<ResultProps> = ({
 };
 
 type TaskTemplateOverviewProps = {
-  taskTemplates: Record<string, TaskTemplate[]>;
+  taskTemplates: Array<TaskTemplate>;
   getTaskTemplatesUrl: string;
   editVerifiedTasksEnabled: any;
 };
 
-export function TaskTemplateOverview({
-  taskTemplates,
-  getTaskTemplatesUrl,
-  editVerifiedTasksEnabled,
-}: TaskTemplateOverviewProps) {
+export function TaskTemplateOverview({ getTaskTemplatesUrl, editVerifiedTasksEnabled }: TaskTemplateOverviewProps) {
   const [isSaving, setIsSaving] = React.useState(false);
   const cancelRequestRef = React.useRef();
   const queryClient = useQueryClient();
   const params = useParams();
   const history = useHistory();
 
+  const getTaskTemplateUrl = serviceUrl.getTaskTemplate({
+    id: params.name,
+    version: params.version,
+  });
+  const getTaskTemplateQuery = useQuery(getTaskTemplateUrl);
+
+  const getChangelogUrl = serviceUrl.getTaskTemplateChangelog({
+    id: params.name,
+  });
+  const getChangelogQuery = useQuery<ChangeLog>(getChangelogUrl);
+
   const applyTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
   const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
   const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
-  let selectedTaskTemplateVersions = taskTemplates[params.name] ?? [];
-  console.log("selectedTaskTemplateList", selectedTaskTemplateVersions);
-  // Checks if the version in url are a valid one. If not, go to the latest version
-  const invalidVersion = params.version === "0" || params.version > selectedTaskTemplateVersions.length;
-  console.log("invalidVersion", invalidVersion);
-  const selectedTaskTemplateVersion = invalidVersion ? selectedTaskTemplateVersions.length : params.version;
-  console.log("selectedTaskTemplateVersion", selectedTaskTemplateVersion);
-  let selectedTaskTemplate = selectedTaskTemplateVersions.find((t) => t.version == selectedTaskTemplateVersion) ?? {};
+  if (getTaskTemplateQuery.isLoading || getChangelogQuery.isLoading) {
+    return (
+      <div className={styles.container}>
+        <Box maxWidth="24rem" margin="0 auto">
+          <WombatMessage className={styles.wombat} title="Retrieving Tasks..." />
+        </Box>
+      </div>
+    );
+  }
+
+  if (getTaskTemplateQuery.error || getChangelogQuery.error) {
+    return (
+      <EmptyState title="Task Template not found" message="Crikey. We can't find the template you are looking for." />
+    );
+  }
+  const selectedTaskTemplate = getTaskTemplateQuery.data;
   console.log("selectedTaskTemplate", selectedTaskTemplate);
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
   console.log("canEdit", canEdit);
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
   console.log("isActive", isActive);
-  const isOldVersion = !invalidVersion && params.version != selectedTaskTemplateVersions.length;
+  const isOldVersion = params.version != getChangelogQuery.data.length;
   console.log("isOldVersion", isOldVersion);
-  const templateNotFound = !selectedTaskTemplate.name;
 
   const fieldKeys = selectedTaskTemplate.config?.map((input: DataDrivenInput) => input.key) ?? [];
   const resultKeys = selectedTaskTemplate.result?.map((input: DataDrivenInput) => input.key) ?? [];
@@ -418,11 +435,6 @@ export function TaskTemplateOverview({
     }
   };
 
-  if (templateNotFound)
-    return (
-      <EmptyState title="Task Template not found" message="Crikey. We can't find the template you are looking for." />
-    );
-
   return (
     <Formik
       initialValues={{
@@ -497,7 +509,7 @@ export function TaskTemplateOverview({
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
-              selectedTaskTemplates={selectedTaskTemplateVersions}
+              changelog={changelog}
               formikProps={formikProps}
               handleRestoreTaskTemplate={handleRestoreTaskTemplate}
               handleArchiveTaskTemplate={handleArchiveTaskTemplate}
