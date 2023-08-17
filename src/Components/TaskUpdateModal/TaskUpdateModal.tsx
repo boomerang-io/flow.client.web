@@ -1,13 +1,7 @@
 //@ts-nocheck
 import React from "react";
 import cx from "classnames";
-import {
-  //AutoSuggest,
-  Button,
-  ModalBody,
-  ModalFooter,
-  //TextInput,
-} from "@carbon/react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { DataDrivenInput, DynamicFormik, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import EmptyState from "Components/EmptyState";
 import TextEditorModal from "Components/TextEditorModal";
@@ -22,7 +16,7 @@ interface TaskUpdateModalProps {
   inputProperties: Record<string, any>;
   latestTaskTemplateVersion: TaskTemplate;
   node: WorkflowNode["data"];
-  onSave: ({ inputs: any, version: string }) => void;
+  onSave: ({ inputs, version }: { inputs: Array<any>; version: string }) => void;
 }
 
 const UpdateType = {
@@ -102,9 +96,9 @@ export default function TaskUpdateModal(props: TaskUpdateModalProps) {
     closeModal();
   };
 
-  const initValues = {};
-  latestTaskTemplateVersion.config.forEach((input) => {
-    const initialValue = node.params[input.key];
+  const initValues = { taskName: node.name };
+  currentTaskTemplateVersion.config.forEach((input) => {
+    const initialValue = node.params.find((param) => param.name === input.key)?.["value"] ?? "";
     initValues[input.key] = Boolean(initialValue) ? initialValue : input.defaultValue;
   });
 

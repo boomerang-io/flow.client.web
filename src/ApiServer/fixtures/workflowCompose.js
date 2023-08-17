@@ -9,6 +9,7 @@ const workflowsCompose = [
     changelog: { author: "61d38d133aa9034ded32cae6", reason: "", date: "2022-04-13T02:26:26.467+00:00" },
     icon: "bot",
     upgradesAvailable: false,
+    markdown: "# Hello world",
     triggers: {
       manual: { enable: true },
       scheduler: { enable: false },
@@ -47,8 +48,8 @@ const workflowsCompose = [
             { name: "privateKeyId", value: "3dbc985055ac90c2f0fcd4db549f0b416e78ad5c" },
           ],
           templateRef: "create-spreadsheet",
-          templateVersion: null,
-          templateUpgradesAvailable: false,
+          templateVersion: "1",
+          templateUpgradesAvailable: true,
         },
         type: "template",
       },

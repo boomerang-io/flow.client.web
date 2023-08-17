@@ -154,6 +154,7 @@ export interface Workflow {
   icon: string;
   labels?: Record<string, string>;
   annotations?: Record<string, object>;
+  markdown?: string;
   params?: [
     {
       name: string;
@@ -248,56 +249,11 @@ export type PaginatedTaskTemplateResponse = Pageable<TaskTemplate>;
 export type PaginatedWorkflowResponse = Pageable<Workflow>;
 export type PaginatedSchedulesResponse = Pageable<ScheduleUnion>;
 
-export interface WorkflowDag {
-  gridSize: number;
-  id: string;
-  links: Array<{
-    color: string;
-    curvyness: number;
-    executionCondition: string;
-    extras: object;
-    id: string;
-    labels: Array<string>; //i think this type is right?
-    linkId: string;
-    selected: false;
-    source: string;
-    sourcePort: string;
-    switchCondition: string | null;
-    target: string;
-    targetPort: string;
-    type: string;
-    width: number;
-  }>;
-  nodes: Array<{
-    extras: {};
-    id: string;
-    nodeId: string;
-    passedName: string;
-    ports: Array<{
-      id: string;
-      links: Array<string>;
-      name: string;
-      nodePortId: string;
-      position: string;
-      selected: boolean;
-      type: string;
-    }>;
-    selected: boolean;
-    templateUpgradeAvailable: boolean;
-    type: string;
-    x: number;
-    y: number;
-  }>;
-  offsetX: number;
-  offsetY: number;
-  zoom: number;
-}
-
 export type WorkflowNode = NodeProps<{
   name: string;
   templateRef: string;
   templateVersion: number;
-  templateUpgradeAvailable: boolean;
+  templateUpgradesAvailable: boolean;
   params: Array<{ name: string; value: string }>;
 }>;
 
@@ -306,6 +262,7 @@ export interface WorkflowEdge {
   source: string;
   target: string;
   data: Record<string, any>;
+  position: any;
 }
 
 export interface WorkflowParameter {
@@ -317,13 +274,14 @@ export interface WorkflowParameter {
   type: string;
 }
 
+export interface WorkflowCanvas extends Workflow {
+  edges: Array<WorkflowEdge>;
+  nodes: Array<WorkflowEdge>;
+}
+
 export interface WorkflowExport extends Workflow {
   latestRevision: Workflow;
   flowTeamId: string;
-}
-
-export interface WorkflowRevisionState extends Workflow {
-  hasUnsavedUpdates: boolean;
 }
 
 export enum ApprovalStatus {
@@ -827,3 +785,5 @@ export type MultiSelectItem = {
 export interface MultiSelectItems<Type = MultiSelectItem> {
   selectedItems: Array<Type>;
 }
+
+export type WorkflowCanvasState = WorkflowCanvas & { hasUnsavedUpdates?: boolean };

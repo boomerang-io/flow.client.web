@@ -7,11 +7,8 @@ import { Workflows, PlanningAnalytics, PlayerFlow, Gear } from "@carbon/pictogra
 import { useAppContext } from "Hooks";
 import EmptyState from "Components/EmptyState";
 import styles from "./home.module.scss";
-import { useLocation } from "react-router-dom";
 
 export default function Home() {
-  const location = useLocation();
-  console.log({ location });
   const { teams, name, user } = useAppContext();
   return (
     <div className={styles.container}>

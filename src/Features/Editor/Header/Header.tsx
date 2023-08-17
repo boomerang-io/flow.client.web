@@ -18,7 +18,7 @@ import { UseMutationResult } from "react-query";
 import {
   ModalTriggerProps,
   ComposedModalChildProps,
-  WorkflowRevisionState,
+  WorkflowCanvasState,
   WorkflowView,
   WorkflowViewType,
   ChangeLog,
@@ -31,7 +31,7 @@ interface DesignerHeaderProps {
   changeRevision: (revisionNumber: string) => void;
   isOnDesigner: boolean;
   revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-  revisionState: WorkflowRevisionState;
+  revisionState: WorkflowCanvasState;
   viewType: WorkflowViewType;
   revisionCount: number;
 }

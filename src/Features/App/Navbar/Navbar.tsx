@@ -14,7 +14,7 @@ import {
 } from "@carbon/react";
 import { UIShell, HeaderMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
 import { APP_ROOT } from "Config/appConfig";
-import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, ContextConfig, FlowTeam } from "Types";
+import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, ContextConfig } from "Types";
 import * as navigationIcons from "Utils/navigationIcons";
 import { FlowData, ArrowsHorizontal, Settings } from "@carbon/react/icons";
 import { appLink } from "Config/appConfig";
@@ -30,12 +30,7 @@ interface NavbarProps {
   userData: FlowUser;
 }
 
-export default function Navbar({
-  handleOnTutorialClick,
-  flowNavigationData,
-  contextData: contextData,
-  userData,
-}: NavbarProps) {
+export default function Navbar({ handleOnTutorialClick, flowNavigationData, contextData, userData }: NavbarProps) {
   const { platform } = contextData;
   const appTitle = getAppTitle(platform);
   const appName = platform.appName || "Boomerang Flow";

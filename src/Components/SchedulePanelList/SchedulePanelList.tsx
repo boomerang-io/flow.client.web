@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
-import { useMutation, useQueryClient, UseQueryResult } from "react-query";
+import React from "react";
+import { useMutation, useQueryClient } from "react-query";
 import {
   Button,
   Layer,

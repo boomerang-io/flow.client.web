@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { EditorContextProvider } from "State/context";
 import { AxiosResponse } from "axios";
-import { UseQueryResult, MutateFunction, UseMutateFunction } from "react-query";
 import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
 import { useAppContext, useTeamContext, useIsModalOpen, useQuery } from "Hooks";
 import { useImmerReducer } from "use-immer";
@@ -17,10 +16,11 @@ import Schedule from "./Schedule";
 import queryString from "query-string";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
-import { WorkflowDagEngineMode } from "Constants";
-import { ChangeLog as ChangeLogType, TaskTemplate, WorkflowView, Workflow } from "Types";
-import styles from "./editor.module.scss";
 import { groupTaskTemplatesByName } from "Utils";
+import { WorkflowDagEngineMode } from "Constants";
+import { ChangeLog as ChangeLogType, TaskTemplate, WorkflowView, WorkflowCanvas } from "Types";
+import type { ReactFlowInstance } from "reactflow";
+import styles from "./editor.module.scss";
 
 export default function EditorContainer() {
   const { team } = useTeamContext();
@@ -43,7 +43,7 @@ export default function EditorContainer() {
    * Queries
    */
   const changeLogQuery = useQuery(getChangelogUrl);
-  const workflowQuery = useQuery(getWorkflowUrl);
+  const workflowQuery = useQuery<WorkflowCanvas>(getWorkflowUrl);
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
   const availableParametersQuery = useQuery(getAvailableParametersUrl);
 
@@ -78,14 +78,20 @@ export default function EditorContainer() {
 
   // Don't block render if we don't have the revision data. We want to render the header and sidenav regardless
   // prevents unnecessary remounting when creating a new version or navigating to a previous one
-  if (workflowQuery.data && changeLogQuery.data && taskTemplatesQuery.data && availableParametersQuery.data) {
+  if (
+    workflowQuery.data &&
+    changeLogQuery.data &&
+    taskTemplatesQuery.data &&
+    availableParametersQuery.data &&
+    workflowQuery.data
+  ) {
     return (
       <EditorStateContainer
         availableParametersQueryData={availableParametersQuery.data}
         parametersMutator={parametersMutator}
         changeLogData={changeLogQuery.data}
         revisionMutator={revisionMutator}
-        revisionQuery={workflowQuery}
+        workflowQueryData={workflowQuery.data}
         setRevisionNumber={setRevisionNumber}
         taskTemplatesList={taskTemplatesQuery.data.content}
         workflowId={workflowId}
@@ -101,7 +107,7 @@ interface EditorStateContainerProps {
   changeLogData: ChangeLogType;
   revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
   parametersMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-  revisionQuery: UseQueryResult<Workflow, unknown>;
+  workflowQueryData: WorkflowCanvas;
   setRevisionNumber: (revisionNumber: string) => void;
   taskTemplatesList: Array<TaskTemplate>;
   workflowId: string;
@@ -116,33 +122,23 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   changeLogData,
   revisionMutator,
   parametersMutator,
-  revisionQuery,
   setRevisionNumber,
   taskTemplatesList,
+  workflowQueryData,
   workflowId,
 }) => {
   const location = useLocation();
-  const match: { params: { workflowId: string } } = useRouteMatch();
-  const { teams, quotas } = useAppContext();
-  const isModalOpen = useIsModalOpen();
+  //const match: { params: { workflowId: string } } = useRouteMatch();
+  const { quotas } = useAppContext();
+  //const isModalOpen = useIsModalOpen();
   const queryClient = useQueryClient();
 
-  const [workflowDagEngine, setWorkflowDagEngine] = useState<any>(null);
   const [revisionState, revisionDispatch] = useImmerReducer(
     revisionReducer,
-    initRevisionReducerState(revisionQuery.data)
+    initRevisionReducerState(workflowQueryData)
   );
 
-  const [revisionConfig, setRevisionConfig] = useState<Workflow>({ ...revisionState });
-  // Reset the reducer state if there is new data
-  useEffect(() => {
-    if (revisionQuery.data) {
-      revisionDispatch({
-        type: RevisionActionTypes.Reset,
-        data: revisionQuery.data,
-      });
-    }
-  }, [revisionDispatch, revisionQuery.data]);
+  const [workflow, setWorkflow] = React.useState<ReactFlowInstance | null>(null);
 
   // //Triggers the POST request for refresh availableParameters
   // useEffect(() => {
@@ -163,54 +159,36 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   //   }
   // }, [parametersMutator, workflowId, revisionState, revisionConfig]);
 
-  /**
-   *
-   * @param {string} reason - changelog reason for new version
-   * @param {function} callback - optional callback
-   */
   const handleCreateRevision = useCallback(
     async ({ reason = "Update workflow", callback }) => {
-      const normalizedConfig = Object.values(revisionState.config).map((config: any) => ({
-        ...config,
-        currentVersion: undefined,
-        taskVersion: config.currentVersion || config.taskVersion,
-      }));
-      const revisionConfig = { nodes: Object.values(normalizedConfig) };
+      if (workflow) {
+        const state = workflow.toObject();
+        const revision = {
+          ...revisionState,
+          ...state,
+          changelog: { reason },
+        };
 
-      const revision = {
-        dag: {}, //TODO
-        config: revisionConfig,
-        changelog: { reason },
-        markdown: revisionState.markdown,
-      };
-
-      try {
-        const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
-        notify(
-          <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
-        );
-        if (typeof callback === "function") {
-          callback();
+        try {
+          const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
+          notify(
+            <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
+          );
+          if (typeof callback === "function") {
+            callback();
+          }
+          revisionDispatch({ type: RevisionActionTypes.Set, data });
+          setRevisionNumber(data.version);
+          queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
+          queryClient.removeQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
+        } catch (err) {
+          notify(
+            <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
+          );
         }
-        revisionDispatch({ type: RevisionActionTypes.Set, data });
-        setRevisionNumber(data.version);
-        queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
-        queryClient.removeQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
-      } catch (err) {
-        notify(
-          <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
-        );
       }
     },
-    [
-      revisionMutator,
-      queryClient,
-      revisionDispatch,
-      revisionState.config,
-      revisionState.markdown,
-      setRevisionNumber,
-      workflowId,
-    ]
+    [revisionMutator, queryClient, revisionDispatch, setRevisionNumber, workflowId, revisionState, workflow]
   );
 
   /**
@@ -220,7 +198,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   const updateSummary = useCallback(
     async ({ values: formikValues }) => {
       const flowTeamId = formikValues?.selectedTeam?.id;
-      const updatedWorkflow = { ...revisionQuery.data, ...formikValues, flowTeamId };
+      const updatedWorkflow = { ...workflowQueryData, ...formikValues, flowTeamId };
 
       try {
         const { data } = await revisionMutator.mutateAsync({ workflowId, body: updatedWorkflow });
@@ -238,7 +216,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         );
       }
     },
-    [revisionMutator, queryClient, revisionQuery, workflowId]
+    [revisionMutator, queryClient, workflowQueryData, workflowId]
   );
 
   const handleUpdateNotes = useCallback(
@@ -262,18 +240,6 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   const revisionCount = changeLogData.length;
   const { markdown, version } = revisionState;
   const mode = version === revisionCount ? WorkflowDagEngineMode.Editor : WorkflowDagEngineMode.Viewer;
-
-  useEffect(() => {
-    // Initial value of revisionState will be null, so need to check if its present or we get two engines created
-    if (revisionState.version) {
-      const newWorkflowDagEngine = {};
-      setWorkflowDagEngine(newWorkflowDagEngine);
-      //newWorkflowDagEngine.getDiagramEngine().repaintCanvas();
-    }
-
-    // really and truly only want to rerun this on version change
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [revisionState.version]);
 
   const store = useMemo(() => {
     const taskTemplatesData = groupTaskTemplatesByName(taskTemplatesList);
@@ -313,12 +279,11 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           <Switch>
             <Route path={AppPath.EditorDesigner}>
               <Designer
-                isModalOpen={isModalOpen}
                 notes={markdown}
-                revisionQuery={revisionQuery}
+                setWorkflow={setWorkflow}
                 tasks={taskTemplatesList}
                 updateNotes={handleUpdateNotes}
-                workflowName={revisionState.displayName}
+                workflow={revisionState}
               />
             </Route>
             <Route path={AppPath.EditorProperties}>

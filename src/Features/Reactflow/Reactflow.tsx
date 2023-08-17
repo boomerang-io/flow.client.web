@@ -119,22 +119,29 @@ const nodeTypes: { [K in NodeTypeValues]: React.FC<NodeProps> } = {
   sleep: GraphComps.TemplateNode,
 };
 
-let id = 0;
-const getId = () => `dndnode_${id++}`;
-
 interface FlowDiagramProps {
   mode: WorkflowEngineMode;
-  diagram: { nodes?: Node[]; edges?: Edge[] };
+  nodes?: Node[];
+  edges?: Edge[];
+  setWorkflow?: React.Dispatch<React.SetStateAction<ReactFlowInstance | null>>;
 }
 
 function FlowDiagram(props: FlowDiagramProps) {
+  const { setWorkflow } = props;
   /**
    * Set up state and refs
    */
   const reactFlowWrapper = React.useRef<HTMLDivElement>(null);
-  const [nodes, setNodes] = React.useState<Node[]>(props.diagram?.nodes ?? []);
-  const [edges, setEdges] = React.useState<Edge[]>(props.diagram?.edges ?? []);
+  const [nodes, setNodes] = React.useState<Node[]>(props.nodes ?? []);
+  const [edges, setEdges] = React.useState<Edge[]>(props.edges ?? []);
   const [flow, setFlow] = React.useState<ReactFlowInstance | null>(null);
+
+  // Set workflow in parent
+  React.useEffect(() => {
+    if (setWorkflow && flow) {
+      setWorkflow(flow);
+    }
+  }, [flow, setWorkflow]);
 
   /**
    * Handle changes of nodes and eges
@@ -143,7 +150,6 @@ function FlowDiagram(props: FlowDiagramProps) {
   const onEdgesChange = React.useCallback((changes) => setEdges(applyEdgeChanges(changes, edges)), [edges]);
   const onConnect = React.useCallback(
     (connection: Connection) =>
-      console.log({ connection }) ||
       setEdges((edges) => addEdge({ ...connection, ...getLinkType(connection, nodes) }, edges)),
     [setEdges, nodes]
   );

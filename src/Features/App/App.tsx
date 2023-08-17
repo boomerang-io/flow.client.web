@@ -426,8 +426,6 @@ const stepMapper = {
 };
 
 function Tutorial() {
-  const location = useLocation();
-  console.log({ location });
   const { setIsTutorialActive, isTutorialActive } = useAppContext();
   const handleJoyrideCallback = (data: CallBackProps) => {
     const { action, status } = data;
