@@ -110,7 +110,7 @@ export const serviceUrl = {
   patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
   putSchedule: () => `${BASE_URL}/schedules`,
   postCreateWorkflow: () => `${BASE_URL}/workflow`,
-  postCreateWorkflowRevision: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/revision`,
+  postCreateWorkflowRevision: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/compose`,
   postCreateWorkflowToken: ({ workflowId, label }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
   postDuplicateWorkflow: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/duplicate`,
   postExecuteWorkflow: ({ id }) => `${BASE_URL}/execute/${id}`,
@@ -119,6 +119,7 @@ export const serviceUrl = {
   postTeamValidateName: () => `${BASE_URL}/team/validate-name`,
   postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
+  putCreateWorkflowRevision: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/compose`,
   putActivationApp: () => `${BASE_URL}/activate`,
   putTaskTemplateYaml: ({ replace, team }) =>
     `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
@@ -207,7 +208,7 @@ export const resolver = {
   postCreateTemplate: ({ body }) => axios.post(serviceUrl.getWorkflowTemplates(), body),
   postCreateWorkflow: ({ body }) => axios.post(serviceUrl.postCreateWorkflow(), body),
   postCreateWorkflowRevision: ({ workflowId, body }) =>
-    axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
+    axios.post(serviceUrl.postCreateWorkflowRevisut({ workflowId }), body),
   postCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Post }),
 
@@ -226,6 +227,8 @@ export const resolver = {
   putStatusTaskTemplate: ({ name, status }) => axios.put(serviceUrl.putStatusTaskTemplate({ name, status })),
   postCreateTeam: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethod.Post }),
+  putCreateWorkflowRevision: ({ workflowId, body }) =>
+    axios.put(serviceUrl.putCreateWorkflowRevision({ workflowId }), body),
   postExecuteWorkflow: ({ id, properties }) =>
     cancellableResolver({
       url: serviceUrl.postExecuteWorkflow({ id }),

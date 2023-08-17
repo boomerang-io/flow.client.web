@@ -50,7 +50,7 @@ export default function EditorContainer() {
   /**
    * Mutations
    */
-  const revisionMutator = useMutation(resolver.postCreateWorkflowRevision, {
+  const revisionMutator = useMutation(resolver.putCreateWorkflowRevision, {
     onSuccess: () => {
       queryClient.invalidateQueries(getWorkflowUrl);
     },
@@ -168,8 +168,6 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           ...state,
           changelog: { reason },
         };
-
-        console.log(revision);
 
         try {
           const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
