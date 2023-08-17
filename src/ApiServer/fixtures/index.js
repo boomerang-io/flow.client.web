@@ -16,6 +16,7 @@ export { default as platformConfig } from "./platformConfig";
 export { default as flowNavigation } from "./flowNavigation";
 export { default as profile } from "./profile";
 export { default as tasktemplate } from "./tasktemplate";
+export { default as tasktemplateYaml } from "./tasktemplateYaml";
 export { default as settings } from "./settings";
 export { default as summaries } from "./summaries";
 export { default as revisions } from "./revisions";

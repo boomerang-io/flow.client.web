@@ -59,11 +59,11 @@ export function TaskTemplateYamlEditor({
 
   const [docOpen, setDocOpen] = useState(true);
 
-  const getTaskTemplateYamlUrl = serviceUrl.getTaskTemplateYaml({ name: params.name, version: params.version });
+  const getTaskTemplateUrl = serviceUrl.getTaskTemplate({ name: params.name, version: params.version });
 
   const getTaskTemplateYamlQuery = useQuery({
-    queryKey: getTaskTemplateYamlUrl,
-    queryFn: resolver.queryYaml(getTaskTemplateYamlUrl),
+    queryKey: [getTaskTemplateUrl, "yaml"],
+    queryFn: resolver.queryYaml(getTaskTemplateUrl),
   });
 
   const getChangelogUrl = serviceUrl.getTaskTemplateChangelog({
@@ -119,14 +119,14 @@ export function TaskTemplateYamlEditor({
           team: params.teamId,
           body: values.yaml,
         });
-        queryClient.invalidateQueries(getTaskTemplateYamlUrl);
+        queryClient.invalidateQueries([getTaskTemplateUrl, "yaml"]);
       } else {
         response = await applyTaskTemplateYamlMutation.mutateAsync({
           replace: false,
           team: params.teamId,
           body: values.yaml,
         });
-        queryClient.invalidateQueries(getTaskTemplateYamlUrl);
+        queryClient.invalidateQueries([getTaskTemplateUrl, "yaml"]);
       }
       queryClient.invalidateQueries(getTaskTemplatesUrl);
       queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
@@ -231,7 +231,7 @@ export function TaskTemplateYamlEditor({
   const handleDownloadTaskTemplate = async () => {
     try {
       const response = await axios.get(
-        serviceUrl.getTaskTemplateYaml({ name: selectedTaskTemplate.name, version: selectedTaskTemplate.version }),
+        serviceUrl.getTaskTemplate({ name: selectedTaskTemplate.name, version: selectedTaskTemplate.version }),
         {
           headers: { Accept: "application/x-yaml" },
         }
@@ -257,6 +257,8 @@ export function TaskTemplateYamlEditor({
       );
     }
   };
+
+  console.log(getTaskTemplateYamlQuery.data);
 
   return (
     <Formik

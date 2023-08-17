@@ -77,11 +77,10 @@ export const serviceUrl = {
   //   `${BASE_URL}/schedules/${scheduleId}/calendar${query ? "?" + query : ""}`,
   getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedules/validate/cron?cron=${expression}`,
   getTaskTemplates: ({ query }: QueryId) => `${BASE_URL}/tasktemplate/query${query ? "?" + query : ""}`,
-  getTaskTemplate: ({ name, version }: NameArg & VersionArg) =>
+  getTaskTemplate: ({ name, version }: NameArg & Partial<VersionArg>) =>
   `${BASE_URL}/tasktemplate/${name}${version ? `?version=${version}` : ""}`,
   getTaskTemplateChangelog: ({ name }: NameArg) =>
   `${BASE_URL}/tasktemplate/${name}/changelog`,
-  getTaskTemplateYaml: ({ name, version }: NameArg & Partial<VersionArg>) => `${BASE_URL}/tasktemplate/${name}${version ? `?version=${version}` : ""}`,
   getTeams: ({ query }: QueryId) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
   deleteTeamQuotas: ({ id }: IdArg) => `${BASE_URL}/team/${id}/quotas`,
   getTeamQuotaDefaults: () => `${BASE_URL}/team/quotas/default`,
@@ -186,14 +185,6 @@ export const resolver = {
       data: body,
       headers: {
         "content-type": "application/x-yaml",
-      },
-    }),
-  getTaskTemplateYaml: ({ name, version }) =>
-    axios({
-      method: HttpMethod.Get,
-      url: serviceUrl.getTaskTemplateYaml(name, version),
-      headers: {
-        "accept": "application/x-yaml",
       },
     }),
   patchTeamParameter: ({ id, key, body }) =>

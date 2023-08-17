@@ -10,7 +10,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     // Prevent pluralization bc our apis are weird
     inflect.irregular("activity", "activity");
     inflect.irregular("config", "config");
-    inflect.irregular("tasktemplate", "tasktemplate");
+    // inflect.irregular("tasktemplate", "tasktemplate");
     inflect.irregular("insights", "insights");
     inflect.irregular("flowNavigation", "flowNavigation");
   });
@@ -41,6 +41,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       setting: Model,
       summary: Model,
       tasktemplate: Model,
+      tasktemplateYaml: Model,
       team: Model,
       teamApproverUsers: Model,
       teamNameValidate: Model,
@@ -224,6 +225,31 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Task Templates
        */
+      this.get(serviceUrl.getTaskTemplate({ name: ":name" }), (schema, request) => {
+        console.log(request.requestHeaders);
+        if (request.requestHeaders["Accept"] == "application/x-yaml") {
+          return schema.db.tasktemplateYaml[0].yaml;
+        } else {
+          return schema.db.tasktemplate[0].content.find((t) => t.name === request.params.name);
+        }
+      });
+      this.get(serviceUrl.getTaskTemplateChangelog({ name: ":name"}), (schema) => {
+        const response = [
+          {
+              "author": "Bob",
+              "reason": "Add new task",
+              "date": "2023-08-16T22:34:05.234+00:00",
+              "version": 1
+          },
+          {
+              "author": "Jenny",
+              "reason": "Update task to undo Bob's work",
+              "date": "2023-08-17T22:34:05.234+00:00",
+              "version": 2
+          }
+      ]
+        return response;
+      });
       const tasktemplatePath = serviceUrl.getTaskTemplates({ query: null });
       this.get(tasktemplatePath, (schema) => {
         return schema.db.tasktemplate[0];
@@ -234,12 +260,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         taskTemplate.revisions.push(body);
         taskTemplate.update({ ...body });
         return taskTemplate;
-      });
-      this.get(serviceUrl.getTaskTemplate({ name: null, version: null }), (schema) => {
-        return schema.db.tasktemplate[0];
-      });
-      this.get(serviceUrl.getTaskTemplateYaml({ name: null, version: null }), (schema) => {
-        return schema.db.tasktemplate[0];
       });
       this.post(serviceUrl.postValidateYaml(), (schema) => {
         return schema.db.taskTemplateValidate[0];
