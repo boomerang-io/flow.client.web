@@ -88,9 +88,7 @@ export function TaskTemplateYamlEditor({
   const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
     setIsSaving(true);
     let newVersion =
-      requestType === TemplateRequestType.Overwrite
-        ? selectedTaskTemplateVersion
-        : selectedTaskTemplateVersions.length + 1;
+      requestType === TemplateRequestType.Overwrite ? selectedTaskTemplate : getChangelogQuery.data.length + 1;
     let changeReason =
       requestType === TemplateRequestType.Copy
         ? "Version copied from ${values.currentConfig.version}"
@@ -283,11 +281,7 @@ export function TaskTemplateYamlEditor({
                 if (isDirty && !location.pathname.includes(templateMatch?.params?.id) && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";
                 }
-                if (
-                  isDirty &&
-                  templateMatch?.params?.version !== selectedTaskTemplate.currentVersion &&
-                  !isSubmitting
-                ) {
+                if (isDirty && templateMatch?.params?.version !== selectedTaskTemplate.version && !isSubmitting) {
                   prompt = "Are you sure you want to change the version? Your changes will be lost.";
                 }
                 return prompt;

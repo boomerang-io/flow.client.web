@@ -273,9 +273,7 @@ export function TaskTemplateOverview({
   const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
     setIsSaving(true);
     let newVersion =
-      requestType === TemplateRequestType.Overwrite
-        ? selectedTaskTemplateVersion
-        : selectedTaskTemplateVersions.length + 1;
+      requestType === TemplateRequestType.Overwrite ? selectedTaskTemplate.version : getChangelogQuery.data.length + 1;
     let changeReason =
       requestType === TemplateRequestType.Copy
         ? "Version copied from ${values.currentConfig.version}"

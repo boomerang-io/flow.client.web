@@ -64,6 +64,7 @@ function TaskTemplatesContainer() {
         </Route>
         <Route path={AppPath.TaskTemplateEditor} strict={true}>
           <TaskTemplateYamlEditor
+            taskTemplates={taskTemplatesData?.content}
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
