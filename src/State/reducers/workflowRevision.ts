@@ -15,7 +15,6 @@ type RevisionActionType = typeof RevisionActionTypes[keyof typeof RevisionAction
 
 
 export function revisionReducer(state: WorkflowCanvasState, action: { data: any; type: RevisionActionType }) {
-  console.log(action)
   switch (action.type) {
     case RevisionActionTypes.UpdateEdges: {
       state.hasUnsavedUpdates = true;
@@ -23,7 +22,6 @@ export function revisionReducer(state: WorkflowCanvasState, action: { data: any;
       return state;
     }
     case RevisionActionTypes.UpdateNodes: {
-      console.log({ data: action.data })
       state.hasUnsavedUpdates = true;
       state.nodes = action.data
       return state;

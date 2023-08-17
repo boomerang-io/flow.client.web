@@ -169,6 +169,8 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           changelog: { reason },
         };
 
+        console.log(revision);
+
         try {
           const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
           notify(

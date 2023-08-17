@@ -103,7 +103,6 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
     });
   };
 
-  console.log({ summaryData });
   const { properties } = summaryData;
   const propertyKeys = properties.map((input: DataDrivenInput) => input.key);
 

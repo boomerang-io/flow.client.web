@@ -242,21 +242,19 @@ class WorkflowTaskForm extends Component {
         textInputProps={this.textInputProps}
         toggleProps={this.toggleProps}
       >
-        {({ inputs, formikProps }) =>
-          console.log(formikProps) || (
-            <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
-              <ModalBody aria-label="inputs">{inputs}</ModalBody>
-              <ModalFooter>
-                <Button kind="secondary" onClick={this.props.closeModal}>
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={!formikProps.isValid}>
-                  Apply
-                </Button>
-              </ModalFooter>
-            </ModalForm>
-          )
-        }
+        {({ inputs, formikProps }) => (
+          <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
+            <ModalBody aria-label="inputs">{inputs}</ModalBody>
+            <ModalFooter>
+              <Button kind="secondary" onClick={this.props.closeModal}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={!formikProps.isValid}>
+                Apply
+              </Button>
+            </ModalFooter>
+          </ModalForm>
+        )}
       </DynamicFormik>
     );
   }
