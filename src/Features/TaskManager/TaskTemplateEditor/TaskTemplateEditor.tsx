@@ -40,16 +40,11 @@ import "codemirror/addon/comment/comment.js";
 import "Styles/markdown.css";
 
 type TaskTemplateYamlEditorProps = {
-  taskTemplates: Array<TaskTemplate>;
   editVerifiedTasksEnabled: any;
   getTaskTemplatesUrl: string;
 };
 
-export function TaskTemplateYamlEditor({
-  taskTemplates,
-  editVerifiedTasksEnabled,
-  getTaskTemplatesUrl,
-}: TaskTemplateYamlEditorProps) {
+export function TaskTemplateYamlEditor({ editVerifiedTasksEnabled, getTaskTemplatesUrl }: TaskTemplateYamlEditorProps) {
   const [isSaving, setIsSaving] = React.useState(false);
   const cancelRequestRef = React.useRef();
   const queryClient = useQueryClient();
@@ -61,36 +56,29 @@ export function TaskTemplateYamlEditor({
 
   const getTaskTemplateYamlUrl = serviceUrl.getTaskTemplateYaml({ name: params.name, version: params.version });
 
-  const {
-    data: yamlData,
-    loading: yamlLoading,
-    error: yamlError,
-  } = useQuery({
+  const getTaskTemplateYamlQuery = useQuery({
     queryKey: getTaskTemplateYamlUrl,
     queryFn: resolver.queryYaml(getTaskTemplateYamlUrl),
   });
+
+  const getChangelogUrl = serviceUrl.getTaskTemplateChangelog({
+    name: params.name,
+  });
+  const getChangelogQuery = useQuery<ChangeLog>(getChangelogUrl);
 
   const applyTaskTemplateYamlMutation = useMutation(resolver.putApplyTaskTemplateYaml);
   const applyTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
   const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
   const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
-  let selectedTaskTemplateVersions = taskTemplates[params.name] ?? [];
-  console.log("selectedTaskTemplateList", selectedTaskTemplateVersions);
-  // Checks if the version in url are a valid one. If not, go to the latest version
-  const invalidVersion = params.version === "0" || params.version > selectedTaskTemplateVersions.length;
-  console.log("invalidVersion", invalidVersion);
-  const selectedTaskTemplateVersion = invalidVersion ? selectedTaskTemplateVersions.length : params.version;
-  console.log("selectedTaskTemplateVersion", selectedTaskTemplateVersion);
-  let selectedTaskTemplate = selectedTaskTemplateVersions.find((t) => t.version == selectedTaskTemplateVersion) ?? {};
+  const selectedTaskTemplate = getTaskTemplateQuery.data;
   console.log("selectedTaskTemplate", selectedTaskTemplate);
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
   console.log("canEdit", canEdit);
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
   console.log("isActive", isActive);
-  const isOldVersion = !invalidVersion && params.version != selectedTaskTemplateVersions.length;
+  const isOldVersion = params.version != getChangelogQuery.data.length;
   console.log("isOldVersion", isOldVersion);
-  const templateNotFound = !selectedTaskTemplate.name;
 
   const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
     setIsSaving(true);
@@ -257,11 +245,11 @@ export function TaskTemplateYamlEditor({
     }
   };
 
-  if (yamlLoading || applyTaskTemplateYamlMutation.isLoading) {
+  if (getTaskTemplateYamlQuery.isLoading || getChangelogQuery.isLoading || applyTaskTemplateYamlMutation.isLoading) {
     return <Loading />;
   }
 
-  if (templateNotFound || yamlError)
+  if (getChangelogQuery.error || getTaskTemplateYamlQuery.error)
     return (
       <EmptyState title="Task Template not found" message="Crikey. We can't find the template you are looking for." />
     );
@@ -306,7 +294,7 @@ export function TaskTemplateYamlEditor({
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
-              selectedTaskTemplates={selectedTaskTemplateVersions}
+              changelog={getChangelogQuery.data}
               formikProps={formikProps}
               handleRestoreTaskTemplate={handleRestoreTaskTemplate}
               handleArchiveTaskTemplate={handleArchiveTaskTemplate}

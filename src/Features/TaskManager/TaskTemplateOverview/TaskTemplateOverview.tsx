@@ -205,7 +205,6 @@ const Result: React.FC<ResultProps> = ({
 };
 
 type TaskTemplateOverviewProps = {
-  taskTemplates: Array<TaskTemplate>;
   getTaskTemplatesUrl: string;
   editVerifiedTasksEnabled: any;
 };
@@ -218,13 +217,13 @@ export function TaskTemplateOverview({ getTaskTemplatesUrl, editVerifiedTasksEna
   const history = useHistory();
 
   const getTaskTemplateUrl = serviceUrl.getTaskTemplate({
-    id: params.name,
+    name: params.name,
     version: params.version,
   });
   const getTaskTemplateQuery = useQuery(getTaskTemplateUrl);
 
   const getChangelogUrl = serviceUrl.getTaskTemplateChangelog({
-    id: params.name,
+    name: params.name,
   });
   const getChangelogQuery = useQuery<ChangeLog>(getChangelogUrl);
 
@@ -509,7 +508,7 @@ export function TaskTemplateOverview({ getTaskTemplatesUrl, editVerifiedTasksEna
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
-              changelog={changelog}
+              changelog={getChangelogQuery.data}
               formikProps={formikProps}
               handleRestoreTaskTemplate={handleRestoreTaskTemplate}
               handleArchiveTaskTemplate={handleArchiveTaskTemplate}
