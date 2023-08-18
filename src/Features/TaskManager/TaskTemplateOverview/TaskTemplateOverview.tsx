@@ -298,7 +298,7 @@ export function TaskTemplateOverview({
       status: "active",
       category: values.category,
       version: newVersion,
-      icon: values.icon.value,
+      icon: values.icon,
       type: "template",
       changelog: { reason: changeReason },
       config: Boolean(values.config) ? values.config : [],

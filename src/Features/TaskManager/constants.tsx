@@ -10,6 +10,7 @@ export const FieldTypes = {
   number: "Number",
   password: "Password",
   select: "Select",
+  string: "String",
   text: "Text",
   textarea: "Text Area",
   texteditor: "Text Editor",
