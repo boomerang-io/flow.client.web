@@ -308,7 +308,8 @@ export function TaskTemplateOverview({
     try {
       let replace = requestType === TemplateRequestType.Overwrite ? "true" : "false";
       let response = await applyTaskTemplateMutation.mutateAsync({ replace, team: params.teamId, body });
-      await queryClient.invalidateQueries(getTaskTemplatesUrl);
+      await queryClient.invalidateQueries(getTaskTemplateUrl);
+      await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
         <ToastNotification
@@ -360,7 +361,8 @@ export function TaskTemplateOverview({
   const handleArchiveTaskTemplate = async () => {
     try {
       await archiveTaskTemplateMutation.mutateAsync({ name: params.name, status: "disable" });
-      await queryClient.invalidateQueries(getTaskTemplatesUrl);
+      await queryClient.invalidateQueries(getTaskTemplateUrl);
+      await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
         <ToastNotification
@@ -385,7 +387,8 @@ export function TaskTemplateOverview({
   const handleRestoreTaskTemplate = async () => {
     try {
       await restoreTaskTemplateMutation.mutateAsync({ name: selectedTaskTemplate.name, status: "enable" });
-      await queryClient.invalidateQueries(getTaskTemplatesUrl);
+      await queryClient.invalidateQueries(getTaskTemplateUrl);
+      await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
         <ToastNotification
