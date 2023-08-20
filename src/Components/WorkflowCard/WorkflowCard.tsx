@@ -22,7 +22,7 @@ import { formatErrorMessage } from "@boomerang-io/utils";
 import { appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
-import { Run, Bee } from "@carbon/react/icons";
+import { Run, Bee, CircleFill, CircleStroke } from "@carbon/react/icons";
 import workflowIcons from "Assets/workflowIcons";
 import {
   ComposedModalChildProps,
@@ -53,6 +53,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
 
   const history = useHistory();
   const [errorMessage, seterrorMessage] = useState(null);
@@ -96,7 +97,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: team?.id }));
+        queryClient.invalidateQueries(getWorkflowsUrl);
       }
     } catch {
       notify(
@@ -122,7 +123,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: team?.id }));
+        queryClient.invalidateQueries(getWorkflowsUrl);
       }
       return;
     } catch (e) {
@@ -181,7 +182,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
           state: { fromUrl: appLink.workflows({ teamId: team?.id }), fromText: `${viewType}s` },
         });
       } else {
-        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: team?.id }));
+        queryClient.invalidateQueries(getWorkflowsUrl);
         closeModal();
       }
     } catch (err) {
@@ -357,21 +358,37 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       )}
       {isDuplicating || isDeleting || isExecuting ? (
         <InlineLoading
-          description={loadingText}
-          style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
+          description="Deleting...{loadingText}"
+          style={{ position: "absolute", left: "0.5rem", top: "0", width: "fit-content" }}
         />
       ) : (
-        <OverflowMenu
-          flipped
-          ariaLabel="Overflow card menu"
-          iconDescription="Overflow menu icon"
-          style={{ position: "absolute", right: "0" }}
-        >
-          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
-            <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
-          ))}
-        </OverflowMenu>
+        <div className={styles.status}>
+          {isDisabled ? (
+            <TooltipHover direction="top" tooltipText="Disabled">
+              <CircleStroke style={{ fill: "#393939", marginRight: "0.5rem" }} />
+            </TooltipHover>
+          ) : workflow.status === "active" ? (
+            <TooltipHover direction="top" tooltipText="Active">
+              <CircleFill style={{ fill: "#009d9a", marginRight: "0.5rem" }} />
+            </TooltipHover>
+          ) : (
+            <TooltipHover direction="top" tooltipText="Inactive">
+              <CircleFill style={{ fill: "#da1e28", marginRight: "0.5rem" }} />
+            </TooltipHover>
+          )}
+          {/* <p className={styles.statusText}>{workflow.status === "active" ? "Active" : "Inactive"}</p> */}
+        </div>
       )}
+      <OverflowMenu
+        flipped
+        ariaLabel="Overflow card menu"
+        iconDescription="Overflow menu icon"
+        style={{ position: "absolute", right: "0" }}
+      >
+        {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
+          <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
+        ))}
+      </OverflowMenu>
       {isUpdateWorkflowModalOpen && (
         <UpdateWorkflow
           onCloseModal={() => setIsUpdateWorkflowModalOpen(false)}
