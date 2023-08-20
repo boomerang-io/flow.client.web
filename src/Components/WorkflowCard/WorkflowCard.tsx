@@ -358,15 +358,16 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       )}
       {isDuplicating || isDeleting || isExecuting ? (
         <InlineLoading
-          description="Deleting...{loadingText}"
+          description={loadingText}
           style={{ position: "absolute", left: "0.5rem", top: "0", width: "fit-content" }}
         />
       ) : (
         <div className={styles.status}>
           {isDisabled ? (
-            <TooltipHover direction="top" tooltipText="Disabled">
+            <>
               <CircleStroke style={{ fill: "#393939", marginRight: "0.5rem" }} />
-            </TooltipHover>
+              <p className={styles.statusText}>Disabled</p>
+            </>
           ) : workflow.status === "active" ? (
             <TooltipHover direction="top" tooltipText="Active">
               <CircleFill style={{ fill: "#009d9a", marginRight: "0.5rem" }} />
@@ -386,7 +387,13 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
         style={{ position: "absolute", right: "0" }}
       >
         {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
-          <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
+          <OverflowMenuItem
+            onClick={onClick}
+            itemText={itemText}
+            key={`${itemText}-${index}`}
+            disabled={isDuplicating || isDeleting || isExecuting}
+            {...rest}
+          />
         ))}
       </OverflowMenu>
       {isUpdateWorkflowModalOpen && (
