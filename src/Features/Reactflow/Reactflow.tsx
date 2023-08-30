@@ -239,7 +239,7 @@ function FlowDiagram(props: FlowDiagramProps) {
               <CustomEdgeArrow id={markerTypes.template} color="#0072c3" />
             </MarkerDefinition>
             <Background />
-            <Controls />
+            <Controls showInteractive={false} />
           </ReactFlow>
         </div>
       </ReactFlowProvider>
