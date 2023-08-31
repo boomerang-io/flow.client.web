@@ -1,5 +1,8 @@
 import { User } from "@boomerang-io/carbon-addons-boomerang-react";
 import { NodeProps } from "reactflow";
+import { WorkflowDagEngineMode } from "Constants";
+import { type } from "@testing-library/user-event/dist/type";
+
 declare global {
   interface Window {
     _SERVER_DATA: {
@@ -77,12 +80,12 @@ export interface DataDrivenInput {
   label?: string;
   onChange?: (args: any) => void;
   onBlur?: (args: any) => void;
-  options?: [{ key: string; value: string }];
+  options?: Array<{ key: string; value: string }>;
   placeholder?: string;
   readOnly?: boolean;
   required?: boolean;
   value: string;
-  values?: [string] | [{ key: string; value: string }];
+  values?: Array<string> | Array<{ key: string; value: string }>;
   type: string;
   min?: number;
   max?: number;
@@ -104,7 +107,7 @@ export interface ComposedModalChildProps {
 }
 
 export interface FormikSetFieldValue {
-  (id: string, value: string | [string] | boolean | undefined): void;
+  (id: string, value: string | Array<string> | boolean | undefined): void;
 }
 
 export interface CreateWorkflowSummary {
@@ -154,21 +157,21 @@ export interface Workflow {
   labels?: Record<string, string>;
   annotations?: Record<string, object>;
   markdown?: string;
-  params?: [
+  params?: Array<
     {
       name: string;
       type: string;
       description?: string;
       defaultValue?: object;
     }
-  ];
-  tasks: [];
+  >
+  tasks: Array<any> //TODO: what should this type be
   changelog: {
     author: string;
     reason: string;
     date: string;
   };
-  config: [DataDrivenInput];
+  config: Array<DataDrivenInput>;
   triggers: {
     manual: {
       enable: boolean;
@@ -188,14 +191,14 @@ export interface Workflow {
       token: string;
     };
   };
-  tokens: [
+  tokens: Array<
     {
       token: string;
       label: string;
     }
-  ];
+  >
   templateUpgradesAvailable: boolean;
-  workspaces: [
+  workspaces: Array<
     {
       name: string;
       description?: string;
@@ -208,7 +211,7 @@ export interface Workflow {
         mountPath?: string;
       };
     }
-  ];
+  >
 }
 
 export enum WorkflowStatus {
@@ -339,7 +342,7 @@ export interface WorkflowExecution {
   workflowRevisionid: string;
   workflowRevisionVersion: string;
   trigger: string;
-  properties: (
+  properties: Array<(
     | {
       key: string;
       value: string;
@@ -348,8 +351,8 @@ export interface WorkflowExecution {
       key: string;
       value: null;
     }
-  )[];
-  outputProperties: (
+  )>;
+  outputProperties: Array<(
     | {
       key: string;
       value: string;
@@ -358,7 +361,7 @@ export interface WorkflowExecution {
       key: string;
       value: null;
     }
-  )[];
+  )>;
   steps: Array<WorkflowExecutionStep>;
   teamName: string;
   awaitingApproval: boolean;
@@ -390,8 +393,7 @@ export interface TaskTemplate {
   labels?: Record<string, string>;
   icon: string;
   type: string;
-  changelog: ChangeLogItem;
-  // scope: string; //global or team
+  changelog: ChangeLog;
   verified: boolean;
   config: Array<DataDrivenInput>;
   spec: TaskTemplateSpec;
@@ -473,12 +475,12 @@ export interface PaginatedResponse<RecordType> {
   totalPages: number;
   totalElements: number;
   last: boolean;
-  sort: PaginatedSort[];
+  sort: Array<PaginatedSort>;
   first: boolean;
   numberOfElements: number;
   size: number;
   number: number;
-  content: RecordType[];
+  content: Array<RecordType>;
 }
 
 export interface FlowUser extends User {
@@ -554,26 +556,6 @@ export interface TeamTokenRequest extends TokenRequest {
   teamId: string;
 }
 
-// interface userInterface {
-//   email?: string;
-//   favoritePackages?: any;
-//   firstLoginDate?: string;
-//   hasConsented?: boolean;
-//   id: string;
-//   isFirstVisit?: boolean;
-//   isShowHelp?: boolean;
-//   lastLoginDate?: string;
-//   lowerLevelGroupIds?: any;
-//   name?: string;
-//   notificationSettings?: any;
-//   personalizations?: any;
-//   pinnedToolIds?: any;
-//   projects?: any;
-//   status?: string;
-//   teams?: any; //is this used?
-//   type: string;
-// }
-
 export interface ComboBoxItem {
   name: string;
   label?: string;
@@ -590,21 +572,21 @@ export interface WorkflowTemplate {
   version: Number;
   labels?: Record<string, string>;
   annotations?: Record<string, object>;
-  params?: [
+  params?: Array<
     {
       name: string;
       type: string;
       description?: string;
       defaultValue?: object;
     }
-  ];
-  tasks: [];
+  >
+  tasks: Array<any>; //TODO: what shuold this be
   changelog: {
     author: string;
     reason: string;
     date: string;
   };
-  config: [DataDrivenInput];
+  config: Array<DataDrivenInput>;
 }
 
 export enum RunStatus {
@@ -651,7 +633,7 @@ export interface FlowNavigationItem {
   name: string;
   link: string;
   type: "link" | "menu" | "divider";
-  childLinks: [FlowNavigationItemChild];
+  childLinks: Array<FlowNavigationItemChild>
 }
 
 export type PlatformFeatureKey =
@@ -786,3 +768,5 @@ export interface MultiSelectItems<Type = MultiSelectItem> {
 }
 
 export type WorkflowCanvasState = WorkflowCanvas & { hasUnsavedUpdates?: boolean };
+
+export type WorkflowDagEngineModeType = typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode]
