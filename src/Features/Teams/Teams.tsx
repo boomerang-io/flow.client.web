@@ -64,7 +64,6 @@ const PAGE_SIZES = [DEFAULT_LIMIT, 20, 50, 100];
 const TeamList: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
-  const cancelRequestRef = React.useRef<{} | null>();
   // TODO - make this read only
   const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
 
@@ -176,7 +175,6 @@ const TeamList: React.FC = () => {
             return (
               <AddTeamContent
                 closeModal={closeModal}
-                cancelRequestRef={cancelRequestRef}
                 teamRecords={teamsData.content}
                 currentQuery={location.search}
               />

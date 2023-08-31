@@ -25,17 +25,9 @@ type Props = {
 };
 
 function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
-  const cancelRequestRef = React.useRef<any>();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: approvalMutator, isLoading: approvalsIsLoading, error: approvalsError } = useMutation(
-    (args: { body: { id: string; approved: boolean; comments: string } }) => {
-      const { promise, cancel } = resolver.putWorkflowAction(args);
-      if (cancelRequestRef?.current) {
-        cancelRequestRef.current = cancel;
-      }
-      return promise;
-    },
+  const { mutateAsync: approvalMutator, isLoading: approvalsIsLoading, error: approvalsError } = useMutation(resolver.putWorkflowAction,
     {
       onSuccess: () => {
         queryClient.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId }));

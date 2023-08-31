@@ -15,9 +15,9 @@ type CreateEditGroupModalProps = {
 };
 
 function CreateEditGroupModal({
-  isEdit,
   approverGroup,
   approverGroups,
+  isEdit,
   team,
   teamDetailsUrl,
 }: CreateEditGroupModalProps) {
@@ -34,7 +34,6 @@ function CreateEditGroupModal({
       );
     }
   }
-  const cancelRequestRef = React.useRef<any>();
 
   return (
     <ComposedModal
@@ -61,11 +60,8 @@ function CreateEditGroupModal({
         subtitle:
           "Choose a group name, then add users from a selected Team. Groups can only be formed with users from the same Team. Members will receive an email notification about their new permissions.",
       }}
-      onCloseModal={() => {
-        if (cancelRequestRef.current) cancelRequestRef.current();
-      }}
     >
-      {({ closeModal }: any) => (
+      {({ closeModal }) => (
         <CreateEditGroupModalContent
           isEdit={isEdit}
           approverGroup={approverGroup}

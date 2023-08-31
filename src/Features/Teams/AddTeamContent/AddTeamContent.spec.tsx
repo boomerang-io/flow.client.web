@@ -5,7 +5,6 @@ const props = {
   teamRecords: [],
   currentQuery: "",
   closeModal: vi.fn(),
-  cancelRequestRef: { current: undefined },
 };
 
 describe("AddTeamContent --- Snapshot Test", () => {

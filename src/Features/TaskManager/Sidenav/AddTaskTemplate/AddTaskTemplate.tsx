@@ -20,7 +20,6 @@ interface AddTaskTemplateProps {
 function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: AddTaskTemplateProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const queryClient = useQueryClient();
-  const cancelRequestRef = React.useRef();
 
   const createTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
 
@@ -40,14 +39,14 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
       history.push(
         team
           ? appLink.manageTaskTemplateEdit({
-              teamId: team.id,
-              name: task.name,
-              version: task.version.toString(),
-            })
+            teamId: team.id,
+            name: task.name,
+            version: task.version.toString(),
+          })
           : appLink.adminTaskTemplateDetail({
-              name: task.name,
-              version: task.version.toString(),
-            })
+            name: task.name,
+            version: task.version.toString(),
+          })
       );
       closeModal();
     } catch (err) {
@@ -68,9 +67,6 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
           Add a new task
         </Button>
       )}
-      onCloseModal={() => {
-        if (cancelRequestRef.current) cancelRequestRef.current();
-      }}
       modalHeaderProps={{
         title: "Add a new task",
         subtitle: "Import a task file to auto-populate these fields, or start from scratch.",

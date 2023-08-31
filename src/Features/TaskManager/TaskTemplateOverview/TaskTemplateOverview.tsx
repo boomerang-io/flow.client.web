@@ -44,8 +44,8 @@ const DetailDataElements: React.FC<DetailDataElementsProps> = ({ label, value })
         <dd className={value?.length ? styles.value : styles.noValue} data-testid={label}>
           {value?.length > 0
             ? value.map((env) => {
-                return <Tag>{`${env.name}:${env.value}`}</Tag>;
-              })
+              return <Tag>{`${env.name}:${env.value}`}</Tag>;
+            })
             : "Not defined yet"}
         </dd>
       </section>
@@ -216,7 +216,6 @@ export function TaskTemplateOverview({
   editVerifiedTasksEnabled,
 }: TaskTemplateOverviewProps) {
   const [isSaving, setIsSaving] = React.useState(false);
-  const cancelRequestRef = React.useRef();
   const queryClient = useQueryClient();
   const params = useParams();
   const history = useHistory();
@@ -323,14 +322,14 @@ export function TaskTemplateOverview({
       history.push(
         params.teamId
           ? appLink.manageTaskTemplateEdit({
-              teamId: params.teamId,
-              name: response.data.name,
-              version: response.data.version,
-            })
+            teamId: params.teamId,
+            name: response.data.name,
+            version: response.data.version,
+          })
           : appLink.taskTemplateEdit({
-              name: response.data.name,
-              version: response.data.version,
-            })
+            name: response.data.name,
+            version: response.data.version,
+          })
       );
       if (requestType !== TemplateRequestType.Copy) {
         typeof setRequestError === "function" && setRequestError(null);
@@ -523,7 +522,6 @@ export function TaskTemplateOverview({
               isActive={isActive}
               isLoading={isSubmitting || isSaving}
               isOldVersion={isOldVersion}
-              cancelRequestRef={cancelRequestRef}
             />
             <div className={styles.content}>
               {!canEdit && (

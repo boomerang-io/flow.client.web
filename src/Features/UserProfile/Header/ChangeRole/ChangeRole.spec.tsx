@@ -20,7 +20,7 @@ const user = {
 describe("ChangeRole --- Snapshot Test", () => {
   it("Capturing Snapshot of ChangeRole", async () => {
     const { baseElement } = global.rtlContextRouterRender(
-      <ChangeRole user={user} cancelRequestRef={{}} closeModal={() => vi.fn()} />
+      <ChangeRole user={user} closeModal={() => vi.fn()} />
     );
     expect(baseElement).toMatchSnapshot();
     await waitFor(() => null);

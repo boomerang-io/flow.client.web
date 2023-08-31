@@ -28,7 +28,6 @@ type ManualTaskProps = {
 };
 
 function ManualTask({ action, handleCloseModal, modalTrigger, queryToRefetch }: ManualTaskProps) {
-  const cancelRequestRef = React.useRef<any>();
 
   return (
     <ComposedModal
@@ -39,12 +38,11 @@ function ManualTask({ action, handleCloseModal, modalTrigger, queryToRefetch }: 
       }}
       modalHeaderProps={{ title: "Action Manual Task", subtitle: action?.taskName }}
       onCloseModal={() => {
-        if (cancelRequestRef.current) cancelRequestRef.current();
         handleCloseModal && handleCloseModal();
       }}
     >
       {(props: ComposedModalChildProps) => (
-        <Form action={action} cancelRequestRef={cancelRequestRef} queryToRefetch={queryToRefetch} {...props} />
+        <Form action={action} queryToRefetch={queryToRefetch} {...props} />
       )}
     </ComposedModal>
   );
@@ -52,23 +50,15 @@ function ManualTask({ action, handleCloseModal, modalTrigger, queryToRefetch }: 
 
 type FormProps = {
   action: Action;
-  cancelRequestRef: React.MutableRefObject<any>;
   closeModal: () => void;
   queryToRefetch: string;
 };
 
-function Form({ action, cancelRequestRef, closeModal, queryToRefetch }: FormProps) {
+function Form({ action, closeModal, queryToRefetch }: FormProps) {
   const queryClient = useQueryClient();
   const { id, instructions, status } = action ?? {};
 
-  const { mutateAsync: approvalMutator, isLoading: approvalsIsLoading, error: approvalsError } = useMutation(
-    (args: { body: { id: string; approved: boolean } }) => {
-      const { promise, cancel } = resolver.putWorkflowAction(args);
-      if (cancelRequestRef?.current) {
-        cancelRequestRef.current = cancel;
-      }
-      return promise;
-    },
+  const { mutateAsync: approvalMutator, isLoading: approvalsIsLoading, error: approvalsError } = useMutation(resolver.putWorkflowAction,
     {
       onSuccess: () => {
         queryClient.invalidateQueries(queryToRefetch);

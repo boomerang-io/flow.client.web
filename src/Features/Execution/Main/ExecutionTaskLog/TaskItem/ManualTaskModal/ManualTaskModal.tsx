@@ -14,21 +14,13 @@ type Props = {
 };
 
 function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }: Props) {
-  const cancelRequestRef = React.useRef<any>();
   const queryClient = useQueryClient();
 
   const {
     mutateAsync: approvalMutator,
     isLoading: approvalsIsLoading,
     error: approvalsError,
-  } = useMutation(
-    (args: { body: { id: string; approved: boolean } }) => {
-      const { promise, cancel } = resolver.putWorkflowAction(args);
-      if (cancelRequestRef?.current) {
-        cancelRequestRef.current = cancel;
-      }
-      return promise;
-    },
+  } = useMutation(resolver.putWorkflowAction,
     {
       onSuccess: () => {
         queryClient.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId }));

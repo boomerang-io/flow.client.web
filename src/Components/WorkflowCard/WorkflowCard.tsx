@@ -43,12 +43,10 @@ interface WorkflowCardProps {
   viewType: WorkflowViewType;
 }
 
-type FunctionAnyReturn = () => any;
 
 const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, viewType }) => {
   const { team } = useTeamContext();
   const queryClient = useQueryClient();
-  const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
@@ -64,11 +62,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
     mutateAsync: executeWorkflowMutator,
     error: executeError,
     isLoading: isExecuting,
-  } = useMutation((args: { id: string; properties: {} }) => {
-    const { promise, cancel } = resolver.postExecuteWorkflow(args);
-    cancelRequestRef.current = cancel;
-    return promise;
-  });
+  } = useMutation(resolver.postExecuteWorkflow)
 
   const { mutateAsync: duplicateWorkflowMutator, isLoading: duplicateWorkflowIsLoading } = useMutation(
     resolver.postDuplicateWorkflow
@@ -298,9 +292,6 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
                 Run it
               </Button>
             )}
-            onCloseModal={() => {
-              if (cancelRequestRef.current) cancelRequestRef.current();
-            }}
           >
             {({ closeModal }: ComposedModalChildProps) => (
               <WorkflowInputModalContent

@@ -16,12 +16,10 @@ import { FlowTeam } from "Types";
 
 export default function AddTeamContent({
   closeModal,
-  cancelRequestRef,
   teamRecords,
   currentQuery,
 }: {
   closeModal: () => void;
-  cancelRequestRef: { current: any };
   teamRecords: FlowTeam[];
   currentQuery: string;
 }) {
@@ -30,14 +28,7 @@ export default function AddTeamContent({
     mutateAsync: createTeamMutator,
     isLoading,
     error,
-  } = useMutation(
-    (args: { body: {} }) => {
-      const { promise, cancel } = resolver.postCreateTeam(args);
-      if (cancelRequestRef?.current) {
-        cancelRequestRef.current = cancel;
-      }
-      return promise;
-    },
+  } = useMutation(resolver.postCreateTeam,
     {
       onSuccess: () => {
         queryClient.invalidateQueries(serviceUrl.getTeams({ query: currentQuery }));

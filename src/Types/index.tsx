@@ -1,5 +1,4 @@
 import { User } from "@boomerang-io/carbon-addons-boomerang-react";
-import type { NodeType } from "Constants";
 import { NodeProps } from "reactflow";
 declare global {
   interface Window {
@@ -342,23 +341,23 @@ export interface WorkflowExecution {
   trigger: string;
   properties: (
     | {
-        key: string;
-        value: string;
-      }
+      key: string;
+      value: string;
+    }
     | {
-        key: string;
-        value: null;
-      }
+      key: string;
+      value: null;
+    }
   )[];
   outputProperties: (
     | {
-        key: string;
-        value: string;
-      }
+      key: string;
+      value: string;
+    }
     | {
-        key: string;
-        value: null;
-      }
+      key: string;
+      value: null;
+    }
   )[];
   steps: Array<WorkflowExecutionStep>;
   teamName: string;

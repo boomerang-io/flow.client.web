@@ -51,7 +51,6 @@ export function TaskTemplateYamlEditor({
   getTaskTemplatesUrl,
 }: TaskTemplateYamlEditorProps) {
   const [isSaving, setIsSaving] = React.useState(false);
-  const cancelRequestRef = React.useRef();
   const queryClient = useQueryClient();
 
   const params = useParams();
@@ -305,7 +304,6 @@ export function TaskTemplateYamlEditor({
               isActive={isActive}
               isLoading={isSubmitting || isSaving}
               isOldVersion={isOldVersion}
-              cancelRequestRef={cancelRequestRef}
             />
             <div className={styles.content}>
               {!canEdit && (

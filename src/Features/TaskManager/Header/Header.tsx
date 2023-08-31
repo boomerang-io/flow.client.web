@@ -37,7 +37,6 @@ const ArchiveText: React.FC = () => (
 );
 
 interface SaveModalProps {
-  cancelRequestRef: any;
   formikProps: FormikProps<FormProps>;
   handleSubmit: (
     values: any,
@@ -50,7 +49,7 @@ interface SaveModalProps {
   canEdit: boolean;
 }
 
-const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, handleSubmit, isLoading, canEdit }) => {
+const SaveModal: React.FC<SaveModalProps> = ({ formikProps, handleSubmit, isLoading, canEdit }) => {
   const [requestError, setRequestError] = React.useState<{ title?: string; subtitle?: string } | null>(null);
   const SaveMessage = () => {
     return (
@@ -75,9 +74,6 @@ const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, ha
         title: "Save changes",
       }}
       composedModalProps={{ containerClassName: styles.saveContainer }}
-      onCloseModal={() => {
-        if (cancelRequestRef.current) cancelRequestRef.current();
-      }}
       modalTrigger={({ openModal }: ModalTriggerProps) => (
         <TooltipHover direction="bottom" tooltipText={"Save a new version or update the current one"}>
           <Button
@@ -167,7 +163,6 @@ const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, ha
 
 interface HeaderProps {
   editVerifiedTasksEnabled: boolean;
-  cancelRequestRef: object;
   formikProps: FormikProps<FormProps>;
   handleSaveTaskTemplate: (
     values: any,
@@ -198,7 +193,6 @@ const Header: React.FC<HeaderProps> = ({
   isOldVersion,
   isActive,
   isLoading,
-  cancelRequestRef,
 }) => {
   const params: { teamId: string; taskId: string; version: string } = useParams();
 
@@ -219,14 +213,14 @@ const Header: React.FC<HeaderProps> = ({
             to={
               params.teamId
                 ? appLink.manageTaskTemplateEdit({
-                    teamId: params.teamId,
-                    name: selectedTaskTemplate.name,
-                    version: selectedTaskTemplate.version.toString(),
-                  })
+                  teamId: params.teamId,
+                  name: selectedTaskTemplate.name,
+                  version: selectedTaskTemplate.version.toString(),
+                })
                 : appLink.adminTaskTemplateDetail({
-                    name: selectedTaskTemplate.name,
-                    version: selectedTaskTemplate.version.toString(),
-                  })
+                  name: selectedTaskTemplate.name,
+                  version: selectedTaskTemplate.version.toString(),
+                })
             }
           />
           <Tab
@@ -235,14 +229,14 @@ const Header: React.FC<HeaderProps> = ({
             to={
               params.teamId
                 ? appLink.manageTaskTemplateYaml({
-                    teamId: params.teamId,
-                    name: selectedTaskTemplate.name,
-                    version: selectedTaskTemplate.version.toString(),
-                  })
+                  teamId: params.teamId,
+                  name: selectedTaskTemplate.name,
+                  version: selectedTaskTemplate.version.toString(),
+                })
                 : appLink.adminTaskTemplateEditor({
-                    name: selectedTaskTemplate.name,
-                    version: selectedTaskTemplate.version.toString(),
-                  })
+                  name: selectedTaskTemplate.name,
+                  version: selectedTaskTemplate.version.toString(),
+                })
             }
           />
         </Tabs>
@@ -321,9 +315,8 @@ const Header: React.FC<HeaderProps> = ({
                   <p className={styles.confirmModalText}>Sometimes revisiting the past is a good thing.</p>
                   <p
                     className={styles.confirmModalText}
-                  >{`This action will create a new version that’s an exact copy of Version ${
-                    selectedTaskTemplate.version
-                  }, but it shall be named Version ${versionCount + 1}. Make sure this is what you want to do.`}</p>
+                  >{`This action will create a new version that’s an exact copy of Version ${selectedTaskTemplate.version
+                    }, but it shall be named Version ${versionCount + 1}. Make sure this is what you want to do.`}</p>
                 </>
               }
               affirmativeText="Copy to new version"
@@ -344,7 +337,6 @@ const Header: React.FC<HeaderProps> = ({
             />
           ) : isActive ? (
             <SaveModal
-              cancelRequestRef={cancelRequestRef}
               formikProps={formikProps}
               handleSubmit={handleSaveTaskTemplate}
               isLoading={isLoading}

@@ -15,7 +15,6 @@ interface CreateServiceTokenButtonProps {
 
 function CreateServiceTokenButton({ type, principal, getTokensUrl }: CreateServiceTokenButtonProps) {
   const [isTokenCreated, setIsTokenCreated] = React.useState(false);
-  const cancelRequestRef = React.useRef<any>();
   return (
     <ModalFlow
       composedModalProps={{
@@ -41,9 +40,6 @@ function CreateServiceTokenButton({ type, principal, getTokensUrl }: CreateServi
       confirmModalProps={{
         title: "Close this?",
         children: "Make sure you have saved your token. We will not show it to you again.",
-      }}
-      onCloseModal={() => {
-        if (cancelRequestRef.current) cancelRequestRef.current();
       }}
     >
       <CreateServiceTokenForm

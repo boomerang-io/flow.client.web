@@ -52,21 +52,18 @@ function ApproveRejectActions({
   onSuccessfulApprovalRejection,
   type,
 }: ApproveRejectActionsProps) {
-  const cancelRequestRef = React.useRef<any>();
 
   let title = "Approve selected actions";
-  let subtitle = `You have selected ${actions.length} action${
-    actions.length > 1 ? "s" : ""
-  } to approve. Check the details are correct, add optional comments, and then click Approve.`;
+  let subtitle = `You have selected ${actions.length} action${actions.length > 1 ? "s" : ""
+    } to approve. Check the details are correct, add optional comments, and then click Approve.`;
 
   if (type === ModalType.Single) {
     title = "Action details";
     subtitle = "";
   } else if (type === ModalType.Reject) {
     title = "Reject selected actions";
-    subtitle = `You have selected ${actions.length} action${
-      actions.length > 1 ? "s" : ""
-    } to reject. Check the details are correct, add optional comments, and then click Reject.`;
+    subtitle = `You have selected ${actions.length} action${actions.length > 1 ? "s" : ""
+      } to reject. Check the details are correct, add optional comments, and then click Reject.`;
   }
 
   return (
@@ -75,14 +72,12 @@ function ApproveRejectActions({
       composedModalProps={{ containerClassName: styles.modalContainer, shouldCloseOnOverlayClick: false }}
       modalHeaderProps={{ title, subtitle }}
       onCloseModal={() => {
-        if (cancelRequestRef.current) cancelRequestRef.current();
         handleCloseModal && handleCloseModal();
       }}
     >
       {(props: any) => (
         <Form
           actions={actions}
-          cancelRequestRef={cancelRequestRef}
           isAlreadyApproved={isAlreadyApproved}
           onSuccessfulApprovalRejection={onSuccessfulApprovalRejection}
           queryToRefetch={queryToRefetch}
@@ -96,7 +91,6 @@ function ApproveRejectActions({
 
 type FormProps = {
   actions: Action[];
-  cancelRequestRef: any;
   closeModal: (args?: any) => void;
   isAlreadyApproved: boolean;
   onSuccessfulApprovalRejection: () => any;
@@ -106,7 +100,6 @@ type FormProps = {
 
 function Form({
   actions,
-  cancelRequestRef,
   closeModal,
   isAlreadyApproved,
   onSuccessfulApprovalRejection,
@@ -123,34 +116,30 @@ function Form({
     mutateAsync: actionsMutation,
     isLoading: actionsIsLoading,
     isError: actionsPutError,
-  } = useMutation((args: { body: any }) => {
-    const { promise, cancel } = resolver.putWorkflowAction(args);
-    cancelRequestRef.current = cancel;
-    return promise;
-  });
+  } = useMutation(resolver.putWorkflowAction);
 
   const handleActions =
     ({ approved, notificationSubtitle, notificationTitle, setLoading, values }: any) =>
-    async () => {
-      typeof setLoading === "function" && setLoading(true);
-      let request: any = [];
+      async () => {
+        typeof setLoading === "function" && setLoading(true);
+        let request: any = [];
 
-      Object.keys(values).forEach((actionId) => {
-        request.push({ ...values[actionId], id: actionId, approved });
-      });
+        Object.keys(values).forEach((actionId) => {
+          request.push({ ...values[actionId], id: actionId, approved });
+        });
 
-      try {
-        await actionsMutation({ body: request });
-        typeof setLoading === "function" && setLoading(false);
-        onSuccessfulApprovalRejection();
-        queryClient.invalidateQueries(queryToRefetch);
-        notify(<ToastNotification kind="success" subtitle={notificationSubtitle} title={notificationTitle} />);
-        closeModal();
-      } catch (err) {
-        typeof setLoading === "function" && setLoading(false);
-        // noop
-      }
-    };
+        try {
+          await actionsMutation({ body: request });
+          typeof setLoading === "function" && setLoading(false);
+          onSuccessfulApprovalRejection();
+          queryClient.invalidateQueries(queryToRefetch);
+          notify(<ToastNotification kind="success" subtitle={notificationSubtitle} title={notificationTitle} />);
+          closeModal();
+        } catch (err) {
+          typeof setLoading === "function" && setLoading(false);
+          // noop
+        }
+      };
 
   let initialValues: any = {};
   let validationSchema: any = {};
@@ -165,7 +154,7 @@ function Form({
     <Formik
       enableReinitialize
       initialValues={initialValues}
-      onSubmit={() => {}}
+      onSubmit={() => { }}
       validationSchema={Yup.object().shape(validationSchema)}
     >
       {(props) => {
@@ -392,9 +381,8 @@ function SingleActionSection({ formikBag, action, isAlreadyApproved, user }: Sin
             <StructuredListBody>
               {actioners.map((approver, index) => (
                 <StructuredListRow key={`${approver.approverId}-${index}`}>
-                  <StructuredListCell noWrap>{`${approver.approverName}${` ${
-                    approver.approverId === user.id ? "(you!)" : ""
-                  }`}`}</StructuredListCell>
+                  <StructuredListCell noWrap>{`${approver.approverName}${` ${approver.approverId === user.id ? "(you!)" : ""
+                    }`}`}</StructuredListCell>
                   <StructuredListCell noWrap>{approver.approverEmail}</StructuredListCell>
                   <StructuredListCell>
                     <p className={styles.approverComment}>{approver.comments ?? "---"}</p>
