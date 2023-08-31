@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
 import { useAppContext, useEditorContext } from "Hooks";
@@ -7,8 +6,6 @@ import {
   AutoSuggest,
   ComboBox,
   DynamicFormik,
-  ErrorMessage,
-  Loading,
   ModalForm,
   TextInput,
   TextArea,
@@ -16,7 +13,6 @@ import {
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import TextEditorModal from "Components/TextEditorModal";
 import { SUPPORTED_AUTOSUGGEST_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
-import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./WorkflowTaskForm.module.scss";
 
 const AutoSuggestInput = (props) => {

@@ -7,7 +7,6 @@ import { Loading } from "@carbon/react";
 import ExecutionHeader from "./ExecutionHeader";
 import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
-import WorkflowZoom from "Components/WorkflowZoom";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import { QueryStatus, WorkflowDagEngineMode } from "Constants";
 import { RunStatus, WorkflowDag, WorkflowExecution, WorkflowExecutionStep, WorkflowSummary } from "Types";
@@ -81,10 +80,6 @@ class Main extends Component<Props, State> {
           <div className={styles.executionDesignerContainer} ref={this.diagramRef}>
             <div className={styles.executionWorkflowActions}>
               {workflow.data && <WorkflowActions workflow={workflow.data} />}
-              <WorkflowZoom
-                workflowDagBoundingClientRect={this.state.workflowDagBoundingClientRect}
-                workflowDagEngine={this.workflowDagEngine}
-              />
             </div>
             <DiagramWidget
               allowLooseLinks={false}

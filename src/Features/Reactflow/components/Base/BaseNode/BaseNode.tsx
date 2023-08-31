@@ -11,7 +11,7 @@ import styles from "./BaseNode.module.scss";
 //TODO: look at what props are required
 
 interface BaseNodeProps {
-  icon: string;
+  icon?: string;
   isConnectable: boolean;
   className?: string;
   subtitleClass?: string;

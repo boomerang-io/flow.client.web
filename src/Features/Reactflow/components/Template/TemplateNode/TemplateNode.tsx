@@ -40,7 +40,6 @@ function TaskTemplateNodeDesigner(props: WorkflowNode) {
   // Get the taskNames names from the nodes on the model
   const taskNames = nodes.map((node) => node.data.name);
 
-  console.log({ data: props.data, taskNames, inputProperties, task, nodes });
 
   /**
    * TODO: Event handlers
