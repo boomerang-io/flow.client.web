@@ -76,7 +76,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
             <div className={styles.detailItem}>
               <div className={styles.detailLabel}>Status</div>
               <div className={styles.detailValue}>
-                {leaveTeamMutator.isLoading || true ? (
+                {leaveTeamMutator.isLoading ? (
                   <div className={styles.detailStatus}>
                     <InlineLoading description="Leaving.." style={{ width: "fit-content" }} />
                   </div>
