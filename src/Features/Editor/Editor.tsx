@@ -34,7 +34,10 @@ export default function EditorContainer() {
   const getWorkflowUrl = serviceUrl.getWorkflowCompose({ id: workflowId, version: revisionNumber });
 
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ teams: team?.id, statuses: "active" }),
+    query: queryString.stringify({ statuses: "active,inactive" }),
+  });
+  const getTaskTemplatesTeamUrl = serviceUrl.getTaskTemplates({
+    query: queryString.stringify({ teams: team?.id, statuses: "active,inactive" }),
   });
 
   const getAvailableParametersUrl = serviceUrl.workflowAvailableParameters({ workflowId });
@@ -45,6 +48,7 @@ export default function EditorContainer() {
   const changeLogQuery = useQuery(getChangelogUrl);
   const workflowQuery = useQuery<WorkflowCanvas>(getWorkflowUrl);
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
+  const taskTemplatesTeamQuery = useQuery(getTaskTemplatesTeamUrl);
   const availableParametersQuery = useQuery(getAvailableParametersUrl);
 
   /**
@@ -67,12 +71,19 @@ export default function EditorContainer() {
     workflowQuery.isLoading ||
     changeLogQuery.isLoading ||
     taskTemplatesQuery.isLoading ||
+    taskTemplatesTeamQuery.isLoading ||
     availableParametersQuery.isLoading
   ) {
     return <Loading />;
   }
 
-  if (workflowQuery.error || changeLogQuery.error || taskTemplatesQuery.error || availableParametersQuery.error) {
+  if (
+    workflowQuery.error ||
+    changeLogQuery.error ||
+    taskTemplatesQuery.error ||
+    taskTemplatesTeamQuery.error ||
+    availableParametersQuery.error
+  ) {
     return <Error />;
   }
 
@@ -82,9 +93,11 @@ export default function EditorContainer() {
     workflowQuery.data &&
     changeLogQuery.data &&
     taskTemplatesQuery.data &&
+    taskTemplatesTeamQuery.data &&
     availableParametersQuery.data &&
     workflowQuery.data
   ) {
+    const taskTemplatesList = [...taskTemplatesQuery.data.content, ...taskTemplatesTeamQuery.data.content];
     return (
       <EditorStateContainer
         availableParametersQueryData={availableParametersQuery.data}
@@ -93,7 +106,7 @@ export default function EditorContainer() {
         revisionMutator={revisionMutator}
         workflowQueryData={workflowQuery.data}
         setRevisionNumber={setRevisionNumber}
-        taskTemplatesList={taskTemplatesQuery.data.content}
+        taskTemplatesList={taskTemplatesList}
         workflowId={workflowId}
       />
     );
