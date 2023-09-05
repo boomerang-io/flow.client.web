@@ -34,10 +34,10 @@ export default function EditorContainer() {
   const getWorkflowUrl = serviceUrl.getWorkflowCompose({ id: workflowId, version: revisionNumber });
 
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ statuses: "active,inactive" }),
+    query: queryString.stringify({ statuses: "active" }),
   });
   const getTaskTemplatesTeamUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ teams: team?.id, statuses: "active,inactive" }),
+    query: queryString.stringify({ teams: team?.id, statuses: "active" }),
   });
 
   const getAvailableParametersUrl = serviceUrl.workflowAvailableParameters({ workflowId });
