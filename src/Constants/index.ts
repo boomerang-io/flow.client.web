@@ -55,6 +55,7 @@ export const ExecutionStatusCopy: Record<RunStatus, string> = Object.freeze({
   [RunStatus.Skipped]: "Skipped",
   [RunStatus.Waiting]: "Waiting",
   [RunStatus.Ready]: "Ready",
+  [RunStatus.TimedOut]: "Timed Out",
 });
 
 export const InputProperty = Object.freeze({
@@ -229,6 +230,7 @@ export const executionStatusIcon: Record<RunStatus, React.FC<{ [k: string]: any 
   [RunStatus.NotStarted]: Timer,
   [RunStatus.Invalid]: Error,
   [RunStatus.Skipped]: Error,
+  [RunStatus.TimedOut]: Error,
   [RunStatus.Waiting]: InProgress,
   [RunStatus.Ready]: Timer,
 });
@@ -243,6 +245,7 @@ export const executionStatusList = [
   RunStatus.Cancelled,
   RunStatus.Skipped,
   RunStatus.NotStarted,
+  RunStatus.TimedOut,
 ];
 
 export const ActionType = Object.freeze({

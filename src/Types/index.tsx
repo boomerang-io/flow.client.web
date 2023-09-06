@@ -157,15 +157,13 @@ export interface Workflow {
   labels?: Record<string, string>;
   annotations?: Record<string, object>;
   markdown?: string;
-  params?: Array<
-    {
-      name: string;
-      type: string;
-      description?: string;
-      defaultValue?: object;
-    }
-  >
-  tasks: Array<any> //TODO: what should this type be
+  params?: Array<{
+    name: string;
+    type: string;
+    description?: string;
+    defaultValue?: object;
+  }>;
+  tasks: Array<any>; //TODO: what should this type be
   changelog: {
     author: string;
     reason: string;
@@ -191,27 +189,23 @@ export interface Workflow {
       token: string;
     };
   };
-  tokens: Array<
-    {
-      token: string;
-      label: string;
-    }
-  >
+  tokens: Array<{
+    token: string;
+    label: string;
+  }>;
   templateUpgradesAvailable: boolean;
-  workspaces: Array<
-    {
-      name: string;
-      description?: string;
-      type: string;
-      optional: boolean;
-      spec?: {
-        accessMode?: string;
-        className?: string;
-        size?: number;
-        mountPath?: string;
-      };
-    }
-  >
+  workspaces: Array<{
+    name: string;
+    description?: string;
+    type: string;
+    optional: boolean;
+    spec?: {
+      accessMode?: string;
+      className?: string;
+      size?: number;
+      mountPath?: string;
+    };
+  }>;
 }
 
 export enum WorkflowStatus {
@@ -342,26 +336,26 @@ export interface WorkflowExecution {
   workflowRevisionid: string;
   workflowRevisionVersion: string;
   trigger: string;
-  properties: Array<(
+  properties: Array<
     | {
-      key: string;
-      value: string;
-    }
+        key: string;
+        value: string;
+      }
     | {
-      key: string;
-      value: null;
-    }
-  )>;
-  outputProperties: Array<(
+        key: string;
+        value: null;
+      }
+  >;
+  outputProperties: Array<
     | {
-      key: string;
-      value: string;
-    }
+        key: string;
+        value: string;
+      }
     | {
-      key: string;
-      value: null;
-    }
-  )>;
+        key: string;
+        value: null;
+      }
+  >;
   steps: Array<WorkflowExecutionStep>;
   teamName: string;
   awaitingApproval: boolean;
@@ -572,14 +566,12 @@ export interface WorkflowTemplate {
   version: Number;
   labels?: Record<string, string>;
   annotations?: Record<string, object>;
-  params?: Array<
-    {
-      name: string;
-      type: string;
-      description?: string;
-      defaultValue?: object;
-    }
-  >
+  params?: Array<{
+    name: string;
+    type: string;
+    description?: string;
+    defaultValue?: object;
+  }>;
   tasks: Array<any>; //TODO: what shuold this be
   changelog: {
     author: string;
@@ -599,6 +591,7 @@ export enum RunStatus {
   Invalid = "invalid",
   Skipped = "skipped",
   Cancelled = "cancelled",
+  TimedOut = "timedout",
 }
 
 export interface UserQuotas {
@@ -633,7 +626,7 @@ export interface FlowNavigationItem {
   name: string;
   link: string;
   type: "link" | "menu" | "divider";
-  childLinks: Array<FlowNavigationItemChild>
+  childLinks: Array<FlowNavigationItemChild>;
 }
 
 export type PlatformFeatureKey =
@@ -769,4 +762,4 @@ export interface MultiSelectItems<Type = MultiSelectItem> {
 
 export type WorkflowCanvasState = WorkflowCanvas & { hasUnsavedUpdates?: boolean };
 
-export type WorkflowDagEngineModeType = typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode]
+export type WorkflowDagEngineModeType = typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode];
