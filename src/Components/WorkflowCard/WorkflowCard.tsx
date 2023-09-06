@@ -161,7 +161,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       swapValue(newProperties);
     }
     const params = Object.entries(newProperties).map(([name, value]) => ({ name, value }));
-    const body = { workflowRef: workflowId, params: params };
+    const body = { workflowRef: workflowId, params: params, trigger: "manual" };
     console.log(body);
     try {
       // @ts-ignore:next-line
