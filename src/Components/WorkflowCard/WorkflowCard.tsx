@@ -62,7 +62,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
     mutateAsync: executeWorkflowMutator,
     error: executeError,
     isLoading: isExecuting,
-  } = useMutation(resolver.postExecuteWorkflow);
+  } = useMutation(resolver.postWorkflowRun);
 
   const { mutateAsync: duplicateWorkflowMutator, isLoading: duplicateWorkflowIsLoading } = useMutation(
     resolver.postDuplicateWorkflow
@@ -160,9 +160,14 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       newProperties = cloneDeep(properties);
       swapValue(newProperties);
     }
+    const params = Object.entries(newProperties).map(([name, value]) => ({ name, value }));
+    const body = { workflowRef: workflowId, params: params };
+    console.log(body);
     try {
       // @ts-ignore:next-line
-      const { data: execution } = await executeWorkflowMutator({ workflowRef: workflowId, params: newProperties });
+      const { data: execution } = await executeWorkflowMutator({
+        data: body,
+      });
       notify(
         <ToastNotification
           kind="success"

@@ -211,12 +211,11 @@ export const resolver = {
     axios({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethod.Post }),
   putCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.put(serviceUrl.putCreateWorkflowRevision({ workflowId }), body),
-  postExecuteWorkflow: ({ data }) =>
-    axios.post({
-      url: serviceUrl.postWorkflowRun(),
+  postWorkflowRun: ({ data }) =>
+    axios.post(
+      serviceUrl.postWorkflowRun(),
       data,
-      method: HttpMethod.Post,
-    }),
+    ),
   postGlobalParameter: ({ body }) =>
     axios({ url: serviceUrl.getGlobalParameters(), data: body, method: HttpMethod.Post }),
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
