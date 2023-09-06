@@ -28,9 +28,10 @@ import {
   ComposedModalChildProps,
   FlowTeamQuotas,
   ModalTriggerProps,
-  WorkflowSummary,
+  Workflow,
   WorkflowView,
   WorkflowViewType,
+  DataDrivenInput,
 } from "Types";
 // @ts-ignore:next-line
 import { swapValue } from "Utils";
@@ -39,10 +40,9 @@ import styles from "./workflowCard.module.scss";
 interface WorkflowCardProps {
   teamId: string | null;
   quotas: FlowTeamQuotas | null;
-  workflow: WorkflowSummary;
+  workflow: Workflow;
   viewType: WorkflowViewType;
 }
-
 
 const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, viewType }) => {
   const { team } = useTeamContext();
@@ -62,7 +62,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
     mutateAsync: executeWorkflowMutator,
     error: executeError,
     isLoading: isExecuting,
-  } = useMutation(resolver.postExecuteWorkflow)
+  } = useMutation(resolver.postExecuteWorkflow);
 
   const { mutateAsync: duplicateWorkflowMutator, isLoading: duplicateWorkflowIsLoading } = useMutation(
     resolver.postDuplicateWorkflow
@@ -77,8 +77,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
    * @returns {Array}
    */
   const formatPropertiesForEdit = () => {
-    const { params = [] } = workflow;
-    return params.filter((param: any) => !param.readOnly);
+    const { config = [] } = workflow;
+    return config.filter((configParam: DataDrivenInput) => !configParam.readOnly);
   };
 
   const handleDeleteWorkflow = async () => {
@@ -104,7 +104,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
     }
   };
 
-  const handleDuplicateWorkflow = async (workflow: WorkflowSummary) => {
+  const handleDuplicateWorkflow = async (workflow: Workflow) => {
     try {
       await duplicateWorkflowMutator({ workflowId: workflow.id });
       notify(
@@ -132,7 +132,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
     }
   };
 
-  const handleExportWorkflow = (workflow: WorkflowSummary) => {
+  const handleExportWorkflow = (workflow: Workflow) => {
     notify(<ToastNotification kind="info" title={`Export ${viewType}`} subtitle="Export starting soon" />);
     axios
       .get(`${BASE_URL}/workflow/${workflow.id}/export`)
@@ -162,7 +162,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
     }
     try {
       // @ts-ignore:next-line
-      const { data: execution } = await executeWorkflowMutator({ id: workflowId, properties: newProperties });
+      const { data: execution } = await executeWorkflowMutator({ workflowRef: workflowId, params: newProperties });
       notify(
         <ToastNotification
           kind="success"
