@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { useFeature } from "flagged";
-import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { useAppContext } from "Hooks";
 import { Box } from "reflexbox";
 import {
@@ -62,6 +62,7 @@ function TeamDetailedContainer() {
         <Loading />
       </FeatureLayout>
     );
+
   if (teamDetailsQuery.error)
     return (
       <FeatureLayout>

@@ -3828,7 +3828,7 @@ const tasktemplate = {
     {
       name: "switch",
       displayName: "Switch",
-      type: "decision)",
+      type: "decision",
       version: 1,
       status: "active",
       creationDate: "2020-01-09T00:01:00.000+00:00",

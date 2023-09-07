@@ -1,7 +1,7 @@
+// @sts-nocheck
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import * as Yup from "yup";
-import { useAppContext, useEditorContext } from "Hooks";
+import { useEditorContext } from "Hooks";
 import {
   AutoSuggest,
   ComboBox,
@@ -14,9 +14,10 @@ import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import TextEditorModal from "Components/TextEditorModal";
 import { timezoneOptions, defaultTimeZone, transformTimeZone } from "Utils/dateHelper";
 import { SUPPORTED_AUTOSUGGEST_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
+import { WorkflowNode } from "Types";
 import styles from "./WorkflowTaskForm.module.scss";
 
-const AutoSuggestInput = (props) => {
+const AutoSuggestInput = (props: any) => {
   if (!SUPPORTED_AUTOSUGGEST_TYPES.includes(props.type)) {
     return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
   }
@@ -33,7 +34,7 @@ const AutoSuggestInput = (props) => {
   );
 };
 
-const TextAreaSuggestInput = (props) => {
+const TextAreaSuggestInput = (props: any) => {
   return (
     <div key={props.id}>
       <AutoSuggest
@@ -53,11 +54,11 @@ const TextAreaSuggestInput = (props) => {
   );
 };
 
-const TextEditorInput = (props) => {
+const TextEditorInput = (props: any) => {
   return <TextEditorModal {...props} {...props.item} />;
 };
 
-const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
+const TaskNameTextInput = ({ formikProps, ...otherProps }: any) => {
   const { errors, touched } = formikProps;
   const error = errors[otherProps.id];
   const touch = touched[otherProps.id];
@@ -95,46 +96,35 @@ function formatAutoSuggestProperties(inputProperties) {
   }));
 }
 
-ConfigureInputsForm.propTypes = {
-  closeModal: PropTypes.func,
-  inputProperties: PropTypes.array,
-  node: PropTypes.object.isRequired,
-  nodeConfig: PropTypes.object.isRequired,
-  onSave: PropTypes.func.isRequired,
-  textEditorProps: PropTypes.object,
-  task: PropTypes.object.isRequired,
-  taskNames: PropTypes.array.isRequired,
-};
+interface ConfigureInputsFormProps {
+  closeModal: () => void;
+  inputProperties: Array<any>;
+  node: WorkflowNode["data"];
+  onSave: (...args: any) => void;
+  textEditorProps: any;
+  task: any;
+  taskNames: Array<any>;
+}
 
-function ConfigureInputsForm(props) {
-  const { teams } = useAppContext();
-  const { summaryData } = useEditorContext();
+function ConfigureInputsForm(props: ConfigureInputsFormProps) {
+  const { workflowsQueryData } = useEditorContext();
   const [activeWorkflowId, setActiveWorkflowId] = useState("");
-  const { node, taskNames, nodeConfig } = props;
+  const { node, taskNames } = props;
 
-  let workflows = [];
-  workflows = teams.find((team) => team.id === summaryData?.flowTeamId)?.workflows;
-
+  const workflows = workflowsQueryData.content;
   const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
-  const workflowProperties = nodeConfig?.inputs?.workflowId
-    ? workflows.find((workflow) => workflow.id === nodeConfig?.inputs?.workflowId).properties
-    : null;
-    
-  const [activeProperties, setActiveProperties] = useState(
-    workflowProperties
-      ? workflowProperties.map((property) => {
-          delete property.value;
-          return property;
-        })
-      : []
-  );
+  const workflowId = node?.params.find((param) => param.name === "workflowId")?.value;
+  const workflowProperties = workflows.find((workflow) => workflow.id === workflowId)?.config;
 
-  const formikSetFieldValue = (value, id, setFieldValue) => {
+  const [activeProperties, setActiveProperties] = useState(workflowProperties ?? []);
+  console.log({ activeProperties });
+
+  const formikSetFieldValue = (value: any, id: string, setFieldValue: (arg0: any, arg1: any) => void) => {
     setFieldValue(id, value);
   };
 
-  const handleOnSave = (values) => {
-    props.node.taskName = values.taskName;
+  const handleOnSave = (values: { taskName: any; timezone: { value: any } }) => {
+    props.node.name = values.taskName;
     const valuesToSave = { ...values, timezone: values.timezone.value };
     props.onSave(valuesToSave);
     props.closeModal();
@@ -199,13 +189,14 @@ function ConfigureInputsForm(props) {
     };
   };
 
-  const takenTaskNames = taskNames.filter((name) => name !== node.taskName);
+  const takenTaskNames = taskNames.filter((name) => name !== node.name);
 
-  const activeInputs = {};
-  activeProperties.forEach((prop) => {
-    // activeInputs[prop.key] = props?.value ? props.value : prop.defaultValue;
-    activeInputs[prop?.key] = props?.value ? props.value : prop.defaultValue;
-  });
+  const activeInputs: Record<string, string> = {};
+  if (activeProperties) {
+    activeProperties.forEach((prop) => {
+      activeInputs[prop?.name] = prop.defaultValue;
+    });
+  }
 
   const WorkflowSelectionInput = ({ formikProps, ...otherProps }) => {
     const { errors, touched, setFieldValue, values } = formikProps;
@@ -221,14 +212,14 @@ function ConfigureInputsForm(props) {
         onChange={({ selectedItem }) => {
           setFieldValue("workflowId", selectedItem?.value ?? "");
           setActiveWorkflowId(selectedItem?.value ?? "");
+          console.log({ selectedItem });
           if (selectedItem?.value) {
-            const workflowProperties = workflows.find((workflow) => workflow.id === selectedItem?.value).properties;
-            setActiveProperties(
-              workflowProperties.map((property) => {
-                delete property.value;
-                return property;
-              })
-            );
+            const workflowProperties = workflows.find((workflow) => workflow.id === selectedItem?.value)?.config;
+            if (workflowProperties) {
+              setActiveProperties(workflowProperties);
+            } else {
+              setActiveProperties([]);
+            }
           } else {
             setActiveProperties([]);
           }
@@ -357,8 +348,10 @@ function ConfigureInputsForm(props) {
     ...activeProperties,
   ];
 
-  const initTime = nodeConfig?.inputs?.time ?? "";
-  const initTimeZone = transformTimeZone(nodeConfig?.inputs?.timezone ?? defaultTimeZone);
+  console.log(inputs);
+
+  const initTime = node?.params.find((param) => param.name === "time")?.value ?? "";
+  const initTimeZone = transformTimeZone(node?.params.find((param) => param.name === "timezone") ?? defaultTimeZone);
 
   return (
     <DynamicFormik
@@ -388,10 +381,10 @@ function ConfigureInputsForm(props) {
         workflowId: Yup.string().required("Select a workflow"),
       })}
       initialValues={{
-        taskName: node.taskName,
+        taskName: node.name,
         workflowId: activeWorkflowId,
         ...activeInputs,
-        ...nodeConfig.inputs,
+        ...node.params,
         time: initTime,
         timezone: initTimeZone,
       }}

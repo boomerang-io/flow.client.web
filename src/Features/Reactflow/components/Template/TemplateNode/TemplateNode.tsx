@@ -16,7 +16,7 @@ export default function TaskTemplateNode(props: WorkflowNode) {
   // use context to determine state of diagram
   // render the correct component based on the mode of the diagram
   if (mode === "executor") {
-    return <TaskTemplateNodeExecution {...props} />
+    return <TaskTemplateNodeExecution {...props} />;
   }
 
   return <TaskTemplateNodeDesigner {...props} />;
@@ -44,7 +44,6 @@ function TaskTemplateNodeDesigner(props: WorkflowNode) {
 
   // Get the taskNames names from the nodes on the model
   const taskNames = nodes.map((node) => node.data.name);
-
 
   /**
    * TODO: Event handlers
@@ -153,19 +152,16 @@ function TaskTemplateNodeDesigner(props: WorkflowNode) {
     <BaseNode isConnectable title={props.data.name} nodeProps={props} subtitle={task.description} icon={task.icon}>
       <ConfigureTask />
       <UpdateTaskVersion />
-      <div className={styles.badgeContainer}>
-        <p className={styles.badgeText}>System</p>
-      </div>
     </BaseNode>
   );
 }
 
 interface TaskTemplateNodeExecutionProps {
-  [k: string]: any
+  [k: string]: any;
 }
 
 function TaskTemplateNodeExecution(props: TaskTemplateNodeExecutionProps) {
-  <div>TODO</div>;
+  return <div>TODO</div>;
 }
 
 function inputRecordToNameAndParamListRecord(inputRecord: Record<string, string>): {

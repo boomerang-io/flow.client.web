@@ -227,27 +227,27 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        */
       this.get(serviceUrl.getTaskTemplate({ name: ":name" }), (schema, request) => {
         console.log(request.requestHeaders);
-        if (request.requestHeaders["Accept"] == "application/x-yaml") {
+        if (request.requestHeaders["Accept"] === "application/x-yaml") {
           return schema.db.tasktemplateYaml[0].yaml;
         } else {
           return schema.db.tasktemplate[0].content.find((t) => t.name === request.params.name);
         }
       });
-      this.get(serviceUrl.getTaskTemplateChangelog({ name: ":name"}), (schema) => {
+      this.get(serviceUrl.getTaskTemplateChangelog({ name: ":name" }), (schema) => {
         const response = [
           {
-              "author": "Bob",
-              "reason": "Add new task",
-              "date": "2023-08-16T22:34:05.234+00:00",
-              "version": 1
+            author: "Bob",
+            reason: "Add new task",
+            date: "2023-08-16T22:34:05.234+00:00",
+            version: 1,
           },
           {
-              "author": "Jenny",
-              "reason": "Update task to undo Bob's work",
-              "date": "2023-08-17T22:34:05.234+00:00",
-              "version": 2
-          }
-      ]
+            author: "Jenny",
+            reason: "Update task to undo Bob's work",
+            date: "2023-08-17T22:34:05.234+00:00",
+            version: 2,
+          },
+        ];
         return response;
       });
       const tasktemplatePath = serviceUrl.getTaskTemplates({ query: null });
@@ -396,7 +396,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.workflowExecution[0];
       });
 
-      this.post(serviceUrl.postWorkflowRun({ data: null}), (schema, request) => {
+      this.post(serviceUrl.postWorkflowRun({ data: null }), (schema, request) => {
         return schema.db.workflowExecution[0];
       });
 

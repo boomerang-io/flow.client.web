@@ -18,7 +18,13 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { groupTaskTemplatesByName } from "Utils";
 import { WorkflowDagEngineMode } from "Constants";
-import { ChangeLog as ChangeLogType, TaskTemplate, WorkflowView, WorkflowCanvas } from "Types";
+import {
+  ChangeLog as ChangeLogType,
+  PaginatedWorkflowResponse,
+  TaskTemplate,
+  WorkflowView,
+  WorkflowCanvas,
+} from "Types";
 import type { ReactFlowInstance } from "reactflow";
 import styles from "./editor.module.scss";
 
@@ -30,6 +36,7 @@ export default function EditorContainer() {
   const { workflowId }: { workflowId: string } = useParams();
   const queryClient = useQueryClient();
 
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
   const getChangelogUrl = serviceUrl.getWorkflowChangelog({ id: workflowId });
   const getWorkflowUrl = serviceUrl.getWorkflowCompose({ id: workflowId, version: revisionNumber });
 
@@ -47,6 +54,7 @@ export default function EditorContainer() {
    */
   const changeLogQuery = useQuery(getChangelogUrl);
   const workflowQuery = useQuery<WorkflowCanvas>(getWorkflowUrl);
+  const workflowsQuery = useQuery<PaginatedWorkflowResponse>(getWorkflowsUrl);
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
   const taskTemplatesTeamQuery = useQuery(getTaskTemplatesTeamUrl);
   const availableParametersQuery = useQuery(getAvailableParametersUrl);
@@ -69,6 +77,7 @@ export default function EditorContainer() {
   // Revision takes longer and we want to show a separate loading animation for it, plus prevent remounting everything
   if (
     workflowQuery.isLoading ||
+    workflowsQuery.isLoading ||
     changeLogQuery.isLoading ||
     taskTemplatesQuery.isLoading ||
     taskTemplatesTeamQuery.isLoading ||
@@ -79,6 +88,7 @@ export default function EditorContainer() {
 
   if (
     workflowQuery.error ||
+    workflowsQuery.error ||
     changeLogQuery.error ||
     taskTemplatesQuery.error ||
     taskTemplatesTeamQuery.error ||
@@ -91,6 +101,7 @@ export default function EditorContainer() {
   // prevents unnecessary remounting when creating a new version or navigating to a previous one
   if (
     workflowQuery.data &&
+    workflowsQuery.data &&
     changeLogQuery.data &&
     taskTemplatesQuery.data &&
     taskTemplatesTeamQuery.data &&
@@ -105,6 +116,7 @@ export default function EditorContainer() {
         changeLogData={changeLogQuery.data}
         revisionMutator={revisionMutator}
         workflowQueryData={workflowQuery.data}
+        workflowsQueryData={workflowsQuery.data}
         setRevisionNumber={setRevisionNumber}
         taskTemplatesList={taskTemplatesList}
         workflowId={workflowId}
@@ -121,6 +133,7 @@ interface EditorStateContainerProps {
   revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
   parametersMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
   workflowQueryData: WorkflowCanvas;
+  workflowsQueryData: PaginatedWorkflowResponse;
   setRevisionNumber: (revisionNumber: string) => void;
   taskTemplatesList: Array<TaskTemplate>;
   workflowId: string;
@@ -138,6 +151,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   setRevisionNumber,
   taskTemplatesList,
   workflowQueryData,
+  workflowsQueryData,
   workflowId,
 }) => {
   const location = useLocation();
@@ -262,8 +276,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       revisionDispatch,
       revisionState,
       taskTemplatesData,
+      workflowsQueryData,
     };
-  }, [availableParametersQueryData, mode, revisionDispatch, revisionState, taskTemplatesList]);
+  }, [availableParametersQueryData, mode, revisionDispatch, revisionState, taskTemplatesList, workflowsQueryData]);
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
