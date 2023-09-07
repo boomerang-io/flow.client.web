@@ -57,7 +57,7 @@ function ActivityHeader({
       header={
         <>
           <HeaderTitle>Activity</HeaderTitle>
-          <HeaderSubtitle className={styles.headerMessage}>The place to view Workflow Runs</HeaderSubtitle>
+          <HeaderSubtitle className={styles.headerMessage}>The place to view WorkflowRuns</HeaderSubtitle>
         </>
       }
       actions={
@@ -68,6 +68,7 @@ function ActivityHeader({
             <>
               <p className={styles.text}>Today's numbers</p>
               <HeaderWidget text="Runs" value={"--"} />
+              <HeaderWidget text="In Progress" value={"--"} />
               <HeaderWidget text="Successes" value={"--"} />
               <HeaderWidget text="Failures" value={"--"} />
               <HeaderWidget text="Success rate" value={"--"} />
@@ -76,6 +77,7 @@ function ActivityHeader({
             <>
               <p className={styles.text}>Today's numbers</p>
               <HeaderWidget icon={ArrowUpRight} text="Runs" value={runActivities} />
+              <HeaderWidget icon={ArrowUpRight} text="In Progress" value={inProgressActivities} />
               <HeaderWidget icon={ArrowUpRight} text="Successes" value={succeededActivities} />
               <HeaderWidget icon={ArrowDownRight} text="Failures" value={failedActivities} />
               <HeaderWidget icon={emoji} text="Success rate" value={`${successRatePercentage}%`} />

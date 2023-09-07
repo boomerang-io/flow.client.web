@@ -81,7 +81,7 @@ const workflowRuns = {
       {
           "id": "62e9858a66ff43491f09d3c9",
           "creationDate": "2022-08-02T20:14:02.371+00:00",
-          "status": "succeeded",
+          "status": "timedout",
           "phase": "finalized",
           "startTime": "2022-08-02T20:14:02.371+00:00",
           "duration": 21488,

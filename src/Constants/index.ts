@@ -43,6 +43,7 @@ export const ExecutionStatusMap = {
   Invalid: "invalid",
   Skipped: "skipped",
   Cancelled: "cancelled",
+  TimedOut: "timedout",
 };
 
 export const ExecutionStatusCopy: Record<RunStatus, string> = Object.freeze({

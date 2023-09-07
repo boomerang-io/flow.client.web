@@ -3,26 +3,26 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useTeamContext, useQuery } from "Hooks";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import { Error, ErrorMessage, FeatureNavTabs as Tabs } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Error, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DatePicker, DatePickerInput, FilterableMultiSelect } from "@carbon/react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
-import Tab from "./Tab";
 import moment from "moment";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { executionStatusList, QueryStatus } from "Constants";
-import { executionOptions } from "Constants/filterOptions";
+import { executionOptions, statusOptions } from "Constants/filterOptions";
 import styles from "./Activity.module.scss";
 
 const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
 const DEFAULT_LIMIT = 10;
 const DEFAULT_SORT = "creationDate";
-const DEFAULT_FROM_DATE = moment().startOf("month").unix();
-const DEFAULT_TO_DATE = moment().endOf("month").unix();
+
+const DEFAULT_MAX_DATE = moment().format("MM/DD/YYYY");
+const DEFAULT_FROM_DATE = moment().subtract(3, "months").valueOf();
+const DEFAULT_TO_DATE = moment().endOf("day").valueOf();
 
 function WorkflowActivity() {
   const { team } = useTeamContext();
@@ -30,10 +30,9 @@ function WorkflowActivity() {
   const location = useLocation();
   const match = useRouteMatch();
 
-  //TODO - this was defined outside so as to only run once but now needs the teamId - how do we make it only run once?
-  const activitySummaryQuery = queryString.stringify({
-    fromDate: DEFAULT_FROM_DATE,
-    toDate: DEFAULT_TO_DATE,
+  const workflowRunCountQuery = queryString.stringify({
+    fromDate: moment().startOf("day").unix(),
+    toDate: moment().endOf("day").unix(),
     teams: team?.id,
   });
 
@@ -45,8 +44,8 @@ function WorkflowActivity() {
     workflows,
     triggers,
     statuses,
-    fromDate,
-    toDate,
+    fromDate = DEFAULT_FROM_DATE,
+    toDate = DEFAULT_TO_DATE,
   } = queryString.parse(location.search, queryStringOptions);
 
   /** Retrieve Workflows */
@@ -78,23 +77,10 @@ function WorkflowActivity() {
     queryStringOptions
   );
 
-  const wfRunStatusSummaryURLQuery = queryString.stringify(
-    {
-      teams: team?.id,
-      triggers,
-      workflows,
-      fromDate,
-      toDate,
-    },
-    queryStringOptions
-  );
-
-  const wfRunSummaryUrl = serviceUrl.getWorkflowRunCount({ query: activitySummaryQuery });
-  const wfRunStatusSummaryUrl = serviceUrl.getWorkflowRunCount({ query: wfRunStatusSummaryURLQuery });
+  const wfRunSummaryUrl = serviceUrl.getWorkflowRunCount({ query: workflowRunCountQuery });
   const wfRunUrl = serviceUrl.getWorkflowRuns({ query: wfRunsURLQuery });
 
   const wfRunSummaryQuery = useQuery(wfRunSummaryUrl);
-  const wfRunStatusSummaryQuery = useQuery(wfRunStatusSummaryUrl);
   const wfRunQuery = useQuery({
     queryKey: wfRunUrl,
     queryFn: resolver.query(wfRunUrl),
@@ -137,24 +123,11 @@ function WorkflowActivity() {
     return;
   }
 
-  function handleSelectStatuses(statusIndex) {
-    const statuses = statusIndex > 0 ? executionStatusList[statusIndex - 1] : undefined;
-    const {
-      order = DEFAULT_ORDER,
-      page = DEFAULT_PAGE,
-      limit = DEFAULT_LIMIT,
-      sort = DEFAULT_SORT,
-      ...props
-    } = queryString.parse(location.search);
-    const query = queryString.stringify({ order, page, limit, sort, ...props, statuses }, queryStringOptions);
-    return `?${query}`;
+  function handleSelectStatuses({ selectedItems }) {
+    const statuses = selectedItems.length > 0 ? selectedItems.map((status) => status.value) : undefined;
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses, page: 0 });
+    return;
   }
-
-  // function handleSelectStatuses(statusIndex) {
-  //   const statuses = statusIndex > 0 ? executionStatusList[statusIndex - 1] : undefined;
-  //   updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses, page: 0 });
-  //   return `?${query}`;
-  // }
 
   function handleSelectDate(dates) {
     let [fromDateObj, toDateObj] = dates;
@@ -211,13 +184,6 @@ function WorkflowActivity() {
     const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
     const selectedTriggers = typeof triggers === "string" ? [triggers] : triggers;
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
-    const statusIndex = executionStatusList.indexOf(selectedStatuses[0]) + 1;
-    // const statusIndex = executionStatusList.indexOf(selectedStatuses[0]);
-
-    const { data: statusWorkflowSummary, status: statusSummaryStatus } = wfRunStatusSummaryQuery;
-    const maxDate = moment().format("MM/DD/YYYY");
-
-    const statusWorkflowSummaryIsLoading = statusSummaryStatus === QueryStatus.Loading;
 
     return (
       <div className={styles.container}>
@@ -226,11 +192,13 @@ function WorkflowActivity() {
         </Helmet>
         <ActivityHeader
           team={team}
-          inProgressActivities={wfRunSummaryQuery.data?.inProgress ?? 0}
-          isLoading={wfRunSummaryQuery.status === QueryStatus.Loading}
-          failedActivities={wfRunSummaryQuery.data?.failure ?? 0}
-          runActivities={wfRunSummaryQuery.data?.all ?? 0}
-          succeededActivities={wfRunSummaryQuery.data?.completed ?? 0}
+          isLoading={wfRunSummaryQuery.isLoading}
+          inProgressActivities={
+            (wfRunSummaryQuery.data?.status.running ?? 0) + (wfRunSummaryQuery.data?.status.waiting ?? 0)
+          }
+          failedActivities={wfRunSummaryQuery.data?.status.failed ?? 0}
+          runActivities={wfRunSummaryQuery.data?.status.all ?? 0}
+          succeededActivities={wfRunSummaryQuery.data?.status.succeeded ?? 0}
         />
         {wfRunQuery.isError ? (
           <section aria-label="Activity" className={styles.content}>
@@ -238,66 +206,6 @@ function WorkflowActivity() {
           </section>
         ) : (
           <section aria-label="Activity" className={styles.content}>
-            <nav>
-              <Tabs className={styles.tabs}>
-                <Tab
-                  to={() => handleSelectStatuses(0)}
-                  label={statusWorkflowSummaryIsLoading ? "All" : `All (${statusWorkflowSummary.status.all})`}
-                  isActive={statusIndex === 0}
-                />
-                <Tab
-                  to={() => handleSelectStatuses(1)}
-                  label={statusWorkflowSummaryIsLoading ? "Queued" : `Queued (${statusWorkflowSummary?.status.ready})`}
-                  isActive={statusIndex === 1}
-                />
-                <Tab
-                  to={() => handleSelectStatuses(2)}
-                  label={
-                    statusWorkflowSummaryIsLoading
-                      ? "In Progress"
-                      : `In Progress (${statusWorkflowSummary?.status.running})`
-                  }
-                  isActive={statusIndex === 2}
-                />
-                <Tab
-                  to={() => handleSelectStatuses(3)}
-                  label={
-                    statusWorkflowSummaryIsLoading
-                      ? "Succeeded"
-                      : `Succeeded (${statusWorkflowSummary.status.succeeded})`
-                  }
-                  isActive={statusIndex === 3}
-                />
-                <Tab
-                  to={() => handleSelectStatuses(4)}
-                  label={statusWorkflowSummaryIsLoading ? "Failed" : `Failed (${statusWorkflowSummary.status.failed})`}
-                  isActive={statusIndex === 4}
-                />
-                <Tab
-                  to={() => handleSelectStatuses(5)}
-                  label={
-                    statusWorkflowSummaryIsLoading ? "Invalid" : `Invalid (${statusWorkflowSummary.status.invalid})`
-                  }
-                  isActive={statusIndex === 5}
-                />
-                <Tab
-                  to={() => handleSelectStatuses(6)}
-                  label={
-                    statusWorkflowSummaryIsLoading ? "Waiting" : `Waiting (${statusWorkflowSummary.status.waiting})`
-                  }
-                  isActive={statusIndex === 6}
-                />
-                <Tab
-                  to={() => handleSelectStatuses(7)}
-                  label={
-                    statusWorkflowSummaryIsLoading
-                      ? "Cancelled"
-                      : `Cancelled (${statusWorkflowSummary.status.cancelled})`
-                  }
-                  isActive={statusIndex === 7}
-                />
-              </Tabs>
-            </nav>
             <div className={styles.filtersContainer}>
               <div className={styles.dataFilters}>
                 <div className={styles.dataFilter}>
@@ -319,7 +227,22 @@ function WorkflowActivity() {
                 </div>
                 <div className={styles.dataFilter}>
                   <FilterableMultiSelect
-                    id="activity-triggers-select"
+                    id="activity-status-select"
+                    label="Choose status(es)"
+                    placeholder="Choose status(es)"
+                    invalid={false}
+                    onChange={handleSelectStatuses}
+                    items={statusOptions}
+                    itemToString={(item) => (item ? item.label : "")}
+                    initialSelectedItems={statusOptions.filter((option) =>
+                      Boolean(selectedStatuses.find((status) => status === option.value))
+                    )}
+                    titleText="Filter by status"
+                  />
+                </div>
+                <div className={styles.dataFilter}>
+                  <FilterableMultiSelect
+                    id="activity-trigger-select"
                     label="Choose trigger type(s)"
                     placeholder="Choose trigger type(s)"
                     invalid={false}
@@ -337,7 +260,7 @@ function WorkflowActivity() {
                 id="activity-date-picker"
                 className={styles.timeFilters}
                 datePickerType="range"
-                maxDate={maxDate}
+                maxDate={DEFAULT_MAX_DATE}
                 onChange={handleSelectDate}
                 onClose={handleCloseSelectDate}
               >

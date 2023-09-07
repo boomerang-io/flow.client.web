@@ -38,6 +38,7 @@ export const statusOptions: Array<{ label: string; value: RunStatus }> = [
   { label: "Ready", value: RunStatus.Ready },
   { label: "Not Started", value: RunStatus.NotStarted },
   { label: "Skipped", value: RunStatus.Skipped },
+  { label: "Timed Out", value: RunStatus.TimedOut },
 ];
 
 export const approvalStatusOptions = [
