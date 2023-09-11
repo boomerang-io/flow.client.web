@@ -131,9 +131,6 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
             },
             scheduler: {
               enable: summaryData.triggers?.scheduler?.enable ?? false,
-              schedule: summaryData.triggers?.scheduler?.schedule ?? "0 18 * * *",
-              timezone: summaryData.triggers?.scheduler?.timezone ?? false,
-              advancedCron: summaryData.triggers?.scheduler?.advancedCron ?? false,
             },
             webhook: {
               enable: summaryData.triggers?.webhook?.enable ?? false,

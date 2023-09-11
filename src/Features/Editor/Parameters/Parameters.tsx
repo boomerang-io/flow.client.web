@@ -8,9 +8,9 @@ import WorkflowCloseButton from "./WorkflowCloseButton";
 import WorkflowPropertiesModal from "./PropertiesModal";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType, WorkflowPropertyUpdateType } from "Constants";
-import { DataDrivenInput, ModalTriggerProps, WorkflowSummary } from "Types";
+import { DataDrivenInput, ModalTriggerProps, WorkflowCanvas } from "Types";
 import { stringToPassword } from "Utils/stringHelper";
-import styles from "./Properties.module.scss";
+import styles from "./Parameters.module.scss";
 
 const formatDefaultValue = ({ type, value }: { type: string | undefined; value: string | undefined }) => {
   if (!value) {
@@ -50,39 +50,34 @@ const WorkflowPropertyHeader: React.FC<WorkflowPropertyHeaderProps> = ({ label, 
   );
 };
 
-interface PropertiesProps {
-  summaryData: WorkflowSummary;
+interface ParametersProps {
+  workflow: WorkflowCanvas;
 }
 
-const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
+const Parameters: React.FC<ParametersProps> = ({ workflow }) => {
   const queryClient = useQueryClient();
-  const { mutateAsync: mutateProperties, isLoading: mutatePropertiesIsLoading } = useMutation(
-    resolver.patchUpdateWorkflowProperties,
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(serviceUrl.workflowAvailableParameters({ workflowId: summaryData.id }));
-      },
-    }
-  );
+  const configMutator = useMutation(resolver.patchUpdateWorkflowProperties);
 
-  const handleUpdateProperties = async ({ property, type }: { property: DataDrivenInput; type: string }) => {
-    let properties = [...summaryData.properties];
+  const handleUpdateProperties = async ({ param, type }: { param: DataDrivenInput; type: string }) => {
+    let parameters = [...workflow.config];
     if (type === WorkflowPropertyUpdateType.Update) {
-      const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
-      properties.splice(propertyToUpdateIndex, 1, property);
+      const parameterToUpdateIndex = parameters.findIndex((p) => p.key === param.key);
+      parameters.splice(parameterToUpdateIndex, 1, param);
     }
 
     if (type === WorkflowPropertyUpdateType.Delete) {
-      const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
-      properties.splice(propertyToUpdateIndex, 1);
+      const parameterToUpdateIndex = parameters.findIndex((p) => p.key === param.key);
+      parameters.splice(parameterToUpdateIndex, 1);
     }
 
     if (type === WorkflowPropertyUpdateType.Create) {
-      properties.push(property);
+      parameters.push(param);
     }
 
     try {
-      const { data } = await mutateProperties({ workflowId: summaryData.id, body: properties });
+      //TODO - update the compose object and send back - there is no individual params endpoint
+      const { data } = await configMutator.mutateAsync({ workflowId: workflow.id, body: parameters });
+      queryClient.invalidateQueries(serviceUrl.workflowAvailableParameters({ workflowId: workflow.id }));
       notify(
         <ToastNotification
           kind="success"
@@ -90,62 +85,64 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
           subtitle={`Successfully performed operation`}
         />
       );
-      queryClient.setQueryData(serviceUrl.getWorkflowSummary({ workflowId: summaryData.id }), data);
+      queryClient.setQueryData(serviceUrl.getWorkflowCompose({ id: workflow.id }), data);
     } catch (e) {
       notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} parameter`} />);
     }
   };
 
-  const deleteProperty = (property: DataDrivenInput) => {
+  const deleteParameter = (param: DataDrivenInput) => {
     handleUpdateProperties({
-      property,
+      param,
       type: WorkflowPropertyUpdateType.Delete,
     });
   };
 
-  const { properties } = summaryData;
-  const propertyKeys = properties.map((input: DataDrivenInput) => input.key);
+  const { config } = workflow;
+  console.log(config);
+  const paramKeys = config && config.length > 0 ? config.map((input: DataDrivenInput) => input.key) : [];
 
   return (
     <div aria-label="Parameters" className={styles.container} role="region">
       <Helmet>
-        <title>{`Parameters - ${summaryData.name}`}</title>
+        <title>{`Parameters - ${workflow.name}`}</title>
       </Helmet>
-      {properties.length > 0 &&
-        properties.map((property: DataDrivenInput, index: number) => (
-          <section key={`${property.id}-${index}`} className={styles.property}>
-            <WorkflowPropertyHeader label={property.label} description={property.description} />
-            <WorkflowPropertyRow title="Key" value={property.key} />
-            <WorkflowPropertyRow title="Type" value={property.type} />
-            <WorkflowPropertyRow title="Event Payload JsonPath" value={property.jsonPath ?? "---"} />
+      {config &&
+        config.length > 0 &&
+        config.map((configParam: DataDrivenInput, index: number) => (
+          <section key={`${configParam.id}-${index}`} className={styles.property}>
+            <WorkflowPropertyHeader label={configParam.label} description={configParam.description} />
+            <WorkflowPropertyRow title="Key" value={configParam.key} />
+            <WorkflowPropertyRow title="Type" value={configParam.type} />
+            <WorkflowPropertyRow title="Event Payload JsonPath" value={configParam.jsonPath ?? "---"} />
             <WorkflowPropertyRow
               title="Default value"
-              value={formatDefaultValue({ type: property.type, value: property.defaultValue })}
+              value={formatDefaultValue({ type: configParam.type, value: configParam.defaultValue })}
             />
             <WorkflowPropertyRow
               title="Options"
               value={formatDefaultValue({
-                value: property.options?.map((option: { key: string }) => option.key).join(", "),
+                value: configParam.options?.map((option: { key: string }) => option.key).join(", "),
               })}
             />
-            {property.required ? (
+            {configParam.required ? (
               <p className={styles.required}>Required</p>
             ) : (
               <p className={styles.notRequired}>Not required</p>
             )}
-            {!property.readOnly ? (
+            {!configParam.readOnly ? (
               <>
                 <WorkflowPropertiesModal
                   isEdit
-                  isLoading={mutatePropertiesIsLoading}
-                  propertyKeys={propertyKeys.filter((propertyName: string) => propertyName !== property.key)}
-                  property={property}
+                  isLoading={configMutator.isLoading}
+                  propertyKeys={paramKeys.filter((propertyName: string) => propertyName !== configParam.key)}
+                  property={configParam}
                   updateWorkflowProperties={handleUpdateProperties}
                 />
                 <ConfirmModal
                   affirmativeButtonProps={{ kind: "danger" }}
                   affirmativeAction={() => {
-                    deleteProperty(property);
+                    deleteParameter(configParam);
                   }}
                   affirmativeText="Delete"
                   negativeText="Cancel"
@@ -167,12 +164,12 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
         ))}
       <WorkflowPropertiesModal
         isEdit={false}
-        isloading={mutatePropertiesIsLoading}
-        propertyKeys={propertyKeys}
+        isloading={configMutator.isLoading}
+        propertyKeys={paramKeys}
         updateWorkflowProperties={handleUpdateProperties}
       />
     </div>
   );
 };
 
-export default Properties;
+export default Parameters;

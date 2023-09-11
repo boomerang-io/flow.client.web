@@ -11,7 +11,7 @@ import ChangeLog from "./ChangeLog";
 import Configure from "./Configure";
 import Designer from "./Designer";
 import Header from "./Header";
-import Properties from "./Properties";
+import Parameters from "./Parameters";
 import Schedule from "./Schedule";
 import queryString from "query-string";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -105,8 +105,7 @@ export default function EditorContainer() {
     changeLogQuery.data &&
     taskTemplatesQuery.data &&
     taskTemplatesTeamQuery.data &&
-    availableParametersQuery.data &&
-    workflowQuery.data
+    availableParametersQuery.data
   ) {
     const taskTemplatesList = [...taskTemplatesQuery.data.content, ...taskTemplatesTeamQuery.data.content];
     return (
@@ -315,7 +314,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
               />
             </Route>
             <Route path={AppPath.EditorProperties}>
-              <Properties summaryData={revisionState} />
+              <Parameters workflow={revisionState} />
             </Route>
             <Route path={AppPath.EditorSchedule}>
               <Schedule summaryData={revisionState} />
