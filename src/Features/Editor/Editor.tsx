@@ -1,11 +1,11 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { EditorContextProvider } from "State/context";
 import { AxiosResponse } from "axios";
 import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
 import { useAppContext, useTeamContext, useIsModalOpen, useQuery } from "Hooks";
 import { useImmerReducer } from "use-immer";
 import { useMutation, useQueryClient, UseMutationResult } from "react-query";
-import { Prompt, Route, Switch, useLocation, useParams, useRouteMatch } from "react-router-dom";
+import { Prompt, Route, Switch, useLocation, useParams } from "react-router-dom";
 import { Loading, Error, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import ChangeLog from "./ChangeLog";
 import Configure from "./Configure";
@@ -26,9 +26,9 @@ import {
   WorkflowCanvas,
   DataDrivenInput,
 } from "Types";
+import { FormikProps } from "formik";
 import type { ReactFlowInstance } from "reactflow";
 import styles from "./editor.module.scss";
-import { set } from "cypress/types/lodash";
 
 export default function EditorContainer() {
   const { team } = useTeamContext();
@@ -168,38 +168,39 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   const [workflow, setWorkflow] = React.useState<ReactFlowInstance | null>(null);
   const [availableParameters, setAvailableParameters] = React.useState(availableParametersQueryData);
+  const settingsRef = useRef<FormikProps<any> | null>(null);
 
-  const handleCreateRevision = useCallback(
-    async ({ reason = "Update workflow", callback }) => {
-      if (workflow) {
-        const state = workflow.toObject();
-        const revision = {
-          ...revisionState,
-          ...state,
-          changelog: { reason },
-        };
+  const handleCreateRevision = async ({ reason = "Update workflow", callback }: any) => {
+    const configureValues = settingsRef?.current?.values ?? {};
+    if (workflow) {
+      const workFlowstate = workflow.toObject();
+      const revision = {
+        ...revisionState,
+        ...workFlowstate,
+        ...configureValues,
+        changelog: { reason },
+      };
+      console.log({ revision });
 
-        try {
-          const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
-          notify(
-            <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
-          );
-          if (typeof callback === "function") {
-            callback();
-          }
-          revisionDispatch({ type: RevisionActionTypes.Set, data });
-          setRevisionNumber(data.version);
-          queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
-          queryClient.removeQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
-        } catch (err) {
-          notify(
-            <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
-          );
+      try {
+        const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
+        notify(
+          <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
+        );
+        if (typeof callback === "function") {
+          callback();
         }
+        revisionDispatch({ type: RevisionActionTypes.Set, data });
+        setRevisionNumber(data.version);
+        queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
+        queryClient.removeQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
+      } catch (err) {
+        notify(
+          <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
+        );
       }
-    },
-    [revisionMutator, queryClient, revisionDispatch, setRevisionNumber, workflowId, revisionState, workflow]
-  );
+    }
+  };
 
   /**
    *
@@ -280,7 +281,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       workflowsQueryData,
     };
   }, [availableParameters, mode, revisionDispatch, revisionState, taskTemplatesList, workflowsQueryData]);
-  console.log({ availableParameters });
+
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
     <EditorContextProvider value={store}>
@@ -325,18 +326,17 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
               <ChangeLog changeLogData={changeLogData} />
             </Route>
           </Switch>
-          <Route
+          {
             // Always render parent Configure component so state isn't lost when switching tabs
             // It is responsible for rendering its children, but Formik form management is always mounted
-            path={AppPath.EditorConfigure}
-          >
             <Configure
               quotas={quotas}
               summaryData={revisionState}
               summaryMutation={revisionMutator}
               updateSummary={updateSummary}
+              settingsRef={settingsRef}
             />
-          </Route>
+          }
         </div>
       </>
     </EditorContextProvider>

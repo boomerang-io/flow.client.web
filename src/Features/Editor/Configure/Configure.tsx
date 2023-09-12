@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation, useParams } from "react-router-dom";
 import { useFeature } from "flagged";
-import { History } from "history";
 import { Formik, FormikProps, FieldArray } from "formik";
-import { Button, Tag } from "@carbon/react";
+import { Tag } from "@carbon/react";
 import { ComposedModal, TextArea, TextInput, Toggle, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import cx from "classnames";
 import cronstrue from "cronstrue";
@@ -15,11 +14,10 @@ import ConfigureStorage from "./ConfigureStorage";
 import CreateToken from "./CreateToken";
 import CustomLabel from "./CustomLabel";
 import Token from "./Token";
-import { Save } from "@carbon/react/icons";
+
 import { appLink, BASE_DOCUMENTATION_URL, FeatureFlag } from "Config/appConfig";
 import { QueryStatus } from "Constants";
 import workflowIcons from "Assets/workflowIcons";
-import { WorkflowSummary } from "Types";
 import styles from "./configure.module.scss";
 
 interface FormProps {
@@ -73,14 +71,16 @@ interface ConfigureContainerProps {
   summaryData: WorkflowSummary;
   summaryMutation: { status: string };
   updateSummary: ({ values }: { values: object }) => void;
+  settingsRef: React.MutableRefObject<FormikProps<any> | null>;
 }
 
-const ConfigureContainer = React.memo<ConfigureContainerProps>(function ConfigureContainer({
+function ConfigureContainer({
   quotas,
   summaryData,
   summaryMutation,
   updateSummary,
-}) {
+  settingsRef,
+}: ConfigureContainerProps) {
   const params = useParams<{ teamId: string; workflowId: string }>();
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
 
@@ -99,6 +99,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         <title>{`Configure - ${summaryData.name}`}</title>
       </Helmet>
       <Formik
+        innerRef={settingsRef}
         enableReinitialize
         onSubmit={(values: any) => {
           handleOnSubmit(values);
@@ -192,7 +193,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
       </Formik>
     </>
   );
-});
+}
 
 export default ConfigureContainer;
 
