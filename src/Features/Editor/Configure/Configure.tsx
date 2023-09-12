@@ -631,24 +631,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
               <CustomLabel formikPropsSetFieldValue={setFieldValue} labels={values.labels} />
             </div>
           </div>
-          <hr className={styles.delimiter} />
-          <div className={styles.saveChangesContainer}>
-            <Button
-              size="md"
-              disabled={!dirty || isLoading}
-              iconDescription="Save"
-              onClick={(e: any) => {
-                e.preventDefault();
-                handleSubmit();
-              }}
-              renderIcon={Save}
-            >
-              {isLoading ? "Saving..." : "Save"}
-            </Button>
-            <p className={styles.saveText}>
-              Save the configuration. Versioning functionality only applies to the Workflow.
-            </p>
-          </div>
         </section>
       </div>
     );

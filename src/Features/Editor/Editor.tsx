@@ -24,9 +24,11 @@ import {
   TaskTemplate,
   WorkflowView,
   WorkflowCanvas,
+  DataDrivenInput,
 } from "Types";
 import type { ReactFlowInstance } from "reactflow";
 import styles from "./editor.module.scss";
+import { set } from "cypress/types/lodash";
 
 export default function EditorContainer() {
   const { team } = useTeamContext();
@@ -52,12 +54,12 @@ export default function EditorContainer() {
   /**
    * Queries
    */
-  const changeLogQuery = useQuery(getChangelogUrl);
+  const changeLogQuery = useQuery<ChangeLogType>(getChangelogUrl);
   const workflowQuery = useQuery<WorkflowCanvas>(getWorkflowUrl);
   const workflowsQuery = useQuery<PaginatedWorkflowResponse>(getWorkflowsUrl);
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
   const taskTemplatesTeamQuery = useQuery(getTaskTemplatesTeamUrl);
-  const availableParametersQuery = useQuery(getAvailableParametersUrl);
+  const availableParametersQuery = useQuery(getAvailableParametersUrl, {});
 
   /**
    * Mutations
@@ -165,25 +167,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   );
 
   const [workflow, setWorkflow] = React.useState<ReactFlowInstance | null>(null);
-
-  // //Triggers the POST request for refresh availableParameters
-  // useEffect(() => {
-  //   if (JSON.stringify(revisionConfig) !== JSON.stringify(revisionState)) {
-  //     const normilzedConfig = Object.values(revisionState.config).map((config: any) => ({
-  //       ...config,
-  //       currentVersion: undefined,
-  //       taskVersion: config.currentVersion || config.taskVersion,
-  //     }));
-  //     const revisionConfig = { nodes: Object.values(normilzedConfig) };
-  //     const revision = {
-  //       changelog: revisionState.changelog,
-  //       config: revisionConfig,
-  //       dag: revisionState.dag,
-  //     };
-  //     setRevisionConfig(revisionState);
-  //     parametersMutator.mutateAsync({ workflowId, body: revision });
-  //   }
-  // }, [parametersMutator, workflowId, revisionState, revisionConfig]);
+  const [availableParameters, setAvailableParameters] = React.useState(availableParametersQueryData);
 
   const handleCreateRevision = useCallback(
     async ({ reason = "Update workflow", callback }) => {
@@ -255,6 +239,24 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     [revisionDispatch]
   );
 
+  const handleUpdateParams = useCallback(
+    (parameters: Array<DataDrivenInput>) => {
+      revisionDispatch({
+        type: RevisionActionTypes.UpdateConfig,
+        data: { parameters },
+      });
+
+      // Create new available parameters values so user doesn't have to create a
+      // a new version to use newly created parameters
+      const newAvailableParameters = [...availableParameters];
+      newAvailableParameters.push(
+        ...parameters.map((param) => [`workflow.params.${param.key}`, `params.${param.key}`]).flat()
+      );
+      setAvailableParameters(Array.from(new Set(newAvailableParameters)));
+    },
+    [revisionDispatch, availableParameters, setAvailableParameters]
+  );
+
   /**
    *  Simply update the parent state to use a different revision to fetch it w/ react-query
    * @param {string} revisionNumber
@@ -270,15 +272,15 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   const store = useMemo(() => {
     const taskTemplatesData = groupTaskTemplatesByName(taskTemplatesList);
     return {
-      availableParametersQueryData,
+      availableParameters,
       mode,
       revisionDispatch,
       revisionState,
       taskTemplatesData,
       workflowsQueryData,
     };
-  }, [availableParametersQueryData, mode, revisionDispatch, revisionState, taskTemplatesList, workflowsQueryData]);
-
+  }, [availableParameters, mode, revisionDispatch, revisionState, taskTemplatesList, workflowsQueryData]);
+  console.log({ availableParameters });
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
     <EditorContextProvider value={store}>
@@ -314,13 +316,13 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
               />
             </Route>
             <Route path={AppPath.EditorProperties}>
-              <Parameters workflow={revisionState} />
+              <Parameters workflow={revisionState} handleUpdateParams={handleUpdateParams} />
             </Route>
             <Route path={AppPath.EditorSchedule}>
               <Schedule summaryData={revisionState} />
             </Route>
             <Route path={AppPath.EditorChangelog}>
-              <ChangeLog summaryData={revisionState} />
+              <ChangeLog changeLogData={changeLogData} />
             </Route>
           </Switch>
           <Route

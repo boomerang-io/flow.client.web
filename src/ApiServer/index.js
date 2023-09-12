@@ -373,8 +373,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       // Workflow Changelog
       this.get(serviceUrl.getWorkflowChangelog({ id: ":id" }), (schema, request) => {
-        let { workflowId } = request.params;
-        return schema.changelogs.where({ workflowId });
+        return schema.db.changelogs;
       });
 
       //Workflow Available Parameters

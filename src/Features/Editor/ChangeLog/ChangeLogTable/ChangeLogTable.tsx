@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { matchSorter } from "match-sorter";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { DataTable, Search, Pagination } from "@carbon/react";
+import { DataTable, Pagination, Layer, Search } from "@carbon/react";
 import EmptyState from "Components/EmptyState";
 import { ChangeLog } from "Types";
 import styles from "./changeLogTable.module.scss";
@@ -58,7 +58,7 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
   handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
     const { changeLog } = this.props;
-    const changeLogList = changeLog.length !== 0 ? changeLog.map((log) => ({ ...log, id: log.revisionId })) : [];
+    const changeLogList = changeLog.length !== 0 ? changeLog.map((log) => ({ ...log, id: log.version })) : [];
 
     const newLogs = searchQuery
       ? matchSorter(changeLogList, searchQuery, { keys: ["version", "userName", "reason"] })
@@ -90,14 +90,16 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
 
     return (
       <div className={styles.tableContainer}>
-        <Search
-          className={styles.search}
-          data-testid="change-log-search"
-          id="change-log-table-search"
-          labelText="Search"
-          onChange={this.handleSearchChange}
-          placeholder="Search"
-        />
+        <Layer>
+          <Search
+            className={styles.search}
+            data-testid="change-log-search"
+            id="change-log-table-search"
+            labelText="Search"
+            onChange={this.handleSearchChange}
+            placeholder="Search"
+          />
+        </Layer>
         {totalItems > 0 ? (
           <>
             <DataTable

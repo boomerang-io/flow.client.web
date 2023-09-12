@@ -16,6 +16,7 @@ const workflowsCompose = [
       webhook: { enable: false, token: "", topic: null },
       custom: { enable: false, token: null, topic: null },
     },
+    config: [],
     tokens: [{ token: "268CD9268194A7B58888DC4B8FB4E6BF1358D01CEBB97F8670C544B4F076DD63", label: "default" }],
     nodes: [
       {

@@ -8,10 +8,9 @@ import styles from "./PropertiesModal.module.scss";
 
 interface PropertiesModalProps {
   isEdit: boolean;
-  isLoading: boolean;
   property: DataDrivenInput;
   propertyKeys: Array<string>;
-  updateWorkflowProperties: (args: { property: DataDrivenInput; type: string }) => Promise<any>;
+  updateWorkflowProperties: (args: { param: DataDrivenInput; type: string }) => Promise<any>;
 }
 
 const PropertiesModal: React.FC<PropertiesModalProps> = (props) => {
@@ -32,7 +31,7 @@ const PropertiesModal: React.FC<PropertiesModalProps> = (props) => {
         ) : (
           <button className={styles.createPropertyCard} onClick={openModal} data-testid="create-parameter-button">
             <div className={styles.createContainer}>
-              <Add className={styles.createIcon} aria-label="Add" size={32}/>
+              <Add className={styles.createIcon} aria-label="Add" size={32} />
               <p className={styles.createText}>Create a new parameter</p>
             </div>
           </button>

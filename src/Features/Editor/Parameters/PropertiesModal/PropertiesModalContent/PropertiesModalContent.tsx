@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import {
   ComboBox,
   Creatable,
-  Loading,
   ModalFlowForm,
   TextArea,
   TextInput,
@@ -41,10 +40,9 @@ const inputTypeItems = [
 interface PropertiesModalContentProps {
   closeModal(): void;
   isEdit: boolean;
-  isLoading: boolean;
   property: DataDrivenInput;
   propertyKeys: string[];
-  updateWorkflowProperties: (args: { property: DataDrivenInput; type: string }) => Promise<any>;
+  updateWorkflowProperties: (args: { param: DataDrivenInput; type: string }) => Promise<any>;
 }
 
 class PropertiesModalContent extends Component<PropertiesModalContentProps> {
@@ -73,25 +71,25 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
   };
 
   handleConfirm = (values: DataDrivenInput) => {
-    let property = clonedeep(values);
-    property.type = property.type.value;
+    let param = clonedeep(values);
+    param.type = param.type.value;
 
     // Remove in case they are present if the user changed their mind
-    if (property.type !== InputType.Select) {
-      delete property.options;
+    if (param.type !== InputType.Select) {
+      delete param.options;
     } else {
       // Create options in correct type for service - { key, value }
-      property.options = property?.options.map((property) => ({ key: property, value: property }));
+      param.options = param?.options.map((param) => ({ key: param, value: param }));
     }
 
-    if (property.type === InputType.Boolean) {
-      if (!property.defaultValue) property.defaultValue = false;
+    if (param.type === InputType.Boolean) {
+      if (!param.defaultValue) param.defaultValue = false;
     }
 
     if (this.props.isEdit) {
       this.props
         .updateWorkflowProperties({
-          property,
+          param,
           type: WorkflowPropertyUpdateType.Update,
         })
         .then(() => {
@@ -101,7 +99,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
     } else {
       this.props
         .updateWorkflowProperties({
-          property,
+          param,
           type: WorkflowPropertyUpdateType.Create,
         })
         .then(() => {
@@ -213,7 +211,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
   };
 
   render() {
-    const { property, isEdit, propertyKeys, isLoading } = this.props;
+    const { property, isEdit, propertyKeys } = this.props;
     let defaultValueType = this.state.defaultValueType;
 
     return (
@@ -260,9 +258,8 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
           const { dirty, values, touched, errors, handleBlur, handleChange, handleSubmit, setFieldValue, isValid } =
             formikProps;
           return (
-            <ModalFlowForm onSubmit={handleSubmit} disabled={isLoading}>
+            <ModalFlowForm onSubmit={handleSubmit}>
               <ModalBody aria-label="inputs" className={styles.container}>
-                {isLoading && <Loading />}
                 <TextInput
                   readOnly={isEdit}
                   helperText="Reference value for parameter in workflow. It can't be changed after parameter creation."
@@ -336,12 +333,8 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                 <Button kind="secondary" onClick={this.props.closeModal} type="button">
                   Cancel
                 </Button>
-                <Button
-                  disabled={!isValid || !dirty || isLoading}
-                  type="submit"
-                  data-testid="parameter-modal-confirm-button"
-                >
-                  {isEdit ? (isLoading ? "Saving..." : "Save") : isLoading ? "Creating..." : "Create"}
+                <Button disabled={!isValid || !dirty} type="submit" data-testid="parameter-modal-confirm-button">
+                  {isEdit ? "Save" : "Create"}
                 </Button>
               </ModalFooter>
             </ModalFlowForm>
