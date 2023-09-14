@@ -2,41 +2,20 @@ import React from "react";
 import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
-import {
-  notify,
-  ToastNotification,
-  ModalFlowForm,
-  TextInput,
-  Loading,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { notify, ToastNotification, ModalForm, TextInput, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import * as Yup from "yup";
 import styles from "./TeamCreateContent.module.scss";
-import { FlowTeam } from "Types";
 
-export default function TeamCreateContent({
-  closeModal,
-  teamRecords,
-}: {
-  closeModal: () => void;
-  teamRecords: FlowTeam[] | null;
-}) {
+export default function TeamCreateContent({ closeModal }: { closeModal: () => void }) {
   const queryClient = useQueryClient();
-  const {
-    mutateAsync: createTeamMutator,
-    isLoading,
-    error,
-  } = useMutation(resolver.postCreateTeam, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(serviceUrl.getUserProfile());
-    },
-  });
-
-  const teamNameList = teamRecords ? teamRecords.map((team) => team.name) : [];
+  const validateTeamNameMutator = useMutation(resolver.postTeamValidateName);
+  const createTeamMutator = useMutation(resolver.postCreateTeam);
 
   const updateTeamName = async (values: { name: string | undefined }) => {
     try {
-      await createTeamMutator({ body: { name: values.name } });
+      await createTeamMutator.mutateAsync({ body: { name: values.name } });
+      queryClient.invalidateQueries(serviceUrl.getUserProfile());
       notify(
         <ToastNotification kind="success" title="Update Team Settings" subtitle="Team settings successfully updated" />
       );
@@ -47,10 +26,12 @@ export default function TeamCreateContent({
   };
 
   let buttonText = "Save";
-  if (isLoading) {
+  if (createTeamMutator.isLoading) {
     buttonText = "Saving...";
-  } else if (isLoading) {
+  } else if (createTeamMutator.error) {
     buttonText = "Try again";
+  } else if (validateTeamNameMutator.isLoading) {
+    buttonText = "Validating...";
   }
 
   return (
@@ -63,16 +44,29 @@ export default function TeamCreateContent({
         name: Yup.string()
           .required("Enter a team name")
           .max(100, "Enter team name that is at most 100 characters in length")
-          .notOneOf(teamNameList, "Please try again, enter a team name that is not already in use"),
+          .test("isUnique", "Please try again, enter a team name that is not already in use", async (value) => {
+            let isValid = true;
+            if (value) {
+              try {
+                await validateTeamNameMutator.mutateAsync({ body: { name: value } });
+              } catch (e) {
+                console.error(e);
+                isValid = false;
+              }
+            }
+            // Need to return promise for yup to do async validation
+            return Promise.resolve(isValid);
+          })
+          .notOneOf(["system"], "Please try again, enter a team name that is not reserved"),
       })}
     >
       {(formikProps) => {
         const { values, setFieldValue, handleSubmit, errors, touched, dirty } = formikProps;
         return (
-          <ModalFlowForm>
+          <ModalForm>
             <ModalBody>
               <div className={styles.modalInputContainer}>
-                {isLoading && <Loading />}
+                {createTeamMutator.isLoading && <Loading />}
                 <TextInput
                   id="team-update-name-id"
                   data-testid="text-input-team-name"
@@ -85,7 +79,7 @@ export default function TeamCreateContent({
                   invalid={Boolean(errors.name && !touched.name)}
                   invalidText={errors.name}
                 />
-                {error && (
+                {createTeamMutator.error && (
                   <InlineNotification
                     lowContrast
                     kind="error"
@@ -100,11 +94,15 @@ export default function TeamCreateContent({
                 Cancel
               </Button>
               {/* @ts-ignore */}
-              <Button disabled={!dirty || errors.name || isLoading} onClick={handleSubmit} data-testid="save-team-name">
+              <Button
+                disabled={!dirty || errors.name || createTeamMutator.isLoading}
+                onClick={handleSubmit}
+                data-testid="save-team-name"
+              >
                 {buttonText}
               </Button>
             </ModalFooter>
-          </ModalFlowForm>
+          </ModalForm>
         );
       }}
     </Formik>

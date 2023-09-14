@@ -20,13 +20,9 @@ interface UpdateTeamNameProps {
 }
 
 const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team }) => {
-  const {
-    mutateAsync: validateTeamNameMutator,
-    error: validateTeamNameIsError,
-    isLoading: validateTeamNameIsLoading,
-  } = useMutation(resolver.postTeamValidateName);
-
   const queryClient = useQueryClient();
+
+  const validateTeamNameMutator = useMutation(resolver.postTeamValidateName);
   const updateTeamMutator = useMutation(resolver.patchUpdateTeam);
   const updateTeamName = async (values: { name: string }) => {
     try {
@@ -44,8 +40,10 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team }) => 
   let buttonText = "Save";
   if (updateTeamMutator.isLoading) {
     buttonText = "Saving...";
-  } else if (updateTeamMutator.isLoading) {
+  } else if (updateTeamMutator.isError) {
     buttonText = "Try again";
+  } else if (validateTeamNameMutator.isLoading) {
+    buttonText = "Validating...";
   }
 
   //TODO - update the error message to include the value of the Text Input
@@ -76,11 +74,11 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team }) => 
                   helperText="Enter a unique Team name."
                   value={values.name}
                   onChange={(value: React.ChangeEvent<HTMLInputElement>) => {
-                    validateTeamNameMutator({ body: { name: value.target.value } });
+                    validateTeamNameMutator.mutateAsync({ body: { name: value.target.value } });
                     setFieldValue("name", value.target.value);
                   }}
-                  invalid={Boolean(errors.name && !touched.name) || validateTeamNameIsError ? true : false}
-                  invalidText={validateTeamNameIsError ? `The specified name is already taken.` : errors.name}
+                  invalid={Boolean(errors.name && !touched.name) || validateTeamNameMutator.error ? true : false}
+                  invalidText={validateTeamNameMutator.error ? `The specified name is already taken.` : errors.name}
                 />
                 {updateTeamMutator.error && (
                   <InlineNotification
@@ -99,7 +97,10 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team }) => 
               {/* @ts-ignore */}
               <Button
                 disabled={
-                  errors.name || updateTeamMutator.isLoading || validateTeamNameIsError || validateTeamNameIsLoading
+                  errors.name ||
+                  updateTeamMutator.isLoading ||
+                  validateTeamNameMutator.error ||
+                  validateTeamNameMutator.isLoading
                 }
                 onClick={handleSubmit}
                 data-testid="save-team-name"

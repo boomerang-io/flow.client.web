@@ -5,11 +5,7 @@ import TeamCreateContent from "./TeamCreateContent";
 import { Add } from "@carbon/react/icons";
 import styles from "./teamCardCreate.module.scss";
 
-interface TeamCardProps {
-  teams: Array<FlowTeam> | null;
-}
-
-const TeamCard: React.FC<TeamCardProps> = ({ teams }) => {
+function TeamCard() {
   return (
     <div className={styles.container}>
       <ComposedModal
@@ -26,11 +22,11 @@ const TeamCard: React.FC<TeamCardProps> = ({ teams }) => {
         )}
       >
         {({ closeModal }: ComposedModalChildProps) => {
-          return <TeamCreateContent closeModal={closeModal} teamRecords={teams} />;
+          return <TeamCreateContent closeModal={closeModal} />;
         }}
       </ComposedModal>
     </div>
   );
-};
+}
 
 export default TeamCard;
