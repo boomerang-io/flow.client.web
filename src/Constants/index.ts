@@ -70,7 +70,6 @@ export const InputProperty = Object.freeze({
   ReadOnly: "readOnly",
   Required: "required",
   Type: "type",
-  JsonPath: "jsonPath",
 });
 
 export const InputType = Object.freeze({

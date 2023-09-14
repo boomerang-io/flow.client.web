@@ -1,6 +1,5 @@
 import React from "react";
 import { useFeature } from "flagged";
-import { useAppContext } from "Hooks";
 import { useMutation, useQueryClient } from "react-query";
 import { useHistory } from "react-router-dom";
 import { ComposedModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -32,7 +31,6 @@ interface CreateWorkflowProps {
 
 const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflowLimit, workflows, viewType }) => {
   const workflowDagEngine = new WorkflowDagEngine({ dag: null });
-  const { teams: teamState } = useAppContext();
   const queryClient = useQueryClient();
   const history = useHistory();
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
@@ -75,8 +73,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        //TODO should this be invalidate workflows?
-        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: "" }));
+        queryClient.invalidateQueries(serviceUrl.getWorkflows({ query: `teams=${team?.id}` }));
       }
       return;
     } catch (e) {
@@ -100,10 +97,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        //todo: fix refresh
-        teamState.find((t) => t.id === team.id)?.workflows.push(workflowExport);
-        queryClient.setQueryData(serviceUrl.getMyTeams({ query: "" }), teamState);
-        queryClient.invalidateQueries(serviceUrl.getMyTeams({ query: "" }));
+        queryClient.invalidateQueries(serviceUrl.getWorkflows({ query: `teams=${team?.id}` }));
       }
       closeModal();
     } catch (err) {

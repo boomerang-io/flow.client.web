@@ -94,7 +94,6 @@ const Parameters: React.FC<ParametersProps> = ({ workflow, handleUpdateParams })
             <WorkflowPropertyHeader label={configParam.label} description={configParam.description} />
             <WorkflowPropertyRow title="Key" value={configParam.key} />
             <WorkflowPropertyRow title="Type" value={configParam.type} />
-            <WorkflowPropertyRow title="Event Payload JsonPath" value={configParam.jsonPath ?? "---"} />
             <WorkflowPropertyRow
               title="Default value"
               value={formatDefaultValue({ type: configParam.type, value: configParam.defaultValue })}

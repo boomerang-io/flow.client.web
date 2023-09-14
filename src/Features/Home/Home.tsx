@@ -5,7 +5,7 @@ import cx from "classnames";
 import { Layer } from "@carbon/react";
 import { Workflows, PlanningAnalytics, PlayerFlow, Gear } from "@carbon/pictograms-react";
 import { useAppContext } from "Hooks";
-import EmptyState from "Components/EmptyState";
+import TeamCardCreate from "Components/TeamCardCreate";
 import styles from "./home.module.scss";
 
 export default function Home() {
@@ -20,11 +20,8 @@ export default function Home() {
         <Layer>
           <Section title="Your Teams">
             <nav className={styles.sectionLinks}>
-              {teams && teams.length === 0 ? (
-                <EmptyState />
-              ) : (
-                teams?.map((team) => <TeamCard key={team.id} team={team} />)
-              )}
+              {teams ? teams?.map((team) => <TeamCard key={team.id} team={team} />) : null}
+              <TeamCardCreate teams={teams} />
             </nav>
           </Section>
         </Layer>

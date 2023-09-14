@@ -225,7 +225,6 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
           [InputProperty.Required]: property?.required ?? false,
           [InputProperty.Type]: property ? inputTypeItems.find((type) => type.value === property.type) : textInputItem,
           [InputProperty.DefaultValue]: property?.defaultValue ?? "",
-          [InputProperty.JsonPath]: property?.jsonPath ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
           [InputProperty.Options]:
             property?.options?.map((option) => (typeof option === "object" ? option.key : option)) ?? [],
@@ -251,7 +250,6 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
             then: Yup.array().required("Enter an option").min(1, "Enter at least one option"),
           }),
           [InputProperty.DefaultValue]: this.determineDefaultValueSchema(defaultValueType),
-          [InputProperty.JsonPath]: Yup.string(),
         })}
       >
         {(formikProps) => {
@@ -305,17 +303,6 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                   onChange={handleChange}
                   value={values.description}
                 />
-                <TextInput
-                  id={InputProperty.JsonPath}
-                  invalid={Boolean(errors.jsonPath && touched.jsonPath)}
-                  invalidText={errors.jsonPath}
-                  labelText="Event Payload JsonPath (optional)"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.jsonPath}
-                  placeholder="e.g. $.repository.image[2]"
-                  helperText="Retrieves value matching dot notation path in the event payload"
-                />
                 <Toggle
                   data-testid="toggle-test-id"
                   id={InputProperty.Required}
@@ -326,7 +313,6 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                   orientation="vertical"
                   toggled={values.required}
                 />
-
                 {this.renderDefaultValue(formikProps)}
               </ModalBody>
               <ModalFooter>

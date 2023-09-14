@@ -404,7 +404,6 @@ const workflowTemplates = {
       ],
       config: [
         {
-          jsonPath: "",
           description: "",
           key: "query",
           label: "query",
@@ -970,7 +969,6 @@ const workflowTemplates = {
       ],
       config: [
         {
-          jsonPath: "",
           description: "",
           key: "planet",
           label: "Planet name",

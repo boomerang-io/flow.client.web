@@ -89,7 +89,6 @@ export interface DataDrivenInput {
   type: string;
   min?: number;
   max?: number;
-  jsonPath?: string;
 }
 
 export interface ResultParameter {
