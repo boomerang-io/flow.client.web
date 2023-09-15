@@ -29,11 +29,11 @@ export default function TaskTemplateNode(props: WorkflowNode) {
 function TaskTemplateNodeDesigner(props: WorkflowNode) {
   const reactFlowInstance = useReactFlow();
 
-  const { availableParametersQueryData, revisionDispatch, taskTemplatesData } = useEditorContext();
+  const { availableParameters, revisionDispatch, taskTemplatesData } = useEditorContext();
   // TODO: fix this typing
   const nodes = reactFlowInstance.getNodes() as unknown as Array<WorkflowNode>;
 
-  const inputProperties = availableParametersQueryData;
+  const inputProperties = availableParameters;
 
   // Find the matching task template based on the name and version
   const taskTemplateList = taskTemplatesData[props.data.templateRef];

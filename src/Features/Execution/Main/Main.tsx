@@ -8,7 +8,7 @@ import ExecutionHeader from "./ExecutionHeader";
 import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
-import { QueryStatus, WorkflowDagEngineMode } from "Constants";
+import { QueryStatus, WorkflowEngineMode } from "Constants";
 import { RunStatus, WorkflowDag, WorkflowExecution, WorkflowExecutionStep, WorkflowSummary } from "Types";
 import styles from "./main.module.scss";
 
@@ -34,7 +34,7 @@ class Main extends Component<Props, State> {
     super(props);
     this.workflowDagEngine = new WorkflowDagEngine({
       dag: props.dag,
-      mode: WorkflowDagEngineMode.Executor,
+      mode: WorkflowEngineMode.Executor,
     });
     this.state = {
       workflowDagBoundingClientRect: {},

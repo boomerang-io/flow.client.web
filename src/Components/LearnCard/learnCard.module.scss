@@ -1,6 +1,7 @@
 @import "Styles/mixins";
 
 .container {
+  border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -8,7 +9,6 @@
   min-width: 15rem;
   height: 18rem;
   position: relative;
-  @include border-radius();
 
   a {
     background-color: var(--cds-layer-02);
@@ -27,6 +27,7 @@
     &[disabled] {
       pointer-events: none;
     }
+    @include border-radius();
   }
 }
 

@@ -1,19 +1,19 @@
 import { CloseOutline, CheckmarkOutline, Error, InProgress, Timer } from "@carbon/react/icons";
-import { RunStatus, ScheduleStatus, ScheduleType } from "Types";
+import { RunStatus, ScheduleStatus, ScheduleType, UserRoleType } from "Types";
 
-export const Envs = Object.freeze({
+export const Envs = {
   Dev: "development",
   Test: "test",
   Prod: "production",
   PortForward: "portforward",
-});
+} as const;
 
-export const WorkflowScope = Object.freeze({
+export const WorkflowScope = {
   System: "system",
   Team: "team",
   User: "user",
   Template: "template",
-});
+} as const;
 
 /**
  * Primitve constants
@@ -25,13 +25,13 @@ export const PASSWORD_CONSTANT = "******";
 /**
  * Enums
  */
-export const HttpMethod = Object.freeze({
+export const HttpMethod = {
   Post: "post",
   Put: "put",
   Patch: "patch",
   Delete: "delete",
   Get: "get",
-});
+} as const;
 
 export const ExecutionStatusMap = {
   NotStarted: "notstarted",
@@ -46,7 +46,7 @@ export const ExecutionStatusMap = {
   TimedOut: "timedout",
 };
 
-export const ExecutionStatusCopy: Record<RunStatus, string> = Object.freeze({
+export const ExecutionStatusCopy: Record<RunStatus, string> = {
   [RunStatus.Cancelled]: "Cancelled",
   [RunStatus.Succeeded]: "Succeeded",
   [RunStatus.Failed]: "Failed",
@@ -57,9 +57,9 @@ export const ExecutionStatusCopy: Record<RunStatus, string> = Object.freeze({
   [RunStatus.Waiting]: "Waiting",
   [RunStatus.Ready]: "Ready",
   [RunStatus.TimedOut]: "Timed Out",
-});
+} as const;
 
-export const InputProperty = Object.freeze({
+export const InputProperty = {
   DefaultValue: "defaultValue",
   Description: "description",
   HelperText: "helperText",
@@ -70,9 +70,9 @@ export const InputProperty = Object.freeze({
   ReadOnly: "readOnly",
   Required: "required",
   Type: "type",
-});
+} as const;
 
-export const InputType = Object.freeze({
+export const InputType = {
   Boolean: "boolean",
   Email: "email",
   Number: "number",
@@ -86,9 +86,9 @@ export const InputType = Object.freeze({
   TextEditorShell: "texteditor::shell",
   TextEditorYaml: "texteditor::yaml",
   URL: "url",
-});
+} as const;
 
-export const InputTypeCopy = Object.freeze({
+export const InputTypeCopy = {
   [InputType.Boolean]: "Boolean",
   [InputType.Email]: "Email",
   [InputType.Number]: "Number",
@@ -97,7 +97,7 @@ export const InputTypeCopy = Object.freeze({
   [InputType.TextArea]: "Text Area",
   [InputType.Text]: "Text",
   [InputType.URL]: "URL",
-});
+} as const;
 
 export const NodeType = {
   Acquirelock: "acquirelock",
@@ -119,12 +119,12 @@ export const NodeType = {
   Template: "template",
 } as const;
 
-export const QueryStatus = Object.freeze({
+export const QueryStatus = {
   Idle: "idle",
   Loading: "loading",
   Error: "error",
   Success: "success",
-});
+} as const;
 
 export const scheduleStatusOptions: Array<{ label: string; value: ScheduleStatus }> = [
   { label: "Enabled", value: "active" },
@@ -133,96 +133,88 @@ export const scheduleStatusOptions: Array<{ label: string; value: ScheduleStatus
   { label: "Error", value: "error" },
 ];
 
-export const scheduleStatusLabelMap: Record<ScheduleStatus, string> = Object.freeze({
+export const scheduleStatusLabelMap: Record<ScheduleStatus, string> = {
   active: "Enabled",
   inactive: "Disabled",
   trigger_disabled: "Trigger Disabled",
   deleted: "Deleted",
   error: "Error",
-});
+} as const;
 
-export const scheduleTypeLabelMap: Record<ScheduleType, string> = Object.freeze({
+export const scheduleTypeLabelMap: Record<ScheduleType, string> = {
   runOnce: "Run Once",
   cron: "Recurring",
   advancedCron: "Recurring via cron expression",
-});
+} as const;
 
-export const TaskTemplateStatus = Object.freeze({
+export const TaskTemplateStatus = {
   Active: "active",
   Inactive: "inactive",
   Archived: "archived",
-});
+} as const;
 
-export const UserType = Object.freeze({
+export const UserType = {
   Admin: "admin",
   Operator: "operator",
   User: "user",
-});
+} as const;
 
-export const UserTypeCopy = Object.freeze({
+export const UserTypeCopy = {
   [UserType.Admin]: "Admin",
   [UserType.User]: "User",
-});
+} as const;
 
-export const WorkflowDagEngineMode = Object.freeze({
+export const WorkflowEngineMode = {
   Editor: "editor",
   Viewer: "viewer",
   Executor: "executor",
-});
+} as const;
 
-export const WorkflowPropertyUpdateType = Object.freeze({
+export const WorkflowPropertyAction = {
   Create: "create",
   Update: "update",
   Delete: "delete",
-});
+} as const;
 
-export const SortDirection = Object.freeze({
+export const SortDirection = {
   Asc: "ASC",
   Desc: "DESC",
-});
+} as const;
 
-export const UserRole = Object.freeze({
+export const UserRole = {
   Admin: "admin",
   Auditor: "auditor",
   Operator: "operator",
   Author: "author",
   User: "user",
-});
+} as const;
 
-export const UserRoleDisplay = Object.freeze({
+export const UserRoleCopy: Record<UserRoleType, string> = {
   [UserRole.Admin]: "Admin",
   [UserRole.Auditor]: "Auditor",
   [UserRole.Operator]: "Operator",
   [UserRole.Author]: "Author",
   [UserRole.User]: "User",
-});
+} as const;
 
-export const UserRoleCopy = Object.freeze({
-  [UserRole.Admin]: "Admin",
-  [UserRole.Auditor]: "Auditor",
-  [UserRole.Operator]: "Operator",
-  [UserRole.Author]: "Author",
-  [UserRole.User]: "User",
-});
-
-export const REQUEST_TYPES = Object.freeze({
+export const REQUEST_TYPES = {
   JOIN_TEAM: "joingroup",
   CREATE_TEAM: "creategroup",
   LEAVE_TEAM: "leavegroup",
   REMOVE_TEAM: "removegroup",
-});
+} as const;
 
-export const REQUEST_TYPES_TO_DISPLAY = Object.freeze({
+export const REQUEST_TYPES_TO_DISPLAY = {
   [REQUEST_TYPES.JOIN_TEAM]: "Join a Team",
   [REQUEST_TYPES.CREATE_TEAM]: "Create a Team",
   [REQUEST_TYPES.LEAVE_TEAM]: "Leave a Team",
   [REQUEST_TYPES.REMOVE_TEAM]: "Remove a Team",
-});
+} as const;
 
 /**
  * Complex objects
  */
-export const executionStatusIcon: Record<RunStatus, React.FC<{ [k: string]: any }>> = Object.freeze({
+export const executionStatusIcon: Record<RunStatus, React.FC<{ [k: string]: any }>> = {
   [RunStatus.Cancelled]: CloseOutline,
   [RunStatus.Succeeded]: CheckmarkOutline,
   [RunStatus.Failed]: CloseOutline,
@@ -233,7 +225,7 @@ export const executionStatusIcon: Record<RunStatus, React.FC<{ [k: string]: any 
   [RunStatus.TimedOut]: Error,
   [RunStatus.Waiting]: InProgress,
   [RunStatus.Ready]: Timer,
-});
+} as const;
 
 export const executionStatusList = [
   RunStatus.Ready,
@@ -248,16 +240,16 @@ export const executionStatusList = [
   RunStatus.TimedOut,
 ];
 
-export const ActionType = Object.freeze({
+export const ActionType = {
   Approval: "approval",
   Manual: "manual",
-});
+} as const;
 
-export const ApprovalInputRequired = Object.freeze({
+export const ApprovalInputRequired = {
   Optional: "optional",
   Required: "required",
   None: "none",
-});
+} as const;
 
 export const elevatedUserRoles = [UserType.Admin, UserType.Operator];
 

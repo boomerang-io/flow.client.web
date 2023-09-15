@@ -16,12 +16,9 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import "./styles.scss";
-import { NodeType, WorkflowDagEngineMode } from "Constants";
+import { WorkflowEngineMode } from "Constants";
 import * as GraphComps from "./components";
-import { TaskTemplate } from "Types";
-
-type NodeTypeValues = typeof NodeType[keyof typeof NodeType];
-type WorkflowEngineMode = typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode];
+import { WorkflowEngineModeType, NodeTypeType, TaskTemplate } from "Types";
 
 function CustomEdgeArrow({ id, color }: any) {
   return (
@@ -59,7 +56,7 @@ export function MarkerDefinition({ children }: MarkerDefinitionsProps) {
   );
 }
 
-export const markerTypes: { [K in NodeTypeValues]: string } = {
+export const markerTypes: { [K in NodeTypeType]: string } = {
   approval: "task-marker",
   acquirelock: "task-marker",
   custom: "task-marker",
@@ -79,7 +76,7 @@ export const markerTypes: { [K in NodeTypeValues]: string } = {
   sleep: "task-marker",
 };
 
-const edgeTypes: { [K in NodeTypeValues]: React.FC<EdgeProps> } = {
+const edgeTypes: { [K in NodeTypeType]: React.FC<EdgeProps> } = {
   acquirelock: GraphComps.TemplateEdge,
   approval: GraphComps.TemplateEdge,
   custom: GraphComps.TemplateEdge,
@@ -99,7 +96,7 @@ const edgeTypes: { [K in NodeTypeValues]: React.FC<EdgeProps> } = {
   sleep: GraphComps.TemplateEdge,
 };
 
-const nodeTypes: { [K in NodeTypeValues]: React.FC<NodeProps> } = {
+const nodeTypes: { [K in NodeTypeType]: React.FC<NodeProps> } = {
   acquirelock: GraphComps.TemplateNode,
   approval: GraphComps.TemplateNode,
   custom: GraphComps.CustomNode,
@@ -120,7 +117,7 @@ const nodeTypes: { [K in NodeTypeValues]: React.FC<NodeProps> } = {
 };
 
 interface FlowDiagramProps {
-  mode: WorkflowEngineMode;
+  mode: WorkflowEngineModeType;
   nodes?: Node[];
   edges?: Edge[];
   setWorkflow?: React.Dispatch<React.SetStateAction<ReactFlowInstance | null>>;
@@ -212,7 +209,7 @@ function FlowDiagram(props: FlowDiagramProps) {
     [flow, nodes]
   );
 
-  const isDisabled = props.mode === WorkflowDagEngineMode.Viewer;
+  const isDisabled = props.mode === WorkflowEngineMode.Viewer;
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <ReactFlowProvider>

@@ -17,7 +17,7 @@ import {
   InputProperty,
   InputType,
   InputTypeCopy,
-  WorkflowPropertyUpdateType,
+  WorkflowPropertyAction,
   PROPERTY_KEY_REGEX,
   PASSWORD_CONSTANT,
 } from "Constants";
@@ -90,7 +90,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
       this.props
         .updateWorkflowProperties({
           param,
-          type: WorkflowPropertyUpdateType.Update,
+          type: WorkflowPropertyAction.Update,
         })
         .then(() => {
           this.props.closeModal();
@@ -100,7 +100,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
       this.props
         .updateWorkflowProperties({
           param,
-          type: WorkflowPropertyUpdateType.Create,
+          type: WorkflowPropertyAction.Create,
         })
         .then(() => {
           this.props.closeModal();
@@ -320,7 +320,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                   Cancel
                 </Button>
                 <Button disabled={!isValid || !dirty} type="submit" data-testid="parameter-modal-confirm-button">
-                  {isEdit ? "Save" : "Create"}
+                  {isEdit ? "Update" : "Create"}
                 </Button>
               </ModalFooter>
             </ModalFlowForm>

@@ -14,7 +14,7 @@ import WombatMessage from "Components/WombatMessage";
 import workflowIcons from "Assets/workflowIcons";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import { WorkflowTemplate, TaskTemplate } from "Types";
-import { WorkflowDagEngineMode } from "Constants";
+import { WorkflowEngineMode } from "Constants";
 import { Bee } from "@carbon/react/icons";
 import styles from "./createWorkflowTemplate.module.scss";
 
@@ -61,7 +61,7 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
     formData.selectedWorkflow
       ? new WorkflowDagEngine({
           dag: formData.selectedWorkflow.revision.dag,
-          mode: WorkflowDagEngineMode.Executor,
+          mode: WorkflowEngineMode.Executor,
         })
       : null
   );
@@ -78,7 +78,7 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
     // setCurrentDag(
     //   new WorkflowDagEngine({
     //     dag: template.revision.dag,
-    //     mode: WorkflowDagEngineMode.Executor,
+    //     mode: WorkflowEngineMode.Executor,
     //   })
     // );
   };

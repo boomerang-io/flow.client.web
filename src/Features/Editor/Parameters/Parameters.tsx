@@ -3,8 +3,8 @@ import { Helmet } from "react-helmet";
 import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowCloseButton from "./WorkflowCloseButton";
 import WorkflowPropertiesModal from "./PropertiesModal";
-import { InputType, WorkflowPropertyUpdateType } from "Constants";
-import { DataDrivenInput, ModalTriggerProps, WorkflowCanvas } from "Types";
+import { InputType, WorkflowPropertyAction } from "Constants";
+import { DataDrivenInput, ModalTriggerProps, WorkflowCanvas, WorkflowPropertyActionType } from "Types";
 import { stringToPassword } from "Utils/stringHelper";
 import styles from "./Parameters.module.scss";
 
@@ -52,19 +52,25 @@ interface ParametersProps {
 }
 
 const Parameters: React.FC<ParametersProps> = ({ workflow, handleUpdateParams }) => {
-  const handleUpdateProperties = async ({ param, type }: { param: DataDrivenInput; type: string }) => {
+  const handleUpdateProperties = async ({
+    param,
+    type,
+  }: {
+    param: DataDrivenInput;
+    type: WorkflowPropertyActionType;
+  }) => {
     let parameters = [...workflow.config];
-    if (type === WorkflowPropertyUpdateType.Update) {
+    if (type === WorkflowPropertyAction.Update) {
       const parameterToUpdateIndex = parameters.findIndex((p) => p.key === param.key);
       parameters.splice(parameterToUpdateIndex, 1, param);
     }
 
-    if (type === WorkflowPropertyUpdateType.Delete) {
+    if (type === WorkflowPropertyAction.Delete) {
       const parameterToUpdateIndex = parameters.findIndex((p) => p.key === param.key);
       parameters.splice(parameterToUpdateIndex, 1);
     }
 
-    if (type === WorkflowPropertyUpdateType.Create) {
+    if (type === WorkflowPropertyAction.Create) {
       parameters.push(param);
     }
 
@@ -74,7 +80,7 @@ const Parameters: React.FC<ParametersProps> = ({ workflow, handleUpdateParams })
   const deleteParameter = (param: DataDrivenInput) => {
     handleUpdateProperties({
       param,
-      type: WorkflowPropertyUpdateType.Delete,
+      type: WorkflowPropertyAction.Delete,
     });
   };
 

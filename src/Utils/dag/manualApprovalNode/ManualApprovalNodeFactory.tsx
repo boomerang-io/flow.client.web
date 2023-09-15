@@ -4,7 +4,7 @@ import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import ManualApprovalNodeDesigner from "Components/ManualApprovalNodeDesigner";
 import ManualApprovalNodeExecution from "Components/ManualApprovalNodeExecution";
 import ManualApprovalNodeModel from "./ManualApprovalNodeModel";
-import { NodeType, WorkflowDagEngineMode } from "Constants";
+import { NodeType, WorkflowEngineMode } from "Constants";
 
 export default class ManualApprovalNodeFactory extends AbstractNodeFactory {
   constructor(diagramEngine) {
@@ -18,7 +18,7 @@ export default class ManualApprovalNodeFactory extends AbstractNodeFactory {
 
   // generateReactWidget(diagramEngine: diagramEngineInterface, node: ManualApprovalNodeModel) {
   generateReactWidget(diagramEngine, node) {
-    if (diagramEngine.mode === WorkflowDagEngineMode.Executor) {
+    if (diagramEngine.mode === WorkflowEngineMode.Executor) {
       return <ManualApprovalNodeExecution node={node} />;
     } else {
       return <ManualApprovalNodeDesigner node={node} diagramEngine={diagramEngine} />;
