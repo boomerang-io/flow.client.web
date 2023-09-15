@@ -4,7 +4,7 @@ import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import ManualTaskNodeDesigner from "Components/ManualTaskNodeDesigner";
 import ManualTaskNodeExecution from "Components/ManualTaskNodeExecution";
 import ManualTaskNodeModel from "./ManualTaskNodeModel";
-import { NodeType, WorkflowDagEngineMode } from "Constants";
+import { NodeType, WorkflowEngineMode } from "Constants";
 
 export default class ManualTaskNodeFactory extends AbstractNodeFactory {
   constructor(diagramEngine) {
@@ -18,7 +18,7 @@ export default class ManualTaskNodeFactory extends AbstractNodeFactory {
 
   // generateReactWidget(diagramEngine: diagramEngineInterface, node: ManualTaskNodeModel) {
   generateReactWidget(diagramEngine, node) {
-    if (diagramEngine.mode === WorkflowDagEngineMode.Executor) {
+    if (diagramEngine.mode === WorkflowEngineMode.Executor) {
       return <ManualTaskNodeExecution node={node} />;
     } else {
       return <ManualTaskNodeDesigner node={node} diagramEngine={diagramEngine} />;

@@ -22,7 +22,7 @@ import TaskLinkFactory from "./taskLink/TaskLinkFactory";
 import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
 import WaitNodeFactory from "./waitNode/waitNodeFactory";
 
-import { NodeType, WorkflowDagEngineMode } from "Constants";
+import { NodeType, WorkflowEngineMode } from "Constants";
 
 interface DagModel {
   dag: object | null;
@@ -33,7 +33,7 @@ export default class WorkflowDagEngine {
   activeModel: DiagramModel | undefined;
   diagramEngine: DiagramEngine;
 
-  constructor({ dag, mode = WorkflowDagEngineMode.Editor }: DagModel) {
+  constructor({ dag, mode = WorkflowEngineMode.Editor }: DagModel) {
     this.diagramEngine = new DiagramEngine();
     this.diagramEngine.installDefaultFactories();
     this.diagramEngine.registerNodeFactory(new AcquireLockNodeFactory());
@@ -66,7 +66,7 @@ export default class WorkflowDagEngine {
     this.diagramEngine.registerLinkFactory(new SwitchLinkFactory(this.diagramEngine));
 
     let isModelLocked = false;
-    if (mode === WorkflowDagEngineMode.Executor) {
+    if (mode === WorkflowEngineMode.Executor) {
       isModelLocked = true;
     }
 

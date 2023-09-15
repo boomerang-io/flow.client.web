@@ -17,7 +17,7 @@ import queryString from "query-string";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { groupTaskTemplatesByName } from "Utils";
-import { WorkflowDagEngineMode } from "Constants";
+import { WorkflowEngineMode } from "Constants";
 import {
   ChangeLog as ChangeLogType,
   PaginatedWorkflowResponse,
@@ -29,6 +29,8 @@ import {
 import { FormikProps } from "formik";
 import type { ReactFlowInstance } from "reactflow";
 import styles from "./editor.module.scss";
+
+const CREATEABLE_PATHS = ["workflow", "parameters", "configure"];
 
 export default function EditorContainer() {
   const { team } = useTeamContext();
@@ -268,7 +270,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   const revisionCount = changeLogData.length;
   const { markdown, version } = revisionState;
-  const mode = version === revisionCount ? WorkflowDagEngineMode.Editor : WorkflowDagEngineMode.Viewer;
+  const mode = version === revisionCount ? WorkflowEngineMode.Editor : WorkflowEngineMode.Viewer;
 
   const store = useMemo(() => {
     const taskTemplatesData = groupTaskTemplatesByName(taskTemplatesList);
@@ -300,7 +302,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             changeLog={changeLogData}
             changeRevision={handleChangeRevision}
             createRevision={handleCreateRevision}
-            isOnDesigner={location.pathname.endsWith("/workflow")}
+            canCreateNewVersion={CREATEABLE_PATHS.includes(location.pathname.split("/").pop() || "")}
             revisionState={revisionState}
             viewType={WorkflowView.Workflow}
             revisionCount={revisionCount}

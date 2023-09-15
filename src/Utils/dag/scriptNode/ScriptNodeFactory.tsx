@@ -3,7 +3,7 @@ import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import ScriptNodeDesigner from "Components/ScriptNodeDesigner";
 import ScriptNodeExecution from "Components/ScriptNodeExecution";
 import ScriptNodeModel from "./ScriptNodeModel";
-import { WorkflowDagEngineMode } from "Constants";
+import { WorkflowEngineMode } from "Constants";
 
 export default class ScriptNodeFactory extends AbstractNodeFactory {
   constructor(diagramEngine) {
@@ -17,7 +17,7 @@ export default class ScriptNodeFactory extends AbstractNodeFactory {
 
   generateReactWidget(diagramEngine, node) {
     // If diagram model is locked we can infer that the app is viewing the activity execution
-    if (diagramEngine.mode === WorkflowDagEngineMode.Executor) {
+    if (diagramEngine.mode === WorkflowEngineMode.Executor) {
       return <ScriptNodeExecution node={node} diagramEngine={diagramEngine} />;
     } else {
       return <ScriptNodeDesigner node={node} diagramEngine={diagramEngine} />;

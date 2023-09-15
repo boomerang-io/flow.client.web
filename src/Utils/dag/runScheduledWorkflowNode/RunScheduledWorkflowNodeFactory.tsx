@@ -4,7 +4,7 @@ import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import RunScheduledWorkflowNodeDesigner from "Components/RunScheduledWorkflowNodeDesigner";
 import RunScheduledWorkflowNodeExecution from "Components/RunScheduledWorkflowNodeExecution";
 import RunScheduledWorkflowNodeModel from "./RunScheduledWorkflowNodeModel";
-import { NodeType, WorkflowDagEngineMode } from "Constants";
+import { NodeType, WorkflowEngineMode } from "Constants";
 
 export default class RunScheduledWorkflowNodeFactory extends AbstractNodeFactory {
   constructor(diagramEngine) {
@@ -17,7 +17,7 @@ export default class RunScheduledWorkflowNodeFactory extends AbstractNodeFactory
   }
 
   generateReactWidget(diagramEngine, node) {
-    if (diagramEngine.mode === WorkflowDagEngineMode.Executor) {
+    if (diagramEngine.mode === WorkflowEngineMode.Executor) {
       return <RunScheduledWorkflowNodeExecution node={node} />;
     } else {
       return <RunScheduledWorkflowNodeDesigner node={node} diagramEngine={diagramEngine} />;

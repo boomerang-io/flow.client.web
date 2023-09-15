@@ -12,6 +12,7 @@
 
   a {
     background-color: var(--cds-ui-01);
+    border-radius: 0.25rem;
     height: 100%;
     transition: background-color 0.15s ease;
     &:focus {

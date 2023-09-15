@@ -42,7 +42,7 @@ export const [useExecutionContext, ExecutionContextProvider] = createContext<Exe
 
 interface EditorContext {
   mode: string;
-  availableParametersQueryData?: any;
+  availableParameters?: Array<any>; //TODO: this
   revisionDispatch?: Function;
   revisionState: Workflow;
   taskTemplatesData: Record<string, Array<TaskTemplate>>;

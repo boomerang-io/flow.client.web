@@ -5,7 +5,7 @@ import TaskLinkDesigner from "Components/TaskLinkDesigner";
 import TaskLinkExecution from "Components/TaskLinkExecution";
 import StartEndLinkDesigner from "Components/StartEndLinkDesigner";
 import StartEndLinkExecution from "Components/StartEndLinkExecution";
-import { NodeType, WorkflowDagEngineMode } from "Constants";
+import { NodeType, WorkflowEngineMode } from "Constants";
 
 export default class TaskLinkFactory extends DefaultLinkFactory {
   constructor(diagramEngine) {
@@ -21,7 +21,7 @@ export default class TaskLinkFactory extends DefaultLinkFactory {
   generateLinkSegment(model, widget, selected, path) {
     // If diagram model is locked we can infer that the app is viewing the activity execution
     const sourcePortType = model?.sourcePort?.type;
-    const isExecutionMode = this.diagramEngine.mode === WorkflowDagEngineMode.Executor;
+    const isExecutionMode = this.diagramEngine.mode === WorkflowEngineMode.Executor;
     if (sourcePortType === NodeType.StartEnd) {
       if (isExecutionMode) {
         return (

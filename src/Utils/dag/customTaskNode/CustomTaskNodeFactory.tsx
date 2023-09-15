@@ -5,7 +5,7 @@ import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import ScriptNodeDesigner from "Components/ScriptNodeDesigner";
 import CustomTaskNodeExecution from "Components/CustomTaskNodeExecution";
 import CustomTaskNodeModel from "./CustomTaskNodeModel";
-import { NodeType, WorkflowDagEngineMode } from "Constants";
+import { NodeType, WorkflowEngineMode } from "Constants";
 
 export default class CustomTaskNodeFactory extends AbstractNodeFactory {
   constructor(diagramEngine) {
@@ -19,7 +19,7 @@ export default class CustomTaskNodeFactory extends AbstractNodeFactory {
 
   // generateReactWidget(diagramEngine: diagramEngineInterface, node: CustomTaskNodeModel) {
   generateReactWidget(diagramEngine, node) {
-    if (diagramEngine.mode === WorkflowDagEngineMode.Executor) {
+    if (diagramEngine.mode === WorkflowEngineMode.Executor) {
       // return <CustomTaskNodeExecution node={node} diagramEngine={diagramEngine} />;
       return <CustomTaskNodeExecution node={node} />;
     } else {

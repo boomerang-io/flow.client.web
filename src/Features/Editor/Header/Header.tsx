@@ -29,7 +29,7 @@ interface DesignerHeaderProps {
   changeLog: ChangeLog;
   createRevision: (reason: string, callback?: () => any) => void;
   changeRevision: (revisionNumber: string) => void;
-  isOnDesigner: boolean;
+  canCreateNewVersion: boolean;
   revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
   revisionState: WorkflowCanvasState;
   viewType: WorkflowViewType;
@@ -39,7 +39,7 @@ interface DesignerHeaderProps {
 const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   createRevision,
   changeRevision,
-  isOnDesigner,
+  canCreateNewVersion,
   revisionCount,
   revisionMutator,
   revisionState,
@@ -90,7 +90,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
         <section className={styles.workflowButtons}>
           <VersionSwitcher
             currentRevision={currentRevision}
-            disabled={!isOnDesigner}
+            disabled={!canCreateNewVersion}
             onChangeVersion={changeRevision}
             revisionCount={revisionCount}
           />
@@ -102,7 +102,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
                 title={`Set version ${currentRevision} to be the latest`}
                 modalTrigger={({ openModal }: ModalTriggerProps) => (
                   <Button
-                    disabled={!isOnDesigner}
+                    disabled={!canCreateNewVersion}
                     iconDescription="Set version to latest"
                     kind="ghost"
                     onClick={openModal}
@@ -122,7 +122,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
                 }}
                 modalTrigger={({ openModal }: ModalTriggerProps) => (
                   <Button
-                    disabled={!isOnDesigner}
+                    disabled={!canCreateNewVersion}
                     iconDescription="Create new version"
                     kind="ghost"
                     onClick={openModal}

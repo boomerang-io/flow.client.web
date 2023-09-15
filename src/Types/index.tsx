@@ -1,7 +1,8 @@
 import { User } from "@boomerang-io/carbon-addons-boomerang-react";
 import { NodeProps } from "reactflow";
-import { WorkflowDagEngineMode } from "Constants";
-import { type } from "@testing-library/user-event/dist/type";
+import { UserRole, WorkflowEngineMode, WorkflowPropertyAction, NodeType } from "Constants";
+
+type ObjectValuesToType<T> = T[keyof T];
 
 declare global {
   interface Window {
@@ -218,7 +219,7 @@ export const WorkflowView = {
   Workflow: "workflow",
 } as const;
 
-export type WorkflowViewType = typeof WorkflowView[keyof typeof WorkflowView];
+export type WorkflowViewType = ObjectValuesToType<typeof WorkflowView>;
 
 type PageableSort = {
   sorted: boolean;
@@ -762,4 +763,7 @@ export interface MultiSelectItems<Type = MultiSelectItem> {
 
 export type WorkflowCanvasState = WorkflowCanvas & { hasUnsavedUpdates?: boolean };
 
-export type WorkflowDagEngineModeType = typeof WorkflowDagEngineMode[keyof typeof WorkflowDagEngineMode];
+export type WorkflowEngineModeType = ObjectValuesToType<typeof WorkflowEngineMode>;
+export type WorkflowPropertyActionType = ObjectValuesToType<typeof WorkflowPropertyAction>;
+export type UserRoleType = ObjectValuesToType<typeof UserRole>;
+export type NodeTypeType = ObjectValuesToType<typeof NodeType>;
