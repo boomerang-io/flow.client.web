@@ -116,6 +116,7 @@ export const serviceUrl = {
   postSchedule: ({ teamId }: TeamIdArg) => `${BASE_URL}/schedules?team=${teamId}`,
   postToken: () => `${BASE_URL}/token`,
   postTeamValidateName: () => `${BASE_URL}/team/validate-name`,
+  postTeam: () => `${BASE_URL}/team`,
   postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
   putCreateWorkflowRevision: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/compose`,
@@ -165,6 +166,7 @@ export const resolver = {
   patchManageUser: ({ body, userId }) =>
     axios({ url: serviceUrl.getUser({ userId }), data: body, method: HttpMethod.Patch }),
   putSchedule: ({ body }) => axios.put(serviceUrl.putSchedule(), body),
+  postTeam: ({ body }) => axios.post(serviceUrl.postTeam(), body),
   postTeamValidateName: ({ body }) => axios.post(serviceUrl.postTeamValidateName(), body),
   postValidateYaml: ({ body }) =>
     axios({

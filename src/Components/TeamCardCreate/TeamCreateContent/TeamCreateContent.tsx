@@ -1,27 +1,39 @@
 import React from "react";
 import { useQueryClient, useMutation } from "react-query";
+import { useAppContext } from "Hooks";
 import { Formik } from "formik";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { notify, ToastNotification, ModalForm, TextInput, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { resolver, serviceUrl } from "Config/servicesConfig";
+import { MemberRole } from "Types";
+import kebabcase from "lodash/kebabCase";
 import * as Yup from "yup";
 import styles from "./TeamCreateContent.module.scss";
 
 export default function TeamCreateContent({ closeModal }: { closeModal: () => void }) {
+  const { user } = useAppContext();
   const queryClient = useQueryClient();
   const validateTeamNameMutator = useMutation(resolver.postTeamValidateName);
-  const createTeamMutator = useMutation(resolver.postCreateTeam);
+  const createTeamMutator = useMutation(resolver.postTeam);
 
-  const updateTeamName = async (values: { name: string | undefined }) => {
+  const createTeam = async (values: { name: string | undefined }) => {
     try {
-      await createTeamMutator.mutateAsync({ body: { name: values.name } });
+      await createTeamMutator.mutateAsync({
+        body: {
+          name: values.name,
+          members: [
+            {
+              email: user.email,
+              role: MemberRole.Owner,
+            },
+          ],
+        },
+      });
       queryClient.invalidateQueries(serviceUrl.getUserProfile());
-      notify(
-        <ToastNotification kind="success" title="Update Team Settings" subtitle="Team settings successfully updated" />
-      );
+      notify(<ToastNotification kind="success" title="Create Team" subtitle="Team created successfully" />);
       closeModal();
     } catch (error) {
-      notify(<ToastNotification kind="error" subtitle="Failed to update team settings" title="Something's Wrong" />);
+      notify(<ToastNotification kind="error" subtitle="Failed to create team" title="Something's Wrong" />);
     }
   };
 
@@ -37,9 +49,9 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
   return (
     <Formik
       initialValues={{
-        name: undefined,
+        name: "",
       }}
-      onSubmit={updateTeamName}
+      onSubmit={createTeam}
       validationSchema={Yup.object().shape({
         name: Yup.string()
           .required("Enter a team name")
@@ -48,7 +60,7 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
             let isValid = true;
             if (value) {
               try {
-                await validateTeamNameMutator.mutateAsync({ body: { name: value } });
+                await validateTeamNameMutator.mutateAsync({ body: { name: kebabcase(value.replace(`'`, "-")) } });
               } catch (e) {
                 console.error(e);
                 isValid = false;
@@ -56,8 +68,7 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
             }
             // Need to return promise for yup to do async validation
             return Promise.resolve(isValid);
-          })
-          .notOneOf(["system"], "Please try again, enter a team name that is not reserved"),
+          }),
       })}
     >
       {(formikProps) => {
@@ -70,8 +81,8 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
                 <TextInput
                   id="team-update-name-id"
                   data-testid="text-input-team-name"
-                  labelText="Name"
-                  helperText="Must be unique"
+                  labelText="Display Name"
+                  helperText="The display name of your team and must make a unique name identifier."
                   value={values.name}
                   onChange={(value: React.ChangeEvent<HTMLInputElement>) => {
                     setFieldValue("name", value.target.value);
@@ -83,10 +94,21 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
                   <InlineNotification
                     lowContrast
                     kind="error"
-                    title="Name changed failed!"
+                    title="Create team failed!"
                     subtitle="Give it another go or try again later."
                   />
                 )}
+                <div className={styles.text}>
+                  {values.name ? (
+                    <p>
+                      Your unique team name identifier will be "
+                      <b>{kebabcase(values ? values.name.replace(`'`, "-") : "")}</b>", which has been adjusted to
+                      remove spaces and special characters.
+                    </p>
+                  ) : (
+                    <p>Your unique team name identifier will be adjusted to remove spaces and special characters.</p>
+                  )}
+                </div>
               </div>
             </ModalBody>
             <ModalFooter>
