@@ -409,6 +409,7 @@ export interface TaskTemplateSpec {
 export interface FlowTeam {
   id: string;
   name: string;
+  displayName: string;
   description?: string;
   creationDate: string;
   status: FlowTeamStatus;

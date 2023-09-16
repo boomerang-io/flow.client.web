@@ -141,7 +141,11 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
         <dl className={styles.detailedListContainer}>
           <div className={styles.detailedListGrid}>
             <div className={styles.detailedListGridItem}>
-              <dt className={styles.detailedListTitle}>Name</dt>
+              <dt className={styles.detailedListTitle}>Display Name</dt>
+              <dd className={styles.detailedListDescription}>{team.displayName}</dd>
+            </div>
+            <div className={styles.detailedListGridItem}>
+              <dt className={styles.detailedListTitle}>Unique Identifier Name</dt>
               <dd className={styles.detailedListDescription}>{team.name}</dd>
             </div>
           </div>

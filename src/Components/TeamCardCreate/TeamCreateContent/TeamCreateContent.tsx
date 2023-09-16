@@ -20,7 +20,8 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
     try {
       await createTeamMutator.mutateAsync({
         body: {
-          name: values.name,
+          name: kebabcase(values.name?.replace(`'`, "-")),
+          displayName: values.name,
           members: [
             {
               email: user.email,
@@ -37,9 +38,9 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
     }
   };
 
-  let buttonText = "Save";
+  let buttonText = "Create";
   if (createTeamMutator.isLoading) {
-    buttonText = "Saving...";
+    buttonText = "Creating...";
   } else if (createTeamMutator.error) {
     buttonText = "Try again";
   } else if (validateTeamNameMutator.isLoading) {
@@ -56,7 +57,7 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
         name: Yup.string()
           .required("Enter a team name")
           .max(100, "Enter team name that is at most 100 characters in length")
-          .test("isUnique", "Please try again, enter a team name that is not already in use", async (value) => {
+          .test("isUnique", "Please try again, enter a team name that is not already taken", async (value) => {
             let isValid = true;
             if (value) {
               try {
@@ -82,7 +83,7 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
                   id="team-update-name-id"
                   data-testid="text-input-team-name"
                   labelText="Display Name"
-                  helperText="The display name of your team and must make a unique name identifier."
+                  helperText="The display name of your team must make a unique name identifier."
                   value={values.name}
                   onChange={(value: React.ChangeEvent<HTMLInputElement>) => {
                     setFieldValue("name", value.target.value);

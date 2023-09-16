@@ -15,7 +15,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import EmptyState from "Components/EmptyState";
 import moment from "moment";
-import AddTeamContent from "./AddTeamContent";
+import TeamCreateContent from "Components/TeamCardCreate/TeamCreateContent";
 import debounce from "lodash/debounce";
 import queryString from "query-string";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
@@ -172,13 +172,7 @@ const TeamList: React.FC = () => {
           )}
         >
           {({ closeModal }: ComposedModalChildProps) => {
-            return (
-              <AddTeamContent
-                closeModal={closeModal}
-                teamRecords={teamsData.content}
-                currentQuery={location.search}
-              />
-            );
+            return <TeamCreateContent closeModal={closeModal} />;
           }}
         </ComposedModal>
       )}

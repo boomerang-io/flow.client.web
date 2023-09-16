@@ -1,6 +1,7 @@
 const team = {
       id: "5e3a35ad8c222700018ccd39",
-      name: "IBM Services Engineering",
+      name: "ibm-services-engineering",
+      displayName: "IBM Services Engineering",
       description: "Flow Team for IBM Services Engineering",
       creationDate: "2023-05-04T03:18:27.350Z",
       status: "active",
