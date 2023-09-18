@@ -14,12 +14,12 @@ interface VersionSwitcherProps {
 
 const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate, versionCount, canEdit }) => {
   const history = useHistory();
-  const params: { name: string; teamId: string } = useParams();
+  const params: { name: string; team: string } = useParams();
   const backVersion = () => {
     history.push(
-      params.teamId
+      params.team
         ? appLink.manageTaskTemplateEdit({
-            teamId: params.teamId,
+            team: params.team,
             name: params.name,
             version: "" + (selectedTaskTemplate.version - 1),
           })
@@ -32,8 +32,8 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate,
 
   const fastBackVersion = () => {
     history.push(
-      params.teamId
-        ? appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: "1" })
+      params.team
+        ? appLink.manageTaskTemplateEdit({ team: params.team, name: params.name, version: "1" })
         : appLink.adminTaskTemplateDetail({
             name: params.name,
             version: "1",
@@ -43,9 +43,9 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate,
 
   const forwardVersion = () => {
     history.push(
-      params.teamId
+      params.team
         ? appLink.manageTaskTemplateEdit({
-            teamId: params.teamId,
+            team: params.team,
             name: params.name,
             version: "" + (selectedTaskTemplate.version + 1),
           })
@@ -58,8 +58,8 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate,
 
   const fastForwardVersion = () => {
     history.push(
-      params.teamId
-        ? appLink.manageTaskTemplateEdit({ teamId: params.teamId, name: params.name, version: "" + versionCount })
+      params.team
+        ? appLink.manageTaskTemplateEdit({ team: params.team, name: params.name, version: "" + versionCount })
         : appLink.adminTaskTemplateDetail({
             name: params.name,
             version: "" + versionCount,

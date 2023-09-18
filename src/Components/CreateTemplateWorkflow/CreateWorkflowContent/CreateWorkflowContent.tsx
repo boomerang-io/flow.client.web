@@ -45,7 +45,6 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
       name: values.name,
       description: values.description,
       icon: values.icon,
-      teamId: team.id,
     };
     //@ts-ignore
     createWorkflow(formData.selectedWorkflow.id, requestBody);

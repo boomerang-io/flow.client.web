@@ -54,7 +54,7 @@ function ApproverGroups({
 
   const deleteApproverGroup = async (approverGroup: ApproverGroup) => {
     try {
-      await deleteApproverGroupMutation.mutateAsync({ teamId: team?.id, groupId: approverGroup.id });
+      await deleteApproverGroupMutation.mutateAsync({ team: team?.name, groupId: approverGroup.id });
       //TODO - replace with invalidate Team
       // queryClient.invalidateQueries(serviceUrl.resourceApproverGroups({ teamId: activeTeam?.id, groupId: undefined })),
       notify(

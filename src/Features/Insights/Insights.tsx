@@ -82,7 +82,7 @@ export default function Insights() {
   const insightsSearchParams = queryString.stringify(
     {
       statuses,
-      teams: team?.id,
+      teams: team?.name,
       triggers,
       workflows,
       fromDate,
@@ -104,7 +104,7 @@ export default function Insights() {
   }
 
   /** Retrieve Workflows */
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
   const {
     data: workflowsData,
     isLoading: workflowsIsLoading,

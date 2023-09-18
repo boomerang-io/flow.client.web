@@ -34,17 +34,19 @@ const RestoreDefaults: React.FC<RestoreDefaultsProps> = ({ team, disabled }) => 
         </Button>
       )}
     >
-      {({ closeModal }: ComposedModalChildProps) => <RestoreModalContent closeModal={closeModal} teamId={team.id} />}
+      {({ closeModal }: ComposedModalChildProps) => (
+        <RestoreModalContent closeModal={closeModal} teamName={team.name} />
+      )}
     </ComposedModal>
   );
 };
 
 interface restoreDefaultProps {
   closeModal: Function;
-  teamId: string;
+  teamName: string;
 }
 
-const RestoreModalContent: React.FC<restoreDefaultProps> = ({ closeModal, teamId }) => {
+const RestoreModalContent: React.FC<restoreDefaultProps> = ({ closeModal, teamName }) => {
   const defaultQuotasQuery = useQuery({
     queryKey: serviceUrl.getTeamQuotaDefaults(),
     queryFn: resolver.query(serviceUrl.getTeamQuotaDefaults()),
@@ -54,7 +56,7 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({ closeModal, teamId
 
   const handleRestoreDefaultQuota = async () => {
     try {
-      await resetQuotasMutator.mutateAsync({ id: teamId });
+      await resetQuotasMutator.mutateAsync({ team: teamName });
       closeModal();
       notify(
         <ToastNotification

@@ -112,7 +112,7 @@ function ConfigureInputsForm(props) {
 
   let workflows = [];
   workflows = teams
-    .find((team) => team.id === summaryData?.flowTeamId)
+    .find((team) => team.name === summaryData?.flowTeamId)
     ?.workflows.filter((workflow) => workflow.id !== summaryData?.id);
 
   const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];

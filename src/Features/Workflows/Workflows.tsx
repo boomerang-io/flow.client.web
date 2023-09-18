@@ -31,7 +31,7 @@ export default function Workflows() {
   const history = useHistory();
   const location = useLocation();
 
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
   const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>({
     queryKey: getWorkflowsUrl,
     queryFn: resolver.query(getWorkflowsUrl),
@@ -190,7 +190,7 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ team, searchQuery, wo
           <WorkflowCard
             key={workflow.id}
             quotas={team.quotas}
-            teamId={team.id}
+            teamName={team.name}
             viewType={WorkflowView.Workflow}
             workflow={workflow}
           />

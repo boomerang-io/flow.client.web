@@ -41,7 +41,7 @@ import styles from "./approverGroupsTable.module.scss";
 // };
 
 type ApproverGroupsTableProps = {
-  activeTeam?: FlowTeam | null;
+  team?: FlowTeam | null;
   canEdit: boolean;
 };
 
@@ -49,7 +49,7 @@ function ApproverGroupsTable({ team, canEdit }: ApproverGroupsTableProps) {
   const queryClient = useQueryClient();
   const [sortKey, setSortKey] = React.useState("name");
   const [sortDirection, setSortDirection] = React.useState("ASC");
-  const approverGroups = activeTeam?.approverGroups ?? [];
+  const approverGroups = team?.approverGroups ?? [];
 
   /** Delete Team Approver Group */
   const deleteApproverGroupMutation = useMutation(resolver.deleteApproverGroup);
@@ -79,7 +79,7 @@ function ApproverGroupsTable({ team, canEdit }: ApproverGroupsTableProps) {
 
   const deleteApproverGroup = async (approverGroup: ApproverGroup) => {
     try {
-      await deleteApproverGroupMutation.mutateAsync({ teamId: activeTeam?.id, groupId: approverGroup.id });
+      await deleteApproverGroupMutation.mutateAsync({ team: team?.name, groupId: approverGroup.id });
       //TODO - once we figure out if approverGroups are on the team or separate API call, we know what to invalidate
       // queryClient.invalidateQueries(serviceUrl.resourceApproverGroups({ teamId: activeTeam?.id, groupId: undefined })),
       notify(
@@ -223,7 +223,7 @@ function ApproverGroupsTable({ team, canEdit }: ApproverGroupsTableProps) {
             Showing {approverGroups?.length ?? 0} approver group{approverGroups?.length !== 1 ? "s" : ""}
           </p>
         </div>
-        {canEdit && <CreateEditGroupModal approverGroups={approverGroups} team={activeTeam} />}
+        {canEdit && <CreateEditGroupModal approverGroups={approverGroups} team={team} />}
       </section>
       {totalItems > 0 ? (
         <DataTable

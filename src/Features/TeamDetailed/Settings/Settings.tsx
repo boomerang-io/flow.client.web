@@ -36,8 +36,8 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
 
   const handleRemoveTeam = async () => {
     try {
-      await patchTeamMutator.mutateAsync({ teamId: team.id, body: { isActive: false } });
-      queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
+      await patchTeamMutator.mutateAsync({ team: team.name, body: { isActive: false } });
+      queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: team.name }));
       notify(
         <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
       );
@@ -55,8 +55,8 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
     }, {} as Record<string, string>);
 
     try {
-      await patchTeamMutator.mutateAsync({ teamId: team.id, body: { labels: newLabelsRecord } });
-      queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
+      await patchTeamMutator.mutateAsync({ team: team.name, body: { labels: newLabelsRecord } });
+      queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: team.name }));
       notify(
         <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
       );
@@ -77,8 +77,8 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
     console.log("newLabels", newLabelsRecord);
 
     try {
-      await patchTeamMutator.mutateAsync({ teamId: team.id, body: { labels: newLabelsRecord } });
-      queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
+      await patchTeamMutator.mutateAsync({ team: team.name, body: { labels: newLabelsRecord } });
+      queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: team.name }));
       notify(
         <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
       );

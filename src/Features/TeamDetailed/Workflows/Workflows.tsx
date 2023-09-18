@@ -23,7 +23,7 @@ import styles from "./Workflows.module.scss";
 function Workflows({ team }: { team: FlowTeam }) {
   const [searchQuery, setSearchQuery] = React.useState("");
 
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
   const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>({
     queryKey: getWorkflowsUrl,
     queryFn: resolver.query(getWorkflowsUrl),
@@ -83,7 +83,7 @@ function Workflows({ team }: { team: FlowTeam }) {
                       className={styles.viewWorkflowLink}
                       to={{
                         pathname: appLink.editorDesigner({ workflowId: workflow.id }),
-                        state: { fromTeam: { id: team.id, name: team.name } },
+                        state: { fromTeam: team.name },
                       }}
                     >
                       View/edit
@@ -93,9 +93,9 @@ function Workflows({ team }: { team: FlowTeam }) {
                     <Link
                       className={styles.viewWorkflowLink}
                       to={{
-                        pathname: appLink.activity({ teamId: team.id }),
+                        pathname: appLink.activity({ team: team.name }),
                         search: queryString.stringify({ page: 0, size: 10, workflowIds: workflow.id }),
-                        state: { fromTeam: { id: team.id, name: team.name } },
+                        state: { fromTeam: team.name },
                       }}
                     >
                       Activity

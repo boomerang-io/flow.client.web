@@ -13,16 +13,9 @@ interface AddMemberContentProps {
   closeModal: Function;
   memberList: FlowUser[];
   memberIdList: string[];
-  teamId: string;
   teamName: string;
 }
-const AddMemberContent: React.FC<AddMemberContentProps> = ({
-  closeModal,
-  memberList,
-  memberIdList,
-  teamId,
-  teamName,
-}) => {
+const AddMemberContent: React.FC<AddMemberContentProps> = ({ closeModal, memberList, memberIdList, teamName }) => {
   const [{ data: usersList, error }, fetchUsersList] = useAxios({ method: "get" }, { manual: true });
   const [selectedUsers, setSelectedUsers] = useState<FlowUser[]>([]);
   const [usersListOpen, setUsersListOpen] = useState(false);
@@ -34,7 +27,7 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
     isLoading: addMemberisLoading,
     error: addMemberError,
   } = useMutation(resolver.patchTeam, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId })),
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: teamName })),
   });
 
   const searchRef = React.useRef<HTMLDivElement | null>();
@@ -86,7 +79,7 @@ const AddMemberContent: React.FC<AddMemberContentProps> = ({
     const addUserRequestData = memberIdList.concat(selectedUsers.map((user) => user.id));
 
     try {
-      await addMemberMutator({ teamId, body: addUserRequestData });
+      await addMemberMutator({ team: teamName, body: addUserRequestData });
       selectedUsers.forEach((user) => {
         return notify(
           <ToastNotification

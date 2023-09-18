@@ -20,7 +20,7 @@ export default function Home() {
         <Layer>
           <Section title="Your Teams">
             <nav className={styles.sectionLinks}>
-              {teams ? teams?.map((team) => <TeamCard key={team.id} team={team} />) : null}
+              {teams ? teams?.map((team) => <TeamCard key={team.name} team={team} />) : null}
               <TeamCardCreate teams={teams} />
             </nav>
           </Section>

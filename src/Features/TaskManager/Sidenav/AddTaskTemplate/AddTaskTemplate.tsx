@@ -26,7 +26,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
   const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
     setIsSubmitting(true);
     try {
-      let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team.id, body });
+      let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team.name, body });
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
         <ToastNotification
@@ -39,14 +39,14 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
       history.push(
         team
           ? appLink.manageTaskTemplateEdit({
-            teamId: team.id,
-            name: task.name,
-            version: task.version.toString(),
-          })
+              team: team.name,
+              name: task.name,
+              version: task.version.toString(),
+            })
           : appLink.adminTaskTemplateDetail({
-            name: task.name,
-            version: task.version.toString(),
-          })
+              name: task.name,
+              version: task.version.toString(),
+            })
       );
       closeModal();
     } catch (err) {

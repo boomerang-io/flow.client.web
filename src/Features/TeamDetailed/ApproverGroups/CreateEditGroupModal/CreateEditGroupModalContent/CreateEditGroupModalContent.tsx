@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import sortBy from "lodash/sortBy";
 import { matchSorter } from "match-sorter";
 import {
-  ErrorMessage,
   Loading,
   ModalFlowForm,
   notify,
@@ -14,7 +13,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, Checkbox, InlineNotification, ModalBody, ModalFooter, Search } from "@carbon/react";
 import { formatErrorMessage, isAccessibleKeyboardEvent } from "@boomerang-io/utils";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { resolver } from "Config/servicesConfig";
 import { AddAlt, SubtractAlt } from "@carbon/react/icons";
 import { FlowTeam, Approver, ApproverGroup } from "Types";
 import styles from "./createEditGroupModalContent.module.scss";
@@ -192,7 +191,7 @@ function CreateEditGroupModalContent({
     };
     try {
       const response: any = await approverGroupMutator.mutateAsync({
-        teamId: team?.id,
+        team: team?.name,
         body: { approverGroups: [mutatedApproverGroup] },
       });
       queryClient.invalidateQueries(teamDetailsUrl);

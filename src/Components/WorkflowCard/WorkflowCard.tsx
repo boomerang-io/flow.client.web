@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useTeamContext } from "Hooks";
 import { useFeature } from "flagged";
 import { useMutation, useQueryClient } from "react-query";
 import { Link, useHistory } from "react-router-dom";
@@ -38,20 +37,19 @@ import { swapValue } from "Utils";
 import styles from "./workflowCard.module.scss";
 
 interface WorkflowCardProps {
-  teamId: string | null;
+  teamName: string;
   quotas: FlowTeamQuotas | null;
   workflow: Workflow;
   viewType: WorkflowViewType;
 }
 
-const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, viewType }) => {
-  const { team } = useTeamContext();
+const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow, viewType }) => {
   const queryClient = useQueryClient();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${teamName}` });
 
   const history = useHistory();
   const [errorMessage, seterrorMessage] = useState(null);
@@ -177,8 +175,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       );
       if (redirect) {
         history.push({
-          pathname: appLink.execution({ teamId: team?.id, executionId: execution.id, workflowId }),
-          state: { fromUrl: appLink.workflows({ teamId: team?.id }), fromText: `${viewType}s` },
+          pathname: appLink.execution({ team: teamName, executionId: execution.id, workflowId }),
+          state: { fromUrl: appLink.workflows({ team: teamName }), fromText: `${viewType}s` },
         });
       } else {
         queryClient.invalidateQueries(getWorkflowsUrl);
@@ -198,11 +196,11 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
   let menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => history.push(appLink.editorDesigner({ teamId: team?.id, workflowId: workflow.id })),
+      onClick: () => history.push(appLink.editorDesigner({ team: teamName, workflowId: workflow.id })),
     },
     {
       itemText: "View Activity",
-      onClick: () => history.push(appLink.workflowActivity({ teamId: team?.id, workflowId: workflow.id })),
+      onClick: () => history.push(appLink.workflowActivity({ team: teamName, workflowId: workflow.id })),
     },
     {
       itemText: "Update",
@@ -251,7 +249,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
 
   return (
     <div className={styles.container}>
-      <Link to={!isDeleting ? appLink.editorDesigner({ teamId: team?.id, workflowId: workflow.id }) : ""}>
+      <Link to={!isDeleting ? appLink.editorDesigner({ team: teamName, workflowId: workflow.id }) : ""}>
         <section className={styles.details}>
           <div className={styles.iconContainer}>
             <Icon className={styles.icon} alt={`${name}`} />
@@ -395,8 +393,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow, v
       {isUpdateWorkflowModalOpen && (
         <UpdateWorkflow
           onCloseModal={() => setIsUpdateWorkflowModalOpen(false)}
-          teamId={teamId}
           workflowId={workflow.id}
+          teamName={teamName}
           type={viewType}
         />
       )}

@@ -29,7 +29,7 @@ function TeamParameters() {
   const handleSubmit = async (isEdit: boolean, parameter: DataDrivenInput) => {
     try {
       const response = await parameterMutation.mutateAsync({
-        teamId: team?.id,
+        team: team?.name,
         body: { parameters: [parameter] },
       });
       if (isEdit) {
@@ -58,7 +58,7 @@ function TeamParameters() {
 
   const handleDelete = async (parameter: DataDrivenInput) => {
     try {
-      await deleteParameterMutation.mutateAsync({ id: team?.id, body: [parameter.key] });
+      await deleteParameterMutation.mutateAsync({ team: team?.name, body: [parameter.key] });
       notify(
         <ToastNotification
           kind="success"

@@ -33,7 +33,7 @@ function WorkflowActivity() {
   const workflowRunCountQuery = queryString.stringify({
     fromDate: moment().startOf("day").unix(),
     toDate: moment().endOf("day").unix(),
-    teams: team?.id,
+    teams: team?.name,
   });
 
   const {
@@ -49,7 +49,7 @@ function WorkflowActivity() {
   } = queryString.parse(location.search, queryStringOptions);
 
   /** Retrieve Workflows */
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
   const {
     data: workflowsData,
     isLoading: workflowsIsLoading,
@@ -68,7 +68,7 @@ function WorkflowActivity() {
       limit,
       sort,
       statuses,
-      teams: team?.id,
+      teams: team?.name,
       triggers,
       workflows,
       fromDate,

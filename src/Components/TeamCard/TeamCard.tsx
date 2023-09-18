@@ -11,7 +11,7 @@ import { FlowTeam, FlowTeamSummary } from "Types";
 import styles from "./teamCard.module.scss";
 
 interface TeamCardProps {
-  team: FlowTeam | FlowTeamSummary;
+  team: FlowTeamSummary;
 }
 
 const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
@@ -22,7 +22,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
   const leaveTeamMutator = useMutation(resolver.leaveTeam);
   const handleLeaveTeam = async () => {
     try {
-      await leaveTeamMutator.mutateAsync({ id: team.id });
+      await leaveTeamMutator.mutateAsync({ team: team.name });
       notify(<ToastNotification kind="success" title={`Leave Team`} subtitle={`${team.name} successfully left`} />);
       queryClient.invalidateQueries(serviceUrl.getUserProfile());
     } catch {
@@ -33,19 +33,19 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
   let menuOptions = [
     {
       itemText: "View Workflows",
-      onClick: () => history.push(appLink.workflows({ teamId: team.id })),
+      onClick: () => history.push(appLink.workflows({ team: team.name })),
     },
     {
       itemText: "View Actions",
-      onClick: () => history.push(appLink.actions({ teamId: team.id })),
+      onClick: () => history.push(appLink.actions({ team: team.name })),
     },
     {
       itemText: "View Activity",
-      onClick: () => history.push(appLink.activity({ teamId: team.id })),
+      onClick: () => history.push(appLink.activity({ team: team.name })),
     },
     {
       itemText: "Manage Team",
-      onClick: () => history.push(appLink.manageTeam({ teamId: team.id })),
+      onClick: () => history.push(appLink.manageTeam({ team: team.name })),
     },
     {
       hasDivider: true,
@@ -58,11 +58,12 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
 
   return (
     <div className={styles.container}>
-      <Link to={!leaveTeamMutator.isLoading ? appLink.workflows({ teamId: team.id }) : ""}>
+      <Link to={!leaveTeamMutator.isLoading ? appLink.workflows({ team: team.name }) : ""}>
         <div className={styles.content}>
-          <h1 title={team.name} className={styles.name} data-testid="workflow-card-title">
-            {team.name}
+          <h1 title={team.displayName} className={styles.displayName} data-testid="workflow-card-title">
+            {team.displayName}
           </h1>
+          <p className={styles.name}>{team.name}</p>
           {/* TODO - change name to display name and put the name slug underneath in small font */}
           <div className={styles.details}>
             <div className={styles.detailItem}>

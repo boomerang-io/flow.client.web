@@ -24,7 +24,7 @@ function TaskTemplatesContainer() {
   const match = useRouteMatch();
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ teams: team?.id, statuses: "active,inactive" }),
+    query: queryString.stringify({ teams: team?.name, statuses: "active,inactive" }),
   });
   const {
     data: taskTemplatesData,
@@ -90,7 +90,7 @@ function TaskTemplatesContainer() {
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>
-        <Redirect to={appLink.manageTaskTemplates({ teamId: team.id })} />
+        <Redirect to={appLink.manageTaskTemplates({ team: team.name })} />
       </Switch>
     </div>
   );

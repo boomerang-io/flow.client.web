@@ -65,7 +65,7 @@ function Tokens({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   const [sortDirection, setSortDirection] = useState("DESC");
 
   const getTokensUrl = serviceUrl.getTokens({
-    query: queryString.stringify({ types: "team", principals: team?.id }),
+    query: queryString.stringify({ types: "team", principals: team?.name }),
   });
 
   const {
@@ -75,7 +75,7 @@ function Tokens({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   } = useQuery({
     queryKey: getTokensUrl,
     queryFn: resolver.query(getTokensUrl),
-    enabled: Boolean(team?.id),
+    enabled: Boolean(team?.name),
   });
 
   const { mutateAsync: deleteTokenMutator } = useMutation(resolver.deleteToken, {
@@ -165,7 +165,7 @@ function Tokens({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
           </section>
         ) : null}
         <div className={styles.buttonContainer}>
-          {team?.id && <CreateToken type="team" principal={team.id} getTokensUrl={getTokensUrl} />}
+          {team && <CreateToken type="team" principal={team.name} getTokensUrl={getTokensUrl} />}
         </div>
         {tokensData?.content?.length > 0 ? (
           <>

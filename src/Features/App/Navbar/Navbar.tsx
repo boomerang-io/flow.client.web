@@ -69,7 +69,7 @@ export default function Navbar({ handleOnTutorialClick, flowNavigationData, cont
               <SwitcherDivider />
               {userData.teams.map((team) => {
                 return (
-                  <SwitcherItem large key={team.name} href={APP_ROOT + appLink.workflows({ teamId: team.id })}>
+                  <SwitcherItem large key={team.name} href={APP_ROOT + appLink.workflows({ team: team.name })}>
                     {team.name}
                   </SwitcherItem>
                 );

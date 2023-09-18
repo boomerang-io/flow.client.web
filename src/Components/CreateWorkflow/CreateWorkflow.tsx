@@ -23,7 +23,7 @@ import {
 import { FeatureFlag } from "Config/appConfig";
 import styles from "./createWorkflow.module.scss";
 interface CreateWorkflowProps {
-  team: FlowTeam | null;
+  team?: FlowTeam;
   hasReachedWorkflowLimit: boolean;
   workflows: Array<Workflow>;
   viewType: WorkflowViewType;
@@ -66,14 +66,14 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       await createWorkflowRevisionMutator({ workflowId, body: workflowRevision });
 
       queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
-      history.push(appLink.editorDesigner({ teamId: team?.id!, workflowId: workflowId }));
+      history.push(appLink.editorDesigner({ team: team?.name!, workflowId: workflowId }));
       notify(
         <ToastNotification kind="success" title={`Create ${viewType}`} subtitle={`${viewType} successfully created`} />
       );
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getWorkflows({ query: `teams=${team?.id}` }));
+        queryClient.invalidateQueries(serviceUrl.getWorkflows({ query: `teams=${team?.name}` }));
       }
       return;
     } catch (e) {
@@ -87,7 +87,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
   const handleImportWorkflow = async (workflowExport: WorkflowExport, closeModal: () => void, team: FlowTeam) => {
     let query;
     if (viewType === WorkflowView.Workflow) {
-      query = queryString.stringify({ update: false, flowTeamId: team.id });
+      query = queryString.stringify({ update: false, team: team.name });
     } else query = queryString.stringify({ update: false });
     try {
       await importWorkflowMutator({ query, body: workflowExport });
@@ -97,7 +97,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getWorkflows({ query: `teams=${team?.id}` }));
+        queryClient.invalidateQueries(serviceUrl.getWorkflows({ query: `teams=${team?.name}` }));
       }
       closeModal();
     } catch (err) {

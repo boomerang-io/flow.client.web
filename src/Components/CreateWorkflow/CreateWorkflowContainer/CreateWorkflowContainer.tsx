@@ -14,7 +14,7 @@ interface CreateWorkflowContainerProps {
   isLoading: boolean;
   importError: any;
   importWorkflow: (workflowData: WorkflowExport, closeModal: () => void, team: FlowTeam) => Promise<void>;
-  team: FlowTeam | null;
+  team?: FlowTeam;
   type: string;
   workflows: Array<Workflow>;
   workflowQuotasEnabled: boolean;

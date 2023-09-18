@@ -15,11 +15,10 @@ interface QuotaEditProps {
   inputLabel: string;
   inputUnits: string;
   stepValue: number;
-  teamId: string;
+  teamName: string;
   quotaProperty: string;
   quotaValue: number;
   minValue: number;
-  teamQuotasData: FlowTeamQuotas;
   teamDetailsUrl: string;
 }
 
@@ -30,11 +29,10 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
   inputLabel,
   inputUnits,
   stepValue,
-  teamId,
+  teamName,
   quotaProperty,
   quotaValue,
   minValue,
-  teamQuotasData,
   teamDetailsUrl,
 }) => {
   const queryClient = useQueryClient();
@@ -43,7 +41,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
   const handleOnSubmit = async (values: { quotaFormValue: number | string }) => {
     let quotas = { [quotaProperty]: values.quotaFormValue };
     try {
-      await updateTeamMutator.mutateAsync({ teamId: teamId, body: { quotas: quotas } });
+      await updateTeamMutator.mutateAsync({ team: teamName, body: { quotas: quotas } });
       queryClient.invalidateQueries(teamDetailsUrl);
       closeModal();
       notify(

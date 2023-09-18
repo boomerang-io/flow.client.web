@@ -1,7 +1,5 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import UpdateTeamName from "./UpdateTeamName";
 import { Edit } from "@carbon/react/icons";
 import { Tag, Button } from "@carbon/react";
 import { FlowUser } from "Types";

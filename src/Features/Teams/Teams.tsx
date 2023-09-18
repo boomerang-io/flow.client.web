@@ -121,9 +121,9 @@ const TeamList: React.FC = () => {
     debouncedSearch(query);
   }
 
-  function handleNavigateToTeam(teamId: string) {
+  function handleNavigateToTeam(team: string) {
     history.push({
-      pathname: appLink.manageTeam({ teamId }),
+      pathname: appLink.manageTeam({ team }),
       state: {
         navList: [
           {
@@ -271,11 +271,11 @@ function TeamListTable(props: TeamListTableProps) {
                 {rows.map((row: any) => (
                   <TableRow
                     className={styles.tableRow}
-                    key={row.id}
+                    key={row.name}
                     data-testid="user-list-table-row"
-                    onClick={() => props.handleNavigateToTeam(row.id)}
+                    onClick={() => props.handleNavigateToTeam(row.name)}
                     onKeyDown={(e: React.SyntheticEvent) =>
-                      isAccessibleKeyboardEvent(e) && props.handleNavigateToTeam(row.id)
+                      isAccessibleKeyboardEvent(e) && props.handleNavigateToTeam(row.name)
                     }
                     tabIndex={-1}
                   >

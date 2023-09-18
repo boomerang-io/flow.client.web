@@ -40,7 +40,7 @@ function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }:
           <Link to={appLink.teamList()}>Teams</Link>
         </BreadcrumbItem>
         <BreadcrumbItem>
-          <Link to={appLink.manageTeam({ teamId: backToTeam.id })}>{backToTeam.name}</Link>
+          <Link to={appLink.manageTeam({ team: backToTeam })}>{backToTeam}</Link>
         </BreadcrumbItem>
       </Breadcrumb>
     ) : (

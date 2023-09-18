@@ -49,9 +49,9 @@ function CreateServiceTokenForm({
   const queryClient = useQueryClient();
   const tokenRequestMutation = useMutation(resolver.postToken);
 
-  const teamsComboxBoxList = teams.map((team: any) => ({
-    label: team.name,
-    value: team.id,
+  const teamsComboxBoxList = teams?.map((team: any) => ({
+    label: team.displayName,
+    value: team.name,
     disabled: team.satus === "active" ? true : false,
   }));
 

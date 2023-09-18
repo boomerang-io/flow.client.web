@@ -8,7 +8,6 @@ import { Edit } from "@carbon/react/icons";
 import ProgressBar from "Components/ProgressBar";
 import RestoreDefaults from "./RestoreDefaults";
 import QuotaEditModalContent from "./QuotaEditModalContent";
-import { resolver, serviceUrl } from "Config/servicesConfig";
 import styles from "./Quotas.module.scss";
 
 function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: boolean; teamDetailsUrl: string }) {
@@ -59,10 +58,9 @@ function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: bo
           inputLabel="Maximum Workflows"
           inputUnits="Workflows"
           stepValue={1}
-          teamId={team.id}
+          teamName={team.name}
           quotaProperty="maxWorkflowCount"
           quotaValue={team.quotas.maxWorkflowCount}
-          teamQuotas={team.quotas}
           disabled={!canEdit}
           teamDetailsUrl={teamDetailsUrl}
         >
@@ -85,10 +83,9 @@ function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: bo
           inputLabel="Maximum executions"
           inputUnits="executions"
           stepValue={1}
-          teamId={team.id}
+          teamName={team.name}
           quotaProperty="maxWorkflowExecutionMonthly"
           quotaValue={team.quotas.maxWorkflowExecutionMonthly}
-          teamQuotasData={team.quotas}
           disabled={!canEdit}
           teamDetailsUrl={teamDetailsUrl}
         >
@@ -110,10 +107,9 @@ function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: bo
           inputLabel="Storage limit"
           inputUnits="GB"
           stepValue={1}
-          teamId={team.id}
+          teamName={team.name}
           quotaProperty="maxWorkflowStorage"
           quotaValue={team.quotas.maxWorkflowStorage}
-          teamQuotasData={team.quotas}
           disabled={!canEdit}
           teamDetailsUrl={teamDetailsUrl}
         >
@@ -131,10 +127,9 @@ function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: bo
           inputLabel="Maximum duration"
           inputUnits="minutes"
           stepValue={1}
-          teamId={team.id}
+          teamName={team.name}
           quotaProperty="maxWorkflowExecutionTime"
           quotaValue={team.quotas.maxWorkflowExecutionTime}
-          teamQuotasData={team.quotas}
           disabled={!canEdit}
           teamDetailsUrl={teamDetailsUrl}
         >
@@ -150,10 +145,9 @@ function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: bo
           inputLabel="Maximum concurrent"
           inputUnits="Workflows"
           stepValue={1}
-          teamId={team.id}
+          teamName={team.name}
           quotaProperty="maxConcurrentWorkflows"
           quotaValue={team.quotas.maxConcurrentWorkflows}
-          teamQuotasData={team.quotas}
           disabled={!canEdit}
           teamDetailsUrl={teamDetailsUrl}
         >
@@ -173,12 +167,11 @@ interface QuotaCardProps {
   inputLabel: string;
   inputUnits: string;
   stepValue: number;
-  teamId: string;
+  teamName: string;
   quotaProperty: string;
   quotaValue: number;
   disabled: boolean;
   minValue: number;
-  teamQuotasData: FlowTeamQuotas;
   teamDetailsUrl: string;
 }
 
@@ -192,12 +185,11 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
   inputLabel,
   inputUnits,
   stepValue,
-  teamId,
+  teamName,
   quotaProperty,
   quotaValue,
   disabled,
   minValue,
-  teamQuotasData,
   teamDetailsUrl,
 }) => {
   return (
@@ -234,11 +226,10 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
               inputLabel={inputLabel}
               inputUnits={inputUnits}
               stepValue={stepValue}
-              teamId={teamId}
+              teamName={teamName}
               quotaProperty={quotaProperty}
               quotaValue={quotaValue}
               minValue={minValue}
-              teamQuotasData={teamQuotasData}
               teamDetailsUrl={teamDetailsUrl}
             />
           )}

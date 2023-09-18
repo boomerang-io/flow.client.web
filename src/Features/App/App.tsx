@@ -59,13 +59,13 @@ const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 export default function App() {
   const location = useLocation();
   const queryClient = useQueryClient();
-  const teamId =
+  const teamName =
     location.pathname.startsWith("/home") ||
     location.pathname.startsWith("/admin") ||
     location.pathname.startsWith("/profile")
       ? null
       : location.pathname.split("/").filter(Boolean)[0];
-  const query = teamId ? `?teamId=${teamId}` : "";
+  const query = teamName ? `?team=${teamName}` : "";
   const getNavigationUrl = serviceUrl.getNavigation({ query });
 
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
@@ -305,7 +305,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
               </Route>
             </Switch>
           </Route>
-          <Route path={"/:teamId"}>
+          <Route path={"/:team"}>
             <TeamContainer>
               <Switch>
                 <ProtectedRoute
@@ -368,8 +368,8 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
 });
 
 function TeamContainer(props: { children: React.ReactNode }) {
-  const { teamId }: { teamId: string } = useParams();
-  const getTeamUrl = serviceUrl.resourceTeam({ teamId: teamId });
+  const { team }: { team: string } = useParams();
+  const getTeamUrl = serviceUrl.resourceTeam({ team });
 
   const teamQuery = useQuery<FlowTeam>({
     queryKey: getTeamUrl,
@@ -422,7 +422,7 @@ const workflows_steps = [
 ];
 
 const stepMapper = {
-  ":teamId/workflows": workflows_steps,
+  ":team/workflows": workflows_steps,
 };
 
 function Tutorial() {

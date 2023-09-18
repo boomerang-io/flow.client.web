@@ -18,7 +18,7 @@ interface CreateWorkflowContentProps {
   createError: object;
   createWorkflow: (workflowSummary: CreateWorkflowSummary) => Promise<void>;
   isLoading: boolean;
-  team: FlowTeam;
+  team?: FlowTeam;
   existingWorkflowNames: string[];
   workflowQuotasEnabled: boolean;
   viewType: WorkflowViewType;

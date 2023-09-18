@@ -101,7 +101,7 @@
   width: 1.125rem;
 }
 
-.name {
+.displayName {
   color: var(--cds-text-primary);
   font-size: var(--cds-heading-02-font-size, 0.875rem);
   font-weight: var(--cds-heading-02-font-weight, 600);
@@ -111,18 +111,17 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
-  margin-bottom: 0.5rem;
   text-align: left;
 }
 
-.description {
+.name {
   color: var(--cds-text-primary);
   display: block;
   font-size: 0.75rem;
   letter-spacing: 0rem;
   line-height: 0.9375rem;
   text-align: left;
-  @include multiline-text-overflow-ellipsis();
+  text-overflow: ellipsis;
 }
 
 .launch {

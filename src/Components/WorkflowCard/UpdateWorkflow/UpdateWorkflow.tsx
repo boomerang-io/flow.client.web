@@ -8,27 +8,26 @@ import { WorkflowExport } from "Types";
 import styles from "./updateWorkflow.module.scss";
 
 interface UpdateWorkflowProps {
-  teamId: string | null;
+  teamName: string | null;
   workflowId: string;
   onCloseModal: () => void;
   type: string;
 }
 
-const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onCloseModal, type }) => {
+const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamName, workflowId, onCloseModal, type }) => {
   const queryClient = useQueryClient();
 
   //TODO - update the query and mutator as post endpoint different
-  const { mutateAsync: importWorkflowMutator, isLoading: isPosting } = useMutation(resolver.postImportWorkflow, {
-    onSuccess: async () => queryClient.invalidateQueries(serviceUrl.getMyTeams()),
-  });
+  const { mutateAsync: importWorkflowMutator, isLoading: isPosting } = useMutation(resolver.postImportWorkflow);
   const handleImportWorkflow = async (data: WorkflowExport, closeModal: () => void) => {
     let query;
-    if (teamId) {
-      query = queryString.stringify({ update: true, flowTeamId: teamId });
+    if (teamName) {
+      query = queryString.stringify({ update: true, flowTeamId: teamName });
     } else query = queryString.stringify({ update: true });
 
     try {
       await importWorkflowMutator({ query, body: data });
+      queryClient.invalidateQueries(serviceUrl.getMyTeams());
       notify(<ToastNotification kind="success" title={`Update ${type}`} subtitle={`${type} successfully updated`} />);
       closeModal();
     } catch {

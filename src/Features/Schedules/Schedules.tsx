@@ -55,7 +55,7 @@ export default function Schedules() {
   const { statuses = defaultStatusArray, workflows } = queryString.parse(location.search, queryStringOptions);
 
   /** Retrieve Workflows */
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
   const {
     data: workflowsData,
     isLoading: workflowsIsLoading,
@@ -68,7 +68,7 @@ export default function Schedules() {
   const schedulesUrlQuery = queryString.stringify(
     {
       statuses,
-      teams: team?.id,
+      teams: team?.name,
       workflows,
     },
     queryStringOptions

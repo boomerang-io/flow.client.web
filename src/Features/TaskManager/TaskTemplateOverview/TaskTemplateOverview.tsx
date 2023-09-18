@@ -44,8 +44,8 @@ const DetailDataElements: React.FC<DetailDataElementsProps> = ({ label, value })
         <dd className={value?.length ? styles.value : styles.noValue} data-testid={label}>
           {value?.length > 0
             ? value.map((env) => {
-              return <Tag>{`${env.name}:${env.value}`}</Tag>;
-            })
+                return <Tag>{`${env.name}:${env.value}`}</Tag>;
+              })
             : "Not defined yet"}
         </dd>
       </section>
@@ -306,7 +306,7 @@ export function TaskTemplateOverview({
 
     try {
       let replace = requestType === TemplateRequestType.Overwrite ? "true" : "false";
-      let response = await applyTaskTemplateMutation.mutateAsync({ replace, team: params.teamId, body });
+      let response = await applyTaskTemplateMutation.mutateAsync({ replace, team: params.team, body });
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
@@ -320,16 +320,16 @@ export function TaskTemplateOverview({
       );
       resetForm();
       history.push(
-        params.teamId
+        params.team
           ? appLink.manageTaskTemplateEdit({
-            teamId: params.teamId,
-            name: response.data.name,
-            version: response.data.version,
-          })
+              team: params.team,
+              name: response.data.name,
+              version: response.data.version,
+            })
           : appLink.taskTemplateEdit({
-            name: response.data.name,
-            version: response.data.version,
-          })
+              name: response.data.name,
+              version: response.data.version,
+            })
       );
       if (requestType !== TemplateRequestType.Copy) {
         typeof setRequestError === "function" && setRequestError(null);

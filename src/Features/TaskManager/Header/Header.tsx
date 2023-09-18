@@ -194,7 +194,7 @@ const Header: React.FC<HeaderProps> = ({
   isActive,
   isLoading,
 }) => {
-  const params: { teamId: string; taskId: string; version: string } = useParams();
+  const params: { team: string; taskId: string; version: string } = useParams();
 
   const TaskIcon = taskIcons.find((icon) => icon.name === selectedTaskTemplate.icon);
   const versionCount = changelog.length;
@@ -211,32 +211,32 @@ const Header: React.FC<HeaderProps> = ({
             exact
             label="Overview"
             to={
-              params.teamId
+              params.team
                 ? appLink.manageTaskTemplateEdit({
-                  teamId: params.teamId,
-                  name: selectedTaskTemplate.name,
-                  version: selectedTaskTemplate.version.toString(),
-                })
+                    team: params.team,
+                    name: selectedTaskTemplate.name,
+                    version: selectedTaskTemplate.version.toString(),
+                  })
                 : appLink.adminTaskTemplateDetail({
-                  name: selectedTaskTemplate.name,
-                  version: selectedTaskTemplate.version.toString(),
-                })
+                    name: selectedTaskTemplate.name,
+                    version: selectedTaskTemplate.version.toString(),
+                  })
             }
           />
           <Tab
             exact
             label="Editor"
             to={
-              params.teamId
+              params.team
                 ? appLink.manageTaskTemplateYaml({
-                  teamId: params.teamId,
-                  name: selectedTaskTemplate.name,
-                  version: selectedTaskTemplate.version.toString(),
-                })
+                    team: params.team,
+                    name: selectedTaskTemplate.name,
+                    version: selectedTaskTemplate.version.toString(),
+                  })
                 : appLink.adminTaskTemplateEditor({
-                  name: selectedTaskTemplate.name,
-                  version: selectedTaskTemplate.version.toString(),
-                })
+                    name: selectedTaskTemplate.name,
+                    version: selectedTaskTemplate.version.toString(),
+                  })
             }
           />
         </Tabs>
@@ -315,8 +315,9 @@ const Header: React.FC<HeaderProps> = ({
                   <p className={styles.confirmModalText}>Sometimes revisiting the past is a good thing.</p>
                   <p
                     className={styles.confirmModalText}
-                  >{`This action will create a new version that’s an exact copy of Version ${selectedTaskTemplate.version
-                    }, but it shall be named Version ${versionCount + 1}. Make sure this is what you want to do.`}</p>
+                  >{`This action will create a new version that’s an exact copy of Version ${
+                    selectedTaskTemplate.version
+                  }, but it shall be named Version ${versionCount + 1}. Make sure this is what you want to do.`}</p>
                 </>
               }
               affirmativeText="Copy to new version"

@@ -45,11 +45,11 @@ const FeatureLayout: React.FC = ({ children }) => {
 
 function TeamDetailedContainer() {
   const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
-  const match: { params: { teamId: string } } = useRouteMatch();
-  const teamId = match?.params?.teamId;
+  const match: { params: { team: string } } = useRouteMatch();
+  const team = match?.params?.team;
   const { user } = useAppContext();
 
-  const teamDetailsUrl = serviceUrl.resourceTeam({ teamId });
+  const teamDetailsUrl = serviceUrl.resourceTeam({ team: team });
 
   const teamDetailsQuery = useQuery({
     queryKey: teamDetailsUrl,

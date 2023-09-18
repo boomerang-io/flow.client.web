@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useRef, useState } from "react";
 import { EditorContextProvider } from "State/context";
 import { AxiosResponse } from "axios";
 import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
-import { useAppContext, useTeamContext, useIsModalOpen, useQuery } from "Hooks";
+import { useAppContext, useTeamContext, useQuery } from "Hooks";
 import { useImmerReducer } from "use-immer";
 import { useMutation, useQueryClient, UseMutationResult } from "react-query";
 import { Prompt, Route, Switch, useLocation, useParams } from "react-router-dom";
@@ -40,7 +40,7 @@ export default function EditorContainer() {
   const { workflowId }: { workflowId: string } = useParams();
   const queryClient = useQueryClient();
 
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
   const getChangelogUrl = serviceUrl.getWorkflowChangelog({ id: workflowId });
   const getWorkflowUrl = serviceUrl.getWorkflowCompose({ id: workflowId, version: revisionNumber });
 
@@ -48,7 +48,7 @@ export default function EditorContainer() {
     query: queryString.stringify({ statuses: "active" }),
   });
   const getTaskTemplatesTeamUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ teams: team?.id, statuses: "active" }),
+    query: queryString.stringify({ teams: team?.name, statuses: "active" }),
   });
 
   const getAvailableParametersUrl = serviceUrl.workflowAvailableParameters({ workflowId });
@@ -210,8 +210,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
    */
   const updateSummary = useCallback(
     async ({ values: formikValues }) => {
-      const flowTeamId = formikValues?.selectedTeam?.id;
-      const updatedWorkflow = { ...workflowQueryData, ...formikValues, flowTeamId };
+      const updatedWorkflow = { ...workflowQueryData, ...formikValues };
 
       try {
         const { data } = await revisionMutator.mutateAsync({ workflowId, body: updatedWorkflow });

@@ -18,7 +18,7 @@ import styles from "./UserTeams.module.scss";
 
 interface UserTeamsProps {
   user: FlowUser;
-  teams: Array<FlowTeam>;
+  teams?: Array<FlowTeam>;
 }
 
 function UserTeams({ user, teams }: UserTeamsProps) {
@@ -55,13 +55,13 @@ function UserTeams({ user, teams }: UserTeamsProps) {
           </StructuredListHead>
           <StructuredListBody>
             {sortBy(filteredTeamsList, "name").map((team) => (
-              <StructuredListRow key={team.id}>
+              <StructuredListRow key={team.name}>
                 <StructuredListCell>{team.name}</StructuredListCell>
                 <StructuredListCell>
                   <Link
                     className={styles.viewTeamLink}
                     to={{
-                      pathname: appLink.manageTeam({ teamId: team.id }),
+                      pathname: appLink.manageTeam({ team: team.name }),
                       state: {
                         navList: [
                           {

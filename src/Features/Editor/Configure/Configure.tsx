@@ -81,7 +81,7 @@ function ConfigureContainer({
   updateSummary,
   settingsRef,
 }: ConfigureContainerProps) {
-  const params = useParams<{ teamId: string; workflowId: string }>();
+  const params = useParams<{ team: string; workflowId: string }>();
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
 
   const handleOnSubmit = (values: any) => {
@@ -91,7 +91,7 @@ function ConfigureContainer({
   };
   const location = useLocation();
   const isOnConfigurePath =
-    appLink.editorConfigure({ teamId: params.teamId, workflowId: params.workflowId }) === location.pathname;
+    appLink.editorConfigure({ team: params.team, workflowId: params.workflowId }) === location.pathname;
 
   return (
     <>

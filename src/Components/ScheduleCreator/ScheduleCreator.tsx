@@ -37,7 +37,7 @@ export default function CreateSchedule(props: CreateScheduleProps) {
 
   const handleCreateSchedule = async (schedule: ScheduleUnion) => {
     // intentionally don't handle error so it can be done by the ScheduleManagerForm
-    await createScheduleMutator({ teamId: team?.id, body: schedule });
+    await createScheduleMutator({ team: team?.name, body: schedule });
     notify(
       <ToastNotification
         kind="success"

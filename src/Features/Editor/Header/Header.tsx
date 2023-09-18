@@ -45,9 +45,9 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   revisionState,
   viewType,
 }) => {
-  const routeMatch: { params: { teamId: string; workflowId: string } } = useRouteMatch();
+  const routeMatch: { params: { team: string; workflowId: string } } = useRouteMatch();
   const {
-    params: { teamId, workflowId },
+    params: { team, workflowId },
   } = routeMatch;
   const { name } = revisionState;
   const { version: currentRevision } = revisionState;
@@ -66,7 +66,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
         <Breadcrumb noTrailingSlash>
           <BreadcrumbItem>
             {viewType === WorkflowView.Workflow ? (
-              <Link to={appLink.workflows({ teamId })}>Workflows</Link>
+              <Link to={appLink.workflows({ team })}>Workflows</Link>
             ) : (
               <Link to={appLink.templateWorkflows()}>Template Workflows</Link>
             )}
@@ -79,11 +79,11 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
       header={<HeaderTitle>Editor</HeaderTitle>}
       footer={
         <Tabs ariaLabel="Editor pages">
-          <Tab label="Workflow" to={appLink.editorDesigner({ teamId, workflowId })} />
-          <Tab label="Parameters" to={appLink.editorProperties({ teamId, workflowId })} />
-          <Tab label="Configure" to={appLink.editorConfigure({ teamId, workflowId })} />
-          <Tab label="Schedule" to={appLink.editorSchedule({ teamId, workflowId })} />
-          <Tab label="Change Log" to={appLink.editorChangelog({ teamId, workflowId })} />
+          <Tab label="Workflow" to={appLink.editorDesigner({ team, workflowId })} />
+          <Tab label="Parameters" to={appLink.editorProperties({ team, workflowId })} />
+          <Tab label="Configure" to={appLink.editorConfigure({ team, workflowId })} />
+          <Tab label="Schedule" to={appLink.editorSchedule({ team, workflowId })} />
+          <Tab label="Change Log" to={appLink.editorChangelog({ team, workflowId })} />
         </Tabs>
       }
       actions={

@@ -92,22 +92,9 @@ const RenderTemplates = ({ isLoading, error, workflows, filteredWorkflows, searc
   return (
     <div className={styles.workflows}>
       {filteredWorkflows.map((workflow) => (
-        <WorkflowCard
-          key={workflow.id}
-          teamId={null}
-          workflow={workflow}
-          quotas={null}
-          viewType={WorkflowView.Template}
-        />
+        <WorkflowCard key={workflow.id} workflow={workflow} quotas={null} viewType={WorkflowView.Template} />
       ))}
-      {
-        <CreateWorkflow
-          team={null}
-          hasReachedWorkflowLimit={false}
-          workflows={workflows}
-          viewType={WorkflowView.Template}
-        />
-      }
+      {<CreateWorkflow hasReachedWorkflowLimit={false} workflows={workflows} viewType={WorkflowView.Template} />}
     </div>
   );
 };

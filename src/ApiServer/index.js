@@ -160,32 +160,32 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Team Propertiies
        */
-      this.get(serviceUrl.resourceTeamParameters({ id: ":id" }), (schema, request) => {
-        let { id } = request.params;
-        let property = schema.teamProperties.find(id);
+      this.get(serviceUrl.resourceTeamParameters({ team: ":team" }), (schema, request) => {
+        let { team } = request.params;
+        let property = schema.teamProperties.find(team);
         return property && property.properties ? property.properties : [];
       });
-      this.post(serviceUrl.resourceTeamParameters({ id: ":id" }), (schema, request) => {
+      this.post(serviceUrl.resourceTeamParameters({ team: ":team" }), (schema, request) => {
         /**
          * find team record, update the list of properties for that team
          */
-        let { id } = request.params;
+        let { team } = request.params;
         let body = JSON.parse(request.requestBody);
-        let activeTeamProperty = schema.teamProperties.find(id);
+        let activeTeamProperty = schema.teamProperties.find(team);
         let currentProperties = activeTeamProperty.attrs.properties;
         currentProperties.push({ id: uuid(), ...body });
         activeTeamProperty.update({ properties: currentProperties });
         return schema.teamProperties.all();
       });
       this.patch(
-        serviceUrl.resourceTeamParameters({ teamId: ":teamId", configurationId: ":configurationId" }),
+        serviceUrl.resourceTeamParameters({ team: ":team", configurationId: ":configurationId" }),
         (schema, request) => {
           /**
            * find team record, update the list of properties for that team
            */
-          let { teamId, configurationId } = request.params;
+          let { team, configurationId } = request.params;
           let body = JSON.parse(request.requestBody);
-          let activeTeamProperty = schema.teamProperties.find(teamId);
+          let activeTeamProperty = schema.teamProperties.find(team);
           let currentProperties = activeTeamProperty.attrs.properties;
           let foundIndex = currentProperties.findIndex((prop) => prop.id === configurationId);
           currentProperties[foundIndex] = body;
@@ -194,13 +194,13 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
       );
       this.delete(
-        serviceUrl.resourceTeamParameters({ teamId: ":teamId", configurationId: ":configurationId" }),
+        serviceUrl.resourceTeamParameters({ team: ":team", configurationId: ":configurationId" }),
         (schema, request) => {
           /**
            * find team record, update the list of properties for that team
            */
-          let { teamId, configurationId } = request.params;
-          let activeTeamProperty = schema.teamProperties.find(teamId);
+          let { team, configurationId } = request.params;
+          let activeTeamProperty = schema.teamProperties.find(team);
           let currentProperties = activeTeamProperty.attrs.properties;
           let newProperties = currentProperties.filter((prop) => prop.id !== configurationId);
           activeTeamProperty.update({ properties: newProperties });
@@ -215,10 +215,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         //grab the querystring from the end of the request url
         const query = request.url.substring(14);
         // eslint-disable-next-line
-        const { fromDate = null, toDate = null, teamId = null } = queryString.parse(query);
-        const activeTeam = teamId && schema.db.myTeams.find(teamId);
+        const { fromDate = null, toDate = null, team = null } = queryString.parse(query);
+        const activeTeam = team && schema.db.myTeams.find(team);
         let activeExecutions =
-          activeTeam && schema.db.insights[0].executions.filter((team) => team.teamName === team.name);
+          activeTeam && schema.db.insights[0].executions.filter((t) => t.name === team.name);
         return activeExecutions ? { ...schema.db.insights[0], executions: activeExecutions } : schema.db.insights[0];
       });
 
@@ -264,7 +264,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.post(serviceUrl.postValidateYaml(), (schema) => {
         return schema.db.taskTemplateValidate[0];
       });
-      this.put(serviceUrl.putTaskTemplate({ replace: "true", team: ":teamId" }), (schema, request) => {
+      this.put(serviceUrl.putTaskTemplate({ replace: "true", team: ":team" }), (schema, request) => {
         return {};
       });
 
@@ -424,26 +424,26 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Approvers Group
        */
-      this.get(serviceUrl.resourceApproverGroups({ teamId: ":teamId" }), (schema) => {
+      this.get(serviceUrl.resourceApproverGroups({ team: ":team" }), (schema) => {
         return schema.db.approverGroups;
       });
 
       //Delete approver group
-      this.delete(serviceUrl.resourceApproverGroups({ teamId: ":teamId", groupId: ":groupId" }), (schema, request) => {
+      this.delete(serviceUrl.resourceApproverGroups({ team: ":team", groupId: ":groupId" }), (schema, request) => {
         const { groupId } = request.params;
         const approverGroup = schema.approverGroups.find(groupId);
         approverGroup.destroy();
       });
 
       //Create approver group
-      this.post(serviceUrl.resourceApproverGroups({ teamId: ":teamId" }), (schema, request) => {
+      this.post(serviceUrl.resourceApproverGroups({ team: ":team" }), (schema, request) => {
         const body = JSON.parse(request.requestBody);
         schema.approverGroups.create({ groupId: uuid(), ...body });
         return schema.approverGroups.all();
       });
 
       //Update approver group
-      this.put(serviceUrl.resourceApproverGroups({ teamId: ":teamId" }), (schema, request) => {
+      this.put(serviceUrl.resourceApproverGroups({ team: ":team" }), (schema, request) => {
         return {};
       });
 
@@ -455,12 +455,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return new Response(422, {}, { errors: ["Name is already taken"] });
       });
 
-      this.get(serviceUrl.resourceTeam({ teamId: ":teamId" }), (schema, request) => {
+      this.get(serviceUrl.resourceTeam({ team: ":team" }), (schema, request) => {
         // let { teamId } = request.params;
         return schema.db.team[0];
       });
 
-      this.patch(serviceUrl.resourceTeam({ teamId: ":teamId" }), (schema, request) => {
+      this.patch(serviceUrl.resourceTeam({ team: ":team" }), (schema, request) => {
         // let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
         // let activeTeam = schema.db.myTeams[0].content.find(t => t.id === teamId);
@@ -470,14 +470,14 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return team;
       });
 
-      this.put(serviceUrl.resourceTeam({ teamId: ":teamId" }), (schema, request) => {
+      this.put(serviceUrl.resourceTeam({ team: ":team" }), (schema, request) => {
         // let { teamId } = request.params;
         // let body = JSON.parse(request.requestBody);
         // let activeTeam = schema.db.myTeams[0].content.find(t => t.id === teamId);
         return schema.db.team[0];
       });
 
-      this.patch(serviceUrl.getManageTeamLabels({ teamId: ":teamId" }), (schema, request) => {
+      this.patch(serviceUrl.getManageTeamLabels({ team: ":team" }), (schema, request) => {
         // let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
         // let activeTeam = schema.db.myTeams[0].content.find(t => t.id === teamId);

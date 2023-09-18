@@ -38,7 +38,7 @@ const Members: React.FC<MemberProps> = ({ canEdit, team, user, teamDetailsUrl })
 
   const handleSubmit = async (request: Array<Member>) => {
     try {
-      await memberMutator.mutateAsync({ teamId: team.id, body: { members: request } });
+      await memberMutator.mutateAsync({ team: team.name, body: { members: request } });
       queryClient.invalidateQueries([teamDetailsUrl]);
       request.forEach((user: Member) => {
         return notify(
@@ -119,14 +119,14 @@ const Members: React.FC<MemberProps> = ({ canEdit, team, user, teamDetailsUrl })
                       className={styles.viewMemberLink}
                       to={{
                         pathname: appLink.user({ userId: member.id }),
-                        state: { fromTeam: { id: team.id, name: team.name } },
+                        state: { fromTeam: team.name },
                       }}
                     >
                       View user
                     </Link>
                   </StructuredListCell>
                   <StructuredListCell>
-                    {canEdit && <RemoveMember member={member} teamId={team.id} teamName={team.name} userId={user.id} />}
+                    {canEdit && <RemoveMember member={member} teamName={team.name} userId={user.id} />}
                   </StructuredListCell>
                 </StructuredListRow>
               );

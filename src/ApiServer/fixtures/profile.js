@@ -34,8 +34,8 @@ const profile = {
   projects: null,
   teams: [
       {
-          id: "61d67184c124cb2c190f4696",
-          name: "Tyson Team",
+          name: "tyson-team",
+          displayName: "Tyson Team",
           creationDate: "2023-07-20T06:31:56.322+00:00",
           status: "active",
           externalRef: null,
@@ -46,8 +46,8 @@ const profile = {
           }
       },
       {
-          id: "64b8d5a5040e205ee3383ab1",
-          name: "admin-flowabl-io Personal Team",
+          name: "admin-flowabl-io-personal-team",
+          displayName: "admin-flowabl-io Personal Team",
           creationDate: "2023-07-20T06:35:17.481+00:00",
           status: "active",
           externalRef: null,
@@ -58,8 +58,8 @@ const profile = {
           }
       },
       {
-          id: "64b8d63b040e205ee3383abd",
           name: "system",
+          displayName: "System and Administration",
           creationDate: "2023-07-20T06:37:47.889+00:00",
           status: "active",
           externalRef: null,

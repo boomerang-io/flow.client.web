@@ -8,12 +8,11 @@ import styles from "./RemoveMember.module.scss";
 
 interface RemoveMemberProps {
   member: FlowUser;
-  teamId: string;
   teamName: string;
   userId: string;
 }
 
-const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamId, teamName, userId }) => {
+const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamName, userId }) => {
   const queryClient = useQueryClient();
   const leaveTeamMutator = useMutation(resolver.deleteTeamMembers);
 
@@ -24,8 +23,8 @@ const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamId, teamName, u
       },
     ];
     try {
-      await leaveTeamMutator.mutateAsync({ id: teamId, body: leaveTeamData });
-      queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId }));
+      await leaveTeamMutator.mutateAsync({ team: teamName, body: leaveTeamData });
+      queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: teamName }));
       notify(
         <ToastNotification
           title="Remove User Requested"

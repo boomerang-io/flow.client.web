@@ -109,20 +109,20 @@ export function TaskTemplateYamlEditor({
         let body = { ...selectedTaskTemplate, version: newVersion, changelog: { reason: changeReason } };
         response = await applyTaskTemplateMutation.mutateAsync({
           replace: false,
-          team: params.teamId,
+          team: params.team,
           body,
         });
       } else if (requestType === TemplateRequestType.Overwrite) {
         response = await applyTaskTemplateYamlMutation.mutateAsync({
           replace: true,
-          team: params.teamId,
+          team: params.team,
           body: values.yaml,
         });
         queryClient.invalidateQueries([getTaskTemplateUrl, "yaml"]);
       } else {
         response = await applyTaskTemplateYamlMutation.mutateAsync({
           replace: false,
-          team: params.teamId,
+          team: params.team,
           body: values.yaml,
         });
         queryClient.invalidateQueries([getTaskTemplateUrl, "yaml"]);
@@ -140,9 +140,9 @@ export function TaskTemplateYamlEditor({
       );
       resetForm();
       history.push(
-        params.teamId
+        params.team
           ? appLink.manageTaskTemplateEdit({
-              teamId: params.teamId,
+              team: params.team,
               name: response.data.name,
               version: response.data.version,
             })

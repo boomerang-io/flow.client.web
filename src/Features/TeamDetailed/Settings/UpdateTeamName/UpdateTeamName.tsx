@@ -28,13 +28,13 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team }) => 
   const updateTeamName = async (values: { name: string }) => {
     try {
       await updateTeamMutator.mutateAsync({
-        teamId: team.id,
+        team: team.name,
         body: {
           name: kebabcase(values.name?.replace(`'`, "-")),
           displayName: values.name,
         },
       });
-      queryClient.invalidateQueries(serviceUrl.resourceTeam({ teamId: team.id }));
+      queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: team.name }));
       notify(
         <ToastNotification kind="success" title="Update Team Settings" subtitle="Team settings successfully updated" />
       );

@@ -21,7 +21,6 @@ import {
   ComposedModalChildProps,
   DataDrivenInput,
   DayOfWeekKey,
-  FlowTeam,
   ScheduleManagerFormInputs,
   ScheduleUnion,
   Workflow,

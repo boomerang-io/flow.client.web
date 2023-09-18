@@ -48,7 +48,7 @@ function Actions() {
   const match = useRouteMatch();
 
   const summaryQuery = queryString.stringify({
-    teams: team?.id,
+    teams: team?.name,
     fromDate: DEFAULT_FROM_DATE,
     toDate: DEFAULT_TO_DATE,
   });
@@ -95,7 +95,7 @@ function Actions() {
       limit,
       sort,
       statuses,
-      teams: team?.id,
+      teams: team?.name,
       type: actionType,
       workflows,
       fromDate,
@@ -106,7 +106,7 @@ function Actions() {
 
   const actionsUrlSummaryQuery = queryString.stringify(
     {
-      teams: team?.id,
+      teams: team?.name,
       workflows,
       fromDate,
       toDate,
@@ -134,7 +134,7 @@ function Actions() {
   });
 
   /** Retrieve Workflows */
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.id}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
   const {
     data: workflowsData,
     isLoading: workflowsIsLoading,
@@ -293,7 +293,7 @@ function Actions() {
                 exact
                 label={`Approvals (${approvalsNumber})`}
                 to={{
-                  pathname: appLink.actionsApprovals({ teamId: team.id }),
+                  pathname: appLink.actionsApprovals({ team: team.name }),
                   search: location.search,
                 }}
               />
@@ -301,7 +301,7 @@ function Actions() {
                 exact
                 label={`Manual (${manualTasksNumber})`}
                 to={{
-                  pathname: appLink.actionsManual({ teamId: team.id }),
+                  pathname: appLink.actionsManual({ team: team.name }),
                   search: location.search,
                 }}
               />
