@@ -172,7 +172,7 @@ function ApproverGroups({
   const totalItems = approverGroups?.length;
 
   return (
-    <section aria-label={`${team.name} Team Approvers`} className={styles.container}>
+    <section aria-label={`${team.displayName} Team Approvers`} className={styles.container}>
       <Helmet>
         <title>Team Approvers</title>
       </Helmet>

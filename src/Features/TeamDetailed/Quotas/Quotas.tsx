@@ -20,9 +20,9 @@ function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: bo
   const coverageBarStyle = { height: "1rem", width: "17.625rem" };
 
   return (
-    <section aria-label={`${team.name} Team Quotas`} className={styles.container}>
+    <section aria-label={`${team.displayName} Team Quotas`} className={styles.container}>
       <Helmet>
-        <title>{`Quotas - ${team.name}`}</title>
+        <title>{`Quotas - ${team.displayName}`}</title>
       </Helmet>
       {!canEdit ? (
         <section className={styles.notificationsContainer}>

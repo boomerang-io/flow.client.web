@@ -162,7 +162,7 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ team, searchQuery, wo
                 shouldCloseOnOverlayClick: true,
               }}
               modalHeaderProps={{
-                title: `Team quotas - ${team.name}`,
+                title: `Team quotas - ${team.displayName}`,
                 subtitle:
                   "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an admin.",
               }}

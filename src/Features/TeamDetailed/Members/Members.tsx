@@ -44,7 +44,7 @@ const Members: React.FC<MemberProps> = ({ canEdit, team, user, teamDetailsUrl })
         return notify(
           <ToastNotification
             title="Add User"
-            subtitle={`Request to add ${user.email} to ${team.name} submitted`}
+            subtitle={`Request to add ${user.email} to ${team.displayName} submitted`}
             kind="success"
           />
         );
@@ -56,9 +56,9 @@ const Members: React.FC<MemberProps> = ({ canEdit, team, user, teamDetailsUrl })
 
   const isAdmin = user?.type === "admin";
   return (
-    <section aria-label={`${team.name} Team Members`} className={styles.container}>
+    <section aria-label={`${team.displayName} Team Members`} className={styles.container}>
       <Helmet>
-        <title>{`Members - ${team.name}`}</title>
+        <title>{`Members - ${team.displayName}`}</title>
       </Helmet>
       <section className={styles.actionsContainer}>
         <div className={styles.leftActions}>

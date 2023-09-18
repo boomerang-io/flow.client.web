@@ -33,9 +33,9 @@ function Workflows({ team }: { team: FlowTeam }) {
   const filteredWorkflowsList = searchQuery ? ms(workflows, searchQuery, { keys: ["name", "description"] }) : workflows;
 
   return (
-    <section aria-label={`${team.name} Team Workflows`} className={styles.container}>
+    <section aria-label={`${team.displayName} Team Workflows`} className={styles.container}>
       <Helmet>
-        <title>{`Workflows - ${team.name}`}</title>
+        <title>{`Workflows - ${team.displayName}`}</title>
       </Helmet>
       <section className={styles.actionsContainer}>
         <div className={styles.leftActions}>

@@ -46,7 +46,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
           <Link to={appLink.home()}>Home</Link>
         </BreadcrumbItem>
         <BreadcrumbItem isCurrentPage>
-          <p>{team ? team.name : "---"}</p>
+          <p>{team ? team.displayName : "---"}</p>
         </BreadcrumbItem>
       </Breadcrumb>
     );

@@ -23,7 +23,9 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
   const handleLeaveTeam = async () => {
     try {
       await leaveTeamMutator.mutateAsync({ team: team.name });
-      notify(<ToastNotification kind="success" title={`Leave Team`} subtitle={`${team.name} successfully left`} />);
+      notify(
+        <ToastNotification kind="success" title={`Leave Team`} subtitle={`${team.displayName} successfully left`} />
+      );
       queryClient.invalidateQueries(serviceUrl.getUserProfile());
     } catch {
       notify(<ToastNotification kind="error" title="Something's Wrong" subtitle={`Request to leave team failed`} />);
@@ -128,7 +130,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
           }}
           title={`Leave Team`}
         >
-          {`Are you sure you want to leave Team (${team.name})? There's no going back from this decision.`}
+          {`Are you sure you want to leave Team (${team.displayName})? There's no going back from this decision.`}
         </ConfirmModal>
       )}
     </div>

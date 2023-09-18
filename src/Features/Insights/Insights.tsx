@@ -158,7 +158,7 @@ function InsightsContainer(props: { team: FlowTeam; children: React.ReactNode })
           <Link to={appLink.home()}>Home</Link>
         </BreadcrumbItem>
         <BreadcrumbItem isCurrentPage>
-          <p>{props.team.name}</p>
+          <p>{team.displayName}</p>
         </BreadcrumbItem>
       </Breadcrumb>
     );

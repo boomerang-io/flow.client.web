@@ -230,7 +230,7 @@ function Actions() {
             <Link to={appLink.home()}>Home</Link>
           </BreadcrumbItem>
           <BreadcrumbItem isCurrentPage>
-            <p>{team.name}</p>
+            <p>{team.displayName}</p>
           </BreadcrumbItem>
         </Breadcrumb>
       );

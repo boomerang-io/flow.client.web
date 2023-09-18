@@ -56,7 +56,7 @@ function UserTeams({ user, teams }: UserTeamsProps) {
           <StructuredListBody>
             {sortBy(filteredTeamsList, "name").map((team) => (
               <StructuredListRow key={team.name}>
-                <StructuredListCell>{team.name}</StructuredListCell>
+                <StructuredListCell>{team.displayName}</StructuredListCell>
                 <StructuredListCell>
                   <Link
                     className={styles.viewTeamLink}

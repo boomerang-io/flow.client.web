@@ -39,7 +39,11 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
       await patchTeamMutator.mutateAsync({ team: team.name, body: { isActive: false } });
       queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: team.name }));
       notify(
-        <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
+        <ToastNotification
+          title="Remove Team"
+          subtitle={`Request to close ${team.displayName} successful`}
+          kind="success"
+        />
       );
     } catch (error) {
       // noop
@@ -58,7 +62,11 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
       await patchTeamMutator.mutateAsync({ team: team.name, body: { labels: newLabelsRecord } });
       queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: team.name }));
       notify(
-        <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
+        <ToastNotification
+          title="Remove Team"
+          subtitle={`Request to close ${team.displayName} successful`}
+          kind="success"
+        />
       );
     } catch (error) {
       // noop
@@ -80,7 +88,11 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
       await patchTeamMutator.mutateAsync({ team: team.name, body: { labels: newLabelsRecord } });
       queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: team.name }));
       notify(
-        <ToastNotification title="Remove Team" subtitle={`Request to close ${team.name} successful`} kind="success" />
+        <ToastNotification
+          title="Remove Team"
+          subtitle={`Request to close ${team.displayName} successful`}
+          kind="success"
+        />
       );
     } catch (error) {
       // noop
@@ -94,7 +106,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
   return (
     <section aria-label="Team Settings" className={styles.settingsContainer}>
       <Helmet>
-        <title>{`Settings - ${team.name}`}</title>
+        <title>{`Settings - ${team.displayName}`}</title>
       </Helmet>
       {!canEdit ? (
         <section className={styles.notificationsContainer}>
@@ -146,7 +158,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
             </div>
             <div className={styles.detailedListGridItem}>
               <dt className={styles.detailedListTitle}>Unique Identifier Name</dt>
-              <dd className={styles.detailedListDescription}>{team.name}</dd>
+              <dd className={styles.detailedListDescription}>{team.displayName}</dd>
             </div>
           </div>
         </dl>
@@ -241,7 +253,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
           <ConfirmModal
             affirmativeAction={() => handleRemoveTeam()}
             affirmativeButtonProps={{ kind: "danger", "data-testid": "confirm-close-team" }}
-            title={`Close ${team.name}?`}
+            title={`Close ${team.displayName}?`}
             negativeText="Cancel"
             affirmativeText="Close"
             modalTrigger={({ openModal }: { openModal: () => void }) => (

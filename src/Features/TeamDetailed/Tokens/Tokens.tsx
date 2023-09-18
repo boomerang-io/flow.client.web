@@ -147,9 +147,9 @@ function Tokens({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
 
   return (
-    <section aria-label={`${team.name} Team Tokens`} className={styles.container}>
+    <section aria-label={`${team.displayName} Team Tokens`} className={styles.container}>
       <Helmet>
-        <title>{`Tokens - ${team.name}`}</title>
+        <title>{`Tokens - ${team.displayName}`}</title>
       </Helmet>
       <>
         {!canEdit ? (
