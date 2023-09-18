@@ -58,7 +58,7 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team }) => 
   return (
     <Formik
       initialValues={{
-        name: team.name,
+        name: team.displayName,
       }}
       onSubmit={updateTeamName}
       validationSchema={Yup.object().shape({

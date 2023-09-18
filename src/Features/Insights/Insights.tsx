@@ -149,8 +149,12 @@ export default function Insights() {
 
   return null;
 }
+interface InsightsContainerProps {
+  team: FlowTeam;
+  children: React.ReactNode;
+}
 
-function InsightsContainer(props: { team: FlowTeam; children: React.ReactNode }) {
+function InsightsContainer({ team, children }: InsightsContainerProps) {
   const NavigationComponent = () => {
     return (
       <Breadcrumb noTrailingSlash>
@@ -180,7 +184,7 @@ function InsightsContainer(props: { team: FlowTeam; children: React.ReactNode })
           </>
         }
       />
-      <div className={styles.container}>{props.children}</div>
+      <div className={styles.container}>{children}</div>
     </>
   );
 }

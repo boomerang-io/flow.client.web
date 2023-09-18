@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useMutation, useQueryClient } from "react-query";
 import { InlineNotification, Button } from "@carbon/react";
@@ -17,7 +17,8 @@ import {
   StructuredListCell,
   StructuredListBody,
 } from "@carbon/react";
-import { Edit, Close, TrashCan, Add } from "@carbon/react/icons";
+import { Edit, Close, TrashCan, Add, Copy } from "@carbon/react/icons";
+import CopyToClipboard from "react-copy-to-clipboard";
 import sortBy from "lodash/sortBy";
 import { FlowTeam } from "Types";
 import LabelModal from "Components/LabelModal";
@@ -30,6 +31,7 @@ interface Label {
 }
 
 export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
+  const [copyTokenText, setCopyTokenText] = useState("Copy");
   const queryClient = useQueryClient();
 
   const patchTeamMutator = useMutation(resolver.patchUpdateTeam);
@@ -158,7 +160,21 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
             </div>
             <div className={styles.detailedListGridItem}>
               <dt className={styles.detailedListTitle}>Unique Identifier Name</dt>
-              <dd className={styles.detailedListDescription}>{team.displayName}</dd>
+              <dd className={styles.detailedListDescription}>
+                {team.name}
+                <TooltipHover direction="top" content={copyTokenText} hideOnClick={false}>
+                  <button
+                    className={styles.copyButton}
+                    onClick={() => setCopyTokenText("Copied")}
+                    onMouseLeave={() => setCopyTokenText("Copy")}
+                    type="button"
+                  >
+                    <CopyToClipboard text={team.name}>
+                      <Copy fill={"#0072C3"} className={styles.actionIcon} alt="Copy" />
+                    </CopyToClipboard>
+                  </button>
+                </TooltipHover>
+              </dd>
             </div>
           </div>
         </dl>

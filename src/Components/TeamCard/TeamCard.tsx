@@ -65,7 +65,6 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
           <h1 title={team.displayName} className={styles.displayName} data-testid="workflow-card-title">
             {team.displayName}
           </h1>
-          <p className={styles.name}>{team.name}</p>
           {/* TODO - change name to display name and put the name slug underneath in small font */}
           <div className={styles.details}>
             <div className={styles.detailItem}>
