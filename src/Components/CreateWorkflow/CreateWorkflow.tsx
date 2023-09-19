@@ -35,13 +35,16 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
   const history = useHistory();
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
 
-  const createWorkflowMutator = useMutation(resolver.postCreateWorkflow({ team: team?.name }));
+  const createWorkflowMutator = useMutation(resolver.postCreateWorkflow);
   const createWorkflowRevisionMutator = useMutation(resolver.postCreateWorkflowRevision);
   const importWorkflowMutator = useMutation(resolver.postImportWorkflow);
 
   const handleCreateWorkflow = async (workflowSummary: CreateWorkflowSummary) => {
     try {
-      const { data: newWorkflow } = await createWorkflowMutator.mutateAsync({ body: workflowSummary });
+      const { data: newWorkflow } = await createWorkflowMutator.mutateAsync({
+        team: team?.name,
+        body: workflowSummary,
+      });
       const workflowId = newWorkflow.id;
       // const dagProps = createWorkflowRevisionBody(workflowDagEngine, `Create ${viewType}`);
       history.push(appLink.editorDesigner({ team: team?.name!, workflowId: workflowId }));
