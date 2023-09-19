@@ -7,7 +7,6 @@ import capitalize from "lodash/capitalize";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { Loading, TextArea, TextInput, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import workflowIcons from "Assets/workflowIcons";
-import { defaultWorkflowConfig } from "./constants";
 import { FlowTeam, CreateWorkflowSummary, WorkflowViewType } from "Types";
 import styles from "./createWorkflow.module.scss";
 
@@ -39,7 +38,6 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   const createWorkflowsDisabled = workflowQuotasEnabled && hasReachedWorkflowLimit;
 
   const handleSubmit = (values: any) => {
-    // ...defaultWorkflowConfig,
     const requestBody = {
       name: values.name,
       description: values.description,

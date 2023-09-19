@@ -58,7 +58,7 @@ export default function App() {
   const queryClient = useQueryClient();
   const teamName =
     location.pathname.endsWith("/home") ||
-    location.pathname.startsWith("/system") ||
+    location.pathname.startsWith("/admin") ||
     location.pathname.endsWith("/profile")
       ? null
       : location.pathname.split("/").filter(Boolean)[0];
@@ -262,7 +262,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           <Route path={"/profile"}>
             <UserProfile />
           </Route>
-          <Route path={"/system"}>
+          <Route path={"/admin"}>
             <Switch>
               <ProtectedRoute
                 allowedUserRoles={elevatedUserRoles}

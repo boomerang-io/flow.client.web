@@ -285,7 +285,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return summary;
       });
 
-      this.post(serviceUrl.postCreateWorkflow(), (schema, request) => {
+      this.post(serviceUrl.postCreateWorkflow({team: ":team"}), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let workflow = { ...body, id: uuid(), createdDate: Date.now(), revisionCount: 1, status: "active" };
         if (body.flowTeamId) {
@@ -345,13 +345,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.get(serviceUrl.getWorkflowTaskTemplates({ workflowId: ":workflowId" }), (schema, request) => {
         return schema.db.tasktemplate;
-      });
-
-      this.post(serviceUrl.postCreateWorkflowRevision({ workflowId: ":workflowId" }), (schema, request) => {
-        let body = JSON.parse(request.requestBody);
-        let { workflowId } = request.params;
-        let revision = { ...body, workFlowId: workflowId };
-        return schema.revisions.create(revision);
       });
 
       //Workflow Config Cron

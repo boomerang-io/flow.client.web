@@ -36,7 +36,6 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
 
   const createWorkflowMutator = useMutation(resolver.postCreateWorkflow);
-  const createWorkflowRevisionMutator = useMutation(resolver.postCreateWorkflowRevision);
   const importWorkflowMutator = useMutation(resolver.postImportWorkflow);
 
   const handleCreateWorkflow = async (workflowSummary: CreateWorkflowSummary) => {
@@ -46,7 +45,8 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
         body: workflowSummary,
       });
       const workflowId = newWorkflow.id;
-      // const dagProps = createWorkflowRevisionBody(workflowDagEngine, `Create ${viewType}`);
+      const dagProps = createWorkflowRevisionBody(workflowDagEngine, `Create ${viewType}`);
+      console.log(dagProps);
       history.push(appLink.editorDesigner({ team: team?.name!, workflowId: workflowId }));
       notify(
         <ToastNotification kind="success" title={`Create ${viewType}`} subtitle={`${viewType} successfully created`} />
@@ -90,8 +90,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
     }
   };
 
-  const isLoading =
-    createWorkflowMutator.isLoading || createWorkflowRevisionMutator.isLoading || importWorkflowMutator.isLoading;
+  const isLoading = createWorkflowMutator.isLoading || importWorkflowMutator.isLoading;
 
   return (
     <ComposedModal
@@ -128,7 +127,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       {({ closeModal }: ComposedModalChildProps) => (
         <CreateWorkflowContainer
           closeModal={closeModal}
-          createError={createWorkflowMutator.error || createWorkflowRevisionMutator.error}
+          createError={createWorkflowMutator.error}
           createWorkflow={handleCreateWorkflow}
           importWorkflowMutator={importWorkflowMutator.error}
           importWorkflow={handleImportWorkflow}
