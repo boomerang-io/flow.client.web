@@ -15,20 +15,4 @@ export const defaultWorkflowConfig = {
       topic: "",
     },
   },
-  enableACCIntegration: false,
-  storage: {
-    workflow: {
-      enabled: false,
-      size: 1,
-      mountPath: "",
-    },
-    activity: {
-      enabled: false,
-      size: 1,
-      mountPath: "",
-    },
-  },
-  enableIAMIntegration: false,
-  properties: [],
-  revisionCount: 0,
 };

@@ -111,40 +111,45 @@ export interface FormikSetFieldValue {
   (id: string, value: string | Array<string> | boolean | undefined): void;
 }
 
+// export interface CreateWorkflowSummary {
+//   description: string;
+//   storage: {
+//     activity: {
+//       enabled: boolean;
+//       size: number;
+//       mountPath: string;
+//     };
+//     workflow: {
+//       enabled: boolean;
+//       size: number;
+//       mountPath: string;
+//     };
+//   };
+//   icon: string;
+//   name: string;
+//   properties: Array<any>;
+//   triggers: {
+//     event: {
+//       enable: boolean;
+//       topic: string;
+//     };
+//     scheduler: {
+//       enable: boolean;
+//       schedule: string;
+//       timezone: string | boolean;
+//       advancedCron: boolean;
+//     };
+//     webhook: {
+//       enable: boolean;
+//       token: string;
+//     };
+//   };
+// }
+
 export interface CreateWorkflowSummary {
-  description: string;
-  storage: {
-    activity: {
-      enabled: boolean;
-      size: number;
-      mountPath: string;
-    };
-    workflow: {
-      enabled: boolean;
-      size: number;
-      mountPath: string;
-    };
-  };
-  icon: string;
   name: string;
-  revisionCount: number;
-  properties: Array<any>;
-  triggers: {
-    event: {
-      enable: boolean;
-      topic: string;
-    };
-    scheduler: {
-      enable: boolean;
-      schedule: string;
-      timezone: string | boolean;
-      advancedCron: boolean;
-    };
-    webhook: {
-      enable: boolean;
-      token: string;
-    };
-  };
+  description: string;
+  icon: string;
 }
 
 export interface Workflow {

@@ -39,9 +39,8 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   const createWorkflowsDisabled = workflowQuotasEnabled && hasReachedWorkflowLimit;
 
   const handleSubmit = (values: any) => {
+    // ...defaultWorkflowConfig,
     const requestBody = {
-      ...defaultWorkflowConfig,
-      flowTeamId: team.id,
       name: values.name,
       description: values.description,
       icon: values.icon,
@@ -55,7 +54,6 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
       initialErrors={{ name: "Name is required" }}
       initialValues={{
         name: "",
-        summary: "",
         description: "",
         icon: workflowIcons[2].name,
       }}
@@ -65,7 +63,6 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
           .required("Name is required")
           .max(64, "Name must not be greater than 64 characters")
           .notOneOf(existingWorkflowNames, "This name already exists"),
-        summary: Yup.string().max(128, "Summary must not be greater than 128 characters"),
         description: Yup.string().max(250, "Description must not be greater than 250 characters"),
       })}
     >
@@ -79,6 +76,8 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
               <TextInput
                 id="name"
                 labelText={`Name`}
+                placeholder="e.g. My Amazing Workflow"
+                helperText="Enter a unique name for your workflow"
                 value={values.name}
                 onBlur={handleBlur}
                 onChange={handleChange}

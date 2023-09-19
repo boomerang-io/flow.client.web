@@ -35,37 +35,15 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
   const history = useHistory();
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
 
-  const {
-    mutateAsync: createWorkflowMutator,
-    error: workflowError,
-    isLoading: workflowIsLoading,
-  } = useMutation(resolver.postCreateWorkflow);
-
-  const {
-    mutateAsync: createWorkflowRevisionMutator,
-    error: workflowRevisionError,
-    isLoading: workflowRevisionIsLoading,
-  } = useMutation(resolver.postCreateWorkflowRevision);
-
-  const {
-    mutateAsync: importWorkflowMutator,
-    error: importError,
-    isLoading: importIsLoading,
-  } = useMutation(resolver.postImportWorkflow);
+  const createWorkflowMutator = useMutation(resolver.postCreateWorkflow);
+  const createWorkflowRevisionMutator = useMutation(resolver.postCreateWorkflowRevision);
+  const importWorkflowMutator = useMutation(resolver.postImportWorkflow);
 
   const handleCreateWorkflow = async (workflowSummary: CreateWorkflowSummary) => {
     try {
-      const { data: newWorkflow } = await createWorkflowMutator({ body: workflowSummary });
+      const { data: newWorkflow } = await createWorkflowMutator.mutateAsync({ body: workflowSummary });
       const workflowId = newWorkflow.id;
-      const dagProps = createWorkflowRevisionBody(workflowDagEngine, `Create ${viewType}`);
-      const workflowRevision = {
-        ...dagProps,
-        workflowId,
-      };
-
-      await createWorkflowRevisionMutator({ workflowId, body: workflowRevision });
-
-      queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
+      // const dagProps = createWorkflowRevisionBody(workflowDagEngine, `Create ${viewType}`);
       history.push(appLink.editorDesigner({ team: team?.name!, workflowId: workflowId }));
       notify(
         <ToastNotification kind="success" title={`Create ${viewType}`} subtitle={`${viewType} successfully created`} />
@@ -90,7 +68,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       query = queryString.stringify({ update: false, team: team.name });
     } else query = queryString.stringify({ update: false });
     try {
-      await importWorkflowMutator({ query, body: workflowExport });
+      await importWorkflowMutator.mutateAsync({ query, body: workflowExport });
       notify(
         <ToastNotification kind="success" title={`Update ${viewType}`} subtitle={`${viewType} successfully updated`} />
       );
@@ -109,7 +87,8 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
     }
   };
 
-  const isLoading = workflowIsLoading || workflowRevisionIsLoading || importIsLoading;
+  const isLoading =
+    createWorkflowMutator.isLoading || createWorkflowRevisionMutator.isLoading || importWorkflowMutator.isLoading;
 
   return (
     <ComposedModal
@@ -146,9 +125,9 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       {({ closeModal }: ComposedModalChildProps) => (
         <CreateWorkflowContainer
           closeModal={closeModal}
-          createError={workflowError || workflowRevisionError}
+          createError={createWorkflowMutator.error || createWorkflowRevisionMutator.error}
           createWorkflow={handleCreateWorkflow}
-          importError={importError}
+          importWorkflowMutator={importWorkflowMutator.error}
           importWorkflow={handleImportWorkflow}
           isLoading={isLoading}
           team={team}
