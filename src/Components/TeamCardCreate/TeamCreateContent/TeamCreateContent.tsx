@@ -57,7 +57,7 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
         name: Yup.string()
           .required("Enter a team name")
           .max(100, "Enter team name that is at most 100 characters in length")
-          .test("isUnique", "Please try again, enter a team name that is not already taken", async (value) => {
+          .test("isUnique", "TAKEN", async (value) => {
             let isValid = true;
             if (value) {
               try {
@@ -89,7 +89,11 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
                     setFieldValue("name", value.target.value);
                   }}
                   invalid={Boolean(errors.name && !touched.name)}
-                  invalidText={errors.name}
+                  invalidText={
+                    errors.name === "TAKEN"
+                      ? `Please try again, the name '${values.name}' is unavailable.`
+                      : errors.name
+                  }
                 />
                 {createTeamMutator.error && (
                   <InlineNotification

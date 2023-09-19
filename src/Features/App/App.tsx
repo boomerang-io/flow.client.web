@@ -43,7 +43,7 @@ const Teams = lazy(() => import("Features/Teams"));
 const ManageTeam = lazy(() => import("Features/TeamDetailed"));
 const TeamParameters = lazy(() => import("Features/Parameters/TeamParameters"));
 const TeamTasks = lazy(() => import("Features/TaskManager/TeamTasks"));
-const AdminTasks = lazy(() => import("Features/TaskManager/AdminTasks"));
+const AdminTasks = lazy(() => import("Features/TaskManager/systemTasks"));
 // const TaskTemplatesContainer = lazy(() => import("Features/ManageTeamTasks"));
 const Users = lazy(() => import("Features/Users"));
 const UserProfile = lazy(() => import("Features/UserProfile"));
@@ -60,9 +60,9 @@ export default function App() {
   const location = useLocation();
   const queryClient = useQueryClient();
   const teamName =
-    location.pathname.startsWith("/home") ||
-    location.pathname.startsWith("/admin") ||
-    location.pathname.startsWith("/profile")
+    location.pathname.endsWith("/home") ||
+    location.pathname.startsWith("/system") ||
+    location.pathname.endsWith("/profile")
       ? null
       : location.pathname.split("/").filter(Boolean)[0];
   const query = teamName ? `?team=${teamName}` : "";
@@ -265,7 +265,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           <Route path={"/profile"}>
             <UserProfile />
           </Route>
-          <Route path={"/admin"}>
+          <Route path={"/system"}>
             <Switch>
               <ProtectedRoute
                 allowedUserRoles={elevatedUserRoles}

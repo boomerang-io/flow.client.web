@@ -15,7 +15,7 @@ const platformNavigation = {
     { name: "Catalog", url: "https://launch.boomerangplatform.net/catalog" },
     { name: "Status", url: "https://launch.boomerangplatform.net/status" },
     { name: "Docs", url: "https://launch.boomerangplatform.net/docs" },
-    { name: "Admin", url: "https://launch.boomerangplatform.net/admin" },
+    { name: "Admin", url: "https://launch.boomerangplatform.net/system" },
   ],
   featuredServices: [
     {
