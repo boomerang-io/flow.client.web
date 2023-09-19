@@ -20,9 +20,10 @@ const DEFAULT_PAGE = 0;
 const DEFAULT_LIMIT = 10;
 const DEFAULT_SORT = "creationDate";
 
-const DEFAULT_MAX_DATE = moment().format("MM/DD/YYYY");
-const DEFAULT_FROM_DATE = moment().subtract(3, "months").valueOf();
-const DEFAULT_TO_DATE = moment().endOf("day").valueOf();
+const NOW = moment();
+const DEFAULT_MAX_DATE = NOW.format("MM/DD/YYYY");
+const DEFAULT_FROM_DATE = NOW.subtract(3, "months").valueOf();
+const DEFAULT_TO_DATE = NOW.endOf("day").valueOf();
 
 function WorkflowActivity() {
   const { team } = useTeamContext();
@@ -131,24 +132,14 @@ function WorkflowActivity() {
 
   function handleSelectDate(dates) {
     let [fromDateObj, toDateObj] = dates;
-    const fromDate = moment(fromDateObj).unix();
-    const toDate = moment(toDateObj).unix();
+    if (!toDateObj) {
+      return;
+    }
+    const fromDate = moment(fromDateObj).startOf("day").valueOf();
+    const toDate = moment(toDateObj).endOf("day").valueOf();
     updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), fromDate, toDate, page: 0 });
     return;
   }
-
-  const handleCloseSelectDate = (dates) => {
-    let [fromDateObj, toDateObj] = dates;
-    const selectedFromDate = moment(fromDateObj).unix();
-    const selectedToDate = moment(toDateObj).unix();
-    updateHistorySearch({
-      ...queryString.parse(location.search, queryStringOptions),
-      fromDate: selectedFromDate === selectedToDate ? fromDate : selectedFromDate,
-      toDate: selectedToDate,
-      page: 0,
-    });
-    return;
-  };
 
   function getWorkflowFilter() {
     let workflowsList = [];
@@ -184,6 +175,16 @@ function WorkflowActivity() {
     const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
     const selectedTriggers = typeof triggers === "string" ? [triggers] : triggers;
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
+    const selectedFromDate = Array.isArray(fromDate)
+      ? Number.parseInt(fromDate[0])
+      : typeof fromDate === "string"
+      ? Number.parseInt(fromDate)
+      : DEFAULT_FROM_DATE;
+    const selectedToDate = Array.isArray(toDate)
+      ? Number.parseInt(toDate[0])
+      : typeof toDate === "string"
+      ? Number.parseInt(toDate)
+      : DEFAULT_TO_DATE;
 
     return (
       <div className={styles.container}>
@@ -262,21 +263,18 @@ function WorkflowActivity() {
                 datePickerType="range"
                 maxDate={DEFAULT_MAX_DATE}
                 onChange={handleSelectDate}
-                onClose={handleCloseSelectDate}
               >
                 <DatePickerInput
                   autoComplete="off"
                   id="activity-date-picker-start"
                   labelText="Start date"
-                  placeholder="mm/dd/yyyy"
-                  value={fromDate && moment.unix(fromDate).format("MM/DD/YYYY")}
+                  value={moment(selectedFromDate).format("MM/DD/YYYY")}
                 />
                 <DatePickerInput
                   autoComplete="off"
                   id="activity-date-picker-end"
                   labelText="End date"
-                  placeholder="mm/dd/yyyy"
-                  value={toDate && moment.unix(toDate).format("MM/DD/YYYY")}
+                  value={moment(selectedToDate).format("MM/DD/YYYY")}
                 />
               </DatePicker>
             </div>
