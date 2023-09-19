@@ -240,6 +240,11 @@ export const executionStatusList = [
   RunStatus.TimedOut,
 ];
 
+export const WorkspaceConfigType = {
+  Workflow: "workflow",
+  WorflowRun: "workflowrun",
+} as const;
+
 export const ActionType = {
   Approval: "approval",
   Manual: "manual",

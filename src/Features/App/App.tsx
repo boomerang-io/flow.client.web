@@ -269,25 +269,25 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             <Switch>
               <ProtectedRoute
                 allowedUserRoles={elevatedUserRoles}
-                component={() => <Settings />}
+                component={<Settings />}
                 path={AppPath.Settings}
                 userRole={platformRole}
               />
               <ProtectedRoute
                 allowedUserRoles={elevatedUserRoles}
-                component={() => <GlobalParameters />}
+                component={<GlobalParameters />}
                 path={AppPath.Properties}
                 userRole={platformRole}
               />
               <ProtectedRoute
                 allowedUserRoles={elevatedUserRoles}
-                component={() => <TemplateWorkflows />}
+                component={<TemplateWorkflows />}
                 path={AppPath.TemplateWorkflows}
                 userRole={platformRole}
               />
               <ProtectedRoute
                 allowedUserRoles={elevatedUserRoles}
-                component={() => <AdminTasks />}
+                component={<AdminTasks />}
                 path={AppPath.TaskTemplates}
                 userRole={platformRole}
               />

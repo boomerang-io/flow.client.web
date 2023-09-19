@@ -197,7 +197,6 @@ export interface Workflow {
   templateUpgradesAvailable: boolean;
   workspaces: Array<{
     name: string;
-    description?: string;
     type: string;
     optional: boolean;
     spec?: {
@@ -767,3 +766,45 @@ export type WorkflowEngineModeType = ObjectValuesToType<typeof WorkflowEngineMod
 export type WorkflowPropertyActionType = ObjectValuesToType<typeof WorkflowPropertyAction>;
 export type UserRoleType = ObjectValuesToType<typeof UserRole>;
 export type NodeTypeType = ObjectValuesToType<typeof NodeType>;
+
+export interface ConfigureWorkflowFormValues {
+  description: string;
+  storage: {
+    workflowrun: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+    workflow: {
+      enabled: boolean;
+      size: number;
+      mountPath: string;
+    };
+  };
+  icon: string;
+  name: string;
+  labels: Array<{ key: string; value: string }>;
+  triggers: {
+    manual: {
+      enable: boolean;
+    };
+    custom: {
+      enable: boolean;
+      topic: string;
+    };
+    scheduler: {
+      enable: boolean;
+      schedule: string;
+      timezone: string | boolean;
+      advancedCron: boolean;
+    };
+    webhook: {
+      enable: boolean;
+      token: string;
+    };
+  };
+  tokens: Array<{
+    token: string;
+    label: string;
+  }>;
+}

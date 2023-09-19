@@ -13,18 +13,11 @@ import queryString from "query-string";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import type { SlotInfo } from "react-big-calendar";
-import type {
-  CalendarDateRange,
-  CalendarEvent,
-  CalendarEntry,
-  ScheduleDate,
-  ScheduleUnion,
-  WorkflowSummary,
-} from "Types";
+import type { CalendarDateRange, CalendarEvent, CalendarEntry, ScheduleDate, ScheduleUnion, Workflow } from "Types";
 import styles from "./Schedule.module.scss";
 
 interface ScheduleProps {
-  summaryData: WorkflowSummary;
+  workflow: Workflow;
 }
 
 export default function ScheduleView(props: ScheduleProps) {
@@ -41,7 +34,7 @@ export default function ScheduleView(props: ScheduleProps) {
    * A schedule is an object that defines the events
    */
 
-  const workflowScheduleUrl = serviceUrl.getWorkflowSchedules({ workflowId: props.summaryData.id });
+  const workflowScheduleUrl = serviceUrl.getWorkflowSchedules({ workflowId: props.workflow.id });
 
   const workflowSchedulesQuery = useQuery<Array<ScheduleUnion>, string>({
     queryKey: workflowScheduleUrl,
@@ -62,7 +55,7 @@ export default function ScheduleView(props: ScheduleProps) {
   );
 
   const workflowCalendarUrl = serviceUrl.getWorkflowSchedulesCalendar({
-    workflowId: props.summaryData.id,
+    workflowId: props.workflow.id,
     query: workflowCalendarUrlQuery,
   });
 
@@ -128,7 +121,7 @@ export default function ScheduleView(props: ScheduleProps) {
         isModalOpen={isCreatorOpen}
         onCloseModal={() => setIsCreatorOpen(false)}
         schedule={newSchedule}
-        workflow={props.summaryData}
+        workflow={props.workflow}
       />
       <ScheduleEditor
         getCalendarUrl={workflowCalendarUrl}
@@ -136,7 +129,7 @@ export default function ScheduleView(props: ScheduleProps) {
         isModalOpen={isEditorOpen}
         onCloseModal={() => setIsEditorOpen(false)}
         schedule={activeSchedule}
-        workflow={props.summaryData}
+        workflow={props.workflow}
       />
     </>
   );

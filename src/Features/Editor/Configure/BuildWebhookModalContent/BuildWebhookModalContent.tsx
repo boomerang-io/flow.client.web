@@ -4,51 +4,8 @@ import { CodeSnippet, Dropdown, ModalBody } from "@carbon/react";
 import { ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import copy from "copy-to-clipboard";
 import { PRODUCT_SERVICE_ENV_URL } from "Config/servicesConfig";
+import { ConfigureWorkflowFormValues } from "Types";
 import styles from "./BuildWebhookModalContent.module.scss";
-
-interface FormProps {
-  description: string;
-  enableACCIntegration: boolean;
-  storage: {
-    activity: {
-      enabled: boolean;
-      size: number;
-      mountPath: string;
-    };
-    workflow: {
-      enabled: boolean;
-      size: number;
-      mountPath: string;
-    };
-  };
-  icon: string;
-  name: string;
-  triggers: {
-    manual: {
-      enable: boolean;
-    };
-    custom: {
-      enable: boolean;
-      topic: string;
-    };
-    scheduler: {
-      enable: boolean;
-      schedule: string;
-      timezone: string | boolean;
-      advancedCron: boolean;
-    };
-    webhook: {
-      enable: boolean;
-      token: string;
-    };
-  };
-  tokens: Array<
-    {
-      token: string;
-      label: string;
-    }
-  >
-}
 
 const webhookOptions = [
   {
@@ -63,7 +20,7 @@ const webhookOptions = [
 ];
 
 interface BuildWebhookModalContentProps {
-  values: FormProps;
+  values: ConfigureWorkflowFormValues;
   closeModal: Function;
   workflowId: string;
 }
@@ -72,8 +29,9 @@ const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ wor
   const [activeToken, setactiveToken] = useState(values.tokens.length > 0 ? values.tokens[0] : null);
   const [activeType, setActiveType] = useState({ label: "generic" });
 
-  const webhookURL = `${PRODUCT_SERVICE_ENV_URL}/listener/webhook?workflowId=${workflowId}&type=${activeType.label
-    }&access_token=${encodeURI(activeToken?.token)}`;
+  const webhookURL = `${PRODUCT_SERVICE_ENV_URL}/listener/webhook?workflowId=${workflowId}&type=${
+    activeType.label
+  }&access_token=${encodeURI(activeToken?.token)}`;
 
   const handleChangeToken = (token) => {
     const tokenlabel = token.selectedItem?.label;

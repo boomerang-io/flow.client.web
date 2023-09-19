@@ -17,14 +17,15 @@ import queryString from "query-string";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { groupTaskTemplatesByName } from "Utils";
-import { WorkflowEngineMode } from "Constants";
+import { WorkflowEngineMode, WorkspaceConfigType } from "Constants";
 import {
   ChangeLog as ChangeLogType,
+  ConfigureWorkflowFormValues,
+  DataDrivenInput,
   PaginatedWorkflowResponse,
   TaskTemplate,
   WorkflowView,
-  WorkflowCanvas,
-  DataDrivenInput,
+  Workflow,
 } from "Types";
 import { FormikProps } from "formik";
 import type { ReactFlowInstance } from "reactflow";
@@ -57,7 +58,7 @@ export default function EditorContainer() {
    * Queries
    */
   const changeLogQuery = useQuery<ChangeLogType>(getChangelogUrl);
-  const workflowQuery = useQuery<WorkflowCanvas>(getWorkflowUrl);
+  const workflowQuery = useQuery<Workflow>(getWorkflowUrl);
   const workflowsQuery = useQuery<PaginatedWorkflowResponse>(getWorkflowsUrl);
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
   const taskTemplatesTeamQuery = useQuery(getTaskTemplatesTeamUrl);
@@ -135,7 +136,7 @@ interface EditorStateContainerProps {
   changeLogData: ChangeLogType;
   revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
   parametersMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-  workflowQueryData: WorkflowCanvas;
+  workflowQueryData: Workflow;
   workflowsQueryData: PaginatedWorkflowResponse;
   setRevisionNumber: (revisionNumber: string) => void;
   taskTemplatesList: Array<TaskTemplate>;
@@ -174,15 +175,17 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   const handleCreateRevision = async ({ reason = "Update workflow", callback }: any) => {
     const configureValues = settingsRef?.current?.values ?? {};
+    const formattedConfigureValue = formatConfigureValues(configureValues);
+
     if (workflow) {
-      const workFlowstate = workflow.toObject();
+      const workfowDagObject = workflow.toObject();
       const revision = {
         ...revisionState,
-        ...workFlowstate,
-        ...configureValues,
+        ...workfowDagObject,
+        ...formattedConfigureValue,
         changelog: { reason },
       };
-      console.log({ revision });
+      console.log({ configureValues });
 
       try {
         const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
@@ -210,6 +213,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
    */
   const updateSummary = useCallback(
     async ({ values: formikValues }) => {
+      console.log(formikValues);
       const updatedWorkflow = { ...workflowQueryData, ...formikValues };
 
       try {
@@ -321,7 +325,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
               <Parameters workflow={revisionState} handleUpdateParams={handleUpdateParams} />
             </Route>
             <Route path={AppPath.EditorSchedule}>
-              <Schedule summaryData={revisionState} />
+              <Schedule workflow={revisionState} />
             </Route>
             <Route path={AppPath.EditorChangelog}>
               <ChangeLog changeLogData={changeLogData} />
@@ -330,16 +334,51 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           {
             // Always render parent Configure component so state isn't lost when switching tabs
             // It is responsible for rendering its children, but Formik form management is always mounted
-            <Configure
-              quotas={quotas}
-              summaryData={revisionState}
-              summaryMutation={revisionMutator}
-              updateSummary={updateSummary}
-              settingsRef={settingsRef}
-            />
+            <Configure quotas={quotas} workflow={revisionState} settingsRef={settingsRef} />
           }
         </div>
       </>
     </EditorContextProvider>
   );
 };
+
+function formatConfigureValues(configureValues: ConfigureWorkflowFormValues): Partial<Workflow> {
+  const optionalConfigureValues: Partial<ConfigureWorkflowFormValues> = configureValues;
+
+  // Format labels
+  const labelsKVObject = configureValues.labels.reduce((accum, current) => {
+    accum[current.key] = current.value;
+    return accum;
+  }, {} as Record<string, string>);
+
+  // Format workspaces
+  const workflowStorageConfig = configureValues.storage.workflow.enabled
+    ? {
+        name: WorkspaceConfigType.Workflow,
+        type: WorkspaceConfigType.Workflow,
+        optional: false,
+        spec: { size: configureValues.storage.workflow.size, mountPath: configureValues.storage.workflow.mountPath },
+      }
+    : null;
+
+  const workflowRunStorageConfig = configureValues.storage.workflowrun.enabled
+    ? {
+        name: WorkspaceConfigType.WorflowRun,
+        type: WorkspaceConfigType.WorflowRun,
+        optional: false,
+        spec: { size: configureValues.storage.workflow.size, mountPath: configureValues.storage.workflow.mountPath },
+      }
+    : null;
+
+  const workspaces = [workflowStorageConfig, workflowRunStorageConfig].filter(Boolean) as Workflow["workspaces"];
+
+  delete optionalConfigureValues["storage"];
+
+  const formattedWorkflowConfig: Partial<Workflow> = {
+    ...optionalConfigureValues,
+    workspaces,
+    labels: labelsKVObject,
+  };
+
+  return formattedWorkflowConfig;
+}

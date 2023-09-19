@@ -14,131 +14,80 @@ import ConfigureStorage from "./ConfigureStorage";
 import CreateToken from "./CreateToken";
 import CustomLabel from "./CustomLabel";
 import Token from "./Token";
-
 import { appLink, BASE_DOCUMENTATION_URL, FeatureFlag } from "Config/appConfig";
-import { QueryStatus } from "Constants";
 import workflowIcons from "Assets/workflowIcons";
+import { WorkspaceConfigType } from "Constants";
+import { Workflow, ConfigureWorkflowFormValues } from "Types";
 import styles from "./configure.module.scss";
-
-interface FormProps {
-  description: string;
-  enableACCIntegration: boolean;
-  storage: {
-    activity: {
-      enabled: boolean;
-      size: number;
-      mountPath: string;
-    };
-    workflow: {
-      enabled: boolean;
-      size: number;
-      mountPath: string;
-    };
-  };
-  icon: string;
-  name: string;
-  labels: Array<{ key: string; value: string }>;
-  triggers: {
-    manual: {
-      enable: boolean;
-    };
-    custom: {
-      enable: boolean;
-      topic: string;
-    };
-    scheduler: {
-      enable: boolean;
-      schedule: string;
-      timezone: string | boolean;
-      advancedCron: boolean;
-    };
-    webhook: {
-      enable: boolean;
-      token: string;
-    };
-  };
-  tokens: Array<{
-    token: string;
-    label: string;
-  }>;
-}
 
 interface ConfigureContainerProps {
   quotas: {
     maxActivityStorageSize: string;
     maxWorkflowStorageSize: string;
   };
-  summaryData: WorkflowSummary;
-  summaryMutation: { status: string };
-  updateSummary: ({ values }: { values: object }) => void;
+  workflow: Workflow;
   settingsRef: React.MutableRefObject<FormikProps<any> | null>;
 }
 
-function ConfigureContainer({
-  quotas,
-  summaryData,
-  summaryMutation,
-  updateSummary,
-  settingsRef,
-}: ConfigureContainerProps) {
+function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContainerProps) {
   const params = useParams<{ team: string; workflowId: string }>();
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
 
-  const handleOnSubmit = (values: any) => {
-    updateSummary({
-      values,
-    });
-  };
   const location = useLocation();
   const isOnConfigurePath =
     appLink.editorConfigure({ team: params.team, workflowId: params.workflowId }) === location.pathname;
 
+  // Find the specific workspace configs we want that are used for storage storage
+  const workflowStorageConfig = workflow.workspaces?.find(
+    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.Workflow
+  );
+  const workflowRunStorageConfig = workflow.workspaces?.find(
+    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.WorflowRun
+  );
+
   return (
     <>
       <Helmet>
-        <title>{`Configure - ${summaryData.name}`}</title>
+        <title>{`Configure - ${workflow.name}`}</title>
       </Helmet>
-      <Formik
+      <Formik<ConfigureWorkflowFormValues>
         innerRef={settingsRef}
         enableReinitialize
-        onSubmit={(values: any) => {
-          handleOnSubmit(values);
-        }}
+        onSubmit={() => void 0}
         initialValues={{
-          description: summaryData.description ?? "",
-          enableACCIntegration: summaryData.enableACCIntegration ?? false,
+          description: workflow.description ?? "",
           storage: {
             workflow: {
-              enabled: summaryData.storage?.workflow?.enabled ?? false,
-              size: summaryData.storage?.workflow?.size ?? 1,
-              mountPath: summaryData.storage?.workflow?.mountPath ?? "",
+              enabled: Boolean(workflowStorageConfig),
+              size: workflowStorageConfig?.spec?.size ?? 1,
+              mountPath: workflowStorageConfig?.spec?.mountPath ?? "",
             },
-            activity: {
-              enabled: summaryData.storage?.activity?.enabled ?? false,
-              size: summaryData.storage?.activity?.size ?? 1,
-              mountPath: summaryData.storage?.activity?.mountPath ?? "",
+            workflowrun: {
+              enabled: Boolean(workflowRunStorageConfig),
+              size: workflowRunStorageConfig?.spec?.size ?? 1,
+              mountPath: workflowRunStorageConfig?.spec?.mountPath ?? "",
             },
           },
-          icon: summaryData.icon ?? "",
-          name: summaryData.name ?? "",
-          labels: summaryData.labels ? summaryData.labels : [],
+          icon: workflow.icon ?? "",
+          name: workflow.name ?? "",
+          labels: workflow.labels ? Object.entries(workflow.labels).map(([key, value]) => ({ key, value })) : [],
           triggers: {
             manual: {
-              enable: summaryData.triggers?.manual?.enable ?? true,
+              enable: workflow.triggers?.manual?.enable ?? true,
             },
             custom: {
-              enable: summaryData.triggers?.custom?.enable ?? false,
-              topic: summaryData.triggers?.custom?.topic ?? "",
+              enable: workflow.triggers?.custom?.enable ?? false,
+              topic: workflow.triggers?.custom?.topic ?? "",
             },
             scheduler: {
-              enable: summaryData.triggers?.scheduler?.enable ?? false,
+              enable: workflow.triggers?.scheduler?.enable ?? false,
             },
             webhook: {
-              enable: summaryData.triggers?.webhook?.enable ?? false,
-              token: summaryData.triggers?.webhook?.token ?? "",
+              enable: workflow.triggers?.webhook?.enable ?? false,
+              token: workflow.triggers?.webhook?.token ?? "",
             },
           },
-          tokens: summaryData?.tokens ?? [],
+          tokens: workflow?.tokens ?? [],
         }}
         validationSchema={Yup.object().shape({
           description: Yup.string().max(250, "Description must not be greater than 250 characters"),
@@ -178,15 +127,13 @@ function ConfigureContainer({
           }),
         })}
       >
-        {(formikProps: any) =>
+        {(formikProps) =>
           isOnConfigurePath ? (
             <Configure
               workflowTriggersEnabled={workflowTriggersEnabled as boolean}
               formikProps={formikProps}
               quotas={quotas}
-              summaryData={summaryData}
-              summaryMutation={summaryMutation}
-              updateSummary={updateSummary}
+              workflow={workflow}
             />
           ) : null
         }
@@ -199,16 +146,12 @@ export default ConfigureContainer;
 
 interface ConfigureProps {
   workflowTriggersEnabled: boolean;
-  formikProps: FormikProps<FormProps>;
+  formikProps: FormikProps<ConfigureWorkflowFormValues>;
   quotas: {
     maxActivityStorageSize: string;
     maxWorkflowStorageSize: string;
   };
-  summaryData: WorkflowSummary;
-  summaryMutation: {
-    status: string;
-  };
-  updateSummary: ({ values, callback }: { values: object; callback: () => void }) => void;
+  workflow: Workflow;
 }
 
 interface ConfigureState {
@@ -244,10 +187,8 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
   render() {
     const {
       quotas,
-      summaryMutation,
-      formikProps: { dirty, errors, handleBlur, handleSubmit, touched, values, setFieldValue },
+      formikProps: { errors, handleBlur, touched, values, setFieldValue },
     } = this.props;
-    const isLoading = summaryMutation.status === QueryStatus.Loading;
 
     return (
       <div aria-label="Configure" className={styles.wrapper} role="region">
@@ -404,7 +345,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                         <BuildWebhookModalContent
                           values={values}
                           closeModal={closeModal}
-                          workflowId={this.props.summaryData.id}
+                          workflowId={this.props.workflow.id}
                         />
                       )}
                     </ComposedModal>
@@ -447,14 +388,14 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                     token={token}
                     tokenData={values.tokens}
                     formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
-                    workflowId={this.props.summaryData.id}
+                    workflowId={this.props.workflow.id}
                   />
                 ))}
               </div>
               <CreateToken
                 tokenData={values.tokens}
                 formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
-                workflowId={this.props.summaryData.id}
+                workflowId={this.props.workflow.id}
               />
             </div>
           </section>
@@ -533,14 +474,14 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 <Toggle
                   id="enableActivityPersistentStorage"
                   label="Enable Activity Persistent Storage"
-                  toggled={values.storage.activity.enabled}
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.activity.enabled")}
+                  toggled={values.storage.workflowrun.enabled}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflowrun.enabled")}
                   tooltipContent="Persist workflow data per executions"
                   tooltipProps={{ direction: "top" }}
                   reversed
                 />
               </div>
-              {values.storage.activity.enabled && (
+              {values.storage.workflowrun.enabled && (
                 <div className={styles.webhookContainer}>
                   <ComposedModal
                     modalHeaderProps={{
@@ -566,8 +507,8 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   >
                     {({ closeModal }: { closeModal: () => void }) => (
                       <ConfigureStorage
-                        size={values.storage.activity.size}
-                        mountPath={values.storage.activity.mountPath}
+                        size={values.storage.workflowrun.size}
+                        mountPath={values.storage.workflowrun.mountPath}
                         handleOnChange={(storageValues: any) => {
                           setFieldValue("storage.activity", storageValues);
                         }}

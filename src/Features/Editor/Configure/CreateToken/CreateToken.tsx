@@ -13,16 +13,12 @@ import {
   TextInput,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl } from "Config/servicesConfig";
+import { ConfigureWorkflowFormValues } from "Types";
 
 import styles from "./CreateToken.module.scss";
 
 interface CreateTokenProps {
-  tokenData: Array<
-    {
-      token: string;
-      label: string;
-    }
-  >,
+  tokenData: ConfigureWorkflowFormValues["tokens"];
   formikPropsSetFieldValue: Function;
   workflowId: string;
 }
@@ -62,12 +58,7 @@ const CreateToken: React.FC<CreateTokenProps> = ({ tokenData, formikPropsSetFiel
 export default CreateToken;
 
 interface CreateTokenModalContentProps {
-  tokenData: [
-    {
-      token: string;
-      label: string;
-    }
-  ];
+  tokenData: CreateTokenProps["tokenData"];
   takenTokenLabels: Array<string>;
   closeModal: Function;
   formikPropsSetFieldValue: Function;

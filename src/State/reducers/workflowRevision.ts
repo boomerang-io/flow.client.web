@@ -1,4 +1,4 @@
-import { WorkflowCanvas, WorkflowCanvasState } from "Types";
+import { Workflow, WorkflowCanvasState } from "Types";
 
 //@ts-nocheck
 export const RevisionActionTypes = {
@@ -49,6 +49,6 @@ export function revisionReducer(state: WorkflowCanvasState, action: { data: any;
   }
 }
 
-export function initRevisionReducerState(workflow: WorkflowCanvas): WorkflowCanvasState {
+export function initRevisionReducerState(workflow: Workflow): WorkflowCanvasState {
   return { ...workflow, hasUnsavedUpdates: false };
 }

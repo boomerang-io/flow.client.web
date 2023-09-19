@@ -13,7 +13,6 @@ const props = {
   history: {},
   params: { workflowId: "5eb2c4085a92d80001a16d87" },
   summaryData: summaries[0],
-  summaryMutation: {},
   teams,
   updateSummary: mockfn,
 };
