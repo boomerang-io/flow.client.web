@@ -35,7 +35,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
   const history = useHistory();
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
 
-  const createWorkflowMutator = useMutation(resolver.postCreateWorkflow);
+  const createWorkflowMutator = useMutation(resolver.postCreateWorkflow({ team: team?.name }));
   const createWorkflowRevisionMutator = useMutation(resolver.postCreateWorkflowRevision);
   const importWorkflowMutator = useMutation(resolver.postImportWorkflow);
 

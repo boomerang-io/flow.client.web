@@ -107,7 +107,7 @@ export const serviceUrl = {
   patchUpdateWorkflowProperties: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/properties`,
   patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
   putSchedule: () => `${BASE_URL}/schedules`,
-  postCreateWorkflow: () => `${BASE_URL}/workflow`,
+  postCreateWorkflow: ({ team }: TeamArg) => `${BASE_URL}/workflow?team=${team}`,
   postCreateWorkflowRevision: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/compose`,
   postCreateWorkflowToken: ({ workflowId, label }: WorkflowIdArg & { label: string }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
   postDuplicateWorkflow: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/duplicate`,
@@ -192,7 +192,7 @@ export const resolver = {
       method: HttpMethod.Post,
     }),
   postCreateTemplate: ({ body }) => axios.post(serviceUrl.getWorkflowTemplates(), body),
-  postCreateWorkflow: ({ body }) => axios.post(serviceUrl.postCreateWorkflow(), body),
+  postCreateWorkflow: ({ team, body }) => axios.post(serviceUrl.postCreateWorkflow({ team }), body),
   postCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.post(serviceUrl.postCreateWorkflowRevisut({ workflowId }), body),
   postDuplicateWorkflow: ({ workflowId }) => axios.post(serviceUrl.postDuplicateWorkflow({ workflowId })),
