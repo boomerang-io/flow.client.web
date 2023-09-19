@@ -297,12 +297,19 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 path={AppPath.Tokens}
                 userRole={platformRole}
               />
-              <Route path={AppPath.TeamList}>
-                <Teams />
-              </Route>
-              <Route path={AppPath.UserList}>
-                <Users />
-              </Route>
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={<Teams />}
+                path={AppPath.TeamList}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={elevatedUserRoles}
+                component={<Users />}
+                path={AppPath.UserList}
+                userRole={platformRole}
+              />
+              <Redirect exact from="/" to={AppPath.Settings} />
             </Switch>
           </Route>
           <Route path={"/:team"}>
