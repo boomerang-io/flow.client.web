@@ -359,7 +359,7 @@ export function TaskTemplateOverview({
   const handleArchiveTaskTemplate = async () => {
     try {
       selectedTaskTemplate.status = "inactive";
-      await applyTaskTemplateMutation.mutateAsync({ replace: "false", team: params.team, body: selectedTaskTemplate });
+      await applyTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
@@ -386,7 +386,7 @@ export function TaskTemplateOverview({
   const handleRestoreTaskTemplate = async () => {
     try {
       selectedTaskTemplate.status = "active";
-      await applyTaskTemplateMutation.mutateAsync({ replace: "false", team: params.team, body: selectedTaskTemplate });
+      await applyTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
