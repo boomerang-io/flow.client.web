@@ -17,8 +17,9 @@ interface AddTaskTemplateProps {
   team?: FlowTeam;
 }
 
-function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: AddTaskTemplateProps) {
+function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team }: AddTaskTemplateProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isSubmitError, setIsSubmitError] = React.useState(false);
   const queryClient = useQueryClient();
 
   const createTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
@@ -26,7 +27,9 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
   const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
     setIsSubmitting(true);
     try {
+      console.log(body);
       let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team.name, body });
+      console.log(response);
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
         <ToastNotification
@@ -50,7 +53,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
       );
       closeModal();
     } catch (err) {
-      // no-op
+      setIsSubmitError(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -76,7 +79,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
         <AddTaskTemplateForm
           handleAddTaskTemplate={handleAddTaskTemplate}
           isSubmitting={isSubmitting}
-          createError={createTaskTemplateMutation.error}
+          createError={createTaskTemplateMutation.error || isSubmitError}
           taskTemplateNames={taskTemplateNames}
           closeModal={closeModal}
         />

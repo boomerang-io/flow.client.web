@@ -13,7 +13,6 @@ import {
   ModalFooter,
 } from "@carbon/react";
 import { Creatable, Loading, ModalFlowForm, TextInput, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
-import { useParams } from "react-router-dom";
 import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utils/taskIcons";
@@ -116,6 +115,7 @@ function AddTaskTemplateForm({
     };
     await handleAddTaskTemplate({ replace: "false", body, closeModal });
   };
+
   const getTemplateData = async ({ file, setFieldValue, setFieldTouched }) => {
     try {
       const yamlData = await readFile(file);

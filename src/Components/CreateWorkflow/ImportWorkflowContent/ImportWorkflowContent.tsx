@@ -28,9 +28,9 @@ function checkIsValidWorkflow(data: any) {
     }
   });
   //Validate if workflow has the latest structure for dag
-  if (!data.latestRevision?.dag?.tasks) {
-    isValid = false;
-  }
+  // if (!data.latestRevision?.dag?.tasks) {
+  //   isValid = false;
+  // }
   return isValid;
 }
 
@@ -45,7 +45,7 @@ interface ImportWorkflowContentProps {
 }
 
 interface FormProps {
-  team: FlowTeam;
+  team?: FlowTeam;
   name: string;
   summary: string;
   file: WorkflowExport | undefined;
