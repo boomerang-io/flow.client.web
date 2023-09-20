@@ -58,7 +58,7 @@ export default function App() {
   const queryClient = useQueryClient();
   const teamName =
     location.pathname.endsWith("/home") ||
-    location.pathname.startsWith("/admin") ||
+    location.pathname.startsWith("/admin/") ||
     location.pathname.endsWith("/profile")
       ? null
       : location.pathname.split("/").filter(Boolean)[0];

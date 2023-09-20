@@ -98,7 +98,6 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
       {
         ...fileData,
         name: values.name,
-        flowTeamId: team.id,
       },
       closeModal,
       values.selectedTeam
@@ -109,7 +108,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
     <Formik
       initialValues={{
         name: "",
-        summary: "",
+        description: "",
         file: undefined,
       }}
       validateOnMount
@@ -122,7 +121,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
             existingWorkflowNames,
             `There’s already a ${type} with that name in this team, consider giving this one a different name.`
           ),
-        summary: Yup.string().max(128, "Summary must not be greater than 128 characters"),
+        description: Yup.string().max(250, "Description must not be greater than 250 characters"),
         file: Yup.mixed()
           .test(
             "fileSize",
