@@ -396,7 +396,7 @@ function AddTaskTemplateForm({
                   lowContrast
                   kind="error"
                   title="Failed Creating Task Template"
-                  subtitle={`Unable to create the task template. ${sentenceCase(err.message)}. Please contact support.`}
+                  subtitle={`Unable to create the task template. ${sentenceCase(createError)}. Please contact support.`}
                 />
               )}
             </ModalBody>
