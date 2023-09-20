@@ -1,6 +1,5 @@
 //@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import { Formik } from "formik";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
@@ -18,6 +17,7 @@ import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utils/taskIcons";
 import { requiredTaskProps } from "./constants";
 import { resolver } from "Config/servicesConfig";
+import { sentenceCase } from "change-case";
 import styles from "./addTaskTemplateForm.module.scss";
 
 interface AddTaskTemplateFormProps {
