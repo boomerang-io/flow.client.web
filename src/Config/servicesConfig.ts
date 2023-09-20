@@ -122,7 +122,6 @@ export const serviceUrl = {
   putTaskTemplateYaml: ({ replace, team }) =>
     `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
   putTaskTemplate: ({ replace, team }) => `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
-  putStatusTaskTemplate: ({ name, status }) => `${BASE_URL}/tasktemplate/${name}/${status}`,
   postTeamQuotasReset: ({ team }: TeamArg) => `${BASE_URL}/teams/${team}/quotas/reset`,
   resourceTeam: ({ team }: TeamArg) => `${BASE_URL}/team/${team}`,
   putWorkflowAction: () => `${BASE_URL}/action/action`,
@@ -204,7 +203,6 @@ export const resolver = {
       method: HttpMethod.Put,
       headers: { "content-type": "application/x-yaml" },
     }),
-  putStatusTaskTemplate: ({ name, status }) => axios.put(serviceUrl.putStatusTaskTemplate({ name, status })),
   postCreateTeam: ({ body }) =>
     axios({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethod.Post }),
   putCreateWorkflowRevision: ({ workflowId, body }) =>

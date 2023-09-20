@@ -232,7 +232,6 @@ export function TaskTemplateOverview({
   const getChangelogQuery = useQuery<ChangeLog>(getChangelogUrl);
 
   const applyTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
-  const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
   const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
   if (getTaskTemplateQuery.isLoading || getChangelogQuery.isLoading) {
@@ -359,7 +358,8 @@ export function TaskTemplateOverview({
 
   const handleArchiveTaskTemplate = async () => {
     try {
-      await archiveTaskTemplateMutation.mutateAsync({ name: params.name, status: "disable" });
+      selectedTaskTemplate.status = "inactive";
+      await applyTaskTemplateMutation.mutateAsync({ replace: "false", team: params.team, body: selectedTaskTemplate });
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
@@ -385,7 +385,8 @@ export function TaskTemplateOverview({
 
   const handleRestoreTaskTemplate = async () => {
     try {
-      await restoreTaskTemplateMutation.mutateAsync({ name: selectedTaskTemplate.name, status: "enable" });
+      selectedTaskTemplate.status = "active";
+      await applyTaskTemplateMutation.mutateAsync({ replace: "false", team: params.team, body: selectedTaskTemplate });
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
@@ -507,9 +508,7 @@ export function TaskTemplateOverview({
                 return prompt;
               }}
             />
-            {(applyTaskTemplateMutation.isLoading ||
-              archiveTaskTemplateMutation.isLoading ||
-              restoreTaskTemplateMutation.isLoading) && <Loading />}
+            {applyTaskTemplateMutation.isLoading && <Loading />}
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
