@@ -2,7 +2,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Formik } from "formik";
-import axios from "axios";
 import { useHistory, Prompt, matchPath, useParams } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { useQuery } from "Hooks";
@@ -232,7 +231,6 @@ export function TaskTemplateOverview({
   const getChangelogQuery = useQuery<ChangeLog>(getChangelogUrl);
 
   const applyTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
-  const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
   if (getTaskTemplateQuery.isLoading || getChangelogQuery.isLoading) {
     return (
@@ -255,7 +253,7 @@ export function TaskTemplateOverview({
   console.log("canEdit", canEdit);
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
   console.log("isActive", isActive);
-  const isOldVersion = params.version != getChangelogQuery.data.length;
+  const isOldVersion = params.version !== getChangelogQuery.data.length;
   console.log("isOldVersion", isOldVersion);
 
   const fieldKeys = selectedTaskTemplate.config?.map((input: DataDrivenInput) => input.key) ?? [];
@@ -410,15 +408,10 @@ export function TaskTemplateOverview({
     }
   };
 
+  //TODO should this handle JSON and YAML?
   const handleDownloadTaskTemplate = async () => {
     try {
-      const response = await axios.get(
-        serviceUrl.getTaskTemplateYaml({ name: selectedTaskTemplate.name, version: selectedTaskTemplate.version }),
-        {
-          headers: { Accept: "application/x-yaml" },
-        }
-      );
-      fileDownload(response.data, `${selectedTaskTemplate.name}.yaml`);
+      fileDownload(JSON.stringify(selectedTaskTemplate), `${selectedTaskTemplate.name}.json`);
       notify(
         <ToastNotification
           kind="success"

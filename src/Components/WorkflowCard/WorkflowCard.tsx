@@ -49,7 +49,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${teamName}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${teamName},status=active,inactive` });
 
   const history = useHistory();
   const [errorMessage, seterrorMessage] = useState(null);
@@ -358,10 +358,9 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
       ) : (
         <div className={styles.status}>
           {isDisabled ? (
-            <>
+            <TooltipHover direction="top" tooltipText="Trigger disabled or Quota exceeded">
               <CircleStroke style={{ fill: "#393939", marginRight: "0.5rem" }} />
-              <p className={styles.statusText}>Disabled</p>
-            </>
+            </TooltipHover>
           ) : workflow.status === "active" ? (
             <TooltipHover direction="top" tooltipText="Active">
               <CircleFill style={{ fill: "#009d9a", marginRight: "0.5rem" }} />

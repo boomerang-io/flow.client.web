@@ -73,8 +73,6 @@ export function TaskTemplateYamlEditor({
 
   const applyTaskTemplateYamlMutation = useMutation(resolver.putApplyTaskTemplateYaml);
   const applyTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
-  const archiveTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
-  const restoreTaskTemplateMutation = useMutation(resolver.putStatusTaskTemplate);
 
   if (getTaskTemplateYamlQuery.isLoading || getChangelogQuery.isLoading || applyTaskTemplateYamlMutation.isLoading) {
     return <Loading />;
@@ -97,17 +95,14 @@ export function TaskTemplateYamlEditor({
 
   const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
     setIsSaving(true);
-    let newVersion =
-      requestType === TemplateRequestType.Overwrite ? selectedTaskTemplate : getChangelogQuery.data.length + 1;
-    let changeReason =
-      requestType === TemplateRequestType.Copy
-        ? "Version copied from ${values.currentConfig.version}"
-        : values.comments;
-
     try {
       let response;
       if (requestType === TemplateRequestType.Copy) {
-        let body = { ...selectedTaskTemplate, version: newVersion, changelog: { reason: changeReason } };
+        let body = {
+          ...selectedTaskTemplate,
+          version: getChangelogQuery.data.length + 1,
+          changelog: { reason: "Version copied from ${values.currentConfig.version}" },
+        };
         response = await applyTaskTemplateMutation.mutateAsync({
           replace: false,
           team: params.team,
@@ -134,7 +129,6 @@ export function TaskTemplateYamlEditor({
         <ToastNotification
           kind="success"
           title={"Task Template Updated"}
-          // subtitle={`Request to update ${body.name} succeeded`}
           subtitle={`Request to update succeeded`}
           data-testid="create-update-task-template-notification"
         />
@@ -180,8 +174,10 @@ export function TaskTemplateYamlEditor({
 
   const handleArchiveTaskTemplate = async () => {
     try {
-      await archiveTaskTemplateMutation.mutateAsync({ name: params.name, status: "disable" });
-      await queryClient.invalidateQueries(getTaskTemplatesUrl);
+      selectedTaskTemplate.status = "inactive";
+      await applyTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+      await queryClient.invalidateQueries(getTaskTemplateUrl);
+      await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
         <ToastNotification
@@ -205,8 +201,10 @@ export function TaskTemplateYamlEditor({
 
   const handleRestoreTaskTemplate = async () => {
     try {
-      await restoreTaskTemplateMutation.mutateAsync({ name: selectedTaskTemplate.name, status: "enable" });
-      await queryClient.invalidateQueries(getTaskTemplatesUrl);
+      selectedTaskTemplate.status = "active";
+      await applyTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+      await queryClient.invalidateQueries(getTaskTemplateUrl);
+      await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
         <ToastNotification
