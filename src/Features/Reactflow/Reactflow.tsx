@@ -14,16 +14,14 @@ import ReactFlow, {
   EdgeProps,
   useEdgesState,
   useNodesState,
+  Position,
 } from "reactflow";
 import dagre from "@dagrejs/dagre";
-import { WorkflowEngineMode } from "Constants";
+import { NodeType, WorkflowEngineMode } from "Constants";
 import * as GraphComps from "./components";
 import { WorkflowEngineModeType, NodeTypeType, TaskTemplate, WorkflowNodeData } from "Types";
 import "reactflow/dist/style.css";
 import "./styles.scss";
-
-const dagreGraph = new dagre.graphlib.Graph();
-dagreGraph.setDefaultEdgeLabel(() => ({}));
 
 function CustomEdgeArrow({ id, color }: any) {
   return (
@@ -128,39 +126,56 @@ interface FlowDiagramProps {
   setWorkflow?: React.Dispatch<React.SetStateAction<ReactFlowInstance | null>>;
 }
 
-function getLayoutedElements(nodes: any, edges: any) {
-  dagreGraph.setGraph({ rankdir: "LR" });
+// Determine if we should use auto-layout or not
+function initElements(nodes: Array<Node<WorkflowNodeData, string | undefined>> = [], edges: Array<Edge> = []) {
+  let useAutoLayout = false;
+  for (let node of nodes) {
+    if (!node.position) {
+      useAutoLayout = true;
+      break;
+    }
+  }
 
-  nodes.forEach((node) => {
-    if (node.type === "start" || node.type === "end") {
-      dagreGraph.setNode(node.id, { width: 260, height: 80 });
+  return useAutoLayout ? autoLayoutElements(nodes, edges) : { nodes, edges };
+}
+
+// Auto-layout via dagre
+function autoLayoutElements(nodes: Array<Node<WorkflowNodeData, string | undefined>> = [], edges: Array<Edge> = []) {
+  const direction = edges.length === 0 ? "TB" : "LR";
+  const dagreGraph = new dagre.graphlib.Graph();
+  dagreGraph.setDefaultEdgeLabel(() => ({}));
+  dagreGraph.setGraph({ rankdir: direction, edgesep: 100 });
+
+  nodes.forEach((node: Node<WorkflowNodeData, string | undefined>) => {
+    if (node.type === NodeType.Start || node.type === NodeType.End) {
+      dagreGraph.setNode(node.id, { width: 144 * 1.5, height: 80 });
     } else {
-      dagreGraph.setNode(node.id, { width: 340, height: 80 });
+      dagreGraph.setNode(node.id, { width: 280 * 1.5, height: 80 });
     }
   });
 
-  edges.forEach((edge) => {
+  edges.forEach((edge: Edge) => {
     dagreGraph.setEdge(edge.source, edge.target);
   });
 
   dagre.layout(dagreGraph);
 
-  nodes.forEach((node) => {
-    const nodeWithPosition = dagreGraph.node(node.id);
-    node.targetPosition = "left";
-    node.sourcePosition = "right";
+  nodes.forEach((node: Node<WorkflowNodeData, string | undefined>) => {
+    const positionedNode = dagreGraph.node(node.id);
+    node.targetPosition = Position.Left;
+    node.sourcePosition = Position.Right;
 
     // We are shifting the dagre node position (anchor=center center) to the top left
-    // so it matches the React Flow node anchor point (top left).
-    if (node.type === "start" || node.type === "end") {
+    // so it matches the React Flow node anchor point (top left)
+    if (node.type === NodeType.Start || node.type === NodeType.End) {
       node.position = {
-        x: nodeWithPosition.x - 144 / 2,
-        y: nodeWithPosition.y - 80 / 2,
+        x: (positionedNode.x - 144 / 2) * 1,
+        y: (positionedNode.y - 80 / 2) * 1,
       };
     } else {
       node.position = {
-        x: nodeWithPosition.x - 240 / 2,
-        y: nodeWithPosition.y - 80 / 2,
+        x: (positionedNode.x - 240 / 2) * 1,
+        y: (positionedNode.y - 80 / 2) * 1,
       };
     }
 
@@ -171,22 +186,30 @@ function getLayoutedElements(nodes: any, edges: any) {
 }
 
 function FlowDiagram(props: FlowDiagramProps) {
-  const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(props.nodes, props.edges);
-  const { setWorkflow } = props;
   /**
    * Set up state and refs
    */
   const reactFlowWrapper = React.useRef<HTMLDivElement>(null);
-  const [nodes, setNodes, onNodesChange] = useNodesState<WorkflowNodeData>(layoutedNodes ?? []);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges ?? []);
+  const { nodes: initNodes, edges: initEdges } = initElements(props.nodes, props.edges);
+  const [nodes, setNodes, onNodesChange] = useNodesState<WorkflowNodeData>(initNodes ?? []);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initEdges ?? []);
   const [flow, setFlow] = React.useState<ReactFlowInstance | null>(null);
+  const shouldFitGraph = React.useRef(false);
 
   // Set workflow in parent
+  const { setWorkflow } = props;
   React.useEffect(() => {
     if (setWorkflow && flow) {
       setWorkflow(flow);
     }
   }, [flow, setWorkflow]);
+
+  React.useEffect(() => {
+    if (shouldFitGraph.current) {
+      flow?.fitView();
+      shouldFitGraph.current = false;
+    }
+  });
 
   /**
    * Handle changes of nodes and eges
@@ -197,16 +220,12 @@ function FlowDiagram(props: FlowDiagramProps) {
     [setEdges, nodes]
   );
 
-  const onLayout = React.useCallback(
-    (direction) => {
-      console.log("called");
-      const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(nodes, edges, direction);
-
-      setNodes([...layoutedNodes]);
-      setEdges([...layoutedEdges]);
-    },
-    [nodes, edges, setEdges, setNodes]
-  );
+  const onLayout = React.useCallback(() => {
+    const { nodes: positionedNodes, edges: positionedEdges } = autoLayoutElements(nodes, edges);
+    setNodes([...positionedNodes]);
+    setEdges([...positionedEdges]);
+    shouldFitGraph.current = true;
+  }, [nodes, edges, setEdges, setNodes]);
 
   /**
    * Handle drag action w/ drag and drop
@@ -263,7 +282,7 @@ function FlowDiagram(props: FlowDiagramProps) {
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [flow, nodes]
+    [flow, nodes, setNodes]
   );
 
   const isDisabled = props.mode === WorkflowEngineMode.Viewer;
