@@ -103,6 +103,6 @@
 
 // export default withRouter(Main);
 
-function Hello() {
+export default function Main() {
   return <div>Hello</div>;
 }
