@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -34,6 +34,9 @@ dependencies:
   '@carbon/react':
     specifier: 1.16.0
     version: 1.16.0(react-dom@17.0.0)(react@17.0.0)(sass@1.62.1)
+  '@dagrejs/dagre':
+    specifier: ^1.0.4
+    version: 1.0.4
   '@projectstorm/react-diagrams':
     specifier: ^5.3.2
     version: 5.3.2(closest@0.0.1)(lodash@4.17.21)(pathfinding@0.4.18)(paths-js@0.4.10)(react@17.0.0)
@@ -2158,6 +2161,17 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@dagrejs/dagre@1.0.4:
+    resolution: {integrity: sha512-jrEore+HhW1yg1Rsd9H1PPMcoEOD4bVh0WCXc6GqzyzubnJj4GaWGg8ETOrskTd/3n/g5LOzumGM4CCgpNLJNw==}
+    dependencies:
+      '@dagrejs/graphlib': 2.1.13
+    dev: false
+
+  /@dagrejs/graphlib@2.1.13:
+    resolution: {integrity: sha512-calbMa7Gcyo+/t23XBaqQqon8LlgE9regey4UVoikoenKBXvUnCUL3s9RP6USCxttfr0XWVICtYUuKMdehKqMw==}
+    engines: {node: '>17.0.0'}
+    dev: false
 
   /@emotion/babel-plugin@11.10.8:
     resolution: {integrity: sha512-gxNky50AJL3AlkbjvTARiwAqei6/tNUxDZPSKd+3jqWVM3AmdVTTdpjHorR/an/M0VJqdsuq5oGcFH+rjtyujQ==}

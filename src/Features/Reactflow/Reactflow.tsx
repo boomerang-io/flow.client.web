@@ -3,22 +3,27 @@ import ReactFlow, {
   ReactFlowProvider,
   Background,
   Controls,
+  ControlButton,
   Edge,
   Node,
   ReactFlowInstance,
-  applyEdgeChanges,
-  applyNodeChanges,
   addEdge,
   Connection,
   XYPosition,
   NodeProps,
   EdgeProps,
+  useEdgesState,
+  useNodesState,
 } from "reactflow";
-import "reactflow/dist/style.css";
-import "./styles.scss";
+import dagre from "@dagrejs/dagre";
 import { WorkflowEngineMode } from "Constants";
 import * as GraphComps from "./components";
-import { WorkflowEngineModeType, NodeTypeType, TaskTemplate } from "Types";
+import { WorkflowEngineModeType, NodeTypeType, TaskTemplate, WorkflowNodeData } from "Types";
+import "reactflow/dist/style.css";
+import "./styles.scss";
+
+const dagreGraph = new dagre.graphlib.Graph();
+dagreGraph.setDefaultEdgeLabel(() => ({}));
 
 function CustomEdgeArrow({ id, color }: any) {
   return (
@@ -123,14 +128,57 @@ interface FlowDiagramProps {
   setWorkflow?: React.Dispatch<React.SetStateAction<ReactFlowInstance | null>>;
 }
 
+function getLayoutedElements(nodes: any, edges: any) {
+  dagreGraph.setGraph({ rankdir: "LR" });
+
+  nodes.forEach((node) => {
+    if (node.type === "start" || node.type === "end") {
+      dagreGraph.setNode(node.id, { width: 260, height: 80 });
+    } else {
+      dagreGraph.setNode(node.id, { width: 340, height: 80 });
+    }
+  });
+
+  edges.forEach((edge) => {
+    dagreGraph.setEdge(edge.source, edge.target);
+  });
+
+  dagre.layout(dagreGraph);
+
+  nodes.forEach((node) => {
+    const nodeWithPosition = dagreGraph.node(node.id);
+    node.targetPosition = "left";
+    node.sourcePosition = "right";
+
+    // We are shifting the dagre node position (anchor=center center) to the top left
+    // so it matches the React Flow node anchor point (top left).
+    if (node.type === "start" || node.type === "end") {
+      node.position = {
+        x: nodeWithPosition.x - 144 / 2,
+        y: nodeWithPosition.y - 80 / 2,
+      };
+    } else {
+      node.position = {
+        x: nodeWithPosition.x - 240 / 2,
+        y: nodeWithPosition.y - 80 / 2,
+      };
+    }
+
+    return node;
+  });
+
+  return { nodes, edges };
+}
+
 function FlowDiagram(props: FlowDiagramProps) {
+  const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(props.nodes, props.edges);
   const { setWorkflow } = props;
   /**
    * Set up state and refs
    */
   const reactFlowWrapper = React.useRef<HTMLDivElement>(null);
-  const [nodes, setNodes] = React.useState<Node[]>(props.nodes ?? []);
-  const [edges, setEdges] = React.useState<Edge[]>(props.edges ?? []);
+  const [nodes, setNodes, onNodesChange] = useNodesState<WorkflowNodeData>(layoutedNodes ?? []);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges ?? []);
   const [flow, setFlow] = React.useState<ReactFlowInstance | null>(null);
 
   // Set workflow in parent
@@ -143,12 +191,21 @@ function FlowDiagram(props: FlowDiagramProps) {
   /**
    * Handle changes of nodes and eges
    */
-  const onNodesChange = React.useCallback((changes) => setNodes(applyNodeChanges(changes, nodes)), [nodes]);
-  const onEdgesChange = React.useCallback((changes) => setEdges(applyEdgeChanges(changes, edges)), [edges]);
   const onConnect = React.useCallback(
     (connection: Connection) =>
       setEdges((edges) => addEdge({ ...connection, ...getLinkType(connection, nodes) }, edges)),
     [setEdges, nodes]
+  );
+
+  const onLayout = React.useCallback(
+    (direction) => {
+      console.log("called");
+      const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(nodes, edges, direction);
+
+      setNodes([...layoutedNodes]);
+      setEdges([...layoutedEdges]);
+    },
+    [nodes, edges, setEdges, setNodes]
   );
 
   /**
@@ -236,7 +293,11 @@ function FlowDiagram(props: FlowDiagramProps) {
               <CustomEdgeArrow id={markerTypes.template} color="#0072c3" />
             </MarkerDefinition>
             <Background />
-            <Controls showInteractive={false} />
+            <Controls showInteractive={false}>
+              <ControlButton onClick={onLayout} title="auto-layout">
+                <div>L</div>
+              </ControlButton>
+            </Controls>
           </ReactFlow>
         </div>
       </ReactFlowProvider>

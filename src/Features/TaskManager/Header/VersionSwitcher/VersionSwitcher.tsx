@@ -3,7 +3,7 @@ import cx from "classnames";
 import { useHistory, useParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, PageFirst, PageLast } from "@carbon/react/icons";
 import { appLink } from "Config/appConfig";
-import { TaskTemplate, ChangeLog } from "Types";
+import { TaskTemplate } from "Types";
 import styles from "./VersionSwitcher.module.scss";
 
 interface VersionSwitcherProps {
