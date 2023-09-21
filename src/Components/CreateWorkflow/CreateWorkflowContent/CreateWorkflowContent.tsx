@@ -73,7 +73,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
             <ModalBody aria-label="inputs" className={styles.formBody}>
               <TextInput
                 id="name"
-                labelText={`Name`}
+                labelText="Name"
                 placeholder="e.g. My Amazing Workflow"
                 helperText="Enter a unique name for your workflow"
                 value={values.name}

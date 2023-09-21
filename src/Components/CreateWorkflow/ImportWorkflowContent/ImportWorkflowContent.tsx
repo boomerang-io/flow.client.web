@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import {
@@ -9,7 +9,7 @@ import {
   ModalFooter,
   InlineNotification,
 } from "@carbon/react";
-import { ComboBox, Loading, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading, TextInput, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import { requiredWorkflowProps } from "./constants";
 import { ErrorFilled } from "@carbon/react/icons";
 import { FlowTeam, WorkflowExport } from "Types";
@@ -47,7 +47,7 @@ interface ImportWorkflowContentProps {
 interface FormProps {
   team?: FlowTeam;
   name: string;
-  summary: string;
+  description: string;
   file: WorkflowExport | undefined;
 }
 
@@ -201,22 +201,23 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                   <div className={styles.confirmInfoForm}>
                     <TextInput
                       id="name"
-                      labelText={`${type} Name`}
-                      name="name"
+                      labelText="Name"
+                      helperText="Enter a unique name for your workflow"
                       value={values.name}
                       onBlur={handleBlur}
                       onChange={handleChange}
                       invalid={Boolean(errors.name && touched.name)}
                       invalidText={errors.name}
                     />
-                    <TextInput
-                      id="summary"
-                      labelText="Summary"
-                      value={values.summary}
+                    <TextArea
+                      id="description"
+                      labelText="Description (optional)"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      invalid={Boolean(errors.summary && touched.summary)}
-                      invalidText={errors.summary}
+                      invalid={Boolean(errors.description && touched.description)}
+                      invalidText={errors.description}
+                      style={{ resize: "none", width: "100%" }}
+                      value={values.description}
                     />
                   </div>
                 )
