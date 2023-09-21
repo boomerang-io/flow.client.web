@@ -245,11 +245,6 @@ export interface WorkflowCanvas extends Workflow {
   nodes: Array<WorkflowEdge>;
 }
 
-export interface WorkflowExport extends Workflow {
-  latestRevision: Workflow;
-  flowTeamId: string;
-}
-
 export enum ApprovalStatus {
   Approved = "approved",
   Rejected = "rejected",

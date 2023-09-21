@@ -12,7 +12,7 @@ import {
 import { Loading, TextInput, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import { requiredWorkflowProps } from "./constants";
 import { ErrorFilled } from "@carbon/react/icons";
-import { FlowTeam, WorkflowExport } from "Types";
+import { FlowTeam, Workflow } from "Types";
 import styles from "./importWorkflowContent.module.scss";
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
@@ -39,7 +39,7 @@ interface ImportWorkflowContentProps {
   existingWorkflowNames: string[];
   isLoading: boolean;
   importError: any;
-  importWorkflow: (workflowExport: WorkflowExport, closeModal: () => void, team: FlowTeam) => Promise<void>;
+  importWorkflow: (workflowExport: Workflow, closeModal: () => void) => Promise<void>;
   team: FlowTeam;
   type: string;
 }
@@ -48,7 +48,7 @@ interface FormProps {
   team?: FlowTeam;
   name: string;
   description: string;
-  file: WorkflowExport | undefined;
+  file: Workflow | undefined;
 }
 
 const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
@@ -65,7 +65,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
    * @param file {File}
    * @return {Promise}
    */
-  const readFile = (file: any, setFieldError: (field: string, errorMsg: string) => void): Promise<WorkflowExport> => {
+  const readFile = (file: any, setFieldError: (field: string, errorMsg: string) => void): Promise<Workflow> => {
     const reader = new FileReader();
     return new Promise((resolve, reject) => {
       reader.onerror = () => {
@@ -93,14 +93,14 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
   };
 
   const handleSubmit = async (values: any) => {
-    const fileData: WorkflowExport = values.file.contents;
+    const fileData: Workflow = values.file.contents;
     importWorkflow(
       {
         ...fileData,
         name: values.name,
+        description: values.description,
       },
-      closeModal,
-      values.selectedTeam
+      closeModal
     );
   };
 

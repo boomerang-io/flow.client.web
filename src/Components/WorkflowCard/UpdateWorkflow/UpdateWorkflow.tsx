@@ -4,7 +4,7 @@ import { notify, ToastNotification, ModalFlow } from "@boomerang-io/carbon-addon
 import ImportWorkflowContent from "./ImportWorkflowContent";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { useMutation, useQueryClient } from "react-query";
-import { WorkflowExport } from "Types";
+import { Workflow } from "Types";
 import styles from "./updateWorkflow.module.scss";
 
 interface UpdateWorkflowProps {
@@ -19,7 +19,7 @@ const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamName, workflowId, o
 
   //TODO - update the query and mutator as post endpoint different
   const { mutateAsync: importWorkflowMutator, isLoading: isPosting } = useMutation(resolver.postImportWorkflow);
-  const handleImportWorkflow = async (data: WorkflowExport, closeModal: () => void) => {
+  const handleImportWorkflow = async (data: Workflow, closeModal: () => void) => {
     let query;
     if (teamName) {
       query = queryString.stringify({ update: true, flowTeamId: teamName });

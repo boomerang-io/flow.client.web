@@ -214,7 +214,6 @@ export const resolver = {
     ),
   postGlobalParameter: ({ body }) =>
     axios({ url: serviceUrl.getGlobalParameters(), data: body, method: HttpMethod.Post }),
-  postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
   postSchedule: ({ team, body }) => axios.post(serviceUrl.postSchedule({ team }), body),
   postTeamParameter: ({ team, body }) =>
     axios({ url: serviceUrl.resourceTeamParameters({ team }), data: body, method: HttpMethod.Post }),

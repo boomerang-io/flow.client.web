@@ -14,7 +14,6 @@ import {
   FlowTeam,
   ComposedModalChildProps,
   ModalTriggerProps,
-  WorkflowExport,
   CreateWorkflowSummary,
   Workflow,
   WorkflowViewType,
@@ -36,7 +35,6 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
 
   const createWorkflowMutator = useMutation(resolver.postCreateWorkflow);
-  const importWorkflowMutator = useMutation(resolver.postImportWorkflow);
 
   const handleCreateWorkflow = async (workflowSummary: CreateWorkflowSummary) => {
     try {
@@ -65,13 +63,13 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
   };
 
   // TODO - fix up import query
-  const handleImportWorkflow = async (workflowExport: WorkflowExport, closeModal: () => void, team: FlowTeam) => {
-    let query;
-    if (viewType === WorkflowView.Workflow) {
-      query = queryString.stringify({ update: false, team: team.name });
-    } else query = queryString.stringify({ update: false });
+  const handleImportWorkflow = async (workflow: Workflow, closeModal: () => void) => {
     try {
-      await importWorkflowMutator.mutateAsync({ query, body: workflowExport });
+      const { data: newWorkflow } = await createWorkflowMutator.mutateAsync({
+        team: team?.name,
+        body: workflow,
+      });
+      history.push(appLink.editorDesigner({ team: team?.name!, workflowId: newWorkflow.id }));
       notify(
         <ToastNotification kind="success" title={`Update ${viewType}`} subtitle={`${viewType} successfully updated`} />
       );
@@ -90,7 +88,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
     }
   };
 
-  const isLoading = createWorkflowMutator.isLoading || importWorkflowMutator.isLoading;
+  const isLoading = createWorkflowMutator.isLoading;
 
   return (
     <ComposedModal
@@ -129,7 +127,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
           closeModal={closeModal}
           createError={createWorkflowMutator.error}
           createWorkflow={handleCreateWorkflow}
-          importWorkflowMutator={importWorkflowMutator.error}
+          importWorkflowMutator={createWorkflowMutator.error}
           importWorkflow={handleImportWorkflow}
           isLoading={isLoading}
           team={team}
