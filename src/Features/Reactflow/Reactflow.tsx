@@ -292,6 +292,7 @@ function FlowDiagram(props: FlowDiagramProps) {
         <div className="reactflow-wrapper" ref={reactFlowWrapper} style={{ height: "100%", width: "100%" }}>
           <ReactFlow
             fitView
+            fitViewOptions={{ maxZoom: 1 }}
             edges={edges}
             edgeTypes={edgeTypes}
             elementsSelectable={!isDisabled}

@@ -8,11 +8,9 @@ import {
 import { ExecutionContextProvider } from "State/context";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { ModalFlowForm, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
-import { DiagramWidget } from "@projectstorm/react-diagrams";
 import { Box } from "reflexbox";
 import WombatMessage from "Components/WombatMessage";
 import workflowIcons from "Assets/workflowIcons";
-import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import { WorkflowTemplate, TaskTemplate } from "Types";
 import { WorkflowEngineMode } from "Constants";
 import { Bee } from "@carbon/react/icons";

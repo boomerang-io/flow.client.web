@@ -4,7 +4,6 @@ import { useMutation, useQueryClient } from "react-query";
 import { useHistory } from "react-router-dom";
 import { ComposedModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateWorkflowContainer from "./CreateWorkflowContainer";
-import WorkflowDagEngine, { createWorkflowRevisionBody } from "Utils/dag/WorkflowDagEngine";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
@@ -29,7 +28,6 @@ interface CreateWorkflowProps {
 }
 
 const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflowLimit, workflows, viewType }) => {
-  const workflowDagEngine = new WorkflowDagEngine({ dag: null });
   const queryClient = useQueryClient();
   const history = useHistory();
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
@@ -43,8 +41,6 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
         body: workflowSummary,
       });
       const workflowId = newWorkflow.id;
-      const dagProps = createWorkflowRevisionBody(workflowDagEngine, `Create ${viewType}`);
-      console.log(dagProps);
       history.push(appLink.editorDesigner({ team: team?.name!, workflowId: workflowId }));
       notify(
         <ToastNotification kind="success" title={`Create ${viewType}`} subtitle={`${viewType} successfully created`} />

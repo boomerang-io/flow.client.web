@@ -6,7 +6,7 @@ import { Loading, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-rea
 import { useQuery } from "Hooks";
 import { ExecutionContextProvider } from "State/context";
 import Main from "./Main";
-import { TaskTemplate, WorkflowExecution, WorkflowSummary } from "Types";
+import { TaskTemplate, WorkflowExecution, Workflow } from "Types";
 import { serviceUrl } from "Config/servicesConfig";
 
 export default function ExecutionContainer() {
@@ -18,7 +18,7 @@ export default function ExecutionContainer() {
   /**
    * Queries
    */
-  const summaryQuery = useQuery<WorkflowSummary>(getSummaryUrl);
+  const summaryQuery = useQuery<Workflow>(getSummaryUrl);
   const executionQuery = useQuery<WorkflowExecution>(getExecutionUrl, {
     refetchInterval: 5000,
   });
@@ -66,7 +66,7 @@ export default function ExecutionContainer() {
 
 type RevisionProps = {
   executionQuery: UseQueryResult<WorkflowExecution, Error>;
-  summaryQuery: UseQueryResult<WorkflowSummary, Error>;
+  summaryQuery: UseQueryResult<Workflow, Error>;
   taskTemplatesData: TaskTemplate[];
   workflowId: string;
 };
