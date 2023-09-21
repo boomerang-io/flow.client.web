@@ -31,7 +31,7 @@ export default function Workflows() {
   const history = useHistory();
   const location = useLocation();
 
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name},statuses=active,inactive` });
   const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>({
     queryKey: getWorkflowsUrl,
     queryFn: resolver.query(getWorkflowsUrl),
@@ -82,7 +82,12 @@ export default function Workflows() {
         searchQuery={safeSearchQuery}
         workflowList={workflowsQuery.data.content}
       >
-        <WorkflowContent team={team} searchQuery={safeSearchQuery} workflowList={workflowsQuery.data.content} />
+        <WorkflowContent
+          team={team}
+          searchQuery={safeSearchQuery}
+          workflowList={workflowsQuery.data.content}
+          getWorkflowsUrl={getWorkflowsUrl}
+        />
       </Layout>
     );
   }
@@ -121,9 +126,10 @@ interface WorkflowContentProps {
   team: FlowTeam;
   searchQuery: string;
   workflowList: Array<Workflow>;
+  getWorkflowsUrl: string;
 }
 
-const WorkflowContent: React.FC<WorkflowContentProps> = ({ team, searchQuery, workflowList }) => {
+const WorkflowContent: React.FC<WorkflowContentProps> = ({ team, searchQuery, workflowList, getWorkflowsUrl }) => {
   const hasWorkflows = workflowList.length > 0;
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const hasReachedWorkflowLimit = team.quotas.maxWorkflowCount <= team.quotas.currentWorkflowCount;
@@ -193,6 +199,7 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ team, searchQuery, wo
             teamName={team.name}
             viewType={WorkflowView.Workflow}
             workflow={workflow}
+            getWorkflowsUrl={getWorkflowsUrl}
           />
         ))}
         <CreateWorkflow

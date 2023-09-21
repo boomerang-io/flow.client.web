@@ -41,15 +41,15 @@ interface WorkflowCardProps {
   quotas: FlowTeamQuotas | null;
   workflow: Workflow;
   viewType: WorkflowViewType;
+  getWorkflowsUrl: string;
 }
 
-const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow, viewType }) => {
+const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow, viewType, getWorkflowsUrl }) => {
   const queryClient = useQueryClient();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${teamName},status=active,inactive` });
 
   const history = useHistory();
   const [errorMessage, seterrorMessage] = useState(null);
