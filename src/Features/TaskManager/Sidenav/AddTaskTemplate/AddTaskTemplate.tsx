@@ -29,7 +29,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
     setIsSubmitting(true);
     try {
       console.log(body);
-      let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team.name, body });
+      let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team?.name, body });
       console.log(response);
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
@@ -65,9 +65,9 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
     try {
       console.log(body);
       if (type === "application/json") {
-        let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team.name, body });
+        let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team?.name, body });
       } else {
-        let response = await createTaskTemplateYAMLMutation.mutateAsync({ replace, team: team.name, body });
+        let response = await createTaskTemplateYAMLMutation.mutateAsync({ replace, team: team?.name, body });
       }
       console.log(response);
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
