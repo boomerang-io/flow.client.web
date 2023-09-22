@@ -412,14 +412,14 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 <Toggle
                   id="enableWorkflowPersistentStorage"
                   label="Enable Workflow Persistent Storage"
-                  toggled={values.storage.workflow.enabled}
+                  toggled={values.storage?.workflow?.enabled}
                   onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflow.enabled")}
                   tooltipContent="Persist data across workflow executions"
                   tooltipProps={{ direction: "top" }}
                   reversed
                 />
               </div>
-              {values.storage.workflow.enabled && (
+              {values.storage?.workflow?.enabled && (
                 <div className={styles.webhookContainer}>
                   <ComposedModal
                     modalHeaderProps={{
@@ -456,8 +456,8 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   >
                     {({ closeModal }: { closeModal: () => void }) => (
                       <ConfigureStorage
-                        size={values.storage.workflow.size}
-                        mountPath={values.storage.workflow.mountPath}
+                        size={values.storage?.workflow?.size}
+                        mountPath={values.storage?.workflow?.mountPath}
                         handleOnChange={(storageValues: any) => {
                           setFieldValue("storage.workflow", storageValues);
                         }}
@@ -474,14 +474,14 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 <Toggle
                   id="enableActivityPersistentStorage"
                   label="Enable Activity Persistent Storage"
-                  toggled={values.storage.workflowrun.enabled}
+                  toggled={values.storage?.workflowrun?.enabled}
                   onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflowrun.enabled")}
                   tooltipContent="Persist workflow data per executions"
                   tooltipProps={{ direction: "top" }}
                   reversed
                 />
               </div>
-              {values.storage.workflowrun.enabled && (
+              {values.storage?.workflowrun?.enabled && (
                 <div className={styles.webhookContainer}>
                   <ComposedModal
                     modalHeaderProps={{

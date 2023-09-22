@@ -4,19 +4,31 @@ import Notes from "./Notes";
 import Tasks from "./Tasks";
 import { TaskTemplateStatus } from "Constants";
 import ReactFlow from "Features/Reactflow";
-import { TaskTemplate, WorkflowCanvasState } from "Types";
+import { TaskTemplate, WorkflowEditorState } from "Types";
 import type { ReactFlowInstance } from "reactflow";
 import styles from "./designer.module.scss";
+import { useLocation, useParams } from "react-router-dom";
+import { appLink } from "Config/appConfig";
 
 interface DesignerContainerProps {
   notes?: string;
-  updateNotes: ({ markdown }: { markdown: string }) => void;
-  workflow: WorkflowCanvasState;
+  updateNotes: (markdown: string) => void;
+  workflow: WorkflowEditorState;
   tasks: Array<TaskTemplate>;
   setWorkflow: React.Dispatch<React.SetStateAction<ReactFlowInstance | null>>;
 }
 
 const DesignerContainer: React.FC<DesignerContainerProps> = ({ notes, updateNotes, workflow, setWorkflow, tasks }) => {
+  const params = useParams<{ team: string; workflowId: string }>();
+
+  const location = useLocation();
+  const isOnDesignerPath =
+    appLink.editorDesigner({ team: params.team, workflowId: params.workflowId }) === location.pathname;
+
+  if (!isOnDesignerPath) {
+    return null;
+  }
+
   return (
     <div className={styles.container}>
       <Helmet>

@@ -9,7 +9,7 @@ import "Styles/markdown.css";
 
 interface NotesProps {
   markdown?: string;
-  updateNotes: ({ markdown }: { markdown: string }) => void;
+  updateNotes: (markdown: string) => void;
 }
 
 const mdeToolbarCommands = [
@@ -68,7 +68,7 @@ function Notes({ markdown, updateNotes }: NotesProps) {
   };
 
   const handleChangeMarkdown = (markdown: string) => {
-    updateNotes({ markdown });
+    updateNotes(markdown);
   };
 
   return (

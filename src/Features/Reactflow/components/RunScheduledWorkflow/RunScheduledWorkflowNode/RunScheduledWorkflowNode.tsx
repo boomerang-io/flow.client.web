@@ -2,17 +2,15 @@ import React from "react";
 import { NodeProps, useReactFlow, Node } from "reactflow";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
-import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import BaseNode from "../../Base/BaseNode";
 import ConfigureInputsForm from "../ConfigureInputsForm";
-import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { useEditorContext } from "Hooks";
-import { WorkflowNode } from "Types";
+import { WorkflowNode, WorkflowNodeData } from "Types";
 import styles from "./RunScheduledWorkflowNode.module.scss";
 
-export default function RunScheduledWorkflowNode(props: WorkflowNode) {
+export default function RunScheduledWorkflowNode(props: NodeProps<WorkflowNodeData>) {
   const { mode } = useEditorContext();
   // use context to determine state of diagram
   // render the correct component based on the mode of the diagram
@@ -27,15 +25,15 @@ export default function RunScheduledWorkflowNode(props: WorkflowNode) {
 // WorkflowCloseButton and WorkflowEditButtons, maybe even the ports as well
 // I think we can implement everything then optimize though
 
-function RunScheduledWorkflowNodeDesigner(props: WorkflowNode) {
+function RunScheduledWorkflowNodeDesigner(props: NodeProps<WorkflowNodeData>) {
   const reactFlowInstance = useReactFlow();
 
-  const { availableParametersQueryData, revisionDispatch, taskTemplatesData } = useEditorContext();
+  const { availableParameters, taskTemplatesData } = useEditorContext();
 
   // TODO: fix this typing
   const nodes = reactFlowInstance.getNodes() as unknown as Array<WorkflowNode>;
 
-  const inputProperties = availableParametersQueryData;
+  const inputProperties = availableParameters;
 
   // Find the matching task template based on the name and version
   const taskTemplateList = taskTemplatesData[props.data.templateRef];

@@ -4,11 +4,11 @@ import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowCloseButton from "./WorkflowCloseButton";
 import WorkflowPropertiesModal from "./PropertiesModal";
 import { InputType, WorkflowPropertyAction } from "Constants";
-import { DataDrivenInput, ModalTriggerProps, WorkflowCanvas, WorkflowPropertyActionType } from "Types";
+import { DataDrivenInput, ModalTriggerProps, Workflow, WorkflowPropertyActionType } from "Types";
 import { stringToPassword } from "Utils/stringHelper";
 import styles from "./Parameters.module.scss";
 
-const formatDefaultValue = ({ type, value }: { type?: string; value?: string }) => {
+function formatDefaultValue({ type, value }: { type?: string; value?: string }) {
   if (!value) {
     return "---";
   } else if (type === InputType.Password) {
@@ -16,21 +16,21 @@ const formatDefaultValue = ({ type, value }: { type?: string; value?: string }) 
   } else {
     return value;
   }
-};
+}
 
 interface WorkflowPropertyRowProps {
   title: string;
   value: string;
 }
 
-const WorkflowPropertyRow: React.FC<WorkflowPropertyRowProps> = ({ title, value }) => {
+function WorkflowPropertyRow({ title, value }: WorkflowPropertyRowProps) {
   return (
     <dl className={styles.fieldContainer}>
       <dt className={styles.fieldKey}>{title}</dt>
       <dd className={styles.fieldValue}>{value}</dd>
     </dl>
   );
-};
+}
 
 interface WorkflowPropertyHeaderProps {
   label?: string;
@@ -47,22 +47,19 @@ const WorkflowPropertyHeader: React.FC<WorkflowPropertyHeaderProps> = ({ label, 
 };
 
 interface ParametersProps {
-  workflow: WorkflowCanvas;
-  handleUpdateParams: (parameters: Array<DataDrivenInput>) => void;
+  handleUpdateParams: (parameters: Array<DataDrivenInput>, removedParameters: Array<DataDrivenInput>) => void;
+  workflow: Workflow;
 }
 
-const Parameters: React.FC<ParametersProps> = ({ workflow, handleUpdateParams }) => {
-  const handleUpdateProperties = async ({
-    param,
-    type,
-  }: {
-    param: DataDrivenInput;
-    type: WorkflowPropertyActionType;
-  }) => {
+function Parameters({ workflow, handleUpdateParams }: ParametersProps) {
+  const handleUpdateProperties = ({ param, type }: { param: DataDrivenInput; type: WorkflowPropertyActionType }) => {
     let parameters = [...workflow.config];
+    let removedParameters: Array<DataDrivenInput> = [];
+
     if (type === WorkflowPropertyAction.Update) {
       const parameterToUpdateIndex = parameters.findIndex((p) => p.key === param.key);
-      parameters.splice(parameterToUpdateIndex, 1, param);
+      const deletedParam = parameters.splice(parameterToUpdateIndex, 1, param)[0];
+      removedParameters.push(deletedParam);
     }
 
     if (type === WorkflowPropertyAction.Delete) {
@@ -74,7 +71,7 @@ const Parameters: React.FC<ParametersProps> = ({ workflow, handleUpdateParams })
       parameters.push(param);
     }
 
-    handleUpdateParams(parameters);
+    handleUpdateParams(parameters, removedParameters);
   };
 
   const deleteParameter = (param: DataDrivenInput) => {
@@ -85,7 +82,6 @@ const Parameters: React.FC<ParametersProps> = ({ workflow, handleUpdateParams })
   };
 
   const { config } = workflow;
-  console.log(config);
   const paramKeys = config && config.length > 0 ? config.map((input: DataDrivenInput) => input.key) : [];
 
   return (
@@ -153,6 +149,6 @@ const Parameters: React.FC<ParametersProps> = ({ workflow, handleUpdateParams })
       />
     </div>
   );
-};
+}
 
 export default Parameters;

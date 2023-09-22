@@ -3,17 +3,17 @@ import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowEditButton from "./WorkflowEditButton";
 import PropertiesModalContent from "./PropertiesModalContent";
 import { Add } from "@carbon/react/icons";
-import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Types";
+import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps, WorkflowPropertyActionType } from "Types";
 import styles from "./PropertiesModal.module.scss";
 
 interface PropertiesModalProps {
   isEdit: boolean;
-  property: DataDrivenInput;
+  property?: DataDrivenInput;
   propertyKeys: Array<string>;
-  updateWorkflowProperties: (args: { param: DataDrivenInput; type: string }) => Promise<any>;
+  updateWorkflowProperties: (args: { param: DataDrivenInput; type: WorkflowPropertyActionType }) => void;
 }
 
-const PropertiesModal: React.FC<PropertiesModalProps> = (props) => {
+function PropertiesModal(props: PropertiesModalProps) {
   return (
     <ComposedModal
       modalHeaderProps={{
@@ -43,6 +43,6 @@ const PropertiesModal: React.FC<PropertiesModalProps> = (props) => {
       }}
     </ComposedModal>
   );
-};
+}
 
 export default PropertiesModal;

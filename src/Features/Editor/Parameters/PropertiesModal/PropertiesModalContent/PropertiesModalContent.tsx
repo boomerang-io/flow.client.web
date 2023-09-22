@@ -21,7 +21,7 @@ import {
   PROPERTY_KEY_REGEX,
   PASSWORD_CONSTANT,
 } from "Constants";
-import { DataDrivenInput, FormikSetFieldValue } from "Types";
+import { DataDrivenInput, FormikSetFieldValue, WorkflowPropertyActionType } from "Types";
 import styles from "./PropertiesModalContent.module.scss";
 
 const textInputItem = { label: InputTypeCopy[InputType.Text], value: InputType.Text };
@@ -40,9 +40,9 @@ const inputTypeItems = [
 interface PropertiesModalContentProps {
   closeModal(): void;
   isEdit: boolean;
-  property: DataDrivenInput;
+  property?: DataDrivenInput;
   propertyKeys: string[];
-  updateWorkflowProperties: (args: { param: DataDrivenInput; type: string }) => Promise<any>;
+  updateWorkflowProperties: (args: { param: DataDrivenInput; type: WorkflowPropertyActionType }) => void;
 }
 
 class PropertiesModalContent extends Component<PropertiesModalContentProps> {
@@ -87,25 +87,17 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
     }
 
     if (this.props.isEdit) {
-      this.props
-        .updateWorkflowProperties({
-          param,
-          type: WorkflowPropertyAction.Update,
-        })
-        .then(() => {
-          this.props.closeModal();
-        })
-        .catch((e) => {});
+      this.props.updateWorkflowProperties({
+        param,
+        type: WorkflowPropertyAction.Update,
+      });
+      this.props.closeModal();
     } else {
-      this.props
-        .updateWorkflowProperties({
-          param,
-          type: WorkflowPropertyAction.Create,
-        })
-        .then(() => {
-          this.props.closeModal();
-        })
-        .catch((e) => {});
+      this.props.updateWorkflowProperties({
+        param,
+        type: WorkflowPropertyAction.Create,
+      });
+      this.props.closeModal();
     }
   };
 

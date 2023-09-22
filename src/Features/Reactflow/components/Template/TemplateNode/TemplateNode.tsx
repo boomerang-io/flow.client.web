@@ -1,17 +1,16 @@
 import React from "react";
-import { NodeProps, useReactFlow, Node } from "reactflow";
+import { useReactFlow, Node, NodeProps } from "reactflow";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import BaseNode from "../../Base/BaseNode";
-import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { useEditorContext } from "Hooks";
 import styles from "./TemplateNode.module.scss";
-import { WorkflowNode } from "Types";
+import { WorkflowNodeData } from "Types";
 
-export default function TaskTemplateNode(props: WorkflowNode) {
+export default function TaskTemplateNode(props: WorkflowNode<WorkflowNodeData>) {
   const { mode } = useEditorContext();
   // use context to determine state of diagram
   // render the correct component based on the mode of the diagram
@@ -26,12 +25,12 @@ export default function TaskTemplateNode(props: WorkflowNode) {
 // WorkflowCloseButton and WorkflowEditButtons, maybe even the ports as well
 // I think we can implement everything then optimize though
 
-function TaskTemplateNodeDesigner(props: WorkflowNode) {
+function TaskTemplateNodeDesigner(props: NodeProps<WorkflowNodeData>) {
   const reactFlowInstance = useReactFlow();
 
-  const { availableParameters, revisionDispatch, taskTemplatesData } = useEditorContext();
+  const { availableParameters, taskTemplatesData } = useEditorContext();
   // TODO: fix this typing
-  const nodes = reactFlowInstance.getNodes() as unknown as Array<WorkflowNode>;
+  const nodes = reactFlowInstance.getNodes() as unknown as Array<Node<WorkflowNodeData>>;
 
   const inputProperties = availableParameters;
 

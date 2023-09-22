@@ -1,5 +1,5 @@
 import { User } from "@boomerang-io/carbon-addons-boomerang-react";
-import { NodeProps } from "reactflow";
+import { Node } from "reactflow";
 import { UserRole, WorkflowEngineMode, WorkflowPropertyAction, NodeType } from "Constants";
 
 type ObjectValuesToType<T> = T[keyof T];
@@ -215,13 +215,15 @@ export type PaginatedTaskTemplateResponse = Pageable<TaskTemplate>;
 export type PaginatedWorkflowResponse = Pageable<Workflow>;
 export type PaginatedSchedulesResponse = Pageable<ScheduleUnion>;
 
-export type WorkflowNode = NodeProps<{
+export type WorkflowNodeData = {
   name: string;
   templateRef: string;
   templateVersion: number;
   templateUpgradesAvailable: boolean;
   params: Array<{ name: string; value: string }>;
-}>;
+};
+
+export type WorkflowNode = Node<WorkflowNodeData>;
 
 export interface WorkflowEdge {
   id: string;
@@ -240,9 +242,9 @@ export interface WorkflowParameter {
   type: string;
 }
 
-export interface WorkflowCanvas extends Workflow {
+export interface WorkflowEditor extends Workflow {
   edges: Array<WorkflowEdge>;
-  nodes: Array<WorkflowEdge>;
+  nodes: Array<Node<WorkflowNodeData>>;
 }
 
 export enum ApprovalStatus {
@@ -725,7 +727,7 @@ export interface MultiSelectItems<Type = MultiSelectItem> {
   selectedItems: Array<Type>;
 }
 
-export type WorkflowCanvasState = WorkflowCanvas & { hasUnsavedUpdates?: boolean };
+export type WorkflowEditorState = WorkflowEditor & { hasUnsavedUpdates?: boolean };
 
 export type WorkflowEngineModeType = ObjectValuesToType<typeof WorkflowEngineMode>;
 export type WorkflowPropertyActionType = ObjectValuesToType<typeof WorkflowPropertyAction>;

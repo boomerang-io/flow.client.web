@@ -25,7 +25,7 @@ import {
   PaginatedWorkflowResponse,
   TaskTemplate,
   WorkflowView,
-  Workflow,
+  WorkflowEditor,
 } from "Types";
 import { FormikProps } from "formik";
 import type { ReactFlowInstance } from "reactflow";
@@ -58,7 +58,7 @@ export default function EditorContainer() {
    * Queries
    */
   const changeLogQuery = useQuery<ChangeLogType>(getChangelogUrl);
-  const workflowQuery = useQuery<Workflow>(getWorkflowUrl);
+  const workflowQuery = useQuery<WorkflowEditor>(getWorkflowUrl);
   const workflowsQuery = useQuery<PaginatedWorkflowResponse>(getWorkflowsUrl);
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
   const taskTemplatesTeamQuery = useQuery(getTaskTemplatesTeamUrl);
@@ -136,7 +136,7 @@ interface EditorStateContainerProps {
   changeLogData: ChangeLogType;
   revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
   parametersMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-  workflowQueryData: Workflow;
+  workflowQueryData: WorkflowEditor;
   workflowsQueryData: PaginatedWorkflowResponse;
   setRevisionNumber: (revisionNumber: string) => void;
   taskTemplatesList: Array<TaskTemplate>;
@@ -185,7 +185,6 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         ...formattedConfigureValue,
         changelog: { reason },
       };
-      console.log({ configureValues });
 
       try {
         const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
@@ -207,36 +206,8 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     }
   };
 
-  /**
-   *
-   * @param {Object} formikValues - key/value pairs for inputs
-   */
-  const updateSummary = useCallback(
-    async ({ values: formikValues }) => {
-      console.log(formikValues);
-      const updatedWorkflow = { ...workflowQueryData, ...formikValues };
-
-      try {
-        const { data } = await revisionMutator.mutateAsync({ workflowId, body: updatedWorkflow });
-        queryClient.setQueryData(serviceUrl.getWorkflowSummary({ workflowId }), data);
-        notify(
-          <ToastNotification kind="success" title="Workflow Updated" subtitle={`Successfully updated workflow`} />
-        );
-      } catch (err) {
-        notify(
-          <ToastNotification
-            kind="error"
-            title="Something's Wrong"
-            subtitle={`Failed to update workflow configuration`}
-          />
-        );
-      }
-    },
-    [revisionMutator, queryClient, workflowQueryData, workflowId]
-  );
-
   const handleUpdateNotes = useCallback(
-    ({ markdown }) => {
+    (markdown: string) => {
       revisionDispatch({
         type: RevisionActionTypes.UpdateNotes,
         data: { markdown },
@@ -245,20 +216,63 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     [revisionDispatch]
   );
 
+  /**
+   * Welp this is more complicated than I hoped it would (has?) to be
+   * We are making client side updates to the parameters available to a Workflow
+   * parameters - defined at the Workflow-level in the Parameters tab
+   * deletedParams - parameters that were removed
+   * availableParameters - parameters supplied by its relationship to other entities
+   *   - team
+   *   - global
+   *   - context
+   *   that get requested and made available to Workflow task configuration
+   * Parameters are represented in two ways, "flat" and "layer"
+   * e.g. Workflow "api-token" as workflow.params.api-token and param.api-token.
+   * e.g. Team "api-token" as team.params.api-token and param.api-token.
+   *
+   * When a token of value `api-token` gets added we need to add both versions
+   * When a token of value `api-token` gets deleted we need to delete the workflow
+   * layer version AND check if there is a matching higher layer one. If there
+   * IS NOT then we need to delete the flat token as well
+   *
+   * All of this is bc params are versioned along w/ the Workflow so when we edit things
+   * client side we need to propogate those changes within the workflow Editor
+   */
   const handleUpdateParams = useCallback(
-    (parameters: Array<DataDrivenInput>) => {
+    (parameters: Array<DataDrivenInput>, deletedParameters: Array<DataDrivenInput>) => {
       revisionDispatch({
         type: RevisionActionTypes.UpdateConfig,
         data: { parameters },
       });
 
-      // Create new available parameters values so user doesn't have to create a
-      // a new version to use newly created parameters
       const newAvailableParameters = [...availableParameters];
-      newAvailableParameters.push(
-        ...parameters.map((param) => [`workflow.params.${param.key}`, `params.${param.key}`]).flat()
-      );
-      setAvailableParameters(Array.from(new Set(newAvailableParameters)));
+
+      for (let parameter of parameters) {
+        newAvailableParameters.push(`workflow.params.${parameter.key}`, `params.${parameter.key}`);
+      }
+
+      const availableParameterSet = new Set(newAvailableParameters);
+      for (let deletedParameter of deletedParameters) {
+        const deletedWorkflowParamKey = `workflow.params.${deletedParameter.key}`;
+        const deletedFlatParamKey = `params.${deletedParameter.key}`;
+        const higherLayerParamList = [
+          `context.params.${deletedParameter.key}`,
+          `global.params.${deletedParameter.key}`,
+          `team.params.${deletedParameter.key}`,
+        ];
+
+        availableParameterSet.delete(deletedWorkflowParamKey);
+        const hasHigherLayerParam =
+          availableParameterSet.has(higherLayerParamList[0]) ||
+          availableParameterSet.has(higherLayerParamList[1]) ||
+          availableParameterSet.has(higherLayerParamList[2]);
+
+        if (!hasHigherLayerParam) {
+          availableParameterSet.delete(deletedFlatParamKey);
+        }
+      }
+
+      setAvailableParameters(Array.from(availableParameterSet));
     },
     [revisionDispatch, availableParameters, setAvailableParameters]
   );
@@ -312,15 +326,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             revisionMutator={revisionMutator}
           />
           <Switch>
-            <Route path={AppPath.EditorDesigner}>
-              <Designer
-                notes={markdown}
-                setWorkflow={setWorkflow}
-                tasks={taskTemplatesList}
-                updateNotes={handleUpdateNotes}
-                workflow={revisionState}
-              />
-            </Route>
+            <Route path={AppPath.EditorDesigner}></Route>
             <Route path={AppPath.EditorProperties}>
               <Parameters workflow={revisionState} handleUpdateParams={handleUpdateParams} />
             </Route>
@@ -334,7 +340,16 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           {
             // Always render parent Configure component so state isn't lost when switching tabs
             // It is responsible for rendering its children, but Formik form management is always mounted
-            <Configure quotas={quotas} workflow={revisionState} settingsRef={settingsRef} />
+            <>
+              <Designer
+                notes={markdown}
+                setWorkflow={setWorkflow}
+                tasks={taskTemplatesList}
+                updateNotes={handleUpdateNotes}
+                workflow={revisionState}
+              />
+              <Configure quotas={quotas} workflow={revisionState} settingsRef={settingsRef} />
+            </>
           }
         </div>
       </>
@@ -342,7 +357,11 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   );
 };
 
-function formatConfigureValues(configureValues: ConfigureWorkflowFormValues): Partial<Workflow> {
+/**
+ * Format the form configure values into something that the API accepts
+ * Update the `workspaces` and `labels` to be in the right format
+ */
+function formatConfigureValues(configureValues: ConfigureWorkflowFormValues): Partial<WorkflowEditor> {
   const optionalConfigureValues: Partial<ConfigureWorkflowFormValues> = configureValues;
 
   // Format labels
@@ -352,7 +371,7 @@ function formatConfigureValues(configureValues: ConfigureWorkflowFormValues): Pa
   }, {} as Record<string, string>);
 
   // Format workspaces
-  const workflowStorageConfig = configureValues.storage.workflow.enabled
+  const workflowStorageConfig = configureValues.storage?.workflow?.enabled
     ? {
         name: WorkspaceConfigType.Workflow,
         type: WorkspaceConfigType.Workflow,
@@ -361,7 +380,7 @@ function formatConfigureValues(configureValues: ConfigureWorkflowFormValues): Pa
       }
     : null;
 
-  const workflowRunStorageConfig = configureValues.storage.workflowrun.enabled
+  const workflowRunStorageConfig = configureValues.storage?.workflowrun?.enabled
     ? {
         name: WorkspaceConfigType.WorflowRun,
         type: WorkspaceConfigType.WorflowRun,
@@ -370,11 +389,11 @@ function formatConfigureValues(configureValues: ConfigureWorkflowFormValues): Pa
       }
     : null;
 
-  const workspaces = [workflowStorageConfig, workflowRunStorageConfig].filter(Boolean) as Workflow["workspaces"];
+  const workspaces = [workflowStorageConfig, workflowRunStorageConfig].filter(Boolean) as WorkflowEditor["workspaces"];
 
   delete optionalConfigureValues["storage"];
 
-  const formattedWorkflowConfig: Partial<Workflow> = {
+  const formattedWorkflowConfig: Partial<WorkflowEditor> = {
     ...optionalConfigureValues,
     workspaces,
     labels: labelsKVObject,
