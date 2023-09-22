@@ -3,6 +3,7 @@ import React from "react";
 import { Formik } from "formik";
 import { useMutation } from "react-query";
 import * as Yup from "yup";
+import YAML from "yaml";
 import {
   Button,
   FileUploaderDropContainer,
@@ -11,11 +12,17 @@ import {
   ModalBody,
   ModalFooter,
 } from "@carbon/react";
-import { Creatable, Loading, ModalFlowForm, TextInput, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  Creatable,
+  Loading,
+  ModalForm,
+  TextInput,
+  TextArea,
+  RadioGroup,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utils/taskIcons";
-import { requiredTaskProps } from "./constants";
 import { resolver } from "Config/servicesConfig";
 import { sentenceCase } from "change-case";
 import styles from "./addTaskTemplateForm.module.scss";
@@ -26,21 +33,11 @@ interface AddTaskTemplateFormProps {
   isSubmitting: boolean;
   createError: any;
   handleAddTaskTemplate: () => void;
+  handleImportTaskTemplate: () => void;
 }
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
 
-function checkIsValidTask(data) {
-  // Only check if the .json file contain the required key data
-  // This validate can be improved
-  let isValid = true;
-  requiredTaskProps.forEach((prop) => {
-    if (!data.hasOwnProperty(prop)) {
-      isValid = false;
-    }
-  });
-  return isValid;
-}
 /**
  * Return promise for reading file
  * @param file {File}
@@ -73,6 +70,21 @@ function AddTaskTemplateForm({
   taskTemplateNames,
   handleAddTaskTemplate,
 }: AddTaskTemplateFormProps) {
+  const OPTION_CREATE = "Start from scratch";
+  const OPTION_IMPORT = "Import a template";
+  const [selectedOption, setSelectedOption] = React.useState(OPTION_CREATE);
+  const radioOptions = [
+    {
+      id: "create-radio-id",
+      labelText: OPTION_CREATE,
+      value: OPTION_CREATE,
+    },
+    {
+      id: "import-radio-id",
+      labelText: OPTION_IMPORT,
+      value: OPTION_IMPORT,
+    },
+  ];
   const orderedIcons = orderBy(taskIcons, ["name"]);
 
   const {
@@ -116,38 +128,67 @@ function AddTaskTemplateForm({
     await handleAddTaskTemplate({ replace: "false", body, closeModal });
   };
 
+  const handleImport = async (values) => {
+    if (!values.file.type === "application/json") {
+      const body = values.fileData;
+      body.name = values.name;
+      body.displayName = values.displayName;
+      body.category = values.category;
+      body.description = values.description;
+      body.icon = values.icon.value;
+      body.changelog = { reason: "Import new task" };
+    } else {
+      const body = values.fileData;
+      body.metadata.name = values.name;
+      body.metadata.annotations["boomerang.io/displayName"] = values.displayName;
+      body.metadata.annotations["boomerang.io/category"] = values.category;
+      body.spec.description = values.description;
+      body.metadata.annotations["boomerang.io/icon"] = values.icon.value;
+      // body.changelog = { reason: "Import new task" };
+    }
+    await handleImportTaskTemplate({ type: values.file.type, replace: "false", body, closeModal });
+  };
+
   const getTemplateData = async ({ file, setFieldValue, setFieldTouched }) => {
     try {
-      const yamlData = await readFile(file);
+      const yamlFile = await readFile(file);
       setFieldValue("file", file);
-      const response = await validateYamlMuatator({ body: yamlData });
-      const fileData = response?.data;
-      const selectedIcon = orderedIcons.find((icon) => icon.name === fileData?.icon);
-      if (checkIsValidTask(fileData)) {
-        const currentRevision = fileData.revisions.find((revision) => revision.version === fileData.currentVersion);
-        setFieldValue("name", fileData.name);
+      await validateYamlMuatator({ body: yamlFile });
+      console.log(file);
+      if (file.type === "application/json") {
+        const jsonData = JSON.parse(yamlFile);
+        console.log(jsonData);
+        setFieldValue("name", jsonData.name);
         setFieldTouched("name", true);
-        setFieldValue("displayName", fileData.displayName);
+        setFieldValue("displayName", jsonData.displayName);
         setFieldTouched("displayName", true);
-        setFieldValue("description", fileData.description);
+        setFieldValue("description", jsonData.description);
         setFieldTouched("description", true);
-        setFieldValue("category", fileData.category);
+        setFieldValue("category", jsonData.category);
         setFieldTouched("category", true);
+        const selectedIcon = orderedIcons.find((icon) => icon.name === jsonData?.icon);
+        console.log(selectedIcon);
         selectedIcon &&
           setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
-        setFieldValue("image", currentRevision.image);
-        setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
-        setFieldValue("command", currentRevision.command ?? "");
-        setFieldValue("script", currentRevision.script ?? "");
-        const formattedEnvs = Array.isArray(currentRevision.envs)
-          ? currentRevision.envs.map((env) => {
-              return `${env.name}:${env.value}`;
-            })
-          : [];
-        setFieldValue("envs", formattedEnvs);
-        setFieldValue("workingDir", currentRevision?.workingDir ?? "");
-        setFieldValue("currentRevision", currentRevision);
-        setFieldValue("fileData", fileData);
+        setFieldValue("fileData", jsonData);
+      } else {
+        const yamlData = YAML.parse(yamlFile);
+        console.log(yamlData);
+        setFieldValue("name", yamlData.metadata.name);
+        setFieldTouched("name", true);
+        console.log(yamlData.metadata.annotations["boomerang.io/displayName"]);
+        setFieldValue("displayName", yamlData.metadata.annotations["boomerang.io/displayName"]);
+        setFieldTouched("displayName", true);
+        setFieldValue("description", yamlData.spec.description);
+        setFieldTouched("description", true);
+        setFieldValue("category", yamlData.metadata.annotations["boomerang.io/category"]);
+        setFieldTouched("category", true);
+        const selectedIcon = orderedIcons.find(
+          (icon) => icon.name === yamlData.metadata.annotations["boomerang.io/icon"]
+        );
+        selectedIcon &&
+          setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
+        setFieldValue("fileData", yamlData);
       }
     } catch (e) {
       // noop
@@ -212,7 +253,7 @@ function AddTaskTemplateForm({
         //   return Promise.resolve(isValid);
         // }),
       })}
-      onSubmit={handleSubmit}
+      onSubmit={selectedOption === OPTION_IMPORT ? handleSubmit : handleImport}
       initialErrors={[{ name: "Name required" }]}
     >
       {(props) => {
@@ -229,168 +270,180 @@ function AddTaskTemplateForm({
           resetForm,
         } = props;
         return (
-          <ModalFlowForm onSubmit={handleSubmit} className={styles.container}>
+          <ModalForm
+            onSubmit={selectedOption === OPTION_IMPORT ? handleSubmit : handleImport}
+            className={styles.container}
+          >
             <ModalBody>
+              <div className={styles.typeRadio}>
+                <RadioGroup name="options" options={radioOptions} onChange={setSelectedOption} value={selectedOption} />
+              </div>
               {isSubmitting && <Loading />}
-              <div>
-                <label className={styles.fileUploaderLabel} htmlFor="uploadTemplate">
-                  Import task file (optional)
-                </label>
-                <p className={styles.fileUploaderHelper}>File type .yaml, can only upload one file</p>
-                <FileUploaderDropContainer
-                  id="uploadTemplate"
-                  className={styles.fileUploader}
-                  accept={[".yaml"]}
-                  labelText={FILE_UPLOAD_MESSAGE}
-                  name="Workflow"
-                  multiple={false}
-                  onAddFiles={(event, { addedFiles }) => {
-                    getTemplateData({ file: addedFiles[0], setFieldValue, setFieldTouched });
-                  }}
-                />
-                {values.file && (
-                  <FileUploaderItem
-                    name={values.file.name}
-                    status={validateYamlIsLoading ? "uploading" : "edit"}
-                    onDelete={() => {
-                      setFieldValue("file", undefined);
-                      if (validateYamlError) {
-                        resetValidateYaml();
-                      }
-                      if (!errors.file) {
-                        resetForm();
-                      }
+              {selectedOption === OPTION_IMPORT && (
+                <div>
+                  <label className={styles.fileUploaderLabel} htmlFor="uploadTemplate">
+                    Import task template file (optional)
+                  </label>
+                  <p className={styles.fileUploaderHelper}>
+                    Supported file types are .yaml and .json. Supports uploading only one file.
+                  </p>
+                  <FileUploaderDropContainer
+                    id="uploadTemplate"
+                    className={styles.fileUploader}
+                    accept={[".yaml", ".json"]}
+                    labelText={FILE_UPLOAD_MESSAGE}
+                    name="Task"
+                    multiple={false}
+                    onAddFiles={(event, { addedFiles }) => {
+                      getTemplateData({ file: addedFiles[0], setFieldValue, setFieldTouched });
                     }}
                   />
-                )}
-                {Boolean(errors.file || validateYamlError) && (
-                  <InlineNotification
-                    className={styles.fileUploaderNotification}
-                    lowContrast
-                    kind="error"
-                    title="Oops there was a problem with the upload. Delete it and try again."
-                    subtitle="The file should contain the required fields in this form."
+                  {values.file && (
+                    <FileUploaderItem
+                      name={values.file.name}
+                      status={validateYamlIsLoading ? "uploading" : "edit"}
+                      onDelete={() => {
+                        setFieldValue("file", undefined);
+                        if (validateYamlError) {
+                          resetValidateYaml();
+                        }
+                        if (!errors.file) {
+                          resetForm();
+                        }
+                      }}
+                    />
+                  )}
+                  {Boolean(errors.file || validateYamlError) && (
+                    <InlineNotification
+                      className={styles.fileUploaderNotification}
+                      lowContrast
+                      kind="error"
+                      title="Oops there was a problem with the upload. Delete it and try again."
+                      subtitle="The file should contain the required fields in this form."
+                    />
+                  )}
+                </div>
+              )}
+              {Boolean(
+                (values.file && !errors.file && !validateYamlError && !validateYamlIsLoading) ||
+                  selectedOption === OPTION_CREATE
+              ) && (
+                <>
+                  <TextInput
+                    id="name"
+                    invalid={Boolean(errors.name && touched.name)}
+                    invalidText={errors.name}
+                    labelText="Name"
+                    helperText="Must be unique and only contain lowercase alphanumeric characters and dashes"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    placeholder="my-unique-task-name"
+                    value={values.name}
                   />
-                )}
-                {Boolean(values.file) && !Boolean(errors.file) && !validateYamlError && !validateYamlIsLoading && (
-                  <InlineNotification
-                    className={styles.fileUploaderNotification}
-                    lowContrast
-                    kind="success"
-                    title="Task file successfully imported!"
-                    subtitle="Check the details below. Task Definition fields were also imported, you can view them once you’ve saved this task."
+                  <TextInput
+                    id="displayName"
+                    invalid={Boolean(errors.displayName && touched.displayName)}
+                    invalidText={errors.displayName}
+                    labelText="Display Name"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    placeholder="My Unique Task Name"
+                    value={values.displayName}
                   />
-                )}
-              </div>
-              <TextInput
-                id="name"
-                invalid={Boolean(errors.name && touched.name)}
-                invalidText={errors.name}
-                labelText="Name"
-                helperText="Must be unique and only contain lowercase alphanumeric characters and dashes"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                placeholder="my-unique-task-name"
-                value={values.name}
-              />
-              <TextInput
-                id="displayName"
-                invalid={Boolean(errors.displayName && touched.displayName)}
-                invalidText={errors.displayName}
-                labelText="Display Name"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                placeholder="My Unique Task Name"
-                value={values.displayName}
-              />
-              <TextInput
-                id="category"
-                invalid={Boolean(errors.category && touched.category)}
-                invalidText={errors.category}
-                labelText="Category"
-                helperText="Categories have strict matching, type as you want to see it"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                placeholder="e.g. communication"
-                value={values.category}
-              />
-              <SelectIcon
-                onChange={({ selectedItem }) => Boolean(selectedItem) && setFieldValue("icon", selectedItem)}
-                selectedIcon={values.icon}
-                iconOptions={orderedIcons}
-              />
-              <div className={styles.description}>
-                <p className={styles.descriptionLength}>{values.description?.length ?? 0}/200</p>
-                <TextArea
-                  id="description"
-                  invalid={Boolean(errors.description && touched.description)}
-                  invalidText={errors.description}
-                  labelText="Description"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.description}
-                />
-              </div>
-              <TextInput
-                id="image"
-                labelText="Image (optional)"
-                helperText="Path to container image. If not specified, will use the systems default."
-                name="image"
-                value={values.image}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={Boolean(errors.image && touched.image)}
-                invalidText={errors.image}
-              />
-              <TextArea
-                id="command"
-                labelText="Command (optional)"
-                helperText="Overrides the entry point of the container. Delimited by a new line."
-                name="command"
-                value={values.command}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={Boolean(errors.command && touched.command)}
-                invalidText={errors.command}
-              />
-              <TextArea
-                id="arguments"
-                labelText="Arguments (optional)"
-                helperText="Enter arguments delimited by a new line"
-                placeholder="e.g. system sleep"
-                name="arguments"
-                value={values.arguments}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={Boolean(errors.arguments && touched.arguments)}
-                invalidText={errors.arguments}
-              />
-              <TextArea
-                id="script"
-                invalid={Boolean(errors.script && touched.script)}
-                invalidText={errors.script}
-                labelText="Script (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.script}
-              />
-              <TextInput
-                id="workingDir"
-                invalid={Boolean(errors.workingDir && touched.workingDir)}
-                invalidText={errors.workingDir}
-                labelText="Working Directory (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.workingDir}
-              />
-              <Creatable
-                createKeyValuePair
-                id="envs"
-                onChange={(createdItems: string[]) => setFieldValue("envs", createdItems)}
-                keyLabelText="Environments (optional)"
-                placeholder="Enter env"
-                values={values.envs || []}
-              />
+                  <TextInput
+                    id="category"
+                    invalid={Boolean(errors.category && touched.category)}
+                    invalidText={errors.category}
+                    labelText="Category"
+                    helperText="Categories have strict matching, type as you want to see it"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    placeholder="e.g. communication"
+                    value={values.category}
+                  />
+                  <SelectIcon
+                    onChange={({ selectedItem }) => Boolean(selectedItem) && setFieldValue("icon", selectedItem)}
+                    selectedIcon={values.icon}
+                    iconOptions={orderedIcons}
+                  />
+                  <div className={styles.description}>
+                    <p className={styles.descriptionLength}>{values.description?.length ?? 0}/200</p>
+                    <TextArea
+                      id="description"
+                      invalid={Boolean(errors.description && touched.description)}
+                      invalidText={errors.description}
+                      labelText="Description"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.description}
+                    />
+                  </div>
+                </>
+              )}
+              {selectedOption === OPTION_CREATE && (
+                <>
+                  <TextInput
+                    id="image"
+                    labelText="Image (optional)"
+                    helperText="Path to container image. If not specified, will use the systems default."
+                    name="image"
+                    value={values.image}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    invalid={Boolean(errors.image && touched.image)}
+                    invalidText={errors.image}
+                  />
+                  <TextArea
+                    id="command"
+                    labelText="Command (optional)"
+                    helperText="Overrides the entry point of the container. Delimited by a new line."
+                    name="command"
+                    value={values.command}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    invalid={Boolean(errors.command && touched.command)}
+                    invalidText={errors.command}
+                  />
+                  <TextArea
+                    id="arguments"
+                    labelText="Arguments (optional)"
+                    helperText="Enter arguments delimited by a new line"
+                    placeholder="e.g. system sleep"
+                    name="arguments"
+                    value={values.arguments}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    invalid={Boolean(errors.arguments && touched.arguments)}
+                    invalidText={errors.arguments}
+                  />
+                  <TextArea
+                    id="script"
+                    invalid={Boolean(errors.script && touched.script)}
+                    invalidText={errors.script}
+                    labelText="Script (optional)"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.script}
+                  />
+                  <TextInput
+                    id="workingDir"
+                    invalid={Boolean(errors.workingDir && touched.workingDir)}
+                    invalidText={errors.workingDir}
+                    labelText="Working Directory (optional)"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.workingDir}
+                  />
+                  <Creatable
+                    createKeyValuePair
+                    id="envs"
+                    onChange={(createdItems: string[]) => setFieldValue("envs", createdItems)}
+                    keyLabelText="Environments (optional)"
+                    placeholder="Enter env"
+                    values={values.envs || []}
+                  />
+                </>
+              )}
               {Boolean(createError) && (
                 <InlineNotification
                   lowContrast
@@ -405,10 +458,16 @@ function AddTaskTemplateForm({
                 Cancel
               </Button>
               <Button disabled={!isValid || isSubmitting} type="submit">
-                {!isSubmitting ? "Create" : "Creating..."}
+                {selectedOption === OPTION_CREATE
+                  ? !isSubmitting
+                    ? "Create"
+                    : "Creating..."
+                  : !isSubmitting
+                  ? "Import"
+                  : "Importing..."}
               </Button>
             </ModalFooter>
-          </ModalFlowForm>
+          </ModalForm>
         );
       }}
     </Formik>

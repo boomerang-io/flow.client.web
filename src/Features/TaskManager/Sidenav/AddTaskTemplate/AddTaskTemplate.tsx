@@ -20,9 +20,10 @@ interface AddTaskTemplateProps {
 function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team }: AddTaskTemplateProps) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [isSubmitError, setIsSubmitError] = React.useState(false);
-  const queryClient = useQueryClient();
 
+  const queryClient = useQueryClient();
   const createTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
+  const createTaskTemplateYAMLMutation = useMutation(resolver.putApplyTaskTemplateYaml);
 
   const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
     setIsSubmitting(true);
@@ -58,6 +59,46 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
       setIsSubmitting(false);
     }
   };
+
+  const handleImportTaskTemplate = async ({ type, replace, body, closeModal }) => {
+    setIsSubmitting(true);
+    try {
+      console.log(body);
+      if (type === "application/json") {
+        let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team.name, body });
+      } else {
+        let response = await createTaskTemplateYAMLMutation.mutateAsync({ replace, team: team.name, body });
+      }
+      console.log(response);
+      await queryClient.invalidateQueries(getTaskTemplatesUrl);
+      notify(
+        <ToastNotification
+          kind="success"
+          subtitle="Successfully imported task template"
+          title={`Task Template ${response.data.displayName} imported`}
+          data-testid="import-task-template-notification"
+        />
+      );
+      history.push(
+        team
+          ? appLink.manageTaskTemplateEdit({
+              team: team.name,
+              name: task.name,
+              version: task.version.toString(),
+            })
+          : appLink.adminTaskTemplateDetail({
+              name: task.name,
+              version: task.version.toString(),
+            })
+      );
+      closeModal();
+    } catch (err) {
+      setIsSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <ComposedModal
       composedModalProps={{ containerClassName: styles.modalContainer }}
@@ -72,12 +113,13 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
       )}
       modalHeaderProps={{
         title: "Add a new task",
-        subtitle: "Import a task file to auto-populate these fields, or start from scratch.",
+        subtitle: "Get started from scratch with these basics, or import a file to auto-populate these fields.",
       }}
     >
       {({ closeModal }) => (
         <AddTaskTemplateForm
           handleAddTaskTemplate={handleAddTaskTemplate}
+          handleImportTaskTemplate={handleImportTaskTemplate}
           isSubmitting={isSubmitting}
           createError={createTaskTemplateMutation.error || isSubmitError}
           taskTemplateNames={taskTemplateNames}

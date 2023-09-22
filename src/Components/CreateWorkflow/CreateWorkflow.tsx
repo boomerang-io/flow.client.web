@@ -41,6 +41,11 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
         body: workflowSummary,
       });
       const workflowId = newWorkflow.id;
+<<<<<<< Updated upstream
+=======
+      // const dagProps = createWorkflowRevisionBody(workflowDagEngine, `Create ${viewType}`);
+      // console.log(dagProps);
+>>>>>>> Stashed changes
       history.push(appLink.editorDesigner({ team: team?.name!, workflowId: workflowId }));
       notify(
         <ToastNotification kind="success" title={`Create ${viewType}`} subtitle={`${viewType} successfully created`} />

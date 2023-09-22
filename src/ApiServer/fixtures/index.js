@@ -31,4 +31,3 @@ export { default as workflowCompose } from "./workflowCompose";
 export { default as workflowExecution } from "./workflowExecution";
 export { default as workflowSchedules } from "./workflowSchedules";
 export { default as workflowTemplates } from "./workflowTemplates";
-export { default as taskTemplateValidate } from "./taskTemplateValidate";

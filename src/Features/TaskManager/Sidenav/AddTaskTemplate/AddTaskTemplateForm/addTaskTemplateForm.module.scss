@@ -3,6 +3,9 @@
   :global .cds--file-browse-btn {
     margin-bottom: 1rem;
   }
+  :global .cds--file__selected-file {
+    background: var(--cds-ui-background);
+  }
 }
 .fileUploaderLabel {
   font-size: 0.75rem;

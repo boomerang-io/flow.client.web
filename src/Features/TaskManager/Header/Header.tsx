@@ -10,7 +10,7 @@ import {
   TextArea,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, Tag, ModalBody, ModalFooter, InlineNotification } from "@carbon/react";
+import { Button, Tag, ModalBody, ModalFooter, InlineNotification, ComboButton, MenuItem } from "@carbon/react";
 import { useParams } from "react-router-dom";
 import VersionHistory from "Components/VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
@@ -249,7 +249,7 @@ const Header: React.FC<HeaderProps> = ({
             hasIconOnly
             iconDescription={
               <div className={styles.iconOnlyTooltip}>
-                <p>Download this version as YAML</p>
+                <p>Download this version as JSON</p>
               </div>
             }
             tooltipPosition="bottom"

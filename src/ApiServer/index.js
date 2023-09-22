@@ -45,7 +45,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       team: Model,
       teamApproverUsers: Model,
       teamNameValidate: Model,
-      taskTemplateValidate: Model,
       teamProperties: Model,
       tokens: Model,
       flowNavigation: Model,
@@ -262,7 +261,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return taskTemplate;
       });
       this.post(serviceUrl.postValidateYaml(), (schema) => {
-        return schema.db.taskTemplateValidate[0];
+        return new Response(200, {}, { errors: ["Name is already taken"] });
       });
       this.put(serviceUrl.putTaskTemplate({ replace: "true", team: ":team" }), (schema, request) => {
         return {};
