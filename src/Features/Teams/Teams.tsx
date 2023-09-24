@@ -191,7 +191,7 @@ const TeamList: React.FC = () => {
 const headers = [
   {
     header: "Name",
-    key: "name",
+    key: "displayName",
     sortable: true,
   },
   {
@@ -201,7 +201,7 @@ const headers = [
   },
   {
     header: "# of Users",
-    key: "users",
+    key: "members",
   },
   { header: "# of Workflows", key: "quotas" },
   { header: "Status", key: "status" },
@@ -241,6 +241,7 @@ function TeamListTable(props: TeamListTableProps) {
     props.updateHistorySearch({ ...queryString.parse(props.location.search), sort: sortHeaderKey, order });
   }
 
+  console.log(content);
   return content.length > 0 ? (
     <>
       <DataTable
