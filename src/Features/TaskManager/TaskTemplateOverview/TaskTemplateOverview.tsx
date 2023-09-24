@@ -253,7 +253,7 @@ export function TaskTemplateOverview({
   console.log("canEdit", canEdit);
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
   console.log("isActive", isActive);
-  const isOldVersion = params.version !== getChangelogQuery.data.length;
+  const isOldVersion = Boolean(params.version != getChangelogQuery.data.length);
   console.log("isOldVersion", isOldVersion);
 
   const fieldKeys = selectedTaskTemplate.config?.map((input: DataDrivenInput) => input.key) ?? [];
