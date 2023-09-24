@@ -288,9 +288,7 @@ export function TaskTemplateYamlEditor({
                 return prompt;
               }}
             />
-            {(applyTaskTemplateMutation.isLoading ||
-              archiveTaskTemplateMutation.isLoading ||
-              restoreTaskTemplateMutation.isLoading) && <Loading />}
+            {applyTaskTemplateMutation.isLoading && <Loading />}
             <Header
               editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
