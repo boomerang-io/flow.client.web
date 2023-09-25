@@ -58,9 +58,8 @@ interface WorkflowInsightsRes {
   runs: Array<InsightsRuns>;
 }
 
-const now = moment();
-const maxDate = now.format("MM/DD/YYYY");
-const defaultFromDate = now.subtract(3, "months").valueOf();
+const maxDate = moment().format("MM/DD/YYYY");
+const defaultFromDate = moment().subtract(3, "months").valueOf();
 const defaultToDate = moment().endOf("day").valueOf();
 
 export default function Insights() {

@@ -20,10 +20,9 @@ const DEFAULT_PAGE = 0;
 const DEFAULT_LIMIT = 10;
 const DEFAULT_SORT = "creationDate";
 
-const NOW = moment();
-const DEFAULT_MAX_DATE = NOW.format("MM/DD/YYYY");
-const DEFAULT_FROM_DATE = NOW.subtract(3, "months").valueOf();
-const DEFAULT_TO_DATE = NOW.endOf("day").valueOf();
+const DEFAULT_MAX_DATE = moment().format("MM/DD/YYYY");
+const DEFAULT_FROM_DATE = moment().subtract(3, "months").valueOf();
+const DEFAULT_TO_DATE = moment().endOf("day").valueOf();
 
 function WorkflowActivity() {
   const { team } = useTeamContext();
