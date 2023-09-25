@@ -64,8 +64,16 @@ export default function ScheduleView(props: ScheduleProps) {
    * A "calendar" is the scheduled events that are well scheduled to occur
    * in a given time frame. We default to fetching the calendar for the current month
    */
+  let scheduleIds = [];
+  if (schedulesQuery.data?.content) {
+    for (const schedule of schedulesQuery.data?.content) {
+      scheduleIds.push(schedule.id);
+    }
+  }
+
   const calendarUrlQuery = queryString.stringify(
     {
+      schedules: scheduleIds,
       fromDate: fromDate,
       toDate: toDate,
     },
