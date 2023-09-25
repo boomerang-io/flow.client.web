@@ -21,6 +21,7 @@ import styles from "./TaskTemplateEditor.module.scss";
 import { TaskTemplate } from "Types";
 import ReactMarkdown from "react-markdown";
 import { yamlInstructions } from "Constants";
+import fileDownload from "js-file-download";
 import { sentenceCase } from "change-case";
 
 // import CodeMirror from "codemirror";
