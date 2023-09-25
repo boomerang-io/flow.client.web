@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery, UseQueryResult } from "react-query";
 import { Loading } from "@carbon/react";
+import { useTeamContext } from "Hooks";
 import ErrorDragon from "Components/ErrorDragon";
 import ScheduleCalendar from "Components/ScheduleCalendar";
 import ScheduleCreator from "Components/ScheduleCreator";
@@ -12,8 +13,17 @@ import moment from "moment-timezone";
 import queryString from "query-string";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import { scheduleStatusOptions } from "Constants";
 import type { SlotInfo } from "react-big-calendar";
-import type { CalendarDateRange, CalendarEvent, CalendarEntry, ScheduleDate, ScheduleUnion, Workflow } from "Types";
+import type {
+  CalendarDateRange,
+  CalendarEvent,
+  CalendarEntry,
+  ScheduleDate,
+  ScheduleUnion,
+  Workflow,
+  PaginatedSchedulesResponse,
+} from "Types";
 import styles from "./Schedule.module.scss";
 
 interface ScheduleProps {
@@ -21,6 +31,7 @@ interface ScheduleProps {
 }
 
 export default function ScheduleView(props: ScheduleProps) {
+  const { team } = useTeamContext();
   const [activeSchedule, setActiveSchedule] = React.useState<ScheduleUnion | undefined>();
   const [newSchedule, setNewSchedule] = React.useState<Pick<ScheduleDate, "dateSchedule" | "type"> | undefined>();
   const [isPanelOpen, setIsPanelOpen] = React.useState(false);
@@ -33,12 +44,19 @@ export default function ScheduleView(props: ScheduleProps) {
    * Get the schedules for the workflow
    * A schedule is an object that defines the events
    */
+  const schedulesUrlQuery = queryString.stringify(
+    {
+      statuses: scheduleStatusOptions.map((statusObj) => statusObj.value),
+      teams: team?.name,
+      workflows: props.workflow.id,
+    },
+    queryStringOptions
+  );
+  const getSchedulesUrl = serviceUrl.getSchedules({ query: schedulesUrlQuery });
 
-  const workflowScheduleUrl = serviceUrl.getWorkflowSchedules({ workflowId: props.workflow.id });
-
-  const workflowSchedulesQuery = useQuery<Array<ScheduleUnion>, string>({
-    queryKey: workflowScheduleUrl,
-    queryFn: resolver.query(workflowScheduleUrl),
+  const schedulesQuery = useQuery<PaginatedSchedulesResponse, string>({
+    queryKey: getSchedulesUrl,
+    queryFn: resolver.query(getSchedulesUrl),
   });
 
   /**
@@ -46,24 +64,23 @@ export default function ScheduleView(props: ScheduleProps) {
    * A "calendar" is the scheduled events that are well scheduled to occur
    * in a given time frame. We default to fetching the calendar for the current month
    */
-  const workflowCalendarUrlQuery = queryString.stringify(
+  const calendarUrlQuery = queryString.stringify(
     {
       fromDate: fromDate,
       toDate: toDate,
     },
-    { ...queryStringOptions, encode: false }
+    queryStringOptions
   );
+  const getCalendarUrl = serviceUrl.getSchedulesCalendars({ query: calendarUrlQuery });
 
-  const workflowCalendarUrl = serviceUrl.getWorkflowSchedulesCalendar({
-    workflowId: props.workflow.id,
-    query: workflowCalendarUrlQuery,
+  const calendarQuery = useQuery<Array<CalendarEntry>, string>({
+    queryKey: getCalendarUrl,
+    queryFn: resolver.query(getCalendarUrl),
   });
 
-  const workflowCalendarQuery = useQuery<Array<CalendarEntry>, string>({
-    queryKey: workflowCalendarUrl,
-    queryFn: resolver.query(workflowCalendarUrl),
-  });
-
+  /**
+   * Component functions
+   */
   const handleDateRangeChange = (dateRange: CalendarDateRange) => {
     if (!isArray(dateRange)) {
       const fromDate = moment(dateRange.start).unix();
@@ -77,11 +94,11 @@ export default function ScheduleView(props: ScheduleProps) {
    * Start rendering
    */
 
-  if (!workflowSchedulesQuery.data) {
+  if (!schedulesQuery.data) {
     return <Loading />;
   }
 
-  if (workflowSchedulesQuery.error) {
+  if (schedulesQuery.error) {
     return <ErrorDragon />;
   }
 
@@ -89,13 +106,14 @@ export default function ScheduleView(props: ScheduleProps) {
     <>
       <div className={styles.container}>
         <SchedulePanelList
-          includeStatusFilter
-          getCalendarUrl={workflowCalendarUrl}
-          getSchedulesUrl={workflowScheduleUrl}
-          schedulesQuery={workflowSchedulesQuery}
+          getCalendarUrl={getCalendarUrl}
+          getSchedulesUrl={getSchedulesUrl}
+          includeStatusFilter={true}
+          schedulesIsLoading={schedulesQuery.isLoading}
+          schedulesData={schedulesQuery.data}
           setActiveSchedule={setActiveSchedule}
-          setIsEditorOpen={setIsEditorOpen}
           setIsCreatorOpen={setIsCreatorOpen}
+          setIsEditorOpen={setIsEditorOpen}
         />
         <CalendarView
           onDateRangeChange={handleDateRangeChange}
@@ -104,8 +122,8 @@ export default function ScheduleView(props: ScheduleProps) {
           setIsEditorOpen={setIsEditorOpen}
           setIsPanelOpen={setIsPanelOpen}
           setNewSchedule={setNewSchedule}
-          workflowSchedules={workflowSchedulesQuery.data}
-          workflowCalendarQuery={workflowCalendarQuery}
+          workflowSchedules={schedulesQuery.data?.content}
+          workflowCalendarQuery={calendarQuery}
         />
       </div>
       <SchedulePanelDetail
@@ -116,16 +134,16 @@ export default function ScheduleView(props: ScheduleProps) {
         setIsEditorOpen={setIsEditorOpen}
       />
       <ScheduleCreator
-        getCalendarUrl={workflowCalendarUrl}
-        getSchedulesUrl={workflowScheduleUrl}
+        getCalendarUrl={getCalendarUrl}
+        getSchedulesUrl={getSchedulesUrl}
         isModalOpen={isCreatorOpen}
         onCloseModal={() => setIsCreatorOpen(false)}
         schedule={newSchedule}
         workflow={props.workflow}
       />
       <ScheduleEditor
-        getCalendarUrl={workflowCalendarUrl}
-        getSchedulesUrl={workflowScheduleUrl}
+        getCalendarUrl={getCalendarUrl}
+        getSchedulesUrl={getSchedulesUrl}
         isModalOpen={isEditorOpen}
         onCloseModal={() => setIsEditorOpen(false)}
         schedule={activeSchedule}

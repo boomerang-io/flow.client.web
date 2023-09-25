@@ -55,12 +55,8 @@ export default function Schedules() {
   const { statuses = defaultStatusArray, workflows } = queryString.parse(location.search, queryStringOptions);
 
   /** Retrieve Workflows */
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
-  const {
-    data: workflowsData,
-    isLoading: workflowsIsLoading,
-    isError: workflowsIsError,
-  } = useQuery<PaginatedWorkflowResponse, string>({
+  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}&statuses=active,inactive` });
+  const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>({
     queryKey: getWorkflowsUrl,
     queryFn: resolver.query(getWorkflowsUrl),
   });
@@ -138,8 +134,8 @@ export default function Schedules() {
       return workflow.id === schedule.workflowRef;
     };
     let workflow: Workflow | undefined;
-    if (workflowsData && !workflow) {
-      const foundWorkflow = workflowsData?.content.find(workflowFindPredicate);
+    if (workflowsQuery.data && !workflow) {
+      const foundWorkflow = workflowsQuery.data?.content.find(workflowFindPredicate);
       if (foundWorkflow) {
         workflow = foundWorkflow;
       }
@@ -150,13 +146,13 @@ export default function Schedules() {
 
   function getWorkflowFilter() {
     let workflowsList: Array<Workflow> = [];
-    if (workflowsData?.content) {
-      workflowsList = workflowsData.content;
+    if (workflowsQuery.data?.content) {
+      workflowsList = workflowsQuery.data.content;
     }
     return sortByProp(workflowsList, "name", "ASC");
   }
 
-  if (team && workflowsData) {
+  if (team && workflowsQuery.data) {
     const { workflows = "", statuses = "" } = queryString.parse(location.search, queryStringOptions);
     const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
