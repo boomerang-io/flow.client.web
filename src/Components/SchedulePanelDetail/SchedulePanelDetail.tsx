@@ -122,7 +122,9 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
             <h2>Workflow Parameters</h2>
             <p style={{ marginBottom: "1rem" }}>Values for your workflow</p>
             <CodeSnippet light hideCopyButton type="multi">
-              {JSON.stringify(schedule?.parameters, null, 2)}
+              {schedule?.parameters
+                ? JSON.stringify(schedule?.parameters, null, 2)
+                : "No parameters have been set on this Schedule."}
             </CodeSnippet>
           </section>
           <hr />

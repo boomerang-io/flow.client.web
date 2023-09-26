@@ -84,6 +84,7 @@ export default function ScheduleView(props: ScheduleProps) {
   const calendarQuery = useQuery<Array<CalendarEntry>, string>({
     queryKey: getCalendarUrl,
     queryFn: resolver.query(getCalendarUrl),
+    enabled: Boolean(schedulesQuery.data),
   });
 
   /**
