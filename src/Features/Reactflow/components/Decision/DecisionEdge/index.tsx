@@ -32,9 +32,8 @@ function SwitchEdgeDesigner(props: WorkflowEdgeProps) {
     strokeWidth: "2",
   };
 
-  const edges = reactFlowInstance.getEdges() as Array<WorkflowEdge>;
-
   const handleChangeCondition = (decisionCondition: string) => {
+    const edges = reactFlowInstance.getEdges() as Array<WorkflowEdge>;
     const newEdges = edges.map((edge) => {
       if (edge.id === props.id) {
         return {
