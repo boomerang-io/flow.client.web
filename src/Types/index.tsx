@@ -509,10 +509,6 @@ export interface TokenRequest {
   description: string;
 }
 
-export interface TeamTokenRequest extends TokenRequest {
-  teamId: string;
-}
-
 export interface ComboBoxItem {
   name: string;
   label?: string;
@@ -555,19 +551,6 @@ export enum RunStatus {
   Skipped = "skipped",
   Cancelled = "cancelled",
   TimedOut = "timedout",
-}
-
-export interface UserQuotas {
-  maxWorkflowCount: number;
-  maxWorkflowExecutionMonthly: number;
-  maxWorkflowStorage: number;
-  maxWorkflowExecutionTime: number;
-  maxConcurrentWorkflows: number;
-  currentWorkflowCount: number;
-  currentConcurrentWorkflows: number;
-  currentWorkflowExecutionMonthly: number;
-  currentAverageExecutionTime: number;
-  monthlymonthlyResetDate: string;
 }
 
 export interface FlowNavigationItemChild {
@@ -765,8 +748,4 @@ export interface ConfigureWorkflowFormValues {
       token: string;
     };
   };
-  tokens: Array<{
-    token: string;
-    label: string;
-  }>;
 }
