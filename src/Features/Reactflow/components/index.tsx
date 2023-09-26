@@ -8,4 +8,3 @@ export { RunWorkflowNode } from "./RunWorkflow";
 export { ScriptNode } from "./Script";
 export { StartNode, StartEdge } from "./Start";
 export { TemplateEdge, TemplateNode } from "./Template";
-export { WaitNode } from "./Wait";

@@ -17,9 +17,17 @@ import ReactFlow, {
   Position,
 } from "reactflow";
 import dagre from "@dagrejs/dagre";
-import { NodeType, WorkflowEngineMode } from "Constants";
+import { EdgeExecutionCondition, NodeType, WorkflowEngineMode } from "Constants";
 import * as GraphComps from "./components";
-import { WorkflowEngineModeType, NodeTypeType, TaskTemplate, WorkflowNodeData, WorkflowNode } from "Types";
+import {
+  WorkflowEngineModeType,
+  NodeTypeType,
+  TaskTemplate,
+  WorkflowNodeData,
+  WorkflowNode,
+  WorkflowEdge,
+  WorkflowEdgeData,
+} from "Types";
 import "reactflow/dist/style.css";
 import "./styles.scss";
 
@@ -127,7 +135,7 @@ interface FlowDiagramProps {
 }
 
 // Determine if we should use auto-layout or not
-function initElements(nodes: Array<WorkflowNode> = [], edges: Array<Edge> = []) {
+function initElements(nodes: Array<WorkflowNode> = [], edges: Array<WorkflowEdge> = []) {
   let useAutoLayout = false;
   for (let node of nodes) {
     if (!node.position) {
@@ -140,7 +148,7 @@ function initElements(nodes: Array<WorkflowNode> = [], edges: Array<Edge> = []) 
 }
 
 // Auto-layout via dagre
-function autoLayoutElements(nodes: Array<WorkflowNode> = [], edges: Array<Edge> = []) {
+function autoLayoutElements(nodes: Array<WorkflowNode> = [], edges: Array<WorkflowEdge> = []) {
   const direction = edges.length === 0 ? "TB" : "LR";
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -192,7 +200,7 @@ function FlowDiagram(props: FlowDiagramProps) {
   const reactFlowWrapper = React.useRef<HTMLDivElement>(null);
   const { nodes: initNodes, edges: initEdges } = initElements(props.nodes, props.edges);
   const [nodes, setNodes, onNodesChange] = useNodesState<WorkflowNodeData>(initNodes ?? []);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initEdges ?? []);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<WorkflowEdgeData>(initEdges ?? []);
   const [flow, setFlow] = React.useState<ReactFlowInstance | null>(null);
   const shouldFitGraph = React.useRef(false);
 
@@ -291,18 +299,18 @@ function FlowDiagram(props: FlowDiagramProps) {
       <ReactFlowProvider>
         <div className="reactflow-wrapper" ref={reactFlowWrapper} style={{ height: "100%", width: "100%" }}>
           <ReactFlow
-            fitView
-            fitViewOptions={{ maxZoom: 1 }}
             edges={edges}
             edgeTypes={edgeTypes}
             elementsSelectable={!isDisabled}
-            nodesConnectable={!isDisabled}
-            nodes={nodes}
-            nodesDraggable={!isDisabled}
+            fitView={true}
+            fitViewOptions={{ maxZoom: 1 }}
             nodeTypes={nodeTypes}
+            nodes={nodes}
+            nodesConnectable={!isDisabled}
+            nodesDraggable={!isDisabled}
             onConnect={onConnect}
-            onDragOver={onDragOver}
             onDrop={onDrop}
+            onDragOver={onDragOver}
             onEdgesChange={onEdgesChange}
             onNodesChange={onNodesChange}
             onInit={setFlow}
@@ -325,10 +333,10 @@ function FlowDiagram(props: FlowDiagramProps) {
   );
 }
 
-function getLinkType(connection: Connection, nodes: Node[]) {
+function getLinkType(connection: Connection, nodes: WorkflowNode[]): Pick<WorkflowEdge, "type" | "data"> {
   const { source } = connection;
-  const node = nodes.find((node) => node.id === source) as Node;
-  return { type: node.type };
+  const node = nodes.find((node) => node.id === source) as WorkflowNode;
+  return { type: node.type, data: { executionCondition: EdgeExecutionCondition.Always, decisionCondition: "" } };
 }
 
 export default FlowDiagram;

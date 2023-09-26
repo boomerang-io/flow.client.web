@@ -22,11 +22,11 @@ function TaskLinkExecutionConditionSwitcher({
 }: TaskLinkExecutionConditionSwitcherProps) {
   const { name, Icon } = executionCondition;
   if (disabled) {
-    return <Icon className={cx(styles.container, styles[kind], styles[name])} key={name} />;
+    return <Icon className={cx(styles.container, styles[kind], styles[name])} />;
   } else {
     return (
       <button onClick={onClick} style={{ lineHeight: 1 }}>
-        <Icon className={cx(styles.container, styles[kind], styles[name])} key={name} />
+        <Icon className={cx(styles.container, styles[kind], styles[name])} />
       </button>
     );
   }

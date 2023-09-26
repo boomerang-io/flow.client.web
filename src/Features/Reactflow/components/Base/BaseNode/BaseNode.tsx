@@ -1,6 +1,6 @@
 import React from "react";
 import cx from "classnames";
-import { Handle, Position, useReactFlow, NodeProps } from "reactflow";
+import { Connection, Handle, Position, useReactFlow } from "reactflow";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import { taskIcons } from "Utils/taskIcons";
 import { Bee } from "@carbon/react/icons";
@@ -56,14 +56,20 @@ export default function BaseNode(props: BaseNodeProps) {
         type="source"
         position={Position.Right}
         isConnectable={isConnectable}
+        isValidConnection={isValidHandle}
       />
       <Handle
         className="b-startEnd-node__port --left"
         type="target"
         position={Position.Left}
         isConnectable={isConnectable}
+        isValidConnection={isValidHandle}
       />
       {children}
     </div>
   );
+
+  function isValidHandle(connection: Connection) {
+    return connection.source !== connection.target;
+  }
 }

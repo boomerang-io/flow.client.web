@@ -151,7 +151,6 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   availableParametersQueryData,
   changeLogData,
   revisionMutator,
-  parametersMutator,
   setRevisionNumber,
   taskTemplatesList,
   workflowQueryData,
@@ -196,8 +195,8 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         }
         revisionDispatch({ type: RevisionActionTypes.Set, data });
         setRevisionNumber(data.version);
-        queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
-        queryClient.removeQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
+        queryClient.invalidateQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
+        queryClient.invalidateQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
       } catch (err) {
         notify(
           <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />

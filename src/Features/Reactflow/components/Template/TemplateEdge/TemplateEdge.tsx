@@ -13,9 +13,9 @@ export default function TemplateEdge(props: WorkflowEdgeProps) {
     (condition) => condition.name === data?.executionCondition
   );
   const condition = executionConditionIndex >= 0 ? executionConditionIndex : 0;
-  const edges = reactFlowInstance.getEdges() as Array<WorkflowEdge>;
 
   const handleChangeCondition = (newCondition: number) => {
+    const edges = reactFlowInstance.getEdges() as Array<WorkflowEdge>;
     const newEdges = edges.map((edge) => {
       if (edge.id === props.id) {
         return {
