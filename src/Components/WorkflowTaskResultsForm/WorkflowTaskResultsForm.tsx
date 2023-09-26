@@ -85,18 +85,6 @@ const ResultsInput = ({ formikProps, ...otherProps }) => {
   );
 };
 
-/**
- * @param {parameter} inputProperties - parameter object for workflow
- * {
- *   defaultValue: String
- *   description: String
- *   key: String
- *   label: String
- *   required: Bool
- *   type: String
- * }
- */
-
 function formatAutoSuggestProperties(inputProperties) {
   return inputProperties.map((parameter) => ({
     value: `$(${parameter})`,
@@ -235,7 +223,7 @@ class WorkflowTaskResultsForm extends Component {
         })}
         initialValues={{
           taskName: node.taskName,
-          outputs: nodeConfig?.outputs?.map((output) => `${output?.name}:${output?.description}`) ?? [],
+          outputs: nodeiConfig?.outputs?.map((output) => `${output?.name}:${output?.description}`) ?? [],
           ...nodeConfig.inputs,
         }}
         inputs={inputs}

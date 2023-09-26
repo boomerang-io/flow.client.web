@@ -75,17 +75,7 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
   );
 };
 
-/**
- * @param {parameter} inputProperties - parameter object for workflow
- * {
- *   defaultValue: String
- *   description: String
- *   key: String
- *   label: String
- *   required: Bool
- *   type: String
- * }
- */
+
 function formatAutoSuggestProperties(inputProperties) {
   return inputProperties.map((parameter) => ({
     value: `$(${parameter})`,

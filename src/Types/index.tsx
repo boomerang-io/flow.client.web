@@ -84,6 +84,7 @@ export interface DataDrivenInput {
   description?: string;
   helperText?: string;
   language?: string;
+  name?: string;
   disabled?: boolean;
   key: string;
   label?: string;

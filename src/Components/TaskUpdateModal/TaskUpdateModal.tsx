@@ -10,9 +10,9 @@ import styles from "./taskUpdateModal.module.scss";
 import { TaskTemplate, WorkflowNode } from "Types";
 
 interface TaskUpdateModalProps {
-  closeModal: any;
+  availableParameters?: Array<string>;
+  closeModal: () => void;
   currentTaskTemplateVersion: TaskTemplate;
-  inputProperties?: Array<string>;
   latestTaskTemplateVersion: TaskTemplate;
   node: WorkflowNode["data"];
   onSave: ({ inputs, version }: { inputs: Record<string, string>; version: number }) => void;
@@ -32,25 +32,25 @@ const TextEditorInput = (props: any) => {
   );
 };
 
-const formatAutoSuggestProperties = (inputProperties: Array<string> = []) => {
-  return inputProperties.map((parameter) => ({
+const formatAutoSuggestProperties = (availableParameters: Array<string> = []) => {
+  return availableParameters.map((parameter) => ({
     value: `$(${parameter})`,
     label: parameter,
   }));
 };
 
 const textAreaProps =
-  (inputProperties?: Array<string>) =>
+  (availableParameters?: Array<string>) =>
   ({ input, formikProps }: any) => {
     const { values, setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
-      autoSuggestions: formatAutoSuggestProperties(inputProperties),
+      autoSuggestions: formatAutoSuggestProperties(availableParameters),
       formikSetFieldValue: (value: string) => setFieldValue(key, value),
       initialValue: values[key],
-      inputProperties: inputProperties,
+      availableParameters: availableParameters,
       item: input,
       ...itemConfig,
       ...rest,
@@ -64,7 +64,8 @@ const toggleProps = () => {
 };
 
 export default function TaskUpdateModal(props: TaskUpdateModalProps) {
-  const { currentTaskTemplateVersion, latestTaskTemplateVersion, closeModal, inputProperties, node, onSave } = props;
+  const { currentTaskTemplateVersion, latestTaskTemplateVersion, closeModal, availableParameters, node, onSave } =
+    props;
 
   // Handle edge case of not finding the versions for some reason
   if (!currentTaskTemplateVersion?.config || !latestTaskTemplateVersion?.config) {
@@ -107,7 +108,7 @@ export default function TaskUpdateModal(props: TaskUpdateModalProps) {
       initialValues={initValues}
       inputs={latestTaskTemplateVersion.config}
       onSubmit={handleSubmit}
-      textEditorProps={textAreaProps(inputProperties)}
+      textEditorProps={textAreaProps(availableParameters)}
       toggleProps={toggleProps}
     >
       {({ inputs, formikProps }) => {

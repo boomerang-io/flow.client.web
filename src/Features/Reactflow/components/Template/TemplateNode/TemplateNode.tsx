@@ -9,26 +9,21 @@ import BaseNode from "../../Base/BaseNode";
 import { useEditorContext } from "Hooks";
 import styles from "./TemplateNode.module.scss";
 import { WorkflowNode, WorkflowNodeProps } from "Types";
+import { WorkflowEngineMode } from "Constants";
 
 interface TaskTemplateNodeProps extends WorkflowNodeProps {
   className?: string;
-  TaskForm?: React.FC<any>;
+  TaskForm?: React.FC<any>; //TODO
 }
 
 export default function TaskTemplateNode(props: TaskTemplateNodeProps) {
   const { mode } = useEditorContext();
-  // use context to determine state of diagram
-  // render the correct component based on the mode of the diagram
-  if (mode === "executor") {
+  if (mode === WorkflowEngineMode.Executor) {
     return <TaskTemplateNodeExecution {...props} />;
   }
 
   return <TaskTemplateNodeDesigner {...props} />;
 }
-
-// TODO: could probably create a "base" Node that this actually renders, lile what we have now to avoid duplicating things like
-// WorkflowCloseButton and WorkflowEditButtons, maybe even the ports as well
-// I think we can implement everything then optimize though
 
 function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
   const { TaskForm = DefaultTaskForm } = props;
@@ -36,8 +31,6 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
 
   const { availableParameters, taskTemplatesData } = useEditorContext();
   const nodes = reactFlowInstance.getNodes() as Array<WorkflowNode>;
-
-  const inputProperties = availableParameters;
 
   // Find the matching task template based on the name and version
   const taskTemplateList = taskTemplatesData[props.data.templateRef];
@@ -49,9 +42,6 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
   // Get the taskNames names from the nodes on the model
   const taskNames = nodes.map((node) => node.data.name);
 
-  /**
-   * TODO: Event handlers
-   */
   const handleOnUpdateTaskVersion = ({ inputs, version }: { inputs: Record<string, string>; version: number }) => {
     const nameAndParamListRecord = inputRecordToNameAndParamListRecord(inputs);
     const newNodes = nodes.map((node) => {
@@ -68,13 +58,16 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
     reactFlowInstance.setNodes(newNodes);
   };
 
-  const handleOnSaveTaskConfig = (inputs: Record<string, string>) => {
+  const handleOnSaveTaskConfig = (
+    inputs: Record<string, string>,
+    results: Array<{ name: string; description: string }> = []
+  ) => {
     const nameAndParamListRecord = inputRecordToNameAndParamListRecord(inputs);
     const newNodes = nodes.map((node) => {
       if (node.id === props.id) {
         return {
           ...node,
-          data: { ...node.data, ...nameAndParamListRecord },
+          data: { ...node.data, ...nameAndParamListRecord, results },
         };
       } else {
         return node;
@@ -99,8 +92,8 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
       >
         {({ closeModal }) => (
           <TaskForm
+            availableParameters={availableParameters}
             closeModal={closeModal}
-            inputProperties={inputProperties}
             node={props.data}
             onSave={handleOnSaveTaskConfig}
             taskNames={taskNames}
@@ -131,8 +124,8 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
       >
         {({ closeModal }) => (
           <TaskUpdateModal
+            availableParameters={availableParameters}
             closeModal={closeModal}
-            inputProperties={inputProperties}
             node={props.data}
             onSave={handleOnUpdateTaskVersion}
             currentTaskTemplateVersion={task}

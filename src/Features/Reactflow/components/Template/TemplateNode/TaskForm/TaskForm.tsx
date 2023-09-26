@@ -1,74 +1,20 @@
 import React, { Component } from "react";
 import * as Yup from "yup";
-import {
-  AutoSuggest,
-  DynamicFormik,
-  ModalForm,
-  TextInput,
-  TextArea,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { DynamicFormik, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter, Tag } from "@carbon/react";
-import TextEditorModal from "Components/TextEditorModal";
-import { SUPPORTED_AUTOSUGGEST_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
+import {
+  AutoSuggestInput,
+  TextAreaSuggestInput,
+  TextEditorInput,
+  TaskNameTextInput,
+  formatAutoSuggestParameters,
+} from "../../../shared/inputs";
+import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
+import type { FormikProps } from "formik";
+import type { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./TaskForm.module.scss";
-import { TaskTemplate, WorkflowNodeData } from "Types";
 
-const AutoSuggestInput = (props: any) => {
-  if (!SUPPORTED_AUTOSUGGEST_TYPES.includes(props.type)) {
-    return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
-  }
-
-  return (
-    <div key={props.id}>
-      <AutoSuggest
-        {...props}
-        initialValue={props?.initialValue !== "" ? props?.initialValue : props?.inputProps?.defaultValue}
-      >
-        <TextInput tooltipContent={props.tooltipContent} disabled={props?.inputProps?.readOnly} />
-      </AutoSuggest>
-    </div>
-  );
-};
-
-const TextAreaSuggestInput = (props: any) => {
-  return (
-    <div key={props.id}>
-      <AutoSuggest
-        {...props}
-        initialValue={props?.initialValue !== "" ? props?.initialValue : props?.item?.defaultValue}
-      >
-        <TextArea
-          disabled={props?.item?.readOnly}
-          helperText={props?.item?.helperText}
-          id={`['${props.id}']`}
-          labelText={props?.label}
-          placeholder={props?.item?.placeholder}
-          tooltipContent={props.tooltipContent}
-        />
-      </AutoSuggest>
-    </div>
-  );
-};
-
-const TextEditorInput = (props: any) => {
-  return <TextEditorModal {...props} {...props.item} />;
-};
-
-const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
-  const { errors, touched } = formikProps;
-  const error = errors[otherProps.id];
-  const touch = touched[otherProps.id];
-  return (
-    <>
-      <TextInput {...otherProps} invalid={error && touch} invalidText={error} onChange={formikProps.handleChange} />
-      <hr className={styles.divider} />
-      <h2 className={styles.inputsTitle}>Specifics</h2>
-    </>
-  );
-};
-
-const ResultsInput = (props: { formikProps: any; results: TaskTemplate["results"] }) => {
-  console.log({ props });
+const ResultsInput = (props: { results: WorkflowNodeData["results"] }) => {
   const { results } = props;
   if (!results || results.length === 0) return null;
   else
@@ -85,20 +31,13 @@ const ResultsInput = (props: { formikProps: any; results: TaskTemplate["results"
     );
 };
 
-function formatAutoSuggestProperties(inputProperties: Array<string>) {
-  return inputProperties.map((parameter) => ({
-    value: `$(${parameter})`,
-    label: parameter,
-  }));
-}
-
 interface WorkflowTaskFormProps {
-  additionalConfig: Array<Record<string, string>>;
+  additionalConfig?: Array<DataDrivenInput>;
+  availableParameters: Array<string>;
   closeModal: () => void;
-  inputProperties: Array<string>;
   node: WorkflowNodeData;
-  onSave: (...args: any) => void;
-  textEditorProps: any;
+  onSave: (inputs: Record<string, string>, results?: Array<{ name: string; description: string }>) => void;
+  textEditorProps?: any;
   task: TaskTemplate;
   taskNames: Array<string>;
 }
@@ -109,33 +48,33 @@ class WorkflowTaskForm extends Component<WorkflowTaskFormProps> {
     this.props.closeModal();
   };
 
-  textAreaProps = ({ input, formikProps }) => {
+  textAreaProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
     const { values, setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
-      autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
+      autoSuggestions: formatAutoSuggestParameters(this.props.availableParameters),
       formikSetFieldValue: (value: any) => setFieldValue(key, value),
       onChange: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
-      inputProperties: this.props.inputProperties,
+      availableParameters: this.props.availableParameters,
       item: input,
       ...itemConfig,
       ...rest,
     };
   };
 
-  textEditorProps = ({ input, formikProps }) => {
+  textEditorProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
     const { values, setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
-      autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
+      autoSuggestions: formatAutoSuggestParameters(this.props.availableParameters),
       formikSetFieldValue: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
-      inputProperties: this.props.inputProperties,
+      availableParameters: this.props.availableParameters,
       item: input,
       ...this.props.textEditorProps,
       ...itemConfig,
@@ -143,12 +82,12 @@ class WorkflowTaskForm extends Component<WorkflowTaskFormProps> {
     };
   };
 
-  textInputProps = ({ formikProps, input }) => {
+  textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
     const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
     const { key, ...rest } = input;
 
     return {
-      autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
+      autoSuggestions: formatAutoSuggestParameters(this.props.availableParameters),
       onChange: (value: any) => setFieldValue(key, value),
       initialValue: values[key] !== null && values[key] !== undefined ? values[key] : input.value,
       inputProps: {

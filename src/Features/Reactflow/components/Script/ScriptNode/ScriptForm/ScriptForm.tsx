@@ -1,91 +1,25 @@
 import React from "react";
 import * as Yup from "yup";
-import {
-  AutoSuggest,
-  Creatable,
-  DynamicFormik,
-  ModalForm,
-  TextInput,
-  TextArea,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { DynamicFormik, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
-import TextEditorModal from "Components/TextEditorModal";
-import { SUPPORTED_AUTOSUGGEST_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
-import { TaskTemplate, WorkflowNode } from "Types";
+import {
+  AutoSuggestInput,
+  ResultsInput,
+  TextAreaSuggestInput,
+  TextEditorInput,
+  TaskNameTextInput,
+  formatAutoSuggestParameters,
+} from "../../../shared/inputs";
+import { INPUT_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
+import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./ScriptForm.module.scss";
-
-const AutoSuggestInput = (props: any) => {
-  if (!SUPPORTED_AUTOSUGGEST_TYPES.includes(props.type)) {
-    return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
-  }
-
-  return (
-    <div key={props.id}>
-      <AutoSuggest
-        {...props}
-        initialValue={Boolean(props?.initialValue) ? props?.initialValue : props?.inputProps?.defaultValue}
-      >
-        <TextInput tooltipContent={props.tooltipContent} disabled={props?.inputProps?.readOnly} />
-      </AutoSuggest>
-    </div>
-  );
-};
-
-const TextAreaSuggestInput = (props: any) => {
-  return (
-    <div key={props.id}>
-      <AutoSuggest
-        {...props}
-        initialValue={props?.initialValue !== "" ? props?.initialValue : props?.item?.defaultValue}
-      >
-        <TextArea
-          disabled={props?.item?.readOnly}
-          helperText={props?.item?.helperText}
-          id={`['${props.id}']`}
-          labelText={props?.label}
-          placeholder={props?.item?.placeholder}
-          tooltipContent={props.tooltipContent}
-        />
-      </AutoSuggest>
-    </div>
-  );
-};
-
-const TextEditorInput = (props: any) => {
-  return <TextEditorModal {...props} {...props.item} />;
-};
-
-const TaskNameTextInput = ({ formikProps, ...otherProps }: any) => {
-  const { errors, touched } = formikProps;
-  const error = errors[otherProps.id];
-  const touch = touched[otherProps.id];
-  return (
-    <>
-      <TextInput
-        {...otherProps}
-        invalid={error && touch}
-        id={`['${otherProps.id}']`}
-        invalidText={error}
-        onChange={formikProps.handleChange}
-      />
-      <hr className={styles.divider} />
-      <h2 className={styles.inputsTitle}>Specifics</h2>
-    </>
-  );
-};
-
-function formatAutoSuggestProperties(inputProperties: Array<string>) {
-  return inputProperties.map((parameter) => ({
-    value: `$(${parameter})`,
-    label: parameter,
-  }));
-}
+import { FormikProps } from "formik";
 
 interface ScriptFormProps {
   closeModal: () => void;
-  inputProperties: Array<string>;
-  node: WorkflowNode["data"];
-  onSave: (...args: any) => void;
+  availableParameters: Array<string>;
+  node: WorkflowNodeData;
+  onSave: (inputs: Record<string, string>, results?: Array<{ name: string; description: string }>) => void;
   textEditorProps: any;
   task: TaskTemplate;
   taskNames: Array<string>;
@@ -94,45 +28,43 @@ interface ScriptFormProps {
 function ScriptForm(props: ScriptFormProps) {
   const { node, taskNames, task } = props;
 
-  const handleOnSave = (values) => {
+  const handleOnSave = (values: Record<string, string> & { results: Array<string> }) => {
     const { results, ...rest } = values;
-    const formattedOutputs: Array<Record<string, string>> = [];
+    const formattedOutputs: Array<{ name: string; description: string }> = [];
     results.forEach((result) => {
       let index = result.indexOf(":");
       formattedOutputs.push({ name: result.slice(0, index), description: result.slice(index + 1) });
     });
 
-    props.onSave({ inputs: rest, results: formattedOutputs });
+    props.onSave(rest, formattedOutputs);
     props.closeModal();
   };
 
-  const textAreaProps = ({ input, formikProps }) => {
+  const textAreaProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
     const { values, setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
-      autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
-      formikSetFieldValue: (value: any) => setFieldValue(key, value),
+      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
       onChange: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
-      inputProperties: props.inputProperties,
       item: input,
       ...itemConfig,
       ...rest,
     };
   };
 
-  const textEditorProps = ({ input, formikProps }) => {
+  const textEditorProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
     const { values, setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
-      autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
+      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
       formikSetFieldValue: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
-      inputProperties: props.inputProperties,
+      availableParameters: props.availableParameters,
       item: input,
       ...props.textEditorProps,
       ...itemConfig,
@@ -140,21 +72,18 @@ function ScriptForm(props: ScriptFormProps) {
     };
   };
 
-  const textInputProps = ({ formikProps, input }) => {
-    const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
+  const textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
+    const { values, setFieldValue } = formikProps;
     const { key, ...rest } = input;
+    const itemConfig = INPUT_TYPES[type];
 
     return {
-      autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
-      onChange: (value: any) => setFieldValue(`['${key}']`, value),
+      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
+      onChange: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
-      inputProps: {
-        id: `['${key}']`,
-        onBlur: handleBlur,
-        invalid: touched[`['${key}']`] && errors[`['${key}']`],
-        invalidText: errors[`['${key}']`],
-        ...rest,
-      },
+      item: input,
+      ...itemConfig,
+      ...rest,
     };
   };
 
@@ -166,26 +95,10 @@ function ScriptForm(props: ScriptFormProps) {
 
   const takenTaskNames = taskNames.filter((name) => name !== node.name);
 
-  const ResultsInput = ({ formikProps, ...otherProps }) => {
-    return (
-      <>
-        <hr className={styles.divider} />
-        <h2 className={styles.inputsTitle}>Result Parameters</h2>
-        <Creatable
-          {...otherProps}
-          createKeyValuePair
-          keyLabelText="Name"
-          valueLabelText="Description"
-          onChange={(value) => formikProps.setFieldValue("results", value)}
-        />
-      </>
-    );
-  };
-
   const taskVersionConfig = task.config;
 
   // Add the name and future inputs
-  const inputs = [
+  const inputs: Array<any> = [
     {
       key: "taskName",
       id: "taskName",

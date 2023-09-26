@@ -1,95 +1,27 @@
-// @sts-nocheck
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { useEditorContext } from "Hooks";
-import {
-  AutoSuggest,
-  ComboBox,
-  DynamicFormik,
-  ModalForm,
-  TextInput,
-  TextArea,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComboBox, DynamicFormik, ModalForm, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
-import TextEditorModal from "Components/TextEditorModal";
 import { timezoneOptions, defaultTimeZone, transformTimeZone } from "Utils/dateHelper";
-import { SUPPORTED_AUTOSUGGEST_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
-import { TaskTemplate, WorkflowNode } from "Types";
+import {
+  AutoSuggestInput,
+  TextAreaSuggestInput,
+  TextEditorInput,
+  TaskNameTextInput,
+  formatAutoSuggestParameters,
+} from "../../shared/inputs";
+import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
+import type { FormikProps } from "formik";
+import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./RunScheduledWorkflowForm.module.scss";
-
-const AutoSuggestInput = (props: any) => {
-  if (!SUPPORTED_AUTOSUGGEST_TYPES.includes(props.type)) {
-    return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
-  }
-
-  return (
-    <div key={props.id}>
-      <AutoSuggest
-        {...props}
-        initialValue={Boolean(props?.initialValue) ? props?.initialValue : props?.inputProps?.defaultValue}
-      >
-        <TextInput tooltipContent={props.tooltipContent} disabled={props?.inputProps?.readOnly} />
-      </AutoSuggest>
-    </div>
-  );
-};
-
-const TextAreaSuggestInput = (props: any) => {
-  return (
-    <div key={props.id}>
-      <AutoSuggest
-        {...props}
-        initialValue={props?.initialValue !== "" ? props?.initialValue : props?.item?.defaultValue}
-      >
-        <TextArea
-          disabled={props?.item?.readOnly}
-          helperText={props?.item?.helperText}
-          id={`['${props.id}']`}
-          labelText={props?.label}
-          placeholder={props?.item?.placeholder}
-          tooltipContent={props.tooltipContent}
-        />
-      </AutoSuggest>
-    </div>
-  );
-};
-
-const TextEditorInput = (props: any) => {
-  return <TextEditorModal {...props} {...props.item} />;
-};
-
-const TaskNameTextInput = ({ formikProps, ...otherProps }: any) => {
-  const { errors, touched } = formikProps;
-  const error = errors[otherProps.id];
-  const touch = touched[otherProps.id];
-  return (
-    <>
-      <TextInput
-        {...otherProps}
-        invalid={error && touch}
-        id={`['${otherProps.id}']`}
-        invalidText={error}
-        onChange={formikProps.handleChange}
-      />
-      <hr className={styles.divider} />
-      <h2 className={styles.inputsTitle}>Specifics</h2>
-    </>
-  );
-};
-
-function formatAutoSuggestProperties(inputProperties: Array<string>) {
-  return inputProperties.map((parameter) => ({
-    value: `$(${parameter})`,
-    label: parameter,
-  }));
-}
 
 interface RunScheduledWorkflowFormProps {
   closeModal: () => void;
-  inputProperties: Array<string>;
-  node: WorkflowNode["data"];
-  onSave: (...args: any) => void;
-  textEditorProps: any;
+  availableParameters: Array<string>;
+  node: WorkflowNodeData;
+  onSave: (inputs: Record<string, string>, results?: Array<{ name: string; description: string }>) => void;
+  textEditorProps: Record<string, any>;
   task: TaskTemplate;
   taskNames: Array<string>;
 }
@@ -113,33 +45,33 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
     props.closeModal();
   };
 
-  const textAreaProps = ({ input, formikProps }) => {
+  const textAreaProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
     const { values, setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
-      autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
+      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
       formikSetFieldValue: (value: any) => setFieldValue(key, value),
       onChange: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
-      inputProperties: props.inputProperties,
+      availableParameters: props.availableParameters,
       item: input,
       ...itemConfig,
       ...rest,
     };
   };
 
-  const textEditorProps = ({ input, formikProps }) => {
+  const textEditorProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
     const { values, setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
-      autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
+      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
       formikSetFieldValue: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
-      inputProperties: props.inputProperties,
+      availableParameters: props.availableParameters,
       item: input,
       ...props.textEditorProps,
       ...itemConfig,
@@ -147,12 +79,12 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
     };
   };
 
-  const textInputProps = ({ formikProps, input }) => {
+  const textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
     const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
     const { key, ...rest } = input;
 
     return {
-      autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
+      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
       onChange: (value: any) => setFieldValue(`['${key}']`, value),
       initialValue: values[key],
 
@@ -177,20 +109,30 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
   const activeInputs: Record<string, string> = {};
   if (activeProperties) {
     activeProperties.forEach((prop) => {
-      activeInputs[prop?.name] = prop.defaultValue;
+      const name = prop.name;
+      if (name) {
+        //@ts-ignore
+        activeInputs[name] = prop.defaultValue;
+      }
     });
   }
 
-  const WorkflowSelectionInput = ({ formikProps, ...otherProps }) => {
+  const WorkflowSelectionInput = ({
+    formikProps,
+    ...input
+  }: DataDrivenInput & {
+    formikProps: FormikProps<any>;
+  }) => {
     const { errors, touched, setFieldValue, values } = formikProps;
-    const error = errors[otherProps.id];
-    const touch = touched[otherProps.id];
+    const error = errors[input.id];
+    const touch = touched[input.id];
     const initialSelectedItem = values.workflowId
       ? workflowsMapped.find((workflow) => workflow.value === values.workflowId)
       : "";
+
     return (
       <ComboBox
-        helperText={otherProps.helperText}
+        helperText={input.helperText}
         id="workflow-select"
         onChange={({ selectedItem }) => {
           setFieldValue("workflowId", selectedItem?.value ?? "");
@@ -210,23 +152,28 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
         initialSelectedItem={initialSelectedItem}
         titleText="Workflow"
         placeholder="Select a Workflow"
-        invalid={error && touch}
+        invalid={Boolean(error) && Boolean(touch)}
         invalidText={error}
       />
     );
   };
 
-  const TimeInput = ({ formikProps, ...otherProps }) => {
+  const TimeInput = ({
+    formikProps,
+    ...input
+  }: DataDrivenInput & {
+    formikProps: FormikProps<any>;
+  }) => {
     const { errors, touched, handleChange, values } = formikProps;
-    const error = errors[otherProps.id];
-    const hasBeenTouched = touched[otherProps.id];
+    const error = errors[input.id];
+    const hasBeenTouched = Boolean(touched[input.id]);
     if (values.futurePeriod === "minutes" || values.futurePeriod === "hours") {
       return null;
     }
 
     return (
       <TextInput
-        helperText={otherProps.helperText}
+        helperText={input.helperText}
         id="time"
         invalid={Boolean(error) && hasBeenTouched}
         invalidText={error}
@@ -240,17 +187,22 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
     );
   };
 
-  const TimeZoneInput = ({ formikProps, ...otherProps }) => {
+  const TimeZoneInput = ({
+    formikProps,
+    ...input
+  }: DataDrivenInput & {
+    formikProps: FormikProps<any>;
+  }) => {
     const { errors, touched, values } = formikProps;
-    const error = errors[otherProps.id];
-    const hasBeenTouched = touched[otherProps.id];
+    const error = errors[input.id];
+    const hasBeenTouched = Boolean(touched[input.id]);
     if (values.futurePeriod === "minutes" || values.futurePeriod === "hours") {
       return null;
     }
 
     return (
       <ComboBox
-        helperText={otherProps.helperText}
+        helperText={input.helperText}
         id="timezone"
         initialSelectedItem={values.timezone}
         //@ts-ignore
@@ -267,7 +219,7 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
   };
 
   // Add the name and future inputs
-  const inputs = [
+  const inputs: Array<any> = [
     {
       key: "taskName",
       id: "taskName",
