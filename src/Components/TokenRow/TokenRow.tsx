@@ -9,7 +9,7 @@ interface TokenProps {
   deleteToken: (tokenId: string) => void;
 }
 
-const Token: React.FC<TokenProps> = ({ tokenData, deleteToken }) => {
+const TokenRow: React.FC<TokenProps> = ({ tokenData, deleteToken }) => {
   return (
     <StructuredListRow>
       <StructuredListCell>{tokenData.name}</StructuredListCell>
@@ -31,4 +31,4 @@ const Token: React.FC<TokenProps> = ({ tokenData, deleteToken }) => {
   );
 };
 
-export default Token;
+export default TokenRow;

@@ -29,7 +29,7 @@ function CreateServiceTokenButton({ type, principal, getTokensUrl }: CreateServi
           style={{ width: "12rem" }}
           size="md"
           data-testid="create-token-button"
-          kind={type === "user" ? "ghost" : "primary"}
+          kind={type === "user" || type === "workflow" ? "ghost" : "primary"}
         >
           Create new token
         </Button>

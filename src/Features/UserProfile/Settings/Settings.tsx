@@ -17,7 +17,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import type { FlowUser, Token as TokenType } from "Types";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import queryString from "query-string";
-import Token from "./Token";
+import TokenRow from "Components/TokenRow";
 import CreateToken from "Components/CreateToken";
 import styles from "./Settings.module.scss";
 
@@ -27,7 +27,7 @@ interface UserSettingsProps {
 }
 
 export default function Settings({ user, userManagementEnabled }: UserSettingsProps) {
-  const [copyTokenText, setCopyTokenText] = useState("Copy Token");
+  const [copyTokenText, setCopyTokenText] = useState("Copy ID");
   const canEdit = userManagementEnabled;
   const queryClient = useQueryClient();
 
@@ -110,11 +110,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
             Personal access tokens allow other apps to access the APIs as if they were you. All of your access will be
             shared. Be careful how you distribute these tokens!
           </p>
-          <StructuredListWrapper
-            className={styles.structuredListWrapper}
-            ariaLabel="Structured list"
-            isCondensed={true}
-          >
+          <StructuredListWrapper ariaLabel="Structured list" isCondensed={true}>
             <StructuredListHead>
               <StructuredListRow head>
                 <StructuredListCell head>Name</StructuredListCell>
@@ -152,7 +148,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
                 </StructuredListRow>
               ) : (
                 getTokensQuery.data.content?.map((token: TokenType) => (
-                  <Token tokenData={token} deleteToken={deleteToken} />
+                  <TokenRow tokenData={token} deleteToken={deleteToken} />
                 ))
               )}
             </StructuredListBody>
@@ -176,11 +172,11 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
                     <CopyToClipboard text={user.id}>
                       <button
                         className={styles.actionButton}
-                        onClick={() => setCopyTokenText("Copied Token")}
-                        onMouseLeave={() => setCopyTokenText("Copy Token")}
+                        onClick={() => setCopyTokenText("Copied ID")}
+                        onMouseLeave={() => setCopyTokenText("Copy ID")}
                         type="button"
                       >
-                        <CopyFile fill={"#0072C3"} className={styles.actionIcon} alt="Copy token" />
+                        <CopyFile fill={"#0072C3"} className={styles.actionIcon} alt="Copy ID" />
                       </button>
                     </CopyToClipboard>
                   </div>

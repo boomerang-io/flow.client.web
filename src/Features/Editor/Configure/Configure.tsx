@@ -11,9 +11,7 @@ import capitalize from "lodash/capitalize";
 import * as Yup from "yup";
 import BuildWebhookModalContent from "./BuildWebhookModalContent";
 import ConfigureStorage from "./ConfigureStorage";
-import CreateToken from "./CreateToken";
 import CustomLabel from "./CustomLabel";
-import Token from "./Token";
 import { appLink, BASE_DOCUMENTATION_URL, FeatureFlag } from "Config/appConfig";
 import workflowIcons from "Assets/workflowIcons";
 import { WorkspaceConfigType } from "Constants";
@@ -87,7 +85,6 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
               token: workflow.triggers?.webhook?.token ?? "",
             },
           },
-          tokens: workflow?.tokens ?? [],
         }}
         validationSchema={Yup.object().shape({
           description: Yup.string().max(250, "Description must not be greater than 250 characters"),
@@ -155,9 +152,6 @@ interface ConfigureProps {
 }
 
 interface ConfigureState {
-  tokenTextType: string;
-  showTokenText: string;
-  copyTokenText: string;
   errors: object;
 }
 
@@ -165,9 +159,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
   constructor(props: ConfigureProps) {
     super(props);
     this.state = {
-      tokenTextType: "password",
-      showTokenText: "Show Token",
-      copyTokenText: "Copy Token",
       errors: {},
     };
   }
@@ -378,26 +369,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 )}
               </div>
             </div>
-            <hr className={styles.delimiter} />
-            <h1 className={styles.header}>Tokens</h1>
-            <p className={styles.subTitle}>Customize how you run your Workflow</p>
-            <div>
-              <div className={styles.triggerSection}>
-                {values.tokens.map((token) => (
-                  <Token
-                    token={token}
-                    tokenData={values.tokens}
-                    formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
-                    workflowId={this.props.workflow.id}
-                  />
-                ))}
-              </div>
-              <CreateToken
-                tokenData={values.tokens}
-                formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
-                workflowId={this.props.workflow.id}
-              />
-            </div>
           </section>
         )}
         <section className={styles.smallCol}>
@@ -524,10 +495,10 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
           </div>
           <hr className={styles.delimiter} />
           <div className={styles.labelsContainer}>
-            <h1 className={styles.header}>Custom Labels</h1>
+            <h1 className={styles.header}>Labels</h1>
             <p className={styles.subTitle}>
-              Create custom labels that will be used at execution time and can be useful in debugging the workflow in
-              Kubernetes.
+              Create labels that can be used to query for specific workflows, used at execution time, and can be useful
+              in debugging the workflow.
               <a
                 aria-describedby="new-window-aria-desc-0"
                 className={styles.link}

@@ -1,8 +1,8 @@
 @import "Styles/mixins";
 
 .detailedListContainer {
-  line-break: anywhere;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
 .actionableNameContainer {
@@ -17,8 +17,8 @@
   margin-bottom: 0.5rem;
 }
 
-.detailedListDescription {
-  font-size: 0.875rem;
+.detailedListParagraph {
+  padding-bottom: 1rem;
 }
 
 .teamEditIcon {

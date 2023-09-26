@@ -76,6 +76,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
           <Tab label="Workflow" to={appLink.editorDesigner({ team, workflowId })} />
           <Tab label="Parameters" to={appLink.editorProperties({ team, workflowId })} />
           <Tab label="Configure" to={appLink.editorConfigure({ team, workflowId })} />
+          <Tab label="Tokens" to={appLink.editorTokens({ team, workflowId })} />
           <Tab label="Schedule" to={appLink.editorSchedule({ team, workflowId })} />
           <Tab label="Change Log" to={appLink.editorChangelog({ team, workflowId })} />
         </Tabs>

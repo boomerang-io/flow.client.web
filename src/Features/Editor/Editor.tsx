@@ -10,6 +10,7 @@ import { Loading, Error, notify, ToastNotification } from "@boomerang-io/carbon-
 import ChangeLog from "./ChangeLog";
 import Configure from "./Configure";
 import Designer from "./Designer";
+import Tokens from "./Tokens";
 import Header from "./Header";
 import Parameters from "./Parameters";
 import Schedule from "./Schedule";
@@ -327,6 +328,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             <Route path={AppPath.EditorDesigner}></Route>
             <Route path={AppPath.EditorProperties}>
               <Parameters workflow={revisionState} handleUpdateParams={handleUpdateParams} />
+            </Route>
+            <Route path={AppPath.EditorTokens}>
+              <Tokens workflow={revisionState} />
             </Route>
             <Route path={AppPath.EditorSchedule}>
               <Schedule workflow={revisionState} />
