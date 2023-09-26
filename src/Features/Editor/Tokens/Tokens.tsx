@@ -16,7 +16,7 @@ function Tokens({ workflow }: TokensProps) {
       </Helmet>
       <dl className={styles.detailedListContainer}>
         <p className={styles.detailedListParagraph}>
-          Workflow access tokens allow other apps to access the APIs as if they were this Workflow. Be careful how you
+          Workflow tokens allow other apps to access the APIs as if they were this Workflow. Be careful how you
           distribute these tokens!
         </p>
         <TokenSection type="workflow" principal={workflow.id} />
