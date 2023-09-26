@@ -168,10 +168,6 @@ export interface Workflow {
       token: string;
     };
   };
-  tokens: Array<{
-    token: string;
-    label: string;
-  }>;
   templateUpgradesAvailable: boolean;
   workspaces: Array<{
     name: string;

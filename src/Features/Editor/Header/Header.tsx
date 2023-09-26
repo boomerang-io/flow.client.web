@@ -1,4 +1,5 @@
 import React from "react";
+import { useFeature } from "flagged";
 import { Link, useRouteMatch } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
 import {
@@ -16,6 +17,7 @@ import { Add, DocumentExport } from "@carbon/react/icons";
 import { AxiosResponse } from "axios";
 import { UseMutationResult } from "react-query";
 import { WorkflowView } from "Constants";
+import { FeatureFlag } from "Config/appConfig";
 import { ModalTriggerProps, ComposedModalChildProps, Workflow, WorkflowViewType, ChangeLog } from "Types";
 import styles from "./header.module.scss";
 
@@ -39,6 +41,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   revisionState,
   viewType,
 }) => {
+  const workflowTokensEnabled = useFeature(FeatureFlag.WorkflowTokensEnabled);
   const routeMatch: { params: { team: string; workflowId: string } } = useRouteMatch();
   const {
     params: { team, workflowId },
@@ -76,7 +79,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
           <Tab label="Workflow" to={appLink.editorDesigner({ team, workflowId })} />
           <Tab label="Parameters" to={appLink.editorProperties({ team, workflowId })} />
           <Tab label="Configure" to={appLink.editorConfigure({ team, workflowId })} />
-          <Tab label="Tokens" to={appLink.editorTokens({ team, workflowId })} />
+          {workflowTokensEnabled && <Tab label="Tokens" to={appLink.editorTokens({ team, workflowId })} />}
           <Tab label="Schedule" to={appLink.editorSchedule({ team, workflowId })} />
           <Tab label="Change Log" to={appLink.editorChangelog({ team, workflowId })} />
         </Tabs>
