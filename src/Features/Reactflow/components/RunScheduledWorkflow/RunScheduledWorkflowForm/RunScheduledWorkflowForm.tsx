@@ -30,6 +30,7 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
   const { workflowsQueryData } = useEditorContext();
   const [activeWorkflowId, setActiveWorkflowId] = useState("");
   const { node, task, taskNames } = props;
+  console.log({ node, task });
 
   const workflows = workflowsQueryData.content;
   const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
@@ -276,7 +277,9 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
   ];
 
   const initTime = node?.params.find((param) => param.name === "time")?.value ?? "";
-  const initTimeZone = transformTimeZone(node?.params.find((param) => param.name === "timezone") ?? defaultTimeZone);
+  const initTimeZone = transformTimeZone(
+    node?.params.find((param) => param.name === "timezone")?.value ?? defaultTimeZone
+  );
 
   const initialValues: Record<string, any> = {
     taskName: node.name,
@@ -298,6 +301,7 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
   return (
     <DynamicFormik
       allowCustomPropertySyntax
+      enableReinitialize
       validateOnMount
       validationSchemaExtension={Yup.object().shape({
         futureIn: Yup.number().required("Interval is required ").min(1, "Must be at least one interval in future"),

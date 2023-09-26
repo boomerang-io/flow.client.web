@@ -37,10 +37,9 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
 
   const [activeProperties, setActiveProperties] = useState(workflowProperties ?? []);
 
-  const handleOnSave = (values: { taskName: string; timezone: { value: any } }) => {
+  const handleOnSave = (values: any) => {
     props.node.name = values.taskName;
-    const valuesToSave = { ...values, timezone: values.timezone.value };
-    props.onSave(valuesToSave);
+    props.onSave(values);
     props.closeModal();
   };
 
@@ -192,6 +191,7 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
   return (
     <DynamicFormik
       allowCustomPropertySyntax
+      enableReinitialize
       validateOnMount
       validationSchemaExtension={Yup.object().shape({
         taskName: Yup.string()
@@ -199,12 +199,7 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
           .notOneOf(takenTaskNames, "Enter a unique value for task name"),
         workflowId: Yup.string().required("Select a workflow"),
       })}
-      initialValues={{
-        taskName: node.name,
-        workflowId: activeWorkflowId,
-        ...activeInputs,
-        ...node.params,
-      }}
+      initialValues={initialValues}
       inputs={inputs}
       onSubmit={handleOnSave}
       dataDrivenInputProps={{

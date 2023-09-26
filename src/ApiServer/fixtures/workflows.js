@@ -14,8 +14,8 @@ const workflows = {
           name: "tenant",
           type: "string",
           description: "",
-          defaultValue: null
-        }
+          defaultValue: null,
+        },
       ],
       triggers: {
         scheduler: { enable: false, schedule: "", timezone: "", advancedCron: false },
@@ -43,7 +43,7 @@ const workflows = {
           helperText: null,
           hiddenValue: true,
         },
-      ]
+      ],
     },
     {
       id: "5e877e944bbc6e0001c51e6e",
@@ -59,8 +59,8 @@ const workflows = {
           name: "system.component.name",
           type: "string",
           description: "",
-          defaultValue: null
-        }
+          defaultValue: null,
+        },
       ],
       triggers: {
         manual: {
@@ -133,14 +133,14 @@ const workflows = {
           name: "color",
           type: "string",
           description: "",
-          defaultValue: null
+          defaultValue: null,
         },
         {
-          name: "asdfasdf",
+          name: "hello",
           type: "string",
           description: "",
-          defaultValue: null
-        }
+          defaultValue: null,
+        },
       ],
       triggers: {
         manual: {
@@ -220,8 +220,8 @@ const workflows = {
           values: null,
           readOnly: false,
           description: "Testing",
-          key: "asdfasdf",
-          label: "asdfasdf",
+          key: "what",
+          label: "what",
           type: "number",
           minValueLength: null,
           maxValueLength: null,
@@ -238,14 +238,13 @@ const workflows = {
   last: true,
   totalPages: 1,
   sort: {
-      sorted: false,
-      empty: true,
-      unsorted: true
+    sorted: false,
+    empty: true,
+    unsorted: true,
   },
   first: true,
   numberOfElements: 3,
-  empty: false
+  empty: false,
 };
-
 
 export default workflows;
