@@ -109,13 +109,12 @@ const edgeTypes: { [K in NodeTypeType]: React.FC<EdgeProps> } = {
 
 const nodeTypes: { [K in NodeTypeType]: React.FC<NodeProps> } = {
   acquirelock: GraphComps.TemplateNode,
-  approval: GraphComps.TemplateNode,
+  approval: GraphComps.ApprovalNode,
   custom: GraphComps.CustomTaskNode,
   decision: GraphComps.DecisionNode,
   end: GraphComps.EndNode,
   eventwait: GraphComps.TemplateNode,
   generic: GraphComps.TemplateNode,
-  //TODO: manual
   manual: GraphComps.TemplateNode,
   releaselock: GraphComps.TemplateNode,
   runscheduledworkflow: GraphComps.RunScheduledWorkflowNode,

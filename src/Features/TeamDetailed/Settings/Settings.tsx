@@ -53,7 +53,6 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
   };
 
   const handleAddLabel = async (value: Label) => {
-    console.log("handleAddLabel", value);
     const newLabels = [...teamLabels, value];
     const newLabelsRecord = newLabels.reduce((acc, label) => {
       acc[label.key] = label.value;
@@ -76,15 +75,11 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
   };
 
   const handleRemoveLabel = async (value: Label) => {
-    console.log("handleRemoveLabel", value);
-
     const newLabels = teamLabels.filter((label) => label.key !== value.key);
     const newLabelsRecord = newLabels.reduce((acc, label) => {
       acc[label.key] = label.value;
       return acc;
     }, {} as Record<string, string>);
-
-    console.log("newLabels", newLabelsRecord);
 
     try {
       await patchTeamMutator.mutateAsync({ team: team.name, body: { labels: newLabelsRecord } });

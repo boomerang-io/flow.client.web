@@ -32,7 +32,7 @@ const ResultsInput = (props: { results: WorkflowNodeData["results"] }) => {
 };
 
 interface WorkflowTaskFormProps {
-  additionalConfig?: Array<DataDrivenInput>;
+  additionalFormInputs?: Array<Partial<DataDrivenInput>>;
   availableParameters: Array<string>;
   closeModal: () => void;
   node: WorkflowNodeData;
@@ -107,16 +107,17 @@ class WorkflowTaskForm extends Component<WorkflowTaskFormProps> {
   };
 
   render() {
-    const { additionalConfig = [], node, task, taskNames } = this.props;
+    const { additionalFormInputs = [], node, task, taskNames } = this.props;
     const taskVersionConfig = task.config;
     const takenTaskNames = taskNames.filter((name) => name !== node.name);
 
     const taskResults = task.spec.results;
 
     // Add the name input
-    const inputs = [
+    const inputs: Array<any> = [
       {
         key: "taskName",
+        name: "taskName",
         label: "Task Name",
         placeholder: "Enter a task name",
         type: "custom",
@@ -124,19 +125,27 @@ class WorkflowTaskForm extends Component<WorkflowTaskFormProps> {
         customComponent: TaskNameTextInput,
       },
       ...taskVersionConfig,
-      ...additionalConfig,
+      ...additionalFormInputs,
       {
         key: "results",
+        name: "results",
         type: "custom",
         results: taskResults,
         customComponent: ResultsInput,
       },
     ];
 
-    const initValues = { taskName: node.name, results: taskResults };
+    const initialValues: Record<string, any> = {
+      taskName: node.name,
+      results: taskResults,
+      ...node.params.reduce((accum, curr) => {
+        accum[curr.name] = curr.value;
+        return accum;
+      }, {} as Record<string, string>),
+    };
     task.config.forEach((input) => {
-      const initialValue = node.params.find((param) => param.name === input.key)?.["value"] ?? "";
-      initValues[input.key] = Boolean(initialValue) ? initialValue : input.defaultValue;
+      const initialValue = node.params.find((param) => param.name === input.key)?.["value"];
+      initialValues[input.key] = initialValue !== undefined ? initialValue : input.defaultValue;
     });
 
     return (
@@ -148,7 +157,7 @@ class WorkflowTaskForm extends Component<WorkflowTaskFormProps> {
             .required("Enter a task name")
             .notOneOf(takenTaskNames, "Enter a unique value for task name"),
         })}
-        initialValues={initValues}
+        initialValues={initialValues}
         inputs={inputs}
         onSubmit={this.handleOnSave}
         dataDrivenInputProps={{

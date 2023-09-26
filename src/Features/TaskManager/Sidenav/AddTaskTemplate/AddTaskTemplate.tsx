@@ -28,9 +28,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
   const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
     setIsSubmitting(true);
     try {
-      console.log(body);
       let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team?.name, body });
-      console.log(response);
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
         <ToastNotification
@@ -63,13 +61,11 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
   const handleImportTaskTemplate = async ({ type, replace, body, closeModal }) => {
     setIsSubmitting(true);
     try {
-      console.log(body);
       if (type === "application/json") {
         let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team?.name, body });
       } else {
         let response = await createTaskTemplateYAMLMutation.mutateAsync({ replace, team: team?.name, body });
       }
-      console.log(response);
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
         <ToastNotification

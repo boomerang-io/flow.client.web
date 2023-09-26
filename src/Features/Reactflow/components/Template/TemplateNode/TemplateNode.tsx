@@ -8,10 +8,11 @@ import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import BaseNode from "../../Base/BaseNode";
 import { useEditorContext } from "Hooks";
 import styles from "./TemplateNode.module.scss";
-import { WorkflowNode, WorkflowNodeProps } from "Types";
+import { DataDrivenInput, WorkflowNode, WorkflowNodeProps } from "Types";
 import { WorkflowEngineMode } from "Constants";
 
 interface TaskTemplateNodeProps extends WorkflowNodeProps {
+  additionalFormInputs?: Array<Partial<DataDrivenInput>>;
   className?: string;
   TaskForm?: React.FC<any>; //TODO
 }
@@ -93,6 +94,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
         {({ closeModal }) => (
           <TaskForm
             availableParameters={availableParameters}
+            additionalFormInputs={props.additionalFormInputs}
             closeModal={closeModal}
             node={props.data}
             onSave={handleOnSaveTaskConfig}

@@ -10,7 +10,7 @@ import {
   TaskNameTextInput,
   formatAutoSuggestParameters,
 } from "../../shared/inputs";
-import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
+import { INPUT_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import type { FormikProps } from "formik";
 import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./CustomTaskForm.module.scss";
@@ -75,20 +75,17 @@ function CustomTaskForm(props: CustomTaskFormProps) {
   };
 
   const textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
-    const { key, ...rest } = input;
+    const { values, setFieldValue } = formikProps;
+    const { key, type, ...rest } = input;
+    const itemConfig = INPUT_TYPES[type];
 
     return {
       autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      onChange: (value: any) => setFieldValue(`['${key}']`, value),
+      onChange: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
-      inputProps: {
-        id: `['${key}']`,
-        onBlur: handleBlur,
-        invalid: touched[`['${key}']`] && errors[`['${key}']`],
-        invalidText: errors[`['${key}']`],
-        ...rest,
-      },
+      item: input,
+      ...itemConfig,
+      ...rest,
     };
   };
 
@@ -121,6 +118,20 @@ function CustomTaskForm(props: CustomTaskFormProps) {
     },
   ];
 
+  const initialValues: Record<string, any> = {
+    taskName: node.name,
+    results: node.results?.map((result) => `${result?.name}:${result?.description}`) ?? [],
+    ...node.params.reduce((accum, curr) => {
+      accum[curr.name] = curr.value;
+      return accum;
+    }, {} as Record<string, string>),
+  };
+
+  task.config.forEach((input) => {
+    const initialValue = node.params.find((param) => param.name === input.key)?.["value"];
+    initialValues[input.key] = initialValue !== undefined ? initialValue : input.defaultValue;
+  });
+
   return (
     <DynamicFormik
       allowCustomPropertySyntax
@@ -131,10 +142,7 @@ function CustomTaskForm(props: CustomTaskFormProps) {
           .notOneOf(takenTaskNames, "Enter a unique value for task name"),
         results: Yup.array(),
       })}
-      initialValues={{
-        taskName: node.name,
-        results: node?.results?.map((output) => `${output?.name}:${output?.description}`) ?? [],
-      }}
+      initialValues={initialValues}
       inputs={inputs}
       onSubmit={handleOnSave}
       dataDrivenInputProps={{

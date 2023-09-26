@@ -86,13 +86,9 @@ export function TaskTemplateYamlEditor({
   }
 
   const selectedTaskTemplate = taskTemplates.filter((t) => t.name === params.name)[0];
-  console.log("selectedTaskTemplate", selectedTaskTemplate);
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
-  console.log("canEdit", canEdit);
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
-  console.log("isActive", isActive);
-  const isOldVersion = params.version != getChangelogQuery.data.length;
-  console.log("isOldVersion", isOldVersion);
+  const isOldVersion = params.version !== getChangelogQuery.data.length;
 
   const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
     setIsSaving(true);
@@ -256,8 +252,6 @@ export function TaskTemplateYamlEditor({
       );
     }
   };
-
-  console.log(getTaskTemplateYamlQuery.data);
 
   return (
     <Formik

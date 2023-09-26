@@ -22,6 +22,7 @@ import "codemirror/addon/hint/show-hint";
 import "codemirror/addon/search/searchcursor";
 import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/markdown/markdown";
+import "codemirror/mode/python/python";
 import "codemirror/mode/shell/shell";
 import "codemirror/mode/yaml/yaml";
 
@@ -47,6 +48,7 @@ const languages = [
     params: { hint: CodeMirror.hint.javascript, mode: { name: "javascript" } },
   },
   { id: "markdown", text: "Markdown", params: { mode: "markdown" } },
+  { id: "python", text: "Python", params: { mode: "python" } },
   { id: "shell", text: "Shell", params: { mode: "shell" } },
   { id: "text", text: "Text", params: { mode: "text/plain" } },
   { id: "yaml", text: "YAML", params: { mode: "yaml" } },

@@ -1,5 +1,13 @@
 import React from "react";
-import { FlowTeam, FlowUser, PaginatedWorkflowResponse, TaskTemplate, Workflow, WorkflowExecution } from "Types";
+import {
+  FlowTeam,
+  FlowUser,
+  PaginatedWorkflowResponse,
+  TaskTemplate,
+  Workflow,
+  WorkflowEngineModeType,
+  WorkflowExecution,
+} from "Types";
 
 export function createContext<ContextType>() {
   const context = React.createContext<ContextType | undefined>(undefined);
@@ -41,7 +49,7 @@ interface ExecutionContext {
 export const [useExecutionContext, ExecutionContextProvider] = createContext<ExecutionContext>();
 
 interface EditorContext {
-  mode: string;
+  mode: WorkflowEngineModeType;
   availableParameters: Array<string>;
   revisionDispatch?: Function;
   revisionState: Workflow;

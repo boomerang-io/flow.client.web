@@ -241,7 +241,6 @@ function TeamListTable(props: TeamListTableProps) {
     props.updateHistorySearch({ ...queryString.parse(props.location.search), sort: sortHeaderKey, order });
   }
 
-  console.log(content);
   return content.length > 0 ? (
     <>
       <DataTable

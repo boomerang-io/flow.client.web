@@ -11,7 +11,7 @@ import {
   TaskNameTextInput,
   formatAutoSuggestParameters,
 } from "../../shared/inputs";
-import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
+import { INPUT_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./RunWorkflowForm.module.scss";
 
@@ -28,7 +28,7 @@ interface RunWorkflowFormProps {
 function RunWorkflowForm(props: RunWorkflowFormProps) {
   const { workflowsQueryData } = useEditorContext();
   const [activeWorkflowId, setActiveWorkflowId] = useState("");
-  const { node, taskNames } = props;
+  const { node, task, taskNames } = props;
 
   const workflows = workflowsQueryData.content;
   const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
@@ -79,20 +79,17 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
   };
 
   const textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
-    const { key, ...rest } = input;
+    const { values, setFieldValue } = formikProps;
+    const { key, type, ...rest } = input;
+    const itemConfig = INPUT_TYPES[type];
 
     return {
       autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      onChange: (value: any) => setFieldValue(`['${key}']`, value),
+      onChange: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
-      inputProps: {
-        id: `['${key}']`,
-        onBlur: handleBlur,
-        invalid: touched[`['${key}']`] && errors[`['${key}']`],
-        invalidText: errors[`['${key}']`],
-        ...rest,
-      },
+      item: input,
+      ...itemConfig,
+      ...rest,
     };
   };
 
@@ -134,7 +131,6 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
         onChange={({ selectedItem }) => {
           setFieldValue("workflowId", selectedItem?.value ?? "");
           setActiveWorkflowId(selectedItem?.value ?? "");
-          console.log({ selectedItem });
           if (selectedItem?.value) {
             const workflowProperties = workflows.find((workflow) => workflow.id === selectedItem?.value)?.config;
             if (workflowProperties) {
@@ -177,6 +173,21 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
     },
     ...activeProperties,
   ];
+
+  const initialValues: Record<string, any> = {
+    taskName: node.name,
+    workflowId: activeWorkflowId,
+    ...activeInputs,
+    ...node.params.reduce((accum, curr) => {
+      accum[curr.name] = curr.value;
+      return accum;
+    }, {} as Record<string, string>),
+  };
+
+  task.config.forEach((input) => {
+    const initialValue = node.params.find((param) => param.name === input.key)?.["value"];
+    initialValues[input.key] = initialValue !== undefined ? initialValue : input.defaultValue;
+  });
 
   return (
     <DynamicFormik

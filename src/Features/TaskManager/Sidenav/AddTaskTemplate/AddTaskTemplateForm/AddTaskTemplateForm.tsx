@@ -154,10 +154,8 @@ function AddTaskTemplateForm({
       const yamlFile = await readFile(file);
       setFieldValue("file", file);
       await validateYamlMuatator({ body: yamlFile });
-      console.log(file);
       if (file.type === "application/json") {
         const jsonData = JSON.parse(yamlFile);
-        console.log(jsonData);
         setFieldValue("name", jsonData.name);
         setFieldTouched("name", true);
         setFieldValue("displayName", jsonData.displayName);
@@ -167,16 +165,13 @@ function AddTaskTemplateForm({
         setFieldValue("category", jsonData.category);
         setFieldTouched("category", true);
         const selectedIcon = orderedIcons.find((icon) => icon.name === jsonData?.icon);
-        console.log(selectedIcon);
         selectedIcon &&
           setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
         setFieldValue("fileData", jsonData);
       } else {
         const yamlData = YAML.parse(yamlFile);
-        console.log(yamlData);
         setFieldValue("name", yamlData.metadata.name);
         setFieldTouched("name", true);
-        console.log(yamlData.metadata.annotations["boomerang.io/displayName"]);
         setFieldValue("displayName", yamlData.metadata.annotations["boomerang.io/displayName"]);
         setFieldTouched("displayName", true);
         setFieldValue("description", yamlData.spec.description);

@@ -379,12 +379,11 @@ export interface FlowTeam {
   displayName: string;
   description?: string;
   creationDate: string;
-  status: FlowTeamStatus;
+  status: FlowTeamStatusType;
   externalRef?: string;
   labels?: Record<string, string>;
   quotas: FlowTeamQuotas;
   members: Array<Member>;
-  // workflows: Array<WorkflowSummary>;
   settings?: unknown;
   parameters: Array<DataDrivenInput>;
   approverGroups: Array<ApproverGroup>;

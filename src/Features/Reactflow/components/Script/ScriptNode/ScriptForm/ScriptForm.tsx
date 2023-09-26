@@ -28,10 +28,10 @@ interface ScriptFormProps {
 function ScriptForm(props: ScriptFormProps) {
   const { node, taskNames, task } = props;
 
-  const handleOnSave = (values: Record<string, string> & { results: Array<string> }) => {
+  const handleOnSave = (values: Record<string, string> & { results?: Array<string> }) => {
     const { results, ...rest } = values;
     const formattedOutputs: Array<{ name: string; description: string }> = [];
-    results.forEach((result) => {
+    results?.forEach((result) => {
       let index = result.indexOf(":");
       formattedOutputs.push({ name: result.slice(0, index), description: result.slice(index + 1) });
     });
@@ -74,7 +74,7 @@ function ScriptForm(props: ScriptFormProps) {
 
   const textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
     const { values, setFieldValue } = formikProps;
-    const { key, ...rest } = input;
+    const { key, type, ...rest } = input;
     const itemConfig = INPUT_TYPES[type];
 
     return {
@@ -94,7 +94,6 @@ function ScriptForm(props: ScriptFormProps) {
   };
 
   const takenTaskNames = taskNames.filter((name) => name !== node.name);
-
   const taskVersionConfig = task.config;
 
   // Add the name and future inputs
@@ -117,6 +116,20 @@ function ScriptForm(props: ScriptFormProps) {
     },
   ];
 
+  const initialValues = {
+    taskName: node.name,
+    results: node.results?.map((result) => `${result?.name}:${result?.description}`) ?? [],
+    ...node.params.reduce((accum, curr) => {
+      accum[curr.name] = curr.value;
+      return accum;
+    }, {} as Record<string, string>),
+  };
+
+  task.config.forEach((input) => {
+    const initialValue = node.params.find((param) => param.name === input.key)?.["value"];
+    initialValues[input.key] = initialValue !== undefined ? initialValue : input.defaultValue;
+  });
+
   return (
     <DynamicFormik
       allowCustomPropertySyntax
@@ -127,10 +140,7 @@ function ScriptForm(props: ScriptFormProps) {
           .notOneOf(takenTaskNames, "Enter a unique value for task name"),
         results: Yup.array(),
       })}
-      initialValues={{
-        taskName: node.name,
-        results: node?.results?.map((output) => `${output?.name}:${output?.description}`) ?? [],
-      }}
+      initialValues={initialValues}
       inputs={inputs}
       onSubmit={handleOnSave}
       dataDrivenInputProps={{

@@ -4,7 +4,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Button } from "@carbon/react";
 import { ComposedModal, Error, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ArrowRight, ArrowLeft, Close, WarningAlt } from "@carbon/react/icons";
+import { WarningAlt } from "@carbon/react/icons";
 import queryString from "query-string";
 import { matchSorter } from "match-sorter";
 import CreateWorkflow from "Components/CreateWorkflow";
