@@ -42,7 +42,6 @@ function ConfigureDecisionModal(props: ConfigureDecisionModalProps) {
           labelText="Default"
           helperText="This path will be taken when no other switch path is matched.."
           onToggle={updateDefaultState}
-          style={{ padding: "1rem 0rem 1rem 0rem" }}
         />
 
         <div className="b-switch-customvalue">

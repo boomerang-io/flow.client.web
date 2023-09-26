@@ -5,7 +5,17 @@ import styles from "./ExecutionConditionButton.module.scss";
 import { WorkflowEngineModeType } from "Types";
 import { WorkflowEngineMode } from "Constants";
 
-const ConditionButton = ({ displayText, ...rest }: { displayText: string }) => (
+interface ConditionButtonProps {
+  alt?: string;
+  className?: string;
+  displayText?: string;
+  role?: "button";
+  onClick?: () => void;
+  onKeyDown?: (e: any) => void;
+  tabIndex?: 0;
+}
+
+const ConditionButton = ({ displayText, ...rest }: ConditionButtonProps) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="80" height="26" viewBox="0 0 80 26" {...rest}>
     <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
       <g fillRule="evenodd" strokeWidth="1" transform="translate(1 1)">
@@ -26,7 +36,7 @@ const ConditionButton = ({ displayText, ...rest }: { displayText: string }) => (
         transform="translate(1 1)"
       >
         <tspan x="24" y="16">
-          {displayText ?? "default"}
+          {displayText || "default"}
         </tspan>
       </text>
     </g>
@@ -62,7 +72,7 @@ function ExecutionConditionButton({
       onClick={onClick}
       onKeyDown={(e: any) => isAccessibleKeyboardEvent(e) && onClick()}
       role="button"
-      tabIndex="0"
+      tabIndex={0}
       {...rest}
     />
   );
