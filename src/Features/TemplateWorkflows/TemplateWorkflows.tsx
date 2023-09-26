@@ -8,7 +8,8 @@ import WorkflowCard from "Components/WorkflowCard";
 import WorkflowsHeader from "Components/WorkflowsHeader";
 import queryString from "query-string";
 import { serviceUrl } from "Config/servicesConfig";
-import { WorkflowSummary, WorkflowView } from "Types";
+import { WorkflowView } from "Constants";
+import { Workflow } from "Types";
 import styles from "./TemplateWorkflows.module.scss";
 
 export default function TemplateWorkflows() {
@@ -72,8 +73,8 @@ export default function TemplateWorkflows() {
 type TemplatesProps = {
   isLoading: boolean;
   error: any;
-  workflows: WorkflowSummary[];
-  filteredWorkflows: WorkflowSummary[];
+  workflows: Workflow[];
+  filteredWorkflows: Workflow[];
   searchQuery: string | string[] | null;
 };
 

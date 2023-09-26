@@ -1,5 +1,5 @@
 import React from "react";
-import { useReactFlow, Node, NodeProps } from "reactflow";
+import { useReactFlow, Node } from "reactflow";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
@@ -8,9 +8,13 @@ import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import BaseNode from "../../Base/BaseNode";
 import { useEditorContext } from "Hooks";
 import styles from "./TemplateNode.module.scss";
-import { WorkflowNodeData } from "Types";
+import { WorkflowNode, WorkflowNodeProps } from "Types";
 
-export default function TaskTemplateNode(props: WorkflowNode<WorkflowNodeData>) {
+interface TaskTemplateNodeProps extends WorkflowNodeProps {
+  className?: string;
+}
+
+export default function TaskTemplateNode(props: TaskTemplateNodeProps) {
   const { mode } = useEditorContext();
   // use context to determine state of diagram
   // render the correct component based on the mode of the diagram
@@ -25,12 +29,11 @@ export default function TaskTemplateNode(props: WorkflowNode<WorkflowNodeData>) 
 // WorkflowCloseButton and WorkflowEditButtons, maybe even the ports as well
 // I think we can implement everything then optimize though
 
-function TaskTemplateNodeDesigner(props: NodeProps<WorkflowNodeData>) {
+function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
   const reactFlowInstance = useReactFlow();
 
   const { availableParameters, taskTemplatesData } = useEditorContext();
-  // TODO: fix this typing
-  const nodes = reactFlowInstance.getNodes() as unknown as Array<Node<WorkflowNodeData>>;
+  const nodes = reactFlowInstance.getNodes() as Array<WorkflowNode>;
 
   const inputProperties = availableParameters;
 
@@ -47,7 +50,7 @@ function TaskTemplateNodeDesigner(props: NodeProps<WorkflowNodeData>) {
   /**
    * TODO: Event handlers
    */
-  const handleOnUpdateTaskVersion = ({ inputs, version }: { inputs: Record<string, string>; version: string }) => {
+  const handleOnUpdateTaskVersion = ({ inputs, version }: { inputs: Record<string, string>; version: number }) => {
     const nameAndParamListRecord = inputRecordToNameAndParamListRecord(inputs);
     const newNodes = nodes.map((node) => {
       if (node.id === props.id) {
@@ -58,14 +61,9 @@ function TaskTemplateNodeDesigner(props: NodeProps<WorkflowNodeData>) {
       } else {
         return node;
       }
-    }) as unknown as Node<any>[];
+    }) as Array<WorkflowNode>;
 
     reactFlowInstance.setNodes(newNodes);
-    // revisionDispatch &&
-    //   revisionDispatch({
-    //     type: RevisionActionTypes.UpdateNodeTaskVersion,
-    //     data: { nodeId: designerNode.id, inputs, version },
-    //   });
   };
 
   const handleOnSaveTaskConfig = (inputs: Record<string, string>) => {
@@ -82,10 +80,6 @@ function TaskTemplateNodeDesigner(props: NodeProps<WorkflowNodeData>) {
     }) as unknown as Node<any>[];
 
     reactFlowInstance.setNodes(newNodes);
-    // revisionDispatch &&
-    //   revisionDispatch({
-    //     type: RevisionActionTypes.UpdateNodeConfig,
-    //   });
   };
 
   const ConfigureTask = () => {
@@ -148,7 +142,14 @@ function TaskTemplateNodeDesigner(props: NodeProps<WorkflowNodeData>) {
   };
 
   return (
-    <BaseNode isConnectable title={props.data.name} nodeProps={props} subtitle={task.description} icon={task.icon}>
+    <BaseNode
+      isConnectable
+      className={props.className}
+      icon={task.icon}
+      nodeProps={props}
+      title={props.data.name}
+      subtitle={task.description}
+    >
       <ConfigureTask />
       <UpdateTaskVersion />
     </BaseNode>

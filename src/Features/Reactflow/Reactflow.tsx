@@ -19,7 +19,7 @@ import ReactFlow, {
 import dagre from "@dagrejs/dagre";
 import { NodeType, WorkflowEngineMode } from "Constants";
 import * as GraphComps from "./components";
-import { WorkflowEngineModeType, NodeTypeType, TaskTemplate, WorkflowNodeData } from "Types";
+import { WorkflowEngineModeType, NodeTypeType, TaskTemplate, WorkflowNodeData, WorkflowNode } from "Types";
 import "reactflow/dist/style.css";
 import "./styles.scss";
 
@@ -94,7 +94,7 @@ const edgeTypes: { [K in NodeTypeType]: React.FC<EdgeProps> } = {
   script: GraphComps.TemplateEdge,
   setwfproperty: GraphComps.TemplateEdge,
   setwfstatus: GraphComps.TemplateEdge,
-  start: GraphComps.TemplateEdge,
+  start: GraphComps.StartEdge,
   template: GraphComps.TemplateEdge,
   sleep: GraphComps.TemplateEdge,
 };
@@ -121,13 +121,13 @@ const nodeTypes: { [K in NodeTypeType]: React.FC<NodeProps> } = {
 
 interface FlowDiagramProps {
   mode: WorkflowEngineModeType;
-  nodes?: Node[];
+  nodes?: WorkflowNode[];
   edges?: Edge[];
   setWorkflow?: React.Dispatch<React.SetStateAction<ReactFlowInstance | null>>;
 }
 
 // Determine if we should use auto-layout or not
-function initElements(nodes: Array<Node<WorkflowNodeData, string | undefined>> = [], edges: Array<Edge> = []) {
+function initElements(nodes: Array<WorkflowNode> = [], edges: Array<Edge> = []) {
   let useAutoLayout = false;
   for (let node of nodes) {
     if (!node.position) {
@@ -140,13 +140,13 @@ function initElements(nodes: Array<Node<WorkflowNodeData, string | undefined>> =
 }
 
 // Auto-layout via dagre
-function autoLayoutElements(nodes: Array<Node<WorkflowNodeData, string | undefined>> = [], edges: Array<Edge> = []) {
+function autoLayoutElements(nodes: Array<WorkflowNode> = [], edges: Array<Edge> = []) {
   const direction = edges.length === 0 ? "TB" : "LR";
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
   dagreGraph.setGraph({ rankdir: direction, edgesep: 100 });
 
-  nodes.forEach((node: Node<WorkflowNodeData, string | undefined>) => {
+  nodes.forEach((node: WorkflowNode) => {
     if (node.type === NodeType.Start || node.type === NodeType.End) {
       dagreGraph.setNode(node.id, { width: 144 * 1.5, height: 80 });
     } else {
@@ -160,7 +160,7 @@ function autoLayoutElements(nodes: Array<Node<WorkflowNodeData, string | undefin
 
   dagre.layout(dagreGraph);
 
-  nodes.forEach((node: Node<WorkflowNodeData, string | undefined>) => {
+  nodes.forEach((node: WorkflowNode) => {
     const positionedNode = dagreGraph.node(node.id);
     node.targetPosition = Position.Left;
     node.sourcePosition = Position.Right;
@@ -309,7 +309,7 @@ function FlowDiagram(props: FlowDiagramProps) {
             proOptions={{ hideAttribution: true }}
           >
             <MarkerDefinition>
-              <CustomEdgeArrow id={markerTypes.decision} color="purple" />
+              <CustomEdgeArrow id={markerTypes.decision} color="var(--flow-switch-primary)" />
               <CustomEdgeArrow id={markerTypes.template} color="#0072c3" />
             </MarkerDefinition>
             <Background />

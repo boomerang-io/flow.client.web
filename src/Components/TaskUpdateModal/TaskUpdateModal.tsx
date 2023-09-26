@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React from "react";
 import cx from "classnames";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
@@ -8,15 +7,15 @@ import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { WarningFilled, WarningAlt } from "@carbon/react/icons";
 import styles from "./taskUpdateModal.module.scss";
-import { TaskTemplate, WorkflowNode, WorkflowParameter } from "Types";
+import { TaskTemplate, WorkflowNode } from "Types";
 
 interface TaskUpdateModalProps {
   closeModal: any;
   currentTaskTemplateVersion: TaskTemplate;
-  inputProperties: Record<string, any>;
+  inputProperties?: Array<string>;
   latestTaskTemplateVersion: TaskTemplate;
   node: WorkflowNode["data"];
-  onSave: ({ inputs, version }: { inputs: Array<any>; version: string }) => void;
+  onSave: ({ inputs, version }: { inputs: Record<string, string>; version: number }) => void;
 }
 
 const UpdateType = {
@@ -25,7 +24,7 @@ const UpdateType = {
   NoChange: "none",
 } as const;
 
-const TextEditorInput = (props) => {
+const TextEditorInput = (props: any) => {
   return (
     <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
       <TextEditorModal {...props} {...props.item} />
@@ -33,27 +32,23 @@ const TextEditorInput = (props) => {
   );
 };
 
-const formatAutoSuggestProperties = (inputProperties: Array<WorkflowParameter>) => {
+const formatAutoSuggestProperties = (inputProperties: Array<string> = []) => {
   return inputProperties.map((parameter) => ({
     value: `$(${parameter})`,
     label: parameter,
   }));
 };
 
-const formikSetFieldValue = (value, id, setFieldValue) => {
-  setFieldValue(id, value);
-};
-
 const textAreaProps =
-  (inputProperties) =>
-  ({ input, formikProps }) => {
+  (inputProperties?: Array<string>) =>
+  ({ input, formikProps }: any) => {
     const { values, setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
       autoSuggestions: formatAutoSuggestProperties(inputProperties),
-      formikSetFieldValue: (value) => formikSetFieldValue(value, key, setFieldValue),
+      formikSetFieldValue: (value: string) => setFieldValue(key, value),
       initialValue: values[key],
       inputProperties: inputProperties,
       item: input,
@@ -62,7 +57,7 @@ const textAreaProps =
     };
   };
 
-const toggleProps = ({ input, formikProps }) => {
+const toggleProps = () => {
   return {
     orientation: "vertical",
   };
@@ -91,7 +86,7 @@ export default function TaskUpdateModal(props: TaskUpdateModalProps) {
     .filter((input) => !currentTaskTemplateVersion.config.find((currentInput) => currentInput.key === input.key))
     .map((input) => `['${input?.key}']`);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values: Record<string, string>) => {
     onSave({ version: latestTaskTemplateVersion.version, inputs: values });
     closeModal();
   };
@@ -119,12 +114,7 @@ export default function TaskUpdateModal(props: TaskUpdateModalProps) {
         return (
           <ModalForm noValidate onSubmit={formikProps.handleSubmit}>
             <ModalBody ModalBody className={styles.versionsContainer}>
-              <VersionSection
-                description={currentTaskTemplateVersion.description}
-                name={currentTaskTemplateVersion.name}
-                subtitle="Current version in this workflow"
-                version={currentTaskTemplateVersion.version}
-              >
+              <VersionSection subtitle="Current version in this workflow" version={currentTaskTemplateVersion.version}>
                 {currentTaskTemplateVersion.config.map((input) => (
                   <StateHighlighter
                     key={input.key}
@@ -141,13 +131,7 @@ export default function TaskUpdateModal(props: TaskUpdateModalProps) {
                 ))}
               </VersionSection>
               <div style={{ width: "1rem" }} />
-              <VersionSection
-                latest
-                description={latestTaskTemplateVersion.description}
-                name={latestTaskTemplateVersion.name}
-                subtitle="Latest version available"
-                version={latestTaskTemplateVersion.version}
-              >
+              <VersionSection latest subtitle="Latest version available" version={latestTaskTemplateVersion.version}>
                 {inputs.map((input) => (
                   <StateHighlighter
                     key={input.props.id}
@@ -175,12 +159,12 @@ export default function TaskUpdateModal(props: TaskUpdateModalProps) {
 
 interface VersionSectionProps {
   children: React.ReactNode;
-  latest: string;
+  latest?: boolean;
   subtitle: string;
-  version: string;
+  version: number;
 }
 
-function VersionSection({ children, latest, subtitle, version }: VersionSectionProps) {
+function VersionSection({ children, latest = false, subtitle, version }: VersionSectionProps) {
   return (
     <section className={styles.versionSection}>
       <header className={cx(styles.versionHeader, { [styles.latest]: latest })}>
@@ -205,7 +189,7 @@ const ChangeToAppearanceMap = {
   },
 };
 
-function StateHighlighter({ children, hidden, type }) {
+function StateHighlighter({ children, hidden, type }: any) {
   const { className, icon, text } = ChangeToAppearanceMap[type] ?? {};
 
   if (hidden) {

@@ -13,17 +13,11 @@ import WorkflowCard from "Components/WorkflowCard";
 import { WorkflowCardSkeleton } from "Components/WorkflowCard";
 import WorkflowsHeader from "Components/WorkflowsHeader";
 import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
+import { WorkflowView } from "Constants";
 import { useTeamContext } from "Hooks";
 import { FeatureFlag, appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import {
-  FlowTeam,
-  ModalTriggerProps,
-  ComposedModalChildProps,
-  WorkflowView,
-  PaginatedWorkflowResponse,
-  Workflow,
-} from "Types";
+import { FlowTeam, ModalTriggerProps, ComposedModalChildProps, PaginatedWorkflowResponse, Workflow } from "Types";
 import styles from "./workflows.module.scss";
 
 export default function Workflows() {

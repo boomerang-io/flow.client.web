@@ -1,25 +1,20 @@
 import React from "react";
-import { EdgeProps, getBezierPath, EdgeLabelRenderer, useReactFlow } from "reactflow";
+import { getBezierPath, EdgeLabelRenderer, useReactFlow } from "reactflow";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import { markerTypes } from "Features/Reactflow/Reactflow";
-import SwitchEdgeExecutionConditionButton from "./ExecutionConditionButton";
+import ExecutionConditionButton from "./ExecutionConditionButton";
 import ConfigureSwitchModal from "./ConfigureModal";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { WorkflowEdge, WorkflowEdgeProps } from "Types";
 
-export default function SwitchEdge(props: EdgeProps) {
+export default function SwitchEdge(props: WorkflowEdgeProps) {
   // TODO: determine how to render this one or the other one
   // Figure out how the switch condition data is going to
-  return <SwitchEdgeDesigner {...props} model={{}} />;
+  return <SwitchEdgeDesigner {...props} />;
 }
 
-function SwitchEdgeDesigner(props: EdgeProps & { model: { switchCondition?: string | null } }) {
-  const [config, setConfig] = React.useState({
-    defaultState: props?.model.switchCondition === null ? true : false,
-    isModalOpen: false,
-    switchCondition: props.model.switchCondition,
-  });
-
-  const { id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style } = props;
+function SwitchEdgeDesigner(props: WorkflowEdgeProps) {
+  const { id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style, data } = props;
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY,
@@ -33,8 +28,25 @@ function SwitchEdgeDesigner(props: EdgeProps & { model: { switchCondition?: stri
 
   const mergedStyles = {
     ...style,
-    stroke: "purple",
+    stroke: "var(--flow-switch-primary)",
     strokeWidth: "2",
+  };
+
+  const edges = reactFlowInstance.getEdges() as Array<WorkflowEdge>;
+
+  const handleChangeCondition = (decisionCondition: number) => {
+    const newEdges = edges.map((edge) => {
+      if (edge.id === props.id) {
+        return {
+          ...edge,
+          data: { ...edge.data, decisionCondition },
+        };
+      } else {
+        return edge;
+      }
+    }) as Array<WorkflowEdge>;
+
+    reactFlowInstance.setEdges(newEdges);
   };
 
   return (
@@ -60,7 +72,7 @@ function SwitchEdgeDesigner(props: EdgeProps & { model: { switchCondition?: stri
           className="nodrag nopan"
         >
           <WorkflowCloseButton
-            style={{ path: "purple" }}
+            style={{ path: "var(--flow-switch-primary)" }}
             className=""
             onClick={() => reactFlowInstance.deleteElements({ edges: [props] })}
           />
@@ -71,22 +83,18 @@ function SwitchEdgeDesigner(props: EdgeProps & { model: { switchCondition?: stri
             }}
             modalHeaderProps={{
               title: "Switch",
-              subtitle: "Set it up the conditions",
+              subtitle: "Set up the conditions",
             }}
             modalTrigger={(props) => {
-              return <SwitchEdgeExecutionConditionButton onClick={props.openModal} />;
+              return <ExecutionConditionButton onClick={props.openModal} inputText={data?.decisionCondition} />;
             }}
           >
             {({ closeModal }) => {
-              // TODO: have these functions actually do things
               return (
                 <ConfigureSwitchModal
                   closeModal={closeModal}
-                  defaultState={config.defaultState}
-                  onSubmit={() => console.log("save")}
-                  switchCondition={config.switchCondition}
-                  updateDefaultState={() => console.log("update default")}
-                  updateSwitchState={() => console.log("update default")}
+                  decisionCondition={data?.decisionCondition}
+                  onUpdate={handleChangeCondition}
                 />
               );
             }}
@@ -96,7 +104,3 @@ function SwitchEdgeDesigner(props: EdgeProps & { model: { switchCondition?: stri
     </>
   );
 }
-
-const SwitchEdgeExecution: React.FC<EdgeProps> = (props: any) => {
-  return <div>TODO</div>;
-};

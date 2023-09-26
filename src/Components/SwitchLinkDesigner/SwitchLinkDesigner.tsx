@@ -85,7 +85,7 @@ class SwitchLink extends PureComponent {
           }}
           modalHeaderProps={{
             title: "Switch",
-            subtitle: "Set it up the conditions",
+            subtitle: "Set up the conditions",
           }}
           isOpen={this.state.isModalOpen}
           onCloseModal={() => {

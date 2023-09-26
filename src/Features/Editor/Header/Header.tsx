@@ -15,14 +15,8 @@ import { appLink } from "Config/appConfig";
 import { Add, DocumentExport } from "@carbon/react/icons";
 import { AxiosResponse } from "axios";
 import { UseMutationResult } from "react-query";
-import {
-  ModalTriggerProps,
-  ComposedModalChildProps,
-  WorkflowCanvasState,
-  WorkflowView,
-  WorkflowViewType,
-  ChangeLog,
-} from "Types";
+import { WorkflowView } from "Constants";
+import { ModalTriggerProps, ComposedModalChildProps, Workflow, WorkflowViewType, ChangeLog } from "Types";
 import styles from "./header.module.scss";
 
 interface DesignerHeaderProps {
@@ -31,7 +25,7 @@ interface DesignerHeaderProps {
   changeRevision: (revisionNumber: string) => void;
   canCreateNewVersion: boolean;
   revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-  revisionState: WorkflowCanvasState;
+  revisionState: Workflow;
   viewType: WorkflowViewType;
   revisionCount: number;
 }

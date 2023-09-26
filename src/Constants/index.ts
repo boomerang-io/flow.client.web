@@ -240,6 +240,16 @@ export const executionStatusList = [
   RunStatus.TimedOut,
 ];
 
+export const FlowTeamStatus = {
+  Active:"active",
+  Inactive:"inactive",
+} as const;
+
+export const WorkflowView = {
+  Template: "template",
+  Workflow: "workflow",
+} as const;
+
 export const WorkspaceConfigType = {
   Workflow: "workflow",
   WorflowRun: "workflowrun",
@@ -255,6 +265,12 @@ export const ApprovalInputRequired = {
   Required: "required",
   None: "none",
 } as const;
+
+export const EdgeExecutionCondition = {
+  Success: "success",
+  Failure: "failure",
+  Always: "always",
+} as const
 
 export const elevatedUserRoles = [UserType.Admin, UserType.Operator];
 

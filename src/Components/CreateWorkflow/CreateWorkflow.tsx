@@ -6,7 +6,7 @@ import { ComposedModal, notify, ToastNotification, TooltipHover } from "@boomera
 import CreateWorkflowContainer from "./CreateWorkflowContainer";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import queryString from "query-string";
+import { WorkflowView } from "Constants";
 import { formatErrorMessage } from "@boomerang-io/utils";
 import { Add } from "@carbon/react/icons";
 import {
@@ -16,7 +16,6 @@ import {
   CreateWorkflowSummary,
   Workflow,
   WorkflowViewType,
-  WorkflowView,
 } from "Types";
 import { FeatureFlag } from "Config/appConfig";
 import styles from "./createWorkflow.module.scss";

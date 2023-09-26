@@ -1,6 +1,14 @@
 import { User } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Node } from "reactflow";
-import { UserRole, WorkflowEngineMode, WorkflowPropertyAction, NodeType } from "Constants";
+import { Edge, EdgeProps, Node, NodeProps } from "reactflow";
+import {
+  FlowTeamStatus,
+  UserRole,
+  WorkflowEngineMode,
+  WorkflowPropertyAction,
+  NodeType,
+  EdgeExecutionCondition,
+  WorkflowView,
+} from "Constants";
 
 type ObjectValuesToType<T> = T[keyof T];
 
@@ -183,12 +191,8 @@ export enum WorkflowStatus {
   Inactive = "inactive",
 }
 
-export const WorkflowView = {
-  Template: "template",
-  Workflow: "workflow",
-} as const;
-
 export type WorkflowViewType = ObjectValuesToType<typeof WorkflowView>;
+export type EdgeExecutionConditionType = ObjectValuesToType<typeof EdgeExecutionCondition>;
 
 type PageableSort = {
   sorted: boolean;
@@ -222,16 +226,15 @@ export type WorkflowNodeData = {
   templateUpgradesAvailable: boolean;
   params: Array<{ name: string; value: string }>;
 };
-
 export type WorkflowNode = Node<WorkflowNodeData>;
+export type WorkflowNodeProps = NodeProps<WorkflowNodeData>;
 
-export interface WorkflowEdge {
-  id: string;
-  source: string;
-  target: string;
-  data: Record<string, any>;
-  position: any;
-}
+export type WorkflowEdgeData = {
+  decisionCondition: string;
+  executionCondition: EdgeExecutionConditionType;
+};
+export type WorkflowEdge = Edge<WorkflowEdgeData>;
+export type WorkflowEdgeProps = EdgeProps<WorkflowEdgeData>;
 
 export interface WorkflowParameter {
   defaultValue: string;
@@ -372,6 +375,8 @@ export interface TaskTemplateSpec {
   workingDir?: string;
 }
 
+export type FlowTeamStatusType = ObjectValuesToType<typeof FlowTeamStatus>;
+
 export interface FlowTeam {
   name: string;
   displayName: string;
@@ -401,11 +406,6 @@ export interface FlowTeamSummary {
     workflows: number;
     members: number;
   };
-}
-
-export enum FlowTeamStatus {
-  Active = "active",
-  Inactive = "inactive",
 }
 
 export interface FlowTeamQuotas {
@@ -654,7 +654,6 @@ export interface FlowFeatures {
 }
 
 //Schedule types
-
 export type ScheduleStatus = "active" | "inactive" | "deleted" | "trigger_disabled" | "error";
 export type ScheduleType = "runOnce" | "cron" | "advancedCron";
 

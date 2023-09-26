@@ -1,9 +1,8 @@
 import React from "react";
 
-const SvgComponent = (props) => (
+const AlwaysIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg width="26px" height="26px" viewBox="0 0 26 26" {...props}>
     <title>{"logic-proceed"}</title>
-    <desc>{"Created with Sketch."}</desc>
     <g id="30-editor" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
       <g id="logic-proceed" transform="translate(1.000000, 1.000000)">
         <circle id="Oval" stroke="#0072C3" fill="#FFFFFF" cx={12} cy={12} r={12} />
@@ -15,4 +14,4 @@ const SvgComponent = (props) => (
   </svg>
 );
 
-export default SvgComponent;
+export default AlwaysIcon;

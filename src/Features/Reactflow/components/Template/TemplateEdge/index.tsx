@@ -1,1 +1,1 @@
-export { default } from './TemplateEdge';
+export { default } from "./TemplateEdge";

@@ -1,15 +1,15 @@
-//@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import cx from "classnames";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import styles from "./ExecutionConditionButton.module.scss";
+import { WorkflowEngineModeType } from "Types";
+import { WorkflowEngineMode } from "Constants";
 
-const ConditionButton = ({ displayText, ...rest }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="73" height="26" viewBox="0 0 73 26" {...rest}>
+const ConditionButton = ({ displayText, ...rest }: { displayText: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="80" height="26" viewBox="0 0 80 26" {...rest}>
     <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
       <g fillRule="evenodd" strokeWidth="1" transform="translate(1 1)">
-        <rect width="71" height="24" x="0" y="0" fill="#FFF" fillRule="nonzero" stroke="#6E32C9" rx="4" />
+        <rect width="80" height="24" x="0" y="0" fill="#FFF" fillRule="nonzero" stroke="#6E32C9" rx="4" />
         <g transform="translate(4 2)">
           <path
             fill="#6E32C9"
@@ -33,15 +33,15 @@ const ConditionButton = ({ displayText, ...rest }) => (
   </svg>
 );
 
-const ExecutionConditionButton = React.memo(function ExecutionConditionButton({
+function ExecutionConditionButton({
   alt = "Switch edit button",
   className,
-  disabled,
-  kind,
+  disabled = false,
+  kind = WorkflowEngineMode.Editor,
   onClick,
   inputText,
   ...rest
-}) {
+}: ExecutionConditionButtonProps) {
   /***
    * want to max out the value at 8 characters (until we find a way to make expandable)
    */
@@ -60,20 +60,21 @@ const ExecutionConditionButton = React.memo(function ExecutionConditionButton({
       className={cx(styles.container, className, styles[kind])}
       displayText={displayText}
       onClick={onClick}
-      onKeyDown={(e) => isAccessibleKeyboardEvent(e) && onClick(e)}
+      onKeyDown={(e: any) => isAccessibleKeyboardEvent(e) && onClick()}
       role="button"
       tabIndex="0"
       {...rest}
     />
   );
-});
+}
 
-ExecutionConditionButton.propTypes = {
-  alt: PropTypes.string,
-  className: PropTypes.string,
-  kind: PropTypes.oneOf(["execution", "designer"]),
-  onClick: PropTypes.func,
-  inputText: PropTypes.string,
-};
+interface ExecutionConditionButtonProps {
+  alt?: string;
+  className?: string;
+  disabled?: boolean;
+  inputText?: string;
+  kind?: WorkflowEngineModeType;
+  onClick: () => void;
+}
 
 export default ExecutionConditionButton;

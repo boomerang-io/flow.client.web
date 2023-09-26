@@ -1,34 +1,13 @@
 import React from "react";
 import { getBezierPath, useReactFlow, EdgeLabelRenderer } from "reactflow";
-import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
-import { EXECUTION_CONDITIONS } from "Utils/taskLinkIcons";
 import { markerTypes } from "Features/Reactflow/Reactflow";
-import { WorkflowEdge, WorkflowEdgeProps } from "Types";
+import { WorkflowEdgeProps } from "Types";
 
-export default function TemplateEdge(props: WorkflowEdgeProps) {
-  const { id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style, data } = props;
+// There is a base link component that we are going to want simliar functionality from
+export function StartEdge(props: WorkflowEdgeProps) {
+  const { id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style } = props;
   const reactFlowInstance = useReactFlow();
-  const executionConditionIndex = EXECUTION_CONDITIONS.findIndex(
-    (condition) => condition.name === data?.executionCondition
-  );
-  const condition = executionConditionIndex >= 0 ? executionConditionIndex : 0;
-  const edges = reactFlowInstance.getEdges() as Array<WorkflowEdge>;
-
-  const handleChangeCondition = (newCondition: number) => {
-    const newEdges = edges.map((edge) => {
-      if (edge.id === props.id) {
-        return {
-          ...edge,
-          data: { ...edge.data, executionCondition: EXECUTION_CONDITIONS[newCondition].name },
-        };
-      } else {
-        return edge;
-      }
-    }) as Array<WorkflowEdge>;
-
-    reactFlowInstance.setEdges(newEdges);
-  };
 
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
@@ -68,10 +47,6 @@ export default function TemplateEdge(props: WorkflowEdgeProps) {
           className="nodrag nopan"
         >
           <WorkflowCloseButton className="" onClick={() => reactFlowInstance.deleteElements({ edges: [props] })} />
-          <TaskLinkExecutionConditionSwitcher
-            onClick={() => handleChangeCondition((condition + 1) % 3)}
-            executionCondition={EXECUTION_CONDITIONS[condition]}
-          />
         </div>
       </EdgeLabelRenderer>
     </>

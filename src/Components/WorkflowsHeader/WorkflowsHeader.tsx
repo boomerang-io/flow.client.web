@@ -6,7 +6,8 @@ import {
   FeatureHeaderSubtitle as HeaderSubtitle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateTemplateWorkflow from "Components/CreateTemplateWorkflow";
-import { FlowTeam, WorkflowView, WorkflowViewType, Workflow } from "Types";
+import { WorkflowView } from "Constants";
+import { FlowTeam, WorkflowViewType, Workflow } from "Types";
 import { Link } from "react-router-dom";
 import { appLink } from "Config/appConfig";
 import styles from "./workflowsHeader.module.scss";

@@ -4,6 +4,7 @@ import { Handle, Position, useReactFlow, NodeProps } from "reactflow";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import { taskIcons } from "Utils/taskIcons";
 import { Bee } from "@carbon/react/icons";
+import { WorkflowNodeProps } from "Types";
 import styles from "./BaseNode.module.scss";
 
 //About: based on WorkflowNode component that serves as a base for many of the the components
@@ -11,14 +12,14 @@ import styles from "./BaseNode.module.scss";
 //TODO: look at what props are required
 
 interface BaseNodeProps {
+  children?: React.ReactNode;
+  className?: string;
   icon?: string;
   isConnectable: boolean;
-  className?: string;
+  nodeProps: WorkflowNodeProps;
+  subtitle?: string;
   subtitleClass?: string;
   title?: string;
-  subtitle?: string;
-  children?: React.ReactNode;
-  nodeProps: NodeProps;
 }
 
 export default function BaseNode(props: BaseNodeProps) {
@@ -47,7 +48,7 @@ export default function BaseNode(props: BaseNodeProps) {
           {title || "Task"}
         </h3>
       </header>
-      <p title={subtitle} className={cx(styles.subtitle, subtitleClass)}>
+      <p title={subtitle} className={styles.subtitle}>
         {subtitle || "Task"}
       </p>
       <Handle

@@ -18,13 +18,13 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { groupTaskTemplatesByName } from "Utils";
 import { WorkflowEngineMode, WorkspaceConfigType } from "Constants";
+import { WorkflowView } from "Constants";
 import {
   ChangeLog as ChangeLogType,
   ConfigureWorkflowFormValues,
   DataDrivenInput,
   PaginatedWorkflowResponse,
   TaskTemplate,
-  WorkflowView,
   WorkflowEditor,
 } from "Types";
 import { FormikProps } from "formik";

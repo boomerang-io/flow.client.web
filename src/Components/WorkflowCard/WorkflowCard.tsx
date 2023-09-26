@@ -23,12 +23,12 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
 import { Run, Bee, CircleFill, CircleStroke } from "@carbon/react/icons";
 import workflowIcons from "Assets/workflowIcons";
+import { WorkflowView } from "Constants";
 import {
   ComposedModalChildProps,
   FlowTeamQuotas,
   ModalTriggerProps,
   Workflow,
-  WorkflowView,
   WorkflowViewType,
   DataDrivenInput,
 } from "Types";
