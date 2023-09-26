@@ -13,18 +13,20 @@ import {
   StructuredListBody,
 } from "@carbon/react";
 import CreateToken from "Components/CreateToken";
-import TokenRow from "Components/TokenRow";
+import DeleteToken from "Components/DeleteToken";
+import moment from "moment";
+import type { Token, TokenType } from "Types";
 import styles from "./TokenSection.module.scss";
 
 interface TokenProps {
-  workflowId: string;
-  paragraph?: string;
+  type: TokenType;
+  principal: string;
 }
 
-const TokenSection: React.FC<TokenProps> = ({ workflowId, paragraph }) => {
+const TokenSection: React.FC<TokenProps> = ({ type, principal }) => {
   const queryClient = useQueryClient();
   const getTokensUrl = serviceUrl.getTokens({
-    query: queryString.stringify({ types: "workflow", principals: workflowId }),
+    query: queryString.stringify({ types: type, principals: principal }),
   });
   const getTokensQuery = useQuery({
     queryKey: getTokensUrl,
@@ -45,7 +47,6 @@ const TokenSection: React.FC<TokenProps> = ({ workflowId, paragraph }) => {
   return (
     <>
       <dl className={styles.detailedListContainer}>
-        {paragraph && <p className={styles.detailedListParagraph}>{paragraph}</p>}
         <StructuredListWrapper className={styles.structuredListWrapper} ariaLabel="Structured list" isCondensed={true}>
           <StructuredListHead>
             <StructuredListRow head>
@@ -83,15 +84,42 @@ const TokenSection: React.FC<TokenProps> = ({ workflowId, paragraph }) => {
                 <StructuredListCell />
               </StructuredListRow>
             ) : (
-              getTokensQuery.data.content?.map((token: TokenType) => (
+              getTokensQuery.data.content?.map((token: Token) => (
                 <TokenRow tokenData={token} deleteToken={deleteToken} />
               ))
             )}
           </StructuredListBody>
         </StructuredListWrapper>
       </dl>
-      <CreateToken getTokensUrl={getTokensUrl} principal={workflowId} type="workflow" />
+      <CreateToken getTokensUrl={getTokensUrl} principal={principal} type="workflow" />
     </>
+  );
+};
+
+interface TokenRowProps {
+  tokenData: Token;
+  deleteToken: (tokenId: string) => void;
+}
+
+const TokenRow: React.FC<TokenRowProps> = ({ tokenData, deleteToken }) => {
+  return (
+    <StructuredListRow>
+      <StructuredListCell>{tokenData.name}</StructuredListCell>
+      <StructuredListCell>{tokenData.valid ? "Active" : "Inactive"}</StructuredListCell>
+      <StructuredListCell>
+        {tokenData.creationDate ? moment(tokenData.creationDate).utc().startOf("day").format("MMMM DD, YYYY") : "---"}
+      </StructuredListCell>
+      <StructuredListCell>
+        {tokenData.expirationDate
+          ? moment(tokenData.expirationDate).utc().startOf("day").format("MMMM DD, YYYY")
+          : "---"}
+      </StructuredListCell>
+      <StructuredListCell>{tokenData.permissions ? tokenData.permissions.join(", ") : "---"}</StructuredListCell>
+      <div>
+        <DeleteToken tokenItem={tokenData} deleteToken={deleteToken} />
+      </div>
+      <StructuredListCell />
+    </StructuredListRow>
   );
 };
 

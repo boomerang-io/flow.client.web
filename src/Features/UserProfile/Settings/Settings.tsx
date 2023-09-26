@@ -2,23 +2,13 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { ConfirmModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { CopyFile, Close, Help } from "@carbon/react/icons";
-import {
-  Tag,
-  Button,
-  SkeletonText,
-  StructuredListWrapper,
-  StructuredListHead,
-  StructuredListRow,
-  StructuredListCell,
-  StructuredListBody,
-} from "@carbon/react";
+import { CopyFile, Close } from "@carbon/react/icons";
+import { Tag, Button } from "@carbon/react";
 import CopyToClipboard from "react-copy-to-clipboard";
-import type { FlowUser, Token as TokenType } from "Types";
+import type { FlowUser } from "Types";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import queryString from "query-string";
-import TokenRow from "Components/TokenRow";
-import CreateToken from "Components/CreateToken";
+import TokenSection from "Components/TokenSection";
 import styles from "./Settings.module.scss";
 
 interface UserSettingsProps {
@@ -110,51 +100,8 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
             Personal access tokens allow other apps to access the APIs as if they were you. All of your access will be
             shared. Be careful how you distribute these tokens!
           </p>
-          <StructuredListWrapper ariaLabel="Structured list" isCondensed={true}>
-            <StructuredListHead>
-              <StructuredListRow head>
-                <StructuredListCell head>Name</StructuredListCell>
-                <StructuredListCell head>Status</StructuredListCell>
-                <StructuredListCell head>Creation Date</StructuredListCell>
-                <StructuredListCell head>Expiration Date</StructuredListCell>
-                <StructuredListCell head className={styles.structuredListHeader}>
-                  Permissions
-                  <TooltipHover
-                    direction="top"
-                    tooltipText="Permissions in the format SCOPE / PRINCIPAL / ACTION. Read more about permissions in the documentation."
-                  >
-                    <Help className={styles.structuredListHeaderHoverIcon} />
-                  </TooltipHover>
-                </StructuredListCell>
-                <StructuredListCell head />
-              </StructuredListRow>
-            </StructuredListHead>
-            <StructuredListBody>
-              {getTokensQuery.isLoading ? (
-                <StructuredListRow>
-                  <StructuredListCell>
-                    <SkeletonText data-testid="token-loading-skeleton" />
-                  </StructuredListCell>
-                  <StructuredListCell>
-                    <SkeletonText data-testid="token-loading-skeleton" />
-                  </StructuredListCell>
-                  <StructuredListCell>
-                    <SkeletonText data-testid="token-loading-skeleton" />
-                  </StructuredListCell>
-                  <StructuredListCell>
-                    <SkeletonText data-testid="token-loading-skeleton" />
-                  </StructuredListCell>
-                  <StructuredListCell />
-                </StructuredListRow>
-              ) : (
-                getTokensQuery.data.content?.map((token: TokenType) => (
-                  <TokenRow tokenData={token} deleteToken={deleteToken} />
-                ))
-              )}
-            </StructuredListBody>
-          </StructuredListWrapper>
+          <TokenSection type="user" principal={user.id} />
         </dl>
-        <CreateToken getTokensUrl={getTokensUrl} principal={user.id} type="user" />
       </SettingSection>
       <SettingSection title="Your ID">
         <dl className={styles.detailedListContainer}>
