@@ -48,7 +48,7 @@ function CustomTaskForm(props: CustomTaskFormProps) {
     return {
       autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
       formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      onChange: (value: any) => setFieldValue(key, value),
+      onChange: (value: React.FormEvent<HTMLTextAreaElement>) => setFieldValue(key, value),
       initialValue: values[key],
       availableParameters: props.availableParameters,
       item: input,
@@ -81,7 +81,7 @@ function CustomTaskForm(props: CustomTaskFormProps) {
 
     return {
       autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      onChange: (value: any) => setFieldValue(key, value),
+      onChange: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(key, value),
       initialValue: values[key],
       item: input,
       ...itemConfig,

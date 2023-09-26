@@ -37,7 +37,7 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
 
   const [activeProperties, setActiveProperties] = useState(workflowProperties ?? []);
 
-  const handleOnSave = (values: { taskName: any; timezone: { value: any } }) => {
+  const handleOnSave = (values: { taskName: string; timezone: { value: any } }) => {
     props.node.name = values.taskName;
     const valuesToSave = { ...values, timezone: values.timezone.value };
     props.onSave(valuesToSave);
@@ -52,7 +52,7 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
     return {
       autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
       formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      onChange: (value: any) => setFieldValue(key, value),
+      onChange: (value: React.FormEvent<HTMLTextAreaElement>) => setFieldValue(key, value),
       initialValue: values[key],
       availableParameters: props.availableParameters,
       item: input,
@@ -85,7 +85,7 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
 
     return {
       autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      onChange: (value: any) => setFieldValue(key, value),
+      onChange: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(key, value),
       initialValue: values[key],
       item: input,
       ...itemConfig,

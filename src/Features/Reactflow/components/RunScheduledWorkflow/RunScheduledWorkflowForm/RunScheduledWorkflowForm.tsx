@@ -38,7 +38,7 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
 
   const [activeProperties, setActiveProperties] = useState(workflowProperties ?? []);
 
-  const handleOnSave = (values: { taskName: any; timezone: { value: any } }) => {
+  const handleOnSave = (values: { taskName: string; timezone: { value: string } }) => {
     props.node.name = values.taskName;
     const valuesToSave = { ...values, timezone: values.timezone.value };
     props.onSave(valuesToSave);
@@ -46,15 +46,14 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
   };
 
   const textAreaProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
+    const { setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
       autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
       formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      onChange: (value: any) => setFieldValue(key, value),
-      initialValue: values[key],
+      onChange: (value: React.FormEvent<HTMLTextAreaElement>) => setFieldValue(key, value),
       availableParameters: props.availableParameters,
       item: input,
       ...itemConfig,
@@ -63,14 +62,13 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
   };
 
   const textEditorProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
+    const { setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
       autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
       formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      initialValue: values[key],
       availableParameters: props.availableParameters,
       item: input,
       ...props.textEditorProps,
@@ -80,14 +78,13 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
   };
 
   const textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
+    const { setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = INPUT_TYPES[type];
 
     return {
       autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      onChange: (value: any) => setFieldValue(key, value),
-      initialValue: values[key],
+      onChange: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(key, value),
       item: input,
       ...itemConfig,
       ...rest,

@@ -18,7 +18,6 @@ function ApprovalNodeDesigner(props: WorkflowNodeProps) {
           {
             placeholder: "",
             description: "",
-            value: "1",
             required: true,
             min: 1,
             key: "numberOfApprovals",

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import * as Yup from "yup";
 import { DynamicFormik, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter, Tag } from "@carbon/react";
@@ -9,12 +9,12 @@ import {
   TaskNameTextInput,
   formatAutoSuggestParameters,
 } from "../../../shared/inputs";
-import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
+import { INPUT_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import type { FormikProps } from "formik";
 import type { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./TaskForm.module.scss";
 
-const ResultsInput = (props: { results: WorkflowNodeData["results"] }) => {
+const ResultsDisplay = (props: { results: WorkflowNodeData["results"] }) => {
   const { results } = props;
   if (!results || results.length === 0) return null;
   else
@@ -42,150 +42,145 @@ interface WorkflowTaskFormProps {
   taskNames: Array<string>;
 }
 
-class WorkflowTaskForm extends Component<WorkflowTaskFormProps> {
-  handleOnSave = (values: Record<string, string>) => {
-    this.props.onSave(values);
-    this.props.closeModal();
+function WorkflowTaskForm(props: WorkflowTaskFormProps) {
+  const handleOnSave = (values: Record<string, string>) => {
+    props.onSave(values);
+    props.closeModal();
   };
 
-  textAreaProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
+  const textAreaProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
     const { values, setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
-      autoSuggestions: formatAutoSuggestParameters(this.props.availableParameters),
+      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
       formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      onChange: (value: any) => setFieldValue(key, value),
+      onChange: (value: React.FormEvent<HTMLTextAreaElement>) => setFieldValue(key, value),
       initialValue: values[key],
-      availableParameters: this.props.availableParameters,
+      availableParameters: props.availableParameters,
       item: input,
       ...itemConfig,
       ...rest,
     };
   };
 
-  textEditorProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
+  const textEditorProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
     const { values, setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
-      autoSuggestions: formatAutoSuggestParameters(this.props.availableParameters),
+      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
       formikSetFieldValue: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
-      availableParameters: this.props.availableParameters,
+      availableParameters: props.availableParameters,
       item: input,
-      ...this.props.textEditorProps,
+      ...props.textEditorProps,
       ...itemConfig,
       ...rest,
     };
   };
 
-  textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
-    const { key, ...rest } = input;
+  const textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
+    const { values, setFieldValue } = formikProps;
+    const { key, type, ...rest } = input;
+    const itemConfig = INPUT_TYPES[type];
 
     return {
-      autoSuggestions: formatAutoSuggestParameters(this.props.availableParameters),
-      onChange: (value: any) => setFieldValue(key, value),
-      initialValue: values[key] !== null && values[key] !== undefined ? values[key] : input.value,
-      inputProps: {
-        id: key,
-        onBlur: handleBlur,
-        invalid: touched[key] && errors[key],
-        invalidText: errors[key],
-        ...rest,
-      },
+      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
+      onChange: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(key, value),
+      initialValue: values[key],
+      item: input,
+      ...itemConfig,
+      ...rest,
     };
   };
 
-  toggleProps = () => {
+  const toggleProps = () => {
     return {
       orientation: "vertical",
     };
   };
 
-  render() {
-    const { additionalFormInputs = [], node, task, taskNames } = this.props;
-    const taskVersionConfig = task.config;
-    const takenTaskNames = taskNames.filter((name) => name !== node.name);
+  const { additionalFormInputs = [], node, task, taskNames } = props;
+  const taskVersionConfig = task.config;
+  const takenTaskNames = taskNames.filter((name) => name !== node.name);
 
-    const taskResults = task.spec.results;
+  const taskResults = task.spec.results;
 
-    // Add the name input
-    const inputs: Array<any> = [
-      {
-        key: "taskName",
-        name: "taskName",
-        label: "Task Name",
-        placeholder: "Enter a task name",
-        type: "custom",
-        required: true,
-        customComponent: TaskNameTextInput,
-      },
-      ...taskVersionConfig,
-      ...additionalFormInputs,
-      {
-        key: "results",
-        name: "results",
-        type: "custom",
-        results: taskResults,
-        customComponent: ResultsInput,
-      },
-    ];
-
-    const initialValues: Record<string, any> = {
-      taskName: node.name,
+  // Add the name input
+  const inputs: Array<any> = [
+    {
+      key: "taskName",
+      name: "taskName",
+      label: "Task Name",
+      placeholder: "Enter a task name",
+      type: "custom",
+      required: true,
+      customComponent: TaskNameTextInput,
+    },
+    ...taskVersionConfig,
+    ...additionalFormInputs,
+    {
+      key: "results",
+      name: "results",
+      type: "custom",
       results: taskResults,
-      ...node.params.reduce((accum, curr) => {
-        accum[curr.name] = curr.value;
-        return accum;
-      }, {} as Record<string, string>),
-    };
-    task.config.forEach((input) => {
-      const initialValue = node.params.find((param) => param.name === input.key)?.["value"];
-      initialValues[input.key] = initialValue !== undefined ? initialValue : input.defaultValue;
-    });
+      customComponent: ResultsDisplay,
+    },
+  ];
 
-    return (
-      <DynamicFormik
-        allowCustomPropertySyntax
-        validateOnMount
-        validationSchemaExtension={Yup.object().shape({
-          taskName: Yup.string()
-            .required("Enter a task name")
-            .notOneOf(takenTaskNames, "Enter a unique value for task name"),
-        })}
-        initialValues={initialValues}
-        inputs={inputs}
-        onSubmit={this.handleOnSave}
-        dataDrivenInputProps={{
-          TextInput: AutoSuggestInput,
-          TextEditor: TextEditorInput,
-          TextArea: TextAreaSuggestInput,
-        }}
-        textAreaProps={this.textAreaProps}
-        textEditorProps={this.textEditorProps}
-        textInputProps={this.textInputProps}
-        toggleProps={this.toggleProps}
-      >
-        {({ inputs, formikProps }) => (
-          <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
-            <ModalBody aria-label="inputs">{inputs}</ModalBody>
-            <ModalFooter>
-              <Button kind="secondary" onClick={this.props.closeModal}>
-                Cancel
-              </Button>
-              <Button type="submit" disabled={!formikProps.isValid}>
-                Apply
-              </Button>
-            </ModalFooter>
-          </ModalForm>
-        )}
-      </DynamicFormik>
-    );
-  }
+  const initialValues: Record<string, any> = {
+    taskName: node.name,
+    results: taskResults,
+    ...node.params.reduce((accum, curr) => {
+      accum[curr.name] = curr.value;
+      return accum;
+    }, {} as Record<string, string>),
+  };
+  task.config.forEach((input) => {
+    const initialValue = node.params.find((param) => param.name === input.key)?.["value"];
+    initialValues[input.key] = initialValue !== undefined ? initialValue : input.defaultValue;
+  });
+
+  return (
+    <DynamicFormik
+      allowCustomPropertySyntax
+      validateOnMount
+      validationSchemaExtension={Yup.object().shape({
+        taskName: Yup.string()
+          .required("Enter a task name")
+          .notOneOf(takenTaskNames, "Enter a unique value for task name"),
+      })}
+      initialValues={initialValues}
+      inputs={inputs}
+      onSubmit={handleOnSave}
+      dataDrivenInputProps={{
+        TextInput: AutoSuggestInput,
+        TextEditor: TextEditorInput,
+        TextArea: TextAreaSuggestInput,
+      }}
+      textAreaProps={textAreaProps}
+      textEditorProps={textEditorProps}
+      textInputProps={textInputProps}
+      toggleProps={toggleProps}
+    >
+      {({ inputs, formikProps }) => (
+        <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
+          <ModalBody aria-label="inputs">{inputs}</ModalBody>
+          <ModalFooter>
+            <Button kind="secondary" onClick={props.closeModal}>
+              Cancel
+            </Button>
+            <Button type="submit" disabled={!formikProps.isValid}>
+              Apply
+            </Button>
+          </ModalFooter>
+        </ModalForm>
+      )}
+    </DynamicFormik>
+  );
 }
 
 export default WorkflowTaskForm;

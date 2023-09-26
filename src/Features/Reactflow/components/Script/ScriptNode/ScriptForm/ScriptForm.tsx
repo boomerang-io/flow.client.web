@@ -47,7 +47,7 @@ function ScriptForm(props: ScriptFormProps) {
 
     return {
       autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      onChange: (value: any) => setFieldValue(key, value),
+      onChange: (value: React.FormEvent<HTMLTextAreaElement>) => setFieldValue(key, value),
       initialValue: values[key],
       item: input,
       ...itemConfig,
@@ -79,7 +79,7 @@ function ScriptForm(props: ScriptFormProps) {
 
     return {
       autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      onChange: (value: any) => setFieldValue(key, value),
+      onChange: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(key, value),
       initialValue: values[key],
       item: input,
       ...itemConfig,
@@ -116,7 +116,7 @@ function ScriptForm(props: ScriptFormProps) {
     },
   ];
 
-  const initialValues = {
+  const initialValues: Record<string, any> = {
     taskName: node.name,
     results: node.results?.map((result) => `${result?.name}:${result?.description}`) ?? [],
     ...node.params.reduce((accum, curr) => {
