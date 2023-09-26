@@ -197,7 +197,7 @@ function ScriptForm(props: ScriptFormProps) {
     },
     ...taskVersionConfig,
     {
-      results: task?.results,
+      results: node.results,
       key: "results",
       type: "custom",
       customComponent: ResultsInput,
@@ -216,7 +216,7 @@ function ScriptForm(props: ScriptFormProps) {
       })}
       initialValues={{
         taskName: node.name,
-        results: task?.results?.map((output) => `${output?.name}:${output?.description}`) ?? [],
+        results: node?.results?.map((output) => `${output?.name}:${output?.description}`) ?? [],
       }}
       inputs={inputs}
       onSubmit={handleOnSave}

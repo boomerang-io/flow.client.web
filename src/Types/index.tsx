@@ -225,6 +225,7 @@ export type WorkflowNodeData = {
   templateVersion: number;
   templateUpgradesAvailable: boolean;
   params: Array<{ name: string; value: string }>;
+  results: Array<{ name: string; description: string }>;
 };
 export type WorkflowNode = Node<WorkflowNodeData>;
 export type WorkflowNodeProps = NodeProps<WorkflowNodeData>;
