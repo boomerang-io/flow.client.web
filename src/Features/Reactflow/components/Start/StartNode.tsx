@@ -1,5 +1,5 @@
 import React from "react";
-import { Handle, Position, NodeProps } from "reactflow";
+import { Connection, Handle, Position, NodeProps } from "reactflow";
 
 export function StartNode(props: NodeProps) {
   const { isConnectable } = props;
@@ -8,10 +8,15 @@ export function StartNode(props: NodeProps) {
       <h2>Start</h2>
       <Handle
         className="b-startEnd-node__port --right"
-        type="source"
         position={Position.Right}
         isConnectable={isConnectable}
+        isValidConnection={isValidHandle}
+        type="source"
       />
     </div>
   );
+}
+
+function isValidHandle(connection: Connection) {
+  return connection.source !== connection.target;
 }

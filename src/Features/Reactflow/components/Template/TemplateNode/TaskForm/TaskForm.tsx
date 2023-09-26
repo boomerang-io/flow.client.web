@@ -1,6 +1,4 @@
-//@ts-nocheck
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import * as Yup from "yup";
 import {
   AutoSuggest,
@@ -12,9 +10,10 @@ import {
 import { Button, ModalBody, ModalFooter, Tag } from "@carbon/react";
 import TextEditorModal from "Components/TextEditorModal";
 import { SUPPORTED_AUTOSUGGEST_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
-import styles from "./WorkflowTaskForm.module.scss";
+import styles from "./TaskForm.module.scss";
+import { TaskTemplate, WorkflowNodeData } from "Types";
 
-const AutoSuggestInput = (props) => {
+const AutoSuggestInput = (props: any) => {
   if (!SUPPORTED_AUTOSUGGEST_TYPES.includes(props.type)) {
     return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
   }
@@ -31,7 +30,7 @@ const AutoSuggestInput = (props) => {
   );
 };
 
-const TextAreaSuggestInput = (props) => {
+const TextAreaSuggestInput = (props: any) => {
   return (
     <div key={props.id}>
       <AutoSuggest
@@ -51,7 +50,7 @@ const TextAreaSuggestInput = (props) => {
   );
 };
 
-const TextEditorInput = (props) => {
+const TextEditorInput = (props: any) => {
   return <TextEditorModal {...props} {...props.item} />;
 };
 
@@ -68,63 +67,44 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
   );
 };
 
-const ResultsInput = ({ formikProps, ...otherProps }) => {
-  const outputs = otherProps.outputs;
-  if (!outputs || outputs.length === 0) return null;
+const ResultsInput = (props: { formikProps: any; results: TaskTemplate["results"] }) => {
+  console.log({ props });
+  const { results } = props;
+  if (!results || results.length === 0) return null;
   else
     return (
       <>
         <hr className={styles.divider} />
         <h2 className={styles.inputsTitle}>Result Parameters</h2>
         <div className={styles.resultParamsContainer}>
-          {outputs.map((output) => (
-            <Tag type="teal">{`${output.name}:${output.description}`}</Tag>
+          {results.map((result) => (
+            <Tag type="teal">{`${result.name}:${result.description}`}</Tag>
           ))}
         </div>
       </>
     );
 };
 
-/**
- * @param {parameter} inputProperties - parameter object for workflow
- * {
- *   defaultValue: String
- *   description: String
- *   key: String
- *   label: String
- *   required: Bool
- *   type: String
- * }
- */
-
-function formatAutoSuggestProperties(inputProperties) {
+function formatAutoSuggestProperties(inputProperties: Array<string>) {
   return inputProperties.map((parameter) => ({
     value: `$(${parameter})`,
     label: parameter,
   }));
 }
 
-class WorkflowTaskForm extends Component {
-  static propTypes = {
-    additionalConfig: PropTypes.array,
-    closeModal: PropTypes.func,
-    inputProperties: PropTypes.array,
-    node: PropTypes.object.isRequired,
-    onSave: PropTypes.func.isRequired,
-    textEditorProps: PropTypes.object,
-    task: PropTypes.object.isRequired,
-    taskNames: PropTypes.array.isRequired,
-  };
+interface WorkflowTaskFormProps {
+  additionalConfig: Array<Record<string, string>>;
+  closeModal: () => void;
+  inputProperties: Array<string>;
+  node: WorkflowNodeData;
+  onSave: (...args: any) => void;
+  textEditorProps: any;
+  task: TaskTemplate;
+  taskNames: Array<string>;
+}
 
-  formikSetFieldValue = (value, id, setFieldValue) => {
-    setFieldValue(id, value);
-  };
-
-  formikHandleChange = (e, handleChange) => {
-    handleChange(e);
-  };
-
-  handleOnSave = (values) => {
+class WorkflowTaskForm extends Component<WorkflowTaskFormProps> {
+  handleOnSave = (values: Record<string, string>) => {
     this.props.onSave(values);
     this.props.closeModal();
   };
@@ -136,8 +116,8 @@ class WorkflowTaskForm extends Component {
 
     return {
       autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
-      formikSetFieldValue: (value) => this.formikSetFieldValue(value, key, setFieldValue),
-      onChange: (value) => this.formikSetFieldValue(value, key, setFieldValue),
+      formikSetFieldValue: (value: any) => setFieldValue(key, value),
+      onChange: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
       inputProperties: this.props.inputProperties,
       item: input,
@@ -153,7 +133,7 @@ class WorkflowTaskForm extends Component {
 
     return {
       autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
-      formikSetFieldValue: (value) => this.formikSetFieldValue(value, key, setFieldValue),
+      formikSetFieldValue: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
       inputProperties: this.props.inputProperties,
       item: input,
@@ -169,7 +149,7 @@ class WorkflowTaskForm extends Component {
 
     return {
       autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
-      onChange: (value) => this.formikSetFieldValue(value, key, setFieldValue),
+      onChange: (value: any) => setFieldValue(key, value),
       initialValue: values[key] !== null && values[key] !== undefined ? values[key] : input.value,
       inputProps: {
         id: key,
@@ -181,7 +161,7 @@ class WorkflowTaskForm extends Component {
     };
   };
 
-  toggleProps = ({ input, formikProps }) => {
+  toggleProps = () => {
     return {
       orientation: "vertical",
     };
@@ -192,7 +172,7 @@ class WorkflowTaskForm extends Component {
     const taskVersionConfig = task.config;
     const takenTaskNames = taskNames.filter((name) => name !== node.name);
 
-    const taskResults = task.results;
+    const taskResults = task.spec.results;
 
     // Add the name input
     const inputs = [
@@ -207,14 +187,14 @@ class WorkflowTaskForm extends Component {
       ...taskVersionConfig,
       ...additionalConfig,
       {
-        outputs: taskResults,
-        key: "outputs",
+        key: "results",
         type: "custom",
+        results: taskResults,
         customComponent: ResultsInput,
       },
     ];
 
-    const initValues = { taskName: node.name };
+    const initValues = { taskName: node.name, results: taskResults };
     task.config.forEach((input) => {
       const initialValue = node.params.find((param) => param.name === input.key)?.["value"] ?? "";
       initValues[input.key] = Boolean(initialValue) ? initialValue : input.defaultValue;

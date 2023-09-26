@@ -14,8 +14,8 @@ import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import TextEditorModal from "Components/TextEditorModal";
 import { timezoneOptions, defaultTimeZone, transformTimeZone } from "Utils/dateHelper";
 import { SUPPORTED_AUTOSUGGEST_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
-import { WorkflowNode } from "Types";
-import styles from "./WorkflowTaskForm.module.scss";
+import { TaskTemplate, WorkflowNode } from "Types";
+import styles from "./RunScheduledWorkflowForm.module.scss";
 
 const AutoSuggestInput = (props: any) => {
   if (!SUPPORTED_AUTOSUGGEST_TYPES.includes(props.type)) {
@@ -77,36 +77,24 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }: any) => {
   );
 };
 
-/**
- * @param {parameter} inputProperties - parameter object for workflow
- * {
- *   defaultValue: String
- *   description: String
- *   key: String
- *   label: String
- *   required: Bool
- *   type: String
- * }
- */
-
-function formatAutoSuggestProperties(inputProperties) {
+function formatAutoSuggestProperties(inputProperties: Array<string>) {
   return inputProperties.map((parameter) => ({
     value: `$(${parameter})`,
     label: parameter,
   }));
 }
 
-interface ConfigureInputsFormProps {
+interface RunScheduledWorkflowFormProps {
   closeModal: () => void;
-  inputProperties: Array<any>;
+  inputProperties: Array<string>;
   node: WorkflowNode["data"];
   onSave: (...args: any) => void;
   textEditorProps: any;
-  task: any;
-  taskNames: Array<any>;
+  task: TaskTemplate;
+  taskNames: Array<string>;
 }
 
-function ConfigureInputsForm(props: ConfigureInputsFormProps) {
+function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
   const { workflowsQueryData } = useEditorContext();
   const [activeWorkflowId, setActiveWorkflowId] = useState("");
   const { node, taskNames } = props;
@@ -117,11 +105,6 @@ function ConfigureInputsForm(props: ConfigureInputsFormProps) {
   const workflowProperties = workflows.find((workflow) => workflow.id === workflowId)?.config;
 
   const [activeProperties, setActiveProperties] = useState(workflowProperties ?? []);
-  console.log({ activeProperties });
-
-  const formikSetFieldValue = (value: any, id: string, setFieldValue: (arg0: any, arg1: any) => void) => {
-    setFieldValue(id, value);
-  };
 
   const handleOnSave = (values: { taskName: any; timezone: { value: any } }) => {
     props.node.name = values.taskName;
@@ -137,8 +120,8 @@ function ConfigureInputsForm(props: ConfigureInputsFormProps) {
 
     return {
       autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
-      formikSetFieldValue: (value) => formikSetFieldValue(value, key, setFieldValue),
-      onChange: (value) => formikSetFieldValue(value, key, setFieldValue),
+      formikSetFieldValue: (value: any) => setFieldValue(key, value),
+      onChange: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
       inputProperties: props.inputProperties,
       item: input,
@@ -154,7 +137,7 @@ function ConfigureInputsForm(props: ConfigureInputsFormProps) {
 
     return {
       autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
-      formikSetFieldValue: (value) => formikSetFieldValue(value, key, setFieldValue),
+      formikSetFieldValue: (value: any) => setFieldValue(key, value),
       initialValue: values[key],
       inputProperties: props.inputProperties,
       item: input,
@@ -170,7 +153,7 @@ function ConfigureInputsForm(props: ConfigureInputsFormProps) {
 
     return {
       autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
-      onChange: (value) => formikSetFieldValue(value, `['${key}']`, setFieldValue),
+      onChange: (value: any) => setFieldValue(`['${key}']`, value),
       initialValue: values[key],
 
       inputProps: {
@@ -212,7 +195,6 @@ function ConfigureInputsForm(props: ConfigureInputsFormProps) {
         onChange={({ selectedItem }) => {
           setFieldValue("workflowId", selectedItem?.value ?? "");
           setActiveWorkflowId(selectedItem?.value ?? "");
-          console.log({ selectedItem });
           if (selectedItem?.value) {
             const workflowProperties = workflows.find((workflow) => workflow.id === selectedItem?.value)?.config;
             if (workflowProperties) {
@@ -348,8 +330,6 @@ function ConfigureInputsForm(props: ConfigureInputsFormProps) {
     ...activeProperties,
   ];
 
-  console.log(inputs);
-
   const initTime = node?.params.find((param) => param.name === "time")?.value ?? "";
   const initTimeZone = transformTimeZone(node?.params.find((param) => param.name === "timezone") ?? defaultTimeZone);
 
@@ -417,4 +397,4 @@ function ConfigureInputsForm(props: ConfigureInputsFormProps) {
   );
 }
 
-export default ConfigureInputsForm;
+export default RunScheduledWorkflowForm;

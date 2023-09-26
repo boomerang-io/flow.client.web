@@ -195,7 +195,6 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         }
         revisionDispatch({ type: RevisionActionTypes.Set, data });
         setRevisionNumber(data.version);
-        queryClient.invalidateQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
         queryClient.invalidateQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
       } catch (err) {
         notify(

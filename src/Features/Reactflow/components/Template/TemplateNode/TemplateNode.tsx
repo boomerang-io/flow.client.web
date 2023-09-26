@@ -2,7 +2,7 @@ import React from "react";
 import { useReactFlow, Node } from "reactflow";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
-import WorkflowTaskForm from "Components/WorkflowTaskForm";
+import { TaskForm as DefaultTaskForm } from "./TaskForm";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import BaseNode from "../../Base/BaseNode";
@@ -12,6 +12,7 @@ import { WorkflowNode, WorkflowNodeProps } from "Types";
 
 interface TaskTemplateNodeProps extends WorkflowNodeProps {
   className?: string;
+  TaskForm?: React.FC<any>;
 }
 
 export default function TaskTemplateNode(props: TaskTemplateNodeProps) {
@@ -30,6 +31,7 @@ export default function TaskTemplateNode(props: TaskTemplateNodeProps) {
 // I think we can implement everything then optimize though
 
 function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
+  const { TaskForm = DefaultTaskForm } = props;
   const reactFlowInstance = useReactFlow();
 
   const { availableParameters, taskTemplatesData } = useEditorContext();
@@ -96,7 +98,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
         {({ closeModal }) => (
-          <WorkflowTaskForm
+          <TaskForm
             closeModal={closeModal}
             inputProperties={inputProperties}
             node={props.data}

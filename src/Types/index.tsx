@@ -361,7 +361,6 @@ export interface TaskTemplate {
   verified: boolean;
   config: Array<DataDrivenInput>;
   spec: TaskTemplateSpec;
-  results: Record<string, string>;
 }
 
 export interface TaskTemplateSpec {
@@ -370,7 +369,7 @@ export interface TaskTemplateSpec {
   params?: any;
   envs?: any;
   image?: string;
-  results?: any;
+  results?: Array<{ name: string; description: string }>;
   script?: number;
   workingDir?: string;
 }

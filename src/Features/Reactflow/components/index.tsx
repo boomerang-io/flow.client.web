@@ -1,5 +1,5 @@
 export { ApprovalNode } from "./Approval";
-export { CustomNode } from "./Custom";
+export { CustomTaskNode } from "./CustomTask";
 export { DecisionEdge, DecisionNode } from "./Decision";
 export { EndNode } from "./End";
 export { GenericNode } from "./Generic";
