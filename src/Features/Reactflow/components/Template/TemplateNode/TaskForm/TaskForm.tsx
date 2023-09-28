@@ -110,21 +110,19 @@ function WorkflowTaskForm(props: WorkflowTaskFormProps) {
       textInputProps={textInputProps(availableParameters)}
       toggleProps={toggleProps}
     >
-      {({ inputs, formikProps }) =>
-        console.log(formikProps.errors) || (
-          <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
-            <ModalBody aria-label="inputs">{inputs}</ModalBody>
-            <ModalFooter>
-              <Button kind="secondary" onClick={props.closeModal}>
-                Cancel
-              </Button>
-              <Button type="submit" disabled={!formikProps.isValid}>
-                Apply
-              </Button>
-            </ModalFooter>
-          </ModalForm>
-        )
-      }
+      {({ inputs, formikProps }) => (
+        <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
+          <ModalBody aria-label="inputs">{inputs}</ModalBody>
+          <ModalFooter>
+            <Button kind="secondary" onClick={props.closeModal}>
+              Cancel
+            </Button>
+            <Button type="submit" disabled={!formikProps.isValid}>
+              Apply
+            </Button>
+          </ModalFooter>
+        </ModalForm>
+      )}
     </DynamicFormik>
   );
 }

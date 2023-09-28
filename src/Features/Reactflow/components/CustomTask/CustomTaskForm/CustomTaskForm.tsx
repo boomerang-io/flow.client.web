@@ -28,7 +28,6 @@ interface CustomTaskFormProps {
 
 function CustomTaskForm(props: CustomTaskFormProps) {
   const { availableParameters, node, otherTaskNames, task } = props;
-  console.log({ node });
   const handleOnSave = (values: Record<string, string> & { results: Array<string> }) => {
     const { results, ...rest } = values;
     const formattedOutputs: Array<{ name: string; description: string }> = [];

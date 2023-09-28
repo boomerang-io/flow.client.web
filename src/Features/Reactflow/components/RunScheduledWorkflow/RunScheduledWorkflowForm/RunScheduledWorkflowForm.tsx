@@ -104,7 +104,6 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
     props.onSave(valuesToSave);
     props.closeModal();
   };
-  console.log({ selectedWorkflowConfg });
   const activeInputs: Record<string, string> = {};
   if (selectedWorkflowConfg) {
     selectedWorkflowConfg.forEach((item) => {
