@@ -170,7 +170,6 @@ function ConfigureInputsForm(props) {
     return {
       autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
       onChange: (value) => formikSetFieldValue(value, `['${key}']`, setFieldValue),
-      // initialValue: values[`['${key}']`],
       initialValue: values[key],
 
       inputProps: {

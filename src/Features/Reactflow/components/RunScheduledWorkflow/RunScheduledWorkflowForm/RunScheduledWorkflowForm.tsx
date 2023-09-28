@@ -9,9 +9,11 @@ import {
   TextAreaSuggestInput,
   TextEditorInput,
   TaskNameTextInput,
-  formatAutoSuggestParameters,
+  textAreaProps,
+  textEditorProps,
+  textInputProps,
+  toggleProps,
 } from "../../shared/inputs";
-import { INPUT_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import type { FormikProps } from "formik";
 import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./RunScheduledWorkflowForm.module.scss";
@@ -20,24 +22,81 @@ interface RunScheduledWorkflowFormProps {
   closeModal: () => void;
   availableParameters: Array<string>;
   node: WorkflowNodeData;
+  otherTaskNames: Array<string>;
   onSave: (inputs: Record<string, string>, results?: Array<{ name: string; description: string }>) => void;
   textEditorProps: Record<string, any>;
   task: TaskTemplate;
-  taskNames: Array<string>;
 }
+
+const TimeInput = ({
+  formikProps,
+  ...input
+}: DataDrivenInput & {
+  formikProps: FormikProps<any>;
+}) => {
+  const { errors, touched, handleChange, values } = formikProps;
+  const error = errors[input.id];
+  const hasBeenTouched = Boolean(touched[input.id]);
+  if (values.futurePeriod === "minutes" || values.futurePeriod === "hours") {
+    return null;
+  }
+
+  return (
+    <TextInput
+      helperText={input.helperText}
+      id="time"
+      invalid={Boolean(error) && hasBeenTouched}
+      invalidText={error}
+      labelText="Time"
+      name="time"
+      onChange={handleChange}
+      placeholder="e.g. 8:00"
+      type="time"
+      value={values["time"]}
+    />
+  );
+};
+
+const TimeZoneInput = ({
+  formikProps,
+  ...input
+}: DataDrivenInput & {
+  formikProps: FormikProps<any>;
+}) => {
+  const { errors, touched, values } = formikProps;
+  const error = errors[input.id];
+  const hasBeenTouched = Boolean(touched[input.id]);
+  if (values.futurePeriod === "minutes" || values.futurePeriod === "hours") {
+    return null;
+  }
+
+  return (
+    <ComboBox
+      helperText={input.helperText}
+      id="timezone"
+      initialSelectedItem={values.timezone}
+      //@ts-ignore
+      items={timezoneOptions}
+      invalid={Boolean(error) && hasBeenTouched}
+      invalidText={error}
+      onChange={({ selectedItem }) => {
+        formikProps.setFieldValue("timezone", selectedItem);
+      }}
+      placeholder="e.g. US/Central (UTC -06:00)"
+      titleText="Time Zone"
+    />
+  );
+};
 
 function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
   const { workflowsQueryData } = useEditorContext();
-  const [activeWorkflowId, setActiveWorkflowId] = useState("");
-  const { node, task, taskNames } = props;
-  console.log({ node, task });
+  const { availableParameters, node, task, otherTaskNames } = props;
+  const paramWorkflowId = node?.params.find((param) => param.name === "workflowId")?.value;
+  const [selectedWorkflowId, setSelectedWorkflowId] = useState(paramWorkflowId ?? "");
 
   const workflows = workflowsQueryData.content;
   const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
-  const workflowId = node?.params.find((param) => param.name === "workflowId")?.value;
-  const workflowProperties = workflows.find((workflow) => workflow.id === workflowId)?.config;
-
-  const [activeProperties, setActiveProperties] = useState(workflowProperties ?? []);
+  const selectedWorkflowConfg = workflows.find((workflow) => workflow.id === selectedWorkflowId)?.config ?? [];
 
   const handleOnSave = (values: { taskName: string; timezone: { value: string } }) => {
     props.node.name = values.taskName;
@@ -45,68 +104,14 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
     props.onSave(valuesToSave);
     props.closeModal();
   };
-
-  const textAreaProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = TEXT_AREA_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      onChange: (value: React.FormEvent<HTMLTextAreaElement>) => setFieldValue(key, value),
-      availableParameters: props.availableParameters,
-      item: input,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const textEditorProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = TEXT_AREA_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      availableParameters: props.availableParameters,
-      item: input,
-      ...props.textEditorProps,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = INPUT_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      onChange: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(key, value),
-      item: input,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const toggleProps = () => {
-    return {
-      orientation: "vertical",
-    };
-  };
-
-  const takenTaskNames = taskNames.filter((name) => name !== node.name);
-
+  console.log({ selectedWorkflowConfg });
   const activeInputs: Record<string, string> = {};
-  if (activeProperties) {
-    activeProperties.forEach((prop) => {
-      const name = prop.name;
-      if (name) {
+  if (selectedWorkflowConfg) {
+    selectedWorkflowConfg.forEach((item) => {
+      const key = item.key;
+      if (key) {
         //@ts-ignore
-        activeInputs[name] = prop.defaultValue;
+        activeInputs[key] = item.defaultValue;
       }
     });
   }
@@ -129,18 +134,9 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
         helperText={input.helperText}
         id="workflow-select"
         onChange={({ selectedItem }) => {
-          setFieldValue("workflowId", selectedItem?.value ?? "");
-          setActiveWorkflowId(selectedItem?.value ?? "");
-          if (selectedItem?.value) {
-            const workflowProperties = workflows.find((workflow) => workflow.id === selectedItem?.value)?.config;
-            if (workflowProperties) {
-              setActiveProperties(workflowProperties);
-            } else {
-              setActiveProperties([]);
-            }
-          } else {
-            setActiveProperties([]);
-          }
+          const value = selectedItem?.value ?? "";
+          setFieldValue("workflowId", value);
+          setSelectedWorkflowId(value);
         }}
         items={workflowsMapped}
         initialSelectedItem={initialSelectedItem}
@@ -148,66 +144,6 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
         placeholder="Select a Workflow"
         invalid={Boolean(error) && Boolean(touch)}
         invalidText={error}
-      />
-    );
-  };
-
-  const TimeInput = ({
-    formikProps,
-    ...input
-  }: DataDrivenInput & {
-    formikProps: FormikProps<any>;
-  }) => {
-    const { errors, touched, handleChange, values } = formikProps;
-    const error = errors[input.id];
-    const hasBeenTouched = Boolean(touched[input.id]);
-    if (values.futurePeriod === "minutes" || values.futurePeriod === "hours") {
-      return null;
-    }
-
-    return (
-      <TextInput
-        helperText={input.helperText}
-        id="time"
-        invalid={Boolean(error) && hasBeenTouched}
-        invalidText={error}
-        labelText="Time"
-        name="time"
-        onChange={handleChange}
-        placeholder="e.g. 8:00"
-        type="time"
-        value={values["time"]}
-      />
-    );
-  };
-
-  const TimeZoneInput = ({
-    formikProps,
-    ...input
-  }: DataDrivenInput & {
-    formikProps: FormikProps<any>;
-  }) => {
-    const { errors, touched, values } = formikProps;
-    const error = errors[input.id];
-    const hasBeenTouched = Boolean(touched[input.id]);
-    if (values.futurePeriod === "minutes" || values.futurePeriod === "hours") {
-      return null;
-    }
-
-    return (
-      <ComboBox
-        helperText={input.helperText}
-        id="timezone"
-        initialSelectedItem={values.timezone}
-        //@ts-ignore
-        items={timezoneOptions}
-        invalid={Boolean(error) && hasBeenTouched}
-        invalidText={error}
-        onChange={({ selectedItem }) => {
-          formikProps.setFieldValue("timezone", selectedItem);
-        }}
-        placeholder="e.g. US/Central (UTC -06:00)"
-        titleText="Time Zone"
       />
     );
   };
@@ -273,7 +209,7 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
       helperText: "When in the future you want the Workflow to execute",
       customComponent: WorkflowSelectionInput,
     },
-    ...activeProperties,
+    ...selectedWorkflowConfg,
   ];
 
   const initTime = node?.params.find((param) => param.name === "time")?.value ?? "";
@@ -283,7 +219,7 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
 
   const initialValues: Record<string, any> = {
     taskName: node.name,
-    workflowId: activeWorkflowId,
+    workflowId: selectedWorkflowId,
     time: initTime,
     timezone: initTimeZone,
     ...activeInputs,
@@ -301,21 +237,18 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
   return (
     <DynamicFormik
       allowCustomPropertySyntax
-      enableReinitialize
-      validateOnMount
       validationSchemaExtension={Yup.object().shape({
         futureIn: Yup.number().required("Interval is required ").min(1, "Must be at least one interval in future"),
         futurePeriod: Yup.string().required("Interval period is required"),
         taskName: Yup.string()
           .required("Enter a task name")
-          .notOneOf(takenTaskNames, "Enter a unique value for task name"),
+          .notOneOf(otherTaskNames, "Enter a unique value for task name"),
         time: Yup.string().test("timeRequired", "Time is required", (value, ctx) => {
           const futurePeriod = ctx.parent.futurePeriod;
           if (!value && (futurePeriod === "days" || futurePeriod === "weeks" || futurePeriod === "months")) {
             return false;
-          } else {
-            return true;
           }
+          return true;
         }),
         timezone: Yup.object().test("timeZoneRequired", "Time Zone is required", (value, ctx) => {
           const futurePeriod = ctx.parent.futurePeriod;
@@ -334,9 +267,9 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
         TextEditor: TextEditorInput,
         TextArea: TextAreaSuggestInput,
       }}
-      textAreaProps={textAreaProps}
-      textEditorProps={textEditorProps}
-      textInputProps={textInputProps}
+      textAreaProps={textAreaProps(availableParameters)}
+      textEditorProps={textEditorProps(availableParameters, props.textEditorProps)}
+      textInputProps={textInputProps(availableParameters)}
       toggleProps={toggleProps}
     >
       {({ inputs, formikProps }) => (

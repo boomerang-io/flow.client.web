@@ -506,7 +506,7 @@ const tasktemplate = {
           minValueLength: null,
           maxValueLength: null,
           options: null,
-          required: false,
+          required: true,
           placeholder: "e.g. docker.io/docker/whalesay",
           language: null,
           disabled: null,

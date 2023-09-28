@@ -8,6 +8,7 @@ import styles from "./TextEditorModal.module.scss";
 
 const TextEditorModal = (props) => {
   const [value, setValue] = useState(props.initialValue);
+  console.log({ value });
   return (
     <ComposedModal
       composedModalProps={{

@@ -2,8 +2,10 @@ import isURL from "validator/lib/isURL";
 
 export const INPUT_TYPES = Object.freeze({
   text: { type: "text", validationFunction: () => {}, validationText: "" },
+  search: { type: "text", validationFunction: () => {}, validationText: "" },
   password: { type: "password", validationFunction: () => {}, validationText: "" },
   url: { type: "input", validationFunction: isURL, validationText: "Please enter a valid url" },
+  tel: { type: "tel", validationFunction: () => {}, validationText: "" },
 });
 
 export const TEXT_AREA_TYPES = Object.freeze({

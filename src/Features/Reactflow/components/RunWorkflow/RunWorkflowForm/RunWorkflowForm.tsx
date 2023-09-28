@@ -9,9 +9,11 @@ import {
   TextAreaSuggestInput,
   TextEditorInput,
   TaskNameTextInput,
-  formatAutoSuggestParameters,
+  textAreaProps,
+  textEditorProps,
+  textInputProps,
+  toggleProps,
 } from "../../shared/inputs";
-import { INPUT_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./RunWorkflowForm.module.scss";
 
@@ -20,96 +22,39 @@ interface RunWorkflowFormProps {
   availableParameters: Array<string>;
   node: WorkflowNodeData;
   onSave: (inputs: Record<string, string>, results?: Array<{ name: string; description: string }>) => void;
+  otherTaskNames: Array<string>;
   textEditorProps: any;
   task: TaskTemplate;
-  taskNames: Array<string>;
 }
 
 function RunWorkflowForm(props: RunWorkflowFormProps) {
   const { workflowsQueryData } = useEditorContext();
-  const [activeWorkflowId, setActiveWorkflowId] = useState("");
-  const { node, task, taskNames } = props;
+  const { availableParameters, node, task, otherTaskNames } = props;
+  const paramWorkflowId = node?.params.find((param) => param.name === "workflowId")?.value;
+  const [selectedWorkflowId, setSelectedWorkflowId] = useState(paramWorkflowId ?? "");
 
   const workflows = workflowsQueryData.content;
   const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
-  const workflowId = node?.params.find((param) => param.name === "workflowId")?.value;
-  const workflowProperties = workflows.find((workflow) => workflow.id === workflowId)?.config;
+  const selectedWorkflowConfg = workflows.find((workflow) => workflow.id === selectedWorkflowId)?.config ?? [];
 
-  const [activeProperties, setActiveProperties] = useState(workflowProperties ?? []);
+  const activeInputs: Record<string, string> = {};
+  if (selectedWorkflowConfg) {
+    selectedWorkflowConfg.forEach((item) => {
+      const name = item.key;
+      if (name) {
+        //@ts-ignore
+        activeInputs[name] = item.defaultValue;
+      }
+    });
+  }
+
+  console.log({ activeInputs });
 
   const handleOnSave = (values: any) => {
     props.node.name = values.taskName;
     props.onSave(values);
     props.closeModal();
   };
-
-  const textAreaProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = TEXT_AREA_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      onChange: (value: React.FormEvent<HTMLTextAreaElement>) => setFieldValue(key, value),
-      initialValue: values[key],
-      availableParameters: props.availableParameters,
-      item: input,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const textEditorProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = TEXT_AREA_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      initialValue: values[key],
-      availableParameters: props.availableParameters,
-      item: input,
-      ...props.textEditorProps,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = INPUT_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      onChange: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(key, value),
-      initialValue: values[key],
-      item: input,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const toggleProps = () => {
-    return {
-      orientation: "vertical",
-    };
-  };
-
-  const takenTaskNames = taskNames.filter((name) => name !== node.name);
-
-  const activeInputs: Record<string, string> = {};
-  if (activeProperties) {
-    activeProperties.forEach((prop) => {
-      const name = prop.name;
-      if (name) {
-        //@ts-ignore
-        activeInputs[name] = prop.defaultValue;
-      }
-    });
-  }
 
   const WorkflowSelectionInput = ({
     formikProps,
@@ -128,18 +73,9 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
         helperText={input.helperText}
         id="workflow-select"
         onChange={({ selectedItem }) => {
-          setFieldValue("workflowId", selectedItem?.value ?? "");
-          setActiveWorkflowId(selectedItem?.value ?? "");
-          if (selectedItem?.value) {
-            const workflowProperties = workflows.find((workflow) => workflow.id === selectedItem?.value)?.config;
-            if (workflowProperties) {
-              setActiveProperties(workflowProperties);
-            } else {
-              setActiveProperties([]);
-            }
-          } else {
-            setActiveProperties([]);
-          }
+          const value = selectedItem?.value ?? "";
+          setFieldValue("workflowId", value);
+          setSelectedWorkflowId(value);
         }}
         items={workflowsMapped}
         initialSelectedItem={initialSelectedItem}
@@ -170,12 +106,12 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
       helperText: "When in the future you want the Workflow to execute",
       customComponent: WorkflowSelectionInput,
     },
-    ...activeProperties,
+    ...selectedWorkflowConfg,
   ];
 
   const initialValues: Record<string, any> = {
     taskName: node.name,
-    workflowId: activeWorkflowId,
+    workflowId: selectedWorkflowId,
     ...activeInputs,
     ...node.params.reduce((accum, curr) => {
       accum[curr.name] = curr.value;
@@ -196,7 +132,7 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
       validationSchemaExtension={Yup.object().shape({
         taskName: Yup.string()
           .required("Enter a task name")
-          .notOneOf(takenTaskNames, "Enter a unique value for task name"),
+          .notOneOf(otherTaskNames, "Enter a unique value for task name"),
         workflowId: Yup.string().required("Select a workflow"),
       })}
       initialValues={initialValues}
@@ -207,24 +143,26 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
         TextEditor: TextEditorInput,
         TextArea: TextAreaSuggestInput,
       }}
-      textAreaProps={textAreaProps}
-      textEditorProps={textEditorProps}
-      textInputProps={textInputProps}
+      textAreaProps={textAreaProps(availableParameters)}
+      textEditorProps={textEditorProps(availableParameters, props.textEditorProps)}
+      textInputProps={textInputProps(availableParameters)}
       toggleProps={toggleProps}
     >
-      {({ inputs, formikProps }) => (
-        <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
-          <ModalBody aria-label="inputs">{inputs}</ModalBody>
-          <ModalFooter>
-            <Button kind="secondary" onClick={props.closeModal}>
-              Cancel
-            </Button>
-            <Button type="submit" disabled={!formikProps.isValid}>
-              Apply
-            </Button>
-          </ModalFooter>
-        </ModalForm>
-      )}
+      {({ inputs, formikProps }) =>
+        console.log(formikProps.errors, formikProps.values) || (
+          <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
+            <ModalBody aria-label="inputs">{inputs}</ModalBody>
+            <ModalFooter>
+              <Button kind="secondary" onClick={props.closeModal}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={!formikProps.isValid}>
+                Apply
+              </Button>
+            </ModalFooter>
+          </ModalForm>
+        )
+      }
     </DynamicFormik>
   );
 }

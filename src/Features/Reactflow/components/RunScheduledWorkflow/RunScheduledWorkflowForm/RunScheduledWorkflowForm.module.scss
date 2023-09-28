@@ -8,6 +8,10 @@
   :global .bmrg--b-textarea__text {
     cursor: pointer;
   }
+
+  :global .cds--modal-content {
+    padding-bottom: 5rem !important;
+  }
 }
 
 .divider {

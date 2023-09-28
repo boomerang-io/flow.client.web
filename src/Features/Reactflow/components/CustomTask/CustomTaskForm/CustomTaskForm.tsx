@@ -8,94 +8,39 @@ import {
   TextAreaSuggestInput,
   TextEditorInput,
   TaskNameTextInput,
-  formatAutoSuggestParameters,
+  textAreaProps,
+  textEditorProps,
+  textInputProps,
+  toggleProps,
 } from "../../shared/inputs";
-import { INPUT_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
-import type { FormikProps } from "formik";
-import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
+import { TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./CustomTaskForm.module.scss";
 
 interface CustomTaskFormProps {
   closeModal: () => void;
   availableParameters: Array<string>;
   node: WorkflowNodeData;
+  otherTaskNames: Array<string>;
   onSave: (inputs: Record<string, string>, results?: Array<{ name: string; description: string }>) => void;
   textEditorProps: Record<string, any>;
   task: TaskTemplate;
-  taskNames: Array<string>;
 }
 
 function CustomTaskForm(props: CustomTaskFormProps) {
-  const { node, taskNames, task } = props;
-
+  const { availableParameters, node, otherTaskNames, task } = props;
+  console.log({ node });
   const handleOnSave = (values: Record<string, string> & { results: Array<string> }) => {
     const { results, ...rest } = values;
     const formattedOutputs: Array<{ name: string; description: string }> = [];
     results.forEach((result) => {
-      let index = result.indexOf(":");
-      formattedOutputs.push({ name: result.slice(0, index), description: result.slice(index + 1) });
+      const resultsParts = result.split(":");
+      formattedOutputs.push({ name: resultsParts[0], description: resultsParts[1] });
     });
 
     props.onSave(rest, formattedOutputs);
     props.closeModal();
   };
 
-  const textAreaProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = TEXT_AREA_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      onChange: (value: React.FormEvent<HTMLTextAreaElement>) => setFieldValue(key, value),
-      initialValue: values[key],
-      availableParameters: props.availableParameters,
-      item: input,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const textEditorProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = TEXT_AREA_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      initialValue: values[key],
-      availableParameters: props.availableParameters,
-      item: input,
-      ...props.textEditorProps,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = INPUT_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      onChange: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(key, value),
-      initialValue: values[key],
-      item: input,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const toggleProps = () => {
-    return {
-      orientation: "vertical",
-    };
-  };
-
-  const takenTaskNames = taskNames.filter((name) => name !== node.name);
   const taskVersionConfig = task.config;
 
   // Add the name and future inputs
@@ -139,7 +84,7 @@ function CustomTaskForm(props: CustomTaskFormProps) {
       validationSchemaExtension={Yup.object().shape({
         taskName: Yup.string()
           .required("Enter a task name")
-          .notOneOf(takenTaskNames, "Enter a unique value for task name"),
+          .notOneOf(otherTaskNames, "Enter a unique value for task name"),
         results: Yup.array(),
       })}
       initialValues={initialValues}
@@ -150,9 +95,9 @@ function CustomTaskForm(props: CustomTaskFormProps) {
         TextEditor: TextEditorInput,
         TextArea: TextAreaSuggestInput,
       }}
-      textAreaProps={textAreaProps}
-      textEditorProps={textEditorProps}
-      textInputProps={textInputProps}
+      textAreaProps={textAreaProps(availableParameters)}
+      textEditorProps={textEditorProps(availableParameters, props.textEditorProps)}
+      textInputProps={textInputProps(availableParameters)}
       toggleProps={toggleProps}
     >
       {({ inputs, formikProps }) => (

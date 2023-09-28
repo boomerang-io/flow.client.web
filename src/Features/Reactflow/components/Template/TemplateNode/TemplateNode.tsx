@@ -1,15 +1,15 @@
 import React from "react";
+import { useEditorContext } from "Hooks";
 import { useReactFlow, Node } from "reactflow";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
-import { TaskForm as DefaultTaskForm } from "./TaskForm";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
+import { TaskForm as DefaultTaskForm } from "./TaskForm";
 import BaseNode from "../../Base/BaseNode";
-import { useEditorContext } from "Hooks";
-import styles from "./TemplateNode.module.scss";
-import { DataDrivenInput, WorkflowNode, WorkflowNodeProps } from "Types";
 import { WorkflowEngineMode } from "Constants";
+import type { DataDrivenInput, WorkflowNode, WorkflowNodeProps } from "Types";
+import styles from "./TemplateNode.module.scss";
 
 interface TaskTemplateNodeProps extends WorkflowNodeProps {
   additionalFormInputs?: Array<Partial<DataDrivenInput>>;
@@ -41,7 +41,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
     {};
 
   // Get the taskNames names from the nodes on the model
-  const taskNames = nodes.map((node) => node.data.name);
+  const otherTaskNames = nodes.map((node) => node.data.name).filter((name) => name !== props.data.name);
 
   const handleOnUpdateTaskVersion = ({ inputs, version }: { inputs: Record<string, string>; version: number }) => {
     const nameAndParamListRecord = inputRecordToNameAndParamListRecord(inputs);
@@ -81,13 +81,9 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
   const ConfigureTask = () => {
     return (
       <ComposedModal
-        confirmModalProps={{
-          title: "Are you sure?",
-          children: "Your changes will not be saved",
-        }}
         modalHeaderProps={{
           title: `Edit ${task.displayName}`,
-          subtitle: task.description || "Configure the inputs",
+          subtitle: task.description || "Configure the task",
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
@@ -98,7 +94,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
             closeModal={closeModal}
             node={props.data}
             onSave={handleOnSaveTaskConfig}
-            taskNames={taskNames}
+            otherTaskNames={otherTaskNames}
             task={task}
           />
         )}

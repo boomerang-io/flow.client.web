@@ -92,10 +92,10 @@ export default function TaskUpdateModal(props: TaskUpdateModalProps) {
     closeModal();
   };
 
-  const initValues = { taskName: node.name };
+  const initialValues = { taskName: node.name };
   currentTaskTemplateVersion.config.forEach((input) => {
     const initialValue = node.params.find((param) => param.name === input.key)?.["value"] ?? "";
-    initValues[input.key] = Boolean(initialValue) ? initialValue : input.defaultValue;
+    initialValues[input.key] = Boolean(initialValue) ? initialValue : input.defaultValue;
   });
 
   return (
@@ -105,7 +105,7 @@ export default function TaskUpdateModal(props: TaskUpdateModalProps) {
       dataDrivenInputProps={{
         TextEditor: TextEditorInput,
       }}
-      initialValues={initValues}
+      initialValues={initialValues}
       inputs={latestTaskTemplateVersion.config}
       onSubmit={handleSubmit}
       textEditorProps={textAreaProps(availableParameters)}
@@ -126,7 +126,7 @@ export default function TaskUpdateModal(props: TaskUpdateModalProps) {
                       readOnly
                       id={`${input.key}-current`}
                       orientation={input.type === "boolean" ? "vertical" : undefined}
-                      value={Boolean(node.params[input.key]) ? node.params[input.key] : input.defaultValue}
+                      value={Boolean(initialValues[input.key]) ? initialValues[input.key] : input.defaultValue}
                     />
                   </StateHighlighter>
                 ))}

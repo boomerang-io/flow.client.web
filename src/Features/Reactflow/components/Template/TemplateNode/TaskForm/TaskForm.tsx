@@ -7,10 +7,11 @@ import {
   TextAreaSuggestInput,
   TextEditorInput,
   TaskNameTextInput,
-  formatAutoSuggestParameters,
+  textAreaProps,
+  textEditorProps,
+  textInputProps,
+  toggleProps,
 } from "../../../shared/inputs";
-import { INPUT_TYPES, TEXT_AREA_TYPES } from "Constants/formInputTypes";
-import type { FormikProps } from "formik";
 import type { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./TaskForm.module.scss";
 
@@ -37,77 +38,20 @@ interface WorkflowTaskFormProps {
   closeModal: () => void;
   node: WorkflowNodeData;
   onSave: (inputs: Record<string, string>, results?: Array<{ name: string; description: string }>) => void;
+  otherTaskNames: Array<string>;
   textEditorProps?: any;
   task: TaskTemplate;
-  taskNames: Array<string>;
 }
 
 function WorkflowTaskForm(props: WorkflowTaskFormProps) {
+  const { availableParameters, additionalFormInputs = [], node, task, otherTaskNames } = props;
+  const taskVersionConfig = task.config;
+
+  const taskResults = task.spec.results;
   const handleOnSave = (values: Record<string, string>) => {
     props.onSave(values);
     props.closeModal();
   };
-
-  const textAreaProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = TEXT_AREA_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      onChange: (value: React.FormEvent<HTMLTextAreaElement>) => setFieldValue(key, value),
-      initialValue: values[key],
-      availableParameters: props.availableParameters,
-      item: input,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const textEditorProps = ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = TEXT_AREA_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      formikSetFieldValue: (value: any) => setFieldValue(key, value),
-      initialValue: values[key],
-      availableParameters: props.availableParameters,
-      item: input,
-      ...props.textEditorProps,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const textInputProps = ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
-    const { values, setFieldValue } = formikProps;
-    const { key, type, ...rest } = input;
-    const itemConfig = INPUT_TYPES[type];
-
-    return {
-      autoSuggestions: formatAutoSuggestParameters(props.availableParameters),
-      onChange: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(key, value),
-      initialValue: values[key],
-      item: input,
-      ...itemConfig,
-      ...rest,
-    };
-  };
-
-  const toggleProps = () => {
-    return {
-      orientation: "vertical",
-    };
-  };
-
-  const { additionalFormInputs = [], node, task, taskNames } = props;
-  const taskVersionConfig = task.config;
-  const takenTaskNames = taskNames.filter((name) => name !== node.name);
-
-  const taskResults = task.spec.results;
 
   // Add the name input
   const inputs: Array<any> = [
@@ -151,7 +95,7 @@ function WorkflowTaskForm(props: WorkflowTaskFormProps) {
       validationSchemaExtension={Yup.object().shape({
         taskName: Yup.string()
           .required("Enter a task name")
-          .notOneOf(takenTaskNames, "Enter a unique value for task name"),
+          .notOneOf(otherTaskNames, "Enter a unique value for task name"),
       })}
       initialValues={initialValues}
       inputs={inputs}
@@ -161,24 +105,26 @@ function WorkflowTaskForm(props: WorkflowTaskFormProps) {
         TextEditor: TextEditorInput,
         TextArea: TextAreaSuggestInput,
       }}
-      textAreaProps={textAreaProps}
-      textEditorProps={textEditorProps}
-      textInputProps={textInputProps}
+      textAreaProps={textAreaProps(availableParameters)}
+      textEditorProps={textEditorProps(availableParameters, props.textEditorProps)}
+      textInputProps={textInputProps(availableParameters)}
       toggleProps={toggleProps}
     >
-      {({ inputs, formikProps }) => (
-        <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
-          <ModalBody aria-label="inputs">{inputs}</ModalBody>
-          <ModalFooter>
-            <Button kind="secondary" onClick={props.closeModal}>
-              Cancel
-            </Button>
-            <Button type="submit" disabled={!formikProps.isValid}>
-              Apply
-            </Button>
-          </ModalFooter>
-        </ModalForm>
-      )}
+      {({ inputs, formikProps }) =>
+        console.log(formikProps.errors) || (
+          <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
+            <ModalBody aria-label="inputs">{inputs}</ModalBody>
+            <ModalFooter>
+              <Button kind="secondary" onClick={props.closeModal}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={!formikProps.isValid}>
+                Apply
+              </Button>
+            </ModalFooter>
+          </ModalForm>
+        )
+      }
     </DynamicFormik>
   );
 }

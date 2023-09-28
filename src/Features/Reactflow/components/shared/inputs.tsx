@@ -1,7 +1,7 @@
 import React from "react";
 import { AutoSuggest, TextInput, TextArea, Creatable } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
-import { SUPPORTED_AUTOSUGGEST_TYPES } from "Constants/formInputTypes";
+import { INPUT_TYPES, TEXT_AREA_TYPES, SUPPORTED_AUTOSUGGEST_TYPES } from "Constants/formInputTypes";
 import { DataDrivenInput } from "Types";
 import styles from "./inputs.module.scss";
 import { FormikProps } from "formik";
@@ -10,38 +10,29 @@ export const AutoSuggestInput = (props: any) => {
   if (!SUPPORTED_AUTOSUGGEST_TYPES.includes(props.type)) {
     return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
   }
-  const { item, ...rest } = props;
   return (
     <div key={props.id}>
-      <AutoSuggest {...rest} initialValue={Boolean(props?.initialValue) ? props?.initialValue : item?.defaultValue}>
-        <TextInput
-          disabled={props?.item?.readOnly}
-          helperText={props?.item?.helperText}
-          id={`['${props.id}']`}
-          labelText={props?.label}
-          placeholder={props?.item?.placeholder}
-          tooltipContent={props.tooltipContent}
-        />
+      <AutoSuggest
+        {...props}
+        initialValue={props?.initialValue !== "" ? props?.initialValue : props?.inputProps?.defaultValue}
+      >
+        <TextInput tooltipContent={props.tooltipContent} disabled={props?.inputProps?.readOnly} />
       </AutoSuggest>
     </div>
   );
 };
 
 export const TextAreaSuggestInput = (props: any) => {
-  const { item, ...rest } = props;
   return (
     <div key={props.id}>
       <AutoSuggest
-        {...rest}
-        initialValue={Boolean(props?.initialValue) ? props?.initialValue : props?.item?.defaultValue}
+        {...props}
+        initialValue={props?.initialValue !== "" ? props?.initialValue : props?.inputProps?.defaultValue}
       >
         <TextArea
-          disabled={props?.item?.readOnly}
-          helperText={props?.item?.helperText}
-          id={`['${props.id}']`}
-          labelText={props?.label}
-          placeholder={props?.item?.placeholder}
+          disabled={props?.inputProps?.readOnly}
           tooltipContent={props.tooltipContent}
+          labelText={props.label}
         />
       </AutoSuggest>
     </div>
@@ -49,22 +40,16 @@ export const TextAreaSuggestInput = (props: any) => {
 };
 
 export const TextEditorInput = (props: any) => {
-  return <TextEditorModal {...props} {...props.item} />;
+  return <TextEditorModal {...props} {...props.inputProps} />;
 };
 
-export const TaskNameTextInput = ({ formikProps, ...otherProps }: any) => {
+export const TaskNameTextInput = ({ formikProps, ...input }: DataDrivenInput & { formikProps: FormikProps<any> }) => {
   const { errors, touched } = formikProps;
-  const error = errors[otherProps.id];
-  const touch = touched[otherProps.id];
+  const hasError = Boolean(errors[input.id]);
+  const isTouched = Boolean(touched[input.id]);
   return (
     <>
-      <TextInput
-        {...otherProps}
-        invalid={error && touch}
-        id={`['${otherProps.id}']`}
-        invalidText={error}
-        onChange={formikProps.handleChange}
-      />
+      <TextInput {...input} invalid={hasError} invalidText={isTouched} onChange={formikProps.handleChange} />
       <hr className={styles.divider} />
       <h2 className={styles.inputsTitle}>Specifics</h2>
     </>
@@ -93,3 +78,76 @@ export function formatAutoSuggestParameters(availableParameters: Array<string>) 
     label: parameter,
   }));
 }
+
+export const textAreaProps =
+  (availableParameters: Array<string>) =>
+  ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
+    const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
+    const { key, type, ...rest } = input;
+    const itemConfig = TEXT_AREA_TYPES[type];
+    const safeKey = `['${key}']`;
+    return {
+      autoSuggestions: formatAutoSuggestParameters(availableParameters),
+      onChange: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(safeKey, value),
+      initialValue: values[key] || values[safeKey],
+      inputProps: {
+        onBlur: handleBlur,
+        invalid: touched[key] && Boolean(errors[key]),
+        invalidText: errors[key],
+        ...itemConfig,
+        ...rest,
+        name: safeKey,
+        id: safeKey,
+      },
+    };
+  };
+
+export const textEditorProps =
+  (availableParameters: Array<string>, textEditorProps: any) =>
+  ({ input, formikProps }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
+    const { values, setFieldValue } = formikProps;
+    const { key, type, ...rest } = input;
+    const itemConfig = TEXT_AREA_TYPES[type];
+    const safeKey = `['${key}']`;
+
+    return {
+      autoSuggestions: formatAutoSuggestParameters(availableParameters),
+      formikSetFieldValue: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(safeKey, value),
+      initialValue: values[key] || values[safeKey],
+      ...rest,
+      ...itemConfig,
+      ...textEditorProps,
+      type,
+      name: safeKey,
+      id: safeKey,
+    };
+  };
+
+export const textInputProps =
+  (availableParameters: Array<string>) =>
+  ({ formikProps, input }: { formikProps: FormikProps<any>; input: DataDrivenInput }) => {
+    const { errors, handleBlur, touched, setFieldValue, values } = formikProps;
+    const { key, type, ...rest } = input;
+    const itemConfig = INPUT_TYPES[type];
+    const safeKey = `['${key}']`;
+    return {
+      autoSuggestions: formatAutoSuggestParameters(availableParameters),
+      onChange: (value: React.FormEvent<HTMLInputElement>) => setFieldValue(safeKey, value),
+      initialValue: values[key] || values[safeKey],
+      inputProps: {
+        onBlur: handleBlur,
+        invalid: touched[key] && Boolean(errors[key]),
+        invalidText: errors[key],
+        ...itemConfig,
+        ...rest,
+        name: safeKey,
+        id: safeKey,
+      },
+    };
+  };
+
+export const toggleProps = () => {
+  return {
+    orientation: "vertical",
+  };
+};

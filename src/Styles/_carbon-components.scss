@@ -52,6 +52,10 @@
   width: 100%;
 }
 
+.cds--combo-box[data-invalid]:not(.cds--multi-select--selected) .cds--text-input:not(:focus) {
+  outline: 0px;
+}
+ 
 :root {
   --cds-font-family: "IBM Plex Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
