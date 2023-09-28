@@ -6,6 +6,7 @@
 
 .b-startEnd-node {
   background: #002b50;
+  border: 0.125rem solid #161616;
   color: white;
   width: 9rem;
   height: 5rem;
@@ -56,7 +57,7 @@
   &.--right {
     background-color: var(--cds-interactive-01);
     border: 0.0625rem solid var(--cds-interactive-01);
-    right: -2rem;
+    right: -2.1rem;
     top: 2.5rem;
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
