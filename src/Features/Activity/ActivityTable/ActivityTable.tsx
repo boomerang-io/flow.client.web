@@ -122,7 +122,7 @@ function ActivityTable(props: ActivityTableProps) {
       case HeadersKey.Duration:
         return (
           <time className={styles.tableTextarea}>
-            {value ? getHumanizedDuration(parseInt(value / 1000, 10)) : "---"}
+            {value ? (value < 1000 ? "< 1 second" : getHumanizedDuration(parseInt(value / 1000, 10))) : "---"}
           </time>
         );
       case HeadersKey.Status:
