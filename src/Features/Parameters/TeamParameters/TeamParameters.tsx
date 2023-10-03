@@ -28,7 +28,7 @@ function TeamParameters() {
 
   const handleSubmit = async (isEdit: boolean, parameter: DataDrivenInput) => {
     try {
-      const response = await parameterMutation.mutateAsync({
+      await parameterMutation.mutateAsync({
         team: team?.name,
         body: { parameters: [parameter] },
       });
@@ -37,7 +37,7 @@ function TeamParameters() {
           <ToastNotification
             kind="success"
             title={"Parameter Updated"}
-            subtitle={`Request to update ${response.data.label} succeeded`}
+            subtitle={`Request to update ${parameter.label} succeeded`}
             data-testid="create-update-team-prop-notification"
           />
         );
@@ -46,7 +46,7 @@ function TeamParameters() {
           <ToastNotification
             kind="success"
             title={"Parameter Created"}
-            subtitle={`Request to create ${response.data.label} succeeded`}
+            subtitle={`Request to create ${parameter.label} succeeded`}
             data-testid="create-update-team-prop-notification"
           />
         );
