@@ -26,8 +26,10 @@ import {
   ChangeLog as ChangeLogType,
   ConfigureWorkflowFormValues,
   DataDrivenInput,
+  PaginatedTaskTemplateResponse,
   PaginatedWorkflowResponse,
   TaskTemplate,
+  Workflow,
   WorkflowEditor,
 } from "Types";
 import { FormikProps } from "formik";
@@ -40,7 +42,7 @@ export default function EditorContainer() {
   const { team } = useTeamContext();
   // Init revision number state is held here so we can easily refect the data on change via react-query
 
-  const [revisionNumber, setRevisionNumber] = useState<string>("");
+  const [revisionNumber, setRevisionNumber] = useState<string | number>("");
   const { workflowId }: { workflowId: string } = useParams();
   const queryClient = useQueryClient();
 
@@ -63,19 +65,14 @@ export default function EditorContainer() {
   const changeLogQuery = useQuery<ChangeLogType>(getChangelogUrl);
   const workflowQuery = useQuery<WorkflowEditor>(getWorkflowUrl);
   const workflowsQuery = useQuery<PaginatedWorkflowResponse>(getWorkflowsUrl);
-  const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
-  const taskTemplatesTeamQuery = useQuery(getTaskTemplatesTeamUrl);
-  const availableParametersQuery = useQuery(getAvailableParametersUrl, {});
+  const taskTemplatesQuery = useQuery<PaginatedTaskTemplateResponse>(getTaskTemplatesUrl);
+  const taskTemplatesTeamQuery = useQuery<PaginatedTaskTemplateResponse>(getTaskTemplatesTeamUrl);
+  const availableParametersQuery = useQuery<Array<string>>(getAvailableParametersUrl, {});
 
   /**
    * Mutations
    */
-  const revisionMutator = useMutation(resolver.putCreateWorkflowRevision, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(getWorkflowUrl);
-    },
-  });
-
+  const revisionMutator = useMutation(resolver.putCreateWorkflowRevision);
   const parametersMutator = useMutation(resolver.postWorkflowAvailableParameters, {
     onSuccess: (response) =>
       queryClient.setQueryData(serviceUrl.workflowAvailableParameters({ workflowId }), response.data),
@@ -137,11 +134,11 @@ export default function EditorContainer() {
 interface EditorStateContainerProps {
   availableParametersQueryData: Array<string>;
   changeLogData: ChangeLogType;
-  revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+  revisionMutator: UseMutationResult<AxiosResponse<Workflow, any>, unknown, { workflowId: any; body: any }, unknown>;
   parametersMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
   workflowQueryData: WorkflowEditor;
   workflowsQueryData: PaginatedWorkflowResponse;
-  setRevisionNumber: (revisionNumber: string) => void;
+  setRevisionNumber: React.Dispatch<React.SetStateAction<string | number>>;
   taskTemplatesList: Array<TaskTemplate>;
   workflowId: string;
 }
@@ -200,6 +197,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         revisionDispatch({ type: RevisionActionTypes.Set, data });
         setRevisionNumber(data.version);
         queryClient.invalidateQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
+        queryClient.invalidateQueries(serviceUrl.getWorkflowChangelog({ id: workflowId }));
       } catch (err) {
         notify(
           <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />

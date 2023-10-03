@@ -41,7 +41,7 @@ type TeamArg = {
 }
 
 type VersionArg = {
-  version: string
+  version: string | number
 }
 
 type QueryArg = {
@@ -206,7 +206,7 @@ export const resolver = {
   postCreateTeam: ({ body }) =>
     axios({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethod.Post }),
   putCreateWorkflowRevision: ({ workflowId, body }) =>
-    axios.put(serviceUrl.putCreateWorkflowRevision({ workflowId }), body),
+    axios.put<Workflow, Workflow>(serviceUrl.putCreateWorkflowRevision({ workflowId }), body),
   postWorkflowRun: ({ data }) =>
     axios.post(
       serviceUrl.postWorkflowRun(),

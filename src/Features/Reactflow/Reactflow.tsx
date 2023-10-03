@@ -17,6 +17,7 @@ import ReactFlow, {
   Position,
 } from "reactflow";
 import dagre from "@dagrejs/dagre";
+import { Flow } from "@carbon/react/icons";
 import { EdgeExecutionCondition, NodeType, WorkflowEngineMode } from "Constants";
 import * as GraphComps from "./components";
 import {
@@ -322,8 +323,8 @@ function FlowDiagram(props: FlowDiagramProps) {
             </MarkerDefinition>
             <Background />
             <Controls showInteractive={false}>
-              <ControlButton onClick={onLayout} title="auto-layout">
-                <div>L</div>
+              <ControlButton onClick={onLayout} title="auto layout">
+                <Flow />
               </ControlButton>
             </Controls>
           </ReactFlow>
