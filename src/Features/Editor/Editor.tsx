@@ -134,12 +134,13 @@ export default function EditorContainer() {
 interface EditorStateContainerProps {
   availableParametersQueryData: Array<string>;
   changeLogData: ChangeLogType;
-  revisionMutator: UseMutationResult<AxiosResponse<Workflow, any>, unknown, { workflowId: any; body: any }, unknown>;
   parametersMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-  workflowQueryData: WorkflowEditor;
-  workflowsQueryData: PaginatedWorkflowResponse;
+  revisionMutator: UseMutationResult<AxiosResponse<Workflow, any>, unknown, { workflowId: any; body: any }, unknown>;
+  revisionNumber: string | number;
   setRevisionNumber: React.Dispatch<React.SetStateAction<string | number>>;
   taskTemplatesList: Array<TaskTemplate>;
+  workflowQueryData: WorkflowEditor;
+  workflowsQueryData: PaginatedWorkflowResponse;
   workflowId: string;
 }
 
@@ -151,6 +152,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   availableParametersQueryData,
   changeLogData,
   revisionMutator,
+  revisionNumber,
   setRevisionNumber,
   taskTemplatesList,
   workflowQueryData,
@@ -303,7 +305,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
-    <EditorContextProvider value={store}>
+    <EditorContextProvider value={store} key={revisionNumber}>
       <>
         <Prompt
           when={Boolean(revisionState.hasUnsavedUpdates)}
@@ -326,7 +328,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             revisionMutator={revisionMutator}
           />
           <Switch>
-            <Route path={AppPath.EditorDesigner}></Route>
+            <Route path={AppPath.EditorDesigner} />
             <Route path={AppPath.EditorProperties}>
               <Parameters workflow={revisionState} handleUpdateParams={handleUpdateParams} />
             </Route>
