@@ -17,7 +17,6 @@ import ReactFlow, {
   Position,
 } from "reactflow";
 import dagre from "@dagrejs/dagre";
-import { Flow } from "@carbon/react/icons";
 import { EdgeExecutionCondition, NodeType, WorkflowEngineMode } from "Constants";
 import * as GraphComps from "./components";
 import {
@@ -132,7 +131,8 @@ interface FlowDiagramProps {
   mode: WorkflowEngineModeType;
   nodes?: WorkflowNode[];
   edges?: Edge[];
-  setWorkflow?: React.Dispatch<React.SetStateAction<ReactFlowInstance | null>>;
+  reactFlowInstance: ReactFlowInstance;
+  setReactFlowInstance?: React.Dispatch<React.SetStateAction<ReactFlowInstance | null>>;
 }
 
 // Determine if we should use auto-layout or not
@@ -202,20 +202,11 @@ function FlowDiagram(props: FlowDiagramProps) {
   const { nodes: initNodes, edges: initEdges } = initElements(props.nodes, props.edges);
   const [nodes, setNodes, onNodesChange] = useNodesState<WorkflowNodeData>(initNodes ?? []);
   const [edges, setEdges, onEdgesChange] = useEdgesState<WorkflowEdgeData>(initEdges ?? []);
-  const [flow, setFlow] = React.useState<ReactFlowInstance | null>(null);
   const shouldFitGraph = React.useRef(false);
-
-  // Set workflow in parent
-  const { setWorkflow } = props;
-  React.useEffect(() => {
-    if (setWorkflow && flow) {
-      setWorkflow(flow);
-    }
-  }, [flow, setWorkflow]);
 
   React.useEffect(() => {
     if (shouldFitGraph.current) {
-      flow?.fitView();
+      props.reactFlowInstance?.fitView();
       shouldFitGraph.current = false;
     }
   });
@@ -259,7 +250,7 @@ function FlowDiagram(props: FlowDiagramProps) {
         return;
       }
 
-      const position = flow?.project({
+      const position = props.reactFlowInstance?.project({
         x: event.clientX - reactFlowBounds?.left - 75,
         y: event.clientY - reactFlowBounds?.top - 25,
       }) as XYPosition;
@@ -291,7 +282,7 @@ function FlowDiagram(props: FlowDiagramProps) {
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [flow, nodes, setNodes]
+    [props.reactFlowInstance, nodes, setNodes]
   );
 
   const isDisabled = props.mode === WorkflowEngineMode.Viewer;
@@ -314,7 +305,7 @@ function FlowDiagram(props: FlowDiagramProps) {
             onDragOver={onDragOver}
             onEdgesChange={onEdgesChange}
             onNodesChange={onNodesChange}
-            onInit={setFlow}
+            onInit={props.setReactFlowInstance}
             proOptions={{ hideAttribution: true }}
           >
             <MarkerDefinition>
@@ -323,8 +314,8 @@ function FlowDiagram(props: FlowDiagramProps) {
             </MarkerDefinition>
             <Background />
             <Controls showInteractive={false}>
-              <ControlButton onClick={onLayout} title="auto layout">
-                <Flow />
+              <ControlButton onClick={onLayout} title="auto-layout">
+                <div>L</div>
               </ControlButton>
             </Controls>
           </ReactFlow>

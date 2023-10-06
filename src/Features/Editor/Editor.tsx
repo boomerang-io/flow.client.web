@@ -171,7 +171,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     initRevisionReducerState(workflowQueryData)
   );
 
-  const [workflow, setWorkflow] = React.useState<ReactFlowInstance | null>(null);
+  const [reactFlowInstance, setReactFlowInstance] = React.useState<ReactFlowInstance | null>(null);
   const [availableParameters, setAvailableParameters] = React.useState(availableParametersQueryData);
   const settingsRef = useRef<FormikProps<any> | null>(null);
 
@@ -179,8 +179,8 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     const configureValues = settingsRef?.current?.values ?? {};
     const formattedConfigureValue = formatConfigureValues(configureValues);
 
-    if (workflow) {
-      const workfowDagObject = workflow.toObject();
+    if (reactFlowInstance) {
+      const workfowDagObject = reactFlowInstance.toObject();
       const revision = {
         ...revisionState,
         ...workfowDagObject,
@@ -350,7 +350,8 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             <>
               <Designer
                 notes={markdown}
-                setWorkflow={setWorkflow}
+                reactFlowInstance={reactFlowInstance}
+                setReactFlowInstance={setReactFlowInstance}
                 tasks={taskTemplatesList}
                 updateNotes={handleUpdateNotes}
                 workflow={revisionState}

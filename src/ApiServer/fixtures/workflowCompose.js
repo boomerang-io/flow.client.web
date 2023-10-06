@@ -31,7 +31,6 @@ const workflowsCompose = [
       },
       {
         id: "64cafb1706ca9f65f338ae3e",
-        position: { x: 500.0, y: 200.0 },
         data: {
           name: "Create Spreadsheet 1",
           params: [

@@ -17,6 +17,10 @@
     }
   }
 
+  &.hidden {
+    display: none !important;
+  }
+
   .loadingContainer {
     align-items: center;
     display: flex;
