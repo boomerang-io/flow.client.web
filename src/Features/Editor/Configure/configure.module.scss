@@ -285,20 +285,6 @@
   padding-bottom: 2.5rem;
 }
 
-.saveChangesContainer {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  margin-top: 2.5rem;
-}
-
-.saveText {
-  color: var(--cds-text-01);
-  font-size: 0.875rem;
-  line-height: 1.125rem;
-  margin-top: 1rem;
-}
-
 .scheduleIcon {
   margin-left: 0.5rem;
 }
@@ -317,4 +303,8 @@
 
 .storageToggle {
   margin-bottom: 0.5rem;
+}
+
+.runOptionsSection {
+  max-width: 16rem;
 }

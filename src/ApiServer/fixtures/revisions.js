@@ -172,13 +172,11 @@ export default [
       },
       webhook: {
         enable: false,
-        token: "",
-        topic: null,
       },
-      custom: {
+      event: {
         enable: false,
-        token: null,
-        topic: "",
+        type: null,
+        subject: null,
       },
     },
     tokens: [

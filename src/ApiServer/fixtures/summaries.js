@@ -136,9 +136,13 @@ const summaries = [
     shortDescription: "Train and store ML model for Bot Efficiency.",
     status: "active",
     triggers: {
-      scheduler: { enable: false, schedule: "", timezone: "", advancedCron: false },
-      webhook: { enable: false, token: "" },
-      event: { enable: false, topic: "" },
+      scheduler: { enable: false },
+      webhook: { enable: false },
+      event: {
+        enable: false,
+        type: null,
+        subject: null,
+      },
     },
     labels: [
       {
@@ -314,9 +318,13 @@ const summaries = [
     shortDescription: "Train and store ML model for Bot Efficiency.",
     status: "active",
     triggers: {
-      scheduler: { enable: false, schedule: "", timezone: "", advancedCron: false },
-      webhook: { enable: false, token: "" },
-      event: { enable: false, topic: "" },
+      scheduler: { enable: false },
+      webhook: { enable: false},
+      event: {
+        enable: false,
+        type: null,
+        subject: null,
+      },
     },
     labels: [
       {
@@ -374,34 +382,17 @@ const summaries = [
     triggers: {
       manual: {
         enable: true,
-        token: null,
-        topic: null,
       },
       scheduler: {
         enable: false,
-        schedule: "",
-        timezone: "",
-        advancedCron: false,
       },
       webhook: {
         enable: true,
-        token: "test",
-        topic: null,
       },
-      dockerhub: {
+      event: {
         enable: false,
-        token: null,
-        topic: null,
-      },
-      slack: {
-        enable: false,
-        token: null,
-        topic: null,
-      },
-      custom: {
-        enable: false,
-        token: null,
-        topic: null,
+        type: null,
+        subject: null,
       },
     },
     tokens: [],
@@ -453,34 +444,17 @@ const summaries = [
     triggers: {
       manual: {
         enable: true,
-        token: null,
-        topic: null,
       },
       scheduler: {
         enable: false,
-        schedule: "",
-        timezone: "",
-        advancedCron: false,
       },
       webhook: {
         enable: true,
-        token: "test",
-        topic: null,
       },
-      dockerhub: {
+      event: {
         enable: false,
-        token: null,
-        topic: null,
-      },
-      slack: {
-        enable: false,
-        token: null,
-        topic: null,
-      },
-      custom: {
-        enable: false,
-        token: null,
-        topic: null,
+        type: null,
+        subject: null,
       },
     },
     tokens: [],

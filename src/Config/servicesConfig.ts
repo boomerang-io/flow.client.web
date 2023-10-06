@@ -131,6 +131,7 @@ export const serviceUrl = {
   resourceTeamParameters: ({ team }) => `${BASE_URL}/team/${team}/parameters`,
   workflowAvailableParameters: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
   getWorkflowTemplates: () => `${BASE_URL}/workflowtemplate/query`,
+  resourceTriggers: () => `${BASE_URL}/triggers`,
 };
 
 

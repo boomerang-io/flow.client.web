@@ -6,10 +6,10 @@ import { Formik, FormikProps, FieldArray } from "formik";
 import { Tag } from "@carbon/react";
 import { ComposedModal, TextArea, TextInput, Toggle, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import cx from "classnames";
-import cronstrue from "cronstrue";
 import capitalize from "lodash/capitalize";
 import * as Yup from "yup";
 import BuildWebhookModalContent from "./BuildWebhookModalContent";
+import ConfigureEventTrigger from "./ConfigureEventTrigger";
 import ConfigureStorage from "./ConfigureStorage";
 import CustomLabel from "./CustomLabel";
 import { appLink, BASE_DOCUMENTATION_URL, FeatureFlag } from "Config/appConfig";
@@ -73,16 +73,16 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
             manual: {
               enable: workflow.triggers?.manual?.enable ?? true,
             },
-            custom: {
-              enable: workflow.triggers?.custom?.enable ?? false,
-              topic: workflow.triggers?.custom?.topic ?? "",
+            event: {
+              enable: workflow.triggers?.event?.enable ?? false,
+              subject: workflow.triggers?.event?.subject ?? "",
+              type: workflow.triggers?.event?.type ?? "",
             },
             scheduler: {
               enable: workflow.triggers?.scheduler?.enable ?? false,
             },
             webhook: {
               enable: workflow.triggers?.webhook?.enable ?? false,
-              token: workflow.triggers?.webhook?.token ?? "",
             },
           },
         }}
@@ -103,23 +103,22 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
           }),
           icon: Yup.string(),
           name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
+          retries: Yup.number(),
+          timeout: Yup.number(),
           triggers: Yup.object().shape({
             manual: Yup.object().shape({
               enable: Yup.boolean(),
             }),
-            custom: Yup.object().shape({
+            event: Yup.object().shape({
               enable: Yup.boolean(),
-              topic: Yup.string(),
+              type: Yup.string(),
+              subject: Yup.string(),
             }),
             scheduler: Yup.object().shape({
               enable: Yup.boolean(),
-              schedule: Yup.string(),
-              timezone: Yup.mixed(),
-              advancedCron: Yup.boolean(),
             }),
             webhook: Yup.object().shape({
               enable: Yup.boolean(),
-              token: Yup.string(),
             }),
           }),
         })}
@@ -267,18 +266,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   />
                 </div>
                 <div className={styles.schedulerContainer}>
-                  {values.triggers.scheduler.schedule &&
-                    values.triggers.scheduler.enable &&
-                    values.triggers.scheduler.timezone && (
-                      <div className={styles.informationWrapper}>
-                        <p className={styles.webhookTokenLabel}>Schedule</p>
-                        <div className={styles.informationCronMessage}>
-                          {`${cronstrue.toString(values.triggers.scheduler.schedule)} in ${
-                            values.triggers.scheduler.timezone
-                          }`}
-                        </div>
-                      </div>
-                    )}
                   {values.triggers.scheduler.enable ? (
                     <p>
                       <b>All enabled</b> schedules will execute. Manage them in the Schedule tab.
@@ -346,27 +333,85 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
               <div className={styles.triggerSection}>
                 <div className={styles.toggleContainer}>
                   <Toggle
-                    id="triggers.custom.enable"
-                    label="Custom Event"
-                    toggled={values.triggers.custom.enable}
-                    onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.custom.enable")}
+                    id="triggers.event.enable"
+                    label="Event"
+                    toggled={values.triggers.event.enable}
+                    onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.event.enable")}
                     tooltipContent="Enable workflow to be triggered by platform actions"
                     tooltipProps={{ direction: "top" }}
                     reversed
                   />
                 </div>
-                {values.triggers.custom.enable && (
-                  <div className={styles.subscriptionContainer}>
-                    <TextInput
-                      id="triggers.custom.topic"
-                      label="Topic"
-                      placeholder="Name"
-                      value={values.triggers.custom.topic}
-                      onBlur={handleBlur}
-                      onChange={this.handleOnChange}
-                    />
+                {values.triggers.event.enable && (
+                  <div className={styles.webhookContainer}>
+                    <ComposedModal
+                      modalHeaderProps={{
+                        title: "Configure Event Trigger",
+                        subtitle: (
+                          <>
+                            <p>
+                              The following filters will be applied to any incoming event based on the CloudEvent
+                              specification. Configure using exact match or regular expression to filter the events.
+                            </p>
+                            <p style={{ marginTop: "0.5rem" }}>
+                              <a href={`${BASE_DOCUMENTATION_URL}/introduction/overview`}>
+                                Learn more in the documentation.
+                              </a>
+                            </p>
+                          </>
+                        ),
+                      }}
+                      composedModalProps={{
+                        containerClassName: styles.buildWebhookContainer,
+                        shouldCloseOnOverlayClick: true,
+                      }}
+                      modalTrigger={({ openModal }: { openModal: () => void }) => (
+                        <button className={styles.regenerateText} type="button" onClick={openModal}>
+                          <p>Configure</p>
+                        </button>
+                      )}
+                    >
+                      {({ closeModal }: { closeModal: () => void }) => (
+                        <ConfigureEventTrigger
+                          values={values}
+                          closeModal={closeModal}
+                          handleOnChange={(eventTriggers: any) => {
+                            setFieldValue("triggers.event", eventTriggers);
+                          }}
+                          workflowId={this.props.workflow.id}
+                        />
+                      )}
+                    </ComposedModal>
                   </div>
                 )}
+              </div>
+            </div>
+            <hr className={styles.delimiter} />
+            <h1 className={styles.header}>Run Options</h1>
+            <p className={styles.subTitle}>Customize how your Workflow runs</p>
+            <div>
+              <div className={styles.runOptionsSection}>
+                <TextInput
+                  id="timeout"
+                  label="Timeout"
+                  helperText="In minutes. Maximum defined by your quota."
+                  value={values.timeout}
+                  onBlur={handleBlur}
+                  onChange={this.handleOnChange}
+                  invalid={Boolean(errors.timeout && touched.timeout)}
+                  invalidText={errors.timeout}
+                  type="number"
+                />
+                <TextInput
+                  id="retries"
+                  label="Retries"
+                  helperText="The number of times to retry a failed workflow. Defaults to 0."
+                  value={values.retries}
+                  onBlur={handleBlur}
+                  onChange={this.handleOnChange}
+                  invalid={Boolean(errors.retries && touched.retries)}
+                  invalidText={errors.retries}
+                />
               </div>
             </div>
           </section>

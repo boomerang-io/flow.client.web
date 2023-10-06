@@ -154,19 +154,16 @@ export interface Workflow {
     manual: {
       enable: boolean;
     };
-    custom: {
+    event: {
       enable: boolean;
-      topic: string;
+      subject: string;
+      type: string;
     };
     scheduler: {
       enable: boolean;
-      schedule: string;
-      timezone: string | boolean;
-      advancedCron: boolean;
     };
     webhook: {
       enable: boolean;
-      token: string;
     };
   };
   templateUpgradesAvailable: boolean;
@@ -728,24 +725,23 @@ export interface ConfigureWorkflowFormValues {
   };
   icon: string;
   name: string;
+  timeout: number;
+  retries: number;
   labels: Array<{ key: string; value: string }>;
   triggers: {
     manual: {
       enable: boolean;
     };
-    custom: {
+    event: {
       enable: boolean;
-      topic: string;
+      type: string;
+      subject: string;
     };
     scheduler: {
       enable: boolean;
-      schedule: string;
-      timezone: string | boolean;
-      advancedCron: boolean;
     };
     webhook: {
       enable: boolean;
-      token: string;
     };
   };
 }

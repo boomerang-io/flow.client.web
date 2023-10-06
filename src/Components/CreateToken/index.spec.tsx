@@ -40,9 +40,13 @@ const team: FlowTeam = {
       name: "ML Train – Bot Efficiency",
       status: "active",
       triggers: {
-        scheduler: { enable: false, schedule: "", timezone: "", advancedCron: false },
-        webhook: { enable: false, token: "" },
-        custom: { enable: false, topic: "" },
+        scheduler: { enable: false },
+        webhook: { enable: false },
+        event: {
+          enable: false,
+          type: null,
+          subject: null,
+        },
         manual: { enable: false },
       },
       enableACCIntegration: false,

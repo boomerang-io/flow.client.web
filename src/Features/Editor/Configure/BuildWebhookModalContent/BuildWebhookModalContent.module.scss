@@ -8,8 +8,12 @@
     max-width: 95%;
   }
 
-  :global .cds--copy-btn:hover {
+  :global .cds--copy-btn {
     background-color: #f2f4f8 !important;
+  }
+
+  :global .cds--copy-btn:hover {
+    background-color: white !important;
   }
 
   .actionButton {
@@ -29,6 +33,10 @@
       fill: var(--cds-interactive-01);
     }
   }
+}
+
+.codeSnippet{
+  background: var(--cds-background, #f2f4f8);
 }
 
 .webhookURL {
