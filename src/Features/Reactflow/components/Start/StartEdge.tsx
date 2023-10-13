@@ -3,10 +3,12 @@ import { getBezierPath, useReactFlow, EdgeLabelRenderer } from "reactflow";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import { markerTypes } from "Features/Reactflow/Reactflow";
 import { WorkflowEdgeProps } from "Types";
+import { useEditorContext } from "Hooks";
 
 // There is a base link component that we are going to want simliar functionality from
 export function StartEdge(props: WorkflowEdgeProps) {
   const { id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style } = props;
+  const { mode } = useEditorContext();
   const reactFlowInstance = useReactFlow();
 
   const [edgePath, labelX, labelY] = getBezierPath({
@@ -46,7 +48,9 @@ export function StartEdge(props: WorkflowEdgeProps) {
           }}
           className="nodrag nopan"
         >
-          <WorkflowCloseButton className="" onClick={() => reactFlowInstance.deleteElements({ edges: [props] })} />
+          {mode === "editor" ? (
+            <WorkflowCloseButton className="" onClick={() => reactFlowInstance.deleteElements({ edges: [props] })} />
+          ) : null}
         </div>
       </EdgeLabelRenderer>
     </>

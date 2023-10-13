@@ -6,14 +6,14 @@ import Notes from "./Notes";
 import Tasks from "./Tasks";
 import cx from "classnames";
 import { appLink } from "Config/appConfig";
-import { TaskTemplateStatus } from "Constants";
+import { TaskTemplateStatus, WorkflowEngineMode } from "Constants";
 import type { ReactFlowInstance } from "reactflow";
 import { TaskTemplate, WorkflowEditorState } from "Types";
 import styles from "./designer.module.scss";
 
 interface DesignerContainerProps {
   notes?: string;
-  reactFlowInstance: ReactFlowInstance;
+  reactFlowInstance: ReactFlowInstance | null;
   setReactFlowInstance: React.Dispatch<React.SetStateAction<ReactFlowInstance | null>>;
   tasks: Array<TaskTemplate>;
   updateNotes: (markdown: string) => void;
@@ -43,10 +43,10 @@ const DesignerContainer: React.FC<DesignerContainerProps> = ({
       <>
         <div id="workflow-dag-designer" className={styles.workflowContainer}>
           <ReactFlow
-            mode="editor"
+            mode={WorkflowEngineMode.Editor}
             nodes={workflow.nodes}
             edges={workflow.edges}
-            reactFlowInstance={reactFlowInstance}
+            reactFlowInstance={reactFlowInstance!}
             setReactFlowInstance={setReactFlowInstance}
           />
         </div>

@@ -131,7 +131,7 @@ interface FlowDiagramProps {
   mode: WorkflowEngineModeType;
   nodes?: WorkflowNode[];
   edges?: Edge[];
-  reactFlowInstance: ReactFlowInstance;
+  reactFlowInstance: ReactFlowInstance | null;
   setReactFlowInstance?: React.Dispatch<React.SetStateAction<ReactFlowInstance | null>>;
 }
 
@@ -285,7 +285,7 @@ function FlowDiagram(props: FlowDiagramProps) {
     [props.reactFlowInstance, nodes, setNodes]
   );
 
-  const isDisabled = props.mode === WorkflowEngineMode.Viewer;
+  const isDisabled = props.mode !== WorkflowEngineMode.Editor;
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <ReactFlowProvider>

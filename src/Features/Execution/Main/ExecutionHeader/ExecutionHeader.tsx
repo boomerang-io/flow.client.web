@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppContext } from "Hooks";
 import { useMutation, useQueryClient, UseQueryResult } from "react-query";
-import { withRouter, Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import CopyToClipboard from "react-copy-to-clipboard";
 import moment from "moment";
 import { Breadcrumb, BreadcrumbItem, Button, ModalBody, SkeletonPlaceholder, Tag, TextArea } from "@carbon/react";
@@ -20,27 +20,26 @@ import { appLink } from "Config/appConfig";
 import { elevatedUserRoles, QueryStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Catalog, CopyFile, StopOutline, Warning } from "@carbon/react/icons";
-import { RunStatus, WorkflowSummary } from "Types";
+import { RunStatus, WorkflowEditor } from "Types";
 import styles from "./executionHeader.module.scss";
 
 type Props = {
-  history: any;
-  location: any;
-  match: any;
-  workflow: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
+  workflow: WorkflowEditor;
   workflowExecution: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
   version: number;
 };
 
-const cancelSatusTypes = [RunStatus.NotStarted, RunStatus.Waiting, RunStatus.InProgress];
+const cancelSatusTypes = [RunStatus.NotStarted, RunStatus.Waiting, RunStatus.Cancelled];
 
-function ExecutionHeader({ history, workflow, workflowExecution, version }: Props) {
-  const { state } = history.location;
+export default function ExecutionHeader({ workflow, workflowExecution, version }: Props) {
+  const { team } = useParams<{ team: string }>();
+  const history = useHistory<{ fromUrl: string; fromText: string }>();
+  const state = history.location.state;
   const { user } = useAppContext();
   const queryClient = useQueryClient();
 
-  const { platformRole } = user;
-  const systemWorkflowsEnabled = elevatedUserRoles.includes(platformRole);
+  const { type } = user;
+  const systemWorkflowsEnabled = elevatedUserRoles.includes(type);
   const { teamName, initiatedByUserName, trigger, creationDate, scope, status, id } = workflowExecution.data;
   const displayCancelButton = cancelSatusTypes.includes(status);
 
@@ -63,17 +62,17 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
         <div className={styles.headerNav}>
           <Breadcrumb noTrailingSlash>
             <BreadcrumbItem>
-              <Link to={state ? state.fromUrl : appLink.activity()}>{state ? state.fromText : "Activity"}</Link>
+              <Link to={state ? state.fromUrl : appLink.activity({ team })}>{state ? state.fromText : "Activity"}</Link>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
-              {!workflow?.data?.name ? (
+              {!workflow?.name ? (
                 <SkeletonPlaceholder className={styles.workflowNameSkeleton} />
               ) : (
-                <p>{workflow.data.name}</p>
+                <p>{workflow.name}</p>
               )}
             </BreadcrumbItem>
           </Breadcrumb>
-          {workflow?.data && (
+          {workflow && (
             <ComposedModal
               composedModalProps={{ shouldCloseOnOverlayClick: true }}
               modalHeaderProps={{
@@ -89,7 +88,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
                 </TooltipHover>
               )}
             >
-              {() => <WorkflowAdvancedDetail workflow={workflow.data} />}
+              {() => <WorkflowAdvancedDetail workflow={workflow} />}
             </ComposedModal>
           )}
         </div>
@@ -131,7 +130,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
                 <div className={styles.workflowOutputLog}>
                   <OutputPropertiesLog
                     isOutput
-                    flowTaskName={workflow.data.name}
+                    flowTaskName={workflow.name}
                     //@ts-ignore
                     flowTaskOutputs={workflowExecution.data.outputProperties}
                   />
@@ -201,7 +200,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
   );
 }
 
-function WorkflowAdvancedDetail({ workflow }: { workflow: WorkflowSummary }) {
+function WorkflowAdvancedDetail({ workflow }: { workflow: WorkflowEditor }) {
   const { workflowId, executionId }: { workflowId: string; executionId: string } = useParams();
   const [copyTokenText, setCopyTokenText] = React.useState("Copy");
 
@@ -272,5 +271,3 @@ function WorkflowAdvancedDetail({ workflow }: { workflow: WorkflowSummary }) {
     </ModalBody>
   );
 }
-
-export default withRouter(ExecutionHeader);

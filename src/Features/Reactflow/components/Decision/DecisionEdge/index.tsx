@@ -6,6 +6,7 @@ import ExecutionConditionButton from "./ExecutionConditionButton";
 import ConfigureSwitchModal from "./ConfigureModal";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { WorkflowEdge, WorkflowEdgeProps } from "Types";
+import { useEditorContext } from "Hooks";
 
 export default function SwitchEdge(props: WorkflowEdgeProps) {
   // TODO: determine how to render this one or the other one
@@ -15,6 +16,7 @@ export default function SwitchEdge(props: WorkflowEdgeProps) {
 
 function SwitchEdgeDesigner(props: WorkflowEdgeProps) {
   const { id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style, data } = props;
+  const { mode } = useEditorContext();
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY,
@@ -58,47 +60,49 @@ function SwitchEdgeDesigner(props: WorkflowEdgeProps) {
         style={mergedStyles}
       />
       <EdgeLabelRenderer>
-        <div
-          style={{
-            display: "flex",
-            gap: "0.5rem",
-            position: "absolute",
-            transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
-            fontSize: 12,
-            fontWeight: 700,
-            pointerEvents: "all",
-          }}
-          className="nodrag nopan"
-        >
-          <WorkflowCloseButton
-            style={{ path: "var(--flow-switch-primary)" }}
-            className=""
-            onClick={() => reactFlowInstance.deleteElements({ edges: [props] })}
-          />
-          <ComposedModal
-            confirmModalProps={{
-              title: "Are you sure?",
-              children: "Your changes will not be saved",
+        {mode === "editor" ? (
+          <div
+            style={{
+              display: "flex",
+              gap: "0.5rem",
+              position: "absolute",
+              transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
+              fontSize: 12,
+              fontWeight: 700,
+              pointerEvents: "all",
             }}
-            modalHeaderProps={{
-              title: "Switch",
-              subtitle: "Set up the conditions",
-            }}
-            modalTrigger={(props) => {
-              return <ExecutionConditionButton onClick={props.openModal} inputText={data?.decisionCondition} />;
-            }}
+            className="nodrag nopan"
           >
-            {({ closeModal }) => {
-              return (
-                <ConfigureSwitchModal
-                  closeModal={closeModal}
-                  decisionCondition={data?.decisionCondition}
-                  onUpdate={handleChangeCondition}
-                />
-              );
-            }}
-          </ComposedModal>
-        </div>
+            <WorkflowCloseButton
+              style={{ path: "var(--flow-switch-primary)" }}
+              className=""
+              onClick={() => reactFlowInstance.deleteElements({ edges: [props] })}
+            />
+            <ComposedModal
+              confirmModalProps={{
+                title: "Are you sure?",
+                children: "Your changes will not be saved",
+              }}
+              modalHeaderProps={{
+                title: "Switch",
+                subtitle: "Set up the conditions",
+              }}
+              modalTrigger={(props) => {
+                return <ExecutionConditionButton onClick={props.openModal} inputText={data?.decisionCondition} />;
+              }}
+            >
+              {({ closeModal }) => {
+                return (
+                  <ConfigureSwitchModal
+                    closeModal={closeModal}
+                    decisionCondition={data?.decisionCondition}
+                    onUpdate={handleChangeCondition}
+                  />
+                );
+              }}
+            </ComposedModal>
+          </div>
+        ) : null}
       </EdgeLabelRenderer>
     </>
   );

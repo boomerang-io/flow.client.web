@@ -8,7 +8,7 @@ import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import { TaskForm as DefaultTaskForm } from "./TaskForm";
 import BaseNode from "../../Base/BaseNode";
 import { WorkflowEngineMode } from "Constants";
-import type { DataDrivenInput, WorkflowNode, WorkflowNodeProps } from "Types";
+import type { DataDrivenInput, TaskTemplate, WorkflowNode, WorkflowNodeProps } from "Types";
 import styles from "./TemplateNode.module.scss";
 
 interface TaskTemplateNodeProps extends WorkflowNodeProps {
@@ -18,15 +18,26 @@ interface TaskTemplateNodeProps extends WorkflowNodeProps {
 }
 
 export default function TaskTemplateNode(props: TaskTemplateNodeProps) {
-  const { mode } = useEditorContext();
+  const { mode, taskTemplatesData } = useEditorContext();
+  // Find the matching task template based on the name and version
+  const taskTemplateList = taskTemplatesData[props.data.templateRef];
+  const task =
+    taskTemplateList?.find((taskTemplate) => taskTemplate.version === props.data.templateVersion) ??
+    taskTemplatesData[props.data.templateRef]?.[0] ??
+    {};
+
   if (mode === WorkflowEngineMode.Executor) {
-    return <TaskTemplateNodeExecution {...props} />;
+    return <TaskTemplateNodeExecution {...props} task={task} />;
   }
 
-  return <TaskTemplateNodeDesigner {...props} />;
+  return <TaskTemplateNodeDesigner {...props} task={task} />;
 }
 
-function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
+interface TaskTemplateNodeInstanceProps extends TaskTemplateNodeProps {
+  task: TaskTemplate;
+}
+
+function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
   const { TaskForm = DefaultTaskForm } = props;
   const reactFlowInstance = useReactFlow();
 
@@ -139,6 +150,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
       isConnectable
       className={props.className}
       icon={task.icon}
+      kind={WorkflowEngineMode.Executor}
       nodeProps={props}
       title={props.data.name}
       subtitle={task.description}
@@ -149,12 +161,18 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeProps) {
   );
 }
 
-interface TaskTemplateNodeExecutionProps {
-  [k: string]: any;
-}
-
-function TaskTemplateNodeExecution(props: TaskTemplateNodeExecutionProps) {
-  return <div>TODO</div>;
+function TaskTemplateNodeExecution(props: TaskTemplateNodeInstanceProps) {
+  return (
+    <BaseNode
+      isConnectable={false}
+      className={props.className}
+      icon={props.task.icon}
+      kind={WorkflowEngineMode.Executor}
+      nodeProps={props}
+      title={props.data.name}
+      subtitle={props.task.description}
+    />
+  );
 }
 
 function inputRecordToNameAndParamListRecord(inputRecord: Record<string, string>): {

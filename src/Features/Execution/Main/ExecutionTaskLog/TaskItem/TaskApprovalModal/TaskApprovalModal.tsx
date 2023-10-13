@@ -2,13 +2,15 @@ import React from "react";
 import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import {
-  Button,
-  InlineNotification,
-  ModalBody,
-  ModalFooter,
-} from "@carbon/react";
-import { DecisionButtons, Loading, ModalForm, notify, TextArea, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+  DecisionButtons,
+  Loading,
+  ModalForm,
+  notify,
+  TextArea,
+  ToastNotification,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { ThumbsUp, ThumbsDown } from "@carbon/react/icons";
 import styles from "./taskApprovalModal.module.scss";
@@ -27,13 +29,15 @@ type Props = {
 function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
   const queryClient = useQueryClient();
 
-  const { mutateAsync: approvalMutator, isLoading: approvalsIsLoading, error: approvalsError } = useMutation(resolver.putWorkflowAction,
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId }));
-      },
-    }
-  );
+  const {
+    mutateAsync: approvalMutator,
+    isLoading: approvalsIsLoading,
+    error: approvalsError,
+  } = useMutation(resolver.putWorkflowAction, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId }));
+    },
+  });
 
   const handleSubmit = async (values: any) => {
     const body = {

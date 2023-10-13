@@ -1,6 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button, ModalBody } from "@carbon/react";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorModal from "Components/ErrorModal";
@@ -17,7 +17,7 @@ import styles from "./taskItem.module.scss";
 import { appLink } from "Config/appConfig";
 
 const logTaskTypes = ["customtask", "template", "script"];
-const logStatusTypes = [RunStatus.Completed, RunStatus.Failure, RunStatus.InProgress];
+const logStatusTypes = [RunStatus.Succeeded, RunStatus.Failed, RunStatus.Running];
 
 type Props = {
   flowActivityId: string;
@@ -27,6 +27,7 @@ type Props = {
 };
 
 function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
+  const { team } = useParams<{ team: string }>();
   const {
     approval,
     duration,
@@ -106,7 +107,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
           )}
           {taskType === NodeType.RunWorkflow && runWorkflowActivityId && runWorkflowId && (
             <Link
-              to={appLink.execution({ executionId: runWorkflowActivityId, workflowId: runWorkflowId })}
+              to={appLink.execution({ team, executionId: runWorkflowActivityId, workflowId: runWorkflowId })}
               className={styles.viewActivityLink}
             >
               View Activity

@@ -5,6 +5,7 @@ import {
   PaginatedWorkflowResponse,
   TaskTemplate,
   Workflow,
+  WorkflowEditor,
   WorkflowEngineModeType,
   WorkflowExecution,
 } from "Types";
@@ -44,7 +45,7 @@ interface TaskProvider {
 interface ExecutionContext {
   tasks: Array<TaskProvider>;
   workflowExecution?: WorkflowExecution;
-  workflowRevision: object;
+  workflow: WorkflowEditor;
 }
 export const [useExecutionContext, ExecutionContextProvider] = createContext<ExecutionContext>();
 

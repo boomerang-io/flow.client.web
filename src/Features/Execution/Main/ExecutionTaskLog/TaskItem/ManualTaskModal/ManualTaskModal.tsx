@@ -20,13 +20,11 @@ function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }
     mutateAsync: approvalMutator,
     isLoading: approvalsIsLoading,
     error: approvalsError,
-  } = useMutation(resolver.putWorkflowAction,
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId }));
-      },
-    }
-  );
+  } = useMutation(resolver.putWorkflowAction, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId }));
+    },
+  });
 
   const handleSubmit = async (approvalValue: boolean) => {
     const body = {

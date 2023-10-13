@@ -5,10 +5,13 @@ import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import { EXECUTION_CONDITIONS } from "Utils/taskLinkIcons";
 import { markerTypes } from "Features/Reactflow/Reactflow";
 import { WorkflowEdge, WorkflowEdgeProps } from "Types";
+import { useEditorContext } from "Hooks";
 
 export default function TemplateEdge(props: WorkflowEdgeProps) {
   const { id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style, data } = props;
+  const { mode } = useEditorContext();
   const reactFlowInstance = useReactFlow();
+
   const executionConditionIndex = EXECUTION_CONDITIONS.findIndex(
     (condition) => condition.name === data?.executionCondition
   );
@@ -67,11 +70,15 @@ export default function TemplateEdge(props: WorkflowEdgeProps) {
           }}
           className="nodrag nopan"
         >
-          <WorkflowCloseButton className="" onClick={() => reactFlowInstance.deleteElements({ edges: [props] })} />
-          <TaskLinkExecutionConditionSwitcher
-            onClick={() => handleChangeCondition((condition + 1) % 3)}
-            executionCondition={EXECUTION_CONDITIONS[condition]}
-          />
+          {mode === "editor" ? (
+            <>
+              <WorkflowCloseButton className="" onClick={() => reactFlowInstance.deleteElements({ edges: [props] })} />
+              <TaskLinkExecutionConditionSwitcher
+                onClick={() => handleChangeCondition((condition + 1) % 3)}
+                executionCondition={EXECUTION_CONDITIONS[condition]}
+              />
+            </>
+          ) : null}
         </div>
       </EdgeLabelRenderer>
     </>

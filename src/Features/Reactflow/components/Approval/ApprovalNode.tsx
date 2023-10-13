@@ -1,11 +1,16 @@
 import React from "react";
 import { TemplateNode } from "../Template";
+import { useEditorContext } from "Hooks";
+import { WorkflowEngineMode } from "Constants";
 import { DataDrivenInput, WorkflowNodeProps } from "Types";
 import { useTeamContext } from "Hooks";
 
 export default function ApprovalNode(props: WorkflowNodeProps) {
-  // use context to determine state of diagram
-  // render the correct component based on the mode of the diagram
+  const { mode } = useEditorContext();
+  if (mode === WorkflowEngineMode.Executor) {
+    return <ApprovalNodeExecution {...props} />;
+  }
+
   return <ApprovalNodeDesigner {...props} />;
 }
 
@@ -56,4 +61,8 @@ function ApprovalNodeDesigner(props: WorkflowNodeProps) {
         ];
 
   return <TemplateNode {...props} additionalFormInputs={taskFormInputs} />;
+}
+
+function ApprovalNodeExecution(props: any) {
+  return <div>hello</div>;
 }

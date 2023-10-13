@@ -4,8 +4,9 @@ import { Connection, Handle, Position, useReactFlow } from "reactflow";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import { taskIcons } from "Utils/taskIcons";
 import { Bee } from "@carbon/react/icons";
-import { WorkflowNodeProps } from "Types";
+import { WorkflowEngineModeType, WorkflowNodeProps } from "Types";
 import styles from "./BaseNode.module.scss";
+import { WorkflowEngineMode } from "Constants";
 
 //About: based on WorkflowNode component that serves as a base for many of the the components
 //TODO: add icon
@@ -16,6 +17,7 @@ interface BaseNodeProps {
   className?: string;
   icon?: string;
   isConnectable: boolean;
+  kind: WorkflowEngineModeType;
   nodeProps: WorkflowNodeProps;
   subtitle?: string;
   subtitleClass?: string;
@@ -33,15 +35,17 @@ export default function BaseNode(props: BaseNodeProps) {
 
   return (
     <div className={cx(styles.node, className)} {...rest}>
-      <div style={{ position: "absolute", top: "-1rem", right: "-0.875rem", display: "flex", gap: "0.25rem" }}>
-        <WorkflowCloseButton
-          style={{ height: "1.75rem" }}
-          className={""}
-          onClick={() => reactFlowInstance.deleteElements({ nodes: [props.nodeProps] })}
-        >
-          Delete
-        </WorkflowCloseButton>
-      </div>
+      {props.kind === WorkflowEngineMode.Editor ? (
+        <div style={{ position: "absolute", top: "-1rem", right: "-0.875rem", display: "flex", gap: "0.25rem" }}>
+          <WorkflowCloseButton
+            style={{ height: "1.75rem" }}
+            className={""}
+            onClick={() => reactFlowInstance.deleteElements({ nodes: [props.nodeProps] })}
+          >
+            Delete
+          </WorkflowCloseButton>
+        </div>
+      ) : null}
       <header className={styles.header}>
         <Icon />
         <h3 title={title || "Task"} className={styles.title}>

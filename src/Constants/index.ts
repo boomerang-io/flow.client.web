@@ -1,5 +1,5 @@
 import { CloseOutline, CheckmarkOutline, Error, InProgress, Timer } from "@carbon/react/icons";
-import { RunStatus, ScheduleStatus, ScheduleType, UserRoleType } from "Types";
+import { RunStatus, ScheduleStatus, ScheduleType, UserRoleType, PlatformRole } from "Types";
 
 export const Envs = {
   Dev: "development",
@@ -153,15 +153,10 @@ export const TaskTemplateStatus = {
   Archived: "archived",
 } as const;
 
-export const UserType = {
-  Admin: "admin",
-  Operator: "operator",
-  User: "user",
-} as const;
 
 export const UserTypeCopy = {
-  [UserType.Admin]: "Admin",
-  [UserType.User]: "User",
+  [PlatformRole.Admin]: "Admin",
+  [PlatformRole.User]: "User",
 } as const;
 
 export const WorkflowEngineMode = {
@@ -272,7 +267,7 @@ export const EdgeExecutionCondition = {
   Always: "always",
 } as const
 
-export const elevatedUserRoles = [UserType.Admin, UserType.Operator];
+export const elevatedUserRoles = [PlatformRole.Admin, PlatformRole.Operator];
 
 export const yamlInstructions = `  # Getting started with a Task
   Tasks in Boomerang Flow follow the [Tekton Task model](https://tekton.dev/docs/pipelines/tasks/#configuring-a-task) along with Kubernetes standards and allow you to define what you want to happen at the execution of the task as well as parameters that are needed.

@@ -4,31 +4,35 @@ import { useParams } from "react-router-dom";
 import { Box } from "reflexbox";
 import { Loading, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useQuery } from "Hooks";
-import { ExecutionContextProvider } from "State/context";
+import { EditorContextProvider } from "State/context";
 import Main from "./Main";
-import { TaskTemplate, WorkflowExecution, Workflow } from "Types";
+import { groupTaskTemplatesByName } from "Utils";
+import queryString from "query-string";
+import { TaskTemplate, WorkflowExecution, WorkflowEditor } from "Types";
 import { serviceUrl } from "Config/servicesConfig";
+import { WorkflowEngineMode } from "Constants";
 
 export default function ExecutionContainer() {
-  const { workflowId, executionId }: { workflowId: string; executionId: string } = useParams();
-  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ query: workflowId });
-  const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
+  const { team, workflowId, executionId }: { team: string; workflowId: string; executionId: string } = useParams();
+  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
+    query: queryString.stringify({ statuses: "active" }),
+  });
+  const getTaskTemplatesTeamUrl = serviceUrl.getTaskTemplates({
+    query: queryString.stringify({ teams: team, statuses: "active" }),
+  });
   const getExecutionUrl = serviceUrl.getWorkflowExecution({ executionId });
 
   /**
    * Queries
    */
-  const summaryQuery = useQuery<Workflow>(getSummaryUrl);
   const executionQuery = useQuery<WorkflowExecution>(getExecutionUrl, {
     refetchInterval: 5000,
   });
-  const {
-    data: taskTemplatesData,
-    error: taskTemplatesError,
-    isLoading: taskTempaltesAreLoading,
-  } = useQuery<TaskTemplate[]>(getTaskTemplatesUrl);
 
-  if (taskTempaltesAreLoading || summaryQuery.isLoading) {
+  const taskTemplatesQuery = useQuery<PaginatedTaskTemplateResponse>(getTaskTemplatesUrl);
+  const taskTemplatesTeamQuery = useQuery<PaginatedTaskTemplateResponse>(getTaskTemplatesTeamUrl);
+
+  if (taskTemplatesQuery.isLoading || taskTemplatesTeamQuery.isLoading || executionQuery.isLoading) {
     return (
       <>
         <Helmet>
@@ -39,7 +43,7 @@ export default function ExecutionContainer() {
     );
   }
 
-  if (summaryQuery.error || taskTemplatesError || executionQuery.error) {
+  if (taskTemplatesQuery.error || taskTemplatesTeamQuery.error || executionQuery.error) {
     return (
       <Box mt="5rem">
         <Helmet>
@@ -50,12 +54,11 @@ export default function ExecutionContainer() {
     );
   }
 
-  if (taskTemplatesData && executionQuery.data) {
+  if (taskTemplatesQuery.data || taskTemplatesTeamQuery.data || executionQuery.data) {
     return (
       <RevisionContainer
-        taskTemplatesData={taskTemplatesData}
         executionQuery={executionQuery}
-        summaryQuery={summaryQuery}
+        taskTemplatesData={[...taskTemplatesQuery.data.content, ...taskTemplatesTeamQuery.data.content]}
         workflowId={workflowId}
       />
     );
@@ -66,20 +69,22 @@ export default function ExecutionContainer() {
 
 type RevisionProps = {
   executionQuery: UseQueryResult<WorkflowExecution, Error>;
-  summaryQuery: UseQueryResult<Workflow, Error>;
   taskTemplatesData: TaskTemplate[];
   workflowId: string;
 };
 
-function RevisionContainer({ executionQuery, summaryQuery, taskTemplatesData, workflowId }: RevisionProps) {
-  const getRevisionUrl = serviceUrl.getWorkflowRevision({
-    workflowId,
-    revisionNumber: executionQuery?.data?.workflowRevisionVersion ?? undefined,
+function RevisionContainer({ executionQuery, taskTemplatesData, workflowId }: RevisionProps) {
+  const version = executionQuery?.data?.workflowRevisionVersion ?? "";
+  const getWorkflowUrl = serviceUrl.getWorkflowCompose({
+    id: workflowId,
+    version,
   });
 
-  const { data: revisionData, error: revisionError, isLoading: revisionIsLoading } = useQuery(getRevisionUrl);
+  const groupedTaskTemplates = groupTaskTemplatesByName(taskTemplatesData);
 
-  if (revisionIsLoading) {
+  const workflowQuery = useQuery<WorkflowEditor>(getWorkflowUrl);
+
+  if (workflowQuery.isLoading) {
     return (
       <>
         <Helmet>
@@ -90,7 +95,7 @@ function RevisionContainer({ executionQuery, summaryQuery, taskTemplatesData, wo
     );
   }
 
-  if (revisionError) {
+  if (workflowQuery.isError) {
     return (
       <Box mt="5rem">
         <Helmet>
@@ -101,20 +106,20 @@ function RevisionContainer({ executionQuery, summaryQuery, taskTemplatesData, wo
     );
   }
 
-  return (
-    <ExecutionContextProvider
-      value={{
-        tasks: taskTemplatesData,
-        workflowExecution: executionQuery.data,
-        workflowRevision: revisionData,
-      }}
-    >
-      <Main
-        dag={revisionData.dag}
-        workflow={summaryQuery}
-        workflowExecution={executionQuery}
-        version={revisionData.version}
-      />
-    </ExecutionContextProvider>
-  );
+  if (workflowQuery.data) {
+    return (
+      <EditorContextProvider
+        value={{
+          mode: WorkflowEngineMode.Executor,
+          taskTemplatesData: groupedTaskTemplates,
+          workflowExecution: executionQuery.data,
+          workflow: workflowQuery.data,
+        }}
+      >
+        <Main workflow={workflowQuery.data} workflowExecution={executionQuery} version={version} />
+      </EditorContextProvider>
+    );
+  }
+
+  return null;
 }

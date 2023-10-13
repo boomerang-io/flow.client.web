@@ -118,6 +118,7 @@ export default function EditorContainer() {
         availableParametersQueryData={availableParametersQuery.data}
         parametersMutator={parametersMutator}
         changeLogData={changeLogQuery.data}
+        revisionNumber={revisionNumber}
         revisionMutator={revisionMutator}
         workflowQueryData={workflowQuery.data}
         workflowsQueryData={workflowsQuery.data}
