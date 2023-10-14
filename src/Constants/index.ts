@@ -153,6 +153,11 @@ export const TaskTemplateStatus = {
   Archived: "archived",
 } as const;
 
+export const UserType = {
+  Admin: "admin",
+  Operator: "operator",
+  User: "user",
+} as const;
 
 export const UserTypeCopy = {
   [PlatformRole.Admin]: "Admin",
