@@ -39,6 +39,110 @@ const workflowRun = {
             "value": "test"
         }
     ],
+    "tasks": [
+        {
+            "id": "651e4789ab1cb56bc8976ae5",
+            "type": "start",
+            "name": "start",
+            "status": "succeeded",
+            "phase": "completed",
+            "creationDate": "2023-10-05T05:20:09.138+00:00",
+            "duration": 0,
+            "labels": {},
+            "params": [],
+            "annotations": {
+                "boomerang.io/position": {
+                    "x": -295,
+                    "y": -5
+                }
+            },
+            "results": [],
+            "workspaces": [],
+            "spec": {
+                "debug": false
+            },
+            "workflowRef": "651b91a77fbb1a64ab8b7154",
+            "workflowRevisionRef": "651cffa3e99fd73f5122879d",
+            "workflowRunRef": "651e4789ab1cb56bc8976ae4"
+        },
+        {
+            "id": "651e4789ab1cb56bc8976ae6",
+            "type": "end",
+            "name": "end",
+            "status": "succeeded",
+            "phase": "completed",
+            "creationDate": "2023-10-05T05:20:09.180+00:00",
+            "duration": 0,
+            "labels": {},
+            "params": [],
+            "annotations": {
+                "boomerang.io/position": {
+                    "x": 510,
+                    "y": -7
+                }
+            },
+            "results": [],
+            "workspaces": [],
+            "spec": {
+                "debug": false
+            },
+            "workflowRef": "651b91a77fbb1a64ab8b7154",
+            "workflowRevisionRef": "651cffa3e99fd73f5122879d",
+            "workflowRunRef": "651e4789ab1cb56bc8976ae4"
+        },
+        {
+            "id": "651e4789ab1cb56bc8976ae7",
+            "type": "script",
+            "name": "Execute Shell",
+            "status": "succeeded",
+            "phase": "completed",
+            "creationDate": "2023-10-05T05:20:09.187+00:00",
+            "startTime": "2023-10-05T05:20:09.985+00:00",
+            "duration": 7924,
+            "statusMessage": "Task (651e4789ab1cb56bc8976ae7) has been executed successfully.",
+            "labels": {},
+            "params": [
+                {
+                    "name": "path",
+                    "value": "/"
+                },
+                {
+                    "name": "shell",
+                    "value": ""
+                },
+                {
+                    "name": "script",
+                    "value": "echo \"test\"\n\necho \"test\""
+                }
+            ],
+            "annotations": {
+                "boomerang.io/position": {
+                    "x": 38,
+                    "y": -6
+                },
+                "boomerang.io/team-name": "Team",
+                "boomerang.io/kind": "TaskRun",
+                "boomerang.io/generation": "4"
+            },
+            "results": [],
+            "workspaces": [],
+            "spec": {
+                "arguments": [
+                    "shell",
+                    "execute"
+                ],
+                "command": [],
+                "image": "boomerangio/worker-flow:2.11.15",
+                "debug": false,
+                "deletion": "Never"
+            },
+            "templateRef": "execute-shell",
+            "templateVersion": 2,
+            "workflowRef": "651b91a77fbb1a64ab8b7154",
+            "workflowRevisionRef": "651cffa3e99fd73f5122879d",
+            "workflowRunRef": "651e4789ab1cb56bc8976ae4"
+        }
+    ],
     "trigger": "manual",
     "results": [],
     "workspaces": [],
