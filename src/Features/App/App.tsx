@@ -29,11 +29,13 @@ import styles from "./app.module.scss";
 const AppActivation = lazy(() => import("./AppActivation"));
 const Activity = lazy(() => import("Features/Activity"));
 const Actions = lazy(() => import("Features/Actions"));
+const Callback = lazy(() => import("Features/Callback"));
 const Editor = lazy(() => import("Features/Editor"));
 const Execution = lazy(() => import("Features/Execution"));
 const GlobalParameters = lazy(() => import("Features/Parameters/GlobalParameters"));
 const Tokens = lazy(() => import("Features/GlobalTokens/GlobalTokens"));
 const Insights = lazy(() => import("Features/Insights"));
+const Integrations = lazy(() => import("Features/Integrations"));
 const Schedules = lazy(() => import("Features/Schedules"));
 const Settings = lazy(() => import("Features/Settings"));
 const TemplateWorkflows = lazy(() => import("Features/TemplateWorkflows"));
@@ -59,7 +61,8 @@ export default function App() {
   const teamName =
     location.pathname.endsWith("/home") ||
     location.pathname.startsWith("/admin/") ||
-    location.pathname.endsWith("/profile")
+    location.pathname.endsWith("/profile") ||
+    location.pathname.endsWith("/callback")
       ? null
       : location.pathname.split("/").filter(Boolean)[0];
   const query = teamName ? `?team=${teamName}` : "";
@@ -259,6 +262,9 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           <Route path={"/home"}>
             <Home />
           </Route>
+          <Route path={"/callback"}>
+            <Callback />
+          </Route>
           <Route path={"/profile"}>
             <UserProfile />
           </Route>
@@ -332,9 +338,9 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 />
                 <ProtectedRoute
                   allowedUserRoles={["*"]}
-                  component={() => <TeamTasks />}
-                  path={AppPath.ManageTaskTemplates}
-                  userRole={teamTasksEnabled ? "*" : ""}
+                  component={() => <Integrations />}
+                  path={AppPath.Integrations}
+                  userRole={activityEnabled ? "*" : ""}
                 />
                 <ProtectedRoute
                   allowedUserRoles={["*"]}
@@ -356,6 +362,9 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 </Route>
                 <Route path={AppPath.Workflows}>
                   <Workflows />
+                </Route>
+                <Route path={AppPath.Integrations}>
+                  <Integrations />
                 </Route>
                 <Redirect exact from="/" to={AppPath.Workflows} />
                 <Route path="*" component={() => <Error404 theme="boomerang" />} />

@@ -1,0 +1,26 @@
+@import "Styles/mixins";
+
+.settingsContainer {
+  padding: 1.5rem 2rem;
+  position: relative;
+  display: flex; /* Make parent a flex-container */
+  justify-content: center; /* Centers child horizontally */
+  align-items: center; /* Centers child vertically */
+}
+
+.container {
+  padding: 1.5rem 2rem;
+  position: relative;
+  text-align:center;
+  max-width:800px;
+}
+
+.title {
+  color: var(--cds-text-01);
+  font-size: 1.125rem;
+  letter-spacing: 0;
+  line-height: 1.4375rem;
+  margin-top: 0rem;
+  margin-bottom: 1rem;
+  width: 16rem;
+}

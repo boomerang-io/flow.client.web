@@ -4,6 +4,7 @@ export {
   Analytics,
   Api,
   Apps,
+  AppConnectivity,
   CalendarHeatMap,
   ChartScatter,
   Chat,
