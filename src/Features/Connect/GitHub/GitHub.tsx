@@ -38,7 +38,7 @@ export default function Github({ installId }: GitHubProps) {
    * 2. Use the Callback to retrieve the users organisations that have the app installed and show this to the user on the page and ask which team to map this to.
    */
 
-  const handleSubmit = async (values: any) => {
+  const handleSuhandleLinkbmit = async (values: any) => {
     const requestBody = {
       team: values.team,
       installationId: installId,
@@ -81,13 +81,13 @@ export default function Github({ installId }: GitHubProps) {
         <Formik
           enableReinitialize
           initialValues={initialValues}
-          onSubmit={handleSubmit}
+          onSubmit={(values) => handleLink(values)}
           validationSchema={Yup.object().shape({
-            team: Yup.string().required("Name is required"),
+            team: Yup.string().required("Team is required"),
           })}
         >
           {(props) => {
-            const { isValid, values, handleSubmit } = props;
+            const { isValid, values, handleSubmit, errors, touched } = props;
             return (
               <>
                 <div className={styles.linkRow}>
@@ -110,6 +110,7 @@ export default function Github({ installId }: GitHubProps) {
                         itemToString={(item) => (item ? item.text : "")}
                         value={values.team}
                         className={styles.field}
+                        invalid={Boolean(errors.team && touched.team)}
                       />
                     </>
                   )}
