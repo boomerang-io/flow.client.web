@@ -137,6 +137,7 @@ export const serviceUrl = {
 
 export const serviceUrlIntegrations = {
   getGitHubAppInstallations: ({ id }: IdArg) => `${BASE_URL}/integration/github/installations?id=${id}`,
+  postGitHubAppLink: () => `${BASE_URL}/integration/github/link`,
 }
 
 export const resolver = {
