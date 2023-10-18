@@ -38,7 +38,7 @@ export default function Github({ installId }: GitHubProps) {
    * 2. Use the Callback to retrieve the users organisations that have the app installed and show this to the user on the page and ask which team to map this to.
    */
 
-  const handleSuhandleLinkbmit = async (values: any) => {
+  const handleLink = async (values: any) => {
     const requestBody = {
       team: values.team,
       installationId: installId,
