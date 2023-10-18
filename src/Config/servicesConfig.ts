@@ -140,6 +140,10 @@ export const serviceUrlIntegrations = {
   postGitHubAppLink: () => `${BASE_URL}/integration/github/link`,
 }
 
+export const resolverIntegrations = {
+  postGitHubAppLink: ({ body }) => axios.post(serviceUrlIntegrations.postGitHubAppLink(), body),
+}
+
 export const resolver = {
   query: (url) => () => axios.get(url).then((response) => response.data),
   queryYaml: (url) => () => axios.get(url, {

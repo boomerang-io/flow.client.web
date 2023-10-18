@@ -5,10 +5,11 @@ import { Dropdown, TextInput, DropdownSkeleton, SkeletonPlaceholder } from "@car
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Button } from "@carbon/react";
 import { Link } from "@carbon/pictograms-react";
-import { resolver, serviceUrlIntegrations } from "Config/servicesConfig";
+import { resolver, serviceUrlIntegrations, resolverIntegrations } from "Config/servicesConfig";
 import queryString from "query-string";
 import { useAppContext } from "Hooks";
 import { Formik } from "formik";
+import * as Yup from "yup";
 import styles from "./github.module.scss";
 
 interface GitHubProps {
@@ -29,8 +30,7 @@ export default function Github({ installId }: GitHubProps) {
     enabled: Boolean(user?.id),
   });
 
-  const postGitHubAppLinkMutation = useMutation(resolver.postMutation);
-  const postGitHubAppLinkUrl = serviceUrlIntegrations.postGitHubAppLink;
+  const postGitHubAppLinkMutation = useMutation(resolverIntegrations.postGitHubAppLink);
 
   /**
    * Options
@@ -43,12 +43,8 @@ export default function Github({ installId }: GitHubProps) {
       team: values.team,
       installationId: installId,
     };
-    const request = {
-      url: postGitHubAppLinkUrl,
-      data: requestBody,
-    };
     try {
-      await postGitHubAppLinkMutation.mutateAsync(request);
+      await postGitHubAppLinkMutation.mutateAsync({ body: requestBody });
       notify(
         <ToastNotification
           kind="success"
@@ -57,7 +53,9 @@ export default function Github({ installId }: GitHubProps) {
         />
       );
     } catch (error) {
-      notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete token failed" />);
+      notify(
+        <ToastNotification kind="error" title="Something's Wrong" subtitle="Request to link GitHab App failed." />
+      );
     }
   };
 
@@ -80,7 +78,14 @@ export default function Github({ installId }: GitHubProps) {
         <br />
         <p>Last step - link the GitHub App installation to a {name} team.</p>
         <br />
-        <Formik enableReinitialize initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik
+          enableReinitialize
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={Yup.object().shape({
+            team: Yup.string().required("Name is required"),
+          })}
+        >
           {(props) => {
             const { isValid, values, handleSubmit } = props;
             return (
