@@ -117,8 +117,8 @@ export default function Github({ installId }: GitHubProps) {
                 <br />
                 <div className={styles.buttonContainer}>
                   <Button
-                    disabled={!isValid || !getGitHubInstallationQuery.isLoading}
-                    iconDescription="Save settings"
+                    disabled={!isValid || getGitHubInstallationQuery.isLoading}
+                    iconDescription="Cancel"
                     onClick={handleSubmit}
                     size="sm"
                     kind="ghost"
@@ -127,8 +127,8 @@ export default function Github({ installId }: GitHubProps) {
                   </Button>
                   <Button
                     className={styles.button}
-                    disabled={!isValid || !getGitHubInstallationQuery.isLoading}
-                    iconDescription="Save settings"
+                    disabled={!isValid || getGitHubInstallationQuery.isLoading}
+                    iconDescription="Link"
                     onClick={handleSubmit}
                     size="sm"
                     kind="tertiary"
