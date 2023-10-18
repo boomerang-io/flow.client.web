@@ -4,6 +4,7 @@ import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang
 import { Dropdown, DropdownSkeleton } from "@carbon/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Button } from "@carbon/react";
+import { Link } from "@carbon/pictograms-react";
 import type { FlowUser } from "Types";
 import { resolver, serviceUrlIntegrations } from "Config/servicesConfig";
 import queryString from "query-string";
@@ -59,57 +60,63 @@ export default function Github({ installId }: GitHubProps) {
     team: "",
   };
 
+  const installedOrg = getGitHubInstallationQuery.data?.orgSlug ?? "---";
+
   return (
     <section aria-label="User Settings" className={styles.settingsContainer}>
       <Helmet>
         <title>Integration Connect</title>
       </Helmet>
       <section className={styles.container}>
-        <h1>GitHub App Connection</h1>
+        <h1>GitHub App Integrations</h1>
         <p>Thank you for installing the GitHub App!</p>
+        <br />
+        <p>Last step - link the GitHub App installation to a {name} team.</p>
         <br />
         <Formik enableReinitialize initialValues={initialValues} onSubmit={() => {}}>
           {(props) => {
             const { isValid, values, handleSubmit } = props;
             return (
               <>
-                {getGitHubInstallationQuery.isLoading ? (
-                  <DropdownSkeleton />
-                ) : (
-                  <Dropdown
-                    id="team"
-                    name="team"
-                    type="default"
-                    label="Team"
-                    ariaLabel="Dropdown"
-                    light={false}
-                    items={teamOptions}
-                    itemToString={(item) => (item ? item.text : "")}
-                    value={values.team}
-                  />
-                )}
+                <div className={styles.linkRow}>
+                  <p>{installedOrg}</p>
+                  <Link style={{ height: "2rem", width: "2rem", marginLeft: "1rem", marginRight: "1rem" }} />
+                  {getGitHubInstallationQuery.isLoading ? (
+                    <DropdownSkeleton className={styles.teamDropdown} />
+                  ) : (
+                    <Dropdown
+                      id="team"
+                      name="team"
+                      type="default"
+                      label="Team"
+                      ariaLabel="Dropdown"
+                      light={false}
+                      items={teamOptions}
+                      itemToString={(item) => (item ? item.text : "")}
+                      value={values.team}
+                      className={styles.teamDropdown}
+                    />
+                  )}
+                </div>
+                <br />
+                <p>
+                  Once linked, your Team will be able to receive events from GitHub and use these events to trigger
+                  Workflows. Make sure to let them know!
+                </p>
+                <br />
                 <Button
                   className={styles.saveButton}
                   disabled={!isValid}
                   iconDescription="Save settings"
                   onClick={handleSubmit}
-                  size="md"
+                  size="sm"
                 >
-                  Save
+                  Link
                 </Button>
               </>
             );
           }}
         </Formik>
-        <br />
-        <p>
-          Your Team will now be able to receive events from GitHub and use these events to trigger Workflows. Make sure
-          to let them know!
-        </p>
-        <br />
-        <Button kind="tertiary" type="button" size="sm">
-          Go to Home
-        </Button>
       </section>
     </section>
   );
