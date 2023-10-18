@@ -135,6 +135,9 @@ export const serviceUrl = {
   resourceTriggers: () => `${BASE_URL}/triggers`,
 };
 
+export const serviceUrlIntegrations = {
+  getGitHubAppInstallations: ({ id }: IdArg) => `${BASE_URL}/integration/github/installations?id=${id}`,
+}
 
 export const resolver = {
   query: (url) => () => axios.get(url).then((response) => response.data),

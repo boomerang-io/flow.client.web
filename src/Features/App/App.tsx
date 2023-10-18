@@ -29,7 +29,7 @@ import styles from "./app.module.scss";
 const AppActivation = lazy(() => import("./AppActivation"));
 const Activity = lazy(() => import("Features/Activity"));
 const Actions = lazy(() => import("Features/Actions"));
-const Callback = lazy(() => import("Features/Callback"));
+const Connect = lazy(() => import("Features/Connect"));
 const Editor = lazy(() => import("Features/Editor"));
 const Execution = lazy(() => import("Features/Execution"));
 const GlobalParameters = lazy(() => import("Features/Parameters/GlobalParameters"));
@@ -62,7 +62,7 @@ export default function App() {
     location.pathname.endsWith("/home") ||
     location.pathname.startsWith("/admin/") ||
     location.pathname.endsWith("/profile") ||
-    location.pathname.endsWith("/callback")
+    location.pathname.endsWith("/connect")
       ? null
       : location.pathname.split("/").filter(Boolean)[0];
   const query = teamName ? `?team=${teamName}` : "";
@@ -262,8 +262,8 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           <Route path={"/home"}>
             <Home />
           </Route>
-          <Route path={"/callback"}>
-            <Callback />
+          <Route path={"/connect"}>
+            <Connect />
           </Route>
           <Route path={"/profile"}>
             <UserProfile />
