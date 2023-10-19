@@ -22,6 +22,7 @@ type AppPathKey =
   | "Actions"
   | "ActionsApprovals"
   | "ActionsManual"
+  | "Callback"
   | "Editor"
   | "EditorDesigner"
   | "EditorConfigure"
@@ -33,6 +34,7 @@ type AppPathKey =
   | "Home"
   | "Profile"
   | "Insights"
+  | "Integrations"
   | "ManageTaskTemplates"
   | "ManageTaskTemplateDetail"
   | "ManageTaskTemplateEditor"
@@ -67,6 +69,7 @@ export const AppPath: Record<AppPathKey, string> = {
   Actions: "/:team/actions",
   ActionsApprovals: "/:team/actions/approvals",
   ActionsManual: "/:team/actions/manual",
+  Callback: "/callback",
   Editor: "/:team/editor/:workflowId",
   EditorDesigner: `/:team/editor/:workflowId/workflow`,
   EditorConfigure: `/:team/editor/:workflowId/configure`,
@@ -78,6 +81,7 @@ export const AppPath: Record<AppPathKey, string> = {
   Home: "/home",
   Profile: "/profile",
   Insights: "/:team/insights",
+  Integrations: "/:team/integrations",
   Workflows: "/:team/workflows",
   Schedules: "/:team/schedules",
 
@@ -149,7 +153,8 @@ export const appLink = {
   execution: ({ team, executionId, workflowId }: TeamArg & ExecutionArgs) => `/${team}/activity/${workflowId}/execution/${executionId}`,
   home: () => "/home",
   profile: () => "/profile",
-  insights: () => "/insights",
+  insights: ({ team }: TeamArg) => `/${team}/insights`,
+  integrations: ({ team }: TeamArg) => `/${team}/integrations`,
   manageTaskTemplates: ({ team }: TeamArg) =>
     `/${team}/task-templates`,
   manageTaskTemplateEdit: ({ team, name, version }: ManageTaskTemplateArgs) =>

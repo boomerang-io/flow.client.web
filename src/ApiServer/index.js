@@ -34,6 +34,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       globalParams: Model,
       featureFlag: Model,
       insights: Model,
+      integrations: Model,
       manageTeam: Model,
       manageUser: Model,
       quotas: Model,
@@ -607,6 +608,13 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
           token: "bft_12341241432321321",
         };
         return schema.tokens.create(newToken);
+      });
+
+      /**
+      * Integrations
+      */ 
+      this.get(serviceUrl.getIntegrations({ query: null }), (schema, request) => {
+        return schema.db.integrations[0];
       });
 
       /**

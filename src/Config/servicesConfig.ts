@@ -90,6 +90,7 @@ export const serviceUrl = {
   getUserProfile: () => `${BASE_URL}/user/profile`,
   getUserProfileImage: ({ userEmail }) => `${BASE_CORE_USERS_URL}/image/${userEmail}`,
   getWorkflows: ({ query }: QueryArg) => `${BASE_URL}/workflow/query${query ? "?" + query : ""}`,
+  getIntegrations: ({ query }: QueryArg) => `${BASE_URL}/integrations/query${query ? "?" + query : ""}`,
   getWorkflow: ({ id, version }: IdArg & Partial<VersionArg>) => `${BASE_URL}/workflow/${id}${version ? `?version=${version}` : ""}`,
   getWorkflowCompose: ({ id, version }: IdArg & Partial<VersionArg>) => `${BASE_URL}/workflow/${id}/compose${version ? `?version=${version}` : ""}`,
   getWorkflowChangelog: ({ id }: IdArg) =>
@@ -134,6 +135,14 @@ export const serviceUrl = {
   resourceTriggers: () => `${BASE_URL}/triggers`,
 };
 
+export const serviceUrlIntegrations = {
+  getGitHubAppInstallations: ({ id }: IdArg) => `${BASE_URL}/integration/github/installations?id=${id}`,
+  postGitHubAppLink: () => `${BASE_URL}/integration/github/link`,
+}
+
+export const resolverIntegrations = {
+  postGitHubAppLink: ({ body }) => axios.post(serviceUrlIntegrations.postGitHubAppLink(), body),
+}
 
 export const resolver = {
   query: (url) => () => axios.get(url).then((response) => response.data),
