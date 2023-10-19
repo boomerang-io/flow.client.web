@@ -43,6 +43,7 @@ const flowNavigation = [
     type: "link",
     icon: "AppConnectivity",
     link: "/BMRG_APP_ROOT_CONTEXT/admin-flowabl-io-personal-team/integrations",
+    beta: true,
   },
   {
     type: "divider",

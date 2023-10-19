@@ -570,6 +570,7 @@ export interface FlowNavigationItem {
   link: string;
   type: "link" | "menu" | "divider";
   childLinks: Array<FlowNavigationItemChild>;
+  beta?: boolean;
 }
 
 export type PlatformFeatureKey =

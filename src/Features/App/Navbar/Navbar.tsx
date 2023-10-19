@@ -11,6 +11,7 @@ import {
   Switcher,
   SwitcherItem,
   SwitcherDivider,
+  Tag,
 } from "@carbon/react";
 import { UIShell, HeaderMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
 import { APP_ROOT } from "Config/appConfig";
@@ -174,7 +175,7 @@ function AppSideNav(props: AppSideNavProps) {
             if (item.disabled) {
               return (
                 <SideNavLink className={styles.disabledSidenavLink} {...sharedProps}>
-                  {item.name}
+                  {item.name} {item.beta ? <Tag>beta</Tag> : ""}
                 </SideNavLink>
               );
             }
@@ -182,7 +183,7 @@ function AppSideNav(props: AppSideNavProps) {
             const elemProps = getSideNavElemProps(item, props.close);
             return (
               <SideNavLink {...sharedProps} {...elemProps}>
-                {item.name}
+                {item.name} {item.beta ? <Tag>beta</Tag> : ""}
               </SideNavLink>
             );
           }
