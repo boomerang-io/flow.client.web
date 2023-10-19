@@ -95,7 +95,7 @@ export default function Github({ installId }: GitHubProps) {
           })}
         >
           {(props) => {
-            const { isValid, values, handleSubmit, errors, touched } = props;
+            const { isValid, values, handleSubmit, errors, touched, setFieldValue } = props;
             return (
               <>
                 <div className={styles.linkRow}>
@@ -119,6 +119,9 @@ export default function Github({ installId }: GitHubProps) {
                         value={values.team}
                         className={styles.field}
                         invalid={Boolean(errors.team && touched.team)}
+                        onChange={({ selectedItem }: any) => {
+                          setFieldValue("team", selectedItem);
+                        }}
                       />
                     </>
                   )}
