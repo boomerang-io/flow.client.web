@@ -22,7 +22,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
 import ErrorModal from "Components/ErrorModal";
-import { appLink } from "Config/appConfig";
+// import { appLink } from "Config/appConfig";
 import { elevatedUserRoles, QueryStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Catalog16, CopyFile16, StopOutline16, Warning16 } from "@carbon/icons-react";
@@ -69,7 +69,8 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
         <div className={styles.headerNav}>
           <Breadcrumb noTrailingSlash>
             <BreadcrumbItem>
-              <Link to={state ? state.fromUrl : appLink.activity()}>{state ? state.fromText : "Activity"}</Link>
+              {/* <Link to={state ? state.fromUrl : appLink.activity()}>{state ? state.fromText : "Activity"}</Link> */}
+              {state ? <Link to={state.fromUrl}>{state.fromText}</Link> : "Activity"}
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
               {!workflow?.data?.name ? (

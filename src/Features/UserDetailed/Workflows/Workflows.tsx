@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import queryString from "query-string";
+// import queryString from "query-string";
 import {
   Search,
   StructuredListWrapper,
@@ -79,7 +79,7 @@ function Workflows({ user }: { user: FlowUser }) {
                     </Link>
                   </StructuredListCell>
                   <StructuredListCell>
-                    <Link
+                    {/* <Link
                       className={styles.viewWorkflowLink}
                       to={{
                         pathname: appLink.activity(),
@@ -88,7 +88,8 @@ function Workflows({ user }: { user: FlowUser }) {
                       }}
                     >
                       Activity
-                    </Link>
+                    </Link> */}
+                    Activity
                   </StructuredListCell>
                 </StructuredListRow>
               );

@@ -29,12 +29,11 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <li
                     class="bx--breadcrumb-item"
                   >
-                    <a
+                    <span
                       class="bx--link"
-                      href="/activity"
                     >
                       Activity
-                    </a>
+                    </span>
                   </li>
                   <li
                     class="bx--breadcrumb-item bx--breadcrumb-item--current"

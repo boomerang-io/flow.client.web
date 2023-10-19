@@ -26,12 +26,11 @@ exports[`ExecutionHeader --- Snapshot Capturing Snapshot of ExecutionHeader 1`] 
                 <li
                   class="bx--breadcrumb-item"
                 >
-                  <a
+                  <span
                     class="bx--link"
-                    href="/activity"
                   >
                     Activity
-                  </a>
+                  </span>
                 </li>
                 <li
                   class="bx--breadcrumb-item bx--breadcrumb-item--current"
