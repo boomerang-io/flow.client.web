@@ -5,7 +5,7 @@ import { Button, Dropdown, TextInput, DropdownSkeleton, SkeletonPlaceholder } fr
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useHistory } from "react-router-dom";
 import { Link } from "@carbon/pictograms-react";
-import { resolver, serviceUrlIntegrations, resolverIntegrations } from "Config/servicesConfig";
+import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import queryString from "query-string";
 import { useAppContext } from "Hooks";
@@ -22,7 +22,7 @@ export default function Github({ installId }: GitHubProps) {
   const history = useHistory();
   // const queryClient = useQueryClient();
 
-  const getGitHubInstallationUrl = serviceUrlIntegrations.getGitHubAppInstallations({
+  const getGitHubInstallationUrl = serviceUrl.getGitHubAppInstallations({
     id: installId,
   });
 
@@ -32,7 +32,7 @@ export default function Github({ installId }: GitHubProps) {
     enabled: Boolean(user?.id),
   });
 
-  const postGitHubAppLinkMutation = useMutation(resolverIntegrations.postGitHubAppLink);
+  const postGitHubAppLinkMutation = useMutation(resolver.postGitHubAppLink);
 
   /**
    * Options

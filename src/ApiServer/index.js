@@ -2,7 +2,7 @@ import { Server, Serializer, Model, Response } from "miragejs";
 import { inflections } from "inflected";
 import queryString from "query-string";
 import { v4 as uuid } from "uuid";
-import { serviceUrlIntegrations, serviceUrl, BASE_URL } from "Config/servicesConfig";
+import { serviceUrl, BASE_URL } from "Config/servicesConfig";
 import * as fixtures from "./fixtures";
 
 export function startApiServer({ environment = "test", timing = 0 } = {}) {
@@ -578,11 +578,11 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
       * Integrations
       */ 
-      this.get(serviceUrl.getIntegrations({ query: null }), (schema, request) => {
+      this.get(serviceUrl.getIntegrations({ team: null }), (schema, request) => {
         return schema.db.integrations[0];
       });
 
-      this.get(serviceUrlIntegrations.getGitHubAppInstallations({ id: null }), (schema, request) => {
+      this.get(serviceUrl.getGitHubAppInstallations({ id: null }), (schema, request) => {
         return schema.db.installations[0];
       });
 

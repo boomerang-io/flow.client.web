@@ -1,6 +1,9 @@
 import React from "react";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
+import ReactMarkdown from "react-markdown";
+import "Styles/markdown.css";
+
 interface ModalContentProps {
   closeModal: () => void;
   error: any;
@@ -18,7 +21,7 @@ const ModalContent: React.FC<ModalContentProps> = ({ closeModal, error, handleEn
         </ModalBody>
       )}
       <ModalBody>
-        <p>{data.instructions}</p>
+        <ReactMarkdown className="markdown-body" children={data.instructions} />
       </ModalBody>
       <ModalFooter>
         <Button kind="secondary" type="button" onClick={closeModal}>

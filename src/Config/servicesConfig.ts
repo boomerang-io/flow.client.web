@@ -133,16 +133,9 @@ export const serviceUrl = {
   workflowAvailableParameters: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
   getWorkflowTemplates: () => `${BASE_URL}/workflowtemplate/query`,
   resourceTriggers: () => `${BASE_URL}/triggers`,
-};
-
-export const serviceUrlIntegrations = {
   getGitHubAppInstallations: ({ id }: IdArg) => `${BASE_URL}/integration/github/installations?id=${id}`,
   postGitHubAppLink: () => `${BASE_URL}/integration/github/link`,
-}
-
-export const resolverIntegrations = {
-  postGitHubAppLink: ({ body }) => axios.post(serviceUrlIntegrations.postGitHubAppLink(), body),
-}
+};
 
 export const resolver = {
   query: (url) => () => axios.get(url).then((response) => response.data),
@@ -249,4 +242,5 @@ export const resolver = {
     axios({ url: serviceUrl.deleteTeamQuotas({ team }), method: HttpMethod.Delete }),
   putWorkflowAction: ({ body }) =>
     axios({ url: serviceUrl.putWorkflowAction(), data: body, method: HttpMethod.Put }),
+  postGitHubAppLink: ({ body }) => axios.post(serviceUrl.postGitHubAppLink(), body),
 };
