@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Dropdown, TextInput, DropdownSkeleton, SkeletonPlaceholder } from "@carbon/react";
+import { Button, Dropdown, TextInput, DropdownSkeleton, SkeletonPlaceholder } from "@carbon/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { Button } from "@carbon/react";
+import { useHistory } from "react-router-dom";
 import { Link } from "@carbon/pictograms-react";
 import { resolver, serviceUrlIntegrations, resolverIntegrations } from "Config/servicesConfig";
+import { appLink } from "Config/appConfig";
 import queryString from "query-string";
 import { useAppContext } from "Hooks";
 import { Formik } from "formik";
@@ -18,6 +19,7 @@ interface GitHubProps {
 
 export default function Github({ installId }: GitHubProps) {
   const { teams, name, user } = useAppContext();
+  const history = useHistory();
   // const queryClient = useQueryClient();
 
   const getGitHubInstallationUrl = serviceUrlIntegrations.getGitHubAppInstallations({
@@ -61,10 +63,8 @@ export default function Github({ installId }: GitHubProps) {
 
   const handleCancel = () => {
     history.push({
-      pathname: appLink.execution({ team: teamName, executionId: execution.id, workflowId }),
-      state: { fromUrl: appLink.workflows({ team: teamName }), fromText: `${viewType}s` },
+      pathname: appLink.home(),
     });
-    // queryClient.invalidateQueries([getGitHubInstallationUrl]);
   };
 
   const teamOptions = teams?.map((t) => ({ id: t.name, text: t.displayName }));
@@ -105,7 +105,7 @@ export default function Github({ installId }: GitHubProps) {
                     </>
                   ) : (
                     <>
-                      <TextInput id="org" disabled={true} value={values.org} className={styles.field} />
+                      <TextInput id="org" readOnly={true} value={values.org} className={styles.field} />
                       <Link style={{ height: "2rem", width: "2rem", marginLeft: "1rem", marginRight: "1rem" }} />
                       <Dropdown
                         id="team"
@@ -133,7 +133,7 @@ export default function Github({ installId }: GitHubProps) {
                   <Button
                     disabled={!isValid || getGitHubInstallationQuery.isLoading}
                     iconDescription="Cancel"
-                    onClick={handleSubmit}
+                    onClick={handleCancel}
                     size="sm"
                     kind="ghost"
                   >

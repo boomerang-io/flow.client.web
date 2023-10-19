@@ -1,26 +1,24 @@
 import React from "react";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { DynamicFormik, ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import styles from "./workflowInputModalContent.module.scss";
+import styles from "./inputModalContent.module.scss";
 import { InputProperty, InputType, PASSWORD_CONSTANT } from "Constants";
 
 interface WorkflowInputModalContentProps {
   closeModal: () => void;
-  executeError: any;
-  executeWorkflow: (closeModal: () => void, redirect: boolean, properties: {}) => Promise<void>;
+  error: any;
+  handleEnable: (closeModal: () => void) => Promise<void>;
   inputs: Array<typeof InputProperty>;
   isExecuting: boolean;
 }
 
 const WorkflowInputModalContent: React.FC<WorkflowInputModalContentProps> = ({
   closeModal,
-  executeError,
-  executeWorkflow,
+  error,
+  handleEnable,
   inputs,
   isExecuting,
 }) => {
-  const [isRedirectEnabled, setIsRedirectEnabled] = React.useState(false);
-
   //edit inputs to handle secure values
   const secureInputs = inputs.map((input: typeof InputProperty) => {
     /* @ts-ignore-next-line */
@@ -45,14 +43,14 @@ const WorkflowInputModalContent: React.FC<WorkflowInputModalContentProps> = ({
         orientation: "vertical",
       })}
       onSubmit={(values: any) => {
-        executeWorkflow(closeModal, isRedirectEnabled, values);
+        handleEnable(closeModal, values);
       }}
     >
       {({ inputs, formikProps }: { inputs: JSX.Element; formikProps: any }) => (
         <ModalFlowForm className={styles.container}>
           <ModalBody aria-label="inputs">
             {inputs}
-            {executeError && (
+            {error && (
               <InlineNotification
                 lowContrast
                 kind="error"

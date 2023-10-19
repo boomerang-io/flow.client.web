@@ -3,16 +3,16 @@ import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/reac
 import { ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 interface ModalContentProps {
   closeModal: () => void;
-  executeError: any;
+  error: any;
   handleEnable: (closeModal: () => void) => void;
   errorMessage: { title: string; message: string } | null;
   data: any;
 }
 
-const ModalContent: React.FC<ModalContentProps> = ({ closeModal, executeError, handleEnable, errorMessage, data }) => {
+const ModalContent: React.FC<ModalContentProps> = ({ closeModal, error, handleEnable, errorMessage, data }) => {
   return (
     <ModalForm>
-      {executeError && (
+      {error && (
         <ModalBody>
           <InlineNotification lowContrast kind="error" title={errorMessage?.title} subtitle={errorMessage?.message} />
         </ModalBody>

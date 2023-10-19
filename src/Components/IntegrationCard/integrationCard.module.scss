@@ -7,7 +7,7 @@
   justify-content: space-between;
   min-width: 19.375rem;
   width: 19.375rem;
-  height: 10.31255rem;
+  height: 9rem;
   position: relative;
   @include border-radius();
 
@@ -113,25 +113,6 @@
 .launch {
   cursor: pointer;
   width: 100%;
-  :global .cds--btn {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    flex-direction: row-reverse;
-    font-size: 1rem;
-    font-weight: 600;
-    justify-content: center;
-    max-width: 19.375rem;
-    padding: 0rem 0.25rem;
-    width: 19.375rem;
-    align-items: center;
-
-    .cds--btn__icon {
-      height: 1.5rem;
-      margin-right: 1rem;
-      position: initial;
-      width: 1.5rem;
-    }
-  }
 }
 
 .executeWorkflow {
@@ -197,4 +178,11 @@
   line-height: var(--cds-label-01-line-height, 1.33333);
   letter-spacing: var(--cds-label-01-letter-spacing, 0.32px);
   color: var(--cds-text-secondary, #4d5358);
+}
+
+.cardIcon {
+  bottom: 1rem;
+  position: absolute;
+  right: 1rem;
+  width: 1.125rem;
 }

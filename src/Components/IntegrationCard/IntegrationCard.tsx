@@ -16,7 +16,7 @@ import { formatErrorMessage } from "@boomerang-io/utils";
 import { appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
-import { CircleFill, CircleStroke, SettingsEdit } from "@carbon/react/icons";
+import { CircleFill, CircleStroke, Popup } from "@carbon/react/icons";
 import { ComposedModalChildProps, ModalTriggerProps } from "Types";
 import styles from "./integrationCard.module.scss";
 
@@ -95,24 +95,73 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
 
   //TODO determine if we need the button to launch the modal or can the whole card be a button
   return (
-    <div className={styles.container}>
-      {/* <Link to={!isDeleting ? appLink.editorDesigner({ team: teamName, workflowId: workflow.id }) : ""}> */}
-      <section className={styles.details}>
-        <div className={styles.iconContainer}>
-          <img className={styles.icon} alt={`${data.name}`} src={data.icon} />
-        </div>
-        <div className={styles.descriptionContainer}>
-          <h1 title={data.name} className={styles.name} data-testid="card-title">
-            {data.name}
-          </h1>
-          <p title={data.description} className={styles.description}>
-            {data.description}
-          </p>
-        </div>
-      </section>
-      {/* </Link> */}
-      <section className={styles.launch}>
-        {/* {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
+    <ComposedModal
+      composedModalProps={{ containerClassName: styles.modalContainer }}
+      modalHeaderProps={{
+        title: `Enable ${data.name} Integration`,
+        subtitle: `${data.description}`,
+      }}
+      modalTrigger={({ openModal }: ModalTriggerProps) => (
+        <Link
+          to=""
+          onClick={(e: React.SyntheticEvent) => {
+            e.preventDefault();
+            openModal();
+          }}
+        >
+          <div className={styles.container}>
+            <section className={styles.details}>
+              <div className={styles.iconContainer}>
+                <img className={styles.icon} alt={`${data.name}`} src={data.icon} />
+              </div>
+              <div className={styles.descriptionContainer}>
+                <h1 title={data.name} className={styles.name} data-testid="card-title">
+                  {data.name}
+                </h1>
+                <p title={data.description} className={styles.description}>
+                  {data.description}
+                </p>
+              </div>
+            </section>
+            <Popup size={24} className={styles.cardIcon} />
+            <section className={styles.launch}></section>
+            {isDeleting || isExecuting ? (
+              <InlineLoading
+                description="Loading.."
+                style={{ position: "absolute", left: "0.5rem", top: "0", width: "fit-content" }}
+              />
+            ) : (
+              <div className={styles.status}>
+                {data.status === "active" ? (
+                  <TooltipHover direction="top" tooltipText="Active">
+                    <CircleFill style={{ fill: "#009d9a", marginRight: "0.5rem" }} />
+                  </TooltipHover>
+                ) : (
+                  <TooltipHover direction="top" tooltipText="Inactive">
+                    <CircleStroke style={{ fill: "#393939", marginRight: "0.5rem" }} />
+                  </TooltipHover>
+                )}
+              </div>
+            )}
+          </div>
+        </Link>
+      )}
+    >
+      {({ closeModal }: ComposedModalChildProps) => (
+        <ModalContent
+          closeModal={closeModal}
+          executeError={executeError}
+          handleEnable={handleEnable}
+          errorMessage={errorMessage}
+          data={data}
+        />
+      )}
+    </ComposedModal>
+  );
+};
+
+{
+  /* {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
           <ComposedModal
             modalHeaderProps={{
               title: `Workflow Parameters`,
@@ -134,8 +183,10 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
               />
             )}
           </ComposedModal>
-        ) : ( */}
-        {/* {data.status === "active" ? (
+        ) : ( */
+}
+{
+  /* {data.status === "active" ? (
           <ConfirmModal
             affirmativeAction={handleDisable}
             affirmativeButtonProps={{ kind: "danger" }}
@@ -152,51 +203,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
           >
             {`Are you sure you want to disable the ${data.name.toLowerCase()} integration?.`}
           </ConfirmModal>
-        ) : ( */}
-        <ComposedModal
-          composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
-          modalHeaderProps={{
-            title: `Enable ${data.name} Integration`,
-            subtitle: `${data.description}`,
-          }}
-          modalTrigger={({ openModal }: ModalTriggerProps) => (
-            <Button iconDescription={`Enable integration`} renderIcon={SettingsEdit} size="md" onClick={openModal}>
-              Configure
-            </Button>
-          )}
-        >
-          {({ closeModal }: ComposedModalChildProps) => (
-            <ModalContent
-              closeModal={closeModal}
-              executeError={executeError}
-              handleEnable={handleEnable}
-              errorMessage={errorMessage}
-              data={data}
-            />
-          )}
-        </ComposedModal>
-        {/* )} */}
-      </section>
-      {isDeleting || isExecuting ? (
-        <InlineLoading
-          description="Loading.."
-          style={{ position: "absolute", left: "0.5rem", top: "0", width: "fit-content" }}
-        />
-      ) : (
-        <div className={styles.status}>
-          {data.status === "active" ? (
-            <TooltipHover direction="top" tooltipText="Active">
-              <CircleFill style={{ fill: "#009d9a", marginRight: "0.5rem" }} />
-            </TooltipHover>
-          ) : (
-            <TooltipHover direction="top" tooltipText="Inactive">
-              <CircleStroke style={{ fill: "#393939", marginRight: "0.5rem" }} />
-            </TooltipHover>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
+        ) : ( */
+}
 
 export default IntegrationCard;
