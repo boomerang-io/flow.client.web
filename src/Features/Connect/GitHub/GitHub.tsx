@@ -45,7 +45,6 @@ export default function Github({ installId }: GitHubProps) {
       team: values.team,
       installationId: installId,
     };
-    console.log(requestBody);
     try {
       await postGitHubAppLinkMutation.mutateAsync({ body: requestBody });
       notify(
@@ -55,6 +54,9 @@ export default function Github({ installId }: GitHubProps) {
           subtitle={`${values.team} successfully linked with ${values.org}`}
         />
       );
+      history.push({
+        pathname: appLink.integrations({ team: values.team }),
+      });
     } catch (error) {
       notify(
         <ToastNotification kind="error" title="Something's Wrong" subtitle="Request to link GitHab App failed." />

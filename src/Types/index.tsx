@@ -630,6 +630,16 @@ export interface FlowFeatures {
   };
 }
 
+export interface Integration {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  instructions: string;
+  link: string;
+  status: string;
+}
+
 //Schedule types
 export type ScheduleStatus = "active" | "inactive" | "deleted" | "trigger_disabled" | "error";
 export type ScheduleType = "runOnce" | "cron" | "advancedCron";
