@@ -59,6 +59,14 @@ export default function Github({ installId }: GitHubProps) {
     }
   };
 
+  const handleCancel = () => {
+    history.push({
+      pathname: appLink.execution({ team: teamName, executionId: execution.id, workflowId }),
+      state: { fromUrl: appLink.workflows({ team: teamName }), fromText: `${viewType}s` },
+    });
+    // queryClient.invalidateQueries([getGitHubInstallationUrl]);
+  };
+
   const teamOptions = teams?.map((t) => ({ id: t.name, text: t.displayName }));
 
   const installedOrg = getGitHubInstallationQuery.data?.orgSlug ?? "---";
