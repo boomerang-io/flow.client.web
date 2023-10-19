@@ -45,6 +45,7 @@ export default function Github({ installId }: GitHubProps) {
       team: values.team,
       installationId: installId,
     };
+    console.log(requestBody);
     try {
       await postGitHubAppLinkMutation.mutateAsync({ body: requestBody });
       notify(
@@ -120,7 +121,8 @@ export default function Github({ installId }: GitHubProps) {
                         className={styles.field}
                         invalid={Boolean(errors.team && touched.team)}
                         onChange={({ selectedItem }: any) => {
-                          setFieldValue("team", selectedItem);
+                          console.log(selectedItem);
+                          setFieldValue("team", selectedItem.id);
                         }}
                       />
                     </>

@@ -2,7 +2,7 @@ import { Server, Serializer, Model, Response } from "miragejs";
 import { inflections } from "inflected";
 import queryString from "query-string";
 import { v4 as uuid } from "uuid";
-import { serviceUrl, BASE_URL } from "Config/servicesConfig";
+import { serviceUrlIntegrations, serviceUrl, BASE_URL } from "Config/servicesConfig";
 import * as fixtures from "./fixtures";
 
 export function startApiServer({ environment = "test", timing = 0 } = {}) {
@@ -35,6 +35,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       featureFlag: Model,
       insights: Model,
       integrations: Model,
+      installations: Model,
       manageTeam: Model,
       manageUser: Model,
       quotas: Model,
@@ -522,42 +523,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return {};
       });
 
-      /**
-       * Quotas
-       */
-
-      // this.patch(serviceUrl.getTeamQuotas({ id: ":id" }), (schema, request) => {
-      //   let body = JSON.parse(request.requestBody);
-      //   const quotas = schema.quotas.first();
-
-      //   const key = Object.keys(body)[0];
-      //   const value = Object.values(body)[0];
-
-      //   quotas.update({ [key]: value });
-      //   return {};
-      // });
-
-      // this.put(serviceUrl.putTeamQuotasDefault({ id: ":id" }), (schema, request) => {
-      //   const quotas = schema.quotas.first();
-      //   const defaultConfig = {
-      //     maxWorkflowCount: 20,
-      //     maxWorkflowExecutionMonthly: 150,
-      //     maxWorkflowStorage: 10,
-      //     maxWorkflowExecutionTime: 30,
-      //     maxConcurrentWorkflows: 4,
-      //   };
-
-      //   quotas.update(defaultConfig);
-      //   return {};
-      // });
-
-      // this.put(serviceUrl.getTeamQuotas({ id: ":id" }), (schema, request) => {
-      //   let body = JSON.parse(request.requestBody);
-      //   const quotas = schema.quotas.first();
-      //   quotas.update(body);
-      //   return {};
-      // });
-
       this.get(serviceUrl.getTeamQuotaDefaults(), (schema, request) => {
         return {
           maxWorkflowCount: 20,
@@ -615,6 +580,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       */ 
       this.get(serviceUrl.getIntegrations({ query: null }), (schema, request) => {
         return schema.db.integrations[0];
+      });
+
+      this.get(serviceUrlIntegrations.getGitHubAppInstallations({ id: null }), (schema, request) => {
+        return schema.db.installations[0];
       });
 
       /**
