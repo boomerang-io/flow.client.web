@@ -114,12 +114,12 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
               />
             ) : (
               <div className={styles.status}>
-                {data.status === "active" ? (
-                  <TooltipHover direction="top" tooltipText="Active">
+                {data.status === "linked" ? (
+                  <TooltipHover direction="top" tooltipText="Enabled">
                     <CircleFill style={{ fill: "#009d9a", marginRight: "0.5rem" }} />
                   </TooltipHover>
                 ) : (
-                  <TooltipHover direction="top" tooltipText="Inactive">
+                  <TooltipHover direction="top" tooltipText="Disabled">
                     <CircleStroke style={{ fill: "#393939", marginRight: "0.5rem" }} />
                   </TooltipHover>
                 )}
