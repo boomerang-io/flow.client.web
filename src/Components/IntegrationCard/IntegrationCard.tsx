@@ -20,11 +20,15 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
   const queryClient = useQueryClient();
   const [errorMessage, seterrorMessage] = useState(null);
 
-  const unlinkIntegrationMutator = useMutation(resolver.delteGitHubAppLink);
+  const unlinkIntegrationMutator = useMutation(resolver.postGitHubAppUnlink);
 
   const handleDisable = async (closeModal: () => void) => {
+    const requestBody = {
+      team: teamName,
+      installationId: data.ref,
+    };
     try {
-      await unlinkIntegrationMutator.mutateAsync({ body: { team: teamName, installationId: data.ref } });
+      await unlinkIntegrationMutator.mutateAsync({ body: requestBody });
       notify(
         <ToastNotification
           kind="success"
