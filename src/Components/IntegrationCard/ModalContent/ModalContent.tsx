@@ -8,11 +8,19 @@ interface ModalContentProps {
   closeModal: () => void;
   error: any;
   handleEnable: (closeModal: () => void) => void;
+  handleDisable: (closeModal: () => void) => void;
   errorMessage: { title: string; message: string } | null;
   data: any;
 }
 
-const ModalContent: React.FC<ModalContentProps> = ({ closeModal, error, handleEnable, errorMessage, data }) => {
+const ModalContent: React.FC<ModalContentProps> = ({
+  closeModal,
+  error,
+  handleEnable,
+  handleDisable,
+  errorMessage,
+  data,
+}) => {
   return (
     <ModalForm>
       {error && (
@@ -30,10 +38,12 @@ const ModalContent: React.FC<ModalContentProps> = ({ closeModal, error, handleEn
         <Button
           onClick={(e: React.SyntheticEvent) => {
             e.preventDefault();
-            handleEnable(closeModal);
+            {
+              data.status == "unlinked" ? handleEnable(closeModal) : handleDisable(closeModal);
+            }
           }}
         >
-          Enable
+          {data.status == "unlinked" ? "Enable" : "Disable"}
         </Button>
       </ModalFooter>
     </ModalForm>

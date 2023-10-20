@@ -1,21 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useFeature } from "flagged";
 import { useMutation, useQueryClient } from "react-query";
 import { Link, useHistory } from "react-router-dom";
-import { Button, InlineLoading, OverflowMenu, OverflowMenuItem } from "@carbon/react";
-import {
-  ConfirmModal,
-  ComposedModal,
-  ToastNotification,
-  notify,
-  TooltipHover,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { InlineLoading } from "@carbon/react";
+import { ComposedModal, ToastNotification, notify, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import ModalContent from "./ModalContent";
 import { formatErrorMessage } from "@boomerang-io/utils";
-import { appLink, FeatureFlag } from "Config/appConfig";
-import { serviceUrl, resolver } from "Config/servicesConfig";
-import { BASE_URL } from "Config/servicesConfig";
+import { resolver } from "Config/servicesConfig";
 import { CircleFill, CircleStroke, Popup } from "@carbon/react/icons";
 import { ComposedModalChildProps, ModalTriggerProps } from "Types";
 import styles from "./integrationCard.module.scss";
@@ -28,22 +18,13 @@ interface IntegrationCardProps {
 
 const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }) => {
   const queryClient = useQueryClient();
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-
-  const history = useHistory();
   const [errorMessage, seterrorMessage] = useState(null);
 
-  const { mutateAsync: deleteWorkflowMutator, isLoading: isDeleting } = useMutation(resolver.deleteWorkflow, {});
+  const unlinkIntegrationMutator = useMutation(resolver.delteGitHubAppLink);
 
-  const {
-    mutateAsync: executeWorkflowMutator,
-    error: executeError,
-    isLoading: isExecuting,
-  } = useMutation(resolver.postWorkflowRun);
-
-  const handleDisable = async () => {
+  const handleDisable = async (closeModal: () => void) => {
     try {
-      await deleteWorkflowMutator({ id: data.id });
+      await unlinkIntegrationMutator.mutateAsync({ body: { team: teamName, installationId: data.ref } });
       notify(
         <ToastNotification
           kind="success"
@@ -52,6 +33,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
         />
       );
       queryClient.invalidateQueries(url);
+      closeModal();
     } catch {
       notify(
         <ToastNotification
@@ -66,6 +48,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
   /*
    * This function is used to handle the execution of a workflow. It only needs to work for WorkflowView.Workflow as Templates cant be executed
    */
+  // TODO: besides GitHub, do different Integrations work in different ways. Are some a pop out and some internal?
   const handleEnable = async (closeModal: () => void) => {
     try {
       // // @ts-ignore:next-line
@@ -93,7 +76,6 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
     }
   };
 
-  //TODO determine if we need the button to launch the modal or can the whole card be a button
   return (
     <ComposedModal
       composedModalProps={{ containerClassName: styles.modalContainer }}
@@ -125,7 +107,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
             </section>
             <Popup size={24} className={styles.cardIcon} />
             <section className={styles.launch}></section>
-            {isDeleting || isExecuting ? (
+            {unlinkIntegrationMutator.isLoading ? (
               <InlineLoading
                 description="Loading.."
                 style={{ position: "absolute", left: "0.5rem", top: "0", width: "fit-content" }}
@@ -150,8 +132,9 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
       {({ closeModal }: ComposedModalChildProps) => (
         <ModalContent
           closeModal={closeModal}
-          executeError={executeError}
+          error={unlinkIntegrationMutator.error}
           handleEnable={handleEnable}
+          handleDisable={handleDisable}
           errorMessage={errorMessage}
           data={data}
         />
@@ -183,26 +166,6 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
               />
             )}
           </ComposedModal>
-        ) : ( */
-}
-{
-  /* {data.status === "active" ? (
-          <ConfirmModal
-            affirmativeAction={handleDisable}
-            affirmativeButtonProps={{ kind: "danger" }}
-            affirmativeText="Disable"
-            isOpen={isDeleteModalOpen}
-            negativeAction={() => {
-              setIsDeleteModalOpen(false);
-            }}
-            negativeText="Cancel"
-            onCloseModal={() => {
-              setIsDeleteModalOpen(false);
-            }}
-            title={`Disable Integration`}
-          >
-            {`Are you sure you want to disable the ${data.name.toLowerCase()} integration?.`}
-          </ConfirmModal>
         ) : ( */
 }
 
