@@ -30,6 +30,13 @@ const ModalContent: React.FC<ModalContentProps> = ({
       )}
       <ModalBody>
         <ReactMarkdown className="markdown-body" children={data.instructions} />
+        {data.status == "linked" && (
+          <InlineNotification
+            lowContrast
+            kind="info"
+            subtitle="Disabling this integration will remove any access to related events or triggers"
+          />
+        )}
       </ModalBody>
       <ModalFooter>
         <Button kind="secondary" type="button" onClick={closeModal}>
