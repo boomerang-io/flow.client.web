@@ -25,7 +25,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
   const handleDisable = async (closeModal: () => void) => {
     const requestBody = {
       team: teamName,
-      installationId: data.ref,
+      ref: data.ref,
     };
     try {
       await unlinkIntegrationMutator.mutateAsync({ body: requestBody });

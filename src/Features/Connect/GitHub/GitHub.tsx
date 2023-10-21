@@ -43,7 +43,7 @@ export default function Github({ installId }: GitHubProps) {
   const handleLink = async (values: any) => {
     const requestBody = {
       team: values.team,
-      installationId: installId,
+      ref: installId,
     };
     try {
       await postGitHubAppLinkMutation.mutateAsync({ body: requestBody });
