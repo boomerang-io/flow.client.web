@@ -22,7 +22,7 @@ export default function Github({ installId }: GitHubProps) {
   const history = useHistory();
   // const queryClient = useQueryClient();
 
-  const getGitHubInstallationUrl = serviceUrl.getGitHubAppInstallations({
+  const getGitHubInstallationUrl = serviceUrl.getGitHubAppInstallation({
     id: installId,
   });
 

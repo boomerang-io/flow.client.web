@@ -338,12 +338,6 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 />
                 <ProtectedRoute
                   allowedUserRoles={["*"]}
-                  component={() => <Integrations />}
-                  path={AppPath.Integrations}
-                  userRole={activityEnabled ? "*" : ""}
-                />
-                <ProtectedRoute
-                  allowedUserRoles={["*"]}
                   component={() => <TeamParameters />}
                   path={AppPath.ManageTeamParameters}
                   userRole={teamParametersEnabled ? "*" : ""}
@@ -365,6 +359,9 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 </Route>
                 <Route path={AppPath.Integrations}>
                   <Integrations />
+                </Route>
+                <Route path={AppPath.ManageTaskTemplates}>
+                  <TeamTasks />
                 </Route>
                 <Redirect exact from="/" to={AppPath.Workflows} />
                 <Route path="*" component={() => <Error404 theme="boomerang" />} />

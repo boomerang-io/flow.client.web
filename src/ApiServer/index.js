@@ -582,7 +582,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.integrations[0];
       });
 
-      this.get(serviceUrl.getGitHubAppInstallations({ id: null }), (schema, request) => {
+      this.get(serviceUrl.getGitHubAppInstallation({ id: null }), (schema, request) => {
         return schema.db.installations[0];
       });
 

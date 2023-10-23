@@ -17,7 +17,7 @@ const NavPanel: React.FC<NavPanelProps> = ({ team, workflowId }) => {
   // List of Nav Items
   const navigationItems = [
     {
-      name: "General Info",
+      name: "General",
       path: `${appLink.editorConfigureGeneral({
         team: team,
         workflowId: workflowId,

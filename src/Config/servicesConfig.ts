@@ -133,7 +133,8 @@ export const serviceUrl = {
   workflowAvailableParameters: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
   getWorkflowTemplates: () => `${BASE_URL}/workflowtemplate/query`,
   resourceTriggers: () => `${BASE_URL}/triggers`,
-  getGitHubAppInstallations: ({ id }: IdArg) => `${BASE_URL}/integration/github/installations?id=${id}`,
+  getGitHubAppInstallation: ({ id }: IdArg) => `${BASE_URL}/integration/github/installation?id=${id}`,
+  getGitHubAppInstallationForTeam: ({ team }: TeamArg) => `${BASE_URL}/integration/github/installation?team=${team}`,
   postGitHubAppLink: () => `${BASE_URL}/integration/github/link`,
   postGitHubAppUnlink: () => `${BASE_URL}/integration/github/unlink`,
 };
