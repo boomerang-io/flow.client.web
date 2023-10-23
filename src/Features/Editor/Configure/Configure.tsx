@@ -240,6 +240,53 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   </TooltipHover>
                 ))}
               </div>
+              <h2 className={styles.iconTitle}>Labels</h2>
+              <p className={styles.sectionDescription}>
+                Create labels that can be used to query for specific Workflows, used at execution time, and can be
+                useful in debugging the Workflow.
+              </p>
+              {/* <a
+                aria-describedby="new-window-aria-desc-0"
+                className={styles.link}
+                href={appLink.docsWorkflowEditor()}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="docs-link"
+              >
+                For more details, check our Docs
+              </a> */}
+              <div className={styles.labelsContainer}>
+                <div className={styles.tagsContainer}>
+                  <FieldArray
+                    name="labels"
+                    render={(arrayHelpers) =>
+                      values.labels.map((label, index) => {
+                        return (
+                          <CustomLabel
+                            formikPropsSetFieldValue={setFieldValue}
+                            isEdit
+                            editTrigger={({ openModal }: { openModal: () => void }) => (
+                              <Tag
+                                type="teal"
+                                key={index}
+                                filter
+                                onClick={openModal}
+                                onClose={() => arrayHelpers.remove(index)}
+                                selectedLabel={label}
+                              >
+                                {`${label.key}=${label.value}`}
+                              </Tag>
+                            )}
+                            labels={values.labels}
+                            selectedLabel={{ ...label, index }}
+                          />
+                        );
+                      })
+                    }
+                  />
+                </div>
+                <CustomLabel formikPropsSetFieldValue={setFieldValue} labels={values.labels} />
+              </div>
             </Section>
           </Route>
           <Route exact path={AppPath.EditorConfigureTriggers}>
@@ -544,55 +591,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                     </ComposedModal>
                   </div>
                 )}
-              </div>
-            </Section>
-
-            <Section
-              title="Labels"
-              description="Create labels that can be used to query for specific workflows, used at execution time, and can be
-              useful in debugging the workflow."
-            >
-              <a
-                aria-describedby="new-window-aria-desc-0"
-                className={styles.link}
-                href={appLink.docsWorkflowEditor()}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="docs-link"
-              >
-                For more details, check our Docs
-              </a>
-              <div className={styles.labelsContainer}>
-                <div className={styles.tagsContainer}>
-                  <FieldArray
-                    name="labels"
-                    render={(arrayHelpers) =>
-                      values.labels.map((label, index) => {
-                        return (
-                          <CustomLabel
-                            formikPropsSetFieldValue={setFieldValue}
-                            isEdit
-                            editTrigger={({ openModal }: { openModal: () => void }) => (
-                              <Tag
-                                type="teal"
-                                key={index}
-                                filter
-                                onClick={openModal}
-                                onClose={() => arrayHelpers.remove(index)}
-                                selectedLabel={label}
-                              >
-                                {`${label.key}=${label.value}`}
-                              </Tag>
-                            )}
-                            labels={values.labels}
-                            selectedLabel={{ ...label, index }}
-                          />
-                        );
-                      })
-                    }
-                  />
-                </div>
-                <CustomLabel formikPropsSetFieldValue={setFieldValue} labels={values.labels} />
               </div>
             </Section>
           </Route>

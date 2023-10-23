@@ -30,43 +30,6 @@
   }
 }
 
-.header {
-  color: var(--cds-text-01);
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-top: 2.5rem;
-}
-
-.subTitle {
-  font-size: 0.875rem;
-  margin-bottom: 1rem;
-}
-
-.largeCol {
-  border-right: 0.0625rem solid var(--cds-text-03);
-  height: 100%;
-  min-height: fit-content;
-  padding: 0 2rem 2rem 2rem;
-  width: 100%;
-
-  &:last-child {
-    border: 0;
-  }
-}
-
-.smallCol {
-  border-right: 0.0625rem solid var(--cds-text-03);
-  min-height: fit-content;
-  padding: 0 2rem 2rem 2rem;
-  width: 100%;
-}
-
-.teamSelect {
-  input + button {
-    display: none;
-  }
-}
-
 .iconTitle {
   font-size: 0.875rem;
   font-weight: 600;
@@ -189,25 +152,6 @@
   }
 }
 
-.informationCronMessage,
-//.informationTimeZone,
-.webhookToken {
-  color: var(--cds-text-01);
-  font-size: 0.75rem;
-  line-height: 0.9375rem;
-}
-
-.webhookToken {
-  font-family: monospace;
-}
-
-.webhookImg {
-  cursor: pointer;
-  height: 1rem;
-  width: 1rem;
-  fill: var(--cds-icon-02);
-}
-
 .descriptionContainer {
   position: relative;
 }
@@ -235,35 +179,10 @@
   }
 }
 
-.webhookTokenLabel {
-  color: #525252;
-  font-size: 0.75rem;
-  letter-spacing: 0.02rem;
-  line-height: 1rem;
-  margin-bottom: 0.25rem;
-}
-
-.showTextButton {
-  line-height: 0;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
 .schedulerContainer {
   padding-left: 3.5rem;
   p {
     font-size: 0.875rem;
-  }
-}
-
-.subscriptionContainer {
-  padding-left: 3.5rem;
-
-  :global .cds--text-input__field-wrapper {
-    width: fit-content;
-  }
-  :global .cds--text__input {
-    width: fit-content;
   }
 }
 
@@ -281,13 +200,8 @@
   }
 }
 
-.optionsContainer,
 .labelsContainer {
   padding-bottom: 2.5rem;
-}
-
-.scheduleIcon {
-  margin-left: 0.5rem;
 }
 
 .buildWebhookContainer {
@@ -307,7 +221,7 @@
 }
 
 .runOptionsSection {
-  max-width: 16rem;
+  max-width: 25rem;
 }
 
 .sectionContainer {
@@ -337,5 +251,6 @@
   letter-spacing: 0.01rem;
   line-height: 1.125rem;
   margin-top: 1.25rem;
+  margin-bottom: .75rem;
   width: 41.1875rem;
 }
