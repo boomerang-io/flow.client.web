@@ -1,0 +1,60 @@
+import React from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import {
+  FeatureSideNav as SideNav,
+  FeatureSideNavLink as SideNavLink,
+  FeatureSideNavLinks as SideNavLinks,
+} from "@boomerang-io/carbon-addons-boomerang-react";
+import { appLink } from "Config/appConfig";
+import styles from "./navPanel.module.scss";
+
+interface NavPanelProps {
+  team: string;
+  workflowId: string;
+}
+
+const NavPanel: React.FC<NavPanelProps> = ({ team, workflowId }) => {
+  // List of Nav Items
+  const navigationItems = [
+    {
+      name: "General Info",
+      path: `${appLink.editorConfigureGeneral({
+        team: team,
+        workflowId: workflowId,
+      })}`,
+    },
+    {
+      name: "Triggers, Webhooks & Events",
+      path: `${appLink.editorConfigureTriggers({
+        team: team,
+        workflowId: workflowId,
+      })}`,
+    },
+    {
+      name: "Run Options",
+      path: `${appLink.editorConfigureRun({
+        team: team,
+        workflowId: workflowId,
+      })}`,
+    },
+    {
+      name: "Workspaces",
+      path: `${appLink.editorConfigureWorkspaces({
+        team: team,
+        workflowId: workflowId,
+      })}`,
+    },
+  ];
+
+  return (
+    <SideNav className={styles.container} border="right">
+      <SideNavLinks>
+        {navigationItems.map((item) => {
+          return <SideNavLink to={item.path}>{item.name}</SideNavLink>;
+        })}
+      </SideNavLinks>
+    </SideNav>
+  );
+};
+
+export default NavPanel;

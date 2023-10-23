@@ -1,5 +1,12 @@
 @import "Styles/mixins";
 
+.configContainer {
+  width: 100%;
+  height: calc(100vh - 3rem);
+  overflow: auto;
+  display: flex;
+}
+
 .delimiter {
   border: 0;
   border-top: 0.0625rem solid var(--cds-text-03);

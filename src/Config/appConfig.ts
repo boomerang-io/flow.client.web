@@ -26,6 +26,10 @@ type AppPathKey =
   | "Editor"
   | "EditorDesigner"
   | "EditorConfigure"
+  | "EditorConfigureGeneral"
+  | "EditorConfigureTriggers"
+  | "EditorConfigureRun"
+  | "EditorConfigureWorkspaces"
   | "EditorTokens"
   | "EditorChangelog"
   | "EditorProperties"
@@ -73,6 +77,10 @@ export const AppPath: Record<AppPathKey, string> = {
   Editor: "/:team/editor/:workflowId",
   EditorDesigner: `/:team/editor/:workflowId/workflow`,
   EditorConfigure: `/:team/editor/:workflowId/configure`,
+  EditorConfigureGeneral: `/:team/editor/:workflowId/configure/general`,
+  EditorConfigureTriggers: `/:team/editor/:workflowId/configure/triggers`,
+  EditorConfigureRun: `/:team/editor/:workflowId/configure/run`,
+  EditorConfigureWorkspaces: `/:team/editor/:workflowId/configure/workspaces`,
   EditorTokens: `/:team/editor/:workflowId/tokens`,
   EditorChangelog: `/:team/editor/:workflowId/changelog`,
   EditorProperties: `/:team/editor/:workflowId/parameters`,
@@ -146,6 +154,10 @@ export const appLink = {
   actionsManual: ({ team }: TeamArg) => `/${team}/actions/manual`,
   editorDesigner: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/workflow`,
   editorConfigure: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure`,
+  editorConfigureGeneral: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/general`,
+  editorConfigureTriggers: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/triggers`,
+  editorConfigureRun: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/run`,
+  editorConfigureWorkspaces: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/workspaces`,
   editorTokens: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/tokens`,
   editorChangelog: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/changelog`,
   editorProperties: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/parameters`,

@@ -84,7 +84,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
     <ComposedModal
       composedModalProps={{ containerClassName: styles.modalContainer }}
       modalHeaderProps={{
-        title: `Enable ${data.name} Integration`,
+        title: `Configure ${data.name} Integration`,
         subtitle: `${data.description}`,
       }}
       modalTrigger={({ openModal }: ModalTriggerProps) => (
