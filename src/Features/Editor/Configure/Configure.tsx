@@ -518,8 +518,8 @@ function Configure(props: ConfigureProps) {
                       id="triggers.github.repositories"
                       label="Choose Repositories"
                       invalid={false}
-                      onChange={({ selectedItems }: { selectedItems: Array<{ key: string; value: string }> }) =>
-                        props.formikProps.setFieldValue("triggers.github.repositories", selectedItems)
+                      onChange={({ selectedItems }: { selectedItems: Array<{ label: string; value: string }> }) =>
+                        props.formikProps.setFieldValue("triggers.github.repositories", selectedItems.values)
                       }
                       items={githubRepositories}
                       selectedItem={values.triggers.github.repositories}
