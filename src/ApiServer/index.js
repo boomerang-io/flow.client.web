@@ -586,6 +586,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.installations[0];
       });
 
+      this.get(serviceUrl.getGitHubAppInstallationForTeam({ team: null }), (schema, request) => {
+        return schema.db.installations[0];
+      });
+
       /**
        * Workflow Templates
        */

@@ -754,5 +754,10 @@ export interface ConfigureWorkflowFormValues {
     webhook: {
       enable: boolean;
     };
+    github: {
+      enable: boolean;
+      events: Array<string>;
+      repositories: Array<string>;
+    };
   };
 }

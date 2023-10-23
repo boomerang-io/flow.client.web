@@ -164,7 +164,7 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
                 formikProps={formikProps}
                 quotas={quotas}
                 workflow={workflow}
-                getGitHubInstallationQuery={getGitHubInstallationQuery}
+                githubAppInstallation={getGitHubInstallationQuery.data}
               />
             </div>
           ) : null
@@ -184,7 +184,7 @@ interface ConfigureProps {
     maxWorkflowStorageSize: string;
   };
   workflow: Workflow;
-  getGitHubInstallationQuery: any;
+  githubAppInstallation: any;
 }
 
 function Configure(props: ConfigureProps) {
@@ -197,12 +197,18 @@ function Configure(props: ConfigureProps) {
     formikProps: { errors, handleBlur, touched, values, setFieldValue },
   } = props;
 
-  const ghEvents = [
-    { labelText: "Cat", id: "cat" },
-    { labelText: "Dog", id: "dog" },
-    { labelText: "Panda", id: "panda" },
-    { labelText: "Parrot", id: "parrot" },
-  ];
+  const githubEvents = props.githubAppInstallation?.events
+    ? props.githubAppInstallation.events.map((item: string) => ({
+        labelText: item,
+        id: item,
+      }))
+    : [];
+  const githubRepositories = props.githubAppInstallation?.repositories
+    ? props.githubAppInstallation.repositories.map((item: string) => ({
+        label: props.githubAppInstallation.orgSlug + " / " + item,
+        value: item,
+      }))
+    : [];
 
   return (
     <div aria-label="Configure" className={styles.wrapper} role="region">
@@ -320,7 +326,7 @@ function Configure(props: ConfigureProps) {
                     label="Enable"
                     onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.manual.enable")}
                     toggled={values.triggers.manual.enable}
-                    tooltipContent="Enable workflow to be executed manually"
+                    tooltipContent="When enabled, you will be able to trigger this Workflow through the UI and API."
                     tooltipProps={{ direction: "top" }}
                   />
                 </div>
@@ -469,11 +475,21 @@ function Configure(props: ConfigureProps) {
               </Section>
               <Section
                 title="GitHub"
-                description="Listen for and respond to events from GitHub. The GitHub integration must be enabled for this Trigger
+                description="Listen for and respond to events from GitHub. Filter the events and repositories that will trigger this Workflow. The GitHub integration must be enabled for this Trigger
                   to work."
                 beta
               >
-                {props.getGitHubInstallationQuery.data?.length() <= 0 && (
+                <div className={styles.toggleContainer}>
+                  <Toggle
+                    id="triggers.github.enable"
+                    label="Enable"
+                    toggled={values.triggers.github.enable}
+                    onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.github.enable")}
+                    reversed
+                    disabled={!props.githubAppInstallation}
+                  />
+                </div>
+                {!props.githubAppInstallation && (
                   <InlineNotification
                     lowContrast
                     kind="warning"
@@ -483,20 +499,7 @@ function Configure(props: ConfigureProps) {
                     hideCloseButton
                   />
                 )}
-                {!props.getGitHubInstallationQuery.data && (
-                  <div className={styles.toggleContainer}>
-                    <Toggle
-                      id="triggers.github.enable"
-                      label="Enable"
-                      toggled={values.triggers.github.enable}
-                      onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.github.enable")}
-                      tooltipContent="Enable GitHub events to trigger this Workflow"
-                      tooltipProps={{ direction: "top" }}
-                      reversed
-                    />
-                  </div>
-                )}
-                {values.triggers.github.enable && !props.getGitHubInstallationQuery.data && (
+                {values.triggers.github.enable && props.githubAppInstallation && (
                   <>
                     <h2 className={styles.iconTitle}>Events Filter</h2>
                     <CheckboxList
@@ -504,7 +507,7 @@ function Configure(props: ConfigureProps) {
                       initialSelectedItems={["peacock"]}
                       labelText="Select events that you wish to trigger this Workflow"
                       onChange={(args) => console.log(args)}
-                      options={props.getGitHubInstallationQuery.data.events}
+                      options={githubEvents}
                       tooltipContent="Tooltip for checkbox"
                       tooltipProps={{ direction: "top" }}
                     />
@@ -518,7 +521,7 @@ function Configure(props: ConfigureProps) {
                       onChange={({ selectedItems }: { selectedItems: Array<{ key: string; value: string }> }) =>
                         props.formikProps.setFieldValue("triggers.github.repositories", selectedItems)
                       }
-                      items={props.getGitHubInstallationQuery.data.repositories}
+                      items={githubRepositories}
                       selectedItem={values.triggers.github.repositories}
                       titleText="Filter by Repository"
                     />
