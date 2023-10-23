@@ -530,6 +530,37 @@ lookUpUser
                 <dt
                   class="label"
                 >
+                  Service Account Name
+                </dt>
+                <dd
+                  class="value"
+                  data-testid="Service Account Name"
+                >
+                  default
+                </dd>
+              </section>
+              <section
+                class="infoSection"
+              >
+                <dt
+                  class="label"
+                >
+                  Security Context
+                </dt>
+                <dd
+                  class="value"
+                  data-testid="Security Context"
+                >
+                  runAsNonRoot: true
+runAsUser: 100
+                </dd>
+              </section>
+              <section
+                class="infoSection"
+              >
+                <dt
+                  class="label"
+                >
                   Contribution level
                 </dt>
                 <div
