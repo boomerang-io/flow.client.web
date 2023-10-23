@@ -579,7 +579,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       * Integrations
       */ 
       this.get(serviceUrl.getIntegrations({ team: null }), (schema, request) => {
-        return schema.db.integrations[0];
+        return schema.db.integrations;
       });
 
       this.get(serviceUrl.getGitHubAppInstallation({ id: null }), (schema, request) => {

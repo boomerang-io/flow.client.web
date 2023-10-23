@@ -1,82 +1,24 @@
-const integrations = {
-  content: [
-    {
-      id: "12345",
-      name: "Slack",
-      description: "Connects your team to the Slack App.",
-      creationDate: "2022-01-05T22:50:12.204+00:00",
-      version: 2,
-      icon: "bot",
-      status: "active",
-      annotations: {},
-      config: [
-        {
-          required: true,
-          placeholder: null,
-          language: null,
-          disabled: null,
-          defaultValue: null,
-          value: null,
-          values: null,
-          readOnly: false,
-          description: "Tenant ID from the platform.",
-          key: "tenant",
-          label: "Tenant ID",
-          type: "password",
-          min: null,
-          max: null,
-          options: null,
-          helperText: null,
-          hiddenValue: true,
-        },
-      ],
-    },
-    {
-      id: "55555",
-      name: "GitHub",
-      description: "",
-      creationDate: "2022-01-07T00:29:47.041+00:00",
-      version: 8,
-      icon: "cloud upload",
-      status: "active",
-      annotations: {},
-      config: [
-        {
-          required: true,
-          placeholder: null,
-          language: null,
-          disabled: null,
-          defaultValue: "hello",
-          value: null,
-          values: null,
-          readOnly: false,
-          description: "here is my test",
-          key: "system.component.name",
-          label: "Component Name",
-          type: "password",
-          minValueLength: 0,
-          maxValueLength: 256,
-          options: null,
-          helperText: "what",
-          hiddenValue: true,
-        },
-      ],
-    },
-  ],
-  number: 0,
-  size: 2,
-  totalElements: 2,
-  pageable: "INSTANCE",
-  last: true,
-  totalPages: 1,
-  sort: {
-    sorted: false,
-    empty: true,
-    unsorted: true,
+const integrations = [
+  {
+    id: "6530f9117c0d9dbede38d645",
+    name: "Slack",
+    link: "",
+    icon: "https://assets-global.website-files.com/621c8d7ad9e04933c4e51ffb/622b2930098c680e60fe39f7_mark.png",
+    status: "unlinked",
+    description: "Send a message to Slack",
+    instructions: "",
+    ref: "6536f7d1c09d1a74a7d348f6"
   },
-  first: true,
-  numberOfElements: 2,
-  empty: false,
-};
+  {
+    id: "6530f9587c0d9dbede38d6e3",
+    name: "GitHub",
+    link: "https://github.com/apps/flowabl-io/installations/select_target",
+    icon: "https://vercel.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F1QAkKuUQwpCKWozZN5GRph%2Fe2471e32b0dbc9fb74779d5909e939ad%2FFrame_4.png&w=3840&q=75&dpl=dpl_2LT6R8QY6etDhPFWrUq4QJcVhwAR",
+    status: "linked",
+    description: "Integrate with GitHub and receive related events",
+    instructions: "### Enable\n\nTo enable this integration, you will be asked:\n- to accept the GitHub App permissions, and\n- select a GitHub organisation to install into.\n\nOnce you have installed the app, you will be redirected back to complete the integration by choosing which team to link the app to.\n\n### Disable\n\nTo disable this integration, you can either\n- remove the GitHub App installation from your GitHub organisation, or\n- unlink the app by reopening this integration modal and selecting 'disable'",
+    ref: "6536f7d1c09d1a74a7d348f6"
+  }
+]
 
 export default integrations;
