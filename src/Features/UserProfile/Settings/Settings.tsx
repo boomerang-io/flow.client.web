@@ -190,7 +190,14 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
 //   );
 // }
 
-function SettingSection({ children, description, editModal, title }) {
+interface SettingsSectionProps {
+  children: React.ReactNode;
+  description?: string;
+  editModal?: React.ReactNode;
+  title: string;
+}
+
+function SettingSection({ children, description, editModal, title }: SettingsSectionProps) {
   return (
     <section className={styles.sectionContainer}>
       <div className={styles.sectionHeader}>

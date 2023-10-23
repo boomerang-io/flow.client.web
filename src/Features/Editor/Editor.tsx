@@ -36,7 +36,7 @@ import { FormikProps } from "formik";
 import type { ReactFlowInstance } from "reactflow";
 import styles from "./editor.module.scss";
 
-const CREATEABLE_PATHS = ["workflow", "parameters", "configure"];
+const CREATEABLE_PATHS = ["workflow", "parameters", "configure", "general", "triggers", "run", "workspaces"];
 
 export default function EditorContainer() {
   const { team } = useTeamContext();

@@ -51,7 +51,7 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
       <Helmet>
         <title>{`Configure - ${workflow.name}`}</title>
       </Helmet>
-      <div className={styles.configContainer}>
+      <div className={styles.container}>
         <NavPanel team={params.team} workflowId={params.workflowId}></NavPanel>
         <Formik<ConfigureWorkflowFormValues>
           innerRef={settingsRef}
@@ -190,9 +190,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
       <div aria-label="Configure" className={styles.wrapper} role="region">
         <Switch>
           <Route exact path={AppPath.EditorConfigureGeneral}>
-            <section className={styles.largeCol}>
-              <h1 className={styles.header}>General info</h1>
-              <p className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</p>
+            <Section title="General Info" description="The bare necessities - you gotta fill out all these fields">
               <TextInput
                 id="name"
                 label="Name"
@@ -242,13 +240,11 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   </TooltipHover>
                 ))}
               </div>
-            </section>
+            </Section>
           </Route>
           <Route exact path={AppPath.EditorConfigureTriggers}>
             {this.props.workflowTriggersEnabled && (
-              <section className={styles.largeCol}>
-                <h1 className={styles.header}>Triggers</h1>
-                <p className={styles.subTitle}>Off - until you turn them on. (Feel the power).</p>
+              <Section title="Triggers" description="Off - until you turn them on. (Feel the power).">
                 <div className={styles.triggerContainer}>
                   <div className={styles.triggerSection}>
                     <div className={styles.toggleContainer}>
@@ -397,13 +393,11 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                     )}
                   </div>
                 </div>
-              </section>
+              </Section>
             )}
           </Route>
           <Route exact path={AppPath.EditorConfigureRun}>
-            <section className={styles.largeCol}>
-              <h1 className={styles.header}>Run Options</h1>
-              <p className={styles.subTitle}>Customize how your Workflow runs</p>
+            <Section title="Run Options" description="Customize how your Workflow behaves.">
               <div>
                 <div className={styles.runOptionsSection}>
                   <TextInput
@@ -429,187 +423,202 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   />
                 </div>
               </div>
-            </section>
+            </Section>
           </Route>
           <Route exact path={AppPath.EditorConfigureWorkspaces}>
-            <section className={styles.largeCol}>
-              <div className={styles.optionsContainer}>
-                <h1 className={styles.header}>Workspaces</h1>
-                <p className={styles.subTitle}>
-                  Workspaces allow your workflow to declare storage options to be used at execution time. This will be
-                  limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum.
-                </p>
-                <div className={styles.storageToggle}>
-                  <div className={styles.toggleContainer}>
-                    <Toggle
-                      id="enableWorkflowPersistentStorage"
-                      label="Enable Workflow Persistent Storage"
-                      toggled={values.storage?.workflow?.enabled}
-                      onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflow.enabled")}
-                      tooltipContent="Persist data across workflow executions"
-                      tooltipProps={{ direction: "top" }}
-                      reversed
-                    />
-                  </div>
-                  {values.storage?.workflow?.enabled && (
-                    <div className={styles.webhookContainer}>
-                      <ComposedModal
-                        modalHeaderProps={{
-                          title: "Configure Workspace - Workflow Persistent Storage",
-                          subtitle: (
-                            <>
-                              <p>
-                                The Workflow storage is persisted across workflow executions and allows you to share
-                                artifacts between workflows, such as maintaining a cache of files used every execution.
-                              </p>
-                              <p style={{ marginTop: "0.5rem" }}>
-                                Note: use with caution as this can lead to a collision if you are running many
-                                executions in parallel using the same artifact.
-                              </p>
-                            </>
-                          ),
-                        }}
-                        composedModalProps={
-                          {
-                            // containerClassName: styles.buildWebhookContainer,
-                            // shouldCloseOnOverlayClick: true,
-                          }
+            <Section
+              title="Workspaces"
+              description="Declare storage options to be used at execution time. This will be
+                  limited by the Storage Capacity quota which will error executions if you exceed the allowed maximum."
+            >
+              <div className={styles.storageToggle}>
+                <div className={styles.toggleContainer}>
+                  <Toggle
+                    id="enableWorkflowPersistentStorage"
+                    label="Enable Workflow Persistent Storage"
+                    toggled={values.storage?.workflow?.enabled}
+                    onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflow.enabled")}
+                    tooltipContent="Persist data across workflow executions"
+                    tooltipProps={{ direction: "top" }}
+                    reversed
+                  />
+                </div>
+                {values.storage?.workflow?.enabled && (
+                  <div className={styles.webhookContainer}>
+                    <ComposedModal
+                      modalHeaderProps={{
+                        title: "Configure Workspace - Workflow Persistent Storage",
+                        subtitle: (
+                          <>
+                            <p>
+                              The Workflow storage is persisted across workflow executions and allows you to share
+                              artifacts between workflows, such as maintaining a cache of files used every execution.
+                            </p>
+                            <p style={{ marginTop: "0.5rem" }}>
+                              Note: use with caution as this can lead to a collision if you are running many executions
+                              in parallel using the same artifact.
+                            </p>
+                          </>
+                        ),
+                      }}
+                      composedModalProps={
+                        {
+                          // containerClassName: styles.buildWebhookContainer,
+                          // shouldCloseOnOverlayClick: true,
                         }
-                        modalTrigger={({ openModal }: { openModal: () => void }) => (
-                          <button
-                            className={styles.regenerateText}
-                            style={{ marginBottom: "0.5rem" }}
-                            type="button"
-                            onClick={openModal}
-                          >
-                            <p>Configure</p>
-                          </button>
-                        )}
-                      >
-                        {({ closeModal }: { closeModal: () => void }) => (
-                          <ConfigureStorage
-                            size={values.storage?.workflow?.size}
-                            mountPath={values.storage?.workflow?.mountPath}
-                            handleOnChange={(storageValues: any) => {
-                              setFieldValue("storage.workflow", storageValues);
-                            }}
-                            closeModal={closeModal}
-                            quotas={quotas.maxWorkflowStorageSize}
-                          />
-                        )}
-                      </ComposedModal>
-                    </div>
-                  )}
-                </div>
-                <div className={styles.storageToggle}>
-                  <div className={styles.toggleContainer}>
-                    <Toggle
-                      id="enableActivityPersistentStorage"
-                      label="Enable Activity Persistent Storage"
-                      toggled={values.storage?.workflowrun?.enabled}
-                      onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflowrun.enabled")}
-                      tooltipContent="Persist workflow data per executions"
-                      tooltipProps={{ direction: "top" }}
-                      reversed
-                    />
-                  </div>
-                  {values.storage?.workflowrun?.enabled && (
-                    <div className={styles.webhookContainer}>
-                      <ComposedModal
-                        modalHeaderProps={{
-                          title: "Configure Workflow - Activity Persistent Storage",
-                          subtitle: (
-                            <>
-                              <p>
-                                The activity storage is persisted per workflow execution and allows you to share
-                                short-lived artifacts between tasks in the workflow.
-                              </p>
-                              <p style={{ marginTop: "0.5rem" }}>
-                                Note: All artifacts will be deleted at the end of the workflow execution. If you want to
-                                persist long term use Workspace storage.
-                              </p>
-                            </>
-                          ),
-                        }}
-                        modalTrigger={({ openModal }: { openModal: () => void }) => (
-                          <button className={styles.regenerateText} type="button" onClick={openModal}>
-                            <p>Configure</p>
-                          </button>
-                        )}
-                      >
-                        {({ closeModal }: { closeModal: () => void }) => (
-                          <ConfigureStorage
-                            size={values.storage.workflowrun.size}
-                            mountPath={values.storage.workflowrun.mountPath}
-                            handleOnChange={(storageValues: any) => {
-                              setFieldValue("storage.activity", storageValues);
-                            }}
-                            closeModal={closeModal}
-                            quotas={quotas.maxActivityStorageSize}
-                            isActivity
-                          />
-                        )}
-                      </ComposedModal>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <hr className={styles.delimiter} />
-              <div className={styles.labelsContainer}>
-                <h1 className={styles.header}>Labels</h1>
-                <p className={styles.subTitle}>
-                  Create labels that can be used to query for specific workflows, used at execution time, and can be
-                  useful in debugging the workflow.
-                  <a
-                    aria-describedby="new-window-aria-desc-0"
-                    className={styles.link}
-                    href={appLink.docsWorkflowEditor()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-testid="docs-link"
-                  >
-                    For more details, check our Docs
-                  </a>
-                  .
-                </p>
-                <div className={styles.labelsContainer}>
-                  <div className={styles.tagsContainer}>
-                    <FieldArray
-                      name="labels"
-                      render={(arrayHelpers) =>
-                        values.labels.map((label, index) => {
-                          return (
-                            <CustomLabel
-                              formikPropsSetFieldValue={setFieldValue}
-                              isEdit
-                              editTrigger={({ openModal }: { openModal: () => void }) => (
-                                <Tag
-                                  type="teal"
-                                  key={index}
-                                  filter
-                                  onClick={openModal}
-                                  onClose={() => arrayHelpers.remove(index)}
-                                  selectedLabel={label}
-                                >
-                                  {`${label.key}=${label.value}`}
-                                </Tag>
-                              )}
-                              labels={values.labels}
-                              selectedLabel={{ ...label, index }}
-                            />
-                          );
-                        })
                       }
-                    />
+                      modalTrigger={({ openModal }: { openModal: () => void }) => (
+                        <button
+                          className={styles.regenerateText}
+                          style={{ marginBottom: "0.5rem" }}
+                          type="button"
+                          onClick={openModal}
+                        >
+                          <p>Configure</p>
+                        </button>
+                      )}
+                    >
+                      {({ closeModal }: { closeModal: () => void }) => (
+                        <ConfigureStorage
+                          size={values.storage?.workflow?.size}
+                          mountPath={values.storage?.workflow?.mountPath}
+                          handleOnChange={(storageValues: any) => {
+                            setFieldValue("storage.workflow", storageValues);
+                          }}
+                          closeModal={closeModal}
+                          quotas={quotas.maxWorkflowStorageSize}
+                        />
+                      )}
+                    </ComposedModal>
                   </div>
-                  <CustomLabel formikPropsSetFieldValue={setFieldValue} labels={values.labels} />
-                </div>
+                )}
               </div>
-            </section>
+              <div className={styles.storageToggle}>
+                <div className={styles.toggleContainer}>
+                  <Toggle
+                    id="enableActivityPersistentStorage"
+                    label="Enable Activity Persistent Storage"
+                    toggled={values.storage?.workflowrun?.enabled}
+                    onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflowrun.enabled")}
+                    tooltipContent="Persist workflow data per executions"
+                    tooltipProps={{ direction: "top" }}
+                    reversed
+                  />
+                </div>
+                {values.storage?.workflowrun?.enabled && (
+                  <div className={styles.webhookContainer}>
+                    <ComposedModal
+                      modalHeaderProps={{
+                        title: "Configure Workflow - Activity Persistent Storage",
+                        subtitle: (
+                          <>
+                            <p>
+                              The activity storage is persisted per workflow execution and allows you to share
+                              short-lived artifacts between tasks in the workflow.
+                            </p>
+                            <p style={{ marginTop: "0.5rem" }}>
+                              Note: All artifacts will be deleted at the end of the workflow execution. If you want to
+                              persist long term use Workspace storage.
+                            </p>
+                          </>
+                        ),
+                      }}
+                      modalTrigger={({ openModal }: { openModal: () => void }) => (
+                        <button className={styles.regenerateText} type="button" onClick={openModal}>
+                          <p>Configure</p>
+                        </button>
+                      )}
+                    >
+                      {({ closeModal }: { closeModal: () => void }) => (
+                        <ConfigureStorage
+                          size={values.storage.workflowrun.size}
+                          mountPath={values.storage.workflowrun.mountPath}
+                          handleOnChange={(storageValues: any) => {
+                            setFieldValue("storage.activity", storageValues);
+                          }}
+                          closeModal={closeModal}
+                          quotas={quotas.maxActivityStorageSize}
+                          isActivity
+                        />
+                      )}
+                    </ComposedModal>
+                  </div>
+                )}
+              </div>
+            </Section>
+
+            <Section
+              title="Labels"
+              description="Create labels that can be used to query for specific workflows, used at execution time, and can be
+              useful in debugging the workflow."
+            >
+              <a
+                aria-describedby="new-window-aria-desc-0"
+                className={styles.link}
+                href={appLink.docsWorkflowEditor()}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="docs-link"
+              >
+                For more details, check our Docs
+              </a>
+              <div className={styles.labelsContainer}>
+                <div className={styles.tagsContainer}>
+                  <FieldArray
+                    name="labels"
+                    render={(arrayHelpers) =>
+                      values.labels.map((label, index) => {
+                        return (
+                          <CustomLabel
+                            formikPropsSetFieldValue={setFieldValue}
+                            isEdit
+                            editTrigger={({ openModal }: { openModal: () => void }) => (
+                              <Tag
+                                type="teal"
+                                key={index}
+                                filter
+                                onClick={openModal}
+                                onClose={() => arrayHelpers.remove(index)}
+                                selectedLabel={label}
+                              >
+                                {`${label.key}=${label.value}`}
+                              </Tag>
+                            )}
+                            labels={values.labels}
+                            selectedLabel={{ ...label, index }}
+                          />
+                        );
+                      })
+                    }
+                  />
+                </div>
+                <CustomLabel formikPropsSetFieldValue={setFieldValue} labels={values.labels} />
+              </div>
+            </Section>
           </Route>
           <Redirect exact from={AppPath.EditorConfigure} to={AppPath.EditorConfigureGeneral} />
         </Switch>
       </div>
     );
   }
+}
+
+interface SectionProps {
+  children: React.ReactNode;
+  description?: string;
+  editModal?: React.ReactNode;
+  title: string;
+}
+
+function Section({ children, description, editModal, title }: SectionProps) {
+  return (
+    <section className={styles.sectionContainer}>
+      <div className={styles.sectionHeader}>
+        <h1 className={styles.sectionTitle}>{title}</h1>
+        {editModal}
+      </div>
+      {description ? <p className={styles.sectionDescription}>{description}</p> : null}
+      {children}
+    </section>
+  );
 }

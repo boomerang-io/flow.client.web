@@ -1,27 +1,21 @@
 @import "Styles/mixins";
 
-.configContainer {
+.container {
   width: 100%;
   height: calc(100vh - 3rem);
   overflow: auto;
   display: flex;
 }
 
-.delimiter {
-  border: 0;
-  border-top: 0.0625rem solid var(--cds-text-03);
-  margin-left: -2rem;
-  margin-right: -2rem;
-}
-
 .wrapper {
-  display: grid;
-  grid-template-columns: 35% 35% 30%;
-  grid-auto-rows: min-content;
+  display: flex;
+  flex-direction: column;
   height: calc(100vh - 12.75rem);
-  min-width: 64rem;
-  overflow: auto;
   width: 100%;
+  max-width:50rem;
+  overflow: auto;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
 
   :global .cds--text-area__wrapper {
     width: 100%;
@@ -314,4 +308,34 @@
 
 .runOptionsSection {
   max-width: 16rem;
+}
+
+.sectionContainer {
+  padding-top: 1.5rem;
+  width: 100%;
+}
+
+.sectionContainer:nth-of-type(n+2) {
+    border-top: 0.0625rem solid var(--cds-active-ui);
+  } 
+
+.sectionHeader {
+  align-items: center;
+  display: flex;
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  letter-spacing: 0;
+  line-height: 1.4375rem;
+  margin: 0 0.5rem 0 0;
+  font-weight: 600;
+}
+
+.sectionDescription {
+  font-size: 0.875rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.125rem;
+  margin-top: 1.25rem;
+  width: 41.1875rem;
 }
