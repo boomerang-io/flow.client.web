@@ -1,15 +1,13 @@
 .container {
   display: flex;
   height: 100%;
+  overflow: hidden;
   position: relative;
-  overflow-x: hidden;
 
   .workflowContainer {
-    display: flex;
     flex-grow: 1;
     padding: 1rem;
     padding-right: 3rem;
-    position: relative;
     &.loading {
       justify-content: space-around;
       margin-top: 20vh;
