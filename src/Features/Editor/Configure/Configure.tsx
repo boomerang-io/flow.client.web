@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 import { Switch, Route, Redirect, useLocation, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -519,46 +519,36 @@ function Configure(props: ConfigureProps) {
                   />
                 )}
                 {values.triggers.github.enable && props.githubAppInstallation && (
-                  <>
-                    <h2 className={styles.iconTitle}>Events Filter</h2>
+                  <div className={styles.githubTriggerContainer}>
+                    <h3 className={styles.iconTitle}>Repository Filter</h3>
+                    <div style={{ maxWidth: "27.125rem" }}>
+                      <MultiSelect
+                        hideLabel
+                        id="triggers.github.repositories"
+                        label="Choose Repositories"
+                        invalid={false}
+                        onChange={({ selectedItems }: { selectedItems: Array<{ label: string; value: string }> }) =>
+                          props.formikProps.setFieldValue(
+                            "triggers.github.repositories",
+                            selectedItems.map((item) => item.value)
+                          )
+                        }
+                        items={githubRepositories}
+                        initialSelectedItems={values.triggers.github.repositories}
+                        titleText="Filter by Repository"
+                      />
+                    </div>
+                    <h3 className={styles.iconTitle}>Events Filter</h3>
                     <CheckboxList
                       id="triggers.github.events"
-                      initialSelectedItems={values.triggers.github.events}
+                      initialSelectedItems={["peacock"]}
                       labelText="Select events that you wish to trigger this Workflow"
-                      onChange={(checked: boolean, label: string) => {
-                        const selectedItems = [...values.triggers.github.events];
-                        if (checked) {
-                          selectedItems.push(label);
-                        } else {
-                          const index = selectedItems.indexOf(label);
-                          if (index !== -1) {
-                            selectedItems.splice(index, 1);
-                          }
-                        }
-                        props.formikProps.setFieldValue("triggers.github.events", selectedItems);
-                      }}
+                      onChange={(args) => console.log(args)}
                       options={githubEvents}
                       tooltipContent="Tooltip for checkbox"
                       tooltipProps={{ direction: "top" }}
                     />
-                    <h2 className={styles.iconTitle}>Repository Filter</h2>
-                    <MultiSelect
-                      style={{ maxWidth: "12rem" }}
-                      hideLabel
-                      id="triggers.github.repositories"
-                      label="Choose Repositories"
-                      invalid={false}
-                      onChange={({ selectedItems }: { selectedItems: Array<{ label: string; value: string }> }) =>
-                        props.formikProps.setFieldValue(
-                          "triggers.github.repositories",
-                          selectedItems.map((item) => item.value)
-                        )
-                      }
-                      items={githubRepositories}
-                      initialSelectedItems={values.triggers.github.repositories}
-                      titleText="Filter by Repository"
-                    />
-                  </>
+                  </div>
                 )}
               </Section>
             </>

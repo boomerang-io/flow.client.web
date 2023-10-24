@@ -254,3 +254,10 @@
   margin-bottom: .75rem;
   width: 41.1875rem;
 }
+
+.githubTriggerContainer {
+  :global .cds--bmrg-checkbox-list__list {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}
