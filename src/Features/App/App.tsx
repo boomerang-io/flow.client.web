@@ -296,12 +296,13 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             path={AppPath.Execution}
             userRole={activityEnabled ? "*" : ""}
           />
-          <ProtectedRoute
+          <Redirect exact from={AppPath.Activity} to={AppPath.Workflows} />
+          {/* <ProtectedRoute
             allowedUserRoles={["*"]}
-            component={<Workflows />}
+            component={<Activity />}
             path={AppPath.Activity}
             userRole={activityEnabled ? "*" : ""}
-          />
+          /> */}
           <ProtectedRoute
             allowedUserRoles={elevatedUserRoles}
             component={<GlobalProperties />}
