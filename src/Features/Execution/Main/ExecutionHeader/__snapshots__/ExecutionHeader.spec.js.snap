@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExecutionHeader --- Snapshot Capturing Snapshot of ExecutionHeader 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <header
+      class="bx--bmrg-feature-header container --bordered"
+    >
+      <section
+        class="bx--bmrg-feature-header__content"
+      >
+        <div
+          class="bx--bmrg-feature-header__nav"
+        >
+          <div
+            class="headerNav"
+          >
+            <div
+              class="breadcrumbNav"
+            >
+              Activity /
+               
+              <div
+                class="breadcrumbNavItem"
+              >
+                <p>
+                  Sparkle Flow with extra glitter and donuts on the side
+                </p>
+              </div>
+            </div>
+            <button
+              class="workflowAdvancedDetailTrigger"
+            >
+              <svg
+                aria-hidden="true"
+                fill="currentColor"
+                focusable="false"
+                height="16"
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 0 32 32"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M26,2H8A2,2,0,0,0,6,4V8H4v2H6v5H4v2H6v5H4v2H6v4a2,2,0,0,0,2,2H26a2,2,0,0,0,2-2V4A2,2,0,0,0,26,2Zm0,26H8V24h2V22H8V17h2V15H8V10h2V8H8V4H26Z"
+                />
+                <path
+                  d="M14 8H22V10H14zM14 15H22V17H14zM14 22H22V24H14z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-feature-header__header"
+        >
+          <div
+            style="display: flex;"
+          >
+            <h1
+              class="bx--bmrg-feature-header-title"
+            >
+              Workflow run detail
+            </h1>
+          </div>
+        </div>
+      </section>
+      <div
+        class="content"
+      >
+        <dl
+          class="data"
+        >
+          <dt
+            class="dataTitle"
+          >
+            Team
+          </dt>
+          <dd
+            class="dataValue"
+          >
+            CAI Offerings
+          </dd>
+        </dl>
+        <dl
+          class="data"
+        >
+          <dt
+            class="dataTitle"
+          >
+            Version
+          </dt>
+          <dd
+            class="dataValue"
+          >
+            ---
+          </dd>
+        </dl>
+        <dl
+          class="data"
+        >
+          <dt
+            class="dataTitle"
+          >
+            Initiated by
+          </dt>
+          <dd
+            class="dataValue"
+          >
+            Tim Bula
+          </dd>
+        </dl>
+        <dl
+          class="data"
+        >
+          <dt
+            class="dataTitle"
+          >
+            Trigger
+          </dt>
+          <dd
+            class="dataValue"
+          >
+            manual
+          </dd>
+        </dl>
+        <dl
+          class="data"
+        >
+          <dt
+            class="dataTitle"
+          >
+            Start time
+          </dt>
+          <dd
+            class="dataValue"
+          >
+            2020-01-01 12:00 AM
+          </dd>
+        </dl>
+        <dl
+          class="dataButton"
+        />
+      </div>
+    </header>
+  </div>
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+</body>
+`;
