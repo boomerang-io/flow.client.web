@@ -492,12 +492,22 @@ function Configure(props: ConfigureProps) {
                   )}
                 </div>
               </Section>
-              <Section
-                title="GitHub"
-                description="Listen for and respond to events from GitHub. Filter the events and repositories that will trigger this Workflow. The GitHub integration must be enabled for this Trigger
-                  to work."
-                beta
-              >
+              <Section title="GitHub" description="" beta>
+                <p className={styles.sectionDescription}>
+                  Listen for and respond to events from GitHub. Filter the events and repositories that will trigger
+                  this Workflow. The GitHub integration must be enabled for this Trigger to work. Learn more about
+                  <a
+                    aria-describedby="new-window-aria-desc-0"
+                    className={styles.link}
+                    href="https://docs.github.com/en/webhooks/webhook-events-and-payloads"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="docs-link"
+                  >
+                    GitHub Events <Launch />
+                  </a>
+                  .
+                </p>
                 <div className={styles.toggleContainer}>
                   <Toggle
                     id="triggers.github.enable"
@@ -545,8 +555,6 @@ function Configure(props: ConfigureProps) {
                       labelText="Select events that you wish to trigger this Workflow"
                       onChange={(args) => console.log(args)}
                       options={githubEvents}
-                      tooltipContent="Tooltip for checkbox"
-                      tooltipProps={{ direction: "top" }}
                     />
                   </div>
                 )}
