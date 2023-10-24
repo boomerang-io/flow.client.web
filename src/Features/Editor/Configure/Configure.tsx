@@ -520,7 +520,7 @@ function Configure(props: ConfigureProps) {
                 )}
                 {values.triggers.github.enable && props.githubAppInstallation && (
                   <div className={styles.githubTriggerContainer}>
-                    <h3 className={styles.iconTitle}>Repository Filter</h3>
+                    <h2 className={styles.iconTitle}>Repository Filter</h2>
                     <div style={{ maxWidth: "27.125rem" }}>
                       <MultiSelect
                         hideLabel
@@ -538,7 +538,7 @@ function Configure(props: ConfigureProps) {
                         titleText="Filter by Repository"
                       />
                     </div>
-                    <h3 className={styles.iconTitle}>Events Filter</h3>
+                    <h2 className={styles.iconTitle}>Events Filter</h2>
                     <CheckboxList
                       id="triggers.github.events"
                       initialSelectedItems={["peacock"]}
