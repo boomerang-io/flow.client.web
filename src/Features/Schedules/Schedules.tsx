@@ -170,7 +170,7 @@ export default function Schedules() {
     };
 
     return (
-      <div className={styles.container}>
+      <>
         <Header
           nav={<NavigationComponent />}
           className={styles.header}
@@ -270,7 +270,7 @@ export default function Schedules() {
             />
           </div>
         </div>
-      </div>
+      </>
     );
   }
 

@@ -1,6 +1,4 @@
-//@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import HeaderWidget from "Components/HeaderWidget";
 import {
   FeatureHeader as Header,
@@ -13,15 +11,15 @@ import { Link } from "react-router-dom";
 import { appLink } from "Config/appConfig";
 import styles from "./activityHeader.module.scss";
 
-ActivityHeader.propTypes = {
-  inProgressActivities: PropTypes.number,
-  isError: PropTypes.bool,
-  isLoading: PropTypes.bool.isRequired,
-  failedActivities: PropTypes.number,
-  runActivities: PropTypes.number,
-  team: PropTypes.any,
-  succeededActivities: PropTypes.number,
-};
+interface ActivityHeaderProps {
+  inProgressActivities: number | string;
+  isError: boolean;
+  isLoading: boolean;
+  failedActivities: number | string;
+  runActivities: number | string;
+  team: any;
+  succeededActivities: number | string;
+}
 
 function ActivityHeader({
   inProgressActivities,
@@ -31,8 +29,17 @@ function ActivityHeader({
   team,
   succeededActivities,
   failedActivities,
-}) {
-  const successRate = runActivities > 0 ? (succeededActivities + inProgressActivities) / runActivities : 0;
+}: ActivityHeaderProps) {
+  let successRate = 0;
+  if (
+    typeof runActivities === "number" &&
+    typeof succeededActivities === "number" &&
+    typeof inProgressActivities === "number"
+  ) {
+    const successNum = succeededActivities + inProgressActivities;
+    successRate = runActivities > 0 ? successNum / runActivities : 0;
+  }
+
   const successRatePercentage = Math.round(successRate * 100);
   const emoji = successRatePercentage > 79 ? "🙌" : successRatePercentage > 49 ? "😮" : "😨";
 

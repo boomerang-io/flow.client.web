@@ -5,7 +5,7 @@
   background-color: var(--cds-ui-01);
   margin-top: 12.125rem;
   border: none;
-  height: calc(100vh - 12.75rem);
+  height: 100%;
   transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
   :global .slide-pane__content {
     padding: 0;

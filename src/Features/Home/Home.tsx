@@ -11,7 +11,7 @@ import styles from "./home.module.scss";
 export default function Home() {
   const { teams, name, user } = useAppContext();
   return (
-    <div className={styles.container}>
+    <>
       <HomeBanner name={name} />
       <div className={styles.welcome}>
         <h1>Welcome, {user.name}</h1>
@@ -82,7 +82,7 @@ export default function Home() {
           </div>
         </nav>
       </Section>
-    </div>
+    </>
   );
 }
 

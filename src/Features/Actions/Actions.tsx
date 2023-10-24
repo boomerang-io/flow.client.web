@@ -237,7 +237,7 @@ function Actions() {
     };
 
     return (
-      <div className={styles.container}>
+      <>
         <Switch>
           <Route exact path={AppPath.ActionsApprovals}>
             <Helmet>
@@ -386,7 +386,7 @@ function Actions() {
             />
           </section>
         )}
-      </div>
+      </>
     );
   }
 

@@ -6,14 +6,13 @@
 
 .executionResultContainer {
   display: flex;
-  height: calc(100vh - 10.3125rem);
 }
 
 .executionDesignerContainer {
   display: flex;
   flex-grow: 1;
-  position: relative;
   padding: 0 1.5rem 1.5rem;
+  position: relative;
 
   svg:not(:root) {
     overflow: visible !important;

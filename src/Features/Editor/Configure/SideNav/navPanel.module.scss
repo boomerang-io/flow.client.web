@@ -5,10 +5,11 @@
   width: 18.75rem;
   min-width: 18.75rem;
   padding-top: 1.5rem;
+  height: 100%;
 
   :global .cds--bmrg-feature-sidenav-link-content {
     width: 100%;
-  }
+}
 
   :global .cds--bmrg-select {
     padding-left: 1rem;

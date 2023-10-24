@@ -2,20 +2,16 @@
 
 .container {
   width: 100%;
-  height: calc(100vh - 3rem);
-  overflow: auto;
+  height: 100%;
+  gap: 1rem;
   display: flex;
+  overflow: hidden;
 }
 
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 12.75rem);
   width: 100%;
-  max-width:50rem;
   overflow: auto;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
+  padding-left: 0.5rem;
 
   :global .cds--text-area__wrapper {
     width: 100%;
@@ -225,9 +221,10 @@
 }
 
 .sectionContainer {
-  padding-top: 1.5rem;
   width: 100%;
+  padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+  max-width: 50rem;
 }
 
 .sectionContainer:nth-of-type(n+2) {

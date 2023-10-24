@@ -317,50 +317,48 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
               : "Are you sure? You have unsaved changes to your workflow that will be lost."
           }
         />
-        <div className={styles.container}>
-          <Header
-            changeLog={changeLogData}
-            changeRevision={handleChangeRevision}
-            createRevision={handleCreateRevision}
-            canCreateNewVersion={CREATEABLE_PATHS.includes(location.pathname.split("/").pop() || "")}
-            revisionState={revisionState}
-            viewType={WorkflowView.Workflow}
-            revisionCount={revisionCount}
-            revisionMutator={revisionMutator}
-          />
-          <Switch>
-            <Route path={AppPath.EditorDesigner} />
-            <Route path={AppPath.EditorProperties}>
-              <Parameters workflow={revisionState} handleUpdateParams={handleUpdateParams} />
+        <Header
+          changeLog={changeLogData}
+          changeRevision={handleChangeRevision}
+          createRevision={handleCreateRevision}
+          canCreateNewVersion={CREATEABLE_PATHS.includes(location.pathname.split("/").pop() || "")}
+          revisionState={revisionState}
+          viewType={WorkflowView.Workflow}
+          revisionCount={revisionCount}
+          revisionMutator={revisionMutator}
+        />
+        <Switch>
+          <Route path={AppPath.EditorDesigner} />
+          <Route path={AppPath.EditorProperties}>
+            <Parameters workflow={revisionState} handleUpdateParams={handleUpdateParams} />
+          </Route>
+          {workflowTokensEnabled && (
+            <Route path={AppPath.EditorTokens}>
+              <Tokens workflow={revisionState} />
             </Route>
-            {workflowTokensEnabled && (
-              <Route path={AppPath.EditorTokens}>
-                <Tokens workflow={revisionState} />
-              </Route>
-            )}
-            <Route path={AppPath.EditorSchedule}>
-              <Schedule workflow={revisionState} />
-            </Route>
-            <Route path={AppPath.EditorChangelog}>
-              <ChangeLog changeLogData={changeLogData} />
-            </Route>
-          </Switch>
-          {
-            // Always render parent Configure component so state isn't lost when switching tabs
-            // It is responsible for rendering its children, but Formik form management is always mounted
-            <>
-              <Designer
-                notes={markdown}
-                reactFlowInstance={reactFlowInstance}
-                setReactFlowInstance={setReactFlowInstance}
-                tasks={taskTemplatesList}
-                updateNotes={handleUpdateNotes}
-                workflow={revisionState}
-              />
-              <Configure quotas={quotas} workflow={revisionState} settingsRef={settingsRef} />
-            </>
-          }
-        </div>
+          )}
+          <Route path={AppPath.EditorSchedule}>
+            <Schedule workflow={revisionState} />
+          </Route>
+          <Route path={AppPath.EditorChangelog}>
+            <ChangeLog changeLogData={changeLogData} />
+          </Route>
+        </Switch>
+        {
+          // Always render parent Configure component so state isn't lost when switching tabs
+          // It is responsible for rendering its children, but Formik form management is always mounted
+          <>
+            <Designer
+              notes={markdown}
+              reactFlowInstance={reactFlowInstance}
+              setReactFlowInstance={setReactFlowInstance}
+              tasks={taskTemplatesList}
+              updateNotes={handleUpdateNotes}
+              workflow={revisionState}
+            />
+            <Configure quotas={quotas} workflow={revisionState} settingsRef={settingsRef} />
+          </>
+        }
       </>
     </EditorContextProvider>
   );

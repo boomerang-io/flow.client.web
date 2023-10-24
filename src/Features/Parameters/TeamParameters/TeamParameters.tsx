@@ -16,7 +16,6 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DataDrivenInput } from "Types";
 import { formatErrorMessage } from "@boomerang-io/utils";
-import styles from "./teamParameters.module.scss";
 
 function TeamParameters() {
   const history = useHistory();
@@ -99,17 +98,16 @@ function TeamParameters() {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <Helmet>
         <title>Team Parameters</title>
       </Helmet>
       <Header
-        className={styles.header}
         includeBorder={false}
         nav={<NavigationComponent />}
         header={
           <>
-            <HeaderTitle className={styles.headerTitle}>Team Parameters</HeaderTitle>
+            <HeaderTitle>Team Parameters</HeaderTitle>
             <HeaderSubtitle>
               Set team-level parameters that are accessible to all workflows owned by the team.
             </HeaderSubtitle>
@@ -125,7 +123,7 @@ function TeamParameters() {
         handleDelete={handleDelete}
         handleSubmit={handleSubmit}
       />
-    </div>
+    </>
   );
 }
 

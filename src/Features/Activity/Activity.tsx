@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useTeamContext, useQuery } from "Hooks";
@@ -11,8 +11,9 @@ import moment from "moment";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
 import { queryStringOptions } from "Config/appConfig";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { serviceUrl } from "Config/servicesConfig";
 import { executionOptions, statusOptions } from "Constants/filterOptions";
+import { PaginatedWorkflowResponse } from "Types";
 import styles from "./Activity.module.scss";
 
 const DEFAULT_ORDER = "DESC";
@@ -50,14 +51,7 @@ function WorkflowActivity() {
 
   /** Retrieve Workflows */
   const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
-  const {
-    data: workflowsData,
-    isLoading: workflowsIsLoading,
-    isError: workflowsIsError,
-  } = useQuery<PaginatedWorkflowResponse, string>({
-    queryKey: getWorkflowsUrl,
-    queryFn: resolver.query(getWorkflowsUrl),
-  });
+  const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>(getWorkflowsUrl);
 
   /**** Start get some data ****/
 
@@ -81,10 +75,7 @@ function WorkflowActivity() {
   const wfRunUrl = serviceUrl.getWorkflowRuns({ query: wfRunsURLQuery });
 
   const wfRunSummaryQuery = useQuery(wfRunSummaryUrl);
-  const wfRunQuery = useQuery({
-    queryKey: wfRunUrl,
-    queryFn: resolver.query(wfRunUrl),
-  });
+  const wfRunQuery = useQuery(wfRunUrl);
 
   /**** End get some data ****/
 
@@ -142,17 +133,17 @@ function WorkflowActivity() {
 
   function getWorkflowFilter() {
     let workflowsList = [];
-    if (workflowsData.content) {
-      workflowsList = workflowsData.content;
+    if (workflowsQuery?.data?.content) {
+      workflowsList = workflowsQuery.data.content;
     }
     return sortByProp(workflowsList, "name", "ASC");
   }
   /** End input handlers */
 
   /** Start Render Logic */
-  if (wfRunQuery.error || workflowsIsError) {
+  if (wfRunQuery.error || workflowsQuery.error) {
     return (
-      <div className={styles.container}>
+      <>
         <ActivityHeader
           team={team}
           failedActivities={"--"}
@@ -165,11 +156,11 @@ function WorkflowActivity() {
         <section aria-label="Activity Error" className={styles.content}>
           <Error />
         </section>
-      </div>
+      </>
     );
   }
 
-  if (team && workflowsData) {
+  if (team && workflowsQuery.data) {
     const { workflows = "", triggers = "", statuses = "" } = queryString.parse(location.search, queryStringOptions);
     const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
     const selectedTriggers = typeof triggers === "string" ? [triggers] : triggers;
@@ -186,7 +177,7 @@ function WorkflowActivity() {
       : DEFAULT_TO_DATE;
 
     return (
-      <div className={styles.container}>
+      <>
         <Helmet>
           <title>Activity</title>
         </Helmet>
@@ -289,7 +280,7 @@ function WorkflowActivity() {
             />
           </section>
         )}
-      </div>
+      </>
     );
   }
   return null;
