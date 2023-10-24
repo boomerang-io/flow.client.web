@@ -4,7 +4,8 @@ import { Switch, Route, Redirect, useLocation, useParams } from "react-router-do
 import { useQuery } from "react-query";
 import { useFeature } from "flagged";
 import { Formik, FormikProps, FieldArray } from "formik";
-import { Tag, MultiSelect, InlineNotification } from "@carbon/react";
+import { Tag, MultiSelect, InlineNotification, Button } from "@carbon/react";
+import { Launch, Popup } from "@carbon/react/icons";
 import {
   ComposedModal,
   TextArea,
@@ -90,6 +91,8 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
           },
           icon: workflow.icon ?? "",
           name: workflow.name ?? "",
+          timeout: workflow.timeout ?? null,
+          retries: workflow.retries ?? null,
           labels: workflow.labels ? Object.entries(workflow.labels).map(([key, value]) => ({ key, value })) : [],
           triggers: {
             manual: {
@@ -112,6 +115,7 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
               repositories: workflow.triggers?.github?.repositories ?? [],
             },
           },
+          config: workflow.config ?? [],
         }}
         validationSchema={Yup.object().shape({
           description: Yup.string().max(250, "Description must not be greater than 250 characters"),
@@ -317,7 +321,10 @@ function Configure(props: ConfigureProps) {
         <Route exact path={AppPath.EditorConfigureTriggers}>
           {props.workflowTriggersEnabled && (
             <>
-              <Section title="Manual" description="Enable workflow to be executed manually.">
+              <Section
+                title="Manual"
+                description="Enable workflow to be executed manually through the UI and triggered via the API."
+              >
                 <div className={styles.toggleContainer}>
                   <Toggle
                     reversed
@@ -326,38 +333,41 @@ function Configure(props: ConfigureProps) {
                     label="Enable"
                     onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.manual.enable")}
                     toggled={values.triggers.manual.enable}
-                    tooltipContent="When enabled, you will be able to trigger this Workflow through the UI and API."
-                    tooltipProps={{ direction: "top" }}
                   />
                 </div>
               </Section>
-              <Section title="Scheduler" description="Enable workflow to be executed by a schedule">
+              <Section title="Scheduler" description="Enable workflow to be executed by a schedule.">
                 <div className={styles.toggleContainer} style={{ marginTop: "1rem" }}>
                   <Toggle
                     reversed
                     id="triggers.scheduler.enable"
                     data-testid="triggers.scheduler.enable"
-                    label="Enabled"
+                    label="Enable"
                     onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.scheduler.enable")}
                     toggled={values.triggers.scheduler.enable}
                   />
                 </div>
-                <div className={styles.schedulerContainer}>
-                  {values.triggers.scheduler.enable ? (
-                    <p>
-                      <b>All enabled</b> schedules will execute. Manage them in the Schedule tab.
-                    </p>
-                  ) : (
-                    <p>
-                      <b>No schedules</b> will execute, regardless of status. Manage them in the Schedule tab.
-                    </p>
-                  )}
-                </div>
+                {values.triggers.scheduler.enable ? (
+                  <InlineNotification
+                    lowContrast
+                    kind="info"
+                    title="All enabled schedules"
+                    subtitle="will execute. Manage them in the Schedule tab."
+                    style={{ marginTop: "1rem" }}
+                    hideCloseButton
+                  />
+                ) : (
+                  <InlineNotification
+                    lowContrast
+                    kind="warning"
+                    title="No schedules"
+                    subtitle="will execute, regardless of status. Manage them in the Schedule tab."
+                    style={{ marginTop: "1rem" }}
+                    hideCloseButton
+                  />
+                )}
               </Section>
-              <Section
-                title="Webhook"
-                description="Listen for and respond to generic events. Events must be in the CloudEvent format."
-              >
+              <Section title="Webhook" description="Listen for events and receive data from an external system.">
                 <div className={styles.triggerSection}>
                   <div className={styles.toggleContainer}>
                     <Toggle
@@ -371,57 +381,48 @@ function Configure(props: ConfigureProps) {
                     />
                   </div>
                   {values.triggers.webhook.enable && (
-                    <div className={styles.webhookContainer}>
-                      <ComposedModal
-                        modalHeaderProps={{
-                          title: "Build Webhook URL",
-                          subtitle: (
-                            <>
-                              <p>
-                                Build up a webhook URL for an external service to push events that execute this
-                                workflow.
-                              </p>
-                              <p style={{ marginTop: "0.5rem" }}>
-                                There are a variety of different webhook types that provide additional functionality.
-                                For example, the Slack type responds to the Slack verification request.{" "}
-                                <a href={`${BASE_DOCUMENTATION_URL}/introduction/overview`}>
-                                  Learn more in the documentation.
-                                </a>
-                              </p>
-                            </>
-                          ),
-                        }}
-                        composedModalProps={{
-                          containerClassName: styles.buildWebhookContainer,
-                          shouldCloseOnOverlayClick: true,
-                        }}
-                        modalTrigger={({ openModal }: { openModal: () => void }) => (
-                          <button className={styles.regenerateText} type="button" onClick={openModal}>
-                            <p>Build webhook URL</p>
-                          </button>
-                        )}
-                      >
-                        {({ closeModal }: { closeModal: () => void }) => (
-                          <BuildWebhookModalContent
-                            values={values}
-                            closeModal={closeModal}
-                            workflowId={props.workflow.id}
-                          />
-                        )}
-                      </ComposedModal>
-                    </div>
+                    <ComposedModal
+                      modalHeaderProps={{
+                        title: "Webhook Usage",
+                      }}
+                      composedModalProps={{
+                        containerClassName: styles.buildWebhookContainer,
+                        shouldCloseOnOverlayClick: true,
+                      }}
+                      modalTrigger={({ openModal }: { openModal: () => void }) => (
+                        <Button kind="ghost" onClick={openModal} renderIcon={Popup} size="sm">
+                          <p>View usage example</p>
+                        </Button>
+                      )}
+                    >
+                      {({ closeModal }: { closeModal: () => void }) => (
+                        <BuildWebhookModalContent closeModal={closeModal} workflowId={props.workflow.id} />
+                      )}
+                    </ComposedModal>
                   )}
                 </div>
               </Section>
-              <Section
-                title="Events"
-                description="Listen for and respond to generic events. Events must be in the CloudEvent format."
-              >
+              <Section title="Events">
+                <p className={styles.sectionDescription}>
+                  Listen for events received in the CloudEvent format and trigger this Workflow based on filter
+                  matching. Learn more about
+                  <a
+                    aria-describedby="new-window-aria-desc-0"
+                    className={styles.link}
+                    href={appLink.docsWorkflowEditor()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="docs-link"
+                  >
+                    Event Triggers <Launch />
+                  </a>
+                  .
+                </p>
                 <div className={styles.triggerSection}>
                   <div className={styles.toggleContainer}>
                     <Toggle
                       id="triggers.event.enable"
-                      label="Enabled"
+                      label="Enable"
                       toggled={values.triggers.event.enable}
                       onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.event.enable")}
                       tooltipContent="Enable workflow to be triggered by received events."
@@ -430,46 +431,64 @@ function Configure(props: ConfigureProps) {
                     />
                   </div>
                   {values.triggers.event.enable && (
-                    <div className={styles.webhookContainer}>
+                    <>
+                      <p className={styles.sectionDescription}>
+                        The following filters will be applied to any incoming event based on the{" "}
+                        <a
+                          aria-describedby="new-window-aria-desc-0"
+                          className={styles.link}
+                          href="cloudevents.io"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          data-testid="docs-link"
+                        >
+                          CloudEvent <Launch />
+                        </a>{" "}
+                        specification. Configure using exact match or regular expression to filter the events.
+                      </p>
+                      <TextInput
+                        id="triggers.event.type"
+                        label="Type Filter"
+                        invalid={Boolean(errors.triggers?.event?.type && touched.triggers?.event?.type)}
+                        invalidText={errors.triggers?.event?.type}
+                        placeholder="io.boomerang.[event|phase|status]"
+                        helperText="A regular expression."
+                        value={values.triggers?.event?.type}
+                        onBlur={handleBlur}
+                        onChange={(e) => props.formikProps.handleChange(e)}
+                      />
+                      <TextInput
+                        id="triggers.event.subject"
+                        label="Subject Filter"
+                        invalid={Boolean(errors.triggers?.event?.subject && touched.triggers?.event?.subject)}
+                        invalidText={errors.triggers?.event?.subject}
+                        placeholder="Hello World"
+                        helperText="A regular expression."
+                        value={values.triggers?.event?.subject}
+                        onBlur={handleBlur}
+                        onChange={(e) => props.formikProps.handleChange(e)}
+                      />
+                      {/* <div className={styles.webhookContainer}> */}
                       <ComposedModal
                         modalHeaderProps={{
-                          title: "Configure Event Trigger",
-                          subtitle: (
-                            <>
-                              <p>
-                                The following filters will be applied to any incoming event based on the CloudEvent
-                                specification. Configure using exact match or regular expression to filter the events.
-                              </p>
-                              <p style={{ marginTop: "0.5rem" }}>
-                                <a href={`${BASE_DOCUMENTATION_URL}/introduction/overview`}>
-                                  Learn more in the documentation.
-                                </a>
-                              </p>
-                            </>
-                          ),
+                          title: "Event Trigger Usage",
                         }}
                         composedModalProps={{
                           containerClassName: styles.buildWebhookContainer,
                           shouldCloseOnOverlayClick: true,
                         }}
                         modalTrigger={({ openModal }: { openModal: () => void }) => (
-                          <button className={styles.regenerateText} type="button" onClick={openModal}>
-                            <p>Configure</p>
-                          </button>
+                          <Button kind="ghost" onClick={openModal} renderIcon={Popup} size="sm">
+                            <p>View usage example</p>
+                          </Button>
                         )}
                       >
                         {({ closeModal }: { closeModal: () => void }) => (
-                          <ConfigureEventTrigger
-                            values={values}
-                            closeModal={closeModal}
-                            handleOnChange={(eventTriggers: any) => {
-                              setFieldValue("triggers.event", eventTriggers);
-                            }}
-                            workflowId={props.workflow.id}
-                          />
+                          <ConfigureEventTrigger closeModal={closeModal} workflowId={props.workflow.id} />
                         )}
                       </ComposedModal>
-                    </div>
+                      {/* </div> */}
+                    </>
                   )}
                 </div>
               </Section>
@@ -504,9 +523,20 @@ function Configure(props: ConfigureProps) {
                     <h2 className={styles.iconTitle}>Events Filter</h2>
                     <CheckboxList
                       id="triggers.github.events"
-                      initialSelectedItems={["peacock"]}
+                      initialSelectedItems={values.triggers.github.events}
                       labelText="Select events that you wish to trigger this Workflow"
-                      onChange={(args) => console.log(args)}
+                      onChange={(checked: boolean, label: string) => {
+                        const selectedItems = [...values.triggers.github.events];
+                        if (checked) {
+                          selectedItems.push(label);
+                        } else {
+                          const index = selectedItems.indexOf(label);
+                          if (index !== -1) {
+                            selectedItems.splice(index, 1);
+                          }
+                        }
+                        props.formikProps.setFieldValue("triggers.github.events", selectedItems);
+                      }}
                       options={githubEvents}
                       tooltipContent="Tooltip for checkbox"
                       tooltipProps={{ direction: "top" }}
@@ -519,10 +549,13 @@ function Configure(props: ConfigureProps) {
                       label="Choose Repositories"
                       invalid={false}
                       onChange={({ selectedItems }: { selectedItems: Array<{ label: string; value: string }> }) =>
-                        props.formikProps.setFieldValue("triggers.github.repositories", selectedItems.values)
+                        props.formikProps.setFieldValue(
+                          "triggers.github.repositories",
+                          selectedItems.map((item) => item.value)
+                        )
                       }
                       items={githubRepositories}
-                      selectedItem={values.triggers.github.repositories}
+                      initialSelectedItems={values.triggers.github.repositories}
                       titleText="Filter by Repository"
                     />
                   </>
@@ -531,8 +564,22 @@ function Configure(props: ConfigureProps) {
             </>
           )}
         </Route>
+        <Route exact path={AppPath.EditorConfigureParams}>
+          <Section title="GitHub" description="Auto inject GitHub Parameters." beta>
+            <div className={styles.toggleContainer}>
+              <Toggle
+                id="bob"
+                label="Enable"
+                toggled={values.triggers.webhook.enable}
+                onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.webhook.enable")}
+                reversed
+                disabled
+              />
+            </div>
+          </Section>
+        </Route>
         <Route exact path={AppPath.EditorConfigureRun}>
-          <Section title="Run Options" description="Customize how your Workflow behaves.">
+          <Section title="Execution" description="Customize how your Workflow behaves.">
             <div>
               <div className={styles.runOptionsSection}>
                 <TextInput

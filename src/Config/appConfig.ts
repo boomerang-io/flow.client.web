@@ -29,6 +29,7 @@ type AppPathKey =
   | "EditorConfigureGeneral"
   | "EditorConfigureTriggers"
   | "EditorConfigureRun"
+  | "EditorConfigureParams"
   | "EditorConfigureWorkspaces"
   | "EditorTokens"
   | "EditorChangelog"
@@ -80,6 +81,7 @@ export const AppPath: Record<AppPathKey, string> = {
   EditorConfigureGeneral: `/:team/editor/:workflowId/configure/general`,
   EditorConfigureTriggers: `/:team/editor/:workflowId/configure/triggers`,
   EditorConfigureRun: `/:team/editor/:workflowId/configure/run`,
+  EditorConfigureParams: `/:team/editor/:workflowId/configure/parameters`,
   EditorConfigureWorkspaces: `/:team/editor/:workflowId/configure/workspaces`,
   EditorTokens: `/:team/editor/:workflowId/tokens`,
   EditorChangelog: `/:team/editor/:workflowId/changelog`,
@@ -157,6 +159,7 @@ export const appLink = {
   editorConfigureGeneral: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/general`,
   editorConfigureTriggers: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/triggers`,
   editorConfigureRun: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/run`,
+  editorConfigureParams: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/parameters`,
   editorConfigureWorkspaces: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/workspaces`,
   editorTokens: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/tokens`,
   editorChangelog: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/changelog`,

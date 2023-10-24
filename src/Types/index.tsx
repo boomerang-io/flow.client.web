@@ -131,6 +131,8 @@ export interface Workflow {
   name: string;
   creationDate: string;
   status: WorkflowStatus;
+  timeout: number;
+  retries: number;
   version: number;
   description: string;
   icon: string;
@@ -164,6 +166,11 @@ export interface Workflow {
     };
     webhook: {
       enable: boolean;
+    };
+    github: {
+      enable: boolean;
+      events: Array<string>;
+      repositories: Array<string>;
     };
   };
   templateUpgradesAvailable: boolean;
@@ -760,4 +767,5 @@ export interface ConfigureWorkflowFormValues {
       repositories: Array<string>;
     };
   };
+  config: Array<DataDrivenInput>;
 }

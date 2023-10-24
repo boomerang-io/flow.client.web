@@ -24,8 +24,15 @@ const NavPanel: React.FC<NavPanelProps> = ({ team, workflowId }) => {
       })}`,
     },
     {
-      name: "Triggers, Webhooks & Events",
+      name: "Triggers",
       path: `${appLink.editorConfigureTriggers({
+        team: team,
+        workflowId: workflowId,
+      })}`,
+    },
+    {
+      name: "Parameters",
+      path: `${appLink.editorConfigureParams({
         team: team,
         workflowId: workflowId,
       })}`,

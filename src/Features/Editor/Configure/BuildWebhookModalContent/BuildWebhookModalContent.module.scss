@@ -37,6 +37,19 @@
 
 .codeSnippet{
   background: var(--cds-background, #f2f4f8);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-block-end: none !important;
+  min-height: 48px;
+
+  button{
+    border-radius: 0 !important;
+    background: var(--cds-background, #f2f4f8);
+  }
+}
+
+.codeSnippetInline{
+  background: var(--cds-background, #f2f4f8);
 }
 
 .webhookURL {
@@ -59,16 +72,13 @@
 
 .sectionHeader {
   margin-bottom: 0.5rem;
-  color: #4d5358;
-  font-size: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
   letter-spacing: 0.00875rem;
-  line-height: 0.9375rem;
+  line-height: 0.9rem;
 }
 
-.sectionDetail {
-  color: #121619;
-  font-size: 0.875rem;
-  letter-spacing: 0.01rem;
-  line-height: 1.125rem;
-  padding-right: 20%;
+.sectionHeader:nth-child(n+2) {
+  margin-top: 2.5rem;
 }
