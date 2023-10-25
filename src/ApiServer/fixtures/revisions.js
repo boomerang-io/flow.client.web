@@ -163,28 +163,27 @@ export default [
     },
     icon: "bot",
     upgradesAvailable: false,
-    triggers: {
-      manual: {
-        enable: true,
-      },
-      scheduler: {
-        enable: false,
-      },
-      webhook: {
-        enable: false,
-      },
-      event: {
-        enable: false,
-        type: null,
-        subject: null,
-      },
-    },
-    tokens: [
-      {
-        token: "7AFBE8B30B2958B2B1879AAAF59B68EC31BF7C581F6D1C0833F64F623A667102",
-        label: "default",
-      },
-    ],
+    triggers: [{
+      type: "manual",
+      enabled: true,
+      conditions: null,
+    },{
+      type: "webhook",
+      enabled: false,
+      conditions: null,
+    },{
+      type: "scheduler",
+      enabled: false,
+      conditions: null,
+    },{
+      type: "event",
+      enabled: true,
+      conditions: [{operation: "matches", field: "type", value: "io.boomerang.test"}, {operation: "matches", field: "subject", value: "australia"}],
+    },{
+      type: "github",
+      enabled: true,
+      conditions: [{operation: "in", field: "event", values: ["create", "delete"]}, {operation: "in", field: "repository", values: ["australia","img","test"]}],
+    }],
     config: [
       {
         key: "token",

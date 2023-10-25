@@ -152,27 +152,7 @@ export interface Workflow {
     date: string;
   };
   config: Array<DataDrivenInput>;
-  triggers: {
-    manual: {
-      enable: boolean;
-    };
-    event: {
-      enable: boolean;
-      subject: string;
-      type: string;
-    };
-    scheduler: {
-      enable: boolean;
-    };
-    webhook: {
-      enable: boolean;
-    };
-    github: {
-      enable: boolean;
-      events: Array<string>;
-      repositories: Array<string>;
-    };
-  };
+  triggers: Array<WorkflowTrigger>;
   templateUpgradesAvailable: boolean;
   workspaces: Array<{
     name: string;
@@ -190,6 +170,33 @@ export interface Workflow {
 export enum WorkflowStatus {
   Active = "active",
   Inactive = "inactive",
+}
+
+export interface WorkflowTrigger {
+  enabled: boolean;
+  type: WorkflowTriggerType;
+  conditions: Array<WorkflowTriggerCondition>;
+}
+
+export enum WorkflowTriggerType {
+  Manual = "manual",
+  Scheduler = "scheduler",
+  Event = "event",
+  Webhook = "webhook",
+  GitHub = "github",
+}
+
+export interface WorkflowTriggerCondition {
+  operation: WorkflowTriggerConditionOperation;
+  field: string;
+  value: string;
+  values: Array<string>;
+}
+
+export enum WorkflowTriggerConditionOperation {
+  Matches = "matches",
+  Equals = "equals",
+  In = "in",
 }
 
 export type WorkflowViewType = ObjectValuesToType<typeof WorkflowView>;
@@ -746,26 +753,6 @@ export interface ConfigureWorkflowFormValues {
   timeout: number;
   retries: number;
   labels: Array<{ key: string; value: string }>;
-  triggers: {
-    manual: {
-      enable: boolean;
-    };
-    event: {
-      enable: boolean;
-      type: string;
-      subject: string;
-    };
-    scheduler: {
-      enable: boolean;
-    };
-    webhook: {
-      enable: boolean;
-    };
-    github: {
-      enable: boolean;
-      events: Array<string>;
-      repositories: Array<string>;
-    };
-  };
+  triggers: Array<WorkflowTrigger>;
   config: Array<DataDrivenInput>;
 }

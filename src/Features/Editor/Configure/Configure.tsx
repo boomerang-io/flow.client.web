@@ -94,27 +94,7 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
           timeout: workflow.timeout ?? null,
           retries: workflow.retries ?? null,
           labels: workflow.labels ? Object.entries(workflow.labels).map(([key, value]) => ({ key, value })) : [],
-          triggers: {
-            manual: {
-              enable: workflow.triggers?.manual?.enable ?? true,
-            },
-            event: {
-              enable: workflow.triggers?.event?.enable ?? false,
-              subject: workflow.triggers?.event?.subject ?? "",
-              type: workflow.triggers?.event?.type ?? "",
-            },
-            scheduler: {
-              enable: workflow.triggers?.scheduler?.enable ?? false,
-            },
-            webhook: {
-              enable: workflow.triggers?.webhook?.enable ?? false,
-            },
-            github: {
-              enable: workflow.triggers?.github?.enable ?? false,
-              events: workflow.triggers?.github?.events ?? [],
-              repositories: workflow.triggers?.github?.repositories ?? [],
-            },
-          },
+          triggers: workflow.triggers ?? [],
           config: workflow.config ?? [],
         }}
         validationSchema={Yup.object().shape({
@@ -136,27 +116,20 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
           name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
           retries: Yup.number(),
           timeout: Yup.number(),
-          triggers: Yup.object().shape({
-            manual: Yup.object().shape({
-              enable: Yup.boolean(),
-            }),
-            event: Yup.object().shape({
-              enable: Yup.boolean(),
+          triggers: Yup.array().of(
+            Yup.object().shape({
               type: Yup.string(),
-              subject: Yup.string(),
-            }),
-            scheduler: Yup.object().shape({
-              enable: Yup.boolean(),
-            }),
-            webhook: Yup.object().shape({
-              enable: Yup.boolean(),
-            }),
-            github: Yup.object().shape({
-              enable: Yup.boolean(),
-              events: Yup.array().of(Yup.string()),
-              repositories: Yup.array().of(Yup.string()),
-            }),
-          }),
+              enabled: Yup.boolean(),
+              conditions: Yup.array().of(
+                Yup.object().shape({
+                  operation: Yup.string(),
+                  field: Yup.string(),
+                  value: Yup.string().optional(),
+                  values: Yup.array().of(Yup.string()).optional(),
+                })
+              ),
+            })
+          ),
         })}
       >
         {(formikProps) =>
@@ -331,8 +304,8 @@ function Configure(props: ConfigureProps) {
                     id="triggers.manual.enable"
                     data-testid="triggers.manual.enable"
                     label="Enable"
-                    onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.manual.enable")}
-                    toggled={values.triggers.manual.enable}
+                    onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.manual.enabled")}
+                    toggled={values.triggers.some((trigger) => trigger.type === "manual" && trigger.enabled)}
                   />
                 </div>
               </Section>
@@ -343,11 +316,11 @@ function Configure(props: ConfigureProps) {
                     id="triggers.scheduler.enable"
                     data-testid="triggers.scheduler.enable"
                     label="Enable"
-                    onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.scheduler.enable")}
-                    toggled={values.triggers.scheduler.enable}
+                    onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.scheduler.enabled")}
+                    toggled={values.triggers.some((trigger) => trigger.type === "scheduler" && trigger.enabled)}
                   />
                 </div>
-                {values.triggers.scheduler.enable ? (
+                {values.triggers.some((trigger) => trigger.type === "scheduler" && trigger.enabled) ? (
                   <InlineNotification
                     lowContrast
                     kind="info"
@@ -373,14 +346,14 @@ function Configure(props: ConfigureProps) {
                     <Toggle
                       id="triggers.webhook.enable"
                       label="Enable"
-                      toggled={values.triggers.webhook.enable}
+                      toggled={values.triggers.some((trigger) => trigger.type === "webhook" && trigger.enabled)}
                       onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.webhook.enable")}
                       tooltipContent="Enable workflow to be executed by a webhook"
                       tooltipProps={{ direction: "top" }}
                       reversed
                     />
                   </div>
-                  {values.triggers.webhook.enable && (
+                  {values.triggers.some((trigger) => trigger.type === "webhook" && trigger.enabled) && (
                     <ComposedModal
                       modalHeaderProps={{
                         title: "Webhook Usage",
@@ -423,14 +396,14 @@ function Configure(props: ConfigureProps) {
                     <Toggle
                       id="triggers.event.enable"
                       label="Enable"
-                      toggled={values.triggers.event.enable}
-                      onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.event.enable")}
+                      toggled={values.triggers.some((trigger) => trigger.type === "event" && trigger.enabled)}
+                      onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.event.enabled")}
                       tooltipContent="Enable workflow to be triggered by received events."
                       tooltipProps={{ direction: "top" }}
                       reversed
                     />
                   </div>
-                  {values.triggers.event.enable && (
+                  {values.triggers.some((trigger) => trigger.type === "event" && trigger.enabled) && (
                     <>
                       <p className={styles.sectionDescription}>
                         The following filters will be applied to any incoming event based on the{" "}

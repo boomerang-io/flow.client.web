@@ -135,15 +135,27 @@ const summaries = [
     name: "ML Train – Bot Efficiency",
     shortDescription: "Train and store ML model for Bot Efficiency.",
     status: "active",
-    triggers: {
-      scheduler: { enable: false },
-      webhook: { enable: false },
-      event: {
-        enable: false,
-        type: null,
-        subject: null,
-      },
-    },
+    triggers: [{
+      type: "manual",
+      enabled: true,
+      conditions: null,
+    },{
+      type: "webhook",
+      enabled: false,
+      conditions: null,
+    },{
+      type: "scheduler",
+      enabled: false,
+      conditions: null,
+    },{
+      type: "event",
+      enabled: true,
+      conditions: [{operation: "matches", field: "type", value: "io.boomerang.test"}, {operation: "matches", field: "subject", value: "australia"}],
+    },{
+      type: "github",
+      enabled: true,
+      conditions: [{operation: "in", field: "event", values: ["create", "delete"]}, {operation: "in", field: "repository", values: ["australia","img","test"]}],
+    }],
     labels: [
       {
         key: "testing",
@@ -163,7 +175,6 @@ const summaries = [
       },
     ],
     scope: "team",
-    tokens: [],
     storage: {
       activity: {
         enabled: true,
@@ -317,15 +328,27 @@ const summaries = [
     name: "ML Train – Bot Efficiency",
     shortDescription: "Train and store ML model for Bot Efficiency.",
     status: "active",
-    triggers: {
-      scheduler: { enable: false },
-      webhook: { enable: false},
-      event: {
-        enable: false,
-        type: null,
-        subject: null,
-      },
-    },
+    triggers: [{
+      type: "manual",
+      enabled: true,
+      conditions: null,
+    },{
+      type: "webhook",
+      enabled: false,
+      conditions: null,
+    },{
+      type: "scheduler",
+      enabled: false,
+      conditions: null,
+    },{
+      type: "event",
+      enabled: true,
+      conditions: [{operation: "matches", field: "type", value: "io.boomerang.test"}, {operation: "matches", field: "subject", value: "australia"}],
+    },{
+      type: "github",
+      enabled: true,
+      conditions: [{operation: "in", field: "event", values: ["create", "delete"]}, {operation: "in", field: "repository", values: ["australia","img","test"]}],
+    }],
     labels: [
       {
         key: "purpose",
@@ -333,7 +356,6 @@ const summaries = [
       },
     ],
     scope: "system",
-    tokens: [],
     storage: {
       activity: {
         enabled: true,
@@ -379,23 +401,27 @@ const summaries = [
     name: "Java - Deploy",
     shortDescription: "",
     status: "active",
-    triggers: {
-      manual: {
-        enable: true,
-      },
-      scheduler: {
-        enable: false,
-      },
-      webhook: {
-        enable: true,
-      },
-      event: {
-        enable: false,
-        type: null,
-        subject: null,
-      },
-    },
-    tokens: [],
+    triggers: [{
+      type: "manual",
+      enabled: true,
+      conditions: null,
+    },{
+      type: "webhook",
+      enabled: false,
+      conditions: null,
+    },{
+      type: "scheduler",
+      enabled: false,
+      conditions: null,
+    },{
+      type: "event",
+      enabled: true,
+      conditions: [{operation: "matches", field: "type", value: "io.boomerang.test"}, {operation: "matches", field: "subject", value: "australia"}],
+    },{
+      type: "github",
+      enabled: true,
+      conditions: [{operation: "in", field: "event", values: ["create", "delete"]}, {operation: "in", field: "repository", values: ["australia","img","test"]}],
+    }],
     storage: {
       activity: {
         enabled: true,
@@ -441,23 +467,27 @@ const summaries = [
     name: "Java - Build",
     shortDescription: "Java - Build",
     status: "active",
-    triggers: {
-      manual: {
-        enable: true,
-      },
-      scheduler: {
-        enable: false,
-      },
-      webhook: {
-        enable: true,
-      },
-      event: {
-        enable: false,
-        type: null,
-        subject: null,
-      },
-    },
-    tokens: [],
+    triggers: [{
+      type: "manual",
+      enabled: true,
+      conditions: null,
+    },{
+      type: "webhook",
+      enabled: false,
+      conditions: null,
+    },{
+      type: "scheduler",
+      enabled: false,
+      conditions: null,
+    },{
+      type: "event",
+      enabled: true,
+      conditions: [{operation: "matches", field: "type", value: "io.boomerang.test"}, {operation: "matches", field: "subject", value: "australia"}],
+    },{
+      type: "github",
+      enabled: true,
+      conditions: [{operation: "in", field: "event", values: ["create", "delete"]}, {operation: "in", field: "repository", values: ["australia","img","test"]}],
+    }],
     storage: {
       activity: {
         enabled: true,
