@@ -1,12 +1,10 @@
 import React from "react";
 import { useAppContext } from "Hooks";
 import { useMutation, useQueryClient, UseQueryResult } from "react-query";
-import { withRouter, Link, useParams } from "react-router-dom";
+import { withRouter, useParams } from "react-router-dom";
 import CopyToClipboard from "react-copy-to-clipboard";
 import moment from "moment";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
   Button,
   ComposedModal,
   ConfirmModal,
@@ -22,7 +20,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
 import ErrorModal from "Components/ErrorModal";
-import { appLink } from "Config/appConfig";
+// import { appLink } from "Config/appConfig";
 import { elevatedUserRoles, QueryStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Catalog16, CopyFile16, StopOutline16, Warning16 } from "@carbon/icons-react";
@@ -41,7 +39,7 @@ type Props = {
 const cancelSatusTypes = [ExecutionStatus.NotStarted, ExecutionStatus.Waiting, ExecutionStatus.InProgress];
 
 function ExecutionHeader({ history, workflow, workflowExecution, version }: Props) {
-  const { state } = history.location;
+  // const { state } = history.location;
   const { user } = useAppContext();
   const queryClient = useQueryClient();
 
@@ -67,7 +65,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
       className={styles.container}
       nav={
         <div className={styles.headerNav}>
-          <Breadcrumb noTrailingSlash>
+          {/* <Breadcrumb noTrailingSlash>
             <BreadcrumbItem>
               <Link to={state ? state.fromUrl : appLink.activity()}>{state ? state.fromText : "Activity"}</Link>
             </BreadcrumbItem>
@@ -78,7 +76,17 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }: Prop
                 <p>{workflow.data.name}</p>
               )}
             </BreadcrumbItem>
-          </Breadcrumb>
+          </Breadcrumb> */}
+          <div className={styles.breadcrumbNav}>
+            Activity /{" "}
+            <div className={styles.breadcrumbNavItem}>
+              {!workflow?.data?.name ? (
+                <SkeletonPlaceholder className={styles.workflowNameSkeleton} />
+              ) : (
+                <p>{workflow.data.name}</p>
+              )}
+            </div>
+          </div>
           {workflow?.data && (
             <ComposedModal
               composedModalProps={{ shouldCloseOnOverlayClick: true }}

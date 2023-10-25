@@ -379,12 +379,7 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
                 class="bx--structured-list-td"
                 role="cell"
               >
-                <a
-                  class="viewWorkflowLink"
-                  href="/activity?page=0&size=10&workflowIds=5e877d1f4bbc6e0001c51e12"
-                >
-                  Activity
-                </a>
+                Activity
               </div>
             </div>
             <div
@@ -430,12 +425,7 @@ exports[`UserDetailed --- Snapshot Test Capturing Snapshot of UserDetailed 1`] =
                 class="bx--structured-list-td"
                 role="cell"
               >
-                <a
-                  class="viewWorkflowLink"
-                  href="/activity?page=0&size=10&workflowIds=5eb2c4085a92d80001a16d87"
-                >
-                  Activity
-                </a>
+                Activity
               </div>
             </div>
           </div>

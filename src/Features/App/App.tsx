@@ -28,7 +28,7 @@ import styles from "./app.module.scss";
 // import directly bc of webpack chunking error
 import Schedules from "Features/Schedules";
 const AppActivation = lazy(() => import(/* webpackChunkName: "App Activation" */ "./AppActivation"));
-const Activity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/Activity"));
+// const Activity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/Activity"));
 const Actions = lazy(() => import(/* webpackChunkName: "Actions" */ "Features/Actions"));
 const ApproverGroups = lazy(() => import(/* webpackChunkName: "ApproverGroups" */ "Features/ApproverGroups"));
 const Editor = lazy(() => import(/* webpackChunkName: "Editor" */ "Features/Editor"));
@@ -296,12 +296,13 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             path={AppPath.Execution}
             userRole={activityEnabled ? "*" : ""}
           />
-          <ProtectedRoute
+          <Redirect exact from={AppPath.Activity} to={AppPath.Workflows} />
+          {/* <ProtectedRoute
             allowedUserRoles={["*"]}
             component={<Activity />}
             path={AppPath.Activity}
             userRole={activityEnabled ? "*" : ""}
-          />
+          /> */}
           <ProtectedRoute
             allowedUserRoles={elevatedUserRoles}
             component={<GlobalProperties />}
