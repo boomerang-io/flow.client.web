@@ -84,10 +84,10 @@ export default function Github({ installId }: GitHubProps) {
         <title>Integration Connect</title>
       </Helmet>
       <section className={styles.container}>
-        <h1>GitHub App Integrations</h1>
+        <h1>GitHub App Integration</h1>
         <p>Thank you for installing the GitHub App!</p>
         <br />
-        <p>Last step - link the GitHub App installation to a {name} team.</p>
+        <p>Last step - connect the GitHub App installation to a {name} team.</p>
         <br />
         <Formik
           enableReinitialize
@@ -132,7 +132,7 @@ export default function Github({ installId }: GitHubProps) {
                 </div>
                 <br />
                 <p>
-                  Once linked, your Team will be able to receive events from GitHub and use these events to trigger
+                  Once connected, your Team will be able to receive events from GitHub and use these events to trigger
                   Workflows. Make sure to let them know!
                 </p>
                 <br />
@@ -155,7 +155,7 @@ export default function Github({ installId }: GitHubProps) {
                     kind="tertiary"
                     renderIcon={Link}
                   >
-                    Link
+                    Connect
                   </Button>
                 </div>
               </>
