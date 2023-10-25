@@ -30,7 +30,7 @@ type Props = {
 };
 
 export default function ConfigureStorage({ closeModal, workflowId }: Props) {
-  const resourceUrl = serviceUrl.resourceTriggers();
+  const resourceUrl = serviceUrl.resourceTrigger();
   const webhookURL = `${resourceUrl}/event?workflow=${workflowId}`;
 
   return (

@@ -14,7 +14,7 @@ interface BuildWebhookModalContentProps {
 }
 
 const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ workflowId, closeModal }) => {
-  const resourceUrl = serviceUrl.resourceTriggers();
+  const resourceUrl = serviceUrl.resourceTrigger();
   const webhookURL = `${resourceUrl}/webhook?workflow=${workflowId}`;
 
   return (
