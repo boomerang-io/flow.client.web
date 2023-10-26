@@ -90,16 +90,14 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
 
     return (
       <div className={styles.tableContainer}>
-        <Layer>
-          <Search
-            className={styles.search}
-            data-testid="change-log-search"
-            id="change-log-table-search"
-            labelText="Search"
-            onChange={this.handleSearchChange}
-            placeholder="Search"
-          />
-        </Layer>
+        <Search
+          className={styles.search}
+          data-testid="change-log-search"
+          id="change-log-table-search"
+          labelText="Search"
+          onChange={this.handleSearchChange}
+          placeholder="Search"
+        />
         {totalItems > 0 ? (
           <>
             <DataTable
