@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation, useQueryClient, useQuery } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Formik, FieldArray } from "formik";
 import * as Yup from "yup";
 import sortBy from "lodash/sortBy";
@@ -47,7 +47,7 @@ function RenderMembersList({ members, approvers, setFieldValue }: RenderMembersL
     } else
       setFieldValue(
         "approvers",
-        approvers.filter((approver: Approver) => !filteredMembersIds.includes(approver.id))
+        approvers.filter((approver: Approver) => !filteredMembersIds.includes(approver.id)),
       );
   };
 
@@ -202,7 +202,7 @@ function CreateEditGroupModalContent({
             title={"Approver Group Updated"}
             subtitle={`Request to update ${response.data.name} succeeded`}
             data-testid="create-update-approver-group-notification"
-          />
+          />,
         );
       } else {
         notify(
@@ -211,7 +211,7 @@ function CreateEditGroupModalContent({
             title={"Approver Group Created"}
             subtitle={`Request to create ${response.data.name} succeeded`}
             data-testid="create-update-approver-group-notification"
-          />
+          />,
         );
       }
       closeModal();

@@ -159,9 +159,9 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   // Determine some things for rendering
   const isActive = props.schedule.status === "active";
   // Iterate through labels: Record<string, string>
-  const labels = [];
+  const labels: Array<React.ReactNode> = [];
   //TODO figure out labels
-  Object.entries(props.schedule?.labels || {}).map(([index, value]) => {
+  Object.entries(props.schedule?.labels || {}).forEach(([index, value]) => {
     labels.push(
       <Tag key={index} style={{ marginLeft: 0 }} type="teal">
         {/* ${value} */}

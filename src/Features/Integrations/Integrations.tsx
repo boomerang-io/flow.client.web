@@ -1,18 +1,16 @@
 import React from "react";
-import { useFeature } from "flagged";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useQuery } from "react-query";
-import { Button, Breadcrumb, BreadcrumbItem, Link } from "@carbon/react";
+import { Breadcrumb, BreadcrumbItem, Link } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
   Error,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import queryString from "query-string";
 import IntegrationCard from "Components/IntegrationCard";
 import { IntegrationCardSkeleton } from "Components/IntegrationCard";
-import { useTeamContext, useAppContext } from "Hooks";
+import { useTeamContext } from "Hooks";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, Integration } from "Types";

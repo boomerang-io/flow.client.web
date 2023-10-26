@@ -1,11 +1,8 @@
 import React from "react";
-import { Formik } from "formik";
-import * as Yup from "yup";
 import { serviceUrl } from "Config/servicesConfig";
 import { ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter, CodeSnippet } from "@carbon/react";
 import copy from "copy-to-clipboard";
-import { ConfigureWorkflowFormValues } from "Types";
 import styles from "./ConfigureEventTrigger.module.scss";
 
 const EXAMPLE_CLOUD_EVENT = `{

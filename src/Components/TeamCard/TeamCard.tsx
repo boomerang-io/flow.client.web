@@ -7,7 +7,7 @@ import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { ArrowRight, Checkmark, Close } from "@carbon/react/icons";
 import moment from "moment";
-import { FlowTeam, FlowTeamSummary } from "Types";
+import { FlowTeamSummary } from "Types";
 import styles from "./teamCard.module.scss";
 
 interface TeamCardProps {

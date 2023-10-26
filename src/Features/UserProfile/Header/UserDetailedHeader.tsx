@@ -1,17 +1,14 @@
 import React from "react";
 import moment from "moment";
-import { Link, useLocation } from "react-router-dom";
-import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
 import {
   Avatar,
-  ComposedModal,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { UserRoleCopy } from "Constants";
 import { serviceUrl } from "Config/servicesConfig";
 import { FlowUser } from "Types";
-import { Checkmark, Close, User } from "@carbon/react/icons";
+import { Checkmark, Close } from "@carbon/react/icons";
 import styles from "./UserDetailedHeader.module.scss";
 
 interface UserDetailedHeaderProps {

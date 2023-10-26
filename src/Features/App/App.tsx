@@ -69,7 +69,7 @@ export default function App() {
   const getNavigationUrl = serviceUrl.getNavigation({ query });
 
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
-    !supportedBrowsers.includes(browser?.name ?? "")
+    !supportedBrowsers.includes(browser?.name ?? ""),
   );
   const [isTutorialActive, setIsTutorialActive] = useState(false);
   const [showActivatePlatform, setShowActivatePlatform] = React.useState(false);
@@ -247,7 +247,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
   const insightsEnabled = useFeature(FeatureFlag.InsightsEnabled);
   const teamParametersEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
-  const teamTasksEnabled = useFeature(FeatureFlag.TeamTasksEnabled);
+  //const teamTasksEnabled = useFeature(FeatureFlag.TeamTasksEnabled);
 
   return (
     <main id="content" className={styles.container}>
@@ -410,18 +410,18 @@ function TeamContainer(props: { children: React.ReactNode }) {
  * AND DETERMINE WHEN TO RENDER WHICH TUTORIAL
  * BASED ON THE PATH
  */
-const home_steps = [
-  {
-    disableBeacon: true,
-    target: "#your-teams",
-    content: "This is my awesome feature!",
-  },
-  {
-    disableBeacon: true,
-    target: "#explore",
-    content: "This is my awesome again!",
-  },
-];
+// const home_steps = [
+//   {
+//     disableBeacon: true,
+//     target: "#your-teams",
+//     content: "This is my awesome feature!",
+//   },
+//   {
+//     disableBeacon: true,
+//     target: "#explore",
+//     content: "This is my awesome again!",
+//   },
+// ];
 
 const workflows_steps = [
   {
@@ -431,9 +431,9 @@ const workflows_steps = [
   },
 ];
 
-const stepMapper = {
-  ":team/workflows": workflows_steps,
-};
+// const stepMapper = {
+//   ":team/workflows": workflows_steps,
+// };
 
 function Tutorial() {
   const { setIsTutorialActive, isTutorialActive } = useAppContext();

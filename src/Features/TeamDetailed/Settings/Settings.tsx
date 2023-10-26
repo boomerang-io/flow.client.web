@@ -45,7 +45,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
           title="Remove Team"
           subtitle={`Request to close ${team.displayName} successful`}
           kind="success"
-        />
+        />,
       );
     } catch (error) {
       // noop
@@ -54,10 +54,13 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
 
   const handleAddLabel = async (value: Label) => {
     const newLabels = [...teamLabels, value];
-    const newLabelsRecord = newLabels.reduce((acc, label) => {
-      acc[label.key] = label.value;
-      return acc;
-    }, {} as Record<string, string>);
+    const newLabelsRecord = newLabels.reduce(
+      (acc, label) => {
+        acc[label.key] = label.value;
+        return acc;
+      },
+      {} as Record<string, string>,
+    );
 
     try {
       await patchTeamMutator.mutateAsync({ team: team.name, body: { labels: newLabelsRecord } });
@@ -67,7 +70,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
           title="Remove Team"
           subtitle={`Request to close ${team.displayName} successful`}
           kind="success"
-        />
+        />,
       );
     } catch (error) {
       // noop
@@ -76,10 +79,13 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
 
   const handleRemoveLabel = async (value: Label) => {
     const newLabels = teamLabels.filter((label) => label.key !== value.key);
-    const newLabelsRecord = newLabels.reduce((acc, label) => {
-      acc[label.key] = label.value;
-      return acc;
-    }, {} as Record<string, string>);
+    const newLabelsRecord = newLabels.reduce(
+      (acc, label) => {
+        acc[label.key] = label.value;
+        return acc;
+      },
+      {} as Record<string, string>,
+    );
 
     try {
       await patchTeamMutator.mutateAsync({ team: team.name, body: { labels: newLabelsRecord } });
@@ -89,7 +95,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
           title="Remove Team"
           subtitle={`Request to close ${team.displayName} successful`}
           kind="success"
-        />
+        />,
       );
     } catch (error) {
       // noop
@@ -191,7 +197,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
             </StructuredListHead>
             <StructuredListBody>
               {sortBy(teamLabels, "key").map((label: Label) => {
-                const labelIndex = teamLabels.findIndex((labelFromList) => labelFromList.key === label.key);
+                //const labelIndex = teamLabels.findIndex((labelFromList) => labelFromList.key === label.key);
                 return (
                   <StructuredListRow key={label.key}>
                     <StructuredListCell className={styles.labelKeyCell}>{label.key}</StructuredListCell>

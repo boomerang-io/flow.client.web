@@ -1,7 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { resolver } from "Config/servicesConfig";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import sortBy from "lodash/sortBy";
 import { Button, DataTable, InlineNotification } from "@carbon/react";
 import { ConfirmModal, Error404, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -45,7 +45,6 @@ function ApproverGroups({
   canEdit: boolean;
   teamDetailsUrl: string;
 }) {
-  const queryClient = useQueryClient();
   const [sortKey, setSortKey] = React.useState("name");
   const [sortDirection, setSortDirection] = React.useState("ASC");
   const approverGroups = team?.approverGroups ?? [];
@@ -63,7 +62,7 @@ function ApproverGroups({
           title={"Approver Group Deleted"}
           subtitle={`Request to delete ${approverGroup.name} succeeded`}
           data-testid="delete-approver-group-notification"
-        />
+        />,
       );
     } catch (err) {
       const errorMessages = formatErrorMessage({ error: err, defaultMessage: "Delete Approver Group Failed" });
@@ -73,7 +72,7 @@ function ApproverGroups({
           title={errorMessages.title}
           subtitle={errorMessages.message}
           data-testid="delete-approver-group-notification"
-        />
+        />,
       );
     }
   };

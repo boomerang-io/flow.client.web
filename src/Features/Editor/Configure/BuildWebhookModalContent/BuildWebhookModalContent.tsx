@@ -1,11 +1,9 @@
 //@ts-nocheck
-import React, { useState } from "react";
+import React from "react";
 import { CodeSnippet, Button, ModalBody, ModalFooter } from "@carbon/react";
 import { ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import copy from "copy-to-clipboard";
 import { serviceUrl } from "Config/servicesConfig";
-import { ConfigureWorkflowFormValues } from "Types";
-import { BASE_DOCUMENTATION_URL } from "Config/appConfig";
 import styles from "./BuildWebhookModalContent.module.scss";
 
 interface BuildWebhookModalContentProps {

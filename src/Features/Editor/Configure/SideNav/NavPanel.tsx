@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory, useLocation } from "react-router-dom";
 import {
   FeatureSideNav as SideNav,
   FeatureSideNavLink as SideNavLink,
