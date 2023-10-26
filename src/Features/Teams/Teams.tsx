@@ -21,7 +21,7 @@ import queryString from "query-string";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import { appLink, queryStringOptions, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { ComposedModalChildProps, ModalTriggerProps, PaginatedTeamResponse } from "Types";
+import { ComposedModalChildProps, FlowTeam, ModalTriggerProps, PaginatedTeamResponse } from "Types";
 import styles from "./Teams.module.scss";
 
 interface FeatureLayoutProps {
@@ -244,7 +244,7 @@ function TeamListTable(props: TeamListTableProps) {
   return content.length > 0 ? (
     <>
       <DataTable
-        rows={content}
+        rows={content.map((t: FlowTeam) => ({ ...t, id: t.name }))}
         headers={headers}
         render={({ rows, headers, getHeaderProps }: any) => (
           <TableContainer>
@@ -271,11 +271,12 @@ function TeamListTable(props: TeamListTableProps) {
                 {rows.map((row: any) => (
                   <TableRow
                     className={styles.tableRow}
-                    key={row.name}
-                    data-testid="user-list-table-row"
-                    onClick={() => props.handleNavigateToTeam(row.name)}
+                    key={row.id}
+                    data-testid="team-list-table-row"
+                    onClick={() => 
+                      props.handleNavigateToTeam(row.id)}
                     onKeyDown={(e: React.SyntheticEvent) =>
-                      isAccessibleKeyboardEvent(e) && props.handleNavigateToTeam(row.name)
+                      isAccessibleKeyboardEvent(e) && props.handleNavigateToTeam(row.id)
                     }
                     tabIndex={-1}
                   >
