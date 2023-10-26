@@ -165,7 +165,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
     labels.push(
       <Tag key={index} style={{ marginLeft: 0 }} type="teal">
         {/* ${value} */}
-      </Tag>
+      </Tag>,
     );
   });
   const scheduleDescription = props.schedule?.description ?? "---";
@@ -173,7 +173,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   // Convert from UTC to configured timezone to get the correct offset, adjusting for daylight saving time
   // Then convert to the local time of the users's browser
   const nextScheduledDate = moment(
-    moment.tz(props.schedule.nextScheduleDate, props.schedule?.timezone).toISOString()
+    moment.tz(props.schedule.nextScheduleDate, props.schedule?.timezone).toISOString(),
   ).format(DATETIME_LOCAL_DISPLAY_FORMAT);
 
   /**
@@ -189,7 +189,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
           kind="success"
           title={`Delete Schedule`}
           subtitle={`Successfully deleted schedule ${props.schedule.name}`}
-        />
+        />,
       );
       queryClient.invalidateQueries(props.getSchedulesUrl);
       queryClient.invalidateQueries(props.getCalendarUrl);
@@ -199,7 +199,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
           kind="error"
           title="Something's Wrong"
           subtitle={`Request to delete schedule ${props.schedule.name} failed`}
-        />
+        />,
       );
       return;
     }
@@ -219,7 +219,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
           kind="success"
           title={`${isActive ? "Disable" : "Enable"} Schedule`}
           subtitle={`Successfully ${isActive ? "disabled" : "enabled"} schedule ${props.schedule.name} `}
-        />
+        />,
       );
       queryClient.invalidateQueries(props.getSchedulesUrl);
       queryClient.invalidateQueries(props.getCalendarUrl);
@@ -229,7 +229,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
           kind="error"
           title="Something's Wrong"
           subtitle={`Request to ${isActive ? "disable" : "enable"} schedule ${props.schedule.name} failed`}
-        />
+        />,
       );
       return;
     }
@@ -306,16 +306,13 @@ function ScheduledListItem(props: ScheduledListItemProps) {
           <dt>Labels</dt>
           <dd>{labels.length > 0 ? labels : "---"}</dd>
         </dl>
-        <OverflowMenu
-          flipped
-          ariaLabel="Schedule card menu"
-          iconDescription="Schedule menu icon"
-          style={{ position: "absolute", right: "0", top: "0" }}
-        >
-          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
-            <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
-          ))}
-        </OverflowMenu>
+        <div style={{ position: "absolute", right: "0", top: "0" }}>
+          <OverflowMenu flipped ariaLabel="Schedule card menu" iconDescription="Schedule menu icon">
+            {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
+              <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
+            ))}
+          </OverflowMenu>
+        </div>
       </Tile>
       {isToggleStatusModalOpen && (
         <ConfirmModal

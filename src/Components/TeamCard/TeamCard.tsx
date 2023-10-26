@@ -24,7 +24,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
     try {
       await leaveTeamMutator.mutateAsync({ team: team.name });
       notify(
-        <ToastNotification kind="success" title={`Leave Team`} subtitle={`${team.displayName} successfully left`} />
+        <ToastNotification kind="success" title={`Leave Team`} subtitle={`${team.displayName} successfully left`} />,
       );
       queryClient.invalidateQueries(serviceUrl.getUserProfile());
     } catch {
@@ -103,16 +103,13 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
         <ArrowRight size={24} className={styles.cardIcon} />
       </Link>
       {!leaveTeamMutator.isLoading ? (
-        <OverflowMenu
-          flipped
-          ariaLabel="Overflow card menu"
-          iconDescription="Overflow menu icon"
-          style={{ position: "absolute", right: "0" }}
-        >
-          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
-            <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
-          ))}
-        </OverflowMenu>
+        <div style={{ position: "absolute", right: "0" }}>
+          <OverflowMenu flipped ariaLabel="Overflow card menu" iconDescription="Overflow menu icon">
+            {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
+              <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
+            ))}
+          </OverflowMenu>
+        </div>
       ) : null}
       {isLeaveModalOpen && (
         <ConfirmModal
