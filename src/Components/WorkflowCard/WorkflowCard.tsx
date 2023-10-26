@@ -63,7 +63,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
   } = useMutation(resolver.postWorkflowRun);
 
   const { mutateAsync: duplicateWorkflowMutator, isLoading: duplicateWorkflowIsLoading } = useMutation(
-    resolver.postDuplicateWorkflow
+    resolver.postDuplicateWorkflow,
   );
 
   const isDuplicating = duplicateWorkflowIsLoading;
@@ -84,7 +84,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
     try {
       await deleteWorkflowMutator({ id: workflowId });
       notify(
-        <ToastNotification kind="success" title={`Delete ${viewType}`} subtitle={`${viewType} successfully deleted`} />
+        <ToastNotification kind="success" title={`Delete ${viewType}`} subtitle={`${viewType} successfully deleted`} />,
       );
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
@@ -97,7 +97,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
           kind="error"
           title="Something's Wrong"
           subtitle={`Request to delete ${viewType.toLowerCase()} failed`}
-        />
+        />,
       );
     }
   };
@@ -110,7 +110,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
           kind="success"
           title={`Duplicate ${viewType}`}
           subtitle={`Successfully duplicated ${viewType.toLowerCase()}`}
-        />
+        />,
       );
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
@@ -124,7 +124,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
           kind="error"
           title="Something's Wrong"
           subtitle={`Request to duplicate ${viewType.toLowerCase()} failed`}
-        />
+        />,
       );
       return;
     }
@@ -143,7 +143,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
             kind="error"
             title="Something's Wrong"
             subtitle={`Export ${viewType.toLowerCase()} failed`}
-          />
+          />,
         );
       });
   };
@@ -171,7 +171,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
           kind="success"
           title={`Run ${viewType}`}
           subtitle={`Successfully started ${viewType.toLowerCase()} execution`}
-        />
+        />,
       );
       if (redirect) {
         history.push({
@@ -187,7 +187,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
         formatErrorMessage({
           error: err,
           defaultMessage: "Run Workflow Failed",
-        })
+        }),
       );
       //no-op
     }
@@ -373,22 +373,24 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
           {/* <p className={styles.statusText}>{workflow.status === "active" ? "Active" : "Inactive"}</p> */}
         </div>
       )}
-      <OverflowMenu
-        flipped
-        ariaLabel="Overflow card menu"
-        iconDescription="Overflow menu icon"
-        style={{ position: "absolute", right: "0" }}
-      >
-        {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
-          <OverflowMenuItem
-            onClick={onClick}
-            itemText={itemText}
-            key={`${itemText}-${index}`}
-            disabled={isDuplicating || isDeleting || isExecuting}
-            {...rest}
-          />
-        ))}
-      </OverflowMenu>
+      <div style={{ position: "absolute", right: "0" }}>
+        <OverflowMenu
+          flipped
+          ariaLabel="Overflow card menu"
+          iconDescription="Overflow menu icon"
+          style={{ position: "absolute", right: "0" }}
+        >
+          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
+            <OverflowMenuItem
+              onClick={onClick}
+              itemText={itemText}
+              key={`${itemText}-${index}`}
+              disabled={isDuplicating || isDeleting || isExecuting}
+              {...rest}
+            />
+          ))}
+        </OverflowMenu>
+      </div>
       {isUpdateWorkflowModalOpen && (
         <UpdateWorkflow
           onCloseModal={() => setIsUpdateWorkflowModalOpen(false)}
