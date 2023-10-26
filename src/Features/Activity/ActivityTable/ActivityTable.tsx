@@ -1,12 +1,14 @@
 //@ts-nocheck
 import React from "react";
 import { DataTableSkeleton, DataTable, Pagination } from "@carbon/react";
+import { useParams } from "react-router-dom";
 import cx from "classnames";
 import moment from "moment";
 import queryString from "query-string";
 import { getHumanizedDuration, isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import EmptyState from "Components/EmptyState";
 import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
+import { appLink } from "Config/appConfig";
 import styles from "./activityTable.module.scss";
 
 interface ActivityTableProps {
@@ -65,6 +67,7 @@ const headers = [
 ];
 
 function ActivityTable(props: ActivityTableProps) {
+  const { team } = useParams<{ team: string }>();
   let headerList = headers;
 
   function handlePaginationChange({ page, pageSize }) {
@@ -84,9 +87,9 @@ function ActivityTable(props: ActivityTableProps) {
   }
 
   function executionViewRedirect(activityId) {
-    const activity = props.tableData.records.find((activity) => activity.id === activityId);
+    const activity = props.tableData.content.find((activity) => activity.id === activityId);
     props.history.push({
-      pathname: `/activity/${activity.workflowId}/execution/${activity.id}`,
+      pathname: appLink.execution({ team, executionId: activity.id, workflowId: activity.workflowRef }),
       state: { fromUrl: `${props.match.url}${props.location.search}`, fromText: "Activity" },
     });
   }
