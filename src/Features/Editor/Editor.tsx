@@ -34,7 +34,6 @@ import {
 } from "Types";
 import { FormikProps } from "formik";
 import type { ReactFlowInstance } from "reactflow";
-import styles from "./editor.module.scss";
 
 const CREATEABLE_PATHS = [
   "workflow",

@@ -178,6 +178,8 @@ function Configure(props: ConfigureProps) {
     formikProps: { errors, handleBlur, touched, values, setFieldValue },
   } = props;
 
+  console.log({ values });
+
   const githubEvents = props.githubAppInstallation?.events
     ? props.githubAppInstallation.events.map((item: string) => ({
         labelText: item,
@@ -558,9 +560,15 @@ function Configure(props: ConfigureProps) {
                         id="triggers.github.repositories"
                         label="Choose Repositories"
                         invalid={false}
-                        onChange={({ selectedItems }: { selectedItems: Array<{ label: string; value: string }> }) =>
-                          props.formikProps.setFieldValue("triggers.github.repositories", selectedItems)
-                        }
+                        onChange={({ selectedItems }: { selectedItems: Array<{ label: string; value: string }> }) => {
+                          const fieldIdx = values.triggers.github.conditions.findIndex(
+                            (condition) => condition.field === "repository"
+                          );
+                          props.formikProps.setFieldValue(
+                            `triggers.github.conditions[${fieldIdx}].values`,
+                            selectedItems
+                          );
+                        }}
                         items={props.githubAppInstallation?.repositories}
                         itemToString={(repository: string) => {
                           return props.githubAppInstallation.orgSlug + " / " + repository;
@@ -579,7 +587,13 @@ function Configure(props: ConfigureProps) {
                         values.triggers.github.conditions.find((condition) => condition.field === "event")?.values
                       }
                       labelText="Select events that you wish to trigger this Workflow"
-                      onChange={(_, __, ____, checked) => console.log(checked)}
+                      onChange={(_, __, ____, checked) => {
+                        const fieldIdx = values.triggers.github.conditions.findIndex(
+                          (condition) => condition.field === "event"
+                        );
+                        console.log(checked);
+                        props.formikProps.setFieldValue(`triggers.github.conditions[${fieldIdx}].values`, checked);
+                      }}
                       options={githubEvents}
                     />
                   </div>
