@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { useFeature } from "flagged";
 import { Formik, FormikProps, FieldArray } from "formik";
 import { Tag, MultiSelect, InlineNotification, Button } from "@carbon/react";
-import { Launch, Popup } from "@carbon/react/icons";
+import { Launch, Popup, TrashCan, Add } from "@carbon/react/icons";
 import {
   ComposedModal,
   TextArea,
@@ -23,11 +23,23 @@ import ConfigureStorage from "./ConfigureStorage";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import NavPanel from "./SideNav";
 import CustomLabel from "./CustomLabel";
-import { appLink, AppPath, BASE_DOCUMENTATION_URL, FeatureFlag } from "Config/appConfig";
+import { appLink, AppPath, FeatureFlag } from "Config/appConfig";
 import workflowIcons from "Assets/workflowIcons";
 import { WorkspaceConfigType } from "Constants";
 import { Workflow, ConfigureWorkflowFormValues } from "Types";
 import styles from "./configure.module.scss";
+
+const TRIGGER_YUP_SCHEMA = Yup.object().shape({
+  enabled: Yup.bool(),
+  conditions: Yup.array().of(
+    Yup.object().shape({
+      operation: Yup.string().required("Operation is required"),
+      field: Yup.string().required("Field is required"),
+      value: Yup.string().optional(),
+      values: Yup.array().of(Yup.string()).optional(),
+    })
+  ),
+});
 
 interface ConfigureContainerProps {
   quotas: {
@@ -56,7 +68,6 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
   const isOnConfigurePath = location.pathname.startsWith(
     appLink.editorConfigure({ team: params.team, workflowId: params.workflowId })
   );
-  console.log(isOnConfigurePath);
 
   // Find the specific workspace configs we want that are used for storage storage
   const workflowStorageConfig = workflow.workspaces?.find(
@@ -94,7 +105,7 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
           timeout: workflow.timeout ?? null,
           retries: workflow.retries ?? null,
           labels: workflow.labels ? Object.entries(workflow.labels).map(([key, value]) => ({ key, value })) : [],
-          triggers: workflow.triggers ?? [],
+          triggers: workflow.triggers,
           config: workflow.config ?? [],
         }}
         validationSchema={Yup.object().shape({
@@ -116,20 +127,13 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
           name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
           retries: Yup.number(),
           timeout: Yup.number(),
-          triggers: Yup.array().of(
-            Yup.object().shape({
-              type: Yup.string(),
-              enabled: Yup.boolean(),
-              conditions: Yup.array().of(
-                Yup.object().shape({
-                  operation: Yup.string(),
-                  field: Yup.string(),
-                  value: Yup.string().optional(),
-                  values: Yup.array().of(Yup.string()).optional(),
-                })
-              ),
-            })
-          ),
+          triggers: Yup.object().shape({
+            schedule: TRIGGER_YUP_SCHEMA,
+            event: TRIGGER_YUP_SCHEMA,
+            manual: TRIGGER_YUP_SCHEMA,
+            webhook: TRIGGER_YUP_SCHEMA,
+            github: TRIGGER_YUP_SCHEMA,
+          }),
         })}
       >
         {(formikProps) =>
@@ -178,12 +182,6 @@ function Configure(props: ConfigureProps) {
     ? props.githubAppInstallation.events.map((item: string) => ({
         labelText: item,
         id: item,
-      }))
-    : [];
-  const githubRepositories = props.githubAppInstallation?.repositories
-    ? props.githubAppInstallation.repositories.map((item: string) => ({
-        label: props.githubAppInstallation.orgSlug + " / " + item,
-        value: item,
       }))
     : [];
 
@@ -301,11 +299,11 @@ function Configure(props: ConfigureProps) {
                 <div className={styles.toggleContainer}>
                   <Toggle
                     reversed
-                    id="triggers.manual.enable"
-                    data-testid="triggers.manual.enable"
+                    id="triggers.manual.enabled"
+                    data-testid="triggers.manual.enabled"
                     label="Enable"
                     onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.manual.enabled")}
-                    toggled={values.triggers.some((trigger) => trigger.type === "manual" && trigger.enabled)}
+                    toggled={values.triggers.manual.enabled}
                   />
                 </div>
               </Section>
@@ -313,14 +311,14 @@ function Configure(props: ConfigureProps) {
                 <div className={styles.toggleContainer} style={{ marginTop: "1rem" }}>
                   <Toggle
                     reversed
-                    id="triggers.scheduler.enable"
-                    data-testid="triggers.scheduler.enable"
+                    id="triggers.schedule.enabled"
+                    data-testid="triggers.scheduler.enabled"
                     label="Enable"
-                    onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.scheduler.enabled")}
-                    toggled={values.triggers.some((trigger) => trigger.type === "scheduler" && trigger.enabled)}
+                    onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.schedule.enabled")}
+                    toggled={values.triggers.schedule.enabled}
                   />
                 </div>
-                {values.triggers.some((trigger) => trigger.type === "scheduler" && trigger.enabled) ? (
+                {values.triggers.schedule.enabled ? (
                   <InlineNotification
                     lowContrast
                     kind="info"
@@ -344,16 +342,16 @@ function Configure(props: ConfigureProps) {
                 <div className={styles.triggerSection}>
                   <div className={styles.toggleContainer}>
                     <Toggle
-                      id="triggers.webhook.enable"
+                      id="triggers.webhook.enabled"
                       label="Enable"
-                      toggled={values.triggers.some((trigger) => trigger.type === "webhook" && trigger.enabled)}
-                      onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.webhook.enable")}
+                      toggled={values.triggers.webhook.enabled}
+                      onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.webhook.enabled")}
                       tooltipContent="Enable workflow to be executed by a webhook"
                       tooltipProps={{ direction: "top" }}
                       reversed
                     />
                   </div>
-                  {values.triggers.some((trigger) => trigger.type === "webhook" && trigger.enabled) && (
+                  {values.triggers.webhook.enabled && (
                     <ComposedModal
                       modalHeaderProps={{
                         title: "Webhook Usage",
@@ -394,16 +392,16 @@ function Configure(props: ConfigureProps) {
                 <div className={styles.triggerSection}>
                   <div className={styles.toggleContainer}>
                     <Toggle
-                      id="triggers.event.enable"
+                      id="triggers.event.enabled"
                       label="Enable"
-                      toggled={values.triggers.some((trigger) => trigger.type === "event" && trigger.enabled)}
+                      toggled={values.triggers.event.enabled}
                       onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.event.enabled")}
                       tooltipContent="Enable workflow to be triggered by received events."
                       tooltipProps={{ direction: "top" }}
                       reversed
                     />
                   </div>
-                  {values.triggers.some((trigger) => trigger.type === "event" && trigger.enabled) && (
+                  {values.triggers.event.enabled && (
                     <>
                       <p className={styles.sectionDescription}>
                         The following filters will be applied to any incoming event based on the{" "}
@@ -419,28 +417,78 @@ function Configure(props: ConfigureProps) {
                         </a>{" "}
                         specification. Configure using exact match or regular expression to filter the events.
                       </p>
-                      <TextInput
-                        id="triggers.event.type"
-                        label="Type Filter"
-                        invalid={Boolean(errors.triggers?.event?.type && touched.triggers?.event?.type)}
-                        invalidText={errors.triggers?.event?.type}
-                        placeholder="io.boomerang.[event|phase|status]"
-                        helperText="A regular expression."
-                        value={values.triggers?.event?.type}
-                        onBlur={handleBlur}
-                        onChange={(e) => props.formikProps.handleChange(e)}
-                      />
-                      <TextInput
-                        id="triggers.event.subject"
-                        label="Subject Filter"
-                        invalid={Boolean(errors.triggers?.event?.subject && touched.triggers?.event?.subject)}
-                        invalidText={errors.triggers?.event?.subject}
-                        placeholder="Hello World"
-                        helperText="A regular expression."
-                        value={values.triggers?.event?.subject}
-                        onBlur={handleBlur}
-                        onChange={(e) => props.formikProps.handleChange(e)}
-                      />
+                      <FieldArray name="triggers.event.conditions">
+                        {({ remove, push }) => (
+                          <>
+                            <div>
+                              {values.triggers.event.conditions.map((condition, idx) => {
+                                console.log(errors?.triggers?.event?.conditions);
+                                return (
+                                  <div
+                                    style={{ display: "flex", gap: "0.5rem", width: "50rem", alignItems: "baseline" }}
+                                  >
+                                    <TextInput
+                                      id={`triggers.event.conditions[${idx}].field`}
+                                      name={`triggers.event.conditions[${idx}].field`}
+                                      label="Field"
+                                      invalid={Boolean(errors.triggers?.event?.conditions?.[idx]?.field)}
+                                      invalidText={errors.triggers?.event?.conditions?.[idx]?.field}
+                                      placeholder="io.boomerang.[event|phase|status]"
+                                      //helperText="A regular expression."
+                                      value={condition.field}
+                                      onBlur={handleBlur}
+                                      onChange={(e) => props.formikProps.handleChange(e)}
+                                    />
+                                    <TextInput
+                                      id={`triggers.event.conditions[${idx}].operation`}
+                                      name={`triggers.event.conditions[${idx}].operation`}
+                                      label="Operation"
+                                      invalid={Boolean(errors.triggers?.event?.conditions?.[idx]?.operation)}
+                                      invalidText={errors.triggers?.event?.conditions?.[idx]?.operation}
+                                      placeholder="io.boomerang.[event|phase|status]"
+                                      //helperText="A regular expression."
+                                      value={condition.operation}
+                                      onBlur={handleBlur}
+                                      onChange={(e) => props.formikProps.handleChange(e)}
+                                    />
+                                    <TextInput
+                                      id={`triggers.event.conditions[${idx}].value`}
+                                      name={`triggers.event.conditions[${idx}].value`}
+                                      label="Value"
+                                      invalid={Boolean(errors.triggers?.event?.conditions?.[idx]?.value)}
+                                      invalidText={errors.triggers?.event?.conditions?.[idx]?.value}
+                                      placeholder="io.boomerang.[event|phase|status]"
+                                      //helperText="A regular expression."
+                                      value={condition.value}
+                                      onBlur={handleBlur}
+                                      onChange={(e) => props.formikProps.handleChange(e)}
+                                    />
+                                    <Button
+                                      title="delete"
+                                      kind="danger--ghost"
+                                      size="sm"
+                                      onClick={() => remove(idx)}
+                                      renderIcon={TrashCan}
+                                      style={{ height: "1.5rem", alignSelf: "center" }}
+                                    >
+                                      Remove
+                                    </Button>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                            <Button
+                              kind="ghost"
+                              onClick={() => push({ field: "", operator: "", value: "" })}
+                              renderIcon={Add}
+                              size="sm"
+                              style={{ marginRight: "0.5rem" }}
+                            >
+                              Add row
+                            </Button>
+                          </>
+                        )}
+                      </FieldArray>
                       {/* <div className={styles.webhookContainer}> */}
                       <ComposedModal
                         modalHeaderProps={{
@@ -483,10 +531,10 @@ function Configure(props: ConfigureProps) {
                 </p>
                 <div className={styles.toggleContainer}>
                   <Toggle
-                    id="triggers.github.enable"
+                    id="triggers.github.enabled"
                     label="Enable"
-                    toggled={values.triggers.github.enable}
-                    onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.github.enable")}
+                    toggled={values.triggers.github.enabled}
+                    onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.github.enabled")}
                     reversed
                     disabled={!props.githubAppInstallation}
                   />
@@ -501,7 +549,7 @@ function Configure(props: ConfigureProps) {
                     hideCloseButton
                   />
                 )}
-                {values.triggers.github.enable && props.githubAppInstallation && (
+                {values.triggers.github.enabled && props.githubAppInstallation && (
                   <div className={styles.githubTriggerContainer}>
                     <h2 className={styles.iconTitle}>Repository Filter</h2>
                     <div style={{ maxWidth: "27.125rem" }}>
@@ -511,22 +559,27 @@ function Configure(props: ConfigureProps) {
                         label="Choose Repositories"
                         invalid={false}
                         onChange={({ selectedItems }: { selectedItems: Array<{ label: string; value: string }> }) =>
-                          props.formikProps.setFieldValue(
-                            "triggers.github.repositories",
-                            selectedItems.map((item) => item.value)
-                          )
+                          props.formikProps.setFieldValue("triggers.github.repositories", selectedItems)
                         }
-                        items={githubRepositories}
-                        initialSelectedItems={values.triggers.github.repositories}
+                        items={props.githubAppInstallation?.repositories}
+                        itemToString={(repository: string) => {
+                          return props.githubAppInstallation.orgSlug + " / " + repository;
+                        }}
+                        initialSelectedItems={
+                          values.triggers.github.conditions.find((condition) => condition.field === "repository")
+                            ?.values
+                        }
                         titleText="Filter by Repository"
                       />
                     </div>
                     <h2 className={styles.iconTitle}>Events Filter</h2>
                     <CheckboxList
                       id="triggers.github.events"
-                      initialSelectedItems={["peacock"]}
+                      initialSelectedItems={
+                        values.triggers.github.conditions.find((condition) => condition.field === "event")?.values
+                      }
                       labelText="Select events that you wish to trigger this Workflow"
-                      onChange={(args) => console.log(args)}
+                      onChange={(_, __, ____, checked) => console.log(checked)}
                       options={githubEvents}
                     />
                   </div>
@@ -535,20 +588,20 @@ function Configure(props: ConfigureProps) {
             </>
           )}
         </Route>
-        <Route exact path={AppPath.EditorConfigureParams}>
+        {/* <Route exact path={AppPath.EditorConfigureParams}>
           <Section title="GitHub" description="Auto inject GitHub Parameters." beta>
             <div className={styles.toggleContainer}>
               <Toggle
                 id="bob"
                 label="Enable"
                 toggled={values.triggers.webhook.enable}
-                onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.webhook.enable")}
+                onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.webhook.enabled")}
                 reversed
                 disabled
               />
             </div>
           </Section>
-        </Route>
+        </Route> */}
         <Route exact path={AppPath.EditorConfigureRun}>
           <Section title="Execution" description="Customize how your Workflow behaves.">
             <div>

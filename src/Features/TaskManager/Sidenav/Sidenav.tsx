@@ -38,7 +38,6 @@ interface SideInfoProps {
 
 const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, getTaskTemplatesUrl }) => {
   const history = useHistory();
-  const location = useLocation();
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
   const [openCategories, setOpenCategories] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState("");

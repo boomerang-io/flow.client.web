@@ -152,7 +152,13 @@ export interface Workflow {
     date: string;
   };
   config: Array<DataDrivenInput>;
-  triggers: Array<WorkflowTrigger>;
+  triggers: {
+    event: WorkflowTrigger;
+    github: WorkflowTrigger;
+    manual: WorkflowTrigger;
+    schedule: WorkflowTrigger;
+    webhook: WorkflowTrigger;
+  };
   templateUpgradesAvailable: boolean;
   workspaces: Array<{
     name: string;
@@ -174,7 +180,6 @@ export enum WorkflowStatus {
 
 export interface WorkflowTrigger {
   enabled: boolean;
-  type: WorkflowTriggerType;
   conditions: Array<WorkflowTriggerCondition>;
 }
 
@@ -753,6 +758,6 @@ export interface ConfigureWorkflowFormValues {
   timeout: number;
   retries: number;
   labels: Array<{ key: string; value: string }>;
-  triggers: Array<WorkflowTrigger>;
-  config: Array<DataDrivenInput>;
+  triggers: Workflow["triggers"];
+  config: Workflow["config"];
 }

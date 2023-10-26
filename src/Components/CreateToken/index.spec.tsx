@@ -39,16 +39,39 @@ const team: FlowTeam = {
       id: "5eb2c4085a92d80001a16d87",
       name: "ML Train – Bot Efficiency",
       status: "active",
-      triggers: {
-        scheduler: { enable: false },
-        webhook: { enable: false },
-        event: {
-          enable: false,
-          type: null,
-          subject: null,
+      triggers: [
+        {
+          type: "manual",
+          enabled: true,
+          conditions: null,
         },
-        manual: { enable: false },
-      },
+        {
+          type: "webhook",
+          enabled: false,
+          conditions: null,
+        },
+        {
+          type: "scheduler",
+          enabled: false,
+          conditions: null,
+        },
+        {
+          type: "event",
+          enabled: true,
+          conditions: [
+            { operation: "matches", field: "type", value: "io.boomerang.test" },
+            { operation: "matches", field: "subject", value: "australia" },
+          ],
+        },
+        {
+          type: "github",
+          enabled: true,
+          conditions: [
+            { operation: "in", field: "event", values: ["create", "delete"] },
+            { operation: "in", field: "repository", values: ["australia", "img", "test"] },
+          ],
+        },
+      ],
       enableACCIntegration: false,
       revisionCount: 2,
       templateUpgradesAvailable: false,

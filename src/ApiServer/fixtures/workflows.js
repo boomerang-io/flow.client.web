@@ -18,12 +18,36 @@ const workflows = {
         },
       ],
       triggers: {
-        scheduler: { enable: false },
-        webhook: { enable: false },
+        manual: {
+          type: "manual",
+          enabled: true,
+          conditions: null,
+        },
+        webhook: {
+          type: "webhook",
+          enabled: false,
+          conditions: null,
+        },
+        schedule: {
+          type: "scheduler",
+          enabled: false,
+          conditions: null,
+        },
         event: {
-          enable: false,
-          type: null,
-          subject: null,
+          type: "event",
+          enabled: true,
+          conditions: [
+            { operation: "matches", field: "type", value: "io.boomerang.test" },
+            { operation: "matches", field: "subject", value: "australia" },
+          ],
+        },
+        github: {
+          type: "github",
+          enabled: true,
+          conditions: [
+            { operation: "in", field: "event", values: ["create", "delete"] },
+            { operation: "in", field: "repository", values: ["australia", "img", "test"] },
+          ],
         },
       },
       templateUpgradesAvailable: false,
@@ -68,20 +92,35 @@ const workflows = {
       ],
       triggers: {
         manual: {
-          enable: true,
-          token: null,
-          topic: null,
-        },
-        scheduler: {
-          enable: false,
+          type: "manual",
+          enabled: true,
+          conditions: null,
         },
         webhook: {
-          enable: true,
+          type: "webhook",
+          enabled: false,
+          conditions: null,
+        },
+        schedule: {
+          type: "scheduler",
+          enabled: false,
+          conditions: null,
         },
         event: {
-          enable: false,
-          type: null,
-          subject: null,
+          type: "event",
+          enabled: true,
+          conditions: [
+            { operation: "matches", field: "type", value: "io.boomerang.test" },
+            { operation: "matches", field: "subject", value: "australia" },
+          ],
+        },
+        github: {
+          type: "github",
+          enabled: true,
+          conditions: [
+            { operation: "in", field: "event", values: ["create", "delete"] },
+            { operation: "in", field: "repository", values: ["australia", "img", "test"] },
+          ],
         },
       },
       tokens: [],
@@ -133,18 +172,35 @@ const workflows = {
       ],
       triggers: {
         manual: {
-          enable: true,
-        },
-        scheduler: {
-          enable: false,
+          type: "manual",
+          enabled: true,
+          conditions: null,
         },
         webhook: {
-          enable: true,
+          type: "webhook",
+          enabled: false,
+          conditions: null,
+        },
+        schedule: {
+          type: "scheduler",
+          enabled: false,
+          conditions: null,
         },
         event: {
-          enable: false,
-          type: null,
-          subject: null,
+          type: "event",
+          enabled: true,
+          conditions: [
+            { operation: "matches", field: "type", value: "io.boomerang.test" },
+            { operation: "matches", field: "subject", value: "australia" },
+          ],
+        },
+        github: {
+          type: "github",
+          enabled: true,
+          conditions: [
+            { operation: "in", field: "event", values: ["create", "delete"] },
+            { operation: "in", field: "repository", values: ["australia", "img", "test"] },
+          ],
         },
       },
       tokens: [],
