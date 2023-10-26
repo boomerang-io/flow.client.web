@@ -104,7 +104,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
       </Link>
       {!leaveTeamMutator.isLoading ? (
         <div style={{ position: "absolute", right: "0" }}>
-          <OverflowMenu flipped ariaLabel="Overflow card menu" iconDescription="Overflow menu icon">
+          <OverflowMenu flipped ariaLabel="Overflow card menu" iconDescription="Overflow menu icon" size="sm">
             {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
               <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
             ))}

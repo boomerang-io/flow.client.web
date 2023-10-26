@@ -307,7 +307,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
           <dd>{labels.length > 0 ? labels : "---"}</dd>
         </dl>
         <div style={{ position: "absolute", right: "0", top: "0" }}>
-          <OverflowMenu flipped ariaLabel="Schedule card menu" iconDescription="Schedule menu icon">
+          <OverflowMenu flipped ariaLabel="Schedule card menu" iconDescription="Schedule menu icon" size="sm">
             {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
               <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
             ))}

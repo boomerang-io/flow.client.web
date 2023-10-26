@@ -59,9 +59,16 @@
 .cds--bmrg-feature-header {
   min-height: initial;
 }
+
+.cds--tabs__nav-link {
+  display: flex !important;
+  align-items: center !important;
+}
  
 :root {
   --cds-font-family: "IBM Plex Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
+
+
 
 //@import "@carbon/charts/styles/styles.scss";
