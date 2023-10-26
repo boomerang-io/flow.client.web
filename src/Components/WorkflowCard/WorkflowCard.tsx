@@ -234,7 +234,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
     hasReachedMonthlyRunLimit = quotas?.maxWorkflowExecutionMonthly <= quotas?.currentRuns;
   }
 
-  const canRunManually = workflow?.triggers?.manual?.enable ?? false;
+  const canRunManually = workflow?.triggers?.manual?.enabled ?? false;
   const isDisabled = workflowQuotasEnabled && (hasReachedMonthlyRunLimit || !canRunManually);
 
   let loadingText = "";
