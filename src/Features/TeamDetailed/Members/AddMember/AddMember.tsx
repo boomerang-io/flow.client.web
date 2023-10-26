@@ -84,11 +84,12 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
                 })}
               >
                 {({ errors, isValid, touched, handleBlur, handleChange, setFieldValue, values, handleSubmit }) => {
+                  const emailIsInvalid = Boolean(errors.email && touched.email);
                   return (
                     <>
                       <TextInput
                         id="email"
-                        invalid={Boolean(errors.email && touched.email)}
+                        invalid={emailIsInvalid}
                         invalidText={errors.email}
                         labelText="Email"
                         onBlur={handleBlur}
@@ -108,7 +109,17 @@ function AddMember({ memberList, handleSubmit, isSubmitting, error }: AddMemberP
                         titleText="Role"
                         placeholder="Select role"
                       />
-                      <Button kind="tertiary" disabled={!isValid} className={styles.roleButton} onClick={handleSubmit}>
+                      <Button
+                        kind="tertiary"
+                        disabled={!isValid}
+                        onClick={handleSubmit}
+                        renderIcon={Add}
+                        size="md"
+                        style={{
+                          alignSelf: emailIsInvalid ? "center" : "flex-end",
+                          marginTop: emailIsInvalid ? "0.5rem" : 0,
+                        }}
+                      >
                         Add
                       </Button>
                     </>
