@@ -72,21 +72,21 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
   );
 }
 
-function EditButton({ openModal }) {
-  return (
-    <Button
-      className={styles.editButton}
-      data-testid="settings-edit-button"
-      iconDescription="edit"
-      kind="ghost"
-      size="small"
-      renderIcon={Edit}
-      onClick={openModal}
-    />
-  );
-}
+// function EditButton({ openModal }: any) {
+//   return (
+//     <Button
+//       className={styles.editButton}
+//       data-testid="settings-edit-button"
+//       iconDescription="edit"
+//       kind="ghost"
+//       size="small"
+//       renderIcon={Edit}
+//       onClick={openModal}
+//     />
+//   );
+// }
 
-function SettingSection({ children, description, editModal, title }) {
+function SettingSection({ children, description, editModal, title }: any) {
   return (
     <section className={styles.sectionContainer}>
       <div className={styles.sectionHeader}>

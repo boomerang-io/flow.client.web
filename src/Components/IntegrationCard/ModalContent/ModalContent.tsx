@@ -30,7 +30,7 @@ const ModalContent: React.FC<ModalContentProps> = ({
       )}
       <ModalBody>
         <ReactMarkdown className="markdown-body" children={data.instructions} />
-        {data.status == "linked" && (
+        {data.status === "linked" && (
           <InlineNotification
             lowContrast
             kind="info"
@@ -45,12 +45,10 @@ const ModalContent: React.FC<ModalContentProps> = ({
         <Button
           onClick={(e: React.SyntheticEvent) => {
             e.preventDefault();
-            {
-              data.status == "unlinked" ? handleEnable(closeModal) : handleDisable(closeModal);
-            }
+            data.status === "unlinked" ? handleEnable(closeModal) : handleDisable(closeModal);
           }}
         >
-          {data.status == "unlinked" ? "Enable" : "Disable"}
+          {data.status === "unlinked" ? "Enable" : "Disable"}
         </Button>
       </ModalFooter>
     </ModalForm>

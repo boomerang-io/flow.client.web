@@ -2,7 +2,6 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useMutation, useQueryClient } from "react-query";
 import { resolver } from "Config/servicesConfig";
-import moment from "moment";
 import { matchSorter as ms } from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { Link } from "react-router-dom";
@@ -46,7 +45,7 @@ const Members: React.FC<MemberProps> = ({ canEdit, team, user, teamDetailsUrl })
             title="Add User"
             subtitle={`Request to add ${user.email} to ${team.displayName} submitted`}
             kind="success"
-          />
+          />,
         );
       });
     } catch (error) {

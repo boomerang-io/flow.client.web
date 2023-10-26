@@ -10,7 +10,7 @@ import {
   TextArea,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, Tag, ModalBody, ModalFooter, InlineNotification, ComboButton, MenuItem } from "@carbon/react";
+import { Button, Tag, ModalBody, ModalFooter, InlineNotification } from "@carbon/react";
 import { useParams } from "react-router-dom";
 import VersionHistory from "Components/VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
@@ -43,7 +43,7 @@ interface SaveModalProps {
     resetForm: () => void,
     requestType: string,
     setRequestError: ({ title, subtitle }: { title: string; subtitle: string }) => void,
-    closeModal: () => void
+    closeModal: () => void,
   ) => void;
   isLoading: boolean;
   canEdit: boolean;
@@ -132,7 +132,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ formikProps, handleSubmit, isLoad
                     formikProps.resetForm,
                     TemplateRequestType.Overwrite,
                     setRequestError,
-                    closeModal
+                    closeModal,
                   );
                 }}
               >
@@ -146,7 +146,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ formikProps, handleSubmit, isLoad
                     formikProps.resetForm,
                     TemplateRequestType.New,
                     setRequestError,
-                    closeModal
+                    closeModal,
                   );
                 }}
                 disabled={!Boolean(formikProps.values.comments)}
@@ -169,7 +169,7 @@ interface HeaderProps {
     resetForm: () => void,
     requestType: string,
     setRequestError?: (error: any) => void,
-    closeModal?: () => void
+    closeModal?: () => void,
   ) => void;
   handleRestoreTaskTemplate: () => void;
   handleArchiveTaskTemplate: () => void;
@@ -411,7 +411,7 @@ const Header: React.FC<HeaderProps> = ({
         )}
       </div>
       <p className={styles.lastUpdate}>{`Version ${versionCount === 1 ? "created" : "updated"} ${moment(
-        lastUpdated.date
+        lastUpdated.date,
       ).format("MMM DD, YYYY")} by ${lastUpdated.author ?? "---"}`}</p>
     </FeatureHeader>
   );

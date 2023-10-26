@@ -1,4 +1,4 @@
-import { Stack, Grid, Column, SkeletonPlaceholder, SkeletonText } from "@carbon/react";
+import { Stack, SkeletonPlaceholder, SkeletonText } from "@carbon/react";
 
 import styles from "./workflowCard.module.scss";
 

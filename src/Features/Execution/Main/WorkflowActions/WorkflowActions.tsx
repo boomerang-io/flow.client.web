@@ -1,18 +1,17 @@
 import React from "react";
-import { useAppContext } from "Hooks";
 import { Button } from "@carbon/react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { appLink } from "Config/appConfig";
 import { Edit } from "@carbon/react/icons";
-import { elevatedUserRoles } from "Constants";
-import { WorkflowSummary } from "Types";
+import type { Workflow } from "Types";
 import styles from "./WorkflowActions.module.scss";
 
 type Props = {
-  workflow: WorkflowSummary;
+  workflow: Workflow;
 };
 
 function WorkflowActions({ workflow }: Props) {
+  const { team } = useParams<{ team: string }>();
   const { id } = workflow;
   const history = useHistory();
 
@@ -22,7 +21,7 @@ function WorkflowActions({ workflow }: Props) {
       <Button
         kind="ghost"
         size="md"
-        onClick={() => history.push(appLink.editorDesigner({ workflowId: id }))}
+        onClick={() => history.push(appLink.editorDesigner({ team, workflowId: id }))}
         renderIcon={Edit}
       >
         Edit Workflow

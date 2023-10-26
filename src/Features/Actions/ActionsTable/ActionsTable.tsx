@@ -14,7 +14,6 @@ import { appLink } from "Config/appConfig";
 import dateHelper from "Utils/dateHelper";
 import { CheckmarkOutline, CloseOutline, Help, Warning } from "@carbon/react/icons";
 import styles from "./ActionsTable.module.scss";
-import { set } from "lodash";
 
 interface ActionsTableProps {
   actionsQueryToRefetch: string;
@@ -219,7 +218,7 @@ function ActionsTable(props: ActionsTableProps) {
     return actionId
       ? content.filter((action: Action) => action.id === actionId)
       : content.filter((action: Action) =>
-          selectedActions.some((selectedAction: string) => selectedAction === action.id)
+          selectedActions.some((selectedAction: string) => selectedAction === action.id),
         );
   };
 
@@ -304,9 +303,9 @@ function ActionsTable(props: ActionsTableProps) {
                                       .filter(
                                         (item: Action) =>
                                           item.status === ApprovalStatus.Submitted &&
-                                          !item?.actioners?.map((user) => user.approverId).includes(user?.id)
+                                          !item?.actioners?.map((user) => user.approverId).includes(user?.id),
                                       )
-                                      .map((item: Action) => item.id)
+                                      .map((item: Action) => item.id),
                                   );
                                 },
                               })}

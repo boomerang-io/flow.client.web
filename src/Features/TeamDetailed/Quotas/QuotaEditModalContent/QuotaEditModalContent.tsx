@@ -5,7 +5,6 @@ import { useMutation, useQueryClient } from "react-query";
 import { Button, ModalBody, ModalFooter, NumberInput, InlineNotification } from "@carbon/react";
 import { Loading, ModalForm, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { resolver } from "Config/servicesConfig";
-import { FlowTeamQuotas } from "Types";
 import styles from "./QuotaEditModalContent.module.scss";
 
 interface QuotaEditProps {
@@ -45,7 +44,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
       queryClient.invalidateQueries(teamDetailsUrl);
       closeModal();
       notify(
-        <ToastNotification kind="success" title="Update Team Quotas" subtitle="Team quota successfully updated" />
+        <ToastNotification kind="success" title="Update Team Quotas" subtitle="Team quota successfully updated" />,
       );
     } catch {
       notify(<ToastNotification kind="error" subtitle="Failed to update team quota" title="Something's Wrong" />);

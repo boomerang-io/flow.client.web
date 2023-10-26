@@ -4,7 +4,7 @@ import { useQuery } from "Hooks";
 import { useFeature } from "flagged";
 import { useHistory, useLocation } from "react-router-dom";
 import { Box } from "reflexbox";
-import { Button, DataTable, DataTableSkeleton, Pagination, Search, Layer } from "@carbon/react";
+import { Button, DataTable, DataTableSkeleton, Pagination, Search } from "@carbon/react";
 import { CheckmarkFilled, Misuse } from "@carbon/react/icons";
 import {
   ComposedModal,
@@ -113,7 +113,7 @@ const TeamList: React.FC = () => {
     debounce((query: string) => {
       updateHistorySearch({ query, page: 0 });
     }, 300),
-    []
+    [],
   );
 
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {

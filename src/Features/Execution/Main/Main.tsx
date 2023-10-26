@@ -4,7 +4,6 @@ import { UseQueryResult } from "react-query";
 import { Loading } from "@carbon/react";
 import ReactFlow from "Features/Reactflow";
 import ExecutionHeader from "./ExecutionHeader";
-import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
 import type { ReactFlowInstance } from "reactflow";
 import { RunStatus, WorkflowExecution, WorkflowExecutionStep, WorkflowEditor } from "Types";

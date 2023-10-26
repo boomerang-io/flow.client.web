@@ -3,7 +3,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { Tile, Button, InlineNotification } from "@carbon/react";
 import { TooltipHover, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ComposedModalChildProps, ModalTriggerProps, FlowTeamQuotas, FlowTeam } from "Types";
+import { ComposedModalChildProps, ModalTriggerProps, FlowTeam } from "Types";
 import { Edit } from "@carbon/react/icons";
 import ProgressBar from "Components/ProgressBar";
 import RestoreDefaults from "./RestoreDefaults";

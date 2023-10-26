@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, Dropdown, TextInput, DropdownSkeleton, SkeletonPlaceholder } from "@carbon/react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Button, Dropdown, TextInput, DropdownSkeleton } from "@carbon/react";
+import { useMutation, useQuery } from "react-query";
 import { useHistory } from "react-router-dom";
 import { Link } from "@carbon/pictograms-react";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
-import queryString from "query-string";
 import { useAppContext } from "Hooks";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -52,14 +51,14 @@ export default function Github({ installId }: GitHubProps) {
           kind="success"
           title="Link Successfull"
           subtitle={`${values.team} successfully linked with ${values.org}`}
-        />
+        />,
       );
       history.push({
         pathname: appLink.integrations({ team: values.team }),
       });
     } catch (error) {
       notify(
-        <ToastNotification kind="error" title="Something's Wrong" subtitle="Request to link GitHab App failed." />
+        <ToastNotification kind="error" title="Something's Wrong" subtitle="Request to link GitHab App failed." />,
       );
     }
   };

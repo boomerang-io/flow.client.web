@@ -12,7 +12,6 @@ import TaskTemplateOverview from "../TaskTemplateOverview";
 import TaskTemplateYamlEditor from "../TaskTemplateEditor";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { groupTaskTemplatesByName } from "Utils";
 import styles from "../TaskManager.module.scss";
 
 const HELMET_TITLE = "Task Manager";

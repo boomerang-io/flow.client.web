@@ -5,13 +5,12 @@ import {
   // Tag,
   // TooltipHover,
 } from "@carbon/react";
-import { ExecutionContextProvider } from "State/context";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import { ModalFlowForm, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Box } from "reflexbox";
 import WombatMessage from "Components/WombatMessage";
 import workflowIcons from "Assets/workflowIcons";
-import { WorkflowTemplate, TaskTemplate } from "Types";
+import { WorkflowTemplate } from "Types";
 import { WorkflowEngineMode } from "Constants";
 import { Bee } from "@carbon/react/icons";
 import styles from "./createWorkflowTemplate.module.scss";
@@ -61,7 +60,7 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
           dag: formData.selectedWorkflow.revision.dag,
           mode: WorkflowEngineMode.Executor,
         })
-      : null
+      : null,
   );
   // const triggersList = selectedWorkflow ? Object.keys(selectedWorkflow.triggers).filter((trigger) => selectedWorkflow.triggers[trigger].enable) : [];
 

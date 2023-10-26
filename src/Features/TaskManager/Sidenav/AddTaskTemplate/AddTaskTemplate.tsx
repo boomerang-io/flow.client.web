@@ -36,7 +36,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
           subtitle="Successfully created task template"
           title={`Task Template ${response.data.displayName} created`}
           data-testid="create-task-template-notification"
-        />
+        />,
       );
       history.push(
         team
@@ -48,7 +48,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
           : appLink.adminTaskTemplateDetail({
               name: task.name,
               version: task.version.toString(),
-            })
+            }),
       );
       closeModal();
     } catch (err) {
@@ -60,11 +60,12 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
 
   const handleImportTaskTemplate = async ({ type, replace, body, closeModal }) => {
     setIsSubmitting(true);
+    let response;
     try {
       if (type === "application/json") {
-        let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team?.name, body });
+        response = await createTaskTemplateMutation.mutateAsync({ replace, team: team?.name, body });
       } else {
-        let response = await createTaskTemplateYAMLMutation.mutateAsync({ replace, team: team?.name, body });
+        response = await createTaskTemplateYAMLMutation.mutateAsync({ replace, team: team?.name, body });
       }
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
@@ -73,7 +74,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
           subtitle="Successfully imported task template"
           title={`Task Template ${response.data.displayName} imported`}
           data-testid="import-task-template-notification"
-        />
+        />,
       );
       history.push(
         team
@@ -85,7 +86,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
           : appLink.adminTaskTemplateDetail({
               name: task.name,
               version: task.version.toString(),
-            })
+            }),
       );
       closeModal();
     } catch (err) {

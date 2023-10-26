@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { InlineLoading } from "@carbon/react";
 import { ComposedModal, ToastNotification, notify, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import ModalContent from "./ModalContent";
@@ -34,7 +34,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
           kind="success"
           title={`Disable Integration`}
           subtitle={`${data.name} successfully disabled`}
-        />
+        />,
       );
       queryClient.invalidateQueries(url);
       closeModal();
@@ -44,7 +44,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
           kind="error"
           title="Something's Wrong"
           subtitle={`Request to disable ${data.name.toLowerCase()} failed`}
-        />
+        />,
       );
     }
   };
@@ -74,7 +74,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
         formatErrorMessage({
           error: err,
           defaultMessage: "Enable integration failed",
-        })
+        }),
       );
       //no-op
     }
