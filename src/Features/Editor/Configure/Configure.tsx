@@ -4,7 +4,7 @@ import { Switch, Route, Redirect, useLocation, useParams } from "react-router-do
 import { useQuery } from "react-query";
 import { useFeature } from "flagged";
 import { Formik, FormikProps, FieldArray } from "formik";
-import { Tag, MultiSelect, InlineNotification, Button } from "@carbon/react";
+import { Tag, MultiSelect, InlineNotification, Button, Dropdown } from "@carbon/react";
 import { Launch, Popup, TrashCan, Add } from "@carbon/react/icons";
 import {
   ComposedModal,
@@ -105,7 +105,7 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
           timeout: workflow.timeout ?? null,
           retries: workflow.retries ?? null,
           labels: workflow.labels ? Object.entries(workflow.labels).map(([key, value]) => ({ key, value })) : [],
-          triggers: workflow.triggers,
+          triggers: workflow.triggers ?? {},
           config: workflow.config ?? [],
         }}
         validationSchema={Yup.object().shape({
@@ -427,7 +427,11 @@ function Configure(props: ConfigureProps) {
                                 console.log(errors?.triggers?.event?.conditions);
                                 return (
                                   <div
-                                    style={{ display: "flex", gap: "0.5rem", width: "50rem", alignItems: "baseline" }}
+                                    style={
+                                      idx > 0
+                                        ? { display: "flex", gap: "0.5rem", width: "50rem" }
+                                        : { display: "flex", gap: "0.5rem", width: "50rem", alignItems: "baseline" }
+                                    }
                                   >
                                     <TextInput
                                       id={`triggers.event.conditions[${idx}].field`}
@@ -440,18 +444,21 @@ function Configure(props: ConfigureProps) {
                                       value={condition.field}
                                       onBlur={handleBlur}
                                       onChange={(e) => props.formikProps.handleChange(e)}
+                                      hideLabel={idx > 0}
                                     />
-                                    <TextInput
+                                    <Dropdown
                                       id={`triggers.event.conditions[${idx}].operation`}
                                       name={`triggers.event.conditions[${idx}].operation`}
+                                      type="default"
                                       label="Operation"
+                                      light={false}
+                                      items={["in", "matches", "equals"]}
+                                      value={condition.operation}
+                                      onChange={(e) => props.formikProps.handleChange(e)}
                                       invalid={Boolean(errors.triggers?.event?.conditions?.[idx]?.operation)}
                                       invalidText={errors.triggers?.event?.conditions?.[idx]?.operation}
-                                      placeholder="io.boomerang.[event|phase|status]"
-                                      //helperText="A regular expression."
-                                      value={condition.operation}
-                                      onBlur={handleBlur}
-                                      onChange={(e) => props.formikProps.handleChange(e)}
+                                      hideLabel={idx > 0}
+                                      titleText="Operation"
                                     />
                                     <TextInput
                                       id={`triggers.event.conditions[${idx}].value`}
@@ -464,6 +471,7 @@ function Configure(props: ConfigureProps) {
                                       value={condition.value}
                                       onBlur={handleBlur}
                                       onChange={(e) => props.formikProps.handleChange(e)}
+                                      hideLabel={idx > 0}
                                     />
                                     <Button
                                       title="delete"
@@ -471,10 +479,31 @@ function Configure(props: ConfigureProps) {
                                       size="sm"
                                       onClick={() => remove(idx)}
                                       renderIcon={TrashCan}
-                                      style={{ height: "1.5rem", alignSelf: "center" }}
-                                    >
-                                      Remove
-                                    </Button>
+                                      iconDescription="Remove Filter"
+                                      tooltipPosition={"right"}
+                                      tooltipAlignment={"start"}
+                                      style={
+                                        idx > 0
+                                          ? {
+                                              inlineSize: "2.5rem",
+                                              minBlockSize: "2.5rem",
+                                              height: "2.5rem",
+                                              width: "2.5rem",
+                                              alignItems: "center",
+                                              padding: 0,
+                                            }
+                                          : {
+                                              inlineSize: "2.5rem",
+                                              minBlockSize: "2.5rem",
+                                              height: "2.5rem",
+                                              width: "2.5rem",
+                                              alignItems: "center",
+                                              padding: 0,
+                                              marginTop: "28px",
+                                            }
+                                      }
+                                      hasIconOnly
+                                    />
                                   </div>
                                 );
                               })}

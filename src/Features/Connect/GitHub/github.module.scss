@@ -28,6 +28,8 @@
 .field {
   max-width: 14rem;
   min-width: 14rem;
+  text-align: left;
+  background-color: var(--cds-field);
 }
 
 .skeletonField {
