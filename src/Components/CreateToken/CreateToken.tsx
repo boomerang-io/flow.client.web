@@ -4,11 +4,12 @@ import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Add } from "@carbon/react/icons";
 import CreateServiceTokenForm from "./Form";
 import CreateServiceTokenResult from "./Result";
-import { TokenType } from "Types";
+import { TokenScope } from "Constants";
+import { TokenScopeType } from "Types";
 import styles from "./CreateToken.module.scss";
 
 interface CreateServiceTokenButtonProps {
-  type: TokenType;
+  type: TokenScopeType;
   principal?: string | null;
   getTokensUrl: string;
 }
@@ -29,7 +30,7 @@ function CreateServiceTokenButton({ type, principal, getTokensUrl }: CreateServi
           style={{ width: "12rem" }}
           size="md"
           data-testid="create-token-button"
-          kind={type === "user" || type === "workflow" ? "ghost" : "primary"}
+          kind={type === TokenScope.User || type === TokenScope.Workflow ? "ghost" : "primary"}
         >
           Create new token
         </Button>

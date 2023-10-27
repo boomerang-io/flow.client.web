@@ -16,8 +16,9 @@ import {
 import { Formik } from "formik";
 import { Information } from "@carbon/react/icons";
 import { useMutation, useQueryClient } from "react-query";
+import { TokenScope } from "Constants";
 import { resolver } from "Config/servicesConfig";
-import { TokenType } from "Types";
+import { TokenScopeType } from "Types";
 import styles from "./form.module.scss";
 
 const ACCESS_TYPE_OPTIONS = [
@@ -30,7 +31,7 @@ interface CreateServiceTokenFormProps {
   goToStep: (args: any) => void;
   saveValues: (args: any) => void;
   setIsTokenCreated: () => any;
-  type: TokenType;
+  type: TokenScopeType;
   principal: string | null;
   getTokensUrl: string;
 }
@@ -83,7 +84,7 @@ function CreateServiceTokenForm({
       principal: values.principal,
     };
 
-    if (type === "user") {
+    if (type === TokenScope.User) {
       request = { ...request, teams: values.teams.map((t) => t.value) };
     } else {
       request = { ...request, permissions: values.permissions };
@@ -144,9 +145,9 @@ function CreateServiceTokenForm({
               {isSubmitting && <Loading />}
               <p className={styles.modalHelper}>
                 This token will allow{" "}
-                {type === "global"
+                {type === TokenScope.Global
                   ? `system wide access access to the APIs. `
-                  : `access to the APIs as if they were ${type === "user" ? "you" : "this " + type}. `}{" "}
+                  : `access to the APIs as if they were ${type === TokenScope.User ? "you" : "this " + type}. `}{" "}
                 Be careful how you distribute this token.
               </p>
               <TextInput
@@ -160,7 +161,7 @@ function CreateServiceTokenForm({
                 placeholder="my-unique-task-name"
                 value={values.name}
               />
-              {type === "user" ? (
+              {type === TokenScope.User ? (
                 <>
                   {" "}
                   <RadioGroup

@@ -8,7 +8,7 @@ import { EditorContextProvider } from "State/context";
 import Main from "./Main";
 import { groupTaskTemplatesByName } from "Utils";
 import queryString from "query-string";
-import { TaskTemplate, WorkflowExecution, WorkflowEditor } from "Types";
+import { PaginatedTaskTemplateResponse, TaskTemplate, WorkflowRun, WorkflowEditor } from "Types";
 import { serviceUrl } from "Config/servicesConfig";
 import { WorkflowEngineMode } from "Constants";
 
@@ -25,7 +25,7 @@ export default function ExecutionContainer() {
   /**
    * Queries
    */
-  const executionQuery = useQuery<WorkflowExecution>(getExecutionUrl, {
+  const executionQuery = useQuery<WorkflowRun>(getExecutionUrl, {
     refetchInterval: 5000,
   });
 
@@ -54,7 +54,7 @@ export default function ExecutionContainer() {
     );
   }
 
-  if (taskTemplatesQuery.data || taskTemplatesTeamQuery.data || executionQuery.data) {
+  if (taskTemplatesQuery.data && taskTemplatesTeamQuery.data && executionQuery.data) {
     return (
       <RevisionContainer
         executionQuery={executionQuery}
@@ -68,13 +68,13 @@ export default function ExecutionContainer() {
 }
 
 type RevisionProps = {
-  executionQuery: UseQueryResult<WorkflowExecution, Error>;
+  executionQuery: UseQueryResult<WorkflowRun, Error>;
   taskTemplatesData: TaskTemplate[];
   workflowId: string;
 };
 
 function RevisionContainer({ executionQuery, taskTemplatesData, workflowId }: RevisionProps) {
-  const version = executionQuery?.data?.workflowRevisionVersion ?? "";
+  const version = 0;
   const getWorkflowUrl = serviceUrl.getWorkflowCompose({
     id: workflowId,
     version,

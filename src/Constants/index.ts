@@ -270,7 +270,14 @@ export const EdgeExecutionCondition = {
   Success: "success",
   Failure: "failure",
   Always: "always",
-} as const
+} as const;
+
+export const TokenType = {
+  User: "user",
+  Workflow: "workflow",
+  Team: "team",
+  Global: "global"
+} as const;
 
 export const elevatedUserRoles = [PlatformRole.Admin, PlatformRole.Operator];
 

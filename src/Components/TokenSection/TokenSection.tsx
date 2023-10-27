@@ -15,11 +15,12 @@ import {
 import CreateToken from "Components/CreateToken";
 import DeleteToken from "Components/DeleteToken";
 import moment from "moment";
-import type { Token, TokenType } from "Types";
+import { TokenScope } from "Constants";
+import type { Token, TokenScopeType } from "Types";
 import styles from "./TokenSection.module.scss";
 
 interface TokenProps {
-  type: TokenType;
+  type: TokenScopeType;
   principal: string;
 }
 
@@ -91,7 +92,7 @@ const TokenSection: React.FC<TokenProps> = ({ type, principal }) => {
           </StructuredListBody>
         </StructuredListWrapper>
       </dl>
-      <CreateToken getTokensUrl={getTokensUrl} principal={principal} type="workflow" />
+      <CreateToken getTokensUrl={getTokensUrl} principal={principal} type={TokenScope.Workflow} />
     </>
   );
 };

@@ -1,12 +1,13 @@
 import { User } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Edge, EdgeProps, Node, NodeProps } from "reactflow";
 import {
+  EdgeExecutionCondition,
   FlowTeamStatus,
+  NodeType,
+  TokenScope,
   UserRole,
   WorkflowEngineMode,
   WorkflowPropertyAction,
-  NodeType,
-  EdgeExecutionCondition,
   WorkflowView,
 } from "Constants";
 
@@ -36,6 +37,24 @@ export enum PlatformRole {
 export enum UserStatus {
   Active = "active",
   Inactive = "inactive",
+}
+
+export interface FlowUser extends User {
+  id: string;
+  email: string;
+  name: string;
+  type: PlatformRole;
+  creationDate: string;
+  lastLoginDate: string;
+  status: UserStatus;
+  labels?: Record<string, string>;
+  settings?: FlowUserSettings;
+}
+
+export interface FlowUserSettings {
+  hasConsented: boolean;
+  isShowHelp: boolean | null;
+  ifFirstVisit: boolean;
 }
 
 export interface SimpleApprover {
@@ -126,6 +145,18 @@ export interface CreateWorkflowSummary {
   icon: string;
 }
 
+export interface WorkflowWorkspace {
+  name: string;
+  type: string;
+  optional: boolean;
+  spec?: {
+    accessMode?: string;
+    className?: string;
+    size?: number;
+    mountPath?: string;
+  };
+}
+
 export interface Workflow {
   id: string;
   name: string;
@@ -160,17 +191,7 @@ export interface Workflow {
     webhook: WorkflowTrigger;
   };
   templateUpgradesAvailable: boolean;
-  workspaces: Array<{
-    name: string;
-    type: string;
-    optional: boolean;
-    spec?: {
-      accessMode?: string;
-      className?: string;
-      size?: number;
-      mountPath?: string;
-    };
-  }>;
+  workspaces: Array<WorkflowWorkspace>;
 }
 
 export enum WorkflowStatus {
@@ -270,86 +291,6 @@ export enum ApprovalStatus {
   Submitted = "submitted",
 }
 
-export interface WorkflowExecutionStep {
-  activityId: string;
-  approval: {
-    id: string;
-    status: ApprovalStatus;
-    instructions: string;
-    audit: {
-      approverId: string;
-      approverName: string;
-      approverEmail: string;
-      actionDate: number;
-      result: boolean;
-      comments: string;
-    };
-  };
-  duration: number;
-  flowTaskStatus: RunStatus;
-  id: string;
-  order: number;
-  startTime: string;
-  taskId: string;
-  taskName: string;
-  taskType: string;
-  preApproved: boolean;
-  runWorkflowActivityId: string;
-  runWorkflowId: string;
-  runWorkflowActivityStatus: RunStatus;
-  switchValue: string;
-  outputs: {
-    [key: string]: string;
-  };
-  error: {
-    code: string;
-    message: string;
-  };
-  results: Array<{
-    name: string;
-    description: string;
-    value: string;
-  }>;
-}
-export interface WorkflowExecution {
-  creationDate: string;
-  duration: number;
-  id: string;
-  status: RunStatus;
-  workflowId: string;
-  workflowRevisionid: string;
-  workflowRevisionVersion: string;
-  trigger: string;
-  properties: Array<
-    | {
-        key: string;
-        value: string;
-      }
-    | {
-        key: string;
-        value: null;
-      }
-  >;
-  outputProperties: Array<
-    | {
-        key: string;
-        value: string;
-      }
-    | {
-        key: string;
-        value: null;
-      }
-  >;
-  steps: Array<WorkflowExecutionStep>;
-  teamName: string;
-  awaitingApproval: boolean;
-  error: {
-    code: string;
-    message: string;
-  };
-  initiatedByUserName: string;
-  scope: string;
-}
 export interface ChangeLogEntry {
   date: string;
   reason: string;
@@ -411,7 +352,7 @@ export interface FlowTeamSummary {
   displayName: string;
   description?: string;
   creationDate: string;
-  status: FlowTeamStatus;
+  status: ObjectValuesToType<typeof FlowTeamStatus>;
   externalRef?: string;
   labels?: Record<string, string>;
   insights: {
@@ -421,17 +362,17 @@ export interface FlowTeamSummary {
 }
 
 export interface FlowTeamQuotas {
-  maxWorkflowCount: number;
-  maxWorkflowExecutionMonthly: number;
-  maxWorkflowStorage: number;
-  maxWorkflowExecutionTime: number;
-  maxConcurrentWorkflows: number;
   currentRuns: number;
   currentWorkflowCount: number;
   currentConcurrentRuns: number;
   currentRunTotalDuration: number;
   currentRunMedianDuration: number;
   currentPersistentStorage: number;
+  maxWorkflowCount: number;
+  maxWorkflowRunMonthly: number;
+  maxWorkflowStorage: number;
+  maxWorkflowRunTime: number;
+  maxConcurrentWorkflows: number;
   monthlyResetDate: string;
 }
 
@@ -456,18 +397,6 @@ export interface PaginatedResponse<RecordType> {
   content: Array<RecordType>;
 }
 
-export interface FlowUser extends User {
-  id: string;
-  email: string;
-  name: string;
-  type: PlatformRole;
-  creationDate: string;
-  lastLoginDate: string;
-  status: UserStatus;
-  labels?: Record<string, string>;
-  settings?: FlowUserSettings;
-}
-
 export interface Member {
   id?: string;
   email?: string;
@@ -478,12 +407,6 @@ export enum MemberRole {
   Owner = "owner",
   Editor = "editor",
   Reader = "reader",
-}
-
-export interface FlowUserSettings {
-  hasConsented: boolean;
-  isShowHelp: boolean | null;
-  ifFirstVisit: boolean;
 }
 
 export interface Property {
@@ -506,10 +429,12 @@ export interface PatchProperty {
   type?: string;
 }
 
+export type TokenScopeType = ObjectValuesToType<typeof TokenScope>;
+
 export interface Token {
   id: string;
   name: string;
-  type: TokenType;
+  type: TokenScopeType;
   creationDate: string;
   expirationDate: string;
   principal: string;
@@ -517,8 +442,6 @@ export interface Token {
   valid: boolean;
   permissions: Array<String>;
 }
-
-export type TokenType = "user" | "workflow" | "team" | "global";
 
 export interface TokenRequest {
   expiryDate: string | number | null;
@@ -564,9 +487,16 @@ export enum RunStatus {
   Succeeded = "succeeded",
   Failed = "failed",
   Invalid = "invalid",
-  Skipped = "skipped",
   Cancelled = "cancelled",
+  Skipped = "skipped",
   TimedOut = "timedout",
+}
+
+export enum RunPhase {
+  Pending = "pending",
+  Running = "running",
+  Completed = "completed",
+  Finalized = "finalized",
 }
 
 export interface FlowNavigationItemChild {
@@ -733,14 +663,17 @@ export interface MultiSelectItems<Type = MultiSelectItem> {
 }
 
 export type WorkflowEditorState = WorkflowEditor & { hasUnsavedUpdates?: boolean };
-
 export type WorkflowEngineModeType = ObjectValuesToType<typeof WorkflowEngineMode>;
 export type WorkflowPropertyActionType = ObjectValuesToType<typeof WorkflowPropertyAction>;
 export type UserRoleType = ObjectValuesToType<typeof UserRole>;
 export type NodeTypeType = ObjectValuesToType<typeof NodeType>;
 
 export interface ConfigureWorkflowFormValues {
+  config: Workflow["config"];
   description: string;
+  icon: string;
+  labels: Array<{ key: string; value: string }>;
+  name: string;
   storage: {
     workflowrun: {
       enabled: boolean;
@@ -753,11 +686,102 @@ export interface ConfigureWorkflowFormValues {
       mountPath: string;
     };
   };
-  icon: string;
-  name: string;
-  timeout: number;
+
   retries: number;
-  labels: Array<{ key: string; value: string }>;
+  timeout: number;
   triggers: Workflow["triggers"];
-  config: Workflow["config"];
+}
+
+export interface WorkflowRun {
+  annotations: RunAnnototations;
+  awaitingApproval: boolean;
+  creationDate: string;
+  duration: number;
+  id: string;
+  initiatedByRef: string;
+  labels: Record<string, string>;
+  params: Array<Param>;
+  phase: string;
+  results: Array<RunResult>;
+  retries: number;
+  startTime: string;
+  status: string;
+  statusMessage: string;
+  tasks: Array<RunTask>;
+  timeout: number;
+  trigger: string;
+  workspaces: Array<WorkflowWorkspace>;
+  workflowName: string;
+  workflowRef: string;
+  workflowRevisionRef: string;
+  workflowVersion: number;
+}
+
+export interface RunTask {
+  annotations: TaskAnnotations;
+  creationDate: string;
+  duration: number;
+  id: string;
+  labels: Record<string, string>;
+  name: string;
+  params: Array<Param>;
+  phase: RunPhase;
+  results: Array<RunResult>;
+  retries: number;
+  spec: Spec;
+  startTime: string;
+  status: RunStatus;
+  statusMessage: string;
+  templateRef: string;
+  templateVersion: number;
+  timeout: number;
+  type: string;
+  workflowRef: string;
+  workflowRevisionRef: string;
+  workflowRunRef: string;
+  workflowName: string;
+  workspaces: Array<WorkflowWorkspace>;
+}
+
+export interface RunAnnototations {
+  "boomerang.io/task-deletion": string;
+  "boomerang.io/task-default-image": string;
+  "boomerang.io/team-name": string;
+  "boomerang.io/kind": string;
+  "boomerang.io/generation": string;
+}
+
+export interface Param {
+  name: string;
+  value: string;
+}
+
+export interface TaskAnnotations {
+  "boomerang.io/position": BoomerangIoPosition;
+  "boomerang.io/team-name"?: string;
+  "boomerang.io/kind"?: string;
+  "boomerang.io/generation"?: string;
+}
+
+export interface BoomerangIoPosition {
+  x: number;
+  y: number;
+}
+
+export interface Spec {
+  arguments: string[] | null;
+  command: any[] | null;
+  debug: boolean;
+  deletion: null | string;
+  envs: null;
+  image: null | string;
+  timeout: number;
+  script: null;
+  workingDir: null;
+}
+
+export interface RunResult {
+  name: string;
+  description: string;
+  value: string;
 }
