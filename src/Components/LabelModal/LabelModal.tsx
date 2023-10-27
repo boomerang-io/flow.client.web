@@ -3,11 +3,7 @@ import React from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
-import {
-  ComposedModal,
-  ModalForm,
-  TextInput,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal, ModalForm, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./LabelModal.module.scss";
 
 interface LabelModalProps {
@@ -33,7 +29,7 @@ const LabelModal: React.FC<LabelModalProps> = ({ action, isEdit = false, labelsK
       }}
       modalTrigger={modalTrigger}
     >
-      {({ closeModal }: { closeModal: () => void }) => (
+      {({ closeModal }) => (
         <AddLabelModalContent
           action={action}
           closeModal={closeModal}
@@ -110,7 +106,7 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
           .test(
             "validate-k8s-value",
             "Value must have only alphanumeric and between them dashes, underscores, dots and not longer than 63 characters.",
-            validateValue
+            validateValue,
           ),
       })}
     >

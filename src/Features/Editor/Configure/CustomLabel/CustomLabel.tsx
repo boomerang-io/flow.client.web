@@ -48,7 +48,7 @@ const CustomLabel: React.FC<AddLabelProps> = ({
         title: `${isEdit ? "Edit" : "Add"} Custom Label`,
         subtitle: `${isEdit ? "Edit" : "Create"} a key value pair for custom kubernetes label`,
       }}
-      modalTrigger={({ openModal }: { openModal: () => void }) =>
+      modalTrigger={({ openModal }) =>
         isEdit && EditTrigger ? (
           <EditTrigger openModal={openModal} />
         ) : (
@@ -58,7 +58,7 @@ const CustomLabel: React.FC<AddLabelProps> = ({
         )
       }
     >
-      {({ closeModal }: { closeModal: () => void }) => (
+      {({ closeModal }) => (
         <AddLabelModalContent
           labels={labels}
           formikPropsSetFieldValue={formikPropsSetFieldValue}
@@ -130,7 +130,7 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({ closeModal,
           .test(
             "validate-k8s-value",
             "Value must have only alphanumeric and between them dashes, underscores, dots and not longer than 63 characters.",
-            validateValue
+            validateValue,
           ),
       })}
     >

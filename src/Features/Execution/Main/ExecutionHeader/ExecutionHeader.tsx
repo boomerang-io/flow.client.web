@@ -20,18 +20,18 @@ import { appLink } from "Config/appConfig";
 import { elevatedUserRoles, QueryStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Catalog, CopyFile, StopOutline, Warning } from "@carbon/react/icons";
-import { RunStatus, WorkflowEditor } from "Types";
+import { RunStatus, WorkflowEditor, WorkflowRun } from "Types";
 import styles from "./executionHeader.module.scss";
 
 type Props = {
   workflow: WorkflowEditor;
-  workflowExecution: UseQueryResult<any, Error> | UseQueryResult<any, Error> | UseQueryResult<any>;
+  workflowRun: WorkflowRun;
   version: number;
 };
 
 const cancelSatusTypes = [RunStatus.NotStarted, RunStatus.Waiting, RunStatus.Cancelled];
 
-export default function ExecutionHeader({ workflow, workflowExecution, version }: Props) {
+export default function ExecutionHeader({ workflow, workflowRun, version }: Props) {
   const { team } = useParams<{ team: string }>();
   const history = useHistory<{ fromUrl: string; fromText: string }>();
   const state = history.location.state;
@@ -80,7 +80,7 @@ export default function ExecutionHeader({ workflow, workflowExecution, version }
                 subtitle:
                   "Use the following to dive deeper and debug the execution. Tip: copy the commands into your local terminal and add the namespace.",
               }}
-              modalTrigger={({ openModal }: { openModal: () => void }) => (
+              modalTrigger={({ openModal }) => (
                 <TooltipHover direction="right" content="Advanced Detail">
                   <button className={styles.workflowAdvancedDetailTrigger} onClick={openModal}>
                     <Catalog />
@@ -96,11 +96,11 @@ export default function ExecutionHeader({ workflow, workflowExecution, version }
       header={
         <div style={{ display: "flex" }}>
           <HeaderTitle>Workflow run detail</HeaderTitle>
-          {Boolean(workflowExecution?.data?.error?.code) && (
+          {Boolean(workflowRun.statusMessage) && (
             <ComposedModal
               composedModalProps={{ shouldCloseOnOverlayClick: true }}
               modalHeaderProps={{ title: "Execution Error" }}
-              modalTrigger={({ openModal }: { openModal: () => void }) => (
+              modalTrigger={({ openModal }) => (
                 <Button
                   className={styles.workflowErrorTrigger}
                   kind={"ghost"}
@@ -112,89 +112,74 @@ export default function ExecutionHeader({ workflow, workflowExecution, version }
                 </Button>
               )}
             >
-              {() => (
-                <ErrorModal
-                  errorCode={workflowExecution?.data?.error?.code}
-                  errorMessage={workflowExecution?.data?.error?.message ?? ""}
-                />
-              )}
+              {() => <ErrorModal errorCode={workflowRun.status} errorMessage={workflowRun.statusMessage ?? ""} />}
             </ComposedModal>
           )}
         </div>
       }
       actions={
-        workflowExecution.status === QueryStatus.Success ? (
-          <div className={styles.content}>
-            {workflowExecution.data.outputProperties &&
-              Object.keys(workflowExecution.data.outputProperties).length > 0 && (
-                <div className={styles.workflowOutputLog}>
-                  <OutputPropertiesLog
-                    isOutput
-                    flowTaskName={workflow.name}
-                    //@ts-ignore
-                    flowTaskOutputs={workflowExecution.data.outputProperties}
-                  />
-                </div>
-              )}
-            {systemWorkflowsEnabled && (
-              <dl className={styles.data}>
-                <dt className={styles.dataTitle}>Scope</dt>
-                <dd className={styles.dataValue}>{scope ?? "---"}</dd>
-              </dl>
+        <div className={styles.content}>
+          {workflowRun.results && Object.keys(workflowRun.results).length > 0 && (
+            <div className={styles.workflowOutputLog}>
+              <OutputPropertiesLog isOutput workflowName={workflow.name} results={workflowRun.results} />
+            </div>
+          )}
+          {systemWorkflowsEnabled && (
+            <dl className={styles.data}>
+              <dt className={styles.dataTitle}>Scope</dt>
+              <dd className={styles.dataValue}>{scope ?? "---"}</dd>
+            </dl>
+          )}
+          <dl className={styles.data}>
+            <dt className={styles.dataTitle}>Team</dt>
+            <dd className={styles.dataValue}>{teamName ?? "---"}</dd>
+          </dl>
+          <dl className={styles.data}>
+            <dt className={styles.dataTitle}>Version</dt>
+            <dd className={styles.dataValue}>{version ?? "---"}</dd>
+          </dl>
+          <dl className={styles.data}>
+            <dt className={styles.dataTitle}>Initiated by</dt>
+            {initiatedByUserName ? (
+              <dd className={styles.dataValue}>{initiatedByUserName}</dd>
+            ) : (
+              <dd aria-label="robot" aria-hidden={false} role="img">
+                {"🤖"}
+              </dd>
             )}
-            <dl className={styles.data}>
-              <dt className={styles.dataTitle}>Team</dt>
-              <dd className={styles.dataValue}>{teamName ?? "---"}</dd>
-            </dl>
-            <dl className={styles.data}>
-              <dt className={styles.dataTitle}>Version</dt>
-              <dd className={styles.dataValue}>{version ?? "---"}</dd>
-            </dl>
-            <dl className={styles.data}>
-              <dt className={styles.dataTitle}>Initiated by</dt>
-              {initiatedByUserName ? (
-                <dd className={styles.dataValue}>{initiatedByUserName}</dd>
-              ) : (
-                <dd aria-label="robot" aria-hidden={false} role="img">
-                  {"🤖"}
-                </dd>
-              )}
-            </dl>
-            <dl className={styles.data}>
-              <dt className={styles.dataTitle}>Trigger</dt>
-              <dd className={styles.dataValue}>{trigger}</dd>
-            </dl>
-            <dl className={styles.data}>
-              <dt className={styles.dataTitle}>Start time</dt>
-              <dd className={styles.dataValue}>{moment(creationDate).format("YYYY-MM-DD hh:mm A")}</dd>
-            </dl>
-            <dl className={styles.dataButton}>
-              {displayCancelButton && (
-                <ConfirmModal
-                  affirmativeAction={handleCancelWorkflow}
-                  affirmativeButtonProps={{ kind: "danger" }}
-                  children="Are you sure? Once a workflow is cancelled it will stop executing."
-                  title="Cancel run"
-                  modalTrigger={({ openModal }: { openModal: () => void }) => (
-                    <Button
-                      className={styles.cancelRun}
-                      data-testid="cancel-run"
-                      kind="danger--ghost"
-                      iconDescription="Cancel run"
-                      onClick={openModal}
-                      renderIcon={StopOutline}
-                      size="sm"
-                    >
-                      Cancel run
-                    </Button>
-                  )}
-                />
-              )}
-            </dl>
-          </div>
-        ) : (
-          <SkeletonPlaceholder className={styles.headerContentSkeleton} />
-        )
+          </dl>
+          <dl className={styles.data}>
+            <dt className={styles.dataTitle}>Trigger</dt>
+            <dd className={styles.dataValue}>{trigger}</dd>
+          </dl>
+          <dl className={styles.data}>
+            <dt className={styles.dataTitle}>Start time</dt>
+            <dd className={styles.dataValue}>{moment(creationDate).format("YYYY-MM-DD hh:mm A")}</dd>
+          </dl>
+          <dl className={styles.dataButton}>
+            {displayCancelButton && (
+              <ConfirmModal
+                affirmativeAction={handleCancelWorkflow}
+                affirmativeButtonProps={{ kind: "danger" }}
+                children="Are you sure? Once a workflow is cancelled it will stop executing."
+                title="Cancel run"
+                modalTrigger={({ openModal }) => (
+                  <Button
+                    className={styles.cancelRun}
+                    data-testid="cancel-run"
+                    kind="danger--ghost"
+                    iconDescription="Cancel run"
+                    onClick={openModal}
+                    renderIcon={StopOutline}
+                    size="sm"
+                  >
+                    Cancel run
+                  </Button>
+                )}
+              />
+            )}
+          </dl>
+        </div>
       }
     />
   );

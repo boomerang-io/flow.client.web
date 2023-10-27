@@ -1,39 +1,31 @@
 import React from "react";
-import {  ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody } from "@carbon/react";
 import PropertiesTable from "./PropertiesTable";
+
 import styles from "./outputPropertisLog.module.scss";
+import { WorkflowRun } from "Types";
 
 type Props = {
-  flowTaskName: string;
-  flowTaskOutputs: {
-    [key: string]: string;
-  };
   isOutput?: boolean;
+  workflowName: string;
+  results: WorkflowRun["results"];
 };
 
-function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }: Props) {
-  let arrayProps: { id: string; key: string; value: string; description?: string }[] = [];
-  if (Array.isArray(flowTaskOutputs)) {
-    flowTaskOutputs.forEach(
-      (val: { name: string; description: string; value: string }, index: number) =>
-        (arrayProps = arrayProps.concat({
-          id: `${val.name}-${index}`,
-          key: val.name,
-          description: val.description ? val.description : "---",
-          value: val.value ? val.value : "---",
-        }))
-    );
-  } else {
-    Object.keys(flowTaskOutputs).forEach(
-      (val: string, index: number) =>
-        (arrayProps = arrayProps.concat({
-          id: `${val}-${index}`,
-          key: val,
-          value: JSON.stringify(flowTaskOutputs[val], null, 2),
-        }))
-    );
-  }
+function OutputPropertiesLog({ workflowName, results, isOutput }: Props) {
+  let propertyList: { id: string; key: string; value: string; description?: string }[] = [];
+  results.forEach((result, index) =>
+    propertyList.push({
+      id: `${result.name}-${index}`,
+      key: result.name,
+      description: result.description ? result.description : "---",
+      value: !result.value
+        ? "---"
+        : Array.isArray(result.value) || typeof result.value === "string"
+        ? result.value
+        : JSON.stringify(result.value),
+    }),
+  );
 
   return (
     <ComposedModal
@@ -44,9 +36,9 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }: Props)
       }}
       modalHeaderProps={{
         title: "Output Parameters",
-        label: `${flowTaskName}`,
+        label: `${workflowName}`,
       }}
-      modalTrigger={({ openModal }: { openModal: () => void }) => (
+      modalTrigger={({ openModal }) => (
         <Button kind="ghost" size="sm" onClick={openModal}>
           View Parameters
         </Button>
@@ -55,10 +47,7 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }: Props)
       {() => (
         <ModalForm>
           <ModalBody>
-            <PropertiesTable
-              hasJsonValues={!isOutput && !Array.isArray(flowTaskOutputs)}
-              data={isOutput ? flowTaskOutputs : arrayProps}
-            />
+            <PropertiesTable hasJsonValues={!isOutput && !Array.isArray(propertyList)} data={propertyList} />
           </ModalBody>
         </ModalForm>
       )}

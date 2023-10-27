@@ -74,7 +74,7 @@ type RevisionProps = {
 };
 
 function RevisionContainer({ executionQuery, taskTemplatesData, workflowId }: RevisionProps) {
-  const version = 0;
+  const version = executionQuery.data?.workflowVersion;
   const getWorkflowUrl = serviceUrl.getWorkflowCompose({
     id: workflowId,
     version,

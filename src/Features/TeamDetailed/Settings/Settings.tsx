@@ -138,7 +138,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
               //   subtitle:
               //     "Try to keep it concise to avoid truncation in the sidebar. You must make sure the name is valid before it can be updated.",
             }}
-            modalTrigger={({ openModal }: { openModal: () => void }) => (
+            modalTrigger={({ openModal }) => (
               <button
                 disabled={!canEdit}
                 className={styles.teamEditIcon}
@@ -149,7 +149,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
               </button>
             )}
           >
-            {({ closeModal }: { closeModal: () => void }) => <UpdateTeamName closeModal={closeModal} team={team} />}
+            {({ closeModal }) => <UpdateTeamName closeModal={closeModal} team={team} />}
           </ComposedModal>
         }
       >
@@ -273,7 +273,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
             title={`Close ${team.displayName}?`}
             negativeText="Cancel"
             affirmativeText="Close"
-            modalTrigger={({ openModal }: { openModal: () => void }) => (
+            modalTrigger={({ openModal }) => (
               <Button
                 disabled={!canEdit}
                 iconDescription="Close"

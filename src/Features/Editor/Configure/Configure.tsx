@@ -37,7 +37,7 @@ const TRIGGER_YUP_SCHEMA = Yup.object().shape({
       field: Yup.string().required("Field is required"),
       value: Yup.string().optional(),
       values: Yup.array().of(Yup.string()).optional(),
-    })
+    }),
   ),
 });
 
@@ -66,15 +66,15 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
   });
 
   const isOnConfigurePath = location.pathname.startsWith(
-    appLink.editorConfigure({ team: params.team, workflowId: params.workflowId })
+    appLink.editorConfigure({ team: params.team, workflowId: params.workflowId }),
   );
 
   // Find the specific workspace configs we want that are used for storage storage
   const workflowStorageConfig = workflow.workspaces?.find(
-    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.Workflow
+    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.Workflow,
   );
   const workflowRunStorageConfig = workflow.workspaces?.find(
-    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.WorflowRun
+    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.WorflowRun,
   );
 
   return (
@@ -362,13 +362,13 @@ function Configure(props: ConfigureProps) {
                         containerClassName: styles.buildWebhookContainer,
                         shouldCloseOnOverlayClick: true,
                       }}
-                      modalTrigger={({ openModal }: { openModal: () => void }) => (
+                      modalTrigger={({ openModal }) => (
                         <Button kind="ghost" onClick={openModal} renderIcon={Popup} size="sm">
                           <p>View usage example</p>
                         </Button>
                       )}
                     >
-                      {({ closeModal }: { closeModal: () => void }) => (
+                      {({ closeModal }) => (
                         <BuildWebhookModalContent closeModal={closeModal} workflowId={props.workflow.id} />
                       )}
                     </ComposedModal>
@@ -529,13 +529,13 @@ function Configure(props: ConfigureProps) {
                           containerClassName: styles.buildWebhookContainer,
                           shouldCloseOnOverlayClick: true,
                         }}
-                        modalTrigger={({ openModal }: { openModal: () => void }) => (
+                        modalTrigger={({ openModal }) => (
                           <Button kind="ghost" onClick={openModal} renderIcon={Popup} size="sm">
                             <p>View usage example</p>
                           </Button>
                         )}
                       >
-                        {({ closeModal }: { closeModal: () => void }) => (
+                        {({ closeModal }) => (
                           <ConfigureEventTrigger closeModal={closeModal} workflowId={props.workflow.id} />
                         )}
                       </ComposedModal>
@@ -591,11 +591,11 @@ function Configure(props: ConfigureProps) {
                         invalid={false}
                         onChange={({ selectedItems }: { selectedItems: Array<{ label: string; value: string }> }) => {
                           const fieldIdx = values.triggers.github.conditions.findIndex(
-                            (condition) => condition.field === "repository"
+                            (condition) => condition.field === "repository",
                           );
                           props.formikProps.setFieldValue(
                             `triggers.github.conditions[${fieldIdx}].values`,
-                            selectedItems
+                            selectedItems,
                           );
                         }}
                         items={props.githubAppInstallation?.repositories}
@@ -618,7 +618,7 @@ function Configure(props: ConfigureProps) {
                       labelText="Select events that you wish to trigger this Workflow"
                       onChange={(_, __, ____, checked) => {
                         const fieldIdx = values.triggers.github.conditions.findIndex(
-                          (condition) => condition.field === "event"
+                          (condition) => condition.field === "event",
                         );
                         console.log(checked);
                         props.formikProps.setFieldValue(`triggers.github.conditions[${fieldIdx}].values`, checked);
@@ -716,7 +716,7 @@ function Configure(props: ConfigureProps) {
                         // shouldCloseOnOverlayClick: true,
                       }
                     }
-                    modalTrigger={({ openModal }: { openModal: () => void }) => (
+                    modalTrigger={({ openModal }) => (
                       <button
                         className={styles.regenerateText}
                         style={{ marginBottom: "0.5rem" }}
@@ -727,7 +727,7 @@ function Configure(props: ConfigureProps) {
                       </button>
                     )}
                   >
-                    {({ closeModal }: { closeModal: () => void }) => (
+                    {({ closeModal }) => (
                       <ConfigureStorage
                         size={values.storage?.workflow?.size}
                         mountPath={values.storage?.workflow?.mountPath}
@@ -772,13 +772,13 @@ function Configure(props: ConfigureProps) {
                         </>
                       ),
                     }}
-                    modalTrigger={({ openModal }: { openModal: () => void }) => (
+                    modalTrigger={({ openModal }) => (
                       <button className={styles.regenerateText} type="button" onClick={openModal}>
                         <p>Configure</p>
                       </button>
                     )}
                   >
-                    {({ closeModal }: { closeModal: () => void }) => (
+                    {({ closeModal }) => (
                       <ConfigureStorage
                         size={values.storage.workflowrun.size}
                         mountPath={values.storage.workflowrun.mountPath}

@@ -49,7 +49,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
     try {
       await removeUserMutator.mutateAsync({ userId: user.id });
       notify(
-        <ToastNotification title="Close Account" subtitle="Request to close your account successful" kind="success" />
+        <ToastNotification title="Close Account" subtitle="Request to close your account successful" kind="success" />,
       );
     } catch (error) {
       notify(
@@ -57,7 +57,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
           title="Close Account"
           subtitle={`Unable to close the account. ${error.message}. Please contact support.`}
           kind="error"
-        />
+        />,
       );
     }
   };
@@ -153,7 +153,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
             title="Close Account?"
             negativeText="Cancel"
             affirmativeText="Close"
-            modalTrigger={({ openModal }: { openModal: () => void }) => (
+            modalTrigger={({ openModal }) => (
               <Button
                 disabled={!canEdit}
                 iconDescription="Close"

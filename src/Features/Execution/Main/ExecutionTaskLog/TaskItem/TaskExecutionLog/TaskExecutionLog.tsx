@@ -31,7 +31,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
         title: "Execution Log",
         label: `${flowTaskName}`,
       }}
-      modalTrigger={({ openModal }: { openModal: () => void }) => (
+      modalTrigger={({ openModal }) => (
         <Button className={styles.trigger} kind="ghost" size="sm" onClick={openModal}>
           View Log
         </Button>

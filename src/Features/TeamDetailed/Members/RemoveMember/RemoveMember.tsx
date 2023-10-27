@@ -31,7 +31,7 @@ const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamName, userId })
           subtitle="Request to remove user from team successful"
           kind="success"
           data-cy="b-toast_remove_success"
-        />
+        />,
       );
     } catch (error) {
       notify(
@@ -40,7 +40,7 @@ const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamName, userId })
           subtitle="Request to remove user from team failed"
           kind="error"
           data-cy="b-toast_remove_error"
-        />
+        />,
       );
     }
   }
@@ -52,7 +52,7 @@ const RemoveMember: React.FC<RemoveMemberProps> = ({ member, teamName, userId })
       negativeButtonsProps={{ disabled: leaveTeamMutator.isLoading }}
       children={`Are you sure you want to remove ${member.name} from ${teamName}? The user will lose access to all team workflows.`}
       title={`Remove from Team`}
-      modalTrigger={({ openModal }: { openModal: () => void }) => (
+      modalTrigger={({ openModal }) => (
         <button className={styles.removeButton} disabled={member.id === userId} onClick={openModal}>
           Remove from Team
           <TrashCan fill={"#f94d56"} />

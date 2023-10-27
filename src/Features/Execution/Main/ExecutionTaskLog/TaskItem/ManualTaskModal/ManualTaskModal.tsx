@@ -13,6 +13,7 @@ type Props = {
   instructions: string;
 };
 
+// TODO: update to load info about the approval
 function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }: Props) {
   const queryClient = useQueryClient();
 
@@ -38,7 +39,7 @@ function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }
           kind="success"
           title="Manual Task"
           subtitle={"Successfully submitted manual task completion request"}
-        />
+        />,
       );
       closeModal();
     } catch (err) {

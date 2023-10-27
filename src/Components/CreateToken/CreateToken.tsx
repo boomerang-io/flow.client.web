@@ -22,7 +22,7 @@ function CreateServiceTokenButton({ type, principal, getTokensUrl }: CreateServi
         containerClassName: isTokenCreated && styles.succesModalContainer,
         onAfterClose: () => setIsTokenCreated(false),
       }}
-      modalTrigger={({ openModal }: { openModal: () => void }) => (
+      modalTrigger={({ openModal }) => (
         <Button
           iconDescription="Create Token"
           onClick={openModal}
