@@ -17,33 +17,19 @@ exports[`ExecutionHeader --- Snapshot Capturing Snapshot of ExecutionHeader 1`] 
           <div
             class="headerNav"
           >
-            <nav
-              aria-label="Breadcrumb"
+            <div
+              class="breadcrumbNav"
             >
-              <ol
-                class="bx--breadcrumb bx--breadcrumb--no-trailing-slash"
+              Activity /
+               
+              <div
+                class="breadcrumbNavItem"
               >
-                <li
-                  class="bx--breadcrumb-item"
-                >
-                  <a
-                    class="bx--link"
-                    href="/activity"
-                  >
-                    Activity
-                  </a>
-                </li>
-                <li
-                  class="bx--breadcrumb-item bx--breadcrumb-item--current"
-                >
-                  <p
-                    class="bx--link"
-                  >
-                    Sparkle Flow with extra glitter and donuts on the side
-                  </p>
-                </li>
-              </ol>
-            </nav>
+                <p>
+                  Sparkle Flow with extra glitter and donuts on the side
+                </p>
+              </div>
+            </div>
             <button
               class="workflowAdvancedDetailTrigger"
             >

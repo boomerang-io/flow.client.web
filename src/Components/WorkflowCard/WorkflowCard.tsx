@@ -210,10 +210,10 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
       itemText: "Edit",
       onClick: () => history.push(appLink.editorDesigner({ workflowId: workflow.id })),
     },
-    {
-      itemText: "View Activity",
-      onClick: () => history.push(appLink.workflowActivity({ workflowId: workflow.id })),
-    },
+    // {
+    //   itemText: "View Activity",
+    //   onClick: () => history.push(appLink.workflowActivity({ workflowId: workflow.id })),
+    // },
     {
       itemText: "Update",
       onClick: () => setIsUpdateWorkflowModalOpen(true),
