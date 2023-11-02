@@ -20,9 +20,9 @@ const CreateServiceTokenResult = (props: CreateServiceTokenResultProps | any) =>
     <ModalFlowForm>
       <ModalBody>
         <div className={styles.container}>
-          <TextInput id="service-token" labelText="Team Token" className={styles.token} value={props.formData.token} />
+          <TextInput id="service-token" labelText="Token" className={styles.token} value={props.formData.token} />
           <p className={styles.saveText}>
-            This is your unique team token and it is not-recoverable. If you lose this team token you will have to
+            This is your unique token and it is not-recoverable. If you lose this token you will have to
             delete it and create another one.
           </p>
         </div>

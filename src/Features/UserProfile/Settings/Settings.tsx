@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { ConfirmModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { CopyFile, Close } from "@carbon/react/icons";
 import { Tag, Button } from "@carbon/react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import type { FlowUser } from "Types";
-import { resolver, serviceUrl } from "Config/servicesConfig";
-import queryString from "query-string";
+import { resolver } from "Config/servicesConfig";
 import TokenSection from "Components/TokenSection";
 import styles from "./Settings.module.scss";
+import { TokenType } from "Constants";
 
 interface UserSettingsProps {
   user: FlowUser;
@@ -19,29 +19,6 @@ interface UserSettingsProps {
 export default function Settings({ user, userManagementEnabled }: UserSettingsProps) {
   const [copyTokenText, setCopyTokenText] = useState("Copy ID");
   const canEdit = userManagementEnabled;
-  const queryClient = useQueryClient();
-
-  const getTokensUrl = serviceUrl.getTokens({
-    query: queryString.stringify({ types: "user", principals: user?.id }),
-  });
-
-  const getTokensQuery = useQuery({
-    queryKey: getTokensUrl,
-    queryFn: resolver.query(getTokensUrl),
-    enabled: Boolean(user?.id),
-  });
-
-  const deleteTokenMutator = useMutation(resolver.deleteToken);
-
-  const deleteToken = async (tokenId: string) => {
-    try {
-      await deleteTokenMutator.mutateAsync({ tokenId });
-      queryClient.invalidateQueries([getTokensUrl]);
-      notify(<ToastNotification kind="success" title="Delete Token" subtitle={`Token successfully deleted`} />);
-    } catch (error) {
-      notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete token failed" />);
-    }
-  };
 
   const removeUserMutator = useMutation(resolver.deleteUser);
 
@@ -100,7 +77,7 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
             Personal access tokens allow other apps to access the APIs as if they were you. All of your access will be
             shared. Be careful how you distribute these tokens!
           </p>
-          <TokenSection type="user" principal={user.id} />
+          <TokenSection type={TokenType.User} principal={user.id} />
         </dl>
       </SettingSection>
       <SettingSection title="Your ID">
