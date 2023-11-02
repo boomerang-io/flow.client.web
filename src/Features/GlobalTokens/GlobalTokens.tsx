@@ -19,6 +19,7 @@ import CreateToken from "Components/CreateToken";
 import { arrayPagination, sortByProp } from "Utils/arrayHelper";
 import { Help } from "@carbon/react/icons";
 import { Token } from "Types";
+import { TokenType } from "Constants";
 import styles from "./GlobalTokens.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
@@ -180,7 +181,7 @@ function Tokens() {
   return (
     <FeatureLayout>
       <div className={styles.buttonContainer}>
-        <CreateToken type="team" getTokensUrl={getTokensUrl} principal="**" />
+        <CreateToken type={TokenType.Global} getTokensUrl={getTokensUrl} principal="**" />
       </div>
       {tokensData?.content?.length > 0 ? (
         <>

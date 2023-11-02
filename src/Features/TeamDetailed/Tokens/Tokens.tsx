@@ -15,6 +15,7 @@ import CreateToken from "Components/CreateToken";
 import { arrayPagination, sortByProp } from "Utils/arrayHelper";
 import { Help } from "@carbon/react/icons";
 import type { FlowTeam, Token } from "Types";
+import { TokenType } from "Constants";
 import styles from "./tokens.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
@@ -165,7 +166,7 @@ function Tokens({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
           </section>
         ) : null}
         <div className={styles.buttonContainer}>
-          {team && <CreateToken type="team" principal={team.name} getTokensUrl={getTokensUrl} />}
+          {team && <CreateToken type={TokenType.Team} principal={team.name} getTokensUrl={getTokensUrl} />}
         </div>
         {tokensData?.content?.length > 0 ? (
           <>
