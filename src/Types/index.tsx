@@ -686,7 +686,6 @@ export interface ConfigureWorkflowFormValues {
       mountPath: string;
     };
   };
-
   retries: number;
   timeout: number;
   triggers: Workflow["triggers"];

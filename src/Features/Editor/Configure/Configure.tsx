@@ -37,7 +37,7 @@ const TRIGGER_YUP_SCHEMA = Yup.object().shape({
       field: Yup.string().required("Field is required"),
       value: Yup.string().optional(),
       values: Yup.array().of(Yup.string()).optional(),
-    }),
+    })
   ),
 });
 
@@ -66,15 +66,15 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
   });
 
   const isOnConfigurePath = location.pathname.startsWith(
-    appLink.editorConfigure({ team: params.team, workflowId: params.workflowId }),
+    appLink.editorConfigure({ team: params.team, workflowId: params.workflowId })
   );
 
   // Find the specific workspace configs we want that are used for storage storage
   const workflowStorageConfig = workflow.workspaces?.find(
-    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.Workflow,
+    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.Workflow
   );
   const workflowRunStorageConfig = workflow.workspaces?.find(
-    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.WorflowRun,
+    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.WorflowRun
   );
 
   return (
@@ -591,12 +591,13 @@ function Configure(props: ConfigureProps) {
                         invalid={false}
                         onChange={({ selectedItems }: { selectedItems: Array<{ label: string; value: string }> }) => {
                           const fieldIdx = values.triggers.github.conditions.findIndex(
-                            (condition) => condition.field === "repository",
+                            (condition) => condition.field === "repository"
                           );
                           props.formikProps.setFieldValue(
                             `triggers.github.conditions[${fieldIdx}].values`,
-                            selectedItems,
+                            selectedItems
                           );
+                          console.log(values.triggers.github);
                         }}
                         items={props.githubAppInstallation?.repositories}
                         itemToString={(repository: string) => {
@@ -618,10 +619,11 @@ function Configure(props: ConfigureProps) {
                       labelText="Select events that you wish to trigger this Workflow"
                       onChange={(_, __, ____, checked) => {
                         const fieldIdx = values.triggers.github.conditions.findIndex(
-                          (condition) => condition.field === "event",
+                          (condition) => condition.field === "event"
                         );
                         console.log(checked);
                         props.formikProps.setFieldValue(`triggers.github.conditions[${fieldIdx}].values`, checked);
+                        console.log(values.triggers.github);
                       }}
                       options={githubEvents}
                     />

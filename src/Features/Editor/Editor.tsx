@@ -198,6 +198,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       };
 
       try {
+        console.log("Revision: ", revision);
         const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
         notify(
           <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
