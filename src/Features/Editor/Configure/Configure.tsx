@@ -187,6 +187,11 @@ function Configure(props: ConfigureProps) {
       }))
     : [];
 
+  const findConditionIndex = (field: string): number => {
+    const index = values.triggers.github.conditions.findIndex((condition) => condition.field === field);
+    return index !== -1 ? index : values.triggers.github.conditions.length;
+  };
+
   return (
     <div aria-label="Configure" className={styles.wrapper} role="region">
       <Switch>
@@ -590,13 +595,10 @@ function Configure(props: ConfigureProps) {
                         label="Choose Repositories"
                         invalid={false}
                         onChange={({ selectedItems }: { selectedItems: Array<{ label: string; value: string }> }) => {
-                          const fieldIdx = values.triggers.github.conditions.findIndex(
-                            (condition) => condition.field === "repository"
-                          );
-                          props.formikProps.setFieldValue(
-                            `triggers.github.conditions[${fieldIdx}].values`,
-                            selectedItems
-                          );
+                          const fieldIdx = findConditionIndex("repositories");
+                          console.log("Index:", fieldIdx);
+                          const value = { operation: "in", field: "repositories", values: selectedItems };
+                          props.formikProps.setFieldValue(`triggers.github.conditions[${fieldIdx}]`, value);
                           console.log(values.triggers.github);
                         }}
                         items={props.githubAppInstallation?.repositories}
@@ -604,7 +606,7 @@ function Configure(props: ConfigureProps) {
                           return props.githubAppInstallation.orgSlug + " / " + repository;
                         }}
                         initialSelectedItems={
-                          values.triggers.github.conditions.find((condition) => condition.field === "repository")
+                          values.triggers.github.conditions.find((condition) => condition.field === "repositories")
                             ?.values
                         }
                         titleText="Filter by Repository"
@@ -614,15 +616,14 @@ function Configure(props: ConfigureProps) {
                     <CheckboxList
                       id="triggers.github.events"
                       initialSelectedItems={
-                        values.triggers.github.conditions.find((condition) => condition.field === "event")?.values
+                        values.triggers.github.conditions.find((condition) => condition.field === "events")?.values
                       }
                       labelText="Select events that you wish to trigger this Workflow"
                       onChange={(_, __, ____, checked) => {
-                        const fieldIdx = values.triggers.github.conditions.findIndex(
-                          (condition) => condition.field === "event"
-                        );
-                        console.log(checked);
-                        props.formikProps.setFieldValue(`triggers.github.conditions[${fieldIdx}].values`, checked);
+                        const fieldIdx = findConditionIndex("events");
+                        console.log("Index:", fieldIdx);
+                        const value = { operation: "in", field: "events", values: checked };
+                        props.formikProps.setFieldValue(`triggers.github.conditions[${fieldIdx}]`, value);
                         console.log(values.triggers.github);
                       }}
                       options={githubEvents}

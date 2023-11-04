@@ -14,17 +14,17 @@ const workflowsCompose = [
       manual: {
         type: "manual",
         enabled: true,
-        conditions: null,
+        conditions: [],
       },
       webhook: {
         type: "webhook",
         enabled: false,
-        conditions: null,
+        conditions: [],
       },
       schedule: {
         type: "scheduler",
         enabled: false,
-        conditions: null,
+        conditions: [],
       },
       event: {
         type: "event",
@@ -36,11 +36,8 @@ const workflowsCompose = [
       },
       github: {
         type: "github",
-        enabled: true,
-        conditions: [
-          { operation: "in", field: "event", values: ["create", "delete"] },
-          { operation: "in", field: "repository", values: ["charts", "docusaurus", "community", "wave"] },
-        ],
+        enabled: false,
+        conditions: []
       },
     },
     config: [],
