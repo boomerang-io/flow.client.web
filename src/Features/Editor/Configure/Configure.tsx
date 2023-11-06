@@ -35,7 +35,14 @@ const TRIGGER_YUP_SCHEMA = Yup.object().shape({
     Yup.object().shape({
       operation: Yup.string().required("Operation is required"),
       field: Yup.string().required("Field is required"),
-      value: Yup.string().optional(),
+      value: Yup.string().test({
+        message: "Value is required",
+        test: function (value) {
+          const { values } = this.parent;
+          if (!values) return value != null;
+          return true;
+        },
+      }),
       values: Yup.array().of(Yup.string()).optional(),
     })
   ),
@@ -444,7 +451,7 @@ function Configure(props: ConfigureProps) {
                                       label="Field"
                                       invalid={Boolean(errors.triggers?.event?.conditions?.[idx]?.field)}
                                       invalidText={errors.triggers?.event?.conditions?.[idx]?.field}
-                                      placeholder="io.boomerang.[event|phase|status]"
+                                      placeholder="type"
                                       //helperText="A regular expression."
                                       value={condition.field}
                                       onBlur={handleBlur}
@@ -459,7 +466,13 @@ function Configure(props: ConfigureProps) {
                                       light={false}
                                       items={["in", "matches", "equals"]}
                                       value={condition.operation}
-                                      onChange={(e) => props.formikProps.handleChange(e)}
+                                      onChange={(e) => {
+                                        console.log(e);
+                                        props.formikProps.setFieldValue(
+                                          `triggers.event.conditions[${idx}].operation`,
+                                          e.selectedItem
+                                        );
+                                      }}
                                       invalid={Boolean(errors.triggers?.event?.conditions?.[idx]?.operation)}
                                       invalidText={errors.triggers?.event?.conditions?.[idx]?.operation}
                                       hideLabel={idx > 0}
@@ -515,7 +528,7 @@ function Configure(props: ConfigureProps) {
                             </div>
                             <Button
                               kind="ghost"
-                              onClick={() => push({ field: "", operator: "", value: "" })}
+                              onClick={() => push({ field: "", operation: "", value: "" })}
                               renderIcon={Add}
                               size="sm"
                               style={{ marginRight: "0.5rem" }}
@@ -596,10 +609,8 @@ function Configure(props: ConfigureProps) {
                         invalid={false}
                         onChange={({ selectedItems }: { selectedItems: Array<{ label: string; value: string }> }) => {
                           const fieldIdx = findConditionIndex("repositories");
-                          console.log("Index:", fieldIdx);
                           const value = { operation: "in", field: "repositories", values: selectedItems };
                           props.formikProps.setFieldValue(`triggers.github.conditions[${fieldIdx}]`, value);
-                          console.log(values.triggers.github);
                         }}
                         items={props.githubAppInstallation?.repositories}
                         itemToString={(repository: string) => {
@@ -621,10 +632,8 @@ function Configure(props: ConfigureProps) {
                       labelText="Select events that you wish to trigger this Workflow"
                       onChange={(_, __, ____, checked) => {
                         const fieldIdx = findConditionIndex("events");
-                        console.log("Index:", fieldIdx);
                         const value = { operation: "in", field: "events", values: checked };
                         props.formikProps.setFieldValue(`triggers.github.conditions[${fieldIdx}]`, value);
-                        console.log(values.triggers.github);
                       }}
                       options={githubEvents}
                     />

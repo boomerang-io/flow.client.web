@@ -61,7 +61,7 @@ export default function ConfigureStorage({ closeModal, workflowId }: Props) {
       </ModalBody>
       <ModalFooter style={{ bottom: "0", position: "absolute", width: "100%" }}>
         <Button kind="secondary" type="button" onClick={closeModal}>
-          Cancel
+          Close
         </Button>
       </ModalFooter>
     </ModalForm>

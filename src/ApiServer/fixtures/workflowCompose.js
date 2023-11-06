@@ -29,10 +29,7 @@ const workflowsCompose = [
       event: {
         type: "event",
         enabled: true,
-        conditions: [
-          { operation: "matches", field: "type", value: "io.boomerang.test" },
-          { operation: "matches", field: "subject", value: "australia" },
-        ],
+        conditions: [],
       },
       github: {
         type: "github",
