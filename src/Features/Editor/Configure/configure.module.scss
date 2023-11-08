@@ -262,3 +262,17 @@
     grid-template-columns: auto auto;
   }
 }
+.detailedListContainer {
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  width: 75rem;
+}
+
+.detailedListParagraph {
+  color: var(--cds-text-02);
+  font-size: var(--cds-heading-01-font-size, 0.875rem);
+  font-style: normal !important;
+  line-height: 0.9375rem;
+  margin-bottom: 2rem !important;
+  width: 75rem;
+}

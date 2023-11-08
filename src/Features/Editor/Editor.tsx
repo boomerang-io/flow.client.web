@@ -11,7 +11,6 @@ import { Loading, Error, notify, ToastNotification } from "@boomerang-io/carbon-
 import ChangeLog from "./ChangeLog";
 import Configure from "./Configure";
 import Designer from "./Designer";
-import Tokens from "./Tokens";
 import Header from "./Header";
 import Parameters from "./Parameters";
 import Schedule from "./Schedule";
@@ -19,7 +18,6 @@ import queryString from "query-string";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { groupTaskTemplatesByName } from "Utils";
-import { FeatureFlag } from "Config/appConfig";
 import { WorkflowEngineMode, WorkspaceConfigType } from "Constants";
 import { WorkflowView } from "Constants";
 import {
@@ -44,6 +42,7 @@ const CREATEABLE_PATHS = [
   "run",
   "workspaces",
   "parameters",
+  "tokens",
 ];
 
 export default function EditorContainer() {
@@ -168,7 +167,6 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   workflowsQueryData,
   workflowId,
 }) => {
-  const workflowTokensEnabled = useFeature(FeatureFlag.WorkflowTokensEnabled);
   const location = useLocation();
   //const match: { params: { workflowId: string } } = useRouteMatch();
   const { quotas } = useAppContext();
@@ -341,11 +339,6 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           <Route path={AppPath.EditorProperties}>
             <Parameters workflow={revisionState} handleUpdateParams={handleUpdateParams} />
           </Route>
-          {workflowTokensEnabled && (
-            <Route path={AppPath.EditorTokens}>
-              <Tokens workflow={revisionState} />
-            </Route>
-          )}
           <Route path={AppPath.EditorSchedule}>
             <Schedule workflow={revisionState} />
           </Route>

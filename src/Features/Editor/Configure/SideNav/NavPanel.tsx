@@ -50,6 +50,13 @@ const NavPanel: React.FC<NavPanelProps> = ({ team, workflowId }) => {
         workflowId: workflowId,
       })}`,
     },
+    {
+      name: "Tokens",
+      path: `${appLink.editorConfigureTokens({
+        team: team,
+        workflowId: workflowId,
+      })}`,
+    },
   ];
 
   return (

@@ -27,6 +27,7 @@ import { appLink, AppPath, FeatureFlag } from "Config/appConfig";
 import workflowIcons from "Assets/workflowIcons";
 import { WorkspaceConfigType } from "Constants";
 import { Workflow, ConfigureWorkflowFormValues } from "Types";
+import TokenSection from "Components/TokenSection";
 import styles from "./configure.module.scss";
 
 const TRIGGER_YUP_SCHEMA = Yup.object().shape({
@@ -176,6 +177,7 @@ interface ConfigureProps {
 }
 
 function Configure(props: ConfigureProps) {
+  const workflowTokensEnabled = useFeature(FeatureFlag.WorkflowTokensEnabled);
   const handleOnToggleChange = (value: any, id: string) => {
     props.formikProps.setFieldValue(id, value);
   };
@@ -360,7 +362,7 @@ function Configure(props: ConfigureProps) {
                       label="Enable"
                       toggled={values.triggers.webhook.enabled}
                       onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.webhook.enabled")}
-                      tooltipContent="Enable workflow to be executed by a webhook"
+                      tooltipContent="Enable workflow to be executed by the webhook API"
                       tooltipProps={{ direction: "top" }}
                       reversed
                     />
@@ -643,20 +645,20 @@ function Configure(props: ConfigureProps) {
             </>
           )}
         </Route>
-        {/* <Route exact path={AppPath.EditorConfigureParams}>
-          <Section title="GitHub" description="Auto inject GitHub Parameters." beta>
+        <Route exact path={AppPath.EditorConfigureParams}>
+          {/* <Section title="GitHub" description="Auto inject GitHub Parameters." beta>
             <div className={styles.toggleContainer}>
               <Toggle
                 id="bob"
                 label="Enable"
-                toggled={values.triggers.webhook.enable}
+                toggled={values.triggers.webhook.enabled}
                 onToggle={(checked: boolean) => handleOnToggleChange(checked, "triggers.webhook.enabled")}
                 reversed
                 disabled
               />
             </div>
-          </Section>
-        </Route> */}
+          </Section> */}
+        </Route>
         <Route exact path={AppPath.EditorConfigureRun}>
           <Section title="Execution" description="Customize how your Workflow behaves.">
             <div>
@@ -805,6 +807,30 @@ function Configure(props: ConfigureProps) {
                   </ComposedModal>
                 </div>
               )}
+            </div>
+          </Section>
+        </Route>
+        <Route exact path={AppPath.EditorConfigureTokens}>
+          <Section
+            title="Tokens"
+            description="
+                  Workflow tokens allow other apps to access the APIs as if they were this Workflow. Be careful how you
+                  distribute these tokens!"
+          >
+            {!workflowTokensEnabled && (
+              <InlineNotification
+                lowContrast
+                kind="warning"
+                title="Feature Required"
+                subtitle="Workflow Tokens require a feature to be enabled at the platform."
+                style={{ marginTop: "1rem" }}
+                hideCloseButton
+              />
+            )}
+            <div>
+              <dl className={styles.detailedListContainer}>
+                <TokenSection type="workflow" principal={props.workflow.id} />
+              </dl>
             </div>
           </Section>
         </Route>

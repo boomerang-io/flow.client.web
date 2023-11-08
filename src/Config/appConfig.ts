@@ -31,7 +31,7 @@ type AppPathKey =
   | "EditorConfigureRun"
   | "EditorConfigureParams"
   | "EditorConfigureWorkspaces"
-  | "EditorTokens"
+  | "EditorConfigureTokens"
   | "EditorChangelog"
   | "EditorProperties"
   | "EditorSchedule"
@@ -83,7 +83,7 @@ export const AppPath: Record<AppPathKey, string> = {
   EditorConfigureRun: `/:team/editor/:workflowId/configure/run`,
   EditorConfigureParams: `/:team/editor/:workflowId/configure/parameters`,
   EditorConfigureWorkspaces: `/:team/editor/:workflowId/configure/workspaces`,
-  EditorTokens: `/:team/editor/:workflowId/tokens`,
+  EditorConfigureTokens: `/:team/editor/:workflowId/configure/tokens`,
   EditorChangelog: `/:team/editor/:workflowId/changelog`,
   EditorProperties: `/:team/editor/:workflowId/parameters`,
   EditorSchedule: `/:team/editor/:workflowId/schedule`,
@@ -161,7 +161,7 @@ export const appLink = {
   editorConfigureRun: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/run`,
   editorConfigureParams: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/parameters`,
   editorConfigureWorkspaces: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/workspaces`,
-  editorTokens: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/tokens`,
+  editorConfigureTokens: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/tokens`,
   editorChangelog: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/changelog`,
   editorProperties: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/parameters`,
   editorSchedule: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/schedule`,
