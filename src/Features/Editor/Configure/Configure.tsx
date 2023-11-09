@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { Switch, Route, Redirect, useLocation, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useFeature } from "flagged";
+import { useTeamContext } from "Hooks";
 import { Formik, FormikProps, FieldArray } from "formik";
 import { Tag, MultiSelect, InlineNotification, Button, Dropdown } from "@carbon/react";
 import { Launch, Popup, TrashCan, Add } from "@carbon/react/icons";
@@ -26,7 +27,7 @@ import CustomLabel from "./CustomLabel";
 import { appLink, AppPath, FeatureFlag } from "Config/appConfig";
 import workflowIcons from "Assets/workflowIcons";
 import { WorkspaceConfigType } from "Constants";
-import { Workflow, ConfigureWorkflowFormValues } from "Types";
+import { Workflow, ConfigureWorkflowFormValues, FlowTeam } from "Types";
 import TokenSection from "Components/TokenSection";
 import styles from "./configure.module.scss";
 
@@ -59,6 +60,7 @@ interface ConfigureContainerProps {
 }
 
 function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContainerProps) {
+  const { team } = useTeamContext();
   const params = useParams<{ team: string; workflowId: string }>();
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
   const location = useLocation();
@@ -133,8 +135,13 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
           }),
           icon: Yup.string(),
           name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
-          retries: Yup.number(),
-          timeout: Yup.number(),
+          retries: Yup.number().min(0),
+          timeout: Yup.number()
+            .min(0)
+            .max(
+              team.quotas.maxWorkflowExecutionTime,
+              `Timeout must not exceed quota of {team.quotas.maxWorkflowExecutionTime} minutes`
+            ),
           triggers: Yup.object().shape({
             schedule: TRIGGER_YUP_SCHEMA,
             event: TRIGGER_YUP_SCHEMA,
@@ -154,6 +161,7 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
                 quotas={quotas}
                 workflow={workflow}
                 githubAppInstallation={getGitHubInstallationQuery.data}
+                team={team}
               />
             </div>
           ) : null
@@ -174,6 +182,7 @@ interface ConfigureProps {
   };
   workflow: Workflow;
   githubAppInstallation: any;
+  team: FlowTeam;
 }
 
 function Configure(props: ConfigureProps) {
@@ -666,7 +675,7 @@ function Configure(props: ConfigureProps) {
                 <TextInput
                   id="timeout"
                   label="Timeout"
-                  helperText="In minutes. Maximum defined by your quota."
+                  helperText={`In minutes. Maximum defined by your Team quota is ${props.team.quotas.maxWorkflowExecutionTime} minutes.`}
                   value={values.timeout}
                   onBlur={handleBlur}
                   onChange={(e) => props.formikProps.handleChange(e)}
@@ -814,7 +823,7 @@ function Configure(props: ConfigureProps) {
           <Section
             title="Tokens"
             description="
-                  Workflow tokens allow other apps to access the APIs as if they were this Workflow. Be careful how you
+                  Workflow tokens allow other applications to access the APIs as if they were this Workflow. Be careful how you
                   distribute these tokens!"
           >
             {!workflowTokensEnabled && (
