@@ -12,7 +12,7 @@ import styles from "./Quotas.module.scss";
 
 function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: boolean; teamDetailsUrl: string }) {
   let workflowLimitPercentage = (team.quotas.currentWorkflowCount / team.quotas.maxWorkflowCount) * 100;
-  let monthlyExecutionPercentage = (team.quotas.currentRuns / team.quotas.maxWorkflowExecutionMonthly) * 100;
+  let monthlyExecutionPercentage = (team.quotas.currentRuns / team.quotas.maxWorkflowRunMonthly) * 100;
 
   if (workflowLimitPercentage > 100) workflowLimitPercentage = 100;
   if (monthlyExecutionPercentage > 100) monthlyExecutionPercentage = 100;
@@ -39,7 +39,7 @@ function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: bo
       <section className={styles.actionsContainer}>
         <div className={styles.leftActions}>
           <p className={styles.featureDescription}>
-            The following quotas have been set for the team - only Admins have access to adjust these.
+            The following quotas have been set for the team - only administrators have access to adjust these.
           </p>
         </div>
         <div className={styles.rightActions}>
@@ -79,48 +79,28 @@ function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: bo
           //   minValue={team.quotas.currentWorkflowExecutionMonthly}
           minValue={1}
           detailedTitle="Current Usage"
-          detailedData={`${team.quotas.currentWorkflowExecutionMonthly}/${team.quotas.maxWorkflowExecutionMonthly}`}
+          detailedData={`${team.quotas.currentRuns}/${team.quotas.maxWorkflowRunMonthly}`}
           inputLabel="Maximum executions"
           inputUnits="executions"
           stepValue={1}
           teamName={team.name}
           quotaProperty="maxWorkflowExecutionMonthly"
-          quotaValue={team.quotas.maxWorkflowExecutionMonthly}
+          quotaValue={team.quotas.maxWorkflowRunMonthly}
           disabled={!canEdit}
           teamDetailsUrl={teamDetailsUrl}
         >
-          <h3 className={styles.detailedHeading}> {`${team.quotas.maxWorkflowExecutionMonthly} per month`}</h3>
+          <h3 className={styles.detailedHeading}> {`${team.quotas.maxWorkflowRunMonthly} per month`}</h3>
           <ProgressBar
-            maxValue={team.quotas.maxWorkflowExecutionMonthly}
+            maxValue={team.quotas.maxWorkflowRunMonthly}
             value={monthlyExecutionPercentage}
             coverageBarStyle={coverageBarStyle}
           />
-          <p className={styles.detailedSmallText}>{`Current usage: ${team.quotas.currentWorkflowExecutionMonthly}`}</p>
+          <p className={styles.detailedSmallText}>{`Current usage: ${team.quotas.currentRuns}`}</p>
         </QuotaCard>
         <QuotaCard
-          subtitle="Storage type"
-          title="Storage size capacity"
-          modalSubtitle="Set the storage size limit for each Workflow using persistent storage on this Team."
-          minValue={0}
-          detailedTitle="Current Workflows with persistent storage"
-          detailedData={`${team.quotas.currentWorkflowsPersistentStorage} Worklows`}
-          inputLabel="Storage limit"
-          inputUnits="GB"
-          stepValue={1}
-          teamName={team.name}
-          quotaProperty="maxWorkflowStorage"
-          quotaValue={team.quotas.maxWorkflowStorage}
-          disabled={!canEdit}
-          teamDetailsUrl={teamDetailsUrl}
-        >
-          <h5 className={styles.persistentStorage}>Persistent Storage</h5>
-          <dt className={styles.subtitle}>Size limit</dt>
-          <dd className={styles.detailedData}>{`${team.quotas.maxWorkflowStorage}GB per Workflow`}</dd>
-        </QuotaCard>
-        <QuotaCard
-          subtitle="Maximum amount of time that a single Workflow can take for one execution."
-          title="Execution time"
-          modalSubtitle="Set the maximum amount of time that a single Workflow can take for one execution."
+          subtitle="Maximum amount of time that a single Workflow can take for one run (execution)."
+          title="Run time"
+          modalSubtitle="Set the maximum amount of run time for a single Workflow."
           minValue={0}
           detailedTitle="Current average execution time"
           detailedData={`${team.quotas.currentRunMedianDuration} minutes`}
@@ -129,11 +109,11 @@ function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: bo
           stepValue={1}
           teamName={team.name}
           quotaProperty="maxWorkflowExecutionTime"
-          quotaValue={team.quotas.maxWorkflowExecutionTime}
+          quotaValue={team.quotas.maxWorkflowRunTime}
           disabled={!canEdit}
           teamDetailsUrl={teamDetailsUrl}
         >
-          <h3 className={styles.detailedHeading}> {`${team.quotas.maxWorkflowExecutionTime} minutes`}</h3>
+          <h3 className={styles.detailedHeading}> {`${team.quotas.maxWorkflowRunTime} minutes`}</h3>
         </QuotaCard>
         <QuotaCard
           subtitle="Max number of Workflows able to run at the same time."
@@ -147,11 +127,29 @@ function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: bo
           stepValue={1}
           teamName={team.name}
           quotaProperty="maxConcurrentWorkflows"
-          quotaValue={team.quotas.maxConcurrentWorkflows}
+          quotaValue={team.quotas.maxConcurrentRuns}
           disabled={!canEdit}
           teamDetailsUrl={teamDetailsUrl}
         >
-          <h3 className={styles.detailedHeading}> {`${team.quotas.maxConcurrentWorkflows} Workflows`}</h3>
+          <h3 className={styles.detailedHeading}> {`${team.quotas.maxConcurrentRuns} Workflows`}</h3>
+        </QuotaCard>
+        <QuotaCard
+          subtitle="Workspace size limit for each Workflow using persistent storage on this Team."
+          title="Workspace size capacity"
+          modalSubtitle="Set the storage size limit for each Workflow Workspace using persistent storage on this Team."
+          minValue={0}
+          detailedTitle="Persistent storage size limit"
+          detailedData={`${team.quotas.maxWorkflowStorage}GB per Workflow`}
+          inputLabel="Storage limit"
+          inputUnits="GB"
+          stepValue={1}
+          teamName={team.name}
+          quotaProperty="maxWorkflowStorage"
+          quotaValue={team.quotas.maxWorkflowStorage}
+          disabled={!canEdit}
+          teamDetailsUrl={teamDetailsUrl}
+        >
+          <h3 className={styles.detailedHeading}> {`${team.quotas.maxWorkflowStorage}GB per Workflow`}</h3>
         </QuotaCard>
       </section>
     </section>

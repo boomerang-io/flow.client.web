@@ -149,7 +149,7 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ team, searchQuery, wo
                 <TooltipHover
                   direction="top"
                   tooltipText={
-                    "This team has reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact your Team owner to increase the quota."
+                    "This team has reached the maximum number of Workflows allowed. Contact your administrator or team owner to increase the quota, or delete a Workflow to create a new one."
                   }
                 >
                   <WarningAlt className={styles.warningIcon} />
@@ -164,7 +164,7 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ team, searchQuery, wo
               modalHeaderProps={{
                 title: `Team quotas - ${team.displayName}`,
                 subtitle:
-                  "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an admin.",
+                  "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an administrator.",
               }}
               modalTrigger={({ openModal }: ModalTriggerProps) => (
                 <Button iconDescription="View quota details" kind="ghost" size="sm" onClick={openModal}>

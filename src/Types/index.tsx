@@ -367,12 +367,12 @@ export interface FlowTeamQuotas {
   currentConcurrentRuns: number;
   currentRunTotalDuration: number;
   currentRunMedianDuration: number;
-  currentPersistentStorage: number;
+  currentTotalWorkflowStorage: number;
   maxWorkflowCount: number;
   maxWorkflowRunMonthly: number;
   maxWorkflowStorage: number;
   maxWorkflowRunTime: number;
-  maxConcurrentWorkflows: number;
+  maxConcurrentRuns: number;
   monthlyResetDate: string;
 }
 

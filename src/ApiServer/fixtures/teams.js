@@ -29,17 +29,17 @@ const teams = {
           ],
           "quotas": {
               "maxWorkflowCount": 10,
-              "maxWorkflowExecutionMonthly": 20,
+              "maxWorkflowRunMonthly": 20,
               "maxWorkflowStorage": 25,
-              "maxWorkflowExecutionTime": 30,
-              "maxConcurrentWorkflows": 4,
+              "maxWorkflowRunTime": 30,
+              "maxConcurrentRuns": 4,
               "currentWorkflowCount": 6,
               "currentRuns": 0,
               "currentRunTotalDuration": 0,
               "currentRunMedianDuration": 0,
-              "currentPersistentStorage": null,
+              "currentTotalWorkflowStorage": null,
               "monthlyResetDate": "2023-10-01T00:00:00.000+00:00",
-              "currentConcurrentWorkflows": 0
+              "currentConcurrentRuns": 0
           },
           "members": [
               {
@@ -58,17 +58,17 @@ const teams = {
           "status": "active",
           "quotas": {
               "maxWorkflowCount": 2,
-              "maxWorkflowExecutionMonthly": 10,
+              "maxWorkflowRunMonthly": 10,
               "maxWorkflowStorage": 0,
-              "maxWorkflowExecutionTime": 10,
-              "maxConcurrentWorkflows": 1,
+              "maxWorkflowRunTime": 10,
+              "maxConcurrentRuns": 1,
               "currentWorkflowCount": 1,
               "currentRuns": 0,
               "currentRunTotalDuration": 0,
               "currentRunMedianDuration": 0,
-              "currentPersistentStorage": null,
+              "currentTotalWorkflowStorage": null,
               "monthlyResetDate": "2023-10-01T00:00:00.000+00:00",
-              "currentConcurrentWorkflows": 0
+              "currentConcurrentRuns": 0
           },
           "members": [
               {
@@ -87,17 +87,17 @@ const teams = {
           "status": "active",
           "quotas": {
               "maxWorkflowCount": 2147483647,
-              "maxWorkflowExecutionMonthly": 2147483647,
+              "maxWorkflowRunMonthly": 2147483647,
               "maxWorkflowStorage": 2147483647,
-              "maxWorkflowExecutionTime": 2147483647,
-              "maxConcurrentWorkflows": 2147483647,
+              "maxWorkflowRunTime": 2147483647,
+              "maxConcurrentRuns": 2147483647,
               "currentWorkflowCount": 1,
               "currentRuns": 0,
               "currentRunTotalDuration": 0,
               "currentRunMedianDuration": 0,
-              "currentPersistentStorage": null,
+              "currentTotalWorkflowStorage": null,
               "monthlyResetDate": "2023-10-01T00:00:00.000+00:00",
-              "currentConcurrentWorkflows": 0
+              "currentConcurrentRuns": 0
           },
           "members": [
               {
@@ -128,17 +128,17 @@ const teams = {
           "status": "active",
           "quotas": {
               "maxWorkflowCount": 10,
-              "maxWorkflowExecutionMonthly": 20,
+              "maxWorkflowRunMonthly": 20,
               "maxWorkflowStorage": 25,
-              "maxWorkflowExecutionTime": 30,
-              "maxConcurrentWorkflows": 4,
+              "maxWorkflowRunTime": 30,
+              "maxConcurrentRuns": 4,
               "currentWorkflowCount": 18,
               "currentRuns": 0,
               "currentRunTotalDuration": 0,
               "currentRunMedianDuration": 0,
-              "currentPersistentStorage": null,
+              "currentTotalWorkflowStorage": null,
               "monthlyResetDate": "2023-10-01T00:00:00.000+00:00",
-              "currentConcurrentWorkflows": 0
+              "currentConcurrentRuns": 0
           },
           "members": [
               {
@@ -157,17 +157,17 @@ const teams = {
           "status": "active",
           "quotas": {
               "maxWorkflowCount": 10,
-              "maxWorkflowExecutionMonthly": 20,
+              "maxWorkflowRunMonthly": 20,
               "maxWorkflowStorage": 25,
-              "maxWorkflowExecutionTime": 30,
-              "maxConcurrentWorkflows": 4,
+              "maxWorkflowRunTime": 30,
+              "maxConcurrentRuns": 4,
               "currentWorkflowCount": 2,
               "currentRuns": 0,
               "currentRunTotalDuration": 0,
               "currentRunMedianDuration": 0,
-              "currentPersistentStorage": null,
+              "currentTotalWorkflowStorage": null,
               "monthlyResetDate": "2023-10-01T00:00:00.000+00:00",
-              "currentConcurrentWorkflows": 0
+              "currentConcurrentRuns": 0
           },
           "members": [
               {
@@ -186,17 +186,17 @@ const teams = {
           "status": "active",
           "quotas": {
               "maxWorkflowCount": 2,
-              "maxWorkflowExecutionMonthly": 10,
+              "maxWorkflowRunMonthly": 10,
               "maxWorkflowStorage": 0,
-              "maxWorkflowExecutionTime": 10,
-              "maxConcurrentWorkflows": 0,
+              "maxWorkflowRunTime": 10,
+              "maxConcurrentRuns": 0,
               "currentWorkflowCount": 18,
               "currentRuns": 0,
               "currentRunTotalDuration": 0,
               "currentRunMedianDuration": 0,
-              "currentPersistentStorage": null,
+              "currentTotalWorkflowStorage": null,
               "monthlyResetDate": "2023-10-01T00:00:00.000+00:00",
-              "currentConcurrentWorkflows": 0
+              "currentConcurrentRuns": 0
           },
           "members": [
               {
@@ -215,17 +215,17 @@ const teams = {
           "status": "active",
           "quotas": {
               "maxWorkflowCount": 10,
-              "maxWorkflowExecutionMonthly": 20,
+              "maxWorkflowRunMonthly": 20,
               "maxWorkflowStorage": 25,
-              "maxWorkflowExecutionTime": 30,
-              "maxConcurrentWorkflows": 4,
+              "maxWorkflowRunTime": 30,
+              "maxConcurrentRuns": 4,
               "currentWorkflowCount": 5,
               "currentRuns": 0,
               "currentRunTotalDuration": 0,
               "currentRunMedianDuration": 0,
-              "currentPersistentStorage": null,
+              "currentTotalWorkflowStorage": null,
               "monthlyResetDate": "2023-10-01T00:00:00.000+00:00",
-              "currentConcurrentWorkflows": 0
+              "currentConcurrentRuns": 0
           },
           "members": [
               {

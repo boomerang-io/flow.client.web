@@ -21,7 +21,7 @@ import { formatErrorMessage } from "@boomerang-io/utils";
 import { appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
-import { Run, Bee, CircleFill, CircleStroke } from "@carbon/react/icons";
+import { Run, Bee, CircleFill, CircleStroke, WarningAlt } from "@carbon/react/icons";
 import workflowIcons from "Assets/workflowIcons";
 import { WorkflowView } from "Constants";
 import {
@@ -231,7 +231,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
   let hasReachedMonthlyRunLimit = false;
 
   if (quotas) {
-    hasReachedMonthlyRunLimit = quotas?.maxWorkflowExecutionMonthly <= quotas?.currentRuns;
+    hasReachedMonthlyRunLimit = quotas?.maxWorkflowRunMonthly <= quotas?.currentRuns;
   }
 
   const canRunManually = workflow?.triggers?.manual?.enabled ?? false;
@@ -264,19 +264,6 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
           </div>
         </section>
       </Link>
-      {/*<div className={styles.quotaDescriptionContainer}>
-        <h3
-          className={styles.teamQuotaText}
-        >{`Run quota - ${quotas.currentWorkflowExecutionMonthly} of ${quotas.maxWorkflowExecutionMonthly} this month`}</h3>
-        {hasReachedMonthlyRunLimit && (
-          <TooltipHover
-            direction="top"
-            tooltipText="This Workflow has reached the maximum number of executions allowed this month. Contact your Team administrator/owner to increase the quota, or wait until the quota resets next month."
-          >
-            <WarningAlt16 className={styles.warningIcon} />
-          </TooltipHover>
-        )}
-        </div>*/}
       <section className={styles.launch}>
         {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
           <ComposedModal
@@ -357,7 +344,12 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
         />
       ) : (
         <div className={styles.status}>
-          {isDisabled ? (
+          {hasReachedMonthlyRunLimit ? <TooltipHover
+            direction="top"
+            tooltipText="This team has reached the maximum number of runs (executions) allowed this month. Contact your administrator or team owner to increase the quota, or wait until the quota resets next month."
+          >
+            <WarningAlt className={styles.warningIcon} />
+          </TooltipHover>: isDisabled ? (
             <TooltipHover direction="top" tooltipText="Trigger disabled or Quota exceeded">
               <CircleStroke style={{ fill: "#393939", marginRight: "0.5rem" }} />
             </TooltipHover>

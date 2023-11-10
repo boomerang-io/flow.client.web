@@ -139,8 +139,8 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
           timeout: Yup.number()
             .min(0)
             .max(
-              team.quotas.maxWorkflowExecutionTime,
-              `Timeout must not exceed quota of {team.quotas.maxWorkflowExecutionTime} minutes`
+              team.quotas.maxWorkflowRunTime,
+              `Timeout must not exceed quota of ${team.quotas.maxWorkflowRunTime} minutes`
             ),
           triggers: Yup.object().shape({
             schedule: TRIGGER_YUP_SCHEMA,
@@ -177,7 +177,7 @@ interface ConfigureProps {
   workflowTriggersEnabled: boolean;
   formikProps: FormikProps<ConfigureWorkflowFormValues>;
   quotas: {
-    maxActivityStorageSize: string;
+    maxWorkflowRunStorageSize: string;
     maxWorkflowStorageSize: string;
   };
   workflow: Workflow;
@@ -675,7 +675,7 @@ function Configure(props: ConfigureProps) {
                 <TextInput
                   id="timeout"
                   label="Timeout"
-                  helperText={`In minutes. Maximum defined by your Team quota is ${props.team.quotas.maxWorkflowExecutionTime} minutes.`}
+                  helperText={`In minutes. Maximum defined by your Team quota is ${props.team.quotas.maxWorkflowRunTime} minutes.`}
                   value={values.timeout}
                   onBlur={handleBlur}
                   onChange={(e) => props.formikProps.handleChange(e)}
@@ -809,7 +809,7 @@ function Configure(props: ConfigureProps) {
                           setFieldValue("storage.activity", storageValues);
                         }}
                         closeModal={closeModal}
-                        quotas={quotas.maxActivityStorageSize}
+                        quotas={quotas.maxWorkflowRunStorageSize}
                         isActivity
                       />
                     )}

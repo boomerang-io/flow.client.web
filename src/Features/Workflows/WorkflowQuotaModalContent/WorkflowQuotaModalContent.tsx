@@ -13,7 +13,7 @@ export default function WorkflowQuotaModalContent({
   quotas: FlowTeamQuotas;
 }) {
   let workflowLimitPercentage = (quotas.currentWorkflowCount / quotas.maxWorkflowCount) * 100;
-  let monthlyExecutionPercentage = (quotas.currentRuns / quotas.maxWorkflowExecutionMonthly) * 100;
+  let monthlyExecutionPercentage = (quotas.currentRuns / quotas.maxWorkflowRunMonthly) * 100;
 
   if (workflowLimitPercentage > 100) workflowLimitPercentage = 100;
   if (monthlyExecutionPercentage > 100) monthlyExecutionPercentage = 100;
@@ -35,13 +35,13 @@ export default function WorkflowQuotaModalContent({
       <QuotaSection
         description="Number of executions per month across all Workflows"
         title="Total Workflow executions"
-        value={quotas.maxWorkflowExecutionMonthly}
+        value={quotas.maxWorkflowRunMonthly}
         valueUnit="per month"
       >
-        <ProgressBar maxValue={quotas.maxWorkflowExecutionMonthly} value={monthlyExecutionPercentage} />
+        <ProgressBar maxValue={quotas.maxWorkflowRunMonthly} value={monthlyExecutionPercentage} />
         <p
           className={styles.detailedText}
-        >{`Current usage: ${quotas.currentRuns} of ${quotas.maxWorkflowExecutionMonthly}`}</p>
+        >{`Current usage: ${quotas.currentRuns} of ${quotas.maxWorkflowRunMonthly}`}</p>
         <time className={styles.detailedText}>
           {`Resets on ${moment.utc(quotas.monthlyResetDate).format("MMMM DD, YYYY")}`}
         </time>
@@ -56,13 +56,13 @@ export default function WorkflowQuotaModalContent({
       <QuotaSection
         description="Maximum amount of time that a single Workflow can take for one execution."
         title="Execution time"
-        value={quotas.maxWorkflowExecutionTime}
+        value={quotas.maxWorkflowRunTime}
         valueUnit="minutes"
       />
       <QuotaSection
         title="Concurrent Workflows"
         description="Max number of Workflows able to run at the same time"
-        value={quotas.maxConcurrentWorkflows}
+        value={quotas.maxConcurrentRuns}
         valueUnit="Workflows"
       />
     </ModalBody>
