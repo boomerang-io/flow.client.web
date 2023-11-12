@@ -32,7 +32,7 @@ const DesignerContainer: React.FC<DesignerContainerProps> = ({
 
   const location = useLocation();
   const isOnDesignerPath =
-    appLink.editorDesigner({ team: params.team, workflowId: params.workflowId }) === location.pathname;
+    appLink.editorCanvas({ team: params.team, workflowId: params.workflowId }) === location.pathname;
 
   return (
     <div className={cx(styles.container, { [styles.hidden]: !isOnDesignerPath })}>

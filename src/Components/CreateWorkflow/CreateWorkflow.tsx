@@ -40,7 +40,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
         body: workflowSummary,
       });
       const workflowId = newWorkflow.id;
-      history.push(appLink.editorDesigner({ team: team?.name!, workflowId: workflowId }));
+      history.push(appLink.editorCanvas({ team: team?.name!, workflowId: workflowId }));
       notify(
         <ToastNotification kind="success" title={`Create ${viewType}`} subtitle={`${viewType} successfully created`} />
       );
@@ -64,7 +64,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
         team: team?.name,
         body: workflow,
       });
-      history.push(appLink.editorDesigner({ team: team?.name!, workflowId: newWorkflow.id }));
+      history.push(appLink.editorCanvas({ team: team?.name!, workflowId: newWorkflow.id }));
       notify(
         <ToastNotification kind="success" title={`Update ${viewType}`} subtitle={`${viewType} successfully updated`} />
       );

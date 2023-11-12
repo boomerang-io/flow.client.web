@@ -73,7 +73,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
       header={<HeaderTitle>Editor</HeaderTitle>}
       footer={
         <Tabs ariaLabel="Editor pages">
-          <Tab label="Workflow" to={appLink.editorDesigner({ team, workflowId })} />
+          <Tab label="Canvas" to={appLink.editorCanvas({ team, workflowId })} />
           <Tab label="Parameters" to={appLink.editorProperties({ team, workflowId })} />
           <Tab label="Configure" to={appLink.editorConfigure({ team, workflowId })} />
           <Tab label="Schedule" to={appLink.editorSchedule({ team, workflowId })} />

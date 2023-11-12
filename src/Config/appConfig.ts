@@ -24,7 +24,7 @@ type AppPathKey =
   | "ActionsManual"
   | "Callback"
   | "Editor"
-  | "EditorDesigner"
+  | "EditorCanvas"
   | "EditorConfigure"
   | "EditorConfigureGeneral"
   | "EditorConfigureTriggers"
@@ -76,7 +76,7 @@ export const AppPath: Record<AppPathKey, string> = {
   ActionsManual: "/:team/actions/manual",
   Callback: "/callback",
   Editor: "/:team/editor/:workflowId",
-  EditorDesigner: `/:team/editor/:workflowId/workflow`,
+  EditorCanvas: `/:team/editor/:workflowId/canvas`,
   EditorConfigure: `/:team/editor/:workflowId/configure`,
   EditorConfigureGeneral: `/:team/editor/:workflowId/configure/general`,
   EditorConfigureTriggers: `/:team/editor/:workflowId/configure/triggers`,
@@ -154,7 +154,7 @@ export const appLink = {
   actions: ({ team }: TeamArg) => `/${team}/actions`,
   actionsApprovals: ({ team }: TeamArg) => `/${team}/actions/approvals`,
   actionsManual: ({ team }: TeamArg) => `/${team}/actions/manual`,
-  editorDesigner: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/workflow`,
+  editorCanvas: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/canvas`,
   editorConfigure: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure`,
   editorConfigureGeneral: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/general`,
   editorConfigureTriggers: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/configure/triggers`,

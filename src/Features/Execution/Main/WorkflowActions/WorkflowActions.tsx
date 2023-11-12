@@ -21,7 +21,7 @@ function WorkflowActions({ workflow }: Props) {
       <Button
         kind="ghost"
         size="md"
-        onClick={() => history.push(appLink.editorDesigner({ team, workflowId: id }))}
+        onClick={() => history.push(appLink.editorCanvas({ team, workflowId: id }))}
         renderIcon={Edit}
       >
         Edit Workflow

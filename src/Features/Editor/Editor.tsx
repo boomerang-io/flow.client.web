@@ -34,7 +34,7 @@ import { FormikProps } from "formik";
 import type { ReactFlowInstance } from "reactflow";
 
 const CREATEABLE_PATHS = [
-  "workflow",
+  "canvas",
   "parameters",
   "configure",
   "general",
@@ -335,7 +335,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           revisionMutator={revisionMutator}
         />
         <Switch>
-          <Route path={AppPath.EditorDesigner} />
+          <Route path={AppPath.EditorCanvas} />
           <Route path={AppPath.EditorProperties}>
             <Parameters workflow={revisionState} handleUpdateParams={handleUpdateParams} />
           </Route>

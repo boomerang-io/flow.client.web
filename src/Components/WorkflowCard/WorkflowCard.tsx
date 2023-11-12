@@ -196,7 +196,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
   let menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => history.push(appLink.editorDesigner({ team: teamName, workflowId: workflow.id })),
+      onClick: () => history.push(appLink.editorCanvas({ team: teamName, workflowId: workflow.id })),
     },
     {
       itemText: "View Activity",
@@ -249,7 +249,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
 
   return (
     <div className={styles.container}>
-      <Link to={!isDeleting ? appLink.editorDesigner({ team: teamName, workflowId: workflow.id }) : ""}>
+      <Link to={!isDeleting ? appLink.editorCanvas({ team: teamName, workflowId: workflow.id }) : ""}>
         <section className={styles.details}>
           <div className={styles.iconContainer}>
             <Icon className={styles.icon} alt={`${name}`} />

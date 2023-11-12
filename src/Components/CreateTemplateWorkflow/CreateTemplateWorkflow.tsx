@@ -58,7 +58,7 @@ function CreateTemplateWorkflow({ team, workflowList }: CreateTemplateWorkflowPr
       });
       const workflowId = newWorkflow.id;
 
-      history.push(appLink.editorDesigner({ workflowId }));
+      history.push(appLink.editorCanvas({ workflowId }));
       notify(
         <ToastNotification
           kind="success"
