@@ -101,6 +101,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       script: values.script,
       workingDir: values.workingDir,
       envs: newEnvs,
+      serviceAccountName: values.serviceAccountName,
+      securityContext: values.securityContext,
       config: hasFile && Boolean(values.currentRevision) ? values.currentRevision.config : [],
       results: hasFile && Boolean(values.currentRevision) ? values.currentRevision.results : [],
       changelog: { reason: "" },
@@ -147,6 +149,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           : [];
         setFieldValue("envs", formattedEnvs);
         setFieldValue("workingDir", currentRevision?.workingDir);
+        setFieldValue("serviceAccountName", currentRevision?.serviceAccountName);
+        setFieldValue("securityContext", currentRevision?.securityContext);
         setFieldValue("currentRevision", currentRevision);
         setFieldValue("fileData", fileData);
       }
@@ -168,6 +172,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         script: "",
         workingDir: "",
         envs: [],
+        serviceAccountName: "",
+        securityContext: "",
         fileData: {},
         file: undefined,
       }}
@@ -189,6 +195,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         command: Yup.string(),
         script: Yup.string().nullable(),
         workingDir: Yup.string().nullable(),
+        serviceAccountName: Yup.string().nullable(),
+        securityContext: Yup.string().nullable(),
         image: Yup.string().nullable(),
         file: Yup.mixed().test(
           "fileSize",
@@ -379,6 +387,24 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 keyLabelText="Environments (optional)"
                 placeholder="Enter env"
                 values={values.envs || []}
+              />
+              <TextInput
+                id="serviceAccountName"
+                invalid={errors.serviceAccountName && touched.serviceAccountName}
+                invalidText={errors.serviceAccountName}
+                labelText="Service Account Name (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.serviceAccountName}
+              />
+              <TextArea
+                id="securityContext"
+                invalid={errors.securityContext && touched.securityContext}
+                invalidText={errors.securityContext}
+                labelText="Security Context (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.securityContext}
               />
             </ModalBody>
             <ModalFooter>

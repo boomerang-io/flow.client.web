@@ -542,6 +542,74 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
             </div>
           </div>
         </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="serviceAccountName"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Service Account Name (optional)
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-outer-wrapper"
+            >
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text-input--md"
+                  id="serviceAccountName"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-area"
+        >
+          <div
+            class="bx--form-item"
+          >
+            <div
+              class="bx--text-area__label-wrapper"
+            >
+              <label
+                class="bx--label"
+                for="securityContext"
+              >
+                <div
+                  style="display: flex;"
+                >
+                  <div>
+                    Security Context (optional)
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="bx--text-area__wrapper"
+            >
+              <textarea
+                class="bx--text-area"
+                cols="50"
+                id="securityContext"
+                rows="4"
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <div
         class="bx--modal-footer bx--btn-set"

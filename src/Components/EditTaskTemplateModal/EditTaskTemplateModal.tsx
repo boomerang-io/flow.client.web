@@ -32,6 +32,8 @@ function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue
     setFieldValue("envs", newEnvs);
     setFieldValue("script", newValues.script);
     setFieldValue("workingDir", newValues.workingDir);
+    setFieldValue("serviceAccountName", newValues.serviceAccountName);
+    setFieldValue("securityContext", newValues.securityContext);
   };
   return (
     <ComposedModal

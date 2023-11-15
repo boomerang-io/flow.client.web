@@ -23,6 +23,8 @@ const taskTemplate = [
           },
         ],
         changelog: { userId: "5e831153d0827100011c29f6", reason: "", date: "2020-04-30T22:53:11.315+0000" },
+        serviceAccountName: "default",
+        securityContext: "runAsNonRoot: true\nrunAsUser: 100",
       },
     ],
     status: "active",

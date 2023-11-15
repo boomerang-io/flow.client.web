@@ -259,9 +259,12 @@ export function TaskTemplateOverview({
       onSuccess: invalidateQueries,
     }
   );
-  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(resolver.putRestoreTaskTemplate, {
-    onSuccess: invalidateQueries,
-  });
+  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(
+    resolver.putRestoreTaskTemplate,
+    {
+      onSuccess: invalidateQueries,
+    }
+  );
 
   let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.id) ?? {};
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
@@ -322,6 +325,8 @@ export function TaskTemplateOverview({
         workingDir: values.workingDir,
         results: values.result,
         envs: values.envs,
+        serviceAccountName: values.serviceAccountName,
+        securityContext: values.securityContext,
         changelog: {
           reason: values.comments,
         },
@@ -348,6 +353,8 @@ export function TaskTemplateOverview({
         workingDir: values.workingDir,
         results: values.result,
         envs: values.envs,
+        serviceAccountName: values.serviceAccountName,
+        securityContext: values.securityContext,
         changelog: {
           reason: values.comments,
         },
@@ -480,6 +487,8 @@ export function TaskTemplateOverview({
           : currentRevision.command ?? "",
         result: currentRevision.results ?? [],
         envs: currentRevision.envs ?? [],
+        serviceAccountName: currentRevision.serviceAccountName ?? "",
+        securityContext: currentRevision.securityContext ?? "",
         comments: "",
         script: currentRevision.script ?? "",
         workingDir: currentRevision.workingDir ?? "",
@@ -601,6 +610,8 @@ export function TaskTemplateOverview({
                     <DetailDataElements value={values.script} label="Script" />
                     <DetailDataElements value={values.workingDir} label="Working Directory" />
                     <DetailDataElements value={values.envs} label="Envs" />
+                    <DetailDataElements value={values.serviceAccountName} label="Service Account Name" />
+                    <DetailDataElements value={values.securityContext} label="Security Context" />
                     <section className={styles.infoSection}>
                       <dt className={styles.label}>Contribution level</dt>
                       <div className={styles.basicIcon}>
