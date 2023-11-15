@@ -3,7 +3,7 @@ import axios from "axios";
 import { FlagsProvider, useFeature } from "flagged";
 import { AppContextProvider } from "State/context";
 import { useQuery, useQueryClient } from "react-query";
-import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import { Switch, Route, Redirect, useLocation, matchPath } from "react-router-dom";
 import {
   DelayedRender,
   Error404,
@@ -59,10 +59,25 @@ const featureFlagsUrl = serviceUrl.getFeatureFlags();
 const browser = detect();
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
+export interface ManageTaskTemplatesTeamParams {
+  teamId: string;
+}
+
 export default function App() {
   const location = useLocation();
   const queryClient = useQueryClient();
-  const teamIds = queryString.parse(location.search).teams;
+  const getTeamIdFromURL = () => {
+    let teamIds = queryString.parse(location.search).teams;
+    if (teamIds === "" || teamIds === undefined || teamIds === null) {
+      const templateMatch = matchPath<ManageTaskTemplatesTeamParams>(location.pathname, {
+        path: AppPath.ManageTaskTemplatesTeam,
+      });
+      teamIds = templateMatch?.params?.teamId ? templateMatch?.params?.teamId : null;
+    }
+    return teamIds;
+  };
+
+  const teamIds = getTeamIdFromURL();
   const teamIdsArray = teamIds === null || teamIds === undefined ? [] : teamIds.toString().split(",");
   const query = teamIdsArray.length === 1 ? `?teamId=${teamIdsArray[0]}` : "";
   const getFlowNavigationUrl = serviceUrl.getFlowNavigation({ query });
