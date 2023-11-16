@@ -80,9 +80,8 @@ export default function App() {
 
   const teamIds = getTeamIdFromURL();
   const teamIdsArray = teamIds === null || teamIds === undefined ? [] : teamIds.toString().split(",");
-  const query = teamIdsArray.length === 1 ? `?teamId=${teamIdsArray[0]}` : "";
+  const query = teamIdsArray.length > 0 ? `?teamId=${teamIdsArray[0]}` : "";
   const getFlowNavigationUrl = serviceUrl.getFlowNavigation({ query });
-
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
     !supportedBrowsers.includes(browser?.name ?? "")
   );
