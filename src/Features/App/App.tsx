@@ -161,7 +161,7 @@ export default function App() {
     if (Array.isArray(teamsData) && teamsData.length > 0) {
       return sortByProp(
         teamsData.map((team) => ({ ...team, label: team.name, value: team.id })),
-        (team: any) => team.boomerangTeamName?.toLowerCase()
+        (team: any) => team.name?.toLowerCase()
       );
     } else {
       return teamsData;
