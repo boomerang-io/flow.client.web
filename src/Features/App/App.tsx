@@ -123,7 +123,7 @@ export default function App() {
   });
 
   const flowNavigationQuery = useQuery<Array<FlowNavigationItem>, string>({
-    queryKey: serviceUrl.getFlowNavigation({ query: "" }),
+    queryKey: getFlowNavigationUrl,
     queryFn: resolver.query(getFlowNavigationUrl),
     enabled: Boolean(userQuery.data?.id),
   });
