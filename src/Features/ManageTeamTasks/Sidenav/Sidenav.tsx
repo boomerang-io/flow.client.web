@@ -106,8 +106,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, 
   const selectedTeam = teams.find((team) => team.id === activeTeam);
 
   const handleSelectTeam = (selectedTeam: any) => {
-    console.log(selectedTeam);
-    if (selectedTeam) {
+    if (selectedTeam && selectedTeam.selectedItem) {
       setActiveTeam(selectedTeam?.selectedItem?.id);
       history.push(appLink.manageTaskTemplates({ teamId: selectedTeam?.selectedItem?.id }));
     }
