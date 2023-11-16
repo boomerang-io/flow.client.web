@@ -1,4 +1,4 @@
-import React, { lazy, useState, Suspense } from "react";
+import React, { lazy, useState, Suspense, useMemo } from "react";
 import axios from "axios";
 import { FlagsProvider, useFeature } from "flagged";
 import { AppContextProvider } from "State/context";
@@ -23,6 +23,7 @@ import { elevatedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, UserWorkflow } from "Types";
+import { sortByProp } from "@boomerang-io/utils";
 import styles from "./app.module.scss";
 
 // import directly bc of webpack chunking error
@@ -155,6 +156,18 @@ export default function App() {
     flowNavigationQuery.isError ||
     userWorkflowsQuery.isError;
 
+  const teamsData = teamsQuery.data;
+  const memoizedFormattedTeams = useMemo(() => {
+    if (Array.isArray(teamsData) && teamsData.length > 0) {
+      return sortByProp(
+        teamsData.map((team) => ({ ...team, label: team.name, value: team.id })),
+        (team: any) => team.boomerangTeamName?.toLowerCase()
+      );
+    } else {
+      return teamsData;
+    }
+  }, [teamsData]);
+
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
     setShowActivatePlatform(false);
@@ -186,7 +199,7 @@ export default function App() {
   if (
     userQuery.data &&
     navigationQuery.data &&
-    teamsQuery.data &&
+    memoizedFormattedTeams &&
     featureQuery.data &&
     flowNavigationQuery.data &&
     userWorkflowsQuery.data
@@ -222,7 +235,7 @@ export default function App() {
             setIsTutorialActive={setIsTutorialActive}
             setShouldShowBrowserWarning={setShouldShowBrowserWarning}
             shouldShowBrowserWarning={shouldShowBrowserWarning}
-            teamsData={teamsQuery.data}
+            teamsData={memoizedFormattedTeams}
             userData={userQuery.data}
             userWorkflowsData={userWorkflowsQuery.data}
             quotas={featureQuery.data.quotas}
