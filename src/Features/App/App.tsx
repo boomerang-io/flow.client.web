@@ -1,9 +1,9 @@
-import React, { lazy, useState, Suspense } from "react";
+import React, { lazy, useState, Suspense, useMemo } from "react";
 import axios from "axios";
 import { FlagsProvider, useFeature } from "flagged";
 import { AppContextProvider } from "State/context";
 import { useQuery, useQueryClient } from "react-query";
-import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import { Switch, Route, Redirect, useLocation, matchPath } from "react-router-dom";
 import {
   DelayedRender,
   Error404,
@@ -23,6 +23,7 @@ import { elevatedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, PlatformConfig, UserWorkflow } from "Types";
+import { sortByProp } from "@boomerang-io/utils";
 import styles from "./app.module.scss";
 
 // import directly bc of webpack chunking error
@@ -59,14 +60,28 @@ const featureFlagsUrl = serviceUrl.getFeatureFlags();
 const browser = detect();
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
+export interface ManageTaskTemplatesTeamParams {
+  teamId: string;
+}
+
 export default function App() {
   const location = useLocation();
   const queryClient = useQueryClient();
-  const teamIds = queryString.parse(location.search).teams;
-  const teamIdsArray = teamIds === null || teamIds === undefined ? [] : teamIds.toString().split(",");
-  const query = teamIdsArray.length === 1 ? `?teamId=${teamIdsArray[0]}` : "";
-  const getFlowNavigationUrl = serviceUrl.getFlowNavigation({ query });
+  const getTeamIdFromURL = () => {
+    let teamIds = queryString.parse(location.search).teams;
+    if (teamIds === "" || teamIds === undefined || teamIds === null) {
+      const templateMatch = matchPath<ManageTaskTemplatesTeamParams>(location.pathname, {
+        path: AppPath.ManageTaskTemplatesTeam,
+      });
+      teamIds = templateMatch?.params?.teamId ? templateMatch?.params?.teamId : null;
+    }
+    return teamIds;
+  };
 
+  const teamIds = getTeamIdFromURL();
+  const teamIdsArray = teamIds === null || teamIds === undefined ? [] : teamIds.toString().split(",");
+  const query = teamIdsArray.length > 0 ? `?teamId=${teamIdsArray[0]}` : "";
+  const getFlowNavigationUrl = serviceUrl.getFlowNavigation({ query });
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
     !supportedBrowsers.includes(browser?.name ?? "")
   );
@@ -107,7 +122,7 @@ export default function App() {
   });
 
   const flowNavigationQuery = useQuery<Array<FlowNavigationItem>, string>({
-    queryKey: serviceUrl.getFlowNavigation({ query: "" }),
+    queryKey: getFlowNavigationUrl,
     queryFn: resolver.query(getFlowNavigationUrl),
     enabled: Boolean(userQuery.data?.id),
   });
@@ -140,6 +155,18 @@ export default function App() {
     flowNavigationQuery.isError ||
     userWorkflowsQuery.isError;
 
+  const teamsData = teamsQuery.data;
+  const memoizedFormattedTeams = useMemo(() => {
+    if (Array.isArray(teamsData) && teamsData.length > 0) {
+      return sortByProp(
+        teamsData.map((team) => ({ ...team, label: team.name, value: team.id })),
+        (team: any) => team.name?.toLowerCase()
+      );
+    } else {
+      return teamsData;
+    }
+  }, [teamsData]);
+
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
     setShowActivatePlatform(false);
@@ -171,7 +198,7 @@ export default function App() {
   if (
     userQuery.data &&
     navigationQuery.data &&
-    teamsQuery.data &&
+    memoizedFormattedTeams &&
     featureQuery.data &&
     flowNavigationQuery.data &&
     userWorkflowsQuery.data
@@ -207,7 +234,7 @@ export default function App() {
             setIsTutorialActive={setIsTutorialActive}
             setShouldShowBrowserWarning={setShouldShowBrowserWarning}
             shouldShowBrowserWarning={shouldShowBrowserWarning}
-            teamsData={teamsQuery.data}
+            teamsData={memoizedFormattedTeams}
             userData={userQuery.data}
             userWorkflowsData={userWorkflowsQuery.data}
             quotas={featureQuery.data.quotas}
