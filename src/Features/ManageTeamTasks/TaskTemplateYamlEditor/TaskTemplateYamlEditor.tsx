@@ -42,12 +42,14 @@ type TaskTemplateYamlEditorProps = {
   taskTemplates: any[];
   editVerifiedTasksEnabled: any;
   updateTemplateInState: Function;
+  canEditWorkflow: boolean;
 };
 
 export function TaskTemplateYamlEditor({
   taskTemplates,
   editVerifiedTasksEnabled,
   updateTemplateInState,
+  canEditWorkflow,
 }: TaskTemplateYamlEditorProps) {
   const cancelRequestRef = React.useRef();
   const queryClient = useQueryClient();
@@ -94,9 +96,12 @@ export function TaskTemplateYamlEditor({
     }
   );
 
-  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(resolver.putRestoreTaskTemplate, {
-    onSuccess: invalidateQueries,
-  });
+  const { mutateAsync: restoreTaskTemplateMutation, isLoading: restoreIsLoading } = useMutation(
+    resolver.putRestoreTaskTemplate,
+    {
+      onSuccess: invalidateQueries,
+    }
+  );
 
   let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.taskId) ?? {};
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
@@ -284,6 +289,7 @@ export function TaskTemplateYamlEditor({
               isLoading={isLoading}
               isOldVersion={isOldVersion}
               cancelRequestRef={cancelRequestRef}
+              canEditWorkflow={canEditWorkflow}
             />
             <div className={styles.content}>
               <section className={styles.taskActionsSection}>

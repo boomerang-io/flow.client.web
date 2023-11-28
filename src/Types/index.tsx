@@ -380,6 +380,7 @@ export interface FlowTeam {
   workflowQuotas: FlowTeamQuotas;
   users: FlowUser[];
   workflows: WorkflowSummary[];
+  userRoles?: string[];
 }
 
 export interface FlowTeamQuotas {

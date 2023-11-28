@@ -31,9 +31,16 @@ interface SideInfoProps {
   taskTemplates: TaskModel[];
   setActiveTeam: Function;
   activeTeam: string | string[] | null;
+  canEditWorkflow: boolean;
 }
 
-const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, setActiveTeam, activeTeam }) => {
+const SideInfo: React.FC<SideInfoProps> = ({
+  addTemplateInState,
+  taskTemplates,
+  setActiveTeam,
+  activeTeam,
+  canEditWorkflow,
+}) => {
   const { teams } = useAppContext();
   const [searchQuery, setSearchQuery] = React.useState("");
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
@@ -129,12 +136,14 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, 
         <div className={styles.tasksContainer}>
           <div className={styles.addTaskContainer}>
             <p className={styles.existingTasks}>{`Existing Tasks (${taskTemplates.length})`}</p>
-            <AddTaskTemplate
-              addTemplateInState={addTemplateInState}
-              taskTemplates={taskTemplates}
-              history={history}
-              location={location}
-            />
+            {canEditWorkflow && (
+              <AddTaskTemplate
+                addTemplateInState={addTemplateInState}
+                taskTemplates={taskTemplates}
+                history={history}
+                location={location}
+              />
+            )}
           </div>
           <section className={styles.tools}>
             <Search
