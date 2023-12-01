@@ -15,9 +15,10 @@ interface TokenProps {
   tokenData: [TokenProps["token"]];
   workflowId: string;
   formikPropsSetFieldValue: Function;
+  canEditWorkflow: boolean;
 }
 
-const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikPropsSetFieldValue }) => {
+const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikPropsSetFieldValue, canEditWorkflow }) => {
   const [isDisplayingPassword, setIsDisplayingPassword] = useState(false);
   const [copyTokenText, setCopyTokenText] = useState("Copy Token");
 
@@ -49,6 +50,7 @@ const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikProps
               className={styles.actionButton}
               onClick={() => setIsDisplayingPassword(!isDisplayingPassword)}
               type="button"
+              disabled={!canEditWorkflow}
             >
               <ViewFilled16 fill={"#0072C3"} className={styles.actionIcon} alt="Show/Hide token" />
             </button>
@@ -61,6 +63,7 @@ const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikProps
                   onClick={() => setCopyTokenText("Copied Token")}
                   onMouseLeave={() => setCopyTokenText("Copy Token")}
                   type="button"
+                  disabled={!canEditWorkflow}
                 >
                   <CopyFile16 fill={"#0072C3"} className={styles.actionIcon} alt="Copy token" />
                 </button>
@@ -77,7 +80,7 @@ const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikProps
               negativeText="Cancel"
               modalTrigger={({ openModal }: ModalTriggerProps) => (
                 <TooltipHover direction="top" content={"Delete"}>
-                  <button className={styles.actionButton} type="button" onClick={openModal}>
+                  <button className={styles.actionButton} type="button" onClick={openModal} disabled={!canEditWorkflow}>
                     <TrashCan16 fill={"#da1e28"} className={styles.actionIcon} alt="Delete token" />
                   </button>
                 </TooltipHover>

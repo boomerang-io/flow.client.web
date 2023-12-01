@@ -34,6 +34,7 @@ interface SchedulePanelListProps {
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsCreatorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   schedulesQuery: UseQueryResult<ScheduleUnion[], any>;
+  canEditWorkflow?: boolean;
 }
 
 export default function SchedulePanelList(props: SchedulePanelListProps) {
@@ -90,6 +91,7 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
               schedule={schedule}
               setActiveSchedule={props.setActiveSchedule}
               setIsEditorOpen={props.setIsEditorOpen}
+              canEditWorkflow={props.canEditWorkflow}
             />
           ))}
         </ul>
@@ -107,7 +109,13 @@ export default function SchedulePanelList(props: SchedulePanelListProps) {
         <h2>
           {!props.schedulesQuery.isLoading ? `Existing Schedules (${schedules?.length ?? 0})` : "Loading Schedules..."}
         </h2>
-        <Button size="field" renderIcon={Add16} onClick={() => props.setIsCreatorOpen(true)} kind="ghost">
+        <Button
+          size="field"
+          renderIcon={Add16}
+          onClick={() => props.setIsCreatorOpen(true)}
+          kind="ghost"
+          disabled={!props.canEditWorkflow}
+        >
           Create a Schedule
         </Button>
       </div>
@@ -152,6 +160,7 @@ interface ScheduledListItemProps {
   setIsEditorOpen: React.Dispatch<React.SetStateAction<boolean>>;
   getSchedulesUrl: string;
   getCalendarUrl: string;
+  canEditWorkflow?: boolean;
 }
 
 function ScheduledListItem(props: ScheduledListItemProps) {
@@ -307,16 +316,18 @@ function ScheduledListItem(props: ScheduledListItemProps) {
           <dt>Labels</dt>
           <dd>{labels.length > 0 ? labels : "---"}</dd>
         </dl>
-        <OverflowMenu
-          flipped
-          ariaLabel="Schedule card menu"
-          iconDescription="Schedule menu icon"
-          style={{ position: "absolute", right: "0", top: "0" }}
-        >
-          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
-            <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
-          ))}
-        </OverflowMenu>
+        {props.canEditWorkflow && (
+          <OverflowMenu
+            flipped
+            ariaLabel="Schedule card menu"
+            iconDescription="Schedule menu icon"
+            style={{ position: "absolute", right: "0", top: "0" }}
+          >
+            {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
+              <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
+            ))}
+          </OverflowMenu>
+        )}
       </Tile>
       {isToggleStatusModalOpen && (
         <ConfirmModal

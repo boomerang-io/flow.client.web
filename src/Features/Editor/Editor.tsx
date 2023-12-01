@@ -33,7 +33,7 @@ import ScriptNodeModel from "Utils/dag/scriptNode/ScriptNodeModel";
 
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
-import { NodeType, WorkflowDagEngineMode } from "Constants";
+import { NodeType, WorkflowDagEngineMode, elevatedUserRoles, UserType } from "Constants";
 import { TaskModel, WorkflowSummary, WorkflowRevision } from "Types";
 import styles from "./editor.module.scss";
 
@@ -70,7 +70,8 @@ export default function EditorContainer() {
     },
   });
   const { mutateAsync: parametersMutation } = useMutation(resolver.postWorkflowAvailableParameters, {
-    onSuccess: (response) => queryClient.setQueryData(serviceUrl.workflowAvailableParameters({workflowId}), response.data),
+    onSuccess: (response) =>
+      queryClient.setQueryData(serviceUrl.workflowAvailableParameters({ workflowId }), response.data),
   });
 
   // Only show loading for the summary and task templates
@@ -108,13 +109,37 @@ export default function EditorContainer() {
 
 interface EditorStateContainerProps {
   availableParametersQueryData: Array<string>;
-  mutateRevision: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>;
-  mutateSummary: MutateFunction<AxiosResponse<any, any>, unknown, { body: any; }, unknown>;
-  parametersMutation: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>;
-  revisionMutation: { data: undefined; error: null; isError: false; isIdle: true; isLoading: false; isSuccess: false; status: "idle"; mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>; variables: { workflowId: any; body: any; } | undefined; } | any;
+  mutateRevision: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+  mutateSummary: MutateFunction<AxiosResponse<any, any>, unknown, { body: any }, unknown>;
+  parametersMutation: MutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+  revisionMutation:
+    | {
+        data: undefined;
+        error: null;
+        isError: false;
+        isIdle: true;
+        isLoading: false;
+        isSuccess: false;
+        status: "idle";
+        mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+        variables: { workflowId: any; body: any } | undefined;
+      }
+    | any;
   revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
   summaryData: WorkflowSummary;
-  summaryMutation: { data: undefined; error: null; isError: false; isIdle: true; isLoading: false; isSuccess: false; status: "idle"; mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any; }, unknown>; variables: { workflowId: any; body: any; } | undefined; } | any;
+  summaryMutation:
+    | {
+        data: undefined;
+        error: null;
+        isError: false;
+        isIdle: true;
+        isLoading: false;
+        isSuccess: false;
+        status: "idle";
+        mutate: UseMutateFunction<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+        variables: { workflowId: any; body: any } | undefined;
+      }
+    | any;
   setRevisionNumber: (revisionNumber: number) => void;
   taskTemplatesData: Array<TaskModel>;
   workflowId: string;
@@ -139,7 +164,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 }) => {
   const location = useLocation();
   const match: { params: { workflowId: string } } = useRouteMatch();
-  const { teams, quotas } = useAppContext();
+  const { teams, quotas, user } = useAppContext();
   const isModalOpen = useIsModalOpen();
   const queryClient = useQueryClient();
 
@@ -258,7 +283,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         );
       }
     },
-    [mutateSummary, queryClient, summaryData, workflowId,]
+    [mutateSummary, queryClient, summaryData, workflowId]
   );
 
   const handleUpdateNotes = useCallback(
@@ -381,7 +406,13 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   const { revisionCount } = summaryData;
   const { markdown, version } = revisionState;
-  const mode = version === revisionCount ? WorkflowDagEngineMode.Editor : WorkflowDagEngineMode.Viewer;
+  const team = teams.find((team) => team.id === summaryData.flowTeamId);
+  const systemWorkflowsEnabled = elevatedUserRoles.includes(user.type);
+  const canEditWorkflow =
+    (team?.userRoles && team?.userRoles.indexOf(UserType.Operator) > -1) || systemWorkflowsEnabled;
+
+  const mode =
+    version === revisionCount && canEditWorkflow ? WorkflowDagEngineMode.Editor : WorkflowDagEngineMode.Viewer;
 
   useEffect(() => {
     // Initial value of revisionState will be null, so need to check if its present or we get two engines created
@@ -427,6 +458,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             revisionMutation={revisionMutation}
             revisionQuery={revisionQuery}
             summaryData={summaryData}
+            canEditWorkflow={canEditWorkflow}
           />
           <Switch>
             <Route path={AppPath.EditorDesigner}>
@@ -442,10 +474,10 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
               />
             </Route>
             <Route path={AppPath.EditorProperties}>
-              <Properties summaryData={summaryData} />
+              <Properties summaryData={summaryData} canEditWorkflow={canEditWorkflow} />
             </Route>
             <Route path={AppPath.EditorSchedule}>
-              <Schedule summaryData={summaryData} />
+              <Schedule summaryData={summaryData} canEditWorkflow={canEditWorkflow} />
             </Route>
             <Route path={AppPath.EditorChangelog}>
               <ChangeLog summaryData={summaryData} />
@@ -470,6 +502,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
                   teams={sortBy(teams, "name")}
                   updateSummary={updateSummary}
                   quotas={quotas}
+                  canEditWorkflow={canEditWorkflow}
                 />
               )}
             />
@@ -494,6 +527,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
                 summaryMutation={summaryMutation}
                 teams={sortBy(teams, "name")}
                 updateSummary={updateSummary}
+                canEditWorkflow={canEditWorkflow}
               />
             )}
           />

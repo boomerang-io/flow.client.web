@@ -18,18 +18,26 @@ interface AddLabelProps {
   labels: Array<{ key: string; value: string }>;
   isEdit?: boolean;
   editTrigger?: React.ReactNode;
-  selectedLabel?: { key: string; value: string, index: number };
+  selectedLabel?: { key: string; value: string; index: number };
+  canEditWorkflow: boolean;
 }
 
 const keyPrefixRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}([.\1][a-zA-Z0-9-]{1,63})*$/;
 const keyNameAndValueRegex = /^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,61}[a-zA-Z0-9]$/;
 
-const CustomLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels, isEdit=false, editTrigger: EditTrigger, selectedLabel }) => {
+const CustomLabel: React.FC<AddLabelProps> = ({
+  formikPropsSetFieldValue,
+  labels,
+  isEdit = false,
+  editTrigger: EditTrigger,
+  selectedLabel,
+  canEditWorkflow,
+}) => {
   const addLabel = ({ values }: { values: any }) => {
     const { key, value } = values;
     let newLabels;
 
-    if(isEdit) {
+    if (isEdit) {
       newLabels = [...labels];
       newLabels.splice(selectedLabel?.index, 1, { key, value });
     } else {
@@ -47,17 +55,22 @@ const CustomLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels
         title: `${isEdit ? "Edit" : "Add"} Custom Label`,
         subtitle: `${isEdit ? "Edit" : "Create"} a key value pair for custom kubernetes label`,
       }}
-      modalTrigger={({ openModal }: { openModal: () => void }) => 
-      isEdit && EditTrigger ?
-      (
-        <EditTrigger openModal={openModal}/>
-      )
-      :
-      (
-        <Button kind="ghost" size="field" renderIcon={Edit16} onClick={openModal} className={styles.addNewToken}>
-          Add a new label
-        </Button>
-      )}
+      modalTrigger={({ openModal }: { openModal: () => void }) =>
+        isEdit && EditTrigger ? (
+          <EditTrigger openModal={openModal} />
+        ) : (
+          <Button
+            kind="ghost"
+            size="field"
+            renderIcon={Edit16}
+            onClick={openModal}
+            className={styles.addNewToken}
+            disabled={!canEditWorkflow}
+          >
+            Add a new label
+          </Button>
+        )
+      }
     >
       {({ closeModal }: { closeModal: () => void }) => (
         <AddLabelModalContent
@@ -81,7 +94,7 @@ interface AddLabelModalContentProps {
   addLabel: Function;
   closeModal: Function;
   isEdit: boolean;
-  selectedLabel?: { key: string; value: string, index: number };
+  selectedLabel?: { key: string; value: string; index: number };
 }
 
 const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
@@ -101,16 +114,17 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
 
     const isValidPrefix =
       key?.includes("/") && keyParts?.length === 2 ? keyPrefixRegex.test(prefix) && prefix?.length <= 253 : true;
-    const isValidName =
-      keyParts.length === 2
-        ? keyNameAndValueRegex.test(name)
-        : keyNameAndValueRegex.test(key);
+    const isValidName = keyParts.length === 2 ? keyNameAndValueRegex.test(name) : keyNameAndValueRegex.test(key);
     if (isValidPrefix && isValidName) return true;
     else if (!isValidPrefix)
-      return this.createError({ message: "Key Prefix must be a DNS subdomain not longer than 253 characters and each part not longer than 63 characters." });
+      return this.createError({
+        message:
+          "Key Prefix must be a DNS subdomain not longer than 253 characters and each part not longer than 63 characters.",
+      });
     else
       return this.createError({
-        message: "Key Name must have only alphanumeric and between them dashes, underscores, dots and not longer than 63 characters.",
+        message:
+          "Key Name must have only alphanumeric and between them dashes, underscores, dots and not longer than 63 characters.",
       });
   }
 
@@ -122,7 +136,7 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
     <Formik
       initialValues={{
         key: selectedLabel?.key ?? "",
-        value: selectedLabel?.value ??"",
+        value: selectedLabel?.value ?? "",
       }}
       onSubmit={(values) => {
         addLabel({ values });
@@ -134,7 +148,11 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
           .test("validate-k8s-key", "Type a valid Kubernetes key", validateKey),
         value: Yup.string()
           .required("Enter a label value")
-          .test("validate-k8s-value", "Value must have only alphanumeric and between them dashes, underscores, dots and not longer than 63 characters.", validateValue),
+          .test(
+            "validate-k8s-value",
+            "Value must have only alphanumeric and between them dashes, underscores, dots and not longer than 63 characters.",
+            validateValue
+          ),
       })}
     >
       {(formikProps) => {
