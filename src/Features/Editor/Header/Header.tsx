@@ -38,6 +38,7 @@ interface DesignerHeaderProps {
   revisionState: WorkflowRevisionState;
   revisionQuery: UseQueryResult<WorkflowRevision, unknown>;
   summaryData: WorkflowSummary;
+  canEditWorkflow: boolean;
 }
 
 const DesignerHeader: React.FC<DesignerHeaderProps> = ({
@@ -48,6 +49,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   revisionState,
   revisionQuery,
   summaryData,
+  canEditWorkflow,
 }) => {
   const routeMatch: { params: { workflowId: string } } = useRouteMatch();
   const {
@@ -116,7 +118,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
                 title={`Set version ${currentRevision} to be the latest`}
                 modalTrigger={({ openModal }: ModalTriggerProps) => (
                   <Button
-                    disabled={!isOnDesigner}
+                    disabled={!isOnDesigner || !canEditWorkflow}
                     iconDescription="Set version to latest"
                     kind="ghost"
                     onClick={openModal}
@@ -136,7 +138,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
                 }}
                 modalTrigger={({ openModal }: ModalTriggerProps) => (
                   <Button
-                    disabled={!isOnDesigner}
+                    disabled={!isOnDesigner || !canEditWorkflow}
                     iconDescription="Create new version"
                     kind="ghost"
                     onClick={openModal}

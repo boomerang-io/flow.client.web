@@ -66,7 +66,7 @@ export default class WorkflowDagEngine {
     this.diagramEngine.registerLinkFactory(new SwitchLinkFactory(this.diagramEngine));
 
     let isModelLocked = false;
-    if (mode === WorkflowDagEngineMode.Executor) {
+    if (mode === WorkflowDagEngineMode.Executor || mode === WorkflowDagEngineMode.Viewer) {
       isModelLocked = true;
     }
 

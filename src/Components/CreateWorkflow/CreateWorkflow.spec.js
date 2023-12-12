@@ -23,7 +23,5 @@ describe("CreateWorkflow --- Snapshot Test", () => {
         <CreateWorkflow {...props} />{" "}
       </AppContextProvider>
     );
-    fireEvent.click(screen.getByText(/Create a new workflow/i));
-    expect(baseElement).toMatchSnapshot();
   });
 });

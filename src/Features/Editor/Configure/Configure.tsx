@@ -90,6 +90,7 @@ interface ConfigureContainerProps {
   summaryMutation: { status: string };
   teams: Array<{ id: string }>;
   updateSummary: ({ values, callback }: { values: object; callback: () => void }) => void;
+  canEditWorkflow: boolean;
 }
 
 const ConfigureContainer = React.memo<ConfigureContainerProps>(function ConfigureContainer({
@@ -100,6 +101,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
   summaryMutation,
   teams,
   updateSummary,
+  canEditWorkflow,
 }) {
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
   const handleOnSubmit = (values: { selectedTeam: { id: null | string } }) => {
@@ -118,7 +120,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
       <Formik
         enableReinitialize
         onSubmit={(values: { selectedTeam: { id: null | string } }) => {
-          handleOnSubmit(values);
+          canEditWorkflow && handleOnSubmit(values);
         }}
         initialValues={{
           description: summaryData.description ?? "",
@@ -214,6 +216,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
               summaryMutation={summaryMutation}
               teams={teams}
               updateSummary={updateSummary}
+              canEditWorkflow={canEditWorkflow}
             />
           ) : null
         }
@@ -237,6 +240,7 @@ interface ConfigureProps {
   };
   teams: Array<{ id: string }>;
   updateSummary: ({ values, callback }: { values: object; callback: () => void }) => void;
+  canEditWorkflow: boolean;
 }
 
 interface ConfigureState {
@@ -281,11 +285,15 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
   // };
 
   handleOnChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    this.props.formikProps.handleChange(e);
+    if (this.props.canEditWorkflow) {
+      this.props.formikProps.handleChange(e);
+    }
   };
 
   handleOnToggleChange = (value: any, id: string) => {
-    this.props.formikProps.setFieldValue(id, value);
+    if (this.props.canEditWorkflow) {
+      this.props.formikProps.setFieldValue(id, value);
+    }
   };
 
   handleTeamChange = ({ selectedItem }: { selectedItem: object }) => {
@@ -309,6 +317,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <div className={styles.teamSelect}>
               <ComboBox
                 id="selectedTeam"
+                disabled={!this.props.canEditWorkflow}
                 initialSelectedItem={values.selectedTeam}
                 invalid={Boolean(errors.selectedTeam)}
                 invalidText={errors.selectedTeam}
@@ -327,6 +336,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
           <TextInput
             id="name"
             label="Name"
+            disabled={!this.props.canEditWorkflow}
             helperText="Must be unique"
             placeholder="Name"
             value={values.name}
@@ -339,6 +349,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             id="shortDescription"
             label="Summary"
             placeholder="Summary"
+            disabled={!this.props.canEditWorkflow}
             value={values.shortDescription}
             onBlur={handleBlur}
             onChange={this.handleOnChange}
@@ -350,6 +361,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <TextArea
               id="description"
               label="Description"
+              disabled={!this.props.canEditWorkflow}
               placeholder="Description"
               onBlur={handleBlur}
               onChange={this.handleOnChange}
@@ -396,6 +408,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                     id="triggers.manual.enable"
                     data-testid="triggers.manual.enable"
                     label="Manual"
+                    disabled={!this.props.canEditWorkflow}
                     onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.manual.enable")}
                     toggled={values.triggers.manual.enable}
                     tooltipContent="Enable workflow to be executed manually"
@@ -408,6 +421,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                     id="triggers.scheduler.enable"
                     data-testid="triggers.scheduler.enable"
                     label="Scheduler"
+                    disabled={!this.props.canEditWorkflow}
                     onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.scheduler.enable")}
                     toggled={values.triggers.scheduler.enable}
                     tooltipContent="Enable workflow to be executed by a schedule"
@@ -443,6 +457,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   <Toggle
                     id="triggers.webhook.enable"
                     label="Webhook"
+                    disabled={!this.props.canEditWorkflow}
                     toggled={values.triggers.webhook.enable}
                     onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
                     tooltipContent="Enable workflow to be executed by a webhook"
@@ -450,7 +465,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                     reversed
                   />
                 </div>
-                {values.triggers.webhook.enable && (
+                {values.triggers.webhook.enable && this.props.canEditWorkflow && (
                   <div className={styles.webhookContainer}>
                     <ComposedModal
                       modalHeaderProps={{
@@ -499,6 +514,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   <Toggle
                     id="triggers.custom.enable"
                     label="Custom Event"
+                    disabled={!this.props.canEditWorkflow}
                     toggled={values.triggers.custom.enable}
                     onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.custom.enable")}
                     tooltipContent="Enable workflow to be triggered by platform actions"
@@ -531,14 +547,17 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                     tokenData={values.tokens}
                     formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
                     workflowId={this.props.summaryData.id}
+                    canEditWorkflow={this.props.canEditWorkflow}
                   />
                 ))}
               </div>
-              <CreateToken
-                tokenData={values.tokens}
-                formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
-                workflowId={this.props.summaryData.id}
-              />
+              {this.props.canEditWorkflow && (
+                <CreateToken
+                  tokenData={values.tokens}
+                  formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
+                  workflowId={this.props.summaryData.id}
+                />
+              )}
             </div>
           </section>
         )}
@@ -554,6 +573,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 <Toggle
                   id="enableWorkflowPersistentStorage"
                   label="Enable Workflow Persistent Storage"
+                  disabled={!this.props.canEditWorkflow}
                   toggled={values.storage.workflow.enabled}
                   onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.workflow.enabled")}
                   tooltipContent="Persist data across workflow executions"
@@ -561,7 +581,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   reversed
                 />
               </div>
-              {values.storage.workflow.enabled && (
+              {values.storage.workflow.enabled && this.props.canEditWorkflow && (
                 <div className={styles.webhookContainer}>
                   <ComposedModal
                     modalHeaderProps={{
@@ -616,6 +636,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 <Toggle
                   id="enableActivityPersistentStorage"
                   label="Enable Activity Persistent Storage"
+                  disabled={!this.props.canEditWorkflow}
                   toggled={values.storage.activity.enabled}
                   onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "storage.activity.enabled")}
                   tooltipContent="Persist workflow data per executions"
@@ -623,7 +644,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   reversed
                 />
               </div>
-              {values.storage.activity.enabled && (
+              {values.storage.activity.enabled && this.props.canEditWorkflow && (
                 <div className={styles.webhookContainer}>
                   <ComposedModal
                     modalHeaderProps={{
@@ -702,6 +723,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                             <Tag
                               type="teal"
                               key={index}
+                              disabled={!this.props.canEditWorkflow}
                               filter
                               onClick={openModal}
                               onClose={() => arrayHelpers.remove(index)}
@@ -712,20 +734,25 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                           )}
                           labels={values.labels}
                           selectedLabel={{ ...label, index }}
+                          canEditWorkflow={this.props.canEditWorkflow}
                         />
                       );
                     })
                   }
                 />
               </div>
-              <CustomLabel formikPropsSetFieldValue={setFieldValue} labels={values.labels} />
+              <CustomLabel
+                formikPropsSetFieldValue={setFieldValue}
+                labels={values.labels}
+                canEditWorkflow={this.props.canEditWorkflow}
+              />
             </div>
           </div>
           <hr className={styles.delimiter} />
           <div className={styles.saveChangesContainer}>
             <Button
               size="field"
-              disabled={!dirty || isLoading}
+              disabled={!dirty || isLoading || !this.props.canEditWorkflow}
               iconDescription="Save"
               onClick={(e: any) => {
                 e.preventDefault();

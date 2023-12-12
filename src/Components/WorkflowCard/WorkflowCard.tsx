@@ -38,11 +38,12 @@ interface WorkflowCardProps {
   teamId: string | null;
   quotas: FlowTeamQuotas | null;
   workflow: WorkflowSummary;
+  canEditWorkflow: boolean;
 }
 
 type FunctionAnyReturn = () => any;
 
-const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, workflow }) => {
+const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, workflow, canEditWorkflow }) => {
   const { teams } = useAppContext();
   const queryClient = useQueryClient();
   const type = scope === WorkflowScope.Template ? "Template" : "Workflow";
@@ -362,27 +363,29 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
             direction="top"
             tooltipText={`New version of a task available! To update, edit your ${type.toLowerCase()}.`}
           >
-            <WorkflowWarningButton />
+            {canEditWorkflow && <WorkflowWarningButton />}
           </TooltipIcon>
         </div>
       )}
-      {isDuplicating || isDeleting || isExecuting ? (
-        <InlineLoading
-          description={loadingText}
-          style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
-        />
-      ) : (
-        <OverflowMenu
-          flipped
-          ariaLabel="Overflow card menu"
-          iconDescription="Overflow menu icon"
-          style={{ position: "absolute", right: "0" }}
-        >
-          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
-            <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
-          ))}
-        </OverflowMenu>
-      )}
+
+      {canEditWorkflow &&
+        (isDuplicating || isDeleting || isExecuting ? (
+          <InlineLoading
+            description={loadingText}
+            style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
+          />
+        ) : (
+          <OverflowMenu
+            flipped
+            ariaLabel="Overflow card menu"
+            iconDescription="Overflow menu icon"
+            style={{ position: "absolute", right: "0" }}
+          >
+            {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
+              <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
+            ))}
+          </OverflowMenu>
+        ))}
       {isUpdateWorkflowModalOpen && (
         <UpdateWorkflow
           onCloseModal={() => setIsUpdateWorkflowModalOpen(false)}

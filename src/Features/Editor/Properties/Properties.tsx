@@ -52,9 +52,10 @@ const WorkflowPropertyHeader: React.FC<WorkflowPropertyHeaderProps> = ({ label, 
 
 interface PropertiesProps {
   summaryData: WorkflowSummary;
+  canEditWorkflow: boolean;
 }
 
-const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
+const Properties: React.FC<PropertiesProps> = ({ summaryData, canEditWorkflow }) => {
   const queryClient = useQueryClient();
   const { mutateAsync: mutateProperties, isLoading: mutatePropertiesIsLoading } = useMutation(
     resolver.patchUpdateWorkflowProperties,
@@ -133,7 +134,7 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
             ) : (
               <p className={styles.notRequired}>Not required</p>
             )}
-            {!property.readOnly ? (
+            {!property.readOnly && canEditWorkflow ? (
               <>
                 <WorkflowPropertiesModal
                   isEdit
@@ -165,12 +166,14 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
             )}
           </section>
         ))}
-      <WorkflowPropertiesModal
-        isEdit={false}
-        isloading={mutatePropertiesIsLoading}
-        propertyKeys={propertyKeys}
-        updateWorkflowProperties={handleUpdateProperties}
-      />
+      {canEditWorkflow && (
+        <WorkflowPropertiesModal
+          isEdit={false}
+          isloading={mutatePropertiesIsLoading}
+          propertyKeys={propertyKeys}
+          updateWorkflowProperties={handleUpdateProperties}
+        />
+      )}
     </div>
   );
 };

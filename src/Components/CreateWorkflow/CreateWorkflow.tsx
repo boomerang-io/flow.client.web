@@ -28,9 +28,17 @@ interface CreateWorkflowProps {
   teams?: FlowTeam[] | null;
   hasReachedWorkflowLimit: boolean;
   workflows?: WorkflowSummary[];
+  canEditWorkflow: boolean;
 }
 
-const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, hasReachedWorkflowLimit, workflows }) => {
+const CreateWorkflow: React.FC<CreateWorkflowProps> = ({
+  scope,
+  team,
+  teams,
+  hasReachedWorkflowLimit,
+  workflows,
+  canEditWorkflow,
+}) => {
   const workflowDagEngine = new WorkflowDagEngine({ dag: null });
   const { teams: teamState } = useAppContext();
   const queryClient = useQueryClient();
@@ -62,7 +70,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
       };
 
       await createWorkflowRevisionMutator({ workflowId, body: workflowRevision });
-      
+
       queryClient.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
       history.push(appLink.editorDesigner({ workflowId }));
       notify(<ToastNotification kind="success" title="Create Workflow" subtitle="Successfully created workflow" />);
@@ -117,24 +125,28 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
     <ComposedModal
       composedModalProps={{ containerClassName: styles.modalContainer }}
       modalTrigger={({ openModal }: ModalTriggerProps) =>
-        workflowQuotasEnabled && hasReachedWorkflowLimit ? (
-          <TooltipHover
-            direction="top"
-            tooltipText={
-              "This team has reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact your Team administrator/owner to increase the quota."
-            }
-          >
-            <div className={styles.disabledCreate} data-testid="workflows-create-workflow-button">
-              <Add32 className={styles.addIcon} />
-              <p className={styles.text}>Create a new workflow</p>
-            </div>
-          </TooltipHover>
-        ) : (
-          <button className={styles.container} onClick={openModal} data-testid="workflows-create-workflow-button">
-            <Add32 className={styles.addIcon} />
-            <p className={styles.text}>{scope !== WorkflowScope.Template ? "Create a new Workflow" : "Create a new Template"}</p>
-          </button>
-        )
+        workflowQuotasEnabled && hasReachedWorkflowLimit
+          ? canEditWorkflow && (
+              <TooltipHover
+                direction="top"
+                tooltipText={
+                  "This team has reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact your Team administrator/owner to increase the quota."
+                }
+              >
+                <div className={styles.disabledCreate} data-testid="workflows-create-workflow-button">
+                  <Add32 className={styles.addIcon} />
+                  <p className={styles.text}>Create a new workflow</p>
+                </div>
+              </TooltipHover>
+            )
+          : canEditWorkflow && (
+              <button className={styles.container} onClick={openModal} data-testid="workflows-create-workflow-button">
+                <Add32 className={styles.addIcon} />
+                <p className={styles.text}>
+                  {scope !== WorkflowScope.Template ? "Create a new Workflow" : "Create a new Template"}
+                </p>
+              </button>
+            )
       }
       confirmModalProps={{
         title: "Close this?",

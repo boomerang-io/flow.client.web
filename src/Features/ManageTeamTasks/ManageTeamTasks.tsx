@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useFeature } from "flagged";
-import { useQuery } from "Hooks";
+import { useQuery, useAppContext } from "Hooks";
 import { useQueryClient } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect, useParams } from "react-router-dom";
 import { Box } from "reflexbox";
@@ -14,12 +14,15 @@ import TaskTemplateOverview from "./TaskTemplateOverview";
 import TaskTemplateYamlEditor from "./TaskTemplateYamlEditor";
 import orderBy from "lodash/orderBy";
 import { TaskModel } from "Types";
+import { elevatedUserRoles, UserType } from "Constants";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./taskTemplates.module.scss";
 
 const TaskTemplatesContainer: React.FC = () => {
   const params: { teamId: string } = useParams();
+  const { user, teams } = useAppContext();
+  const { type: roleType } = user;
   const [activeTeam, setActiveTeam] = useState(params?.teamId ?? null);
   const match = useRouteMatch();
   const queryClient = useQueryClient();
@@ -58,6 +61,11 @@ const TaskTemplatesContainer: React.FC = () => {
     );
   }
 
+  const selectedTeam = teams.find((team) => team.id === activeTeam);
+  const systemWorkflowsEnabled = elevatedUserRoles.includes(roleType);
+  const canEditWorkflow =
+    (selectedTeam?.userRoles && selectedTeam?.userRoles.indexOf(UserType.Operator) > -1) || systemWorkflowsEnabled;
+
   return (
     <div className={styles.container}>
       <Helmet>
@@ -68,6 +76,7 @@ const TaskTemplatesContainer: React.FC = () => {
         addTemplateInState={addTemplateInState}
         setActiveTeam={setActiveTeam}
         activeTeam={activeTeam}
+        canEditWorkflow={canEditWorkflow}
       />
       <Switch>
         <Route exact path={match.path}>
@@ -83,6 +92,7 @@ const TaskTemplatesContainer: React.FC = () => {
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             taskTemplates={taskTemplatesData}
             updateTemplateInState={updateTemplateInState}
+            canEditWorkflow={canEditWorkflow}
           />
         </Route>
         <Route path={AppPath.ManageTaskTemplateEdit}>
@@ -90,6 +100,7 @@ const TaskTemplatesContainer: React.FC = () => {
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             taskTemplates={taskTemplatesData}
             updateTemplateInState={updateTemplateInState}
+            canEditWorkflow={canEditWorkflow}
           />
         </Route>
         <Redirect to={appLink.manageTaskTemplates({ teamId: activeTeam })} />

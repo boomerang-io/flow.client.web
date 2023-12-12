@@ -25,7 +25,11 @@ export default function SystemWorkflows() {
   const isWorkflowTemplates = location.pathname.includes("templates");
 
   const { data: systemWorkflowsData, error, isLoading } = useQuery(serviceUrl.getSystemWorkflows());
-  const { data: templatesWorkflowData, error: errorTemplatesWorkflow, isLoading: isLoadingTemplatesWorkflow } = useQuery(serviceUrl.workflowTemplates());
+  const {
+    data: templatesWorkflowData,
+    error: errorTemplatesWorkflow,
+    isLoading: isLoadingTemplatesWorkflow,
+  } = useQuery(serviceUrl.workflowTemplates());
 
   let safeQuery = "";
   if (Array.isArray(searchQuery)) {
@@ -43,10 +47,9 @@ export default function SystemWorkflows() {
     history.push({ search: queryStr });
   };
 
-  const filteredWorkflows = isWorkflowTemplates ?
-    templatesWorkflowData?.filter((workflow: any) => workflow.name.toLowerCase().includes(safeQuery)) ?? []
-    :
-    systemWorkflowsData?.filter((workflow: any) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
+  const filteredWorkflows = isWorkflowTemplates
+    ? templatesWorkflowData?.filter((workflow: any) => workflow.name.toLowerCase().includes(safeQuery)) ?? []
+    : systemWorkflowsData?.filter((workflow: any) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
 
   return (
     <>
@@ -98,8 +101,7 @@ type WorkflowProps = {
   searchQuery: string | string[] | null;
 };
 
-const RenderWorkflows = ({isLoading, error, filteredWorkflows, searchQuery}: WorkflowProps) => {
-    
+const RenderWorkflows = ({ isLoading, error, filteredWorkflows, searchQuery }: WorkflowProps) => {
   if (isLoading) {
     return <Loading />;
   }
@@ -120,9 +122,10 @@ const RenderWorkflows = ({isLoading, error, filteredWorkflows, searchQuery}: Wor
           teamId={null}
           workflow={workflow}
           quotas={null}
+          canEditWorkflow={true}
         />
       ))}
-      {<CreateWorkflow scope={WorkflowScope.System} hasReachedWorkflowLimit={false} />}
+      {<CreateWorkflow scope={WorkflowScope.System} hasReachedWorkflowLimit={false} canEditWorkflow={true} />}
     </div>
   );
 };
@@ -134,8 +137,7 @@ type TemplatesProps = {
   searchQuery: string | string[] | null;
 };
 
-const RenderTemplates = ({isLoading, error, filteredWorkflows, searchQuery}: TemplatesProps) => {
-    
+const RenderTemplates = ({ isLoading, error, filteredWorkflows, searchQuery }: TemplatesProps) => {
   if (isLoading) {
     return <Loading />;
   }
@@ -156,9 +158,10 @@ const RenderTemplates = ({isLoading, error, filteredWorkflows, searchQuery}: Tem
           teamId={null}
           workflow={workflow}
           quotas={null}
+          canEditWorkflow={true}
         />
       ))}
-      {<CreateWorkflow scope={WorkflowScope.Template} hasReachedWorkflowLimit={false} />}
+      {<CreateWorkflow scope={WorkflowScope.Template} hasReachedWorkflowLimit={false} canEditWorkflow={true} />}
     </div>
   );
 };

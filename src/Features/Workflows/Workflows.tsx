@@ -22,7 +22,7 @@ import WorkflowCard from "Components/WorkflowCard";
 import WorkflowsHeader from "Components/WorkflowsHeader";
 import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
 import { FlowTeam, FlowUser, ModalTriggerProps, ComposedModalChildProps, WorkflowSummary } from "Types";
-import { WorkflowScope } from "Constants";
+import { WorkflowScope, elevatedUserRoles, UserType } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./workflowHome.module.scss";
@@ -165,7 +165,9 @@ export default function WorkflowsHome() {
                   <EmptyState />
                 ) : (
                   filteredTeams.map((team) => {
-                    return <TeamWorkflows key={team.id} searchQuery={safeQuery} team={team} teams={teams} />;
+                    return (
+                      <TeamWorkflows key={team.id} searchQuery={safeQuery} team={team} teams={teams} user={user} />
+                    );
                   })
                 )
               ) : (
@@ -277,6 +279,7 @@ const UserWorkflows: React.FC<UserWorkflowsProp> = ({ searchQuery, user, userWor
               teamId={workflow.flowTeamId}
               workflow={workflow}
               quotas={userQuotas}
+              canEditWorkflow={true}
             />
           ))}
           {
@@ -284,6 +287,7 @@ const UserWorkflows: React.FC<UserWorkflowsProp> = ({ searchQuery, user, userWor
               hasReachedWorkflowLimit={hasReachedWorkflowLimit}
               scope={WorkflowScope.User}
               workflows={workflows}
+              canEditWorkflow={true}
             />
           }
         </div>
@@ -298,13 +302,18 @@ interface TeamWorkflowsProps {
   searchQuery: string;
   team: FlowTeam & { filteredWorkflows: WorkflowSummary[] };
   teams: FlowTeam[];
+  user: FlowUser;
 }
 
-const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams }) => {
+const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams, user }) => {
   const hasTeamWorkflows = team.workflows?.length > 0;
   const hasFilteredWorkflows = team.filteredWorkflows?.length > 0;
   const hasReachedWorkflowLimit = team.workflowQuotas.maxWorkflowCount <= team.workflowQuotas.currentWorkflowCount;
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
+
+  const systemWorkflowsEnabled = elevatedUserRoles.includes(user.type);
+  const canEditWorkflow =
+    (team?.userRoles && team?.userRoles.indexOf(UserType.Operator) > -1) || systemWorkflowsEnabled;
 
   if (searchQuery && !hasFilteredWorkflows) {
     return null;
@@ -372,6 +381,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
             teamId={team.id}
             workflow={workflow}
             quotas={team.workflowQuotas}
+            canEditWorkflow={canEditWorkflow}
           />
         ))}
         {
@@ -381,6 +391,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
             team={team}
             teams={teams}
             workflows={team.workflows}
+            canEditWorkflow={canEditWorkflow}
           />
         }
       </div>

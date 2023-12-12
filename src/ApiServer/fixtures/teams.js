@@ -226,6 +226,7 @@ const teams = [
     },
     isActive: true,
     users: [],
+    userRoles: ["user", "approver", "operator"],
   },
   {
     higherLevelGroupId: "5c41596cf32aa30001e9d443",

@@ -74,7 +74,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, ha
         <TooltipHover direction="bottom" tooltipText={"Save a new version or update the current one"}>
           <Button
             className={styles.mainActionButton}
-            disabled={!formikProps.isValid || !formikProps.dirty}
+            disabled={!formikProps.isValid || !formikProps.dirty || !canEdit}
             size="field"
             renderIcon={Save16}
             iconDescription="Save a new version or update the current one"
@@ -174,6 +174,7 @@ interface HeaderProps {
   isLoading: boolean;
   isOldVersion: boolean;
   selectedTaskTemplate: TaskModel;
+  canEditWorkflow: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -187,6 +188,7 @@ const Header: React.FC<HeaderProps> = ({
   isActive,
   isLoading,
   cancelRequestRef,
+  canEditWorkflow,
 }) => {
   const params: { teamId: string; taskId: string; version: string } = useParams();
 
@@ -199,7 +201,9 @@ const Header: React.FC<HeaderProps> = ({
     version: revision.version,
   }));
   changelogs.reverse();
-  const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
+  const canEdit =
+    (!selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified)) &&
+    canEditWorkflow;
 
   return (
     <FeatureHeader
