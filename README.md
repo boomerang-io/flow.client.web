@@ -21,7 +21,7 @@ This project was bootstrapped with [Vite](https://github.com/vitejs/vite).
 5. `helm upgrade --version 7.8.8 --install mongodb -n workflows bitnami-pre-2022/mongodb --set mongodbDatabase=boomerang --set mongodbUsername=boomerang`
 6. `docker pull docker pull --platform linux/amd64  boomerangio/{flow-service-handler:7.0.0-beta.24,flow-service-engine:1.0.0-beta.79,flow-service-workflow:4.0.0-beta.197}`
 7. `helm upgrade --install workflows -n workflows -f ./flowabl-dev-5.1.0-values.yaml boomerang-io/bmrg-flow --version 5.1.7`
-8. `kubectl get secret --namespace workflows mongodb -o jsonpath="{.data.mongodb-password}" | base64 --decode | pbcopy
+8. `kubectl get secret --namespace workflows mongodb -o jsonpath="{.data.mongodb-password}" | base64 --decode | pbcopy`
 9. `mongorestore --uri mongodb://boomerang:gxRIMQonNu@localhost:27018/boomerang --drop --nsInclude 'boomerang.*' db-backups/flowabl-dev-dump-20230111/boomerang`
 10. `kubectl create secret docker-registry boomerang.registrykey -n workflows --docker-server='https://index.docker.io/v1/' --docker-username='tlawrie' --docker-password='dckr_pat_jqoiQexTUY5mtnuSP5hVjnghBNc' --docker-email='tyson@lawrie.com.au'`
 
