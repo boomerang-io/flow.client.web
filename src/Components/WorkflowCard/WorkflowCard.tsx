@@ -60,7 +60,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
     mutateAsync: executeWorkflowMutator,
     error: executeError,
     isLoading: isExecuting,
-  } = useMutation(resolver.postWorkflowRun);
+  } = useMutation(resolver.postSubmitWorkflow);
 
   const { mutateAsync: duplicateWorkflowMutator, isLoading: duplicateWorkflowIsLoading } = useMutation(
     resolver.postDuplicateWorkflow,
@@ -164,7 +164,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
     try {
       // @ts-ignore:next-line
       const { data: execution } = await executeWorkflowMutator({
-        data: body,
+        workflowId: workflowId,
+        body: body,
       });
       notify(
         <ToastNotification
@@ -344,12 +345,14 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
         />
       ) : (
         <div className={styles.status}>
-          {hasReachedMonthlyRunLimit ? <TooltipHover
-            direction="top"
-            tooltipText="This team has reached the maximum number of runs (executions) allowed this month. Contact your administrator or team owner to increase the quota, or wait until the quota resets next month."
-          >
-            <WarningAlt className={styles.warningIcon} />
-          </TooltipHover>: isDisabled ? (
+          {hasReachedMonthlyRunLimit ? (
+            <TooltipHover
+              direction="top"
+              tooltipText="This team has reached the maximum number of runs (executions) allowed this month. Contact your administrator or team owner to increase the quota, or wait until the quota resets next month."
+            >
+              <WarningAlt className={styles.warningIcon} />
+            </TooltipHover>
+          ) : isDisabled ? (
             <TooltipHover direction="top" tooltipText="Trigger disabled or Quota exceeded">
               <CircleStroke style={{ fill: "#393939", marginRight: "0.5rem" }} />
             </TooltipHover>

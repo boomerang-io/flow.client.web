@@ -389,7 +389,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.workflowExecution[0];
       });
 
-      this.post(serviceUrl.postWorkflowRun({ data: null }), (schema, request) => {
+      this.post(serviceUrl.postSubmitWorkflow({ workflowId: ":workflowId", body: null }), (schema, request) => {
         return schema.db.workflowExecution[0];
       });
 

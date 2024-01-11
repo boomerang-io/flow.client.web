@@ -111,7 +111,7 @@ export const serviceUrl = {
   postCreateWorkflow: ({ team }: TeamArg) => `${BASE_URL}/workflow?team=${team}`,
   postCreateWorkflowToken: ({ workflowId, label }: WorkflowIdArg & { label: string }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
   postDuplicateWorkflow: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/duplicate`,
-  postWorkflowRun: () => `${BASE_URL}/workflowrun/submit`,
+  postSubmitWorkflow: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/submit`,
   postSchedule: ({ team }: TeamArg) => `${BASE_URL}/schedules?team=${team}`,
   postToken: () => `${BASE_URL}/token`,
   postTeamValidateName: () => `${BASE_URL}/team/validate-name`,
@@ -212,10 +212,10 @@ export const resolver = {
     axios({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethod.Post }),
   putCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.put<Workflow, Workflow>(serviceUrl.putCreateWorkflowRevision({ workflowId }), body),
-  postWorkflowRun: ({ data }) =>
+  postSubmitWorkflow: ({ workflowId, body }) =>
     axios.post(
-      serviceUrl.postWorkflowRun(),
-      data,
+      serviceUrl.postSubmitWorkflow(workflowId),
+      body,
     ),
   postGlobalParameter: ({ body }) =>
     axios({ url: serviceUrl.getGlobalParameters(), data: body, method: HttpMethod.Post }),
