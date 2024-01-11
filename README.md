@@ -25,7 +25,19 @@ This project was bootstrapped with [Vite](https://github.com/vitejs/vite).
 9. `mongorestore --uri mongodb://boomerang:gxRIMQonNu@localhost:27018/boomerang --drop --nsInclude 'boomerang.*' db-backups/flowabl-dev-dump-20230111/boomerang`
 10. `kubectl create secret docker-registry boomerang.registrykey -n workflows --docker-server='https://index.docker.io/v1/' --docker-username='tlawrie' --docker-password='dckr_pat_jqoiQexTUY5mtnuSP5hVjnghBNc' --docker-email='tyson@lawrie.com.au'`
 
-### Set up Database
+### Connect to Database
+
+Connect to database using client with credentials
+
+username: boomerang
+database: boomerang
+password:
+
+1. `oc get secrets -n workflows mongodb -o yaml`
+2. copy data:mongodb-password value
+3. `echo {password} | base64 -d | pbcopy`
+
+### Setup Database
 
 1. Create `flowabl_users` collection
 2. Create user
@@ -57,15 +69,17 @@ POST `http://<workflow-service>/api/v2/token`
 
 ```json
 {
-    "type": "user",
-    "name": "test-token-user",
-    "principal": "<user-id>"
+  "type": "user",
+  "name": "test-token-user",
+  "principal": "<user-id>"
 }
 ```
 
 ### Port Forwarding
 
-1. `kubectl port-forward svc/flowabl-services-workflow 8081:80 -n workflows`
+1. Port forward to service to avoid CORS errors
+`kubectl port-forward svc/flowabl-services-workflow 8081:80 -n workflows`
+
 2. Export token
 
 export AUTH_JWT=<user_token>
