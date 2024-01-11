@@ -21,10 +21,10 @@ import "Styles/styles.scss";
       },
     });
   } else {
-    if (import.meta.env.MODE === Envs.Dev && import.meta.env.MODE !== Envs.PortForward) {
-      const { startApiServer } = await import("./ApiServer");
-      startApiServer({ environment: "development", timing: 400 });
-    }
+    // if (import.meta.env.MODE === Envs.Dev && import.meta.env.MODE !== Envs.PortForward) {
+    //   const { startApiServer } = await import("./ApiServer");
+    //   startApiServer({ environment: "development", timing: 400 });
+    // }
   }
 
   // Setup hot module reloading to improve dev experience

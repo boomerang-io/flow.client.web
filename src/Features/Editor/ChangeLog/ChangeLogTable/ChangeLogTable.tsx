@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { matchSorter } from "match-sorter";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { DataTable, Pagination, Layer, Search } from "@carbon/react";
+import { DataTable, Pagination, Search } from "@carbon/react";
 import EmptyState from "Components/EmptyState";
 import { ChangeLog } from "Types";
 import styles from "./changeLogTable.module.scss";

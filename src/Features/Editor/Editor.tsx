@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { useFeature } from "flagged";
 import { EditorContextProvider } from "State/context";
 import { AxiosResponse } from "axios";
 import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
@@ -175,7 +174,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   const [revisionState, revisionDispatch] = useImmerReducer(
     revisionReducer,
-    initRevisionReducerState(workflowQueryData)
+    initRevisionReducerState(workflowQueryData),
   );
 
   const [reactFlowInstance, setReactFlowInstance] = React.useState<ReactFlowInstance | null>(null);
@@ -199,7 +198,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         console.log("Revision: ", revision);
         const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
         notify(
-          <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
+          <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />,
         );
         if (typeof callback === "function") {
           callback();
@@ -210,7 +209,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         queryClient.invalidateQueries(serviceUrl.getWorkflowChangelog({ id: workflowId }));
       } catch (err) {
         notify(
-          <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
+          <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />,
         );
       }
     }
@@ -223,7 +222,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         data: { markdown },
       });
     },
-    [revisionDispatch]
+    [revisionDispatch],
   );
 
   /**
@@ -284,7 +283,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
       setAvailableParameters(Array.from(availableParameterSet));
     },
-    [revisionDispatch, availableParameters, setAvailableParameters]
+    [revisionDispatch, availableParameters, setAvailableParameters],
   );
 
   /**
@@ -374,10 +373,13 @@ function formatConfigureValues(configureValues: ConfigureWorkflowFormValues): Pa
   const optionalConfigureValues: Partial<ConfigureWorkflowFormValues> = configureValues;
 
   // Format labels
-  const labelsKVObject = configureValues.labels.reduce((accum, current) => {
-    accum[current.key] = current.value;
-    return accum;
-  }, {} as Record<string, string>);
+  const labelsKVObject = configureValues.labels.reduce(
+    (accum, current) => {
+      accum[current.key] = current.value;
+      return accum;
+    },
+    {} as Record<string, string>,
+  );
 
   // Format workspaces
   const workflowStorageConfig = configureValues.storage?.workflow?.enabled

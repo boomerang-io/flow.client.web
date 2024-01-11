@@ -204,7 +204,7 @@ interface MainProps {
 
 function Main({
   isTutorialActive,
-  contextData: contextData,
+  contextData,
   setIsTutorialActive,
   setShouldShowBrowserWarning,
   shouldShowBrowserWarning,

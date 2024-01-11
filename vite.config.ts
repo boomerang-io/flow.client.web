@@ -77,7 +77,7 @@ export default defineConfig(({ mode }) => {
 });
 
 const portForwardMap = {
-  "/api": 7000,
+  "/api": 8081,
 };
 
 // Map service context paths to the local port that you have forwarded

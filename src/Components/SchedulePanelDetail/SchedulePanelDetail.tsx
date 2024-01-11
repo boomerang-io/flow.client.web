@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, CodeSnippet, Tag } from "@carbon/react";
+import { Button, CodeSnippet } from "@carbon/react";
 import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import SlidingPane from "react-sliding-pane";
 import cronstrue from "cronstrue";
@@ -32,7 +32,7 @@ export default function SchedulePanelDetail(props: SchedulePanelDetailProps) {
     // Convert from UTC to configured timezone to get the correct offset, adjusting for daylight saving time
     // Then convert to the local time of the users's browser
     const nextScheduledDate = moment(moment.tz(schedule.nextScheduleDate, schedule.timezone).toISOString()).format(
-      DATETIME_LOCAL_DISPLAY_FORMAT
+      DATETIME_LOCAL_DISPLAY_FORMAT,
     );
 
     const labels = [];

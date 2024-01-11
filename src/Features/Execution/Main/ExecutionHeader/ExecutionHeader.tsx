@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppContext } from "Hooks";
-import { useMutation, useQueryClient, UseQueryResult } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Link, useParams, useHistory } from "react-router-dom";
 import CopyToClipboard from "react-copy-to-clipboard";
 import moment from "moment";
@@ -17,7 +17,7 @@ import {
 import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
 import ErrorModal from "Components/ErrorModal";
 import { appLink } from "Config/appConfig";
-import { elevatedUserRoles, QueryStatus } from "Constants";
+import { elevatedUserRoles } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Catalog, CopyFile, StopOutline, Warning } from "@carbon/react/icons";
 import { RunStatus, WorkflowEditor, WorkflowRun } from "Types";
