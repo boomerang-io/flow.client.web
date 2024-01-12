@@ -214,7 +214,7 @@ export const resolver = {
     axios.put<Workflow, Workflow>(serviceUrl.putCreateWorkflowRevision({ workflowId }), body),
   postSubmitWorkflow: ({ workflowId, body }) =>
     axios.post(
-      serviceUrl.postSubmitWorkflow(workflowId),
+      serviceUrl.postSubmitWorkflow({workflowId}),
       body,
     ),
   postGlobalParameter: ({ body }) =>
