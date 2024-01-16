@@ -1,40 +1,36 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { UseQueryResult } from "react-query";
 import { Loading } from "@carbon/react";
 import ReactFlow from "Features/Reactflow";
-import ExecutionHeader from "./ExecutionHeader";
+import RunHeader from "./RunHeader";
+import RunTaskLog from "./RunTaskLog";
 import WorkflowActions from "./WorkflowActions";
 import type { ReactFlowInstance } from "reactflow";
-import { RunStatus, WorkflowExecution, WorkflowExecutionStep, WorkflowEditor } from "Types";
+import { RunStatus, RunTask, WorkflowEditor, WorkflowRun } from "Types";
 import styles from "./main.module.scss";
 import { WorkflowEngineMode } from "Constants";
 
 type MainProps = {
   workflow: WorkflowEditor;
-  workflowExecution: UseQueryResult<WorkflowExecution, Error>;
-  version: string | number;
+  workflowRun: WorkflowRun;
+  version: number;
 };
 
 export default function Main(props: MainProps) {
-  const { workflow, workflowExecution, version } = props;
+  const { workflow, workflowRun, version } = props;
   const [reactFlowInstance, setReactFlowInstance] = React.useState<ReactFlowInstance | null>(null);
   let hasFinished = false;
   let hasStarted = false;
 
-  if (workflowExecution.data) {
-    const { status, steps } = workflowExecution.data;
-    hasFinished = [
-      RunStatus.Invalid,
-      RunStatus.Failed,
-      RunStatus.TimedOut,
-      RunStatus.Skipped,
-      RunStatus.Succeeded,
-    ].includes(status);
-    hasStarted = steps
-      ? Boolean(steps.find((step: WorkflowExecutionStep) => step.flowTaskStatus !== RunStatus.NotStarted))
-      : false;
-  }
+  const { status, tasks } = workflowRun;
+  hasFinished = [
+    RunStatus.Invalid,
+    RunStatus.Failed,
+    RunStatus.TimedOut,
+    RunStatus.Skipped,
+    RunStatus.Succeeded,
+  ].includes(status);
+  hasStarted = tasks ? Boolean(tasks.find((step: RunTask) => step.status !== RunStatus.NotStarted)) : false;
 
   const isDiagramLoaded = hasStarted || hasFinished;
 
@@ -43,11 +39,9 @@ export default function Main(props: MainProps) {
       <Helmet>
         <title>{workflow ? `${workflow.name} - Activity` : `Activity`}</title>
       </Helmet>
-      <ExecutionHeader workflow={workflow} workflowExecution={workflowExecution} version={parseInt(version)} />
+      <RunHeader workflow={workflow} workflowRun={workflowRun} version={version} />
       <section aria-label="Executions" className={styles.executionResultContainer}>
-        {
-          //<ExecutionTaskLog workflowExecution={workflowExecution} />
-        }
+        <RunTaskLog workflowRun={workflowRun} />
         <div className={styles.executionDesignerContainer}>
           <div className={styles.executionWorkflowActions}>{workflow && <WorkflowActions workflow={workflow} />}</div>
           <ReactFlow

@@ -94,7 +94,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }),
         (schema) => {
           return schema.db.workflowCalendar;
-        }
+        },
       );
 
       this.get(serviceUrl.getSchedule({ query: null }), (schema) => {
@@ -192,7 +192,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
           currentProperties[foundIndex] = body;
           activeTeamProperty.update({ properties: currentProperties });
           return schema.teamProperties.all();
-        }
+        },
       );
       this.delete(
         serviceUrl.resourceTeamParameters({ team: ":team", configurationId: ":configurationId" }),
@@ -206,7 +206,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
           let newProperties = currentProperties.filter((prop) => prop.id !== configurationId);
           activeTeamProperty.update({ properties: newProperties });
           return schema.teamProperties.all();
-        }
+        },
       );
 
       /**
@@ -218,8 +218,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         // eslint-disable-next-line
         const { fromDate = null, toDate = null, team = null } = queryString.parse(query);
         const activeTeam = team && schema.db.myTeams.find(team);
-        let activeExecutions =
-          activeTeam && schema.db.insights[0].executions.filter((t) => t.name === team.name);
+        let activeExecutions = activeTeam && schema.db.insights[0].executions.filter((t) => t.name === team.name);
         return activeExecutions ? { ...schema.db.insights[0], executions: activeExecutions } : schema.db.insights[0];
       });
 
@@ -286,7 +285,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return summary;
       });
 
-      this.post(serviceUrl.postCreateWorkflow({team: ":team"}), (schema, request) => {
+      this.post(serviceUrl.postCreateWorkflow({ team: ":team" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let workflow = { ...body, id: uuid(), createdDate: Date.now(), revisionCount: 1, status: "active" };
         if (body.flowTeamId) {
@@ -303,7 +302,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         serviceUrl.postCreateWorkflowToken({ workflowId: ":workflowId", label: ":label" }),
         (schema, request) => {
           return { token: uuid() };
-        }
+        },
       );
 
       this.get(serviceUrl.getWorkflowCompose({ id: ":id", version: null }), (schema, request) => {
@@ -341,7 +340,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
           // } else {
           //   return {};
           // }
-        }
+        },
       );
 
       this.get(serviceUrl.getWorkflowTaskTemplates({ workflowId: ":workflowId" }), (schema, request) => {
@@ -385,7 +384,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.workflowRunCount[0];
       });
 
-      this.get(serviceUrl.getWorkflowExecution({ executionId: ":id" }), (schema, request) => {
+      this.get(serviceUrl.getWorkflowRun({ runId: ":id" }), (schema, request) => {
         return schema.db.workflowExecution[0];
       });
 
@@ -393,7 +392,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.workflowExecution[0];
       });
 
-      this.delete(serviceUrl.deleteCancelWorkflow({ executionId: ":id" }), (schema, request) => {
+      this.delete(serviceUrl.deleteCancelWorkflow({ runId: ":id" }), (schema, request) => {
         return {};
       });
 
@@ -576,8 +575,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       /**
-      * Integrations
-      */ 
+       * Integrations
+       */
       this.get(serviceUrl.getIntegrations({ team: null }), (schema, request) => {
         return schema.db.integrations;
       });

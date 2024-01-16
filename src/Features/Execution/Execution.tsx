@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet";
-import { UseQueryResult } from "react-query";
 import { useParams } from "react-router-dom";
 import { Box } from "reflexbox";
 import { Loading, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -13,14 +12,14 @@ import { serviceUrl } from "Config/servicesConfig";
 import { WorkflowEngineMode } from "Constants";
 
 export default function ExecutionContainer() {
-  const { team, workflowId, executionId }: { team: string; workflowId: string; executionId: string } = useParams();
+  const { team, workflowId, runId }: { team: string; workflowId: string; runId: string } = useParams();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
     query: queryString.stringify({ statuses: "active" }),
   });
   const getTaskTemplatesTeamUrl = serviceUrl.getTaskTemplates({
     query: queryString.stringify({ teams: team, statuses: "active" }),
   });
-  const getExecutionUrl = serviceUrl.getWorkflowExecution({ executionId });
+  const getExecutionUrl = serviceUrl.getWorkflowRun({ runId });
 
   /**
    * Queries
@@ -57,7 +56,7 @@ export default function ExecutionContainer() {
   if (taskTemplatesQuery.data && taskTemplatesTeamQuery.data && executionQuery.data) {
     return (
       <RevisionContainer
-        executionQuery={executionQuery}
+        workflowRun={executionQuery.data}
         taskTemplatesData={[...taskTemplatesQuery.data.content, ...taskTemplatesTeamQuery.data.content]}
         workflowId={workflowId}
       />
@@ -68,13 +67,13 @@ export default function ExecutionContainer() {
 }
 
 type RevisionProps = {
-  executionQuery: UseQueryResult<WorkflowRun, Error>;
   taskTemplatesData: TaskTemplate[];
   workflowId: string;
+  workflowRun: WorkflowRun;
 };
 
-function RevisionContainer({ executionQuery, taskTemplatesData, workflowId }: RevisionProps) {
-  const version = executionQuery.data?.workflowVersion;
+function RevisionContainer({ workflowRun, taskTemplatesData, workflowId }: RevisionProps) {
+  const version = workflowRun.workflowVersion;
   const getWorkflowUrl = serviceUrl.getWorkflowCompose({
     id: workflowId,
     version,
@@ -112,11 +111,9 @@ function RevisionContainer({ executionQuery, taskTemplatesData, workflowId }: Re
         value={{
           mode: WorkflowEngineMode.Executor,
           taskTemplatesData: groupedTaskTemplates,
-          workflowExecution: executionQuery.data,
-          workflow: workflowQuery.data,
         }}
       >
-        <Main workflow={workflowQuery.data} workflowExecution={executionQuery} version={version} />
+        <Main workflow={workflowQuery.data} workflowRun={workflowRun} version={version} />
       </EditorContextProvider>
     );
   }

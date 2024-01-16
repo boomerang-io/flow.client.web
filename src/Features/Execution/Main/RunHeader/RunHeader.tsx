@@ -1,5 +1,4 @@
 import React from "react";
-import { useAppContext } from "Hooks";
 import { useMutation, useQueryClient } from "react-query";
 import { Link, useParams, useHistory } from "react-router-dom";
 import CopyToClipboard from "react-copy-to-clipboard";
@@ -14,14 +13,13 @@ import {
   ToastNotification,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
+import OutputPropertiesLog from "Features/Execution/Main/RunTaskLog/TaskItem/OutputPropertiesLog";
 import ErrorModal from "Components/ErrorModal";
 import { appLink } from "Config/appConfig";
-import { elevatedUserRoles } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Catalog, CopyFile, StopOutline, Warning } from "@carbon/react/icons";
 import { RunStatus, WorkflowEditor, WorkflowRun } from "Types";
-import styles from "./executionHeader.module.scss";
+import styles from "./RunHeader.module.scss";
 
 type Props = {
   workflow: WorkflowEditor;
@@ -35,21 +33,18 @@ export default function ExecutionHeader({ workflow, workflowRun, version }: Prop
   const { team } = useParams<{ team: string }>();
   const history = useHistory<{ fromUrl: string; fromText: string }>();
   const state = history.location.state;
-  const { user } = useAppContext();
   const queryClient = useQueryClient();
 
-  const { type } = user;
-  const systemWorkflowsEnabled = elevatedUserRoles.includes(type);
-  const { teamName, initiatedByUserName, trigger, creationDate, scope, status, id } = workflowExecution.data;
+  const { initiatedByRef, trigger, creationDate, status, id } = workflowRun;
   const displayCancelButton = cancelSatusTypes.includes(status);
 
   const { mutateAsync: deleteCancelWorkflowMutation } = useMutation(resolver.deleteCancelWorkflow, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId: id })),
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getWorkflowRun({ runId: id })),
   });
 
   const handleCancelWorkflow = async () => {
     try {
-      await deleteCancelWorkflowMutation({ executionId: id });
+      await deleteCancelWorkflowMutation({ runId: id });
       notify(<ToastNotification kind="success" title="Cancel run" subtitle="Execution successfully cancelled" />);
     } catch {
       notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to cancel this execution`} />);
@@ -124,15 +119,9 @@ export default function ExecutionHeader({ workflow, workflowRun, version }: Prop
               <OutputPropertiesLog isOutput workflowName={workflow.name} results={workflowRun.results} />
             </div>
           )}
-          {systemWorkflowsEnabled && (
-            <dl className={styles.data}>
-              <dt className={styles.dataTitle}>Scope</dt>
-              <dd className={styles.dataValue}>{scope ?? "---"}</dd>
-            </dl>
-          )}
           <dl className={styles.data}>
             <dt className={styles.dataTitle}>Team</dt>
-            <dd className={styles.dataValue}>{teamName ?? "---"}</dd>
+            <dd className={styles.dataValue}>{"PUT TEAM HERE" ?? "---"}</dd>
           </dl>
           <dl className={styles.data}>
             <dt className={styles.dataTitle}>Version</dt>
@@ -140,8 +129,8 @@ export default function ExecutionHeader({ workflow, workflowRun, version }: Prop
           </dl>
           <dl className={styles.data}>
             <dt className={styles.dataTitle}>Initiated by</dt>
-            {initiatedByUserName ? (
-              <dd className={styles.dataValue}>{initiatedByUserName}</dd>
+            {initiatedByRef ? (
+              <dd className={styles.dataValue}>{initiatedByRef}</dd>
             ) : (
               <dd aria-label="robot" aria-hidden={false} role="img">
                 {"🤖"}
@@ -186,10 +175,10 @@ export default function ExecutionHeader({ workflow, workflowRun, version }: Prop
 }
 
 function WorkflowAdvancedDetail({ workflow }: { workflow: WorkflowEditor }) {
-  const { workflowId, executionId }: { workflowId: string; executionId: string } = useParams();
+  const { workflowId, runId }: { workflowId: string; runId: string } = useParams();
   const [copyTokenText, setCopyTokenText] = React.useState("Copy");
 
-  const labelTexts = [`boomerang.io/workflow-id=${workflowId}`, `boomerang.io/workflow-activity-id=${executionId}`];
+  const labelTexts = [`boomerang.io/workflow-id=${workflowId}`, `boomerang.io/workflow-activity-id=${runId}`];
 
   if (Array.isArray(workflow.labels) && workflow.labels.length > 0) {
     workflow.labels.forEach((label) => {

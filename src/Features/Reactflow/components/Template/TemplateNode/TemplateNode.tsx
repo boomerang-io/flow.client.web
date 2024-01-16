@@ -72,7 +72,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
 
   const handleOnSaveTaskConfig = (
     inputs: Record<string, string>,
-    results: Array<{ name: string; description: string }> = []
+    results: Array<{ name: string; description: string }> = [],
   ) => {
     const nameAndParamListRecord = inputRecordToNameAndParamListRecord(inputs);
     const newNodes = nodes.map((node) => {
@@ -150,7 +150,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
       isConnectable
       className={props.className}
       icon={task.icon}
-      kind={WorkflowEngineMode.Executor}
+      kind={WorkflowEngineMode.Editor}
       nodeProps={props}
       title={props.data.name}
       subtitle={task.description}

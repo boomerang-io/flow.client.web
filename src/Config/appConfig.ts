@@ -3,7 +3,7 @@
 import { Envs } from "Constants";
 import { StringifyOptions } from "query-string";
 export const APP_ROOT =
-  window._SERVER_DATA && window._SERVER_DATA.APP_ROOT ? window._SERVER_DATA.APP_ROOT : "/BMRG_APP_ROOT_CONTEXT";
+  window._SERVER_DATA && window._SERVER_DATA.APP_ROOT ? window._SERVER_DATA.APP_ROOT : "/apps/flow";
 
 export const CORE_ENV_URL =
   window._SERVER_DATA && window._SERVER_DATA.CORE_ENV_URL ? window._SERVER_DATA.CORE_ENV_URL : "";
@@ -35,7 +35,6 @@ type AppPathKey =
   | "EditorChangelog"
   | "EditorProperties"
   | "EditorSchedule"
-  | "Execution"
   | "Home"
   | "Profile"
   | "Insights"
@@ -59,6 +58,7 @@ type AppPathKey =
   | "ManageTeamApprovers"
   | "ManageTeamParameters"
   | "ManageTeamTokens"
+  | "Run"
   | "Tokens"
   | "TeamList"
   | "User"
@@ -87,7 +87,7 @@ export const AppPath: Record<AppPathKey, string> = {
   EditorChangelog: `/:team/editor/:workflowId/changelog`,
   EditorProperties: `/:team/editor/:workflowId/parameters`,
   EditorSchedule: `/:team/editor/:workflowId/schedule`,
-  Execution: "/:team/activity/:workflowId/execution/:executionId",
+  Run: "/:team/activity/:workflowId/run/:runId",
   Home: "/home",
   Profile: "/profile",
   Insights: "/:team/insights",
@@ -145,7 +145,7 @@ interface AdminTaskTemplateArgs {
   version: string;
 }
 interface ExecutionArgs {
-  executionId: string;
+  runId: string;
   workflowId: string;
 }
 
@@ -165,7 +165,7 @@ export const appLink = {
   editorChangelog: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/changelog`,
   editorProperties: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/parameters`,
   editorSchedule: ({ team, workflowId }: TeamRouteArgs) => `/${team}/editor/${workflowId}/schedule`,
-  execution: ({ team, workflowId, executionId }: TeamArg & ExecutionArgs) => `/${team}/activity/${workflowId}/execution/${executionId}`,
+  execution: ({ team, workflowId, runId }: TeamArg & ExecutionArgs) => `/${team}/activity/${workflowId}/run/${runId}`,
   home: () => "/home",
   profile: () => "/profile",
   insights: ({ team }: TeamArg) => `/${team}/insights`,

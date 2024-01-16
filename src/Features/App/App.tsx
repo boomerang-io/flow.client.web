@@ -321,7 +321,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 <ProtectedRoute
                   allowedUserRoles={["*"]}
                   component={() => <Execution />}
-                  path={AppPath.Execution}
+                  path={AppPath.Run}
                   userRole={activityEnabled ? "*" : ""}
                 />
                 <ProtectedRoute

@@ -203,9 +203,7 @@ function ActionsTable(props: ActionsTableProps) {
         return <time className={styles.tableTextarea}>{value ? dateHelper.humanizedSimpleTimeAgo(value) : "---"}</time>;
       case HeadersKey.ActivityLink:
         return (
-          <Link
-            to={appLink.execution({ executionId: currentAction?.activityId, workflowId: currentAction?.workflowId })}
-          >
+          <Link to={appLink.execution({ runId: currentAction?.activityId, workflowId: currentAction?.workflowId })}>
             View Activity
           </Link>
         );

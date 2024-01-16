@@ -70,7 +70,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
                   url={
                     PRODUCT_SERVICE_ENV_URL.includes("localhost")
                       ? DEV_STREAM_URL
-                      : serviceUrl.getWorkflowExecutionLog({ flowActivityId, flowTaskId })
+                      : serviceUrl.getWorkflowRunLog({ flowActivityId, flowTaskId })
                   }
                 />
               </>

@@ -25,36 +25,22 @@ type Props = {
   flowActivityId: string;
   hidden: boolean;
   task: RunTask;
-  executionId: string;
+  runId: string;
 };
 
-function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
+function TaskItem({ flowActivityId, hidden, task, runId }: Props) {
   const { team } = useParams<{ team: string }>();
-  const {
-    duration,
-    status,
-    id,
-    results,
-    runWorkflowActivityId,
-    runWorkflowActivityStatus,
-    runWorkflowId,
-    startTime,
-    taskId,
-    taskName,
-    taskType,
-    switchValue,
-    error,
-  } = task;
+  const { duration, status, id, results, startTime, name, type } = task;
   // const Icon = executionStatusIcon[flowTaskStatus];
   // const statusClassName = styles[flowTaskStatus];
   let statusClassName;
   let Icon;
   let runStatus;
 
-  if (taskType === NodeType.RunWorkflow) {
-    statusClassName = styles[runWorkflowActivityStatus] ?? styles[status];
-    Icon = executionStatusIcon[runWorkflowActivityStatus] ?? executionStatusIcon[status];
-    runStatus = runWorkflowActivityStatus ?? status;
+  if (type === NodeType.RunWorkflow) {
+    // statusClassName = styles[runWorkflowActivityStatus] ?? styles[status];
+    // Icon = executionStatusIcon[runWorkflowActivityStatus] ?? executionStatusIcon[status];
+    // runStatus = runWorkflowActivityStatus ?? status;
   } else {
     statusClassName = styles[status];
     Icon = executionStatusIcon[status];
@@ -67,13 +53,13 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
 
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-    <li key={id} id={`task-${taskId}`} tabIndex={0} className={`${styles.taskitem} ${statusClassName}`}>
+    <li key={id} id={`task-${id}`} tabIndex={0} className={`${styles.taskitem} ${statusClassName}`}>
       <div className={styles.progressBar} />
       <section className={styles.header}>
         <div className={styles.title}>
           <Icon aria-label={runStatus} className={styles.taskIcon} />
-          <p title={taskName} data-testid="taskitem-name">
-            {taskName}
+          <p title={name} data-testid="taskitem-name">
+            {name}
           </p>
         </div>
         <div className={`${styles.status} ${statusClassName}`}>
@@ -90,36 +76,36 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
           <p className={styles.timeTitle}>Duration</p>
           <time className={styles.timeValue}>{calculatedDuration}</time>
         </div>
-        {taskType === NodeType.Decision && (
+        {/* {type === NodeType.Decision && (
           <div className={styles.time}>
             <p className={styles.timeTitle}>Value</p>
             <time className={styles.timeValue}>{switchValue ?? ""}</time>
           </div>
-        )}
+        )} */}
       </section>
       {!hidden && (
         <section className={styles.data}>
           {((status === RunStatus.Cancelled && duration > 0) ||
-            (logTaskTypes.includes(taskType) && logStatusTypes.includes(runStatus))) && (
-            <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
+            (logTaskTypes.includes(type) && logStatusTypes.includes(runStatus))) && (
+            <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={id} flowTaskName={name} />
           )}
           {results && Object.keys(results).length > 0 && (
             //@ts-ignore
-            <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={results} />
+            <OutputPropertiesLog flowTaskName={name} flowTaskOutputs={results} />
           )}
-          {taskType === NodeType.RunWorkflow && runWorkflowActivityId && runWorkflowId && (
+          {/* {type === NodeType.RunWorkflow && runWorkflowActivityId && runWorkflowId && (
             <Link
-              to={appLink.execution({ team, executionId: runWorkflowActivityId, workflowId: runWorkflowId })}
+              to={appLink.execution({ team, runId: runWorkflowActivityId, workflowId: runWorkflowId })}
               className={styles.viewActivityLink}
             >
               View Activity
             </Link>
-          )}
-          {Boolean(error?.code) && (
+          )} */}
+          {/* {Boolean(error?.code) && (
             <ComposedModal
               modalHeaderProps={{
                 title: "View Task Error",
-                subtitle: taskName,
+                subtitle: name,
               }}
               modalTrigger={({ openModal }) => (
                 <Button size="sm" kind="ghost" onClick={openModal}>
@@ -129,12 +115,12 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
             >
               {({ closeModal }) => <ErrorModal errorCode={error?.code ?? ""} errorMessage={error?.message ?? ""} />}
             </ComposedModal>
-          )}
-          {status === RunStatus.Waiting && taskType === NodeType.Approval && (
+          )} */}
+          {/* {status === RunStatus.Waiting && type === NodeType.Approval && (
             <ComposedModal
               modalHeaderProps={{
                 title: "Action Manual Approval",
-                subtitle: taskName,
+                subtitle: name,
               }}
               modalTrigger={({ openModal }) => (
                 <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
@@ -142,19 +128,17 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                 </Button>
               )}
             >
-              {({ closeModal }) => (
-                <TaskApprovalModal approvalId={approval.id} executionId={executionId} closeModal={closeModal} />
-              )}
+              {({ closeModal }) => <TaskApprovalModal approvalId={approval.id} runId={runId} closeModal={closeModal} />}
             </ComposedModal>
-          )}
-          {status === RunStatus.Waiting && taskType === NodeType.Manual && (
+          )} */}
+          {/* {status === RunStatus.Waiting && type === NodeType.Manual && (
             <ComposedModal
               composedModalProps={{
                 containerClassName: styles.actionManualTaskModalContainer,
               }}
               modalHeaderProps={{
                 title: "Action Manual Task",
-                subtitle: taskName,
+                subtitle: name,
               }}
               modalTrigger={({ openModal }) => (
                 <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
@@ -165,18 +149,18 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
               {({ closeModal }) => (
                 <ManualTaskModal
                   approvalId={approval?.id}
-                  executionId={executionId}
+                  runId={runId}
                   closeModal={closeModal}
                   instructions={approval?.instructions}
                 />
               )}
             </ComposedModal>
-          )}
+          )} */}
           {
             //TODO: update to make a request to get the approval and info about it
             // make sure that check is correct
           }
-          {taskType === NodeType.Approval && (status === RunStatus.Failed || status === RunStatus.Succeeded) && (
+          {/* {type === NodeType.Approval && (status === RunStatus.Failed || status === RunStatus.Succeeded) && (
             <ComposedModal
               composedModalProps={{
                 containerClassName: styles.approvalResultsModalContainer,
@@ -216,12 +200,12 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                 </ModalBody>
               )}
             </ComposedModal>
-          )}
+          )} */}
           {
             //TODO: update to make a request to get the approval and info about it
             // make sure that check is correct
           }
-          {taskType === NodeType.Manual && (status === RunStatus.Failed || status === RunStatus.Succeeded) && (
+          {/* {type === NodeType.Manual && (status === RunStatus.Failed || status === RunStatus.Succeeded) && (
             <ComposedModal
               composedModalProps={{
                 containerClassName: styles.approvalResultsModalContainer,
@@ -265,7 +249,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
                 </ModalBody>
               )}
             </ComposedModal>
-          )}
+          )} */}
         </section>
       )}
     </li>

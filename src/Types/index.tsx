@@ -704,7 +704,7 @@ export interface WorkflowRun {
   results: Array<RunResult>;
   retries: number;
   startTime: string;
-  status: string;
+  status: RunStatus;
   statusMessage: string;
   tasks: Array<RunTask>;
   timeout: number;

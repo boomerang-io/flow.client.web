@@ -89,7 +89,7 @@ function ActivityTable(props: ActivityTableProps) {
   function executionViewRedirect(activityId) {
     const activity = props.tableData.content.find((activity) => activity.id === activityId);
     props.history.push({
-      pathname: appLink.execution({ team, executionId: activity.id, workflowId: activity.workflowRef }),
+      pathname: appLink.execution({ team, runId: activity.id, workflowId: activity.workflowRef }),
       state: { fromUrl: `${props.match.url}${props.location.search}`, fromText: "Activity" },
     });
   }

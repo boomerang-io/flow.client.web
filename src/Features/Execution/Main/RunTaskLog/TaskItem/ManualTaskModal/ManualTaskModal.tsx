@@ -8,13 +8,13 @@ import "Styles/markdown.css";
 
 type Props = {
   approvalId: string;
-  executionId: string;
+  runId: string;
   closeModal: () => void;
   instructions: string;
 };
 
 // TODO: update to load info about the approval
-function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }: Props) {
+function TaskApprovalModal({ approvalId, runId, closeModal, instructions }: Props) {
   const queryClient = useQueryClient();
 
   const {
@@ -23,7 +23,7 @@ function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }
     error: approvalsError,
   } = useMutation(resolver.putWorkflowAction, {
     onSuccess: () => {
-      queryClient.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId }));
+      queryClient.invalidateQueries(serviceUrl.getWorkflowRun({ runId }));
     },
   });
 

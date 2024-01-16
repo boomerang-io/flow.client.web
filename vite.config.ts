@@ -12,7 +12,7 @@ const projectRootDir = resolve(__dirname);
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   return {
-    base: "/BMRG_APP_ROOT_CONTEXT/",
+    base: "/apps/flow/",
     build: {
       outDir: "build",
     },

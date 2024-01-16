@@ -50,7 +50,7 @@ type QueryArg = {
 
 export const serviceUrl = {
   // deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
-  deleteCancelWorkflow: ({ executionId }) => `${BASE_URL}/workflowrun/${executionId}/cancel`,
+  deleteCancelWorkflow: ({ runId }) => `${BASE_URL}/workflowrun/${runId}/cancel`,
   deleteToken: ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
   deleteSchedule: ({ scheduleId }) => `${BASE_URL}/schedules/${scheduleId}`,
   deleteTeamMembers: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/members`,
@@ -95,7 +95,7 @@ export const serviceUrl = {
   getWorkflowCompose: ({ id, version }: IdArg & Partial<VersionArg>) => `${BASE_URL}/workflow/${id}/compose${version ? `?version=${version}` : ""}`,
   getWorkflowChangelog: ({ id }: IdArg) =>
     `${BASE_URL}/workflow/${id}/changelog`,
-  getWorkflowExecution: ({ executionId }) => `${BASE_URL}/activity/${executionId}`,
+  getWorkflowRun: ({ runId }) => `${BASE_URL}/workflowrun/${runId}`,
   getWorkflowExecutionLog: ({ flowActivityId, flowTaskId }) =>
     `${BASE_URL}/activity/${flowActivityId}/log/${flowTaskId}`,
   getWorkflowRevision: ({ workflowId, revisionNumber }) =>
@@ -151,7 +151,7 @@ export const resolver = {
   putMutation: (request) => axios.put(request),
   deleteApproverGroup: ({ team, groupId }) => axios.delete(serviceUrl.resourceApproverGroups({ team, groupId })),
   // deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
-  deleteCancelWorkflow: ({ executionId }) => axios.delete(serviceUrl.deleteCancelWorkflow({ executionId })),
+  deleteCancelWorkflow: ({ runId }) => axios.delete(serviceUrl.deleteCancelWorkflow({ runId })),
   deleteGlobalParameter: ({ key }) => axios.delete(serviceUrl.getGlobalParameter({ key })),
   deleteTeamMembers: ({ team, body }) => axios.delete(serviceUrl.deleteTeamMembers({ team }), body),
   deleteTeamParameters: ({ team, body }) =>

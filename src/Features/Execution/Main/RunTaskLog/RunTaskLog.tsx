@@ -6,15 +6,15 @@ import orderBy from "lodash/orderBy";
 import { getSimplifiedDuration } from "Utils/timeHelper";
 import { QueryStatus } from "Constants";
 import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
-import { WorkflowExecution } from "Types";
+import { WorkflowRun } from "Types";
 import { ArrowsVertical, ChevronLeft } from "@carbon/react/icons";
-import styles from "./executionTaskLog.module.scss";
+import styles from "./RunTaskLog.module.scss";
 
 type Props = {
-  workflowExecution: UseQueryResult<WorkflowExecution, Error>;
+  workflowRun: WorkflowRun;
 };
 
-function ExecutionTaskLog({ workflowExecution }: Props) {
+function ExecutionTaskLog({ workflowRun }: Props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [tasksSort, setTasksSort] = useState<boolean | "desc" | "asc">("desc");
 
@@ -26,36 +26,35 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
     setTasksSort(tasksSort === "desc" ? "asc" : "desc");
   };
 
-  if (workflowExecution.status !== QueryStatus.Success) {
-    return (
-      <aside className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
-        <section className={styles.statusBlock}>
-          <SkeletonPlaceholder className={styles.statusBlockSkeleton} />
-        </section>
-        <section className={styles.taskbar}>
-          <p className={styles.taskbarTitle}>Task log</p>
-          {!isCollapsed && (
-            <Button
-              disabled
-              data-testid="taskbar-button"
-              iconDescription="Change sort direction (by start time)"
-              renderIcon={ArrowsVertical}
-              size="sm"
-              kind="ghost"
-              hasIconOnly
-            />
-          )}
-        </section>
-        <ul className={styles.tasklog}>
-          <SkeletonPlaceholder className={styles.taskLogSkeleton} />
-        </ul>
-      </aside>
-    );
-  }
+  // if (workflowRun.status !== Run.Success) {
+  //   return (
+  //     <aside className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
+  //       <section className={styles.statusBlock}>
+  //         <SkeletonPlaceholder className={styles.statusBlockSkeleton} />
+  //       </section>
+  //       <section className={styles.taskbar}>
+  //         <p className={styles.taskbarTitle}>Task log</p>
+  //         {!isCollapsed && (
+  //           <Button
+  //             disabled
+  //             data-testid="taskbar-button"
+  //             iconDescription="Change sort direction (by start time)"
+  //             renderIcon={ArrowsVertical}
+  //             size="sm"
+  //             kind="ghost"
+  //             hasIconOnly
+  //           />
+  //         )}
+  //       </section>
+  //       <ul className={styles.tasklog}>
+  //         <SkeletonPlaceholder className={styles.taskLogSkeleton} />
+  //       </ul>
+  //     </aside>
+  //   );
+  // }
 
-  const { id, duration, status, steps } = workflowExecution.data;
+  const { id, duration, status, tasks } = workflowRun;
   const Icon = executionStatusIcon[status];
-  const sortedTasks = steps ? orderBy(steps, (step: any) => step.order, [tasksSort]) : [];
 
   return (
     <aside className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
@@ -92,14 +91,8 @@ function ExecutionTaskLog({ workflowExecution }: Props) {
         )}
       </section>
       <ul className={styles.tasklog}>
-        {sortedTasks.map((step) => (
-          <TaskItem
-            key={step.id}
-            flowActivityId={id}
-            hidden={isCollapsed}
-            task={step}
-            executionId={workflowExecution.data.id}
-          />
+        {tasks.map((task) => (
+          <TaskItem key={task.id} flowActivityId={id} hidden={isCollapsed} task={task} runId={workflowRun.id} />
         ))}
       </ul>
     </aside>

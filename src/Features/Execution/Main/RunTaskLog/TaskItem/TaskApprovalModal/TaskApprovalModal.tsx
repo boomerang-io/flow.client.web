@@ -22,11 +22,11 @@ const GateStatus = {
 
 type Props = {
   approvalId: string;
-  executionId: string;
+  runId: string;
   closeModal: () => void;
 };
 
-function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
+function TaskApprovalModal({ approvalId, runId, closeModal }: Props) {
   const queryClient = useQueryClient();
 
   const {
@@ -35,7 +35,7 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
     error: approvalsError,
   } = useMutation(resolver.putWorkflowAction, {
     onSuccess: () => {
-      queryClient.invalidateQueries(serviceUrl.getWorkflowExecution({ executionId }));
+      queryClient.invalidateQueries(serviceUrl.getWorkflowRun({ runId }));
     },
   });
 
@@ -52,7 +52,7 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
           kind="success"
           title="Manual Approval"
           subtitle={body.approved ? "Successfully submitted approval request" : "Successfully submitted denial request"}
-        />
+        />,
       );
       closeModal();
     } catch (err) {
