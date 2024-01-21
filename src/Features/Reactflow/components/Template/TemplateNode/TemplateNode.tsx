@@ -25,7 +25,7 @@ export default function TaskTemplateNode(props: TaskTemplateNodeProps) {
     taskTemplateList?.find((taskTemplate) => taskTemplate.version === props.data.templateVersion) ??
     taskTemplatesData[props.data.templateRef]?.[0] ??
     {};
-
+  console.log(mode);
   if (mode === WorkflowEngineMode.Executor) {
     return <TaskTemplateNodeExecution {...props} task={task} />;
   }

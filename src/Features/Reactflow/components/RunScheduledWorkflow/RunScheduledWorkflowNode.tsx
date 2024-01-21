@@ -18,5 +18,5 @@ function RunScheduledWorkflowDesigner(props: WorkflowNodeProps) {
 }
 
 function RunScheduledWorkflowExecution(props: any) {
-  return <div>hello</div>;
+  return <TemplateNode {...props} TaskForm={RunScheduledWorkflowForm} />;
 }

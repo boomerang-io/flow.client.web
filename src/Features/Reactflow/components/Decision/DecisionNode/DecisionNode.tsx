@@ -18,5 +18,5 @@ function DecisionNodeDesigner(props: WorkflowNodeProps) {
 }
 
 function DecisionNodeExecution(props: any) {
-  return <div>hello</div>;
+  return <TemplateNode {...props} className={styles.node} />;
 }

@@ -64,5 +64,5 @@ function ApprovalNodeDesigner(props: WorkflowNodeProps) {
 }
 
 function ApprovalNodeExecution(props: any) {
-  return <div>hello</div>;
+  return <TemplateNode {...props} />;
 }

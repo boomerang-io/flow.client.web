@@ -19,5 +19,5 @@ function CustomTaskNodeDesigner(props: WorkflowNodeProps) {
 }
 
 function ScriptNodeExecution(props: any) {
-  return <div>script</div>;
+  return <TemplateNode {...props} className={styles.node} TaskForm={ScriptForm} />;
 }

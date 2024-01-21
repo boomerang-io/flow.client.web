@@ -217,7 +217,7 @@ function FlowDiagram(props: FlowDiagramProps) {
   const onConnect = React.useCallback(
     (connection: Connection) =>
       setEdges((edges) => addEdge({ ...connection, ...getLinkType(connection, nodes) }, edges)),
-    [setEdges, nodes]
+    [setEdges, nodes],
   );
 
   const onLayout = React.useCallback(() => {
@@ -282,10 +282,11 @@ function FlowDiagram(props: FlowDiagramProps) {
 
       setNodes((nds) => nds.concat(newNode));
     },
-    [props.reactFlowInstance, nodes, setNodes]
+    [props.reactFlowInstance, nodes, setNodes],
   );
 
-  const isDisabled = props.mode !== WorkflowEngineMode.Editor;
+  const isEnabled = props.mode === WorkflowEngineMode.Editor;
+
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <ReactFlowProvider>
@@ -293,13 +294,13 @@ function FlowDiagram(props: FlowDiagramProps) {
           <ReactFlow
             edges={edges}
             edgeTypes={edgeTypes}
-            elementsSelectable={!isDisabled}
+            elementsSelectable={isEnabled}
             fitView={true}
             fitViewOptions={{ maxZoom: 1 }}
             nodeTypes={nodeTypes}
             nodes={nodes}
-            nodesConnectable={!isDisabled}
-            nodesDraggable={!isDisabled}
+            nodesConnectable={isEnabled}
+            nodesDraggable={isEnabled}
             onConnect={onConnect}
             onDrop={onDrop}
             onDragOver={onDragOver}
@@ -313,10 +314,12 @@ function FlowDiagram(props: FlowDiagramProps) {
               <CustomEdgeArrow id={markerTypes.template} color="#0072c3" />
             </MarkerDefinition>
             <Background />
-            <Controls showInteractive={false}>
-              <ControlButton onClick={onLayout} title="auto-layout">
-                <div>L</div>
-              </ControlButton>
+            <Controls showInteractive={isEnabled}>
+              {isEnabled ? (
+                <ControlButton onClick={onLayout} title="auto-layout">
+                  <div>L</div>
+                </ControlButton>
+              ) : null}
             </Controls>
           </ReactFlow>
         </div>
