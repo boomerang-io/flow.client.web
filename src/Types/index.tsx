@@ -706,7 +706,7 @@ export interface WorkflowRun {
   startTime: string;
   status: RunStatus;
   statusMessage: string;
-  tasks: Array<RunTask>;
+  tasks: Array<TaskRun>;
   timeout: number;
   trigger: string;
   workspaces: Array<WorkflowWorkspace>;
@@ -716,7 +716,7 @@ export interface WorkflowRun {
   workflowVersion: number;
 }
 
-export interface RunTask {
+export interface TaskRun {
   annotations: TaskAnnotations;
   creationDate: string;
   duration: number;

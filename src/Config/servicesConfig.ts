@@ -91,13 +91,13 @@ export const serviceUrl = {
   getUserProfileImage: ({ userEmail }) => `${BASE_CORE_USERS_URL}/image/${userEmail}`,
   getWorkflows: ({ query }: QueryArg) => `${BASE_URL}/workflow/query${query ? "?" + query : ""}`,
   getIntegrations: ({ team }: TeamArg) => `${BASE_URL}/integration${team ? "?team=" + team : ""}`,
+  getTaskrunLog: ({ taskrunId }) =>
+  `${BASE_URL}/taskrun/${taskrunId}/log`,
   getWorkflow: ({ id, version }: IdArg & Partial<VersionArg>) => `${BASE_URL}/workflow/${id}${version ? `?version=${version}` : ""}`,
   getWorkflowCompose: ({ id, version }: IdArg & Partial<VersionArg>) => `${BASE_URL}/workflow/${id}/compose${version ? `?version=${version}` : ""}`,
   getWorkflowChangelog: ({ id }: IdArg) =>
     `${BASE_URL}/workflow/${id}/changelog`,
   getWorkflowRun: ({ runId }) => `${BASE_URL}/workflowrun/${runId}`,
-  getWorkflowRunTaskLog: ({ flowActivityId, flowTaskId }) =>
-    `${BASE_URL}/activity/${flowActivityId}/log/${flowTaskId}`,
   getWorkflowRevision: ({ workflowId, revisionNumber }) =>
     `${BASE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
   getWorkflowSummary: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/summary`,

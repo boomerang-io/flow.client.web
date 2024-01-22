@@ -6,18 +6,17 @@ import { ModalBody } from "@carbon/react";
 import { LazyLog, ScrollFollow } from "react-lazylog";
 import { serviceUrl } from "Config/servicesConfig";
 import { PRODUCT_SERVICE_ENV_URL } from "Config/servicesConfig";
-import styles from "./taskExecutionLog.module.scss";
+import styles from "./taskRunLog.module.scss";
 
 const DEV_STREAM_URL =
   "https://gist.githubusercontent.com/helfi92/96d4444aa0ed46c5f9060a789d316100/raw/ba0d30a9877ea5cc23c7afcd44505dbc2bab1538/typical-live_backing.log";
 
 type Props = {
-  flowActivityId: string;
-  flowTaskId: string;
-  flowTaskName: string;
+  taskrunId: string;
+  taskName: string;
 };
 
-export default function TaskRunLog({ flowActivityId, flowTaskId, flowTaskName }: Props) {
+export default function TaskRunLog({ taskrunId, taskName }: Props) {
   const [follow, setFollow] = React.useState(true);
   const [error, setError] = React.useState(false);
 
@@ -29,7 +28,7 @@ export default function TaskRunLog({ flowActivityId, flowTaskId, flowTaskName }:
       }}
       modalHeaderProps={{
         title: "Execution Log",
-        label: `${flowTaskName}`,
+        label: `${taskName}`,
       }}
       modalTrigger={({ openModal }) => (
         <Button className={styles.trigger} kind="ghost" size="sm" onClick={openModal}>
@@ -70,7 +69,7 @@ export default function TaskRunLog({ flowActivityId, flowTaskId, flowTaskName }:
                   url={
                     PRODUCT_SERVICE_ENV_URL.includes("localhost")
                       ? DEV_STREAM_URL
-                      : serviceUrl.getWorkflowRunTaskLog({ flowActivityId, flowTaskId })
+                      : serviceUrl.getTaskrunLog({ taskrunId })
                   }
                 />
               </>

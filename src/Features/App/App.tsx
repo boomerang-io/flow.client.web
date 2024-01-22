@@ -31,7 +31,7 @@ const Activity = lazy(() => import("Features/Activity"));
 const Actions = lazy(() => import("Features/Actions"));
 const Connect = lazy(() => import("Features/Connect"));
 const Editor = lazy(() => import("Features/Editor"));
-const Execution = lazy(() => import("Features/Execution"));
+const Execution = lazy(() => import("Features/WorkflowRun"));
 const GlobalParameters = lazy(() => import("Features/Parameters/GlobalParameters"));
 const Tokens = lazy(() => import("Features/GlobalTokens/GlobalTokens"));
 const Insights = lazy(() => import("Features/Insights"));

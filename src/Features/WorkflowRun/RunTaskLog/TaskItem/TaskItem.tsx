@@ -7,11 +7,11 @@ import ErrorModal from "Components/ErrorModal";
 import ManualTaskModal from "./ManualTaskModal";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskApprovalModal from "./TaskApprovalModal";
-import TaskExecutionLog from "./TaskExecutionLog";
+import TaskExecutionLog from "./TaskRunLog";
 import moment from "moment";
 import dateHelper from "Utils/dateHelper";
 import { executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
-import { ApprovalStatus, RunStatus, RunTask } from "Types";
+import { ApprovalStatus, RunStatus, TaskRun } from "Types";
 import styles from "./taskItem.module.scss";
 
 import { appLink } from "Config/appConfig";
@@ -23,12 +23,11 @@ const logStatusTypes = [RunStatus.Succeeded, RunStatus.Failed, RunStatus.Running
 
 type Props = {
   flowActivityId: string;
-  hidden: boolean;
-  task: RunTask;
-  runId: string;
+  task: TaskRun;
+  workflowRunId: string;
 };
 
-function TaskItem({ flowActivityId, hidden, task, runId }: Props) {
+function TaskItem({ flowActivityId, task, workflowRunId }: Props) {
   const { team } = useParams<{ team: string }>();
   const { duration, status, id, results, startTime, name, type } = task;
   // const Icon = executionStatusIcon[flowTaskStatus];
@@ -83,17 +82,16 @@ function TaskItem({ flowActivityId, hidden, task, runId }: Props) {
           </div>
         )} */}
       </section>
-      {!hidden && (
-        <section className={styles.data}>
-          {((status === RunStatus.Cancelled && duration > 0) ||
-            (logTaskTypes.includes(type) && logStatusTypes.includes(runStatus))) && (
-            <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={id} flowTaskName={name} />
-          )}
-          {results && Object.keys(results).length > 0 && (
-            //@ts-ignore
-            <OutputPropertiesLog flowTaskName={name} flowTaskOutputs={results} />
-          )}
-          {/* {type === NodeType.RunWorkflow && runWorkflowActivityId && runWorkflowId && (
+      <section className={styles.data}>
+        {((status === RunStatus.Cancelled && duration > 0) ||
+          (logTaskTypes.includes(type) && logStatusTypes.includes(runStatus))) && (
+          <TaskExecutionLog taskrunId={task.id} flowTaskName={name} />
+        )}
+        {results && Object.keys(results).length > 0 && (
+          //@ts-ignore
+          <OutputPropertiesLog flowTaskName={name} flowTaskOutputs={results} />
+        )}
+        {/* {type === NodeType.RunWorkflow && runWorkflowActivityId && runWorkflowId && (
             <Link
               to={appLink.execution({ team, runId: runWorkflowActivityId, workflowId: runWorkflowId })}
               className={styles.viewActivityLink}
@@ -101,7 +99,7 @@ function TaskItem({ flowActivityId, hidden, task, runId }: Props) {
               View Activity
             </Link>
           )} */}
-          {/* {Boolean(error?.code) && (
+        {/* {Boolean(error?.code) && (
             <ComposedModal
               modalHeaderProps={{
                 title: "View Task Error",
@@ -116,7 +114,7 @@ function TaskItem({ flowActivityId, hidden, task, runId }: Props) {
               {({ closeModal }) => <ErrorModal errorCode={error?.code ?? ""} errorMessage={error?.message ?? ""} />}
             </ComposedModal>
           )} */}
-          {/* {status === RunStatus.Waiting && type === NodeType.Approval && (
+        {/* {status === RunStatus.Waiting && type === NodeType.Approval && (
             <ComposedModal
               modalHeaderProps={{
                 title: "Action Manual Approval",
@@ -131,7 +129,7 @@ function TaskItem({ flowActivityId, hidden, task, runId }: Props) {
               {({ closeModal }) => <TaskApprovalModal approvalId={approval.id} runId={runId} closeModal={closeModal} />}
             </ComposedModal>
           )} */}
-          {/* {status === RunStatus.Waiting && type === NodeType.Manual && (
+        {/* {status === RunStatus.Waiting && type === NodeType.Manual && (
             <ComposedModal
               composedModalProps={{
                 containerClassName: styles.actionManualTaskModalContainer,
@@ -156,11 +154,11 @@ function TaskItem({ flowActivityId, hidden, task, runId }: Props) {
               )}
             </ComposedModal>
           )} */}
-          {
-            //TODO: update to make a request to get the approval and info about it
-            // make sure that check is correct
-          }
-          {/* {type === NodeType.Approval && (status === RunStatus.Failed || status === RunStatus.Succeeded) && (
+        {
+          //TODO: update to make a request to get the approval and info about it
+          // make sure that check is correct
+        }
+        {/* {type === NodeType.Approval && (status === RunStatus.Failed || status === RunStatus.Succeeded) && (
             <ComposedModal
               composedModalProps={{
                 containerClassName: styles.approvalResultsModalContainer,
@@ -201,11 +199,11 @@ function TaskItem({ flowActivityId, hidden, task, runId }: Props) {
               )}
             </ComposedModal>
           )} */}
-          {
-            //TODO: update to make a request to get the approval and info about it
-            // make sure that check is correct
-          }
-          {/* {type === NodeType.Manual && (status === RunStatus.Failed || status === RunStatus.Succeeded) && (
+        {
+          //TODO: update to make a request to get the approval and info about it
+          // make sure that check is correct
+        }
+        {/* {type === NodeType.Manual && (status === RunStatus.Failed || status === RunStatus.Succeeded) && (
             <ComposedModal
               composedModalProps={{
                 containerClassName: styles.approvalResultsModalContainer,
@@ -250,8 +248,7 @@ function TaskItem({ flowActivityId, hidden, task, runId }: Props) {
               )}
             </ComposedModal>
           )} */}
-        </section>
-      )}
+      </section>
     </li>
   );
 }

@@ -1,5 +1,22 @@
 {
-"printWidth": 120
+  "printWidth": 120,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "react",
+    "<THIRD_PARTY_MODULES>",
+    "^Features",
+    "^Features/(.*)$",
+    "^Components",
+    "^Components/(.*)$",
+    "^Hooks",
+    "^Hooks/(.*)$",
+    "^Utils",
+    "^Utils/(.*)$",
+    "^[./]",
+    "^Config",
+    "^Config/(.*)$",
+    "^Constants",
+    "^Constants/(.*)$",
+    "^Types"
+  ]
 }
-    
-
