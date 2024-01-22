@@ -32,7 +32,6 @@ export default function BaseNode(props: BaseNodeProps) {
   if (icon) {
     Icon = taskIcons.find((taskIcon) => taskIcon.name === icon)?.Icon ?? Icon;
   }
-  console.log(props);
   return (
     <div className={cx(styles.node, className)} {...rest}>
       {props.kind === WorkflowEngineMode.Editor ? (

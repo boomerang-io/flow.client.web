@@ -16,7 +16,7 @@ type Props = {
 
 function ExecutionTaskLog({ workflowRun }: Props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [tasksSort, setTasksSort] = useState<boolean | "desc" | "asc">("desc");
+  const [tasksSort, setTasksSort] = useState<"desc" | "asc">("desc");
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);

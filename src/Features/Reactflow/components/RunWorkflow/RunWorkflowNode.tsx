@@ -18,5 +18,5 @@ function RunWorkflowDesigner(props: WorkflowNodeProps) {
 }
 
 function RunWorkflowExecution(props: WorkflowNodeProps) {
-  return <TemplateNode {...props} TaskForm={RunWorkflowForm} />;
+  return <TemplateNode {...props} />;
 }

@@ -17,7 +17,7 @@ type Props = {
   flowTaskName: string;
 };
 
-export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskName }: Props) {
+export default function TaskRunLog({ flowActivityId, flowTaskId, flowTaskName }: Props) {
   const [follow, setFollow] = React.useState(true);
   const [error, setError] = React.useState(false);
 
@@ -70,7 +70,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
                   url={
                     PRODUCT_SERVICE_ENV_URL.includes("localhost")
                       ? DEV_STREAM_URL
-                      : serviceUrl.getWorkflowRunLog({ flowActivityId, flowTaskId })
+                      : serviceUrl.getWorkflowRunTaskLog({ flowActivityId, flowTaskId })
                   }
                 />
               </>

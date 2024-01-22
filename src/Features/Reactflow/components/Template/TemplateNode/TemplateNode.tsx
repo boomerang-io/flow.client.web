@@ -25,7 +25,7 @@ export default function TaskTemplateNode(props: TaskTemplateNodeProps) {
     taskTemplateList?.find((taskTemplate) => taskTemplate.version === props.data.templateVersion) ??
     taskTemplatesData[props.data.templateRef]?.[0] ??
     {};
-  console.log(mode);
+
   if (mode === WorkflowEngineMode.Executor) {
     return <TaskTemplateNodeExecution {...props} task={task} />;
   }
@@ -164,13 +164,13 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
 function TaskTemplateNodeExecution(props: TaskTemplateNodeInstanceProps) {
   return (
     <BaseNode
-      isConnectable={false}
       className={props.className}
       icon={props.task.icon}
+      isConnectable={false}
       kind={WorkflowEngineMode.Executor}
       nodeProps={props}
-      title={props.data.name}
       subtitle={props.task.description}
+      title={props.data.name}
     />
   );
 }

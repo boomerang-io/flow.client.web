@@ -96,7 +96,7 @@ export const serviceUrl = {
   getWorkflowChangelog: ({ id }: IdArg) =>
     `${BASE_URL}/workflow/${id}/changelog`,
   getWorkflowRun: ({ runId }) => `${BASE_URL}/workflowrun/${runId}`,
-  getWorkflowExecutionLog: ({ flowActivityId, flowTaskId }) =>
+  getWorkflowRunTaskLog: ({ flowActivityId, flowTaskId }) =>
     `${BASE_URL}/activity/${flowActivityId}/log/${flowTaskId}`,
   getWorkflowRevision: ({ workflowId, revisionNumber }) =>
     `${BASE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
