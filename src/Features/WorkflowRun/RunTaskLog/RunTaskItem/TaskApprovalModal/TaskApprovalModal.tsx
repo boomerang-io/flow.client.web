@@ -1,8 +1,3 @@
-import React from "react";
-import { useQueryClient, useMutation } from "react-query";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import {
   DecisionButtons,
   Loading,
@@ -11,9 +6,14 @@ import {
   TextArea,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { ThumbsUp, ThumbsDown } from "@carbon/react/icons";
+import React from "react";
+import { useQueryClient, useMutation, useQuery } from "react-query";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import styles from "./taskApprovalModal.module.scss";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 
 const GateStatus = {
   Approved: "APPROVED",
@@ -21,12 +21,11 @@ const GateStatus = {
 };
 
 type Props = {
-  approvalId: string;
   runId: string;
   closeModal: () => void;
 };
 
-function TaskApprovalModal({ approvalId, runId, closeModal }: Props) {
+function TaskApprovalModal({ runId, closeModal }: Props) {
   const queryClient = useQueryClient();
 
   const {
@@ -41,7 +40,7 @@ function TaskApprovalModal({ approvalId, runId, closeModal }: Props) {
 
   const handleSubmit = async (values: any) => {
     const body = {
-      id: approvalId,
+      id: "", //approvalId,
       approved: values.status === GateStatus.Approved,
       comments: values.comment,
     };

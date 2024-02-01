@@ -1,10 +1,3 @@
-import React, { lazy, useState, Suspense } from "react";
-import axios from "axios";
-import { FlagsProvider, useFeature } from "flagged";
-import { AppContextProvider, TeamContextProvider, useAppContext } from "State/context";
-import { useQuery, useQueryClient } from "react-query";
-import { Switch, Route, Redirect, useLocation, useParams } from "react-router-dom";
-import { Button } from "@carbon/react";
 import {
   DelayedRender,
   Error404,
@@ -12,25 +5,32 @@ import {
   NotificationsContainer,
   ProtectedRoute,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button } from "@carbon/react";
+import { ArrowRight, ArrowLeft, Close } from "@carbon/react/icons";
+import React, { lazy, useState, Suspense } from "react";
 import Joyride, { CallBackProps, TooltipRenderProps, STATUS } from "react-joyride";
+import { useQuery, useQueryClient } from "react-query";
+import { Switch, Route, Redirect, useLocation, useParams } from "react-router-dom";
+import { AppContextProvider, TeamContextProvider, useAppContext } from "State/context";
+import axios from "axios";
+import { detect } from "detect-browser";
+import { FlagsProvider, useFeature } from "flagged";
+import { sortBy } from "lodash";
 import ErrorBoundary from "Components/ErrorBoundary";
 import ErrorDragon from "Components/ErrorDragon";
 import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
-import { detect } from "detect-browser";
-import { sortBy } from "lodash";
-import { elevatedUserRoles } from "Constants";
-import { ArrowRight, ArrowLeft, Close } from "@carbon/react/icons";
+import styles from "./app.module.scss";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import { elevatedUserRoles } from "Constants";
 import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, ContextConfig } from "Types";
-import styles from "./app.module.scss";
 
 const AppActivation = lazy(() => import("./AppActivation"));
 const Activity = lazy(() => import("Features/Activity"));
 const Actions = lazy(() => import("Features/Actions"));
 const Connect = lazy(() => import("Features/Connect"));
-const Editor = lazy(() => import("Features/Editor"));
+const Editor = lazy(() => import("Features/WorkflowEditor"));
 const Execution = lazy(() => import("Features/WorkflowRun"));
 const GlobalParameters = lazy(() => import("Features/Parameters/GlobalParameters"));
 const Tokens = lazy(() => import("Features/GlobalTokens/GlobalTokens"));

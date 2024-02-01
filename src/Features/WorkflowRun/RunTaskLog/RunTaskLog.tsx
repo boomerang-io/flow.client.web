@@ -1,11 +1,11 @@
 import { Button } from "@carbon/react";
 import { ArrowsVertical, ChevronLeft } from "@carbon/react/icons";
+import { useState } from "react";
+import { getSimplifiedDuration } from "Utils/timeHelper";
+import TaskItem from "./RunTaskItem";
+import styles from "./RunTaskLog.module.scss";
 import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
 import { WorkflowRun } from "Types";
-import { getSimplifiedDuration } from "Utils/timeHelper";
-import { useState } from "react";
-import styles from "./RunTaskLog.module.scss";
-import TaskItem from "./TaskItem";
 
 // import { SkeletonPlaceholder } from "@carbon/react";
 // import { UseQueryResult } from "react-query";

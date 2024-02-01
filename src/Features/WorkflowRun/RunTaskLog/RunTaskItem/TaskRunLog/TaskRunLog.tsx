@@ -1,12 +1,12 @@
-import React from "react";
-import { Button, Theme } from "@carbon/react";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, Theme } from "@carbon/react";
 import { Toggle } from "@carbon/react";
 import { ModalBody } from "@carbon/react";
+import React from "react";
 import { LazyLog, ScrollFollow } from "react-lazylog";
+import styles from "./taskRunLog.module.scss";
 import { serviceUrl } from "Config/servicesConfig";
 import { PRODUCT_SERVICE_ENV_URL } from "Config/servicesConfig";
-import styles from "./taskRunLog.module.scss";
 
 const DEV_STREAM_URL =
   "https://gist.githubusercontent.com/helfi92/96d4444aa0ed46c5f9060a789d316100/raw/ba0d30a9877ea5cc23c7afcd44505dbc2bab1538/typical-live_backing.log";
@@ -69,7 +69,7 @@ export default function TaskRunLog({ taskrunId, taskName }: Props) {
                   url={
                     PRODUCT_SERVICE_ENV_URL.includes("localhost")
                       ? DEV_STREAM_URL
-                      : serviceUrl.getTaskrunLog({ taskrunId })
+                      : serviceUrl.getTaskrunLog({ id: taskrunId })
                   }
                 />
               </>

@@ -1,20 +1,19 @@
+import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody } from "@carbon/react";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Link, useParams } from "react-router-dom";
-import { Button, ModalBody } from "@carbon/react";
-import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import moment from "moment";
 import ErrorModal from "Components/ErrorModal";
+import dateHelper from "Utils/dateHelper";
 import ManualTaskModal from "./ManualTaskModal";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskApprovalModal from "./TaskApprovalModal";
 import TaskExecutionLog from "./TaskRunLog";
-import moment from "moment";
-import dateHelper from "Utils/dateHelper";
+import styles from "./runTaskItem.module.scss";
+import { appLink } from "Config/appConfig";
 import { executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
 import { ApprovalStatus, RunStatus, TaskRun } from "Types";
-import styles from "./taskItem.module.scss";
-
-import { appLink } from "Config/appConfig";
 
 const logTaskTypes = ["customtask", "template", "script"];
 const logStatusTypes = [RunStatus.Succeeded, RunStatus.Failed, RunStatus.Running];
@@ -22,12 +21,13 @@ const logStatusTypes = [RunStatus.Succeeded, RunStatus.Failed, RunStatus.Running
 // TODO
 
 type Props = {
+  hidden: boolean;
   flowActivityId: string;
   task: TaskRun;
-  workflowRunId: string;
+  runId: string;
 };
 
-function TaskItem({ flowActivityId, task, workflowRunId }: Props) {
+function TaskItem({ flowActivityId, task, runId }: Props) {
   const { team } = useParams<{ team: string }>();
   const { duration, status, id, results, startTime, name, type } = task;
   // const Icon = executionStatusIcon[flowTaskStatus];
@@ -35,6 +35,8 @@ function TaskItem({ flowActivityId, task, workflowRunId }: Props) {
   let statusClassName;
   let Icon;
   let runStatus;
+
+  console.log(status);
 
   if (type === NodeType.RunWorkflow) {
     // statusClassName = styles[runWorkflowActivityStatus] ?? styles[status];
@@ -87,10 +89,10 @@ function TaskItem({ flowActivityId, task, workflowRunId }: Props) {
           (logTaskTypes.includes(type) && logStatusTypes.includes(runStatus))) && (
           <TaskExecutionLog taskrunId={task.id} flowTaskName={name} />
         )}
-        {results && Object.keys(results).length > 0 && (
+        {/* {results && Object.keys(results).length > 0 && (
           //@ts-ignore
           <OutputPropertiesLog flowTaskName={name} flowTaskOutputs={results} />
-        )}
+        )} */}
         {/* {type === NodeType.RunWorkflow && runWorkflowActivityId && runWorkflowId && (
             <Link
               to={appLink.execution({ team, runId: runWorkflowActivityId, workflowId: runWorkflowId })}
@@ -114,46 +116,39 @@ function TaskItem({ flowActivityId, task, workflowRunId }: Props) {
               {({ closeModal }) => <ErrorModal errorCode={error?.code ?? ""} errorMessage={error?.message ?? ""} />}
             </ComposedModal>
           )} */}
-        {/* {status === RunStatus.Waiting && type === NodeType.Approval && (
-            <ComposedModal
-              modalHeaderProps={{
-                title: "Action Manual Approval",
-                subtitle: name,
-              }}
-              modalTrigger={({ openModal }) => (
-                <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
-                  Action Manual Approval
-                </Button>
-              )}
-            >
-              {({ closeModal }) => <TaskApprovalModal approvalId={approval.id} runId={runId} closeModal={closeModal} />}
-            </ComposedModal>
-          )} */}
-        {/* {status === RunStatus.Waiting && type === NodeType.Manual && (
-            <ComposedModal
-              composedModalProps={{
-                containerClassName: styles.actionManualTaskModalContainer,
-              }}
-              modalHeaderProps={{
-                title: "Action Manual Task",
-                subtitle: name,
-              }}
-              modalTrigger={({ openModal }) => (
-                <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
-                  Action Manual Task
-                </Button>
-              )}
-            >
-              {({ closeModal }) => (
-                <ManualTaskModal
-                  approvalId={approval?.id}
-                  runId={runId}
-                  closeModal={closeModal}
-                  instructions={approval?.instructions}
-                />
-              )}
-            </ComposedModal>
-          )} */}
+        {status === RunStatus.Waiting && type === NodeType.Approval && (
+          <ComposedModal
+            modalHeaderProps={{
+              title: "Action Manual Approval",
+              subtitle: name,
+            }}
+            modalTrigger={({ openModal }) => (
+              <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
+                Action Manual Approval
+              </Button>
+            )}
+          >
+            {({ closeModal }) => <TaskApprovalModal runId={runId} closeModal={closeModal} />}
+          </ComposedModal>
+        )}
+        {status === RunStatus.Waiting && type === NodeType.Manual && (
+          <ComposedModal
+            composedModalProps={{
+              containerClassName: styles.actionManualTaskModalContainer,
+            }}
+            modalHeaderProps={{
+              title: "Action Manual Task",
+              subtitle: name,
+            }}
+            modalTrigger={({ openModal }) => (
+              <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
+                Action Manual Task
+              </Button>
+            )}
+          >
+            {({ closeModal }) => <ManualTaskModal runId={runId} closeModal={closeModal} />}
+          </ComposedModal>
+        )}
         {
           //TODO: update to make a request to get the approval and info about it
           // make sure that check is correct

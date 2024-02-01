@@ -9,17 +9,17 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Breadcrumb, BreadcrumbItem, Button, ModalBody, SkeletonPlaceholder, Tag, TextArea } from "@carbon/react";
 import { Catalog, CopyFile, StopOutline, Warning } from "@carbon/react/icons";
-import ErrorModal from "Components/ErrorModal";
-import { appLink } from "Config/appConfig";
-import { resolver, serviceUrl } from "Config/servicesConfig";
-import OutputPropertiesLog from "Features/WorkflowRun/RunTaskLog/TaskItem/OutputPropertiesLog";
-import { RunStatus, WorkflowEditor, WorkflowRun } from "Types";
-import moment from "moment";
 import React from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { useMutation, useQueryClient } from "react-query";
 import { Link, useHistory, useParams } from "react-router-dom";
+import moment from "moment";
+import OutputPropertiesLog from "Features/WorkflowRun/RunTaskLog/RunTaskItem/OutputPropertiesLog";
+import ErrorModal from "Components/ErrorModal";
 import styles from "./RunHeader.module.scss";
+import { appLink } from "Config/appConfig";
+import { resolver, serviceUrl } from "Config/servicesConfig";
+import { RunStatus, WorkflowEditor, WorkflowRun } from "Types";
 
 type Props = {
   workflow: WorkflowEditor;
@@ -116,7 +116,7 @@ export default function ExecutionHeader({ workflow, workflowRun, version }: Prop
         <div className={styles.content}>
           {workflowRun.results && Object.keys(workflowRun.results).length > 0 && (
             <div className={styles.workflowOutputLog}>
-              <OutputPropertiesLog isOutput workflowName={workflow.name} results={workflowRun.results} />
+              {/* <OutputPropertiesLog isOutput workflowName={workflow.name} results={workflowRun.results} /> */}
             </div>
           )}
           <dl className={styles.data}>

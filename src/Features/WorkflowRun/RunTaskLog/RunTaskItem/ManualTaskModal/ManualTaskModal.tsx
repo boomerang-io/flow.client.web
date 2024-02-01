@@ -1,20 +1,19 @@
-import React from "react";
-import { useQueryClient, useMutation } from "react-query";
-import ReactMarkdown from "react-markdown";
+import { Loading, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
-import { Loading, ModalForm, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import React from "react";
+import ReactMarkdown from "react-markdown";
+import { useQueryClient, useMutation } from "react-query";
 import "Styles/markdown.css";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 
 type Props = {
-  approvalId: string;
   runId: string;
   closeModal: () => void;
-  instructions: string;
 };
 
 // TODO: update to load info about the approval
-function TaskApprovalModal({ approvalId, runId, closeModal, instructions }: Props) {
+// Need to get the approval and the instructions
+function TaskApprovalModal({ runId, closeModal }: Props) {
   const queryClient = useQueryClient();
 
   const {
@@ -28,30 +27,30 @@ function TaskApprovalModal({ approvalId, runId, closeModal, instructions }: Prop
   });
 
   const handleSubmit = async (approvalValue: boolean) => {
-    const body = {
-      id: approvalId,
-      approved: approvalValue,
-    };
-    try {
-      await approvalMutator({ body });
-      notify(
-        <ToastNotification
-          kind="success"
-          title="Manual Task"
-          subtitle={"Successfully submitted manual task completion request"}
-        />,
-      );
-      closeModal();
-    } catch (err) {
-      // noop
-    }
+    // const body = {
+    //   id: approvalId,
+    //   approved: approvalValue,
+    // };
+    // try {
+    //   await approvalMutator({ body });
+    //   notify(
+    //     <ToastNotification
+    //       kind="success"
+    //       title="Manual Task"
+    //       subtitle={"Successfully submitted manual task completion request"}
+    //     />,
+    //   );
+    //   closeModal();
+    // } catch (err) {
+    //   // noop
+    // }
   };
 
   return (
     <ModalForm>
       {approvalsIsLoading && <Loading />}
       <ModalBody>
-        <ReactMarkdown className="markdown-body" children={instructions} />
+        <ReactMarkdown className="markdown-body" children={""} />
         {Boolean(approvalsError) && (
           <InlineNotification
             style={{ marginBottom: "0.5rem" }}
