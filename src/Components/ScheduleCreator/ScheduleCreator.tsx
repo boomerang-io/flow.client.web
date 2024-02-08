@@ -1,20 +1,13 @@
-import React from "react";
-import { useTeamContext } from "Hooks";
-import { useMutation, useQueryClient } from "react-query";
 import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
-import ScheduleManagerForm from "Components/ScheduleManagerForm";
+import React from "react";
+import { useMutation, useQueryClient } from "react-query";
 import moment from "moment-timezone";
+import ScheduleManagerForm from "Components/ScheduleManagerForm";
+import { useTeamContext } from "Hooks";
 import { cronDayNumberMap } from "Utils/cronHelper";
-import { resolver } from "Config/servicesConfig";
-import {
-  ComposedModalChildProps,
-  ScheduleManagerFormInputs,
-  ScheduleDate,
-  ScheduleUnion,
-  Workflow,
-  DayOfWeekCronAbbreviation,
-} from "Types";
 import styles from "./ScheduleCreator.module.scss";
+import { resolver } from "Config/servicesConfig";
+import { ScheduleManagerFormInputs, ScheduleDate, ScheduleUnion, Workflow, DayOfWeekCronAbbreviation } from "Types";
 
 interface CreateScheduleProps {
   getCalendarUrl: string;
@@ -43,7 +36,7 @@ export default function CreateSchedule(props: CreateScheduleProps) {
         kind="success"
         title={`Create Schedule`}
         subtitle={`Successfully created schedule ${schedule.name} `}
-      />
+      />,
     );
     queryClient.invalidateQueries(props.getCalendarUrl);
     queryClient.invalidateQueries(props.getSchedulesUrl);
@@ -124,7 +117,7 @@ export default function CreateSchedule(props: CreateScheduleProps) {
         title: "Create a Schedule",
       }}
     >
-      {(modalProps: ComposedModalChildProps) => (
+      {(modalProps) => (
         <ScheduleManagerForm
           handleSubmit={handleSubmit}
           includeWorkflowDropdown={props.includeWorkflowDropdown}

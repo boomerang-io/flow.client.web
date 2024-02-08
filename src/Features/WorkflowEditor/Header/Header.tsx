@@ -1,6 +1,3 @@
-import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
-import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
 import {
   ConfirmModal,
   ComposedModal,
@@ -9,15 +6,18 @@ import {
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
+import { Add, DocumentExport } from "@carbon/react/icons";
+import React from "react";
+import { UseMutationResult } from "react-query";
+import { Link, useRouteMatch } from "react-router-dom";
+import { AxiosResponse } from "axios";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
-import { appLink } from "Config/appConfig";
-import { Add, DocumentExport } from "@carbon/react/icons";
-import { AxiosResponse } from "axios";
-import { UseMutationResult } from "react-query";
-import { WorkflowView } from "Constants";
-import { ModalTriggerProps, ComposedModalChildProps, Workflow, WorkflowViewType, ChangeLog } from "Types";
 import styles from "./header.module.scss";
+import { appLink } from "Config/appConfig";
+import { WorkflowView } from "Constants";
+import { ModalTriggerProps, Workflow, WorkflowViewType, ChangeLog } from "Types";
 
 interface DesignerHeaderProps {
   changeLog: ChangeLog;
@@ -128,7 +128,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
                   </Button>
                 )}
               >
-                {({ closeModal }: ComposedModalChildProps) => (
+                {({ closeModal }) => (
                   <VersionCommentForm
                     closeModal={closeModal}
                     createRevision={createRevision}

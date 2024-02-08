@@ -1,12 +1,12 @@
+import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { ComposedModal, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
-import ScheduleManagerForm from "Components/ScheduleManagerForm";
 import moment from "moment-timezone";
+import ScheduleManagerForm from "Components/ScheduleManagerForm";
 import { cronDayNumberMap } from "Utils/cronHelper";
-import { resolver } from "Config/servicesConfig";
-import { ComposedModalChildProps, ScheduleManagerFormInputs, ScheduleUnion, Workflow } from "Types";
 import styles from "./ScheduleEditor.module.scss";
+import { resolver } from "Config/servicesConfig";
+import { ScheduleManagerFormInputs, ScheduleUnion, Workflow } from "Types";
 
 interface ScheduleEditorProps {
   getCalendarUrl: string;
@@ -35,7 +35,7 @@ function ScheduleEditor(props: ScheduleEditorProps) {
           kind="success"
           title={`Update Schedule`}
           subtitle={`Successfully updated schedule ${props.schedule.name} `}
-        />
+        />,
       );
       queryClient.invalidateQueries(props.getCalendarUrl);
       queryClient.invalidateQueries(props.getSchedulesUrl);
@@ -118,7 +118,7 @@ function ScheduleEditor(props: ScheduleEditorProps) {
         title: "Edit a Schedule",
       }}
     >
-      {(modalProps: ComposedModalChildProps) => (
+      {(modalProps) => (
         <ScheduleManagerForm
           handleSubmit={handleSubmit}
           isError={editScheduleMutation.isError}

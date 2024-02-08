@@ -1,5 +1,3 @@
-import React from "react";
-import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import {
   ComposedModal,
   Loading,
@@ -7,11 +5,13 @@ import {
   notify,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { useMutation, useQuery } from "react-query";
-import { resolver, serviceUrl } from "Config/servicesConfig";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { Reset } from "@carbon/react/icons";
-import { ModalTriggerProps, FlowTeam, ComposedModalChildProps } from "Types";
+import React from "react";
+import { useMutation, useQuery } from "react-query";
 import styles from "./RestoreDefaults.module.scss";
+import { resolver, serviceUrl } from "Config/servicesConfig";
+import { ModalTriggerProps, FlowTeam } from "Types";
 
 interface RestoreDefaultsProps {
   team: FlowTeam;
@@ -34,9 +34,7 @@ const RestoreDefaults: React.FC<RestoreDefaultsProps> = ({ team, disabled }) => 
         </Button>
       )}
     >
-      {({ closeModal }: ComposedModalChildProps) => (
-        <RestoreModalContent closeModal={closeModal} teamName={team.name} />
-      )}
+      {({ closeModal }) => <RestoreModalContent closeModal={closeModal} teamName={team.name} />}
     </ComposedModal>
   );
 };
@@ -63,7 +61,7 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({ closeModal, teamNa
           kind="success"
           title="Restore Default Quotas"
           subtitle="Successfully restored default quotas"
-        />
+        />,
       );
     } catch {
       notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to restore default quotas" />);

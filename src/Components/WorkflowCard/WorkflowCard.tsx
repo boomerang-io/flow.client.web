@@ -1,9 +1,3 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useFeature } from "flagged";
-import { useMutation, useQueryClient } from "react-query";
-import { Link, useHistory } from "react-router-dom";
-import { Button, InlineLoading, OverflowMenu, OverflowMenuItem } from "@carbon/react";
 import {
   ConfirmModal,
   ComposedModal,
@@ -11,30 +5,29 @@ import {
   notify,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, InlineLoading, OverflowMenu, OverflowMenuItem } from "@carbon/react";
+import { Run, Bee, CircleFill, CircleStroke, WarningAlt } from "@carbon/react/icons";
+import React, { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import { Link, useHistory } from "react-router-dom";
+import { formatErrorMessage } from "@boomerang-io/utils";
+import workflowIcons from "Assets/workflowIcons";
+import axios from "axios";
+import { useFeature } from "flagged";
+import fileDownload from "js-file-download";
+import cloneDeep from "lodash/cloneDeep";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
+// @ts-ignore:next-line
+import { swapValue } from "Utils";
 import UpdateWorkflow from "./UpdateWorkflow";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
-import cloneDeep from "lodash/cloneDeep";
-import fileDownload from "js-file-download";
-import { formatErrorMessage } from "@boomerang-io/utils";
+import styles from "./workflowCard.module.scss";
 import { appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
-import { Run, Bee, CircleFill, CircleStroke, WarningAlt } from "@carbon/react/icons";
-import workflowIcons from "Assets/workflowIcons";
 import { WorkflowView } from "Constants";
-import {
-  ComposedModalChildProps,
-  FlowTeamQuotas,
-  ModalTriggerProps,
-  Workflow,
-  WorkflowViewType,
-  DataDrivenInput,
-} from "Types";
-// @ts-ignore:next-line
-import { swapValue } from "Utils";
-import styles from "./workflowCard.module.scss";
+import { FlowTeamQuotas, ModalTriggerProps, Workflow, WorkflowViewType, DataDrivenInput } from "Types";
 
 interface WorkflowCardProps {
   teamName: string;
@@ -284,7 +277,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
               </Button>
             )}
           >
-            {({ closeModal }: ComposedModalChildProps) => (
+            {({ closeModal }) => (
               <WorkflowInputModalContent
                 closeModal={closeModal}
                 executeError={executeError}
@@ -314,7 +307,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
               </Button>
             )}
           >
-            {({ closeModal }: ComposedModalChildProps) => (
+            {({ closeModal }) => (
               <WorkflowRunModalContent
                 closeModal={closeModal}
                 executeError={executeError}

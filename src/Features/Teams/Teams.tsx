@@ -1,11 +1,3 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import { useQuery } from "Hooks";
-import { useFeature } from "flagged";
-import { useHistory, useLocation } from "react-router-dom";
-import { Box } from "reflexbox";
-import { Button, DataTable, DataTableSkeleton, Pagination, Search } from "@carbon/react";
-import { CheckmarkFilled, Misuse } from "@carbon/react/icons";
 import {
   ComposedModal,
   ErrorMessage,
@@ -13,16 +5,24 @@ import {
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import EmptyState from "Components/EmptyState";
-import moment from "moment";
-import TeamCreateContent from "Components/TeamCardCreate/TeamCreateContent";
-import debounce from "lodash/debounce";
-import queryString from "query-string";
+import { Button, DataTable, DataTableSkeleton, Pagination, Search } from "@carbon/react";
+import { CheckmarkFilled, Misuse } from "@carbon/react/icons";
+import React from "react";
+import { Helmet } from "react-helmet";
+import { useHistory, useLocation } from "react-router-dom";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
+import { useFeature } from "flagged";
+import debounce from "lodash/debounce";
+import moment from "moment";
+import queryString from "query-string";
+import { Box } from "reflexbox";
+import EmptyState from "Components/EmptyState";
+import TeamCreateContent from "Components/TeamCardCreate/TeamCreateContent";
+import { useQuery } from "Hooks";
+import styles from "./Teams.module.scss";
 import { appLink, queryStringOptions, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { ComposedModalChildProps, FlowTeam, ModalTriggerProps, PaginatedTeamResponse } from "Types";
-import styles from "./Teams.module.scss";
+import { FlowTeam, ModalTriggerProps, PaginatedTeamResponse } from "Types";
 
 interface FeatureLayoutProps {
   handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -171,7 +171,7 @@ const TeamList: React.FC = () => {
             </Button>
           )}
         >
-          {({ closeModal }: ComposedModalChildProps) => {
+          {({ closeModal }) => {
             return <TeamCreateContent closeModal={closeModal} />;
           }}
         </ComposedModal>
@@ -273,8 +273,7 @@ function TeamListTable(props: TeamListTableProps) {
                     className={styles.tableRow}
                     key={row.id}
                     data-testid="team-list-table-row"
-                    onClick={() => 
-                      props.handleNavigateToTeam(row.id)}
+                    onClick={() => props.handleNavigateToTeam(row.id)}
                     onKeyDown={(e: React.SyntheticEvent) =>
                       isAccessibleKeyboardEvent(e) && props.handleNavigateToTeam(row.id)
                     }

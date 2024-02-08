@@ -1,9 +1,9 @@
-import React from "react";
-import { Button } from "@carbon/react";
 import { ComposedModal, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
-import TemplateConfigModalContent from "./TemplateConfigModalContent";
+import { Button } from "@carbon/react";
 import { Add, Edit } from "@carbon/react/icons";
-import { ComposedModalChildProps, ResultParameter, ModalTriggerProps } from "Types";
+import React from "react";
+import TemplateConfigModalContent from "./TemplateConfigModalContent";
+import { ResultParameter, ModalTriggerProps } from "Types";
 
 interface TemplateParametersModalProps {
   result: ResultParameter;
@@ -58,7 +58,7 @@ const TemplateParametersModal: React.FC<TemplateParametersModalProps> = (props) 
       }}
       modalTrigger={editTrigger}
     >
-      {({ closeModal, forceCloseModal }: ComposedModalChildProps) => (
+      {({ closeModal, forceCloseModal }) => (
         <TemplateConfigModalContent
           result={props.result}
           resultKeys={props.resultKeys}

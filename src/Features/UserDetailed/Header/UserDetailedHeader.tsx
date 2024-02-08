@@ -1,7 +1,3 @@
-import React from "react";
-import moment from "moment";
-import { Link, useLocation } from "react-router-dom";
-import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
 import {
   Avatar,
   ComposedModal,
@@ -10,14 +6,18 @@ import {
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Breadcrumb, BreadcrumbItem, Button } from "@carbon/react";
+import { Checkmark, Close, User } from "@carbon/react/icons";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import moment from "moment";
+import { emailIsValid } from "Utils";
 import ChangeRole from "./ChangeRole";
-import { UserRoleCopy } from "Constants";
+import styles from "./UserDetailedHeader.module.scss";
 import { appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { emailIsValid } from "Utils";
-import { ComposedModalChildProps, FlowUser } from "Types";
-import { Checkmark, Close, User } from "@carbon/react/icons";
-import styles from "./UserDetailedHeader.module.scss";
+import { UserRoleCopy } from "Constants";
+import { FlowUser } from "Types";
 
 interface UserDetailedHeaderProps {
   isError?: boolean;
@@ -79,7 +79,7 @@ function UserDetailedHeader({ isError, isLoading, user, userManagementEnabled }:
               subtitle: `Set ${user?.name ?? "user"}'s role in Flow. Admins can do more things.`,
             }}
           >
-            {({ closeModal }: ComposedModalChildProps) => {
+            {({ closeModal }) => {
               return <ChangeRole closeModal={closeModal} user={user} />;
             }}
           </ComposedModal>

@@ -1,15 +1,72 @@
-import HomeBanner from "Components/HomeBanner";
-import TeamCard from "Components/TeamCard";
-import LearnCard from "Components/LearnCard";
-import cx from "classnames";
+import { notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Gear, PlanningAnalytics, PlayerFlow, Workflows } from "@carbon/pictograms-react";
 import { Layer } from "@carbon/react";
-import { Workflows, PlanningAnalytics, PlayerFlow, Gear } from "@carbon/pictograms-react";
-import { useAppContext } from "Hooks";
+import React from "react";
+import { useMutation, useQueryClient } from "react-query";
+import { useHistory, useLocation } from "react-router-dom";
+import { formatErrorMessage } from "@boomerang-io/utils";
+import cx from "classnames";
+import kebabcase from "lodash/kebabCase";
+import queryString from "query-string";
+import HomeBanner from "Components/HomeBanner";
+import LearnCard from "Components/LearnCard";
+import TeamCard from "Components/TeamCard";
 import TeamCardCreate from "Components/TeamCardCreate";
+import { useAppContext } from "Hooks";
 import styles from "./home.module.scss";
+import { resolver, serviceUrl } from "Config/servicesConfig";
+import { MemberRole } from "Types";
 
 export default function Home() {
   const { teams, name, user } = useAppContext();
+  const queryClient = useQueryClient();
+  const location = useLocation();
+  const history = useHistory();
+  const { action, teamName } = queryString.parse(location.search);
+
+  const createTeamMutator = useMutation(resolver.postTeam);
+
+  const createTeam = async (values: { name: string | undefined }, success_fn?: (...args: any) => any) => {
+    try {
+      await createTeamMutator.mutateAsync({
+        body: {
+          name: kebabcase(values.name?.replace(`'`, "-")),
+          displayName: values.name,
+          members: [
+            {
+              email: user.email,
+              role: MemberRole.Owner,
+            },
+          ],
+        },
+      });
+      queryClient.invalidateQueries(serviceUrl.getUserProfile());
+      notify(<ToastNotification kind="success" title="Create Team" subtitle="Team created successfully" />);
+      if (typeof success_fn === "function") {
+        success_fn();
+      }
+    } catch (error) {
+      const errorMessages = formatErrorMessage({
+        error: error,
+      });
+      notify(<ToastNotification kind="error" title={"Something went wrong"} subtitle={errorMessages.message} />);
+    }
+  };
+
+  // Only run this once if we have a team
+  React.useEffect(function createTeamOnLoad() {
+    if (action === "create-team" && typeof teamName === "string" && Boolean(teamName)) {
+      async function runCreateTeam() {
+        await createTeam({ name: teamName as string }, () =>
+          history.replace({ pathname: location.pathname, search: "" }),
+        );
+      }
+
+      runCreateTeam();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <HomeBanner name={name} />
@@ -21,7 +78,11 @@ export default function Home() {
           <Section title="Your Teams">
             <nav className={styles.sectionLinks}>
               {teams ? teams?.map((team) => <TeamCard key={team.name} team={team} />) : null}
-              <TeamCardCreate teams={teams} />
+              <TeamCardCreate
+                createTeam={createTeam}
+                isError={createTeamMutator.isError}
+                isLoading={createTeamMutator.isLoading}
+              />
             </nav>
           </Section>
         </Layer>

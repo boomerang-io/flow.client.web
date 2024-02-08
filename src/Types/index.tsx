@@ -130,11 +130,6 @@ export interface ModalTriggerProps {
   openModal(): void;
 }
 
-export interface ComposedModalChildProps {
-  closeModal(): void;
-  forceCloseModal(): void;
-}
-
 export interface FormikSetFieldValue {
   (id: string, value: string | Array<string> | boolean | undefined): void;
 }

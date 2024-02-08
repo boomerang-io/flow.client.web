@@ -1,6 +1,3 @@
-import React from "react";
-import { useQueryClient, useMutation } from "react-query";
-import ReactMarkdown from "react-markdown";
 import {
   ComposedModal,
   Loading,
@@ -8,17 +5,15 @@ import {
   notify,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import {
-  Button,
-  InlineNotification,
-  ModalBody,
-  ModalFooter
-} from "@carbon/react";
-import EmptyGraphic from "Components/EmptyState/EmptyGraphic";
-import { resolver } from "Config/servicesConfig";
-import { Action, ApprovalStatus, ComposedModalChildProps, ModalTriggerProps } from "Types";
-import styles from "./ManualTask.module.scss";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
+import React from "react";
+import ReactMarkdown from "react-markdown";
+import { useQueryClient, useMutation } from "react-query";
 import "Styles/markdown.css";
+import EmptyGraphic from "Components/EmptyState/EmptyGraphic";
+import styles from "./ManualTask.module.scss";
+import { resolver } from "Config/servicesConfig";
+import { Action, ApprovalStatus, ModalTriggerProps } from "Types";
 
 type ManualTaskProps = {
   action: Action;
@@ -28,7 +23,6 @@ type ManualTaskProps = {
 };
 
 function ManualTask({ action, handleCloseModal, modalTrigger, queryToRefetch }: ManualTaskProps) {
-
   return (
     <ComposedModal
       modalTrigger={modalTrigger}
@@ -41,9 +35,7 @@ function ManualTask({ action, handleCloseModal, modalTrigger, queryToRefetch }: 
         handleCloseModal && handleCloseModal();
       }}
     >
-      {(props: ComposedModalChildProps) => (
-        <Form action={action} queryToRefetch={queryToRefetch} {...props} />
-      )}
+      {(props) => <Form action={action} queryToRefetch={queryToRefetch} {...props} />}
     </ComposedModal>
   );
 }
@@ -58,13 +50,15 @@ function Form({ action, closeModal, queryToRefetch }: FormProps) {
   const queryClient = useQueryClient();
   const { id, instructions, status } = action ?? {};
 
-  const { mutateAsync: approvalMutator, isLoading: approvalsIsLoading, error: approvalsError } = useMutation(resolver.putWorkflowAction,
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(queryToRefetch);
-      },
-    }
-  );
+  const {
+    mutateAsync: approvalMutator,
+    isLoading: approvalsIsLoading,
+    error: approvalsError,
+  } = useMutation(resolver.putWorkflowAction, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryToRefetch);
+    },
+  });
 
   const handleSubmit = async (isApproved: boolean) => {
     const body = {
@@ -78,7 +72,7 @@ function Form({ action, closeModal, queryToRefetch }: FormProps) {
           kind="success"
           title="Manual Task"
           subtitle="Successfully submitted manual task completion request"
-        />
+        />,
       );
       closeModal();
     } catch (err) {

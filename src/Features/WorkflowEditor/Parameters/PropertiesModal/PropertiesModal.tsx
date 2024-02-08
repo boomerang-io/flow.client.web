@@ -1,10 +1,10 @@
-import React from "react";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import WorkflowEditButton from "./WorkflowEditButton";
-import PropertiesModalContent from "./PropertiesModalContent";
 import { Add } from "@carbon/react/icons";
-import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps, WorkflowPropertyActionType } from "Types";
+import React from "react";
 import styles from "./PropertiesModal.module.scss";
+import PropertiesModalContent from "./PropertiesModalContent";
+import WorkflowEditButton from "./WorkflowEditButton";
+import { DataDrivenInput, ModalTriggerProps, WorkflowPropertyActionType } from "Types";
 
 interface PropertiesModalProps {
   isEdit: boolean;
@@ -38,7 +38,7 @@ function PropertiesModal(props: PropertiesModalProps) {
         );
       }}
     >
-      {({ closeModal }: ComposedModalChildProps) => {
+      {({ closeModal }) => {
         return <PropertiesModalContent closeModal={closeModal} {...props} />;
       }}
     </ComposedModal>

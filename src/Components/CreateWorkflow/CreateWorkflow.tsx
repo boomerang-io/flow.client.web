@@ -1,24 +1,18 @@
+import { ComposedModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Add } from "@carbon/react/icons";
 import React from "react";
-import { useFeature } from "flagged";
 import { useMutation, useQueryClient } from "react-query";
 import { useHistory } from "react-router-dom";
-import { ComposedModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { formatErrorMessage } from "@boomerang-io/utils";
+import { useFeature } from "flagged";
 import CreateWorkflowContainer from "./CreateWorkflowContainer";
+import styles from "./createWorkflow.module.scss";
 import { appLink } from "Config/appConfig";
+import { FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { WorkflowView } from "Constants";
-import { formatErrorMessage } from "@boomerang-io/utils";
-import { Add } from "@carbon/react/icons";
-import {
-  FlowTeam,
-  ComposedModalChildProps,
-  ModalTriggerProps,
-  CreateWorkflowSummary,
-  Workflow,
-  WorkflowViewType,
-} from "Types";
-import { FeatureFlag } from "Config/appConfig";
-import styles from "./createWorkflow.module.scss";
+import { FlowTeam, ModalTriggerProps, CreateWorkflowSummary, Workflow, WorkflowViewType } from "Types";
+
 interface CreateWorkflowProps {
   team?: FlowTeam;
   hasReachedWorkflowLimit: boolean;
@@ -42,7 +36,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       const workflowId = newWorkflow.id;
       history.push(appLink.editorCanvas({ team: team?.name!, workflowId: workflowId }));
       notify(
-        <ToastNotification kind="success" title={`Create ${viewType}`} subtitle={`${viewType} successfully created`} />
+        <ToastNotification kind="success" title={`Create ${viewType}`} subtitle={`${viewType} successfully created`} />,
       );
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
@@ -66,7 +60,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       });
       history.push(appLink.editorCanvas({ team: team?.name!, workflowId: newWorkflow.id }));
       notify(
-        <ToastNotification kind="success" title={`Update ${viewType}`} subtitle={`${viewType} successfully updated`} />
+        <ToastNotification kind="success" title={`Update ${viewType}`} subtitle={`${viewType} successfully updated`} />,
       );
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
@@ -117,7 +111,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
         subtitle: "Get started with these basics, then proceed to designing it out.",
       }}
     >
-      {({ closeModal }: ComposedModalChildProps) => (
+      {({ closeModal }) => (
         <CreateWorkflowContainer
           closeModal={closeModal}
           createError={createWorkflowMutator.error}

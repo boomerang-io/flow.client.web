@@ -1,10 +1,10 @@
-import React from "react";
-import { Button, ModalBody } from "@carbon/react";
 import { ComposedModal, DynamicFormik, ModalForm, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody } from "@carbon/react";
+import { View } from "@carbon/react/icons";
+import React from "react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
-import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Types";
-import { View } from "@carbon/react/icons";
+import { DataDrivenInput, ModalTriggerProps } from "Types";
 
 const modalHeadertext =
   "This is a preview of what the user sees when editing this Task. The user can also give this task a custom name for their Workflow, and can adjust its connected tasks. You can type in these fields to test any validation requirements.";
@@ -88,9 +88,7 @@ const PreviewConfig: React.FC<PreivewConfigProps> = ({ templateConfig, taskTempl
         </TooltipHover>
       )}
     >
-      {({ closeModal }: ComposedModalChildProps) => (
-        <PreviewConfigForm templateConfig={templateConfig} closeModal={closeModal} />
-      )}
+      {({ closeModal }) => <PreviewConfigForm templateConfig={templateConfig} closeModal={closeModal} />}
     </ComposedModal>
   );
 };

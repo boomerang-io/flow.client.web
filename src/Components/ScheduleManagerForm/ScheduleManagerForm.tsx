@@ -1,5 +1,3 @@
-import React from "react";
-import { Button, InlineNotification, ModalBody, ModalFooter, RadioButtonGroup, RadioButton } from "@carbon/react";
 import {
   Creatable,
   CheckboxList,
@@ -10,30 +8,25 @@ import {
   TextArea,
   TextInput,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, InlineNotification, ModalBody, ModalFooter, RadioButtonGroup, RadioButton } from "@carbon/react";
+import React from "react";
 import axios from "axios";
 import cronstrue from "cronstrue";
 import moment from "moment-timezone";
 import * as Yup from "yup";
 import { cronToDateTime, daysOfWeekCronList } from "Utils/cronHelper";
 import { DATETIME_LOCAL_INPUT_FORMAT, defaultTimeZone, timezoneOptions, transformTimeZone } from "Utils/dateHelper";
-import { scheduleTypeLabelMap } from "Constants";
-import {
-  ComposedModalChildProps,
-  DataDrivenInput,
-  DayOfWeekKey,
-  ScheduleManagerFormInputs,
-  ScheduleUnion,
-  Workflow,
-} from "Types";
-import { serviceUrl } from "Config/servicesConfig";
 import styles from "./ScheduleManagerForm.module.scss";
+import { serviceUrl } from "Config/servicesConfig";
+import { scheduleTypeLabelMap } from "Constants";
+import { DataDrivenInput, DayOfWeekKey, ScheduleManagerFormInputs, ScheduleUnion, Workflow } from "Types";
 
 interface CreateEditFormProps {
   handleSubmit: (args: ScheduleManagerFormInputs) => void;
   includeWorkflowDropdown?: boolean;
   isError: boolean;
   isLoading: boolean;
-  modalProps: ComposedModalChildProps;
+  modalProps;
   schedule?: ScheduleUnion;
   type: "create" | "edit";
   workflow?: Workflow;
@@ -42,7 +35,7 @@ interface CreateEditFormProps {
 
 export default function CreateEditForm(props: CreateEditFormProps) {
   const [workflowProperties, setWorkflowProperties] = React.useState<Array<DataDrivenInput> | undefined>(
-    props.workflow?.config.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
+    props.workflow?.config.map((property) => ({ ...property, key: `$parameter:${property.key}` })),
   );
   let initFormValues: Partial<ScheduleManagerFormInputs> = {
     id: props.schedule?.id,
@@ -193,7 +186,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                   formikProps.setFieldValue("workflow", selectedItem);
                   if (selectedItem?.id) {
                     setWorkflowProperties(
-                      selectedItem.config?.map((property) => ({ ...property, key: `$parameter:${property.key}` }))
+                      selectedItem.config?.map((property) => ({ ...property, key: `$parameter:${property.key}` })),
                     );
                   }
                 }}

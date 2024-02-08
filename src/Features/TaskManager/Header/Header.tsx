@@ -1,4 +1,3 @@
-import React from "react";
 import {
   ComposedModal,
   ConfirmModal,
@@ -11,17 +10,18 @@ import {
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, Tag, ModalBody, ModalFooter, InlineNotification } from "@carbon/react";
+import { Bee, Download, Save, Archive, Copy, Reset, ViewOff, Recommend, Identification } from "@carbon/react/icons";
+import React from "react";
 import { useParams } from "react-router-dom";
-import VersionHistory from "Components/VersionHistory";
-import VersionSwitcher from "./VersionSwitcher";
+import { FormikProps } from "formik";
 import moment from "moment";
-import { appLink } from "Config/appConfig";
+import VersionHistory from "Components/VersionHistory";
 import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
-import { Bee, Download, Save, Archive, Copy, Reset, ViewOff, Recommend, Identification } from "@carbon/react/icons";
-import { FormikProps } from "formik";
-import { ComposedModalChildProps, ModalTriggerProps, TaskTemplate, ChangeLog } from "Types";
+import VersionSwitcher from "./VersionSwitcher";
 import styles from "./header.module.scss";
+import { appLink } from "Config/appConfig";
+import { ModalTriggerProps, TaskTemplate, ChangeLog } from "Types";
 
 const ArchiveText: React.FC = () => (
   <>
@@ -89,7 +89,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ formikProps, handleSubmit, isLoad
         </TooltipHover>
       )}
     >
-      {({ closeModal }: ComposedModalChildProps) => {
+      {({ closeModal }) => {
         return (
           <ModalFlowForm>
             {isLoading && <Loading />}

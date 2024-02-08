@@ -1,24 +1,24 @@
-import React from "react";
-import { useFeature } from "flagged";
-import { useHistory, useLocation } from "react-router-dom";
-import { useQuery } from "react-query";
-import { Button } from "@carbon/react";
 import { ComposedModal, Error, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button } from "@carbon/react";
 import { WarningAlt } from "@carbon/react/icons";
-import queryString from "query-string";
+import React from "react";
+import { useQuery } from "react-query";
+import { useHistory, useLocation } from "react-router-dom";
+import { useFeature } from "flagged";
 import { matchSorter } from "match-sorter";
+import queryString from "query-string";
 import CreateWorkflow from "Components/CreateWorkflow";
 import EmptyState from "Components/EmptyState";
 import WorkflowCard from "Components/WorkflowCard";
 import { WorkflowCardSkeleton } from "Components/WorkflowCard";
 import WorkflowsHeader from "Components/WorkflowsHeader";
-import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
-import { WorkflowView } from "Constants";
 import { useTeamContext } from "Hooks";
+import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
+import styles from "./workflows.module.scss";
 import { FeatureFlag, appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { FlowTeam, ModalTriggerProps, ComposedModalChildProps, PaginatedWorkflowResponse, Workflow } from "Types";
-import styles from "./workflows.module.scss";
+import { WorkflowView } from "Constants";
+import { FlowTeam, ModalTriggerProps, PaginatedWorkflowResponse, Workflow } from "Types";
 
 export default function Workflows() {
   const { team } = useTeamContext();
@@ -172,9 +172,7 @@ const WorkflowContent: React.FC<WorkflowContentProps> = ({ team, searchQuery, wo
                 </Button>
               )}
             >
-              {({ closeModal }: ComposedModalChildProps) => (
-                <WorkflowQuotaModalContent closeModal={closeModal} quotas={team.quotas} />
-              )}
+              {({ closeModal }) => <WorkflowQuotaModalContent closeModal={closeModal} quotas={team.quotas} />}
             </ComposedModal>
           </div>
         ) : null}

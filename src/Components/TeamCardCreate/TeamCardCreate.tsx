@@ -1,11 +1,16 @@
-import React from "react";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ComposedModalChildProps, ModalTriggerProps } from "Types";
-import TeamCreateContent from "./TeamCreateContent";
 import { Add } from "@carbon/react/icons";
+import TeamCreateContent from "./TeamCreateContent";
 import styles from "./teamCardCreate.module.scss";
+import { ModalTriggerProps } from "Types";
 
-function TeamCard() {
+interface TeamCardProps {
+  createTeam: (values: { name: string | undefined }) => void;
+  isError: boolean;
+  isLoading: boolean;
+}
+
+function TeamCard(props: TeamCardProps) {
   return (
     <div className={styles.container}>
       <ComposedModal
@@ -21,8 +26,15 @@ function TeamCard() {
           </button>
         )}
       >
-        {({ closeModal }: ComposedModalChildProps) => {
-          return <TeamCreateContent closeModal={closeModal} />;
+        {({ closeModal }) => {
+          return (
+            <TeamCreateContent
+              closeModal={closeModal}
+              createTeam={props.createTeam}
+              isError={props.isError}
+              isLoading={props.isLoading}
+            />
+          );
         }}
       </ComposedModal>
     </div>

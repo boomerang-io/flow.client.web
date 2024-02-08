@@ -1,14 +1,14 @@
 //@ts-nocheck
+import { TooltipHover, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Tile, Button, InlineNotification } from "@carbon/react";
+import { Edit } from "@carbon/react/icons";
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Tile, Button, InlineNotification } from "@carbon/react";
-import { TooltipHover, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ComposedModalChildProps, ModalTriggerProps, FlowTeam } from "Types";
-import { Edit } from "@carbon/react/icons";
 import ProgressBar from "Components/ProgressBar";
-import RestoreDefaults from "./RestoreDefaults";
 import QuotaEditModalContent from "./QuotaEditModalContent";
 import styles from "./Quotas.module.scss";
+import RestoreDefaults from "./RestoreDefaults";
+import { ModalTriggerProps, FlowTeam } from "Types";
 
 function Quotas({ team, canEdit, teamDetailsUrl }: { team: FlowTeam; canEdit: boolean; teamDetailsUrl: string }) {
   let workflowLimitPercentage = (team.quotas.currentWorkflowCount / team.quotas.maxWorkflowCount) * 100;
@@ -216,7 +216,7 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
             </TooltipHover>
           )}
         >
-          {({ closeModal }: ComposedModalChildProps) => (
+          {({ closeModal }) => (
             <QuotaEditModalContent
               closeModal={closeModal}
               detailedData={detailedData}

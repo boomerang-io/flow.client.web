@@ -1,14 +1,14 @@
+import { ComposedModal, ToastNotification, notify, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { InlineLoading } from "@carbon/react";
+import { CircleFill, CircleStroke, Popup } from "@carbon/react/icons";
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
-import { InlineLoading } from "@carbon/react";
-import { ComposedModal, ToastNotification, notify, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
-import ModalContent from "./ModalContent";
 import { formatErrorMessage } from "@boomerang-io/utils";
-import { resolver } from "Config/servicesConfig";
-import { CircleFill, CircleStroke, Popup } from "@carbon/react/icons";
-import { ComposedModalChildProps, ModalTriggerProps } from "Types";
+import ModalContent from "./ModalContent";
 import styles from "./integrationCard.module.scss";
+import { resolver } from "Config/servicesConfig";
+import { ModalTriggerProps } from "Types";
 
 interface IntegrationCardProps {
   teamName: string;
@@ -133,7 +133,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
         </Link>
       )}
     >
-      {({ closeModal }: ComposedModalChildProps) => (
+      {({ closeModal }) => (
         <ModalContent
           closeModal={closeModal}
           error={unlinkIntegrationMutator.error}
@@ -160,7 +160,7 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({ teamName, data, url }
               </Button>
             )}
           >
-            {({ closeModal }: ComposedModalChildProps) => (
+            {({ closeModal }) => (
               <WorkflowInputModalContent
                 closeModal={closeModal}
                 executeError={executeError}

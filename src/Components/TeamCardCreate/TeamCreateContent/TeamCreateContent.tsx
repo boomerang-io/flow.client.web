@@ -1,47 +1,27 @@
-import React from "react";
-import { useQueryClient, useMutation } from "react-query";
-import { useAppContext } from "Hooks";
-import { Formik } from "formik";
+import { ModalForm, TextInput, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
-import { notify, ToastNotification, ModalForm, TextInput, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
-import { resolver, serviceUrl } from "Config/servicesConfig";
-import { MemberRole } from "Types";
+import React from "react";
+import { useMutation } from "react-query";
+import { Formik } from "formik";
 import kebabcase from "lodash/kebabCase";
 import * as Yup from "yup";
 import styles from "./TeamCreateContent.module.scss";
+import { resolver } from "Config/servicesConfig";
 
-export default function TeamCreateContent({ closeModal }: { closeModal: () => void }) {
-  const { user } = useAppContext();
-  const queryClient = useQueryClient();
+interface TeamCreateContentProps {
+  closeModal: () => void;
+  createTeam: (values: { name: string | undefined }) => void;
+  isLoading: boolean;
+  isError: boolean;
+}
+
+export default function TeamCreateContent({ closeModal, createTeam, isLoading, isError }: TeamCreateContentProps) {
   const validateTeamNameMutator = useMutation(resolver.postTeamValidateName);
-  const createTeamMutator = useMutation(resolver.postTeam);
-
-  const createTeam = async (values: { name: string | undefined }) => {
-    try {
-      await createTeamMutator.mutateAsync({
-        body: {
-          name: kebabcase(values.name?.replace(`'`, "-")),
-          displayName: values.name,
-          members: [
-            {
-              email: user.email,
-              role: MemberRole.Owner,
-            },
-          ],
-        },
-      });
-      queryClient.invalidateQueries(serviceUrl.getUserProfile());
-      notify(<ToastNotification kind="success" title="Create Team" subtitle="Team created successfully" />);
-      closeModal();
-    } catch (error) {
-      notify(<ToastNotification kind="error" subtitle="Failed to create team" title="Something's Wrong" />);
-    }
-  };
 
   let buttonText = "Create";
-  if (createTeamMutator.isLoading) {
+  if (isLoading) {
     buttonText = "Creating...";
-  } else if (createTeamMutator.error) {
+  } else if (isError) {
     buttonText = "Try again";
   } else if (validateTeamNameMutator.isLoading) {
     buttonText = "Validating...";
@@ -78,7 +58,7 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
           <ModalForm>
             <ModalBody>
               <div className={styles.modalInputContainer}>
-                {createTeamMutator.isLoading && <Loading />}
+                {isLoading && <Loading />}
                 <TextInput
                   id="team-update-name-id"
                   data-testid="text-input-team-name"
@@ -95,7 +75,7 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
                       : errors.name
                   }
                 />
-                {createTeamMutator.error && (
+                {isError && (
                   <InlineNotification
                     lowContrast
                     kind="error"
@@ -120,12 +100,7 @@ export default function TeamCreateContent({ closeModal }: { closeModal: () => vo
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
-              {/* @ts-ignore */}
-              <Button
-                disabled={!dirty || errors.name || createTeamMutator.isLoading}
-                onClick={handleSubmit}
-                data-testid="save-team-name"
-              >
+              <Button disabled={!dirty || errors.name || isError} onClick={handleSubmit} data-testid="save-team-name">
                 {buttonText}
               </Button>
             </ModalFooter>
