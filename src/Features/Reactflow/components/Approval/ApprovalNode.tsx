@@ -1,9 +1,9 @@
 import React from "react";
-import { TemplateNode } from "../Template";
 import { useEditorContext } from "Hooks";
+import { useTeamContext } from "Hooks";
+import { TemplateNode } from "../Template";
 import { WorkflowEngineMode } from "Constants";
 import { DataDrivenInput, WorkflowNodeProps } from "Types";
-import { useTeamContext } from "Hooks";
 
 export default function ApprovalNode(props: WorkflowNodeProps) {
   const { mode } = useEditorContext();
@@ -16,6 +16,7 @@ export default function ApprovalNode(props: WorkflowNodeProps) {
 
 function ApprovalNodeDesigner(props: WorkflowNodeProps) {
   const { team } = useTeamContext();
+  console.log({ team });
 
   const taskFormInputs: Array<Partial<DataDrivenInput>> =
     team.approverGroups && team.approverGroups.length > 0

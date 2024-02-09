@@ -8,8 +8,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { ThumbsUp, ThumbsDown } from "@carbon/react/icons";
-import React from "react";
-import { useQueryClient, useMutation, useQuery } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styles from "./taskApprovalModal.module.scss";
@@ -18,14 +17,15 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 const GateStatus = {
   Approved: "APPROVED",
   Rejected: "REJECTED",
-};
+} as const;
 
 type Props = {
-  runId: string;
+  actionId?: string;
   closeModal: () => void;
+  runId: string;
 };
 
-function TaskApprovalModal({ runId, closeModal }: Props) {
+function TaskApprovalModal({ actionId, closeModal, runId }: Props) {
   const queryClient = useQueryClient();
 
   const {
@@ -38,19 +38,23 @@ function TaskApprovalModal({ runId, closeModal }: Props) {
     },
   });
 
-  const handleSubmit = async (values: any) => {
-    const body = {
-      id: "", //approvalId,
-      approved: values.status === GateStatus.Approved,
-      comments: values.comment,
-    };
+  const handleSubmit = async (values: { status: string; comment: string }) => {
+    const body = [
+      {
+        id: actionId,
+        approved: values.status === GateStatus.Approved,
+        comments: values.comment,
+      },
+    ];
     try {
       await approvalMutator({ body });
       notify(
         <ToastNotification
           kind="success"
           title="Manual Approval"
-          subtitle={body.approved ? "Successfully submitted approval request" : "Successfully submitted denial request"}
+          subtitle={
+            body[0].approved ? "Successfully submitted approval request" : "Successfully submitted denial request"
+          }
         />,
       );
       closeModal();
@@ -106,14 +110,13 @@ function TaskApprovalModal({ runId, closeModal }: Props) {
                       canUncheck
                       className={styles.decisionButtons}
                       items={buttons}
-                      name={`decision-buttons`}
-                      onChange={(value: string) => setFieldValue(`status`, value)}
+                      name={"decision-buttons"}
+                      onChange={(value: string) => setFieldValue("status", value)}
                       selectedItem={values?.status}
                     />
                   </div>
                 </section>
               )}
-
               {Boolean(approvalsError) && (
                 <InlineNotification
                   style={{ marginBottom: "0.5rem" }}
@@ -129,7 +132,7 @@ function TaskApprovalModal({ runId, closeModal }: Props) {
                 Cancel
               </Button>
               <Button disabled={!isValid || approvalsIsLoading || !isApprovalApprovedOrRejected} type="submit">
-                {!approvalsIsLoading ? "Submit decisions" : "Submitting..."}
+                {!approvalsIsLoading ? "Submit" : "Submitting..."}
               </Button>
             </ModalFooter>
           </ModalForm>

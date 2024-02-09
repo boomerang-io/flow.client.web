@@ -125,7 +125,7 @@ export const serviceUrl = {
   putTaskTemplate: ({ replace, team }) => `${BASE_URL}/tasktemplate?replace=${replace ? replace : "false"}${team ? "&team=" + team : ""}`,
   postTeamQuotasReset: ({ team }: TeamArg) => `${BASE_URL}/teams/${team}/quotas/reset`,
   resourceTeam: ({ team }: TeamArg) => `${BASE_URL}/team/${team}`,
-  putWorkflowAction: () => `${BASE_URL}/action/action`,
+  putWorkflowAction: () => `${BASE_URL}/action`,
   resourceApproverGroups: ({ team, groupId }) =>
     `${BASE_URL}/team/${team}/approvers${groupId ? "/" + groupId : ""}`,
   resourceSettings: () => `${BASE_URL}/settings`,

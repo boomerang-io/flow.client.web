@@ -128,7 +128,13 @@ function TaskItem({ flowActivityId, task, runId }: Props) {
               </Button>
             )}
           >
-            {({ closeModal }) => <TaskApprovalModal runId={runId} closeModal={closeModal} />}
+            {({ closeModal }) => (
+              <TaskApprovalModal
+                actionId={task.results.find((result) => result.name === "actionRef")?.value}
+                closeModal={closeModal}
+                runId={runId}
+              />
+            )}
           </ComposedModal>
         )}
         {status === RunStatus.Waiting && type === NodeType.Manual && (
@@ -146,7 +152,14 @@ function TaskItem({ flowActivityId, task, runId }: Props) {
               </Button>
             )}
           >
-            {({ closeModal }) => <ManualTaskModal runId={runId} closeModal={closeModal} />}
+            {({ closeModal }) => (
+              <ManualTaskModal
+                actionId={task.results.find((result) => result.name === "actionRef")?.value}
+                closeModal={closeModal}
+                instructions={task.params.find((param) => param.name === "instructions")?.value}
+                runId={runId}
+              />
+            )}
           </ComposedModal>
         )}
         {

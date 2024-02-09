@@ -11,7 +11,7 @@ import {
   WorkflowView,
 } from "Constants";
 
-type ObjectValuesToType<T> = T[keyof T];
+export type ObjectValuesToType<T> = T[keyof T];
 
 declare global {
   interface Window {
