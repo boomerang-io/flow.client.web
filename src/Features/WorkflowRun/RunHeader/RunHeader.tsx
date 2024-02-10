@@ -14,8 +14,9 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { useMutation, useQueryClient } from "react-query";
 import { Link, useHistory, useParams } from "react-router-dom";
 import moment from "moment";
-import OutputPropertiesLog from "Features/WorkflowRun/RunTaskLog/RunTaskItem/OutputPropertiesLog";
+import OutputPropertiesLog from "Features/WorkflowRun/TaskRunList/TaskRunItem/OutputPropertiesLog";
 import ErrorModal from "Components/ErrorModal";
+import { useTeamContext } from "Hooks";
 import styles from "./RunHeader.module.scss";
 import { appLink } from "Config/appConfig";
 import { resolver, serviceUrl } from "Config/servicesConfig";
@@ -30,7 +31,7 @@ type Props = {
 const cancelSatusTypes = [RunStatus.NotStarted, RunStatus.Waiting, RunStatus.Cancelled];
 
 export default function ExecutionHeader({ workflow, workflowRun, version }: Props) {
-  const { team } = useParams<{ team: string }>();
+  const { team } = useTeamContext();
   const history = useHistory<{ fromUrl: string; fromText: string }>();
   const state = history.location.state;
   const queryClient = useQueryClient();
@@ -39,7 +40,7 @@ export default function ExecutionHeader({ workflow, workflowRun, version }: Prop
   const displayCancelButton = cancelSatusTypes.includes(status);
 
   const { mutateAsync: deleteCancelWorkflowMutation } = useMutation(resolver.deleteCancelWorkflow, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getWorkflowRun({ runId: id })),
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getWorkflowRun({ id })),
   });
 
   const handleCancelWorkflow = async () => {
@@ -57,7 +58,9 @@ export default function ExecutionHeader({ workflow, workflowRun, version }: Prop
         <div className={styles.headerNav}>
           <Breadcrumb noTrailingSlash>
             <BreadcrumbItem>
-              <Link to={state ? state.fromUrl : appLink.activity({ team })}>{state ? state.fromText : "Activity"}</Link>
+              <Link to={state ? state.fromUrl : appLink.activity({ team: team.name })}>
+                {state ? state.fromText : "Activity"}
+              </Link>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
               {!workflow?.name ? (
@@ -121,7 +124,7 @@ export default function ExecutionHeader({ workflow, workflowRun, version }: Prop
           )}
           <dl className={styles.data}>
             <dt className={styles.dataTitle}>Team</dt>
-            <dd className={styles.dataValue}>{"PUT TEAM HERE" ?? "---"}</dd>
+            <dd className={styles.dataValue}>{team.displayName ?? "---"}</dd>
           </dl>
           <dl className={styles.data}>
             <dt className={styles.dataTitle}>Version</dt>

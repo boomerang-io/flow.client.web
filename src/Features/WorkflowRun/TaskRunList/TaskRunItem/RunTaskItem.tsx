@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import { Link, useParams } from "react-router-dom";
 import moment from "moment";
 import ErrorModal from "Components/ErrorModal";
+import { useTeamContext } from "Hooks";
 import dateHelper from "Utils/dateHelper";
 import ManualTaskModal from "./ManualTaskModal";
 import OutputPropertiesLog from "./OutputPropertiesLog";
@@ -13,114 +14,96 @@ import TaskExecutionLog from "./TaskRunLog";
 import styles from "./runTaskItem.module.scss";
 import { appLink } from "Config/appConfig";
 import { executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
-import { ApprovalStatus, RunStatus, TaskRun } from "Types";
+import { ApprovalStatus, RunStatus, TaskRun, WorkflowRun } from "Types";
 
 const logTaskTypes = ["customtask", "template", "script"];
 const logStatusTypes = [RunStatus.Succeeded, RunStatus.Failed, RunStatus.Running];
 
-// TODO
-
 type Props = {
-  hidden: boolean;
-  flowActivityId: string;
-  task: TaskRun;
-  runId: string;
+  taskRun: TaskRun;
+  workflowRun: WorkflowRun;
 };
 
-function TaskItem({ flowActivityId, task, runId }: Props) {
-  const { team } = useParams<{ team: string }>();
-  const { duration, status, id, results, startTime, name, type } = task;
-  // const Icon = executionStatusIcon[flowTaskStatus];
-  // const statusClassName = styles[flowTaskStatus];
-  let statusClassName;
-  let Icon;
-  let runStatus;
+function RunTaskItem({ taskRun, workflowRun }: Props) {
+  const { team } = useTeamContext();
+  const Icon = executionStatusIcon[taskRun.status];
+  const statusClassName = styles[taskRun.status];
 
-  console.log(status);
-
-  if (type === NodeType.RunWorkflow) {
-    // statusClassName = styles[runWorkflowActivityStatus] ?? styles[status];
-    // Icon = executionStatusIcon[runWorkflowActivityStatus] ?? executionStatusIcon[status];
-    // runStatus = runWorkflowActivityStatus ?? status;
-  } else {
-    statusClassName = styles[status];
-    Icon = executionStatusIcon[status];
-    runStatus = status;
-  }
-  //@ts-ignore
-  const calculatedDuration = Number.parseInt(duration)
-    ? dateHelper.timeMillisecondsToTimeUnit(duration)
-    : dateHelper.durationFromThenToNow(startTime) || "---";
+  const calculatedDuration = taskRun.duration
+    ? dateHelper.timeMillisecondsToTimeUnit(taskRun.duration)
+    : dateHelper.durationFromThenToNow(taskRun.startTime) || "---";
 
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-    <li key={id} id={`task-${id}`} tabIndex={0} className={`${styles.taskitem} ${statusClassName}`}>
+    <li key={taskRun.id} id={`task-${taskRun.id}`} tabIndex={0} className={`${styles.taskitem} ${statusClassName}`}>
       <div className={styles.progressBar} />
       <section className={styles.header}>
         <div className={styles.title}>
-          <Icon aria-label={runStatus} className={styles.taskIcon} />
-          <p title={name} data-testid="taskitem-name">
-            {name}
+          <Icon aria-label={taskRun.status} className={styles.taskIcon} />
+          <p title={taskRun.name} data-testid="taskitem-name">
+            {taskRun.name}
           </p>
         </div>
         <div className={`${styles.status} ${statusClassName}`}>
-          <Icon aria-label={runStatus} className={styles.statusIcon} />
-          <p>{ExecutionStatusCopy[status]}</p>
+          <Icon aria-label={taskRun.status} className={styles.statusIcon} />
+          <p>{ExecutionStatusCopy[taskRun.status]}</p>
         </div>
       </section>
       <section className={styles.data}>
         <div className={styles.time}>
           <p className={styles.timeTitle}>Start time</p>
-          <time className={styles.timeValue}>{startTime ? moment(startTime).format("hh:mm:ss A") : "---"}</time>
+          <time className={styles.timeValue}>
+            {taskRun.startTime ? moment(taskRun.startTime).format("hh:mm:ss A") : "---"}
+          </time>
         </div>
         <div className={styles.time}>
           <p className={styles.timeTitle}>Duration</p>
           <time className={styles.timeValue}>{calculatedDuration}</time>
         </div>
-        {/* {type === NodeType.Decision && (
+        {taskRun.type === NodeType.Decision && (
           <div className={styles.time}>
             <p className={styles.timeTitle}>Value</p>
-            <time className={styles.timeValue}>{switchValue ?? ""}</time>
+            <time className={styles.timeValue}>{taskRun.params ?? ""}</time>
           </div>
-        )} */}
+        )}
       </section>
       <section className={styles.data}>
-        {((status === RunStatus.Cancelled && duration > 0) ||
-          (logTaskTypes.includes(type) && logStatusTypes.includes(runStatus))) && (
-          <TaskExecutionLog taskrunId={task.id} flowTaskName={name} />
+        {((taskRun.status === RunStatus.Cancelled && taskRun.duration > 0) ||
+          (logTaskTypes.includes(taskRun.type) && logStatusTypes.includes(taskRun.status))) && (
+          <TaskExecutionLog taskrunId={taskRun.id} taskName={taskRun.name} />
         )}
-        {/* {results && Object.keys(results).length > 0 && (
+        {taskRun.results && Object.keys(taskRun.results).length > 0 && (
           //@ts-ignore
-          <OutputPropertiesLog flowTaskName={name} flowTaskOutputs={results} />
+          <OutputPropertiesLog flowTaskName={taskRun.name} flowTaskOutputs={results} />
+        )}
+        {taskRun.type === NodeType.RunWorkflow && taskRun.id && workflowRun.workflowRef && (
+          <Link
+            to={appLink.execution({ team: team.name, runId: taskRun.id, workflowId: workflowRun.workflowRef })}
+            className={styles.viewActivityLink}
+          >
+            View Activity
+          </Link>
+        )}
+        {/* {Boolean(taskRun.error?.code) && (
+          <ComposedModal
+            modalHeaderProps={{
+              title: "View Task Error",
+              subtitle: taskRun.name,
+            }}
+            modalTrigger={({ openModal }) => (
+              <Button size="sm" kind="ghost" onClick={openModal}>
+                View Error
+              </Button>
+            )}
+          >
+            {({ closeModal }) => <ErrorModal errorCode={error?.code ?? ""} errorMessage={error?.message ?? ""} />}
+          </ComposedModal>
         )} */}
-        {/* {type === NodeType.RunWorkflow && runWorkflowActivityId && runWorkflowId && (
-            <Link
-              to={appLink.execution({ team, runId: runWorkflowActivityId, workflowId: runWorkflowId })}
-              className={styles.viewActivityLink}
-            >
-              View Activity
-            </Link>
-          )} */}
-        {/* {Boolean(error?.code) && (
-            <ComposedModal
-              modalHeaderProps={{
-                title: "View Task Error",
-                subtitle: name,
-              }}
-              modalTrigger={({ openModal }) => (
-                <Button size="sm" kind="ghost" onClick={openModal}>
-                  View Error
-                </Button>
-              )}
-            >
-              {({ closeModal }) => <ErrorModal errorCode={error?.code ?? ""} errorMessage={error?.message ?? ""} />}
-            </ComposedModal>
-          )} */}
-        {status === RunStatus.Waiting && type === NodeType.Approval && (
+        {taskRun.status === RunStatus.Waiting && taskRun.type === NodeType.Approval && (
           <ComposedModal
             modalHeaderProps={{
               title: "Action Manual Approval",
-              subtitle: name,
+              subtitle: taskRun.name,
             }}
             modalTrigger={({ openModal }) => (
               <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
@@ -130,21 +113,21 @@ function TaskItem({ flowActivityId, task, runId }: Props) {
           >
             {({ closeModal }) => (
               <TaskApprovalModal
-                actionId={task.results.find((result) => result.name === "actionRef")?.value}
+                actionId={taskRun.results.find((result) => result.name === "actionRef")?.value}
                 closeModal={closeModal}
-                runId={runId}
+                workflowRunId={workflowRun.id}
               />
             )}
           </ComposedModal>
         )}
-        {status === RunStatus.Waiting && type === NodeType.Manual && (
+        {taskRun.status === RunStatus.Waiting && taskRun.type === NodeType.Manual && (
           <ComposedModal
             composedModalProps={{
               containerClassName: styles.actionManualTaskModalContainer,
             }}
             modalHeaderProps={{
               title: "Action Manual Task",
-              subtitle: name,
+              subtitle: taskRun.name,
             }}
             modalTrigger={({ openModal }) => (
               <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
@@ -154,10 +137,10 @@ function TaskItem({ flowActivityId, task, runId }: Props) {
           >
             {({ closeModal }) => (
               <ManualTaskModal
-                actionId={task.results.find((result) => result.name === "actionRef")?.value}
+                actionId={taskRun.results.find((result) => result.name === "actionRef")?.value}
                 closeModal={closeModal}
-                instructions={task.params.find((param) => param.name === "instructions")?.value}
-                runId={runId}
+                instructions={taskRun.params.find((param) => param.name === "instructions")?.value}
+                workflowRunId={workflowRun.id}
               />
             )}
           </ComposedModal>
@@ -261,4 +244,4 @@ function TaskItem({ flowActivityId, task, runId }: Props) {
   );
 }
 
-export default TaskItem;
+export default RunTaskItem;

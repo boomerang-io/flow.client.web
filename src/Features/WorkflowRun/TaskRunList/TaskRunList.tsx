@@ -1,22 +1,21 @@
 import { Button } from "@carbon/react";
+import { SkeletonPlaceholder } from "@carbon/react";
 import { ArrowsVertical, ChevronLeft } from "@carbon/react/icons";
 import { useState } from "react";
+import { UseQueryResult } from "react-query";
+import orderBy from "lodash/orderBy";
 import { getSimplifiedDuration } from "Utils/timeHelper";
-import TaskItem from "./RunTaskItem";
-import styles from "./RunTaskLog.module.scss";
+import styles from "./RunTaskList.module.scss";
+import TaskRunItem from "./TaskRunItem";
 import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
-import { WorkflowRun } from "Types";
-
-// import { SkeletonPlaceholder } from "@carbon/react";
-// import { UseQueryResult } from "react-query";
-// import orderBy from "lodash/orderBy";
-// import { QueryStatus } from "Constants";
+import { QueryStatus } from "Constants";
+import { RunStatus, WorkflowRun } from "Types";
 
 type Props = {
   workflowRun: WorkflowRun;
 };
 
-function ExecutionTaskLog({ workflowRun }: Props) {
+function TaskRunLog({ workflowRun }: Props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [tasksSort, setTasksSort] = useState<"desc" | "asc">("desc");
 
@@ -28,32 +27,32 @@ function ExecutionTaskLog({ workflowRun }: Props) {
     setTasksSort(tasksSort === "desc" ? "asc" : "desc");
   };
 
-  // if (workflowRun.status !== Run.Success) {
-  //   return (
-  //     <aside className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
-  //       <section className={styles.statusBlock}>
-  //         <SkeletonPlaceholder className={styles.statusBlockSkeleton} />
-  //       </section>
-  //       <section className={styles.taskbar}>
-  //         <p className={styles.taskbarTitle}>Task log</p>
-  //         {!isCollapsed && (
-  //           <Button
-  //             disabled
-  //             data-testid="taskbar-button"
-  //             iconDescription="Change sort direction (by start time)"
-  //             renderIcon={ArrowsVertical}
-  //             size="sm"
-  //             kind="ghost"
-  //             hasIconOnly
-  //           />
-  //         )}
-  //       </section>
-  //       <ul className={styles.tasklog}>
-  //         <SkeletonPlaceholder className={styles.taskLogSkeleton} />
-  //       </ul>
-  //     </aside>
-  //   );
-  // }
+  if (workflowRun.status === RunStatus.Waiting) {
+    return (
+      <aside className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
+        <section className={styles.statusBlock}>
+          <SkeletonPlaceholder className={styles.statusBlockSkeleton} />
+        </section>
+        <section className={styles.taskbar}>
+          <p className={styles.taskbarTitle}>Task log</p>
+          {!isCollapsed && (
+            <Button
+              disabled
+              data-testid="taskbar-button"
+              iconDescription="Change sort direction (by start time)"
+              renderIcon={ArrowsVertical}
+              size="sm"
+              kind="ghost"
+              hasIconOnly
+            />
+          )}
+        </section>
+        <ul className={styles.tasklog}>
+          <SkeletonPlaceholder className={styles.taskLogSkeleton} />
+        </ul>
+      </aside>
+    );
+  }
 
   const { id, duration, status, tasks } = workflowRun;
   const Icon = executionStatusIcon[status];
@@ -93,12 +92,12 @@ function ExecutionTaskLog({ workflowRun }: Props) {
         )}
       </section>
       <ul className={styles.tasklog}>
-        {tasks.map((task) => (
-          <TaskItem key={task.id} flowActivityId={id} hidden={isCollapsed} task={task} runId={workflowRun.id} />
+        {tasks.map((taskRun) => (
+          <TaskRunItem key={taskRun.id} taskRun={taskRun} workflowRun={workflowRun} />
         ))}
       </ul>
     </aside>
   );
 }
 
-export default ExecutionTaskLog;
+export default TaskRunLog;

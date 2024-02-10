@@ -1,9 +1,9 @@
-import { Server, Serializer, Model, Response } from "miragejs";
 import { inflections } from "inflected";
+import { Server, Serializer, Model, Response } from "miragejs";
 import queryString from "query-string";
 import { v4 as uuid } from "uuid";
-import { serviceUrl, BASE_URL } from "Config/servicesConfig";
 import * as fixtures from "./fixtures";
+import { serviceUrl, BASE_URL } from "Config/servicesConfig";
 
 export function startApiServer({ environment = "test", timing = 0 } = {}) {
   inflections("en", function (inflect) {
@@ -384,7 +384,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.workflowRunCount[0];
       });
 
-      this.get(serviceUrl.getWorkflowRun({ runId: ":id" }), (schema, request) => {
+      this.get(serviceUrl.getWorkflowRun({ id: ":id" }), (schema, request) => {
         return schema.db.workflowExecution[0];
       });
 

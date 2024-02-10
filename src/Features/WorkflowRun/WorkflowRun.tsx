@@ -10,7 +10,7 @@ import ReactFlow from "Features/Reactflow";
 import { useQuery } from "Hooks";
 import { groupTaskTemplatesByName } from "Utils";
 import RunHeader from "./RunHeader";
-import RunTaskLog from "./RunTaskLog";
+import RunTaskLog from "./TaskRunList";
 import WorkflowActions from "./WorkflowActions";
 import styles from "./WorkflowRun.module.scss";
 import { serviceUrl } from "Config/servicesConfig";
@@ -25,7 +25,7 @@ export default function WorkflowRunContainer() {
   const getTaskTemplatesTeamUrl = serviceUrl.getTaskTemplates({
     query: queryString.stringify({ teams: team, statuses: "active" }),
   });
-  const getExecutionUrl = serviceUrl.getWorkflowRun({ runId });
+  const getExecutionUrl = serviceUrl.getWorkflowRun({ id: runId });
 
   /**
    * Queries

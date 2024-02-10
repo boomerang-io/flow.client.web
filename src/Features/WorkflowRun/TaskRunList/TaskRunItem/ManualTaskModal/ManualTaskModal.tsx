@@ -9,12 +9,12 @@ type Props = {
   actionId?: string;
   closeModal: () => void;
   instructions?: string;
-  runId: string;
+  workflowRunId: string;
 };
 
 // TODO: update to load info about the approval
 // Need to get the approval and the instructions
-function TaskApprovalModal({ actionId, closeModal, instructions, runId }: Props) {
+function TaskApprovalModal({ actionId, closeModal, instructions, workflowRunId }: Props) {
   const queryClient = useQueryClient();
 
   const {
@@ -23,7 +23,7 @@ function TaskApprovalModal({ actionId, closeModal, instructions, runId }: Props)
     error: approvalsError,
   } = useMutation(resolver.putWorkflowAction, {
     onSuccess: () => {
-      queryClient.invalidateQueries(serviceUrl.getWorkflowRun({ runId }));
+      queryClient.invalidateQueries(serviceUrl.getWorkflowRun({ id: workflowRunId }));
     },
   });
 

@@ -9,20 +9,20 @@
     @include focus-outline(var(--cds-interactive-01), -0.125rem);
   }
 
-  &.completed {
+  &.succeeded {
     border-top: 0.25rem solid var(--cds-support-02);
   }
 
-  &.waiting {
+  &.waiting, &.ready {
     // border-top: 0.25rem solid var(--cds-support-03);
     border-top: 0.25rem solid var(--flow-wait);
   }
 
-  &.failure, &.cancelled {
+  &.failed, &.cancelled, &.timedout {
     border-top: 0.25rem solid var(--flow-failure);
   }
 
-  &.inProgress {
+  &.running {
     border-top: 0.25rem solid #d5d9e0;
 
     .progressBar {
@@ -106,14 +106,14 @@
   line-height: 1rem;
   white-space: nowrap;
 
-  &.completed {
+  &.succeeded {
     color: var(--cds-support-02);
     svg {
       fill: var(--cds-support-02);
     }
   }
 
-  &.waiting {
+  &.waiting, &.ready {
     // color: var(--cds-support-03);
     color: var(--flow-wait);
 
@@ -123,14 +123,14 @@
     }
   }
 
-  &.failure, &.cancelled {
+  &.failed, &.cancelled {
     color: var(--flow-failure);
     svg {
       fill: var(--flow-failure);
     }
   }
 
-  &.inProgress,
+  &.running,
   &.notstarted,
   &.invalid,
   &.skipped {

@@ -97,7 +97,7 @@ export const serviceUrl = {
   getWorkflowCompose: ({ id, version }: IdArg & Partial<VersionArg>) => `${BASE_URL}/workflow/${id}/compose${version ? `?version=${version}` : ""}`,
   getWorkflowChangelog: ({ id }: IdArg) =>
     `${BASE_URL}/workflow/${id}/changelog`,
-  getWorkflowRun: ({ runId }) => `${BASE_URL}/workflowrun/${runId}`,
+  getWorkflowRun: ({ id }: IdArg) => `${BASE_URL}/workflowrun/${id}`,
   getWorkflowRevision: ({ workflowId, revisionNumber }) =>
     `${BASE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
   getWorkflowSummary: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/summary`,
