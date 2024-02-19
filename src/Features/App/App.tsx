@@ -124,6 +124,17 @@ export default function App() {
     queryClient.invalidateQueries(getUserUrl);
   };
 
+  // Check if the app is Activated prior to error checking
+  if (showActivatePlatform) {
+    return (
+      <Suspense fallback={() => <DelayedRender>{null}</DelayedRender>}>
+        <div className={styles.appActivationContainer}>
+          <AppActivation setActivationCode={handleSetActivationCode} />
+        </div>
+      </Suspense>
+    );
+  }
+
   if (isLoading) {
     return (
       <DelayedRender>
@@ -134,17 +145,6 @@ export default function App() {
 
   if (hasError) {
     return <ErrorDragon style={{ margin: "5rem 0" }} />;
-  }
-
-  // Check if the app is Activated
-  if (showActivatePlatform) {
-    return (
-      <Suspense fallback={() => <DelayedRender>{null}</DelayedRender>}>
-        <div className={styles.appActivationContainer}>
-          <AppActivation setActivationCode={handleSetActivationCode} />
-        </div>
-      </Suspense>
-    );
   }
 
   // Context Data needed for the app to render
