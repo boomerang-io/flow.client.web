@@ -14,7 +14,7 @@ import TaskExecutionLog from "./TaskRunLog";
 import styles from "./runTaskItem.module.scss";
 import { appLink } from "Config/appConfig";
 import { executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
-import { ApprovalStatus, RunStatus, TaskRun, WorkflowRun } from "Types";
+import { ApprovalStatus, RunPhase, RunStatus, TaskRun, WorkflowRun } from "Types";
 
 const logTaskTypes = ["customtask", "template", "script"];
 const logStatusTypes = [RunStatus.Succeeded, RunStatus.Failed, RunStatus.Running];
@@ -73,8 +73,7 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
           <TaskExecutionLog taskrunId={taskRun.id} taskName={taskRun.name} />
         )}
         {taskRun.results && Object.keys(taskRun.results).length > 0 && (
-          //@ts-ignore
-          <OutputPropertiesLog flowTaskName={taskRun.name} flowTaskOutputs={results} />
+          <OutputPropertiesLog taskName={taskRun.name} results={taskRun.results} />
         )}
         {taskRun.type === NodeType.RunWorkflow && taskRun.id && workflowRun.workflowRef && (
           <Link
@@ -149,7 +148,7 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
           //TODO: update to make a request to get the approval and info about it
           // make sure that check is correct
         }
-        {/* {type === NodeType.Approval && (status === RunStatus.Failed || status === RunStatus.Succeeded) && (
+        {/* {taskRun.type === NodeType.Approval && (runTask.status === RunStatus.Failed || runTask.status === RunStatus.Succeeded) && (
             <ComposedModal
               composedModalProps={{
                 containerClassName: styles.approvalResultsModalContainer,
@@ -194,54 +193,55 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
           //TODO: update to make a request to get the approval and info about it
           // make sure that check is correct
         }
-        {/* {type === NodeType.Manual && (status === RunStatus.Failed || status === RunStatus.Succeeded) && (
-            <ComposedModal
-              composedModalProps={{
-                containerClassName: styles.approvalResultsModalContainer,
-                shouldCloseOnOverlayClick: true,
-              }}
-              modalHeaderProps={{
-                title: "Manual Task details",
-              }}
-              modalTrigger={({ openModal }) => (
-                <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
-                  View Manual Task
-                </Button>
-              )}
-            >
-              {() => (
-                <ModalBody>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Status</span>
-                    <p className={styles.sectionDetail}>{`${
-                      approval.status === ApprovalStatus.Approved
-                        ? "Successfully Completed"
-                        : "Unsuccessfully Completed"
-                    }`}</p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Approver</span>
-                    <p
-                      className={styles.sectionDetail}
-                    >{`${approval.audit.approverName} (${approval.audit.approverEmail})`}</p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Submitted</span>
-                    <p className={styles.sectionDetail}>
-                      {moment(approval.audit.actionDate).format("YYYY-MM-DD hh:mm A")}
-                    </p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Instructions</span>
-                    <ReactMarkdown className="markdown-body" children={approval?.instructions} />
-                  </section>
-                </ModalBody>
-              )}
-            </ComposedModal>
-          )} */}
+        {taskRun.type === NodeType.Manual && taskRun.phase === RunPhase.Completed && (
+          <ComposedModal
+            composedModalProps={{
+              containerClassName: styles.approvalResultsModalContainer,
+              shouldCloseOnOverlayClick: true,
+            }}
+            modalHeaderProps={{
+              title: "Manual Task details",
+            }}
+            modalTrigger={({ openModal }) => (
+              <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
+                View Manual Task
+              </Button>
+            )}
+          >
+            {() => <ApporovalResult taskRun={taskRun} />}
+          </ComposedModal>
+        )}
       </section>
     </li>
   );
 }
 
 export default RunTaskItem;
+
+interface ApporovalResultProps {
+  taskRun: TaskRun;
+}
+function ApporovalResult({ taskRun }: ApporovalResultProps) {
+  return (
+    <ModalBody>
+      <section className={styles.detailedSection}>
+        <span className={styles.sectionHeader}>Status</span>
+        <p className={styles.sectionDetail}>{`${
+          taskRun.status === RunStatus.Succeeded ? "Successfully Completed" : "Unsuccessfully Completed"
+        }`}</p>
+      </section>
+      <section className={styles.detailedSection}>
+        <span className={styles.sectionHeader}>Approver</span>
+        <p className={styles.sectionDetail}>{`${approval.audit.approverName} (${approval.audit.approverEmail})`}</p>
+      </section>
+      <section className={styles.detailedSection}>
+        <span className={styles.sectionHeader}>Submitted</span>
+        <p className={styles.sectionDetail}>{moment(approval.audit.actionDate).format("YYYY-MM-DD hh:mm A")}</p>
+      </section>
+      <section className={styles.detailedSection}>
+        <span className={styles.sectionHeader}>Instructions</span>
+        <ReactMarkdown className="markdown-body" children={approval?.instructions} />
+      </section>
+    </ModalBody>
+  );
+}

@@ -1,18 +1,17 @@
-import React from "react";
 import { ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody } from "@carbon/react";
+import React from "react";
 import PropertiesTable from "./PropertiesTable";
-
 import styles from "./outputPropertisLog.module.scss";
 import { WorkflowRun } from "Types";
 
 type Props = {
   isOutput?: boolean;
-  workflowName: string;
   results: WorkflowRun["results"];
+  taskName: string;
 };
 
-function OutputPropertiesLog({ workflowName, results, isOutput }: Props) {
+function OutputPropertiesLog({ taskName, results, isOutput }: Props) {
   let propertyList: { id: string; key: string; value: string; description?: string }[] = [];
   results.forEach((result, index) =>
     propertyList.push({
@@ -36,7 +35,7 @@ function OutputPropertiesLog({ workflowName, results, isOutput }: Props) {
       }}
       modalHeaderProps={{
         title: "Output Parameters",
-        label: `${workflowName}`,
+        label: `${taskName}`,
       }}
       modalTrigger={({ openModal }) => (
         <Button kind="ghost" size="sm" onClick={openModal}>
