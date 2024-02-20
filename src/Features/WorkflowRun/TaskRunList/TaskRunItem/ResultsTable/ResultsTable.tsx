@@ -1,3 +1,4 @@
+import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
 import {
   StructuredListCell,
   StructuredListBody,
@@ -6,18 +7,14 @@ import {
   StructuredListWrapper,
 } from "@carbon/react";
 import React from "react";
-import styles from "./propertiesTable.module.scss";
+import styles from "./resultsTable.module.scss";
 
 type Props = {
-  data:
-    | {
-        key: string;
-        value: string;
-      }[]
-    | {
-        [key: string]: string;
-      };
-  hasJsonValues: boolean;
+  data: Array<{
+    key: string;
+    value: string;
+  }>;
+  hasJsonValues?: boolean;
 };
 
 function PropertiesTable({ data: properties, hasJsonValues = false }: Props) {
@@ -59,7 +56,7 @@ function PropertiesTable({ data: properties, hasJsonValues = false }: Props) {
           </StructuredListBody>
         </StructuredListWrapper>
       ) : (
-        <p>No parameters to display</p>
+        <p>No results to display</p>
       )}
     </div>
   );

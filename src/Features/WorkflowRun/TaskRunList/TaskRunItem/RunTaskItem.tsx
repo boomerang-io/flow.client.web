@@ -3,12 +3,11 @@ import { Button, ModalBody } from "@carbon/react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import ErrorModal from "Components/ErrorModal";
 import { useTeamContext } from "Hooks";
 import dateHelper from "Utils/dateHelper";
 import ManualTaskModal from "./ManualTaskModal";
-import OutputPropertiesLog from "./OutputPropertiesLog";
 import PropertiesTable from "./PropertiesTable";
+import ResultsTable from "./ResultsTable";
 import TaskApprovalModal from "./TaskApprovalModal";
 import TaskExecutionLog from "./TaskRunLog";
 import styles from "./runTaskItem.module.scss";
@@ -18,7 +17,6 @@ import { RunPhase, RunStatus, TaskRun, WorkflowRun } from "Types";
 
 const logTaskTypes = ["customtask", "template", "script"];
 const logStatusTypes = [RunStatus.Succeeded, RunStatus.Failed, RunStatus.Running];
-const failedStatusTypes = [RunStatus.Failed, RunStatus.Cancelled, RunStatus.Invalid];
 
 type Props = {
   taskRun: TaskRun;
@@ -69,12 +67,25 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
         )}
       </section>
       <section className={styles.data}>
+        <ComposedModal
+          composedModalProps={{
+            containerClassName: styles.actionManualTaskModalContainer,
+          }}
+          modalHeaderProps={{
+            title: "View Details",
+            subtitle: taskRun.name,
+          }}
+          modalTrigger={({ openModal }) => (
+            <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
+              View Details
+            </Button>
+          )}
+        >
+          {() => <TaskRunDetail taskRun={taskRun} />}
+        </ComposedModal>
         {((taskRun.status === RunStatus.Cancelled && taskRun.duration > 0) ||
           (logTaskTypes.includes(taskRun.type) && logStatusTypes.includes(taskRun.status))) && (
           <TaskExecutionLog taskrunId={taskRun.id} taskName={taskRun.name} />
-        )}
-        {taskRun.results && Object.keys(taskRun.results).length > 0 && (
-          <OutputPropertiesLog taskName={taskRun.name} results={taskRun.results} />
         )}
         {taskRun.status === RunStatus.Waiting && taskRun.type === NodeType.Approval && (
           <ComposedModal
@@ -130,21 +141,6 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
             View Activity
           </Link>
         )}
-        {failedStatusTypes.includes(taskRun.status) && (
-          <ComposedModal
-            modalHeaderProps={{
-              title: "View Detail",
-              subtitle: taskRun.name,
-            }}
-            modalTrigger={({ openModal }) => (
-              <Button size="sm" kind="ghost" onClick={openModal}>
-                View Detail
-              </Button>
-            )}
-          >
-            {() => <TaskRunDetail taskRun={taskRun} />}
-          </ComposedModal>
-        )}
         {taskRun.type === NodeType.Approval && taskRun.phase === RunPhase.Completed && (
           <ComposedModal
             composedModalProps={{
@@ -155,8 +151,8 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
               title: "Manual Approval details",
             }}
             modalTrigger={({ openModal }) => (
-              <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
-                View Manual Approval
+              <Button size="sm" kind="ghost" onClick={openModal}>
+                View Action
               </Button>
             )}
           >
@@ -173,8 +169,8 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
               title: "Manual Task details",
             }}
             modalTrigger={({ openModal }) => (
-              <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
-                View Manual Task
+              <Button size="sm" kind="ghost" onClick={openModal}>
+                View Action
               </Button>
             )}
           >
@@ -248,9 +244,22 @@ interface TaskRunDetailModalProps {
 }
 
 function TaskRunDetail({ taskRun }: TaskRunDetailModalProps) {
-  let propertyList: { id: string; key: string; value: string; description?: string }[] = [];
+  let paramList: { id: string; key: string; value: string; description?: string }[] = [];
+  taskRun.params.forEach((result, index) =>
+    paramList.push({
+      id: `${result.name}-${index}`,
+      key: result.name,
+      value: !result.value
+        ? "---"
+        : Array.isArray(result.value) || typeof result.value === "string"
+        ? result.value
+        : JSON.stringify(result.value),
+    }),
+  );
+
+  let resultsList: { id: string; key: string; value: string; description?: string }[] = [];
   taskRun.results.forEach((result, index) =>
-    propertyList.push({
+    resultsList.push({
       id: `${result.name}-${index}`,
       key: result.name,
       description: result.description ? result.description : "---",
@@ -272,10 +281,16 @@ function TaskRunDetail({ taskRun }: TaskRunDetailModalProps) {
         <span className={styles.sectionHeader}>Message</span>
         <p className={styles.sectionDetail}>{taskRun.statusMessage || "---"}</p>
       </section>
-      <section>
+      <section className={styles.detailedSection}>
+        <span className={styles.sectionHeader}>Params</span>
+        <p>
+          <PropertiesTable data={paramList} hasJsonValues={false} />
+        </p>
+      </section>
+      <section className={styles.detailedSection}>
         <span className={styles.sectionHeader}>Results</span>
         <p>
-          <PropertiesTable data={propertyList} hasJsonValues={false} />
+          <ResultsTable data={resultsList} hasJsonValues={false} />
         </p>
       </section>
     </ModalBody>
