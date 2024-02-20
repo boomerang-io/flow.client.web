@@ -1,23 +1,24 @@
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody } from "@carbon/react";
-import React from "react";
 import ReactMarkdown from "react-markdown";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import ErrorModal from "Components/ErrorModal";
 import { useTeamContext } from "Hooks";
 import dateHelper from "Utils/dateHelper";
 import ManualTaskModal from "./ManualTaskModal";
 import OutputPropertiesLog from "./OutputPropertiesLog";
+import PropertiesTable from "./PropertiesTable";
 import TaskApprovalModal from "./TaskApprovalModal";
 import TaskExecutionLog from "./TaskRunLog";
 import styles from "./runTaskItem.module.scss";
 import { appLink } from "Config/appConfig";
-import { executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
-import { ApprovalStatus, RunPhase, RunStatus, TaskRun, WorkflowRun } from "Types";
+import { ExecutionStatusCopy, NodeType, executionStatusIcon } from "Constants";
+import { RunPhase, RunStatus, TaskRun, WorkflowRun } from "Types";
 
 const logTaskTypes = ["customtask", "template", "script"];
 const logStatusTypes = [RunStatus.Succeeded, RunStatus.Failed, RunStatus.Running];
+const failedStatusTypes = [RunStatus.Failed, RunStatus.Cancelled, RunStatus.Invalid];
 
 type Props = {
   taskRun: TaskRun;
@@ -75,29 +76,6 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
         {taskRun.results && Object.keys(taskRun.results).length > 0 && (
           <OutputPropertiesLog taskName={taskRun.name} results={taskRun.results} />
         )}
-        {taskRun.type === NodeType.RunWorkflow && taskRun.id && workflowRun.workflowRef && (
-          <Link
-            to={appLink.execution({ team: team.name, runId: taskRun.id, workflowId: workflowRun.workflowRef })}
-            className={styles.viewActivityLink}
-          >
-            View Activity
-          </Link>
-        )}
-        {/* {Boolean(taskRun.error?.code) && (
-          <ComposedModal
-            modalHeaderProps={{
-              title: "View Task Error",
-              subtitle: taskRun.name,
-            }}
-            modalTrigger={({ openModal }) => (
-              <Button size="sm" kind="ghost" onClick={openModal}>
-                View Error
-              </Button>
-            )}
-          >
-            {({ closeModal }) => <ErrorModal errorCode={error?.code ?? ""} errorMessage={error?.message ?? ""} />}
-          </ComposedModal>
-        )} */}
         {taskRun.status === RunStatus.Waiting && taskRun.type === NodeType.Approval && (
           <ComposedModal
             modalHeaderProps={{
@@ -106,7 +84,7 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
             }}
             modalTrigger={({ openModal }) => (
               <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
-                Action Manual Approval
+                Action
               </Button>
             )}
           >
@@ -130,7 +108,7 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
             }}
             modalTrigger={({ openModal }) => (
               <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
-                Action Manual Task
+                Action
               </Button>
             )}
           >
@@ -144,55 +122,47 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
             )}
           </ComposedModal>
         )}
-        {
-          //TODO: update to make a request to get the approval and info about it
-          // make sure that check is correct
-        }
-        {/* {taskRun.type === NodeType.Approval && (runTask.status === RunStatus.Failed || runTask.status === RunStatus.Succeeded) && (
-            <ComposedModal
-              composedModalProps={{
-                containerClassName: styles.approvalResultsModalContainer,
-                shouldCloseOnOverlayClick: true,
-              }}
-              modalHeaderProps={{
-                title: "Manual Approval details",
-              }}
-              modalTrigger={({ openModal }) => (
-                <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
-                  View Manual Approval
-                </Button>
-              )}
-            >
-              {() => (
-                <ModalBody>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Approval Status</span>
-                    <p className={styles.sectionDetail}>{approval.status}</p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Approver</span>
-                    <p
-                      className={styles.sectionDetail}
-                    >{`${approval.audit.approverName} (${approval.audit.approverEmail})`}</p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Approval submitted</span>
-                    <p className={styles.sectionDetail}>
-                      {moment(approval.audit.actionDate).format("YYYY-MM-DD hh:mm A")}
-                    </p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Approval comments</span>
-                    <p className={styles.sectionDetail}>{approval.audit.comments}</p>
-                  </section>
-                </ModalBody>
-              )}
-            </ComposedModal>
-          )} */}
-        {
-          //TODO: update to make a request to get the approval and info about it
-          // make sure that check is correct
-        }
+        {taskRun.type === NodeType.RunWorkflow && taskRun.id && taskRun.workflowRef && (
+          <Link
+            to={appLink.execution({ team: team.name, runId: taskRun.id, workflowId: workflowRun.workflowRef })}
+            className={styles.viewActivityLink}
+          >
+            View Activity
+          </Link>
+        )}
+        {failedStatusTypes.includes(taskRun.status) && (
+          <ComposedModal
+            modalHeaderProps={{
+              title: "View Detail",
+              subtitle: taskRun.name,
+            }}
+            modalTrigger={({ openModal }) => (
+              <Button size="sm" kind="ghost" onClick={openModal}>
+                View Detail
+              </Button>
+            )}
+          >
+            {() => <TaskRunDetail taskRun={taskRun} />}
+          </ComposedModal>
+        )}
+        {taskRun.type === NodeType.Approval && taskRun.phase === RunPhase.Completed && (
+          <ComposedModal
+            composedModalProps={{
+              containerClassName: styles.approvalResultsModalContainer,
+              shouldCloseOnOverlayClick: true,
+            }}
+            modalHeaderProps={{
+              title: "Manual Approval details",
+            }}
+            modalTrigger={({ openModal }) => (
+              <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
+                View Manual Approval
+              </Button>
+            )}
+          >
+            {() => <ApprovalResult taskRun={taskRun} />}
+          </ComposedModal>
+        )}
         {taskRun.type === NodeType.Manual && taskRun.phase === RunPhase.Completed && (
           <ComposedModal
             composedModalProps={{
@@ -208,7 +178,7 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
               </Button>
             )}
           >
-            {() => <ApporovalResult taskRun={taskRun} />}
+            {() => <ManualResult taskRun={taskRun} />}
           </ComposedModal>
         )}
       </section>
@@ -218,10 +188,37 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
 
 export default RunTaskItem;
 
-interface ApporovalResultProps {
+interface ApprovalResultProps {
   taskRun: TaskRun;
 }
-function ApporovalResult({ taskRun }: ApporovalResultProps) {
+
+function ApprovalResult({ taskRun }: ApprovalResultProps) {
+  return (
+    <ModalBody>
+      <section className={styles.detailedSection}>
+        <span className={styles.sectionHeader}>Approval Status</span>
+        <p className={styles.sectionDetail}>{taskRun.status}</p>
+      </section>
+      <section className={styles.detailedSection}>
+        <span className={styles.sectionHeader}>Approver</span>
+        <p className={styles.sectionDetail}>{`${approval.audit.approverName} (${approval.audit.approverEmail})`}</p>
+      </section>
+      <section className={styles.detailedSection}>
+        <span className={styles.sectionHeader}>Approval submitted</span>
+        <p className={styles.sectionDetail}>{moment(approval.audit.actionDate).format("YYYY-MM-DD hh:mm A")}</p>
+      </section>
+      <section className={styles.detailedSection}>
+        <span className={styles.sectionHeader}>Approval comments</span>
+        <p className={styles.sectionDetail}>{approval.audit.comments}</p>
+      </section>
+    </ModalBody>
+  );
+}
+
+interface ManualResultProps {
+  taskRun: TaskRun;
+}
+function ManualResult({ taskRun }: ManualResultProps) {
   return (
     <ModalBody>
       <section className={styles.detailedSection}>
@@ -241,6 +238,45 @@ function ApporovalResult({ taskRun }: ApporovalResultProps) {
       <section className={styles.detailedSection}>
         <span className={styles.sectionHeader}>Instructions</span>
         <ReactMarkdown className="markdown-body" children={approval?.instructions} />
+      </section>
+    </ModalBody>
+  );
+}
+
+interface TaskRunDetailModalProps {
+  taskRun: TaskRun;
+}
+
+function TaskRunDetail({ taskRun }: TaskRunDetailModalProps) {
+  let propertyList: { id: string; key: string; value: string; description?: string }[] = [];
+  taskRun.results.forEach((result, index) =>
+    propertyList.push({
+      id: `${result.name}-${index}`,
+      key: result.name,
+      description: result.description ? result.description : "---",
+      value: !result.value
+        ? "---"
+        : Array.isArray(result.value) || typeof result.value === "string"
+        ? result.value
+        : JSON.stringify(result.value),
+    }),
+  );
+
+  return (
+    <ModalBody>
+      <section className={styles.detailedSection}>
+        <span className={styles.sectionHeader}>Status</span>
+        <p className={styles.sectionDetail}>{taskRun.status}</p>
+      </section>
+      <section className={styles.detailedSection}>
+        <span className={styles.sectionHeader}>Message</span>
+        <p className={styles.sectionDetail}>{taskRun.statusMessage || "---"}</p>
+      </section>
+      <section>
+        <span className={styles.sectionHeader}>Results</span>
+        <p>
+          <PropertiesTable data={propertyList} hasJsonValues={false} />
+        </p>
       </section>
     </ModalBody>
   );

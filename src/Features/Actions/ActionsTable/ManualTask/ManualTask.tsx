@@ -61,10 +61,13 @@ function Form({ action, closeModal, queryToRefetch }: FormProps) {
   });
 
   const handleSubmit = async (isApproved: boolean) => {
-    const body = {
-      id,
-      approved: isApproved,
-    };
+    const body = [
+      {
+        id,
+        approved: isApproved,
+        comments: "",
+      },
+    ];
     try {
       await approvalMutator({ body });
       notify(

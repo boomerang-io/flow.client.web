@@ -5,8 +5,8 @@ import { useState } from "react";
 import { UseQueryResult } from "react-query";
 import orderBy from "lodash/orderBy";
 import { getSimplifiedDuration } from "Utils/timeHelper";
-import styles from "./RunTaskList.module.scss";
 import TaskRunItem from "./TaskRunItem";
+import styles from "./TaskRunList.module.scss";
 import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
 import { QueryStatus } from "Constants";
 import { RunStatus, WorkflowRun } from "Types";
@@ -54,7 +54,7 @@ function TaskRunLog({ workflowRun }: Props) {
     );
   }
 
-  const { id, duration, status, tasks } = workflowRun;
+  const { duration, status, tasks } = workflowRun;
   const Icon = executionStatusIcon[status];
 
   return (

@@ -1,20 +1,4 @@
 //@ts-nocheck
-import React from "react";
-import { useQuery } from "react-query";
-import { Switch, Route, Redirect, useHistory, useLocation, useRouteMatch, Link } from "react-router-dom";
-import moment from "moment";
-import queryString from "query-string";
-import { Helmet } from "react-helmet";
-import { useTeamContext } from "Hooks";
-import { sortByProp } from "@boomerang-io/utils";
-import {
-  DatePicker,
-  DatePickerInput,
-  FilterableMultiSelect,
-  SkeletonPlaceholder,
-  Breadcrumb,
-  BreadcrumbItem,
-} from "@carbon/react";
 import {
   ErrorMessage,
   ErrorDragon,
@@ -25,14 +9,30 @@ import {
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import ActionsTable from "./ActionsTable";
+import {
+  DatePicker,
+  DatePickerInput,
+  FilterableMultiSelect,
+  SkeletonPlaceholder,
+  Breadcrumb,
+  BreadcrumbItem,
+} from "@carbon/react";
+import { ArrowUpRight } from "@carbon/react/icons";
+import React from "react";
+import { Helmet } from "react-helmet";
+import { useQuery } from "react-query";
+import { Switch, Route, Redirect, useHistory, useLocation, useRouteMatch, Link } from "react-router-dom";
+import { sortByProp } from "@boomerang-io/utils";
+import moment from "moment";
+import queryString from "query-string";
 import HeaderWidget from "Components/HeaderWidget";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { useTeamContext } from "Hooks";
+import styles from "./Actions.module.scss";
+import ActionsTable from "./ActionsTable";
 import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import { ActionType } from "Constants";
 import { approvalStatusOptions } from "Constants/filterOptions";
-import { ArrowUpRight } from "@carbon/react/icons";
-import styles from "./Actions.module.scss";
 
 const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
@@ -96,12 +96,12 @@ function Actions() {
       sort,
       statuses,
       teams: team?.name,
-      type: actionType,
+      types: actionType,
       workflows,
       fromDate,
       toDate,
     },
-    queryStringOptions
+    queryStringOptions,
   );
 
   const actionsUrlSummaryQuery = queryString.stringify(
@@ -111,7 +111,7 @@ function Actions() {
       fromDate,
       toDate,
     },
-    queryStringOptions
+    queryStringOptions,
   );
 
   const actionsFilterSummaryUrl = serviceUrl.getActionsSummary({ query: actionsUrlSummaryQuery });
@@ -241,7 +241,7 @@ function Actions() {
         <Switch>
           <Route exact path={AppPath.ActionsApprovals}>
             <Helmet>
-              <title>Approvals - Actions</title>
+              <title>Approval - Actions</title>
             </Helmet>
           </Route>
           <Route exact path={AppPath.ActionsManual}>
@@ -273,13 +273,13 @@ function Actions() {
                   {isActionsError ? (
                     <>
                       <HeaderWidget text="Manual" value="--" />
-                      <HeaderWidget text="Approvals" value="--" />
+                      <HeaderWidget text="Approval" value="--" />
                       <HeaderWidget text="Approval rate" value="--" />
                     </>
                   ) : (
                     <>
                       <HeaderWidget icon={ArrowUpRight} text="Manual" value={manualTasksSummaryNumber} />
-                      <HeaderWidget icon={ArrowUpRight} text="Approvals" value={approvalsSummaryNumber} />
+                      <HeaderWidget icon={ArrowUpRight} text="Approval" value={approvalsSummaryNumber} />
                       <HeaderWidget icon={emoji} text="Approval rate" value={`${approvalsRatePercentage}%`} />
                     </>
                   )}
@@ -299,7 +299,7 @@ function Actions() {
               />
               <Tab
                 exact
-                label={`Manual (${manualTasksNumber})`}
+                label={`Manual Tasks (${manualTasksNumber})`}
                 to={{
                   pathname: appLink.actionsManual({ team: team.name }),
                   search: location.search,
@@ -328,7 +328,7 @@ function Actions() {
                       return workflow.name;
                     }}
                     initialSelectedItems={getWorkflowFilter().filter((workflow) =>
-                      Boolean(selectedWorkflowIds.find((id) => id === workflow.id))
+                      Boolean(selectedWorkflowIds.find((id) => id === workflow.id)),
                     )}
                     titleText="Filter by Workflow"
                   />
@@ -343,7 +343,7 @@ function Actions() {
                     items={approvalStatusOptions}
                     itemToString={(item) => (item ? item.label : "")}
                     initialSelectedItems={approvalStatusOptions.filter((option) =>
-                      Boolean(selectedStatuses.find((status) => status === option.value))
+                      Boolean(selectedStatuses.find((status) => status === option.value)),
                     )}
                     titleText="Filter by status"
                   />

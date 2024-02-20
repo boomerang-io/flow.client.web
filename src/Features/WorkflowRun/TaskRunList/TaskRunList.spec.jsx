@@ -13,6 +13,7 @@ const props = {
         {
           activityId: "5c36289096052900012cc81d",
           duration: 300190,
+          
           flowTaskStatus: "completed",
           id: "5c36289096052900012cc81e",
           order: 1,

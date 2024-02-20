@@ -14,7 +14,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { useMutation, useQueryClient } from "react-query";
 import { Link, useHistory, useParams } from "react-router-dom";
 import moment from "moment";
-import OutputPropertiesLog from "Features/WorkflowRun/TaskRunList/TaskRunItem/OutputPropertiesLog";
+import OutputPropertiesLog from "Features/WorkflowRun/TaskRunList/TaskRunItem";
 import ErrorModal from "Components/ErrorModal";
 import { useTeamContext } from "Hooks";
 import styles from "./RunHeader.module.scss";
@@ -119,7 +119,7 @@ export default function ExecutionHeader({ workflow, workflowRun, version }: Prop
         <div className={styles.content}>
           {workflowRun.results && Object.keys(workflowRun.results).length > 0 && (
             <div className={styles.workflowOutputLog}>
-              {/* <OutputPropertiesLog isOutput workflowName={workflow.name} results={workflowRun.results} /> */}
+              <OutputPropertiesLog isOutput taskName={workflowRun.workflowName} results={workflowRun.results} />
             </div>
           )}
           <dl className={styles.data}>

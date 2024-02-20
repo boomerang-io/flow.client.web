@@ -1,9 +1,9 @@
+import { ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalBody } from "@carbon/react";
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import { ModalBody } from "@carbon/react";
-import { ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import styles from "./errorModal.module.scss";
 import "Styles/markdown.css";
+import styles from "./errorModal.module.scss";
 
 interface ErrorModalProps {
   errorCode: string;
