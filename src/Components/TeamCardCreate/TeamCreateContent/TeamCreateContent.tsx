@@ -7,10 +7,11 @@ import kebabcase from "lodash/kebabCase";
 import * as Yup from "yup";
 import styles from "./TeamCreateContent.module.scss";
 import { resolver } from "Config/servicesConfig";
+import { create } from "lodash";
 
 interface TeamCreateContentProps {
   closeModal: () => void;
-  createTeam: (values: { name: string | undefined }) => void;
+  createTeam: (values: { name: string | undefined }, success_fn: () => void) => void;
   isLoading: boolean;
   isError: boolean;
 }
@@ -32,7 +33,7 @@ export default function TeamCreateContent({ closeModal, createTeam, isLoading, i
       initialValues={{
         name: "",
       }}
-      onSubmit={createTeam}
+      onSubmit={(values) => createTeam(values, closeModal)}
       validationSchema={Yup.object().shape({
         name: Yup.string()
           .required("Enter a team name")

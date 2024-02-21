@@ -5,7 +5,7 @@ import styles from "./teamCardCreate.module.scss";
 import { ModalTriggerProps } from "Types";
 
 interface TeamCardProps {
-  createTeam: (values: { name: string | undefined }) => void;
+  createTeam: (values: { name: string | undefined }, success_fn: () => void) => void;
   isError: boolean;
   isLoading: boolean;
 }
