@@ -1,9 +1,8 @@
 import React from "react";
 import { useEditorContext } from "Hooks";
-import { useTeamContext } from "Hooks";
 import { TemplateNode } from "../Template";
 import { WorkflowEngineMode } from "Constants";
-import { DataDrivenInput, WorkflowNodeProps } from "Types";
+import { WorkflowNodeProps } from "Types";
 
 export default function ApprovalNode(props: WorkflowNodeProps) {
   const { mode } = useEditorContext();
@@ -15,53 +14,7 @@ export default function ApprovalNode(props: WorkflowNodeProps) {
 }
 
 function ApprovalNodeDesigner(props: WorkflowNodeProps) {
-  const { team } = useTeamContext();
-  console.log({ team });
-
-  const taskFormInputs: Array<Partial<DataDrivenInput>> =
-    team.approverGroups && team.approverGroups.length > 0
-      ? [
-          {
-            placeholder: "",
-            description: "",
-            required: true,
-            min: 1,
-            key: "numberOfApprovals",
-            name: "numberOfApprovals",
-            label: "Number of Approvals",
-            type: "number",
-            helperText: "Number of approvals needed in order to approve",
-          },
-          {
-            placeholder: "",
-            description: "",
-            required: false,
-            key: "approverGroupId",
-            name: "approvalGroupId",
-            label: "Approver Group (optional)",
-            type: "select",
-            helperText: "Choose an Approver Group to handle this approval",
-            options: team.approverGroups.map((approverGroup) => ({
-              key: approverGroup.id,
-              value: approverGroup.name,
-            })),
-          },
-        ]
-      : [
-          {
-            disabled: true,
-            placeholder:
-              "This will be assigned to you as the approver to Action. Approver Groups and multiple approvers are a Team Workflows concept.",
-            description: "",
-            required: false,
-            key: "message",
-            label: "Nothing to configure",
-            type: "textarea",
-            helperText: "",
-          },
-        ];
-
-  return <TemplateNode {...props} additionalFormInputs={taskFormInputs} />;
+  return <TemplateNode {...props} />;
 }
 
 function ApprovalNodeExecution(props: any) {

@@ -1,7 +1,7 @@
-import React from "react";
-import * as Yup from "yup";
 import { DynamicFormik, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter, Tag } from "@carbon/react";
+import React from "react";
+import * as Yup from "yup";
 import {
   AutoSuggestInput,
   TextAreaSuggestInput,
@@ -12,8 +12,8 @@ import {
   textInputProps,
   toggleProps,
 } from "../../../shared/inputs";
-import type { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./TaskForm.module.scss";
+import type { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 
 const ResultsDisplay = (props: { results: WorkflowNodeData["results"] }) => {
   const { results } = props;
@@ -45,7 +45,6 @@ interface WorkflowTaskFormProps {
 
 function WorkflowTaskForm(props: WorkflowTaskFormProps) {
   const { availableParameters, additionalFormInputs = [], node, task, otherTaskNames } = props;
-  const taskVersionConfig = task.config;
 
   const taskResults = task.spec.results;
   const handleOnSave = (values: Record<string, string>) => {
@@ -64,7 +63,7 @@ function WorkflowTaskForm(props: WorkflowTaskFormProps) {
       required: true,
       customComponent: TaskNameTextInput,
     },
-    ...taskVersionConfig,
+    ...task.config,
     ...additionalFormInputs,
     {
       key: "results",
@@ -78,15 +77,14 @@ function WorkflowTaskForm(props: WorkflowTaskFormProps) {
   const initialValues: Record<string, any> = {
     taskName: node.name,
     results: taskResults,
-    ...node.params.reduce((accum, curr) => {
-      accum[curr.name] = curr.value;
-      return accum;
-    }, {} as Record<string, string>),
+    ...node.params.reduce(
+      (accum, curr) => {
+        accum[curr.name] = curr.value;
+        return accum;
+      },
+      {} as Record<string, string>,
+    ),
   };
-  task.config.forEach((input) => {
-    const initialValue = node.params.find((param) => param.name === input.key)?.["value"];
-    initialValues[input.key] = initialValue !== undefined ? initialValue : input.defaultValue;
-  });
 
   return (
     <DynamicFormik

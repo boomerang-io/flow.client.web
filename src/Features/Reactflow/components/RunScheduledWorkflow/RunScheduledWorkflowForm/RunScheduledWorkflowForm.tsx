@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import * as Yup from "yup";
-import { useEditorContext } from "Hooks";
 import { ComboBox, DynamicFormik, ModalForm, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
+import React, { useState } from "react";
+import type { FormikProps } from "formik";
+import * as Yup from "yup";
+import { useEditorContext } from "Hooks";
 import { timezoneOptions, defaultTimeZone, transformTimeZone } from "Utils/dateHelper";
 import {
   AutoSuggestInput,
@@ -14,9 +15,8 @@ import {
   textInputProps,
   toggleProps,
 } from "../../shared/inputs";
-import type { FormikProps } from "formik";
-import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./RunScheduledWorkflowForm.module.scss";
+import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 
 interface RunScheduledWorkflowFormProps {
   closeModal: () => void;
@@ -213,7 +213,7 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
 
   const initTime = node?.params.find((param) => param.name === "time")?.value ?? "";
   const initTimeZone = transformTimeZone(
-    node?.params.find((param) => param.name === "timezone")?.value ?? defaultTimeZone
+    node?.params.find((param) => param.name === "timezone")?.value ?? defaultTimeZone,
   );
 
   const initialValues: Record<string, any> = {
@@ -222,16 +222,14 @@ function RunScheduledWorkflowForm(props: RunScheduledWorkflowFormProps) {
     time: initTime,
     timezone: initTimeZone,
     ...activeInputs,
-    ...node.params.reduce((accum, curr) => {
-      accum[curr.name] = curr.value;
-      return accum;
-    }, {} as Record<string, string>),
+    ...node.params.reduce(
+      (accum, curr) => {
+        accum[curr.name] = curr.value;
+        return accum;
+      },
+      {} as Record<string, string>,
+    ),
   };
-
-  task.config.forEach((input) => {
-    const initialValue = node.params.find((param) => param.name === input.key)?.["value"];
-    initialValues[input.key] = initialValue !== undefined ? initialValue : input.defaultValue;
-  });
 
   return (
     <DynamicFormik

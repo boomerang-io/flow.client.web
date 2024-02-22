@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useEditorContext } from "Hooks";
-import { FormikProps } from "formik";
 import { ComboBox, DynamicFormik, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
+import React, { useState } from "react";
+import { FormikProps } from "formik";
 import * as Yup from "yup";
+import { useEditorContext } from "Hooks";
 import {
   AutoSuggestInput,
   TextAreaSuggestInput,
@@ -14,8 +14,8 @@ import {
   textInputProps,
   toggleProps,
 } from "../../shared/inputs";
-import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 import styles from "./RunWorkflowForm.module.scss";
+import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 
 interface RunWorkflowFormProps {
   closeModal: () => void;
@@ -111,16 +111,14 @@ function RunWorkflowForm(props: RunWorkflowFormProps) {
     taskName: node.name,
     workflowId: selectedWorkflowId,
     ...activeInputs,
-    ...node.params.reduce((accum, curr) => {
-      accum[curr.name] = curr.value;
-      return accum;
-    }, {} as Record<string, string>),
+    ...node.params.reduce(
+      (accum, curr) => {
+        accum[curr.name] = curr.value;
+        return accum;
+      },
+      {} as Record<string, string>,
+    ),
   };
-
-  task.config.forEach((input) => {
-    const initialValue = node.params.find((param) => param.name === input.key)?.["value"];
-    initialValues[input.key] = initialValue !== undefined ? initialValue : input.defaultValue;
-  });
 
   return (
     <DynamicFormik

@@ -94,7 +94,7 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
               subtitle: taskRun.name,
             }}
             modalTrigger={({ openModal }) => (
-              <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
+              <Button size="sm" kind="ghost" onClick={openModal}>
                 Action
               </Button>
             )}
@@ -118,7 +118,7 @@ function RunTaskItem({ taskRun, workflowRun }: Props) {
               subtitle: taskRun.name,
             }}
             modalTrigger={({ openModal }) => (
-              <Button className={styles.modalTrigger} size="sm" kind="ghost" onClick={openModal}>
+              <Button size="sm" kind="ghost" onClick={openModal}>
                 Action
               </Button>
             )}

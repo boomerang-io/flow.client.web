@@ -37,7 +37,7 @@ function PropertiesTable({ data: properties, hasJsonValues = false }: Props) {
         <StructuredListWrapper selection>
           <StructuredListHead>
             <StructuredListRow head>
-              <StructuredListCell head>Parameter</StructuredListCell>
+              <StructuredListCell head>Name</StructuredListCell>
               {!hasJsonValues && <StructuredListCell head>Description</StructuredListCell>}
               <StructuredListCell head>Value</StructuredListCell>
             </StructuredListRow>

@@ -6,7 +6,7 @@ import {
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, InlineLoading, OverflowMenu, OverflowMenuItem } from "@carbon/react";
-import { Run, Bee, CircleFill, CircleStroke, WarningAlt } from "@carbon/react/icons";
+import { Run, Bee, CircleFill, InformationFilled } from "@carbon/react/icons";
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { Link, useHistory } from "react-router-dom";
@@ -229,7 +229,9 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
   }
 
   const canRunManually = workflow?.triggers?.manual?.enabled ?? false;
-  const isDisabled = workflowQuotasEnabled && (hasReachedMonthlyRunLimit || !canRunManually);
+  const isDisabledViaQuota = workflowQuotasEnabled && hasReachedMonthlyRunLimit;
+  const isDisabledViaTrigger = canRunManually === false;
+  const isDisabled = isDisabledViaQuota || isDisabledViaTrigger;
 
   let loadingText = "";
 
@@ -338,24 +340,24 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
         />
       ) : (
         <div className={styles.status}>
-          {hasReachedMonthlyRunLimit ? (
+          {isDisabledViaQuota ? (
             <TooltipHover
               direction="top"
               tooltipText="This team has reached the maximum number of runs (executions) allowed this month. Contact your administrator or team owner to increase the quota, or wait until the quota resets next month."
             >
-              <WarningAlt className={styles.warningIcon} />
+              <InformationFilled className={styles.warningIcon} style={{ fill: "#ff832b" }} />
             </TooltipHover>
-          ) : isDisabled ? (
-            <TooltipHover direction="top" tooltipText="Trigger disabled or Quota exceeded">
-              <CircleStroke style={{ fill: "#393939", marginRight: "0.5rem" }} />
+          ) : isDisabledViaTrigger ? (
+            <TooltipHover direction="top" tooltipText="Trigger disabled">
+              <InformationFilled className={styles.warningIcon} style={{ fill: "#ff832b" }} />
             </TooltipHover>
           ) : workflow.status === "active" ? (
             <TooltipHover direction="top" tooltipText="Active">
-              <CircleFill style={{ fill: "#009d9a", marginRight: "0.5rem" }} />
+              <CircleFill className={styles.warningIcon} style={{ fill: "#009d9a" }} />
             </TooltipHover>
           ) : (
             <TooltipHover direction="top" tooltipText="Inactive">
-              <CircleFill style={{ fill: "#da1e28", marginRight: "0.5rem" }} />
+              <CircleFill className={styles.warningIcon} style={{ fill: "#da1e28" }} />
             </TooltipHover>
           )}
           {/* <p className={styles.statusText}>{workflow.status === "active" ? "Active" : "Inactive"}</p> */}
