@@ -74,7 +74,7 @@ const team: FlowTeam = {
       ],
       enableACCIntegration: false,
       revisionCount: 2,
-      templateUpgradesAvailable: false,
+      upgradesAvailable: false,
       storage: {
         activity: {
           enabled: false,

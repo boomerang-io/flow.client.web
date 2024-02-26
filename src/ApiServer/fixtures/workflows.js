@@ -50,7 +50,7 @@ const workflows = {
           ],
         },
       },
-      templateUpgradesAvailable: false,
+      upgradesAvailable: false,
       config: [
         {
           required: true,
@@ -125,7 +125,7 @@ const workflows = {
       },
       tokens: [],
       enablePersistentStorage: false,
-      templateUpgradesAvailable: false,
+      upgradesAvailable: false,
       config: [
         {
           required: true,
@@ -205,7 +205,7 @@ const workflows = {
       },
       tokens: [],
       enablePersistentStorage: false,
-      templateUpgradesAvailable: true,
+      upgradesAvailable: true,
       config: [
         {
           required: true,

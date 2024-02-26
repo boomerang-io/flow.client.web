@@ -424,5 +424,5 @@ export const revision = {
     date: "2020-05-29T15:42:48.383+00:00",
     userName: null,
   },
-  templateUpgradesAvailable: false,
+  upgradesAvailable: false,
 };

@@ -321,7 +321,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
           </ComposedModal>
         )}
       </section>
-      {workflow.templateUpgradesAvailable && (
+      {workflow.upgradesAvailable && (
         <div className={styles.templatesWarningIcon}>
           <TooltipHover
             direction="top"

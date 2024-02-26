@@ -185,7 +185,7 @@ export interface Workflow {
     schedule: WorkflowTrigger;
     webhook: WorkflowTrigger;
   };
-  templateUpgradesAvailable: boolean;
+  upgradesAvailable: boolean;
   workspaces: Array<WorkflowWorkspace>;
 }
 
@@ -252,7 +252,7 @@ export type WorkflowNodeData = {
   name: string;
   templateRef: string;
   templateVersion: number;
-  templateUpgradesAvailable: boolean;
+  upgradesAvailable: boolean;
   params: Array<{ name: string; value: string }>;
   results: Array<{ name: string; description: string }>;
 };

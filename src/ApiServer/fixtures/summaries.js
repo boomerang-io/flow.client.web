@@ -201,7 +201,7 @@ const summaries = [
     },
     enableACCIntegration: false,
     revisionCount: 2,
-    templateUpgradesAvailable: false,
+    upgradesAvailable: false,
   },
 
   {
@@ -394,7 +394,7 @@ const summaries = [
     },
     enableACCIntegration: false,
     revisionCount: 2,
-    templateUpgradesAvailable: false,
+    upgradesAvailable: false,
   },
   {
     properties: [
@@ -472,7 +472,7 @@ const summaries = [
     },
     scope: "team",
     revisionCount: 8,
-    templateUpgradesAvailable: false,
+    upgradesAvailable: false,
   },
   {
     properties: [
@@ -550,7 +550,7 @@ const summaries = [
     },
     scope: "system",
     revisionCount: 16,
-    templateUpgradesAvailable: false,
+    upgradesAvailable: false,
   },
 ];
 

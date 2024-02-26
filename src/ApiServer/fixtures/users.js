@@ -31,7 +31,7 @@ const users = {
           enablePersistentStorage: true,
           enableACCIntegration: false,
           revisionCount: 2,
-          templateUpgradesAvailable: false,
+          upgradesAvailable: false,
         },
         {
           properties: [],
@@ -47,7 +47,7 @@ const users = {
           enablePersistentStorage: false,
           scope: "system",
           revisionCount: 16,
-          templateUpgradesAvailable: true,
+          upgradesAvailable: true,
         },
       ],
       userTeams: [
@@ -86,7 +86,7 @@ const users = {
           enablePersistentStorage: true,
           enableACCIntegration: false,
           revisionCount: 2,
-          templateUpgradesAvailable: false,
+          upgradesAvailable: false,
         },
       ],
       userTeams: [

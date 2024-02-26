@@ -42,12 +42,12 @@ const workflowsCompose = [
     nodes: [
       {
         id: "64cafb1706ca9f65f338ae3b",
-        data: { name: "start", params: [], templateRef: null, templateVersion: null, templateUpgradesAvailable: false },
+        data: { name: "start", params: [], templateRef: null, templateVersion: null, upgradesAvailable: false },
         type: "start",
       },
       {
         id: "64cafb1706ca9f65f338ae3c",
-        data: { name: "end", params: [], templateRef: null, templateVersion: null, templateUpgradesAvailable: false },
+        data: { name: "end", params: [], templateRef: null, templateVersion: null, upgradesAvailable: false },
         type: "end",
       },
       {
@@ -68,7 +68,7 @@ const workflowsCompose = [
           ],
           templateRef: "create-spreadsheet",
           templateVersion: "1",
-          templateUpgradesAvailable: true,
+          upgradesAvailable: true,
         },
         type: "template",
       },
