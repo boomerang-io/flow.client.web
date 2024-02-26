@@ -275,7 +275,7 @@ function FlowDiagram(props: FlowDiagramProps) {
           name: taskName,
           templateRef: task.name,
           templateVersion: task.version,
-          upgradesAvailable: false,
+          templateUpgradesAvailable: false,
           params: [],
         },
       };

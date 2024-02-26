@@ -252,7 +252,7 @@ export type WorkflowNodeData = {
   name: string;
   templateRef: string;
   templateVersion: number;
-  upgradesAvailable: boolean;
+  templateUpgradesAvailable: boolean;
   params: Array<{ name: string; value: string }>;
   results: Array<{ name: string; description: string }>;
 };
