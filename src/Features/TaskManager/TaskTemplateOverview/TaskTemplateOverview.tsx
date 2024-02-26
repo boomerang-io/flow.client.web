@@ -27,6 +27,7 @@ import { DataDrivenInput, TaskTemplate } from "Types";
 import styles from "./TaskTemplateOverview.module.scss";
 import fileDownload from "js-file-download";
 import { sentenceCase } from "change-case";
+import { number } from "prop-types";
 
 interface DetailDataElementsProps {
   label: string;
@@ -250,7 +251,8 @@ export function TaskTemplateOverview({
   const selectedTaskTemplate = getTaskTemplateQuery.data;
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
-  const isOldVersion = Boolean(params.version !== getChangelogQuery.data.length);
+  // params.version is a string, getChangelogQuery.data.length is a number
+  const isOldVersion = Boolean(params.version != getChangelogQuery.data.length);
 
   const fieldKeys = selectedTaskTemplate.config?.map((input: DataDrivenInput) => input.key) ?? [];
   const resultKeys = selectedTaskTemplate.result?.map((input: DataDrivenInput) => input.key) ?? [];
@@ -268,7 +270,7 @@ export function TaskTemplateOverview({
       requestType === TemplateRequestType.Overwrite ? selectedTaskTemplate.version : getChangelogQuery.data.length + 1;
     let changeReason =
       requestType === TemplateRequestType.Copy
-        ? "Version copied from ${values.currentConfig.version}"
+        ? `Version copied from ${values.currentConfig.version}`
         : values.comments;
     let newEnvs = values.envs.map((env) => {
       let index = env.indexOf(":");
@@ -279,7 +281,7 @@ export function TaskTemplateOverview({
       command: Boolean(values.command) ? values.command.trim().split(/\n{1,}/) : [],
       envs: newEnvs,
       image: values.image,
-      results: Boolean(values.results) ? values.results : [],
+      results: Boolean(values.result) ? values.result : [],
       script: values.script,
       workingDir: values.workingDir,
     };
@@ -293,7 +295,7 @@ export function TaskTemplateOverview({
       icon: values.icon,
       type: "template",
       changelog: { reason: changeReason },
-      config: Boolean(values.config) ? values.config : [],
+      config: Boolean(values.currentConfig) ? values.currentConfig : [],
       spec: spec,
     };
 
@@ -319,7 +321,7 @@ export function TaskTemplateOverview({
               name: response.data.name,
               version: response.data.version,
             })
-          : appLink.taskTemplateEdit({
+          : appLink.adminTaskTemplateDetail({
               name: response.data.name,
               version: response.data.version,
             })
@@ -554,7 +556,7 @@ export function TaskTemplateOverview({
                 <Tile className={styles.editFieldsCard}>
                   <section className={styles.editTitle}>
                     <hgroup className={styles.fieldsTitle}>
-                      <h1>Definition fields</h1>
+                      <h1>Parameter fields</h1>
                       <h2 className={styles.fieldDesc}>Drag to reorder the fields</h2>
                     </hgroup>
                     <div className={styles.fieldActions}>
@@ -594,9 +596,9 @@ export function TaskTemplateOverview({
                             ))
                           ) : (
                             <div className={styles.noFieldsContainer}>
-                              <p className={styles.noFieldsTitle}>No fields (yet)</p>
+                              <p className={styles.noFieldsTitle}>No parameters (yet)</p>
                               <p className={styles.noFieldsText}>
-                                Fields determine the function and parameters of a task, defining what the task does and
+                                Fields determine the parameters of a task, defining what is passed to the task and
                                 prompting users to fill in their values and messages.
                               </p>
                               <p className={styles.noFieldsText}>Add a field above to get started.</p>

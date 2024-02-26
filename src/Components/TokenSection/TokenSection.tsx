@@ -92,7 +92,7 @@ const TokenSection: React.FC<TokenProps> = ({ type, principal }) => {
           </StructuredListBody>
         </StructuredListWrapper>
       </dl>
-      <CreateToken getTokensUrl={getTokensUrl} principal={principal} type={TokenType.Workflow} />
+      <CreateToken getTokensUrl={getTokensUrl} principal={principal} type={type} />
     </>
   );
 };
