@@ -1,18 +1,19 @@
-import React from "react";
-import { useEditorContext } from "Hooks";
-import { useReactFlow, Node } from "reactflow";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import React from "react";
+import { useReactFlow, Node } from "reactflow";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
-import { TaskForm as DefaultTaskForm } from "./TaskForm";
+import { useEditorContext } from "Hooks";
 import BaseNode from "../../Base/BaseNode";
+import { TaskForm as DefaultTaskForm } from "./TaskForm";
+import styles from "./TemplateNode.module.scss";
 import { WorkflowEngineMode } from "Constants";
 import type { DataDrivenInput, TaskTemplate, WorkflowNode, WorkflowNodeProps } from "Types";
-import styles from "./TemplateNode.module.scss";
 
 interface TaskTemplateNodeProps extends WorkflowNodeProps {
   additionalFormInputs?: Array<Partial<DataDrivenInput>>;
+  formInputsToMerge?: Array<Partial<DataDrivenInput>>;
   className?: string;
   TaskForm?: React.FC<any>; //TODO
 }
@@ -53,6 +54,13 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
 
   // Get the taskNames names from the nodes on the model
   const otherTaskNames = nodes.map((node) => node.data.name).filter((name) => name !== props.data.name);
+
+  props.formInputsToMerge?.forEach((input) => {
+    const foundConfigItemIdx = task.config.findIndex((configItem) => configItem.key === input.key);
+    if (foundConfigItemIdx >= 0) {
+      task.config[foundConfigItemIdx] = { ...task.config[foundConfigItemIdx], ...input };
+    }
+  });
 
   const handleOnUpdateTaskVersion = ({ inputs, version }: { inputs: Record<string, string>; version: number }) => {
     const nameAndParamListRecord = inputRecordToNameAndParamListRecord(inputs);
