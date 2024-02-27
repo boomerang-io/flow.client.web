@@ -160,13 +160,13 @@ function Tokens({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
               hideCloseButton={true}
               kind="info"
               title="Read-only"
-              subtitle="You don’t have permission to create Tokens, but you can still see what’s going on behind the
-            scenes."
+              subtitle="The team may be inactive or you don’t have the necessary permissions. You can still see what’s going on behind the
+              scenes."
             />
           </section>
         ) : null}
         <div className={styles.buttonContainer}>
-          {team && <CreateToken type={TokenType.Team} principal={team.name} getTokensUrl={getTokensUrl} />}
+          {team && <CreateToken type={TokenType.Team} principal={team.name} getTokensUrl={getTokensUrl} disabled={!canEdit}/>}
         </div>
         {tokensData?.content?.length > 0 ? (
           <>

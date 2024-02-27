@@ -182,7 +182,7 @@ function ApproverGroups({
             hideCloseButton={true}
             kind="info"
             title="Read-only"
-            subtitle="You don’t have permission to create Approver Groups, but you can still see what’s going on behind the
+            subtitle="The team may be inactive or you don’t have the necessary permissions. You can still see what’s going on behind the
             scenes."
           />
         </section>

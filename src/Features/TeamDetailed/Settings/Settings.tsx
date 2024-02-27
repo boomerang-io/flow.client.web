@@ -36,14 +36,14 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
 
   const patchTeamMutator = useMutation(resolver.patchUpdateTeam);
 
-  const handleRemoveTeam = async () => {
+  const handleCloseTeam = async () => {
     try {
-      await patchTeamMutator.mutateAsync({ team: team.name, body: { isActive: false } });
+      await patchTeamMutator.mutateAsync({ team: team.name, body: { status: "inactive" } });
       queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: team.name }));
       notify(
         <ToastNotification
-          title="Remove Team"
-          subtitle={`Request to close ${team.displayName} successful`}
+          title="Close Team"
+          subtitle={`Request to close '${team.displayName}' successful`}
           kind="success"
         />,
       );
@@ -118,7 +118,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
             hideCloseButton={true}
             kind="info"
             title="Read-only"
-            subtitle="You don’t have permission to change these settings, but you can still see what’s going on behind the
+            subtitle="The team may be inactive or you don’t have the necessary permissions. You can still see what’s going on behind the
             scenes."
           />
         </section>
@@ -144,6 +144,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
                 className={styles.teamEditIcon}
                 onClick={openModal}
                 data-testid="open-change-name-modal"
+                disabled={!canEdit}
               >
                 <Edit />
               </button>
@@ -251,7 +252,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
                 action={handleAddLabel}
                 labelsKeys={labelsKeys}
                 modalTrigger={({ openModal }: { openModal: Function }) => (
-                  <Button kind="ghost" iconDescription="add a new label" renderIcon={Add} size="md" onClick={openModal}>
+                  <Button kind="ghost" iconDescription="add a new label" renderIcon={Add} size="md" onClick={openModal} disabled={!canEdit}>
                     Add a new label
                   </Button>
                 )}
@@ -268,7 +269,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
             access to the Services will be revoked.
           </p>
           <ConfirmModal
-            affirmativeAction={() => handleRemoveTeam()}
+            affirmativeAction={() => handleCloseTeam()}
             affirmativeButtonProps={{ kind: "danger", "data-testid": "confirm-close-team" }}
             title={`Close ${team.displayName}?`}
             negativeText="Cancel"

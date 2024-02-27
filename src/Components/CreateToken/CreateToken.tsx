@@ -12,9 +12,10 @@ interface CreateServiceTokenButtonProps {
   type: TokenScopeType;
   principal?: string | null;
   getTokensUrl: string;
+  [key: string]: any;  // This allows for any additional optional props
 }
 
-function CreateServiceTokenButton({ type, principal, getTokensUrl }: CreateServiceTokenButtonProps) {
+function CreateServiceTokenButton({ type, principal, getTokensUrl, ...otherProps }: CreateServiceTokenButtonProps) {
   const [isTokenCreated, setIsTokenCreated] = React.useState(false);
   return (
     <ModalFlow
@@ -31,8 +32,9 @@ function CreateServiceTokenButton({ type, principal, getTokensUrl }: CreateServi
           size="md"
           data-testid="create-token-button"
           kind={type === TokenType.User || type === TokenType.Workflow ? "ghost" : "primary"}
+          {...otherProps}
         >
-          Create new token
+          Create token
         </Button>
       )}
       modalHeaderProps={{
