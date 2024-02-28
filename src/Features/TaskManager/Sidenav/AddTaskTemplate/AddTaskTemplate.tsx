@@ -50,12 +50,11 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
               version: task.version.toString(),
             }),
       );
+      setIsSubmitting(false);
       closeModal();
     } catch (err) {
       setIsSubmitError(true);
-    } finally {
-      setIsSubmitting(false);
-    }
+    } 
   };
 
   const handleImportTaskTemplate = async ({ type, replace, body, closeModal }) => {
@@ -89,11 +88,10 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
             }),
       );
       closeModal();
+      setIsSubmitting(false);
     } catch (err) {
       setIsSubmitError(true);
-    } finally {
-      setIsSubmitting(false);
-    }
+    } 
   };
 
   return (

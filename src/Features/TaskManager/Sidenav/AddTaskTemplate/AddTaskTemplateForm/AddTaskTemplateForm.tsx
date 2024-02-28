@@ -94,7 +94,7 @@ function AddTaskTemplateForm({
     reset: resetValidateYaml,
   } = useMutation(resolver.postValidateYaml);
 
-  const handleSubmit = async (values) => {
+  const handleCreate = async (values) => {
     const hasFile = values.file;
     let newEnvs = values.envs.map((env) => {
       let index = env.indexOf(":");
@@ -248,7 +248,7 @@ function AddTaskTemplateForm({
         //   return Promise.resolve(isValid);
         // }),
       })}
-      onSubmit={selectedOption === OPTION_IMPORT ? handleSubmit : handleImport}
+      onSubmit={selectedOption === OPTION_CREATE ? handleCreate : handleImport}
       initialErrors={[{ name: "Name required" }]}
     >
       {(props) => {
@@ -266,7 +266,7 @@ function AddTaskTemplateForm({
         } = props;
         return (
           <ModalForm
-            onSubmit={selectedOption === OPTION_IMPORT ? handleSubmit : handleImport}
+            onSubmit={handleSubmit}
             className={styles.container}
           >
             <ModalBody>
