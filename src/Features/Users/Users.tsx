@@ -20,6 +20,7 @@ import { CREATED_DATE_FORMAT } from "Constants";
 import { AppPath, appLink, queryStringOptions } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { PaginatedUserResponse } from "Types";
+import { CheckmarkFilled, Misuse } from "@carbon/react/icons";
 import styles from "./Users.module.scss";
 
 const DEFAULT_ORDER = "DESC";
@@ -161,6 +162,7 @@ const UserList: React.FC = () => {
 
 const TableHeaderKey = {
   Name: "name",
+  DisplayName: "displayName",
   Email: "email",
   Type: "type",
   Created: "firstLoginDate",
@@ -173,6 +175,11 @@ const headers = [
     header: "Name",
     key: TableHeaderKey.Name,
     sortable: true,
+  },
+  {
+    header: "Preferred Display Name",
+    key: TableHeaderKey.DisplayName,
+    sortable: false,
   },
   {
     header: "Email",
@@ -278,13 +285,22 @@ function UsersTable(props: UsersTableProps) {
                         cell.info.header === TableHeaderKey.LastLogin
                       ) {
                         return <TableCell key={cell.id}>{moment(cell.value).format(CREATED_DATE_FORMAT)}</TableCell>;
+                      } else if (cell.info.header === TableHeaderKey.Status) {
+                        return (
+                          <TableCell key={cell.id} id={cell.id}>
+                            {cell.value === "active" ? (
+                              <CheckmarkFilled aria-label="Active" fill="green" />
+                            ) : (
+                              <Misuse aria-label="Inactive" fill="red" />
+                            )}
+                          </TableCell>
+                        );
                       }
 
-                      if (Array.isArray(cell.value)) {
-                        return <TableCell key={cell.id}>{cell.value.length}</TableCell>;
-                      }
-
-                      return <TableCell key={cell.id}>{cell.value}</TableCell>;
+                      return (
+                        <TableCell key={cell.id}>
+                          {Array.isArray(cell.value) ? cell.value.length : cell?.value ?? "---"}
+                        </TableCell>)
                     })}
                   </TableRow>
                 ))}
