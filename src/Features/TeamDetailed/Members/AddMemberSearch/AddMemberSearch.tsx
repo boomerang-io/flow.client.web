@@ -8,6 +8,7 @@ import { serviceUrl } from "Config/servicesConfig";
 import { Member, MemberRole, PaginatedUserResponse } from "Types";
 import MemberBar from "./MemberBar";
 import styles from "./AddMemberSearch.module.scss";
+import { Locked } from "Utils/navigationIcons";
 
 interface AddMemberSearchProps {
   memberList: Array<Member>;
@@ -21,7 +22,7 @@ function AddMemberSearch({ memberList, handleSubmit, isSubmitting, error }: AddM
     <ComposedModal
       modalTrigger={({ openModal }: { openModal: Function }) => (
         <Button
-          renderIcon={Add}
+          renderIcon={Locked}
           kind="ghost"
           onClick={() => {
             openModal();

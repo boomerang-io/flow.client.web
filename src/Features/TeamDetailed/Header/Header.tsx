@@ -3,6 +3,7 @@ import { Breadcrumb, BreadcrumbItem } from "@carbon/react";
 import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
   FeatureNavTab as Tab,
   FeatureNavTabs as Tabs,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -58,7 +59,10 @@ function TeamDetailedHeader({ team }: TeamDetailedHeaderProps) {
       nav={<NavigationComponent />}
       header={
         <div className={styles.infoContainer}>
-          <HeaderTitle>Manage Team</HeaderTitle>
+          <div>
+            <HeaderTitle>Manage Team</HeaderTitle>
+            <HeaderSubtitle>Team Owners & Administrators can manage this team.</HeaderSubtitle>
+          </div>
           {team && (
             <div className={styles.infoDetailsContainer}>
               <section className={styles.subHeaderContainer}>

@@ -61,7 +61,7 @@ const Members: React.FC<MemberProps> = ({ canEdit, team, user, teamDetailsUrl })
       </Helmet>
       <section className={styles.actionsContainer}>
         <div className={styles.leftActions}>
-          <p className={styles.featureDescription}>These are the people who have access to workflows for this Team.</p>
+          <p className={styles.featureDescription}>These are the people who have access to this Team.</p>
           <p className={styles.memberCountText}>
             Showing {filteredMemberList.length} member{filteredMemberList.length !== 1 ? "s" : ""}
           </p>

@@ -124,7 +124,7 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
         </section>
       ) : null}
       <p className={styles.settingsDescription}>
-        Configurable settings for this Team – Team Owners & Admins have the ability to make changes here.
+        Configurable settings for this Team.
       </p>
       <SettingSection
         title="Basic details"
