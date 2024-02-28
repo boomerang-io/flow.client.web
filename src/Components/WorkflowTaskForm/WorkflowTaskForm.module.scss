@@ -29,4 +29,9 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  gap: 0.375rem;
+
+  :global .cds--tag {
+    margin: 0;
+  }
 }

@@ -68,12 +68,17 @@ export default function EditorContainer() {
   /**
    * Queries
    */
-  const changeLogQuery = useQuery<ChangeLogType>(getChangelogUrl);
   const workflowQuery = useQuery<WorkflowEditor>(getWorkflowUrl);
   const workflowsQuery = useQuery<PaginatedWorkflowResponse>(getWorkflowsUrl);
-  const taskTemplatesQuery = useQuery<PaginatedTaskTemplateResponse>(getTaskTemplatesUrl);
-  const taskTemplatesTeamQuery = useQuery<PaginatedTaskTemplateResponse>(getTaskTemplatesTeamUrl);
-  const availableParametersQuery = useQuery<Array<string>>(getAvailableParametersUrl, {});
+  const changeLogQuery = useQuery<ChangeLogType>(getChangelogUrl);
+  const availableParametersQuery = useQuery<Array<string>>(getAvailableParametersUrl);
+
+  const taskTemplatesQuery = useQuery<PaginatedTaskTemplateResponse>(getTaskTemplatesUrl, {
+    refetchOnWindowFocus: false,
+  });
+  const taskTemplatesTeamQuery = useQuery<PaginatedTaskTemplateResponse>(getTaskTemplatesTeamUrl, {
+    refetchOnWindowFocus: false,
+  });
 
   /**
    * Mutations
@@ -84,8 +89,6 @@ export default function EditorContainer() {
       queryClient.setQueryData(serviceUrl.workflowAvailableParameters({ workflowId }), response.data),
   });
 
-  // Only show loading for the summary and task templates
-  // Revision takes longer and we want to show a separate loading animation for it, plus prevent remounting everything
   if (
     workflowQuery.isLoading ||
     workflowsQuery.isLoading ||
@@ -108,8 +111,6 @@ export default function EditorContainer() {
     return <Error />;
   }
 
-  // Don't block render if we don't have the revision data. We want to render the header and sidenav regardless
-  // prevents unnecessary remounting when creating a new version or navigating to a previous one
   if (
     workflowQuery.data &&
     workflowsQuery.data &&
@@ -131,6 +132,7 @@ export default function EditorContainer() {
         setRevisionNumber={setRevisionNumber}
         taskTemplatesList={taskTemplatesList}
         workflowId={workflowId}
+        key={revisionNumber}
       />
     );
   }
@@ -195,7 +197,6 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       };
 
       try {
-        console.log("Revision: ", revision);
         const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
         notify(
           <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />,
@@ -234,7 +235,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
    *   - team
    *   - global
    *   - context
-   *   that get requested and made available to Workflow task configuration
+   * that get requested and made available to Workflow task configuration
    * Parameters are represented in two ways, "flat" and "layer"
    * e.g. Workflow "api-token" as workflow.params.api-token and param.api-token.
    * e.g. Team "api-token" as team.params.api-token and param.api-token.
@@ -244,8 +245,8 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
    * layer version AND check if there is a matching higher layer one. If there
    * IS NOT then we need to delete the flat token as well
    *
-   * All of this is bc params are versioned along w/ the Workflow so when we edit things
-   * client side we need to propogate those changes within the workflow Editor
+   * All of this is because params are versioned along w/ the Workflow so when we edit things
+   * client side we need to propogate those changes within the Editor
    */
   const handleUpdateParams = useCallback(
     (parameters: Array<DataDrivenInput>, deletedParameters: Array<DataDrivenInput>) => {
@@ -312,7 +313,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
-    <EditorContextProvider value={store} key={revisionNumber}>
+    <EditorContextProvider value={store}>
       <>
         <Prompt
           when={Boolean(revisionState.hasUnsavedUpdates)}
