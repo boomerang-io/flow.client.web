@@ -3,7 +3,7 @@ import { useEditorContext } from "Hooks";
 import { useTeamContext } from "Hooks";
 import { TemplateNode } from "../Template";
 import { WorkflowEngineMode } from "Constants";
-import { DataDrivenInput, WorkflowNodeProps } from "Types";
+import { WorkflowNodeProps } from "Types";
 
 export default function ApprovalNode(props: WorkflowNodeProps) {
   const { mode } = useEditorContext();
@@ -22,7 +22,12 @@ function ApprovalNodeDesigner(props: WorkflowNodeProps) {
     value: approverGroup.name,
   }));
 
-  return <TemplateNode {...props} formInputsToMerge={[{ key: "approverGroupIds", options }]} />;
+  const formInputsToMerge =
+    options.length > 0
+      ? [{ key: "approverGroupId", options }]
+      : [{ key: "approverGroupId", disabled: true, description: "No approver groups configured for this team." }];
+
+  return <TemplateNode {...props} formInputsToMerge={formInputsToMerge} />;
 }
 
 function ApprovalNodeExecution(props: any) {

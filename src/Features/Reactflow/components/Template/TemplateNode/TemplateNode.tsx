@@ -20,45 +20,34 @@ interface TaskTemplateNodeProps extends WorkflowNodeProps {
 
 export default function TaskTemplateNode(props: TaskTemplateNodeProps) {
   const { mode, taskTemplatesData } = useEditorContext();
-  // Find the matching task template based on the name and version
-  const taskTemplateList = taskTemplatesData[props.data.templateRef];
-  const task =
-    taskTemplateList?.find((taskTemplate) => taskTemplate.version === props.data.templateVersion) ??
-    taskTemplatesData[props.data.templateRef]?.[0] ??
-    {};
+  // Get the first (and latest) version of the task template
+  const taskTemplate = taskTemplatesData[props.data.templateRef][0];
 
   if (mode === WorkflowEngineMode.Executor) {
-    return <TaskTemplateNodeExecution {...props} task={task} />;
+    return <TaskTemplateNodeExecution {...props} taskTemplate={taskTemplate} />;
   }
 
-  return <TaskTemplateNodeDesigner {...props} task={task} />;
+  return <TaskTemplateNodeDesigner {...props} taskTemplate={taskTemplate} />;
 }
 
 interface TaskTemplateNodeInstanceProps extends TaskTemplateNodeProps {
-  task: TaskTemplate;
+  taskTemplate: TaskTemplate;
 }
 
 function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
-  const { TaskForm = DefaultTaskForm } = props;
+  const { taskTemplate, TaskForm = DefaultTaskForm } = props;
   const reactFlowInstance = useReactFlow();
 
-  const { availableParameters, taskTemplatesData } = useEditorContext();
+  const { availableParameters } = useEditorContext();
   const nodes = reactFlowInstance.getNodes() as Array<WorkflowNode>;
-
-  // Find the matching task template based on the name and version
-  const taskTemplateList = taskTemplatesData[props.data.templateRef];
-  const task =
-    taskTemplateList?.find((taskTemplate) => taskTemplate.version === props.data.templateVersion) ??
-    taskTemplatesData[props.data.templateRef]?.[0] ??
-    {};
 
   // Get the taskNames names from the nodes on the model
   const otherTaskNames = nodes.map((node) => node.data.name).filter((name) => name !== props.data.name);
 
   props.formInputsToMerge?.forEach((input) => {
-    const foundConfigItemIdx = task.config.findIndex((configItem) => configItem.key === input.key);
+    const foundConfigItemIdx = taskTemplate.config.findIndex((configItem) => configItem.key === input.key);
     if (foundConfigItemIdx >= 0) {
-      task.config[foundConfigItemIdx] = { ...task.config[foundConfigItemIdx], ...input };
+      taskTemplate.config[foundConfigItemIdx] = { ...taskTemplate.config[foundConfigItemIdx], ...input };
     }
   });
 
@@ -101,8 +90,8 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
     return (
       <ComposedModal
         modalHeaderProps={{
-          title: `Edit ${task.displayName}`,
-          subtitle: task.description || "Configure the task",
+          title: `Edit ${taskTemplate.displayName}`,
+          subtitle: taskTemplate.description || "Configure the task",
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
@@ -114,7 +103,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
             node={props.data}
             onSave={handleOnSaveTaskConfig}
             otherTaskNames={otherTaskNames}
-            task={task}
+            task={taskTemplate}
           />
         )}
       </ComposedModal>
@@ -145,8 +134,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
             closeModal={closeModal}
             node={props.data}
             onSave={handleOnUpdateTaskVersion}
-            currentTaskTemplateVersion={task}
-            latestTaskTemplateVersion={taskTemplatesData[props.data.templateRef][0]}
+            latestTaskTemplate={taskTemplate}
           />
         )}
       </ComposedModal>
@@ -157,11 +145,11 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
     <BaseNode
       isConnectable
       className={props.className}
-      icon={task.icon}
+      icon={taskTemplate.icon}
       kind={WorkflowEngineMode.Editor}
       nodeProps={props}
       title={props.data.name}
-      subtitle={task.description}
+      subtitle={taskTemplate.description}
     >
       <ConfigureTask />
       <UpdateTaskVersion />
@@ -173,11 +161,11 @@ function TaskTemplateNodeExecution(props: TaskTemplateNodeInstanceProps) {
   return (
     <BaseNode
       className={props.className}
-      icon={props.task.icon}
+      icon={props.taskTemplate.icon}
       isConnectable={false}
       kind={WorkflowEngineMode.Executor}
       nodeProps={props}
-      subtitle={props.task.description}
+      subtitle={props.taskTemplate.description}
       title={props.data.name}
     />
   );

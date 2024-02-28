@@ -48,7 +48,7 @@ export default function TaskRunLog({ taskrunId, taskName }: Props) {
                     defaultValue={follow}
                     disabled={Boolean(error)}
                     id="task-log-toggle"
-                    labelText="Follow log toggle"
+                    labelText="Follow log"
                     labelB="Follow"
                     labelA="Don't Follow"
                     onToggle={() => setFollow(!follow)}

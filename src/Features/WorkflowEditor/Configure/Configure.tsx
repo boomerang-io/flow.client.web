@@ -1,12 +1,3 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import { Switch, Route, Redirect, useLocation, useParams } from "react-router-dom";
-import { useQuery } from "react-query";
-import { useFeature } from "flagged";
-import { useTeamContext } from "Hooks";
-import { Formik, FormikProps, FieldArray } from "formik";
-import { Tag, MultiSelect, InlineNotification, Button, Dropdown } from "@carbon/react";
-import { Launch, Popup, TrashCan, Add } from "@carbon/react/icons";
 import {
   ComposedModal,
   TextArea,
@@ -15,21 +6,30 @@ import {
   TooltipHover,
   CheckboxList,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Tag, MultiSelect, InlineNotification, Button, Dropdown } from "@carbon/react";
+import { Launch, Popup, TrashCan, Add } from "@carbon/react/icons";
+import React from "react";
+import { Helmet } from "react-helmet";
+import { useQuery } from "react-query";
+import { Switch, Route, Redirect, useLocation, useParams } from "react-router-dom";
+import workflowIcons from "Assets/workflowIcons";
 import cx from "classnames";
+import { useFeature } from "flagged";
+import { Formik, FormikProps, FieldArray } from "formik";
 import capitalize from "lodash/capitalize";
 import * as Yup from "yup";
+import TokenSection from "Components/TokenSection";
+import { useTeamContext } from "Hooks";
 import BuildWebhookModalContent from "./BuildWebhookModalContent";
 import ConfigureEventTrigger from "./ConfigureEventTrigger";
 import ConfigureStorage from "./ConfigureStorage";
-import { resolver, serviceUrl } from "Config/servicesConfig";
-import NavPanel from "./SideNav";
 import CustomLabel from "./CustomLabel";
+import NavPanel from "./SideNav";
+import styles from "./configure.module.scss";
 import { appLink, AppPath, FeatureFlag } from "Config/appConfig";
-import workflowIcons from "Assets/workflowIcons";
+import { resolver, serviceUrl } from "Config/servicesConfig";
 import { WorkspaceConfigType } from "Constants";
 import { Workflow, ConfigureWorkflowFormValues, FlowTeam } from "Types";
-import TokenSection from "Components/TokenSection";
-import styles from "./configure.module.scss";
 
 const TRIGGER_YUP_SCHEMA = Yup.object().shape({
   enabled: Yup.bool(),
@@ -46,7 +46,7 @@ const TRIGGER_YUP_SCHEMA = Yup.object().shape({
         },
       }),
       values: Yup.array().of(Yup.string()).optional(),
-    })
+    }),
   ),
 });
 
@@ -76,15 +76,15 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
   });
 
   const isOnConfigurePath = location.pathname.startsWith(
-    appLink.editorConfigure({ team: params.team, workflowId: params.workflowId })
+    appLink.editorConfigure({ team: params.team, workflowId: params.workflowId }),
   );
 
   // Find the specific workspace configs we want that are used for storage storage
   const workflowStorageConfig = workflow.workspaces?.find(
-    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.Workflow
+    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.Workflow,
   );
   const workflowRunStorageConfig = workflow.workspaces?.find(
-    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.WorflowRun
+    (workspaceConfig) => workspaceConfig.type === WorkspaceConfigType.WorflowRun,
   );
 
   return (
@@ -140,7 +140,7 @@ function ConfigureContainer({ quotas, workflow, settingsRef }: ConfigureContaine
             .min(0)
             .max(
               team.quotas.maxWorkflowRunTime,
-              `Timeout must not exceed quota of ${team.quotas.maxWorkflowRunTime} minutes`
+              `Timeout must not exceed quota of ${team.quotas.maxWorkflowRunTime} minutes`,
             ),
           triggers: Yup.object().shape({
             schedule: TRIGGER_YUP_SCHEMA,
@@ -481,7 +481,7 @@ function Configure(props: ConfigureProps) {
                                         console.log(e);
                                         props.formikProps.setFieldValue(
                                           `triggers.event.conditions[${idx}].operation`,
-                                          e.selectedItem
+                                          e.selectedItem,
                                         );
                                       }}
                                       invalid={Boolean(errors.triggers?.event?.conditions?.[idx]?.operation)}
