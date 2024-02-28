@@ -71,7 +71,7 @@ export default function Home() {
     <>
       <HomeBanner name={name} />
       <div className={styles.welcome}>
-        <h1>Welcome, {user.name}</h1>
+        <h1>Welcome, {user.displayName ? user.displayName : user.name}</h1>
       </div>
       <div>
         <Layer>

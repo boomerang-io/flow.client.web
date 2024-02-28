@@ -43,6 +43,7 @@ export interface FlowUser extends User {
   id: string;
   email: string;
   name: string;
+  displayName?: string;
   type: PlatformRole;
   creationDate: string;
   lastLoginDate: string;

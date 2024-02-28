@@ -144,7 +144,6 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
                 className={styles.teamEditIcon}
                 onClick={openModal}
                 data-testid="open-change-name-modal"
-                disabled={!canEdit}
               >
                 <Edit />
               </button>

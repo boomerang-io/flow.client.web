@@ -165,6 +165,8 @@ export const resolver = {
     axios({ url: serviceUrl.getGlobalParameter({ key }), data: body, method: HttpMethod.Patch }),
   patchTeam: ({ team, body }) => axios.patch(serviceUrl.resourceTeam({ team }), body),
   patchManageTeamLabels: ({ team, body }) => axios.patch(serviceUrl.getManageTeamLabels({ team }), body),
+  patchProfile: ({ body }) =>
+    axios({ url: serviceUrl.getUserProfile(), data: body, method: HttpMethod.Patch }),
   patchManageUser: ({ body, userId }) =>
     axios({ url: serviceUrl.getUser({ userId }), data: body, method: HttpMethod.Patch }),
   putSchedule: ({ body }) => axios.put(serviceUrl.putSchedule(), body),

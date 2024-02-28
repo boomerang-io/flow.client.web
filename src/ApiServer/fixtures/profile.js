@@ -2,6 +2,7 @@ const profile = {
   id: "59aebd0c7424530fce952fde",
   email: "tyson@flowabl.io",
   name: "Tyson Lawrie",
+  displayName: "TL",
   isFirstVisit: false,
   type: "admin",
   isShowHelp: true,

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import { ConfirmModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ConfirmModal, ComposedModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useMutation } from "react-query";
-import { CopyFile, Close } from "@carbon/react/icons";
+import { Edit, CopyFile, Close } from "@carbon/react/icons";
 import { Tag, Button } from "@carbon/react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import type { FlowUser } from "Types";
@@ -10,6 +10,7 @@ import { resolver } from "Config/servicesConfig";
 import TokenSection from "Components/TokenSection";
 import styles from "./Settings.module.scss";
 import { TokenType } from "Constants";
+import UpdateBasicDetails from "./UpdateBasicDetails";
 
 interface UserSettingsProps {
   user: FlowUser;
@@ -57,7 +58,30 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
           Manage your profile, tokens, special features, or close your account.
         </p>
       )}
-      <SettingSection title="Basic details">
+      <SettingSection title="Basic details"
+        editModal={
+          <ComposedModal
+            composedModalProps={{
+              containerClassName: styles.teamNameModalContainer,
+            }}
+            modalHeaderProps={{
+              title: "Change team name",
+              //   subtitle:
+              //     "Try to keep it concise to avoid truncation in the sidebar. You must make sure the name is valid before it can be updated.",
+            }}
+            modalTrigger={({ openModal }) => (
+              <button
+                className={styles.teamEditIcon}
+                onClick={openModal}
+                data-testid="open-change-name-modal"
+              >
+                <Edit />
+              </button>
+            )}
+          >
+            {({ closeModal }) => <UpdateBasicDetails closeModal={closeModal} user={user} />}
+          </ComposedModal>
+        }>
         <dl className={styles.detailedListContainer}>
           <div className={styles.detailedListGrid}>
             <div className={styles.detailedListGridItem}>
@@ -67,6 +91,10 @@ export default function Settings({ user, userManagementEnabled }: UserSettingsPr
             <div className={styles.detailedListGridItem}>
               <dt className={styles.detailedListTitle}>Email</dt>
               <dd className={styles.detailedListDescription}>{user.email}</dd>
+            </div>
+            <div className={styles.detailedListGridItem}>
+              <dt className={styles.detailedListTitle}>Preferred Display Name</dt>
+              <dd className={styles.detailedListDescription}>{user.displayName ? user.displayName : "---"}</dd>
             </div>
           </div>
         </dl>
