@@ -56,11 +56,11 @@ export default function EditorContainer() {
   const getChangelogUrl = serviceUrl.getWorkflowChangelog({ id: workflowId });
   const getWorkflowUrl = serviceUrl.getWorkflowCompose({ id: workflowId, version: revisionNumber });
 
-  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
+  const getTaskTemplatesUrl = serviceUrl.tasktemplate.getTaskTemplates({
     query: queryString.stringify({ statuses: "active" }),
   });
-  const getTaskTemplatesTeamUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ teams: team?.name, statuses: "active" }),
+  const getTeamTaskTemplatesUrl = serviceUrl.team.tasktemplate.getTaskTemplates({
+    query: queryString.stringify({ statuses: "active" }), team: team.name, 
   });
 
   const getAvailableParametersUrl = serviceUrl.workflowAvailableParameters({ workflowId });
@@ -76,7 +76,7 @@ export default function EditorContainer() {
   const taskTemplatesQuery = useQuery<PaginatedTaskTemplateResponse>(getTaskTemplatesUrl, {
     refetchOnWindowFocus: false,
   });
-  const taskTemplatesTeamQuery = useQuery<PaginatedTaskTemplateResponse>(getTaskTemplatesTeamUrl, {
+  const teamTaskTemplatesQuery = useQuery<PaginatedTaskTemplateResponse>(getTeamTaskTemplatesUrl, {
     refetchOnWindowFocus: false,
   });
 
@@ -94,7 +94,7 @@ export default function EditorContainer() {
     workflowsQuery.isLoading ||
     changeLogQuery.isLoading ||
     taskTemplatesQuery.isLoading ||
-    taskTemplatesTeamQuery.isLoading ||
+    teamTaskTemplatesQuery.isLoading ||
     availableParametersQuery.isLoading
   ) {
     return <Loading />;
@@ -105,7 +105,7 @@ export default function EditorContainer() {
     workflowsQuery.error ||
     changeLogQuery.error ||
     taskTemplatesQuery.error ||
-    taskTemplatesTeamQuery.error ||
+    teamTaskTemplatesQuery.error ||
     availableParametersQuery.error
   ) {
     return <Error />;
@@ -116,10 +116,10 @@ export default function EditorContainer() {
     workflowsQuery.data &&
     changeLogQuery.data &&
     taskTemplatesQuery.data &&
-    taskTemplatesTeamQuery.data &&
+    teamTaskTemplatesQuery.data &&
     availableParametersQuery.data
   ) {
-    const taskTemplatesList = [...taskTemplatesQuery.data.content, ...taskTemplatesTeamQuery.data.content];
+    const taskTemplatesList = [...taskTemplatesQuery.data.content, ...teamTaskTemplatesQuery.data.content];
     return (
       <EditorStateContainer
         availableParametersQueryData={availableParametersQuery.data}

@@ -27,7 +27,6 @@ import { DataDrivenInput, TaskTemplate } from "Types";
 import styles from "./TaskTemplateOverview.module.scss";
 import fileDownload from "js-file-download";
 import { sentenceCase } from "change-case";
-import { number } from "prop-types";
 
 interface DetailDataElementsProps {
   label: string;
@@ -220,18 +219,28 @@ export function TaskTemplateOverview({
   const params = useParams();
   const history = useHistory();
 
-  const getTaskTemplateUrl = serviceUrl.getTaskTemplate({
+  let getTaskTemplateUrl = serviceUrl.tasktemplate.getTaskTemplate({
     name: params.name,
     version: params.version,
   });
-  const getTaskTemplateQuery = useQuery(getTaskTemplateUrl);
-
-  const getChangelogUrl = serviceUrl.getTaskTemplateChangelog({
+  let getChangelogUrl = serviceUrl.tasktemplate.getTaskTemplateChangelog({
     name: params.name,
   });
+  if (params.team) {
+    getTaskTemplateUrl = serviceUrl.team.tasktemplate.getTaskTemplate({
+      team: params.team,
+      name: params.name,
+      version: params.version,
+    });
+    getChangelogUrl = serviceUrl.team.tasktemplate.getTaskTemplateChangelog({
+      team: params.team,
+      name: params.name,
+    });
+  } 
+  const getTaskTemplateQuery = useQuery(getTaskTemplateUrl);
   const getChangelogQuery = useQuery<ChangeLog>(getChangelogUrl);
-
   const applyTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
+  const applyTeamTaskTemplateMutation = useMutation(resolver.putApplyTeamTaskTemplate);
 
   if (getTaskTemplateQuery.isLoading || getChangelogQuery.isLoading) {
     return (
@@ -301,7 +310,12 @@ export function TaskTemplateOverview({
 
     try {
       let replace = requestType === TemplateRequestType.Overwrite ? "true" : "false";
-      let response = await applyTaskTemplateMutation.mutateAsync({ replace, team: params.team, body });
+      let response;
+      if (params.team) {
+        response = await applyTeamTaskTemplateMutation.mutateAsync({ replace, team: params.team, body });
+      } else {
+        response = await applyTaskTemplateMutation.mutateAsync({ replace, body });
+      }
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
@@ -355,7 +369,11 @@ export function TaskTemplateOverview({
   const handleArchiveTaskTemplate = async () => {
     try {
       selectedTaskTemplate.status = "inactive";
-      await applyTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+      if (params.team) {
+        await applyTeamTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+      } else {
+        await applyTaskTemplateMutation.mutateAsync({ replace: "true", body: selectedTaskTemplate });
+      }
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
@@ -382,7 +400,11 @@ export function TaskTemplateOverview({
   const handleRestoreTaskTemplate = async () => {
     try {
       selectedTaskTemplate.status = "active";
-      await applyTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+      if (params.team) {
+        await applyTeamTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+      } else {
+        await applyTaskTemplateMutation.mutateAsync({ replace: "true", body: selectedTaskTemplate });
+      }
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());

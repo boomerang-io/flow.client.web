@@ -122,7 +122,6 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
               taskTemplateNames={distinctTaskNames}
               history={history}
               getTaskTemplatesUrl={getTaskTemplatesUrl}
-              team={team}
             />
           </div>
           <Layer className={styles.tools}>

@@ -60,22 +60,33 @@ export function TaskTemplateYamlEditor({
 
   const [docOpen, setDocOpen] = useState(true);
 
-  const getTaskTemplateUrl = serviceUrl.getTaskTemplate({ name: params.name, version: params.version });
+  let getTaskTemplateUrl = serviceUrl.tasktemplate.getTaskTemplate({ name: params.name, version: params.version });
+  let getChangelogUrl = serviceUrl.tasktemplate.getTaskTemplateChangelog({
+    name: params.name,
+  });
+  if (params.team) {
+    getTaskTemplateUrl = serviceUrl.team.tasktemplate.getTaskTemplate({
+      team: params.team,
+      name: params.name,
+      version: params.version,
+    });
+    getChangelogUrl = serviceUrl.team.tasktemplate.getTaskTemplateChangelog({
+      team: params.team,
+      name: params.name,
+    });
+  } 
 
   const getTaskTemplateYamlQuery = useQuery({
     queryKey: [getTaskTemplateUrl, "yaml"],
     queryFn: resolver.queryYaml(getTaskTemplateUrl),
   });
-
-  const getChangelogUrl = serviceUrl.getTaskTemplateChangelog({
-    name: params.name,
-  });
   const getChangelogQuery = useQuery<ChangeLog>(getChangelogUrl);
-
-  const applyTaskTemplateYamlMutation = useMutation(resolver.putApplyTaskTemplateYaml);
   const applyTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
+  const applyTaskTemplateYamlMutation = useMutation(resolver.putApplyTaskTemplateYaml);
+  const applyTeamTaskTemplateMutation = useMutation(resolver.putApplyTeamTaskTemplate);
+  const applyTeamTaskTemplateYamlMutation = useMutation(resolver.putApplyTeamTaskTemplateYaml);
 
-  if (getTaskTemplateYamlQuery.isLoading || getChangelogQuery.isLoading || applyTaskTemplateYamlMutation.isLoading) {
+  if (getTaskTemplateYamlQuery.isLoading || getChangelogQuery.isLoading || applyTaskTemplateYamlMutation.isLoading || applyTeamTaskTemplateYamlMutation.isLoading) {
     return <Loading />;
   }
 
@@ -88,7 +99,8 @@ export function TaskTemplateYamlEditor({
   const selectedTaskTemplate = taskTemplates.filter((t) => t.name === params.name)[0];
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
-  const isOldVersion = params.version !== getChangelogQuery.data.length;
+  // params.version is a string, getChangelogQuery.data.length is a number
+  const isOldVersion = params.version != getChangelogQuery.data.length;
 
   const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
     setIsSaving(true);
@@ -100,26 +112,37 @@ export function TaskTemplateYamlEditor({
           version: getChangelogQuery.data.length + 1,
           changelog: { reason: "Version copied from ${values.currentConfig.version}" },
         };
-        response = await applyTaskTemplateMutation.mutateAsync({
-          replace: false,
-          team: params.team,
-          body,
-        });
-      } else if (requestType === TemplateRequestType.Overwrite) {
-        response = await applyTaskTemplateYamlMutation.mutateAsync({
-          replace: true,
-          team: params.team,
-          body: values.yaml,
-        });
-        queryClient.invalidateQueries([getTaskTemplateUrl, "yaml"]);
+        if (params.team) {
+          response = await applyTeamTaskTemplateMutation.mutateAsync({
+            replace: false,
+            team: params.team,
+            body,
+          });
+        } else {
+          response = await applyTaskTemplateMutation.mutateAsync({
+            replace: false,
+            body,
+          });
+        }
       } else {
-        response = await applyTaskTemplateYamlMutation.mutateAsync({
-          replace: false,
-          team: params.team,
-          body: values.yaml,
-        });
+        let replace: boolean = false;
+        if (requestType === TemplateRequestType.Overwrite) {
+          replace = true;
+        }
+        if (params.team) {
+          response = await applyTeamTaskTemplateYamlMutation.mutateAsync({
+            replace: replace,
+            team: params.team,
+            body: values.yaml,
+          });
+        } else {
+          response = await applyTaskTemplateYamlMutation.mutateAsync({
+            replace: replace,
+            body: values.yaml,
+          });
+        }
         queryClient.invalidateQueries([getTaskTemplateUrl, "yaml"]);
-      }
+      } 
       queryClient.invalidateQueries(getTaskTemplatesUrl);
       queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
@@ -172,7 +195,11 @@ export function TaskTemplateYamlEditor({
   const handleArchiveTaskTemplate = async () => {
     try {
       selectedTaskTemplate.status = "inactive";
-      await applyTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+      if (params.team) {
+        await applyTeamTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+      } else {
+        await applyTaskTemplateMutation.mutateAsync({ replace: "true", body: selectedTaskTemplate });
+      }
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
@@ -199,7 +226,11 @@ export function TaskTemplateYamlEditor({
   const handleRestoreTaskTemplate = async () => {
     try {
       selectedTaskTemplate.status = "active";
-      await applyTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+      if (params.team) {
+        await applyTeamTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+      } else {
+        await applyTaskTemplateMutation.mutateAsync({ replace: "true", body: selectedTaskTemplate });
+      }
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);
       await queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
@@ -225,8 +256,16 @@ export function TaskTemplateYamlEditor({
 
   const handleDownloadTaskTemplate = async () => {
     try {
+      let url = serviceUrl.tasktemplate.getTaskTemplate({ name: selectedTaskTemplate.name, version: selectedTaskTemplate.version })
+      if (params.team) {
+        url = serviceUrl.team.tasktemplate.getTaskTemplate({
+          team: params.team,
+          name: selectedTaskTemplate.name,
+          version: selectedTaskTemplate.version,
+        });
+      }
       const response = await axios.get(
-        serviceUrl.getTaskTemplate({ name: selectedTaskTemplate.name, version: selectedTaskTemplate.version }),
+        url,
         {
           headers: { Accept: "application/x-yaml" },
         }

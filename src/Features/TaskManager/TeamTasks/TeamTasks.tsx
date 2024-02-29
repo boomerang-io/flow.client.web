@@ -23,14 +23,14 @@ function TaskTemplatesContainer() {
   const history = useHistory();
   const match = useRouteMatch();
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
-  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ teams: team?.name, statuses: "active,inactive" }),
+  const getTeamTaskTemplatesUrl = serviceUrl.team.tasktemplate.getTaskTemplates({
+    query: queryString.stringify({ statuses: "active,inactive" }), team: team.name,
   });
   const {
     data: taskTemplatesData,
     error: taskTemplatesDataError,
     isLoading,
-  } = useQuery(getTaskTemplatesUrl, {
+  } = useQuery(getTeamTaskTemplatesUrl, {
     enabled: Boolean(team),
   });
 
@@ -45,7 +45,7 @@ function TaskTemplatesContainer() {
         <Helmet>
           <title>{HELMET_TITLE}</title>
         </Helmet>
-        <Sidenav isLoading team={team} getTaskTemplatesUrl={getTaskTemplatesUrl} />
+        <Sidenav isLoading team={team} getTaskTemplatesUrl={getTeamTaskTemplatesUrl} />
         <Box maxWidth="24rem" margin="0 auto">
           <WombatMessage className={styles.wombat} title="Retrieving Tasks..." />
         </Box>
@@ -69,7 +69,7 @@ function TaskTemplatesContainer() {
       <Helmet>
         <title>{HELMET_TITLE}</title>
       </Helmet>
-      <Sidenav team={team} taskTemplates={taskTemplatesData?.content} getTaskTemplatesUrl={getTaskTemplatesUrl} />
+      <Sidenav team={team} taskTemplates={taskTemplatesData?.content} getTaskTemplatesUrl={getTeamTaskTemplatesUrl} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -80,14 +80,14 @@ function TaskTemplatesContainer() {
           <TaskTemplateYamlEditor
             taskTemplates={taskTemplatesData?.content}
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            getTaskTemplatesUrl={getTaskTemplatesUrl}
+            getTaskTemplatesUrl={getTeamTaskTemplatesUrl}
           />
         </Route>
         <Route path={AppPath.ManageTaskTemplateDetail} strict={true}>
           <TaskTemplateOverview
             taskTemplates={taskTemplatesData?.content}
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
-            getTaskTemplatesUrl={getTaskTemplatesUrl}
+            getTaskTemplatesUrl={getTeamTaskTemplatesUrl}
           />
         </Route>
         <Redirect to={appLink.manageTaskTemplates({ team: team.name })} />

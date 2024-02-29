@@ -19,11 +19,11 @@ import { PaginatedTaskTemplateResponse, RunStatus, TaskTemplate, WorkflowEditor,
 
 export default function WorkflowRunContainer() {
   const { team, workflowId, runId }: { team: string; workflowId: string; runId: string } = useParams();
-  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
+  const getTaskTemplatesUrl = serviceUrl.tasktemplate.getTaskTemplates({
     query: queryString.stringify({ statuses: "active" }),
   });
-  const getTaskTemplatesTeamUrl = serviceUrl.getTaskTemplates({
-    query: queryString.stringify({ teams: team, statuses: "active" }),
+  const getTaskTemplatesTeamUrl = serviceUrl.team.tasktemplate.getTaskTemplates({
+    query: queryString.stringify({ statuses: "active" }), team: team, 
   });
   const getExecutionUrl = serviceUrl.getWorkflowRun({ id: runId });
 

@@ -24,7 +24,9 @@ function CreateTemplateWorkflow({ team, workflowList }: CreateTemplateWorkflowPr
   const history = useHistory();
   const workflowQuotasEnabled: boolean = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const workflowTemplatesUrl = serviceUrl.getWorkflowTemplates();
-  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ query: "" });
+
+  //WorkflowTemplates are global TaskTemplates only
+  const getTaskTemplatesUrl = serviceUrl.tasktemplate.getTaskTemplates({ query: "" });
 
   const {
     data: workflowTemplatesData,

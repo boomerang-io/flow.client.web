@@ -281,11 +281,13 @@ export const TokenType = {
 
 export const elevatedUserRoles = [PlatformRole.Admin, PlatformRole.Operator];
 
-export const yamlInstructions = `  # Getting started with a Task
-  Tasks in Boomerang Flow follow the [Tekton Task model](https://tekton.dev/docs/pipelines/tasks/#configuring-a-task) along with Kubernetes standards and allow you to define what you want to happen at the execution of the task as well as parameters that are needed.
-  For more information, see [Getting to know Tasks](https://www.useboomerang.io/docs/boomerang-flow/getting-to-know/tasks).
-  Defining Tasks using this YAML editor is recommended for non-business users who have experience writing yaml definitions and have a desire for further customization in defining a task.
-  ## Creating a Task in YAML
+export const yamlInstructions = `  # Getting started
+  Task Templates allow you to define what you want to happen at the execution of the task as well as parameters that are needed and the expected results.
+  
+  They follow the [Tekton Task model](https://tekton.dev/docs/pipelines/tasks/#configuring-a-task) along with Kubernetes standards. For more information, see [Getting to know Tasks](https://www.useboomerang.io/docs/boomerang-flow/getting-to-know/tasks).
+  
+  > Using this YAML editor is recommended for advanced users with experience writing yaml definitions and desire further customization.
+  ## Creating in YAML
   The YAML specification has three important sections to be aware of: metadata, params, and steps. 
   Its important to note that the full Tekton task specification is not yet fully supported. We cannot run multi step tasks, nor do we allow resources to be specified. For more information, see [Known Issues and Limitations](https://www.useboomerang.io/docs/boomerang-flow/introduction/known-issues-limitations).
   ### Metadata

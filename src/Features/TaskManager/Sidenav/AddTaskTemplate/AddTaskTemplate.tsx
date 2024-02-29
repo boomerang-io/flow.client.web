@@ -1,11 +1,11 @@
 //@ts-nocheck
 import React from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { Button } from "@carbon/react";
+import { useParams } from "react-router-dom";
 import { notify, ToastNotification, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import AddTaskTemplateForm from "./AddTaskTemplateForm";
 import { resolver } from "Config/servicesConfig";
-import { useQueryClient } from "react-query";
 import { appLink } from "Config/appConfig";
 import { Add } from "@carbon/react/icons";
 import styles from "./addTaskTemplate.module.scss";
@@ -14,21 +14,28 @@ interface AddTaskTemplateProps {
   taskTemplateNames: Array<string>;
   history: History;
   getTaskTemplatesUrl: string;
-  team?: FlowTeam;
 }
 
-function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team }: AddTaskTemplateProps) {
+function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: AddTaskTemplateProps) {
+  const params = useParams();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [isSubmitError, setIsSubmitError] = React.useState(false);
 
   const queryClient = useQueryClient();
   const createTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
   const createTaskTemplateYAMLMutation = useMutation(resolver.putApplyTaskTemplateYaml);
+  const createTeamTaskTemplateMutation = useMutation(resolver.putApplyTeamTaskTemplate);
+  const createTeamTaskTemplateYAMLMutation = useMutation(resolver.putApplyTeamTaskTemplateYaml);
 
   const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
     setIsSubmitting(true);
     try {
-      let response = await createTaskTemplateMutation.mutateAsync({ replace, team: team?.name, body });
+      let response;
+      if (params.team) {
+        response = await createTeamTaskTemplateMutation.mutateAsync({ replace, team: params.team, body });
+      } else {
+        response = await createTaskTemplateMutation.mutateAsync({ replace, body });
+      }
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
         <ToastNotification
@@ -39,9 +46,9 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
         />,
       );
       history.push(
-        team
+        params.team
           ? appLink.manageTaskTemplateEdit({
-              team: team.name,
+              team: params.team,
               name: task.name,
               version: task.version.toString(),
             })
@@ -62,9 +69,17 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
     let response;
     try {
       if (type === "application/json") {
-        response = await createTaskTemplateMutation.mutateAsync({ replace, team: team?.name, body });
+        if (params.team) {
+          response = await createTeamTaskTemplateMutation.mutateAsync({ replace, team: params.team, body });
+        } else {
+          response = await createTaskTemplateMutation.mutateAsync({ replace, body });
+        }
       } else {
-        response = await createTaskTemplateYAMLMutation.mutateAsync({ replace, team: team?.name, body });
+        if (params.team) {
+          response = await createTeamTaskTemplateYAMLMutation.mutateAsync({ replace, team: params.team, body });
+        } else {
+          response = await createTaskTemplateYAMLMutation.mutateAsync({ replace, body });
+        }
       }
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
@@ -76,9 +91,9 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
         />,
       );
       history.push(
-        team
+        params.team
           ? appLink.manageTaskTemplateEdit({
-              team: team.name,
+              team: params.team,
               name: task.name,
               version: task.version.toString(),
             })
@@ -116,7 +131,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl, team
           handleAddTaskTemplate={handleAddTaskTemplate}
           handleImportTaskTemplate={handleImportTaskTemplate}
           isSubmitting={isSubmitting}
-          createError={createTaskTemplateMutation.error || isSubmitError}
+          createError={isSubmitError}
           taskTemplateNames={taskTemplateNames}
           closeModal={closeModal}
         />

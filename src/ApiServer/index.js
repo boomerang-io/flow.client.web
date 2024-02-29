@@ -225,7 +225,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Task Templates
        */
-      this.get(serviceUrl.getTaskTemplate({ name: ":name" }), (schema, request) => {
+      this.get(serviceUrl.tasktemplate.getTaskTemplate({ name: ":name" }), (schema, request) => {
         console.log(request.requestHeaders);
         if (request.requestHeaders["Accept"] === "application/x-yaml") {
           return schema.db.tasktemplateYaml[0].yaml;
@@ -233,7 +233,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
           return schema.db.tasktemplate[0].content.find((t) => t.name === request.params.name);
         }
       });
-      this.get(serviceUrl.getTaskTemplateChangelog({ name: ":name" }), (schema) => {
+      this.get(serviceUrl.tasktemplate.getTaskTemplateChangelog({ name: ":name" }), (schema) => {
         const response = [
           {
             author: "Bob",
@@ -250,7 +250,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         ];
         return response;
       });
-      const tasktemplatePath = serviceUrl.getTaskTemplates({ query: null });
+      const tasktemplatePath = serviceUrl.tasktemplate.getTaskTemplates({ query: null });
       this.get(tasktemplatePath, (schema) => {
         return schema.db.tasktemplate[0];
       });
@@ -261,10 +261,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         taskTemplate.update({ ...body });
         return taskTemplate;
       });
-      this.post(serviceUrl.postValidateYaml(), (schema) => {
+      this.post(serviceUrl.tasktemplate.postValidateYaml(), (schema) => {
         return new Response(200, {}, { errors: ["Name is already taken"] });
       });
-      this.put(serviceUrl.putTaskTemplate({ replace: "true", team: ":team" }), (schema, request) => {
+      this.put(serviceUrl.tasktemplate.putTaskTemplate({ replace: "true", team: ":team" }), (schema, request) => {
         return {};
       });
 
