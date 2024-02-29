@@ -220,7 +220,7 @@ export const resolver = {
   putApplyTaskTemplate: ({ replace, body }) =>
     axios({ url: serviceUrl.tasktemplate.putTaskTemplate({ replace }), data: body, method: HttpMethod.Put }),
   putApplyTeamTaskTemplate: ({ replace, team, body }) =>
-      axios({ url: serviceUrl.teamm.tasktemplate.putTaskTemplate({ replace, team }), data: body, method: HttpMethod.Put }),
+      axios({ url: serviceUrl.team.tasktemplate.putTaskTemplate({ replace, team }), data: body, method: HttpMethod.Put }),
   putApplyTaskTemplateYaml: ({ replace, body }) =>
     axios({
       url: serviceUrl.tasktemplate.putTaskTemplate({ replace }),

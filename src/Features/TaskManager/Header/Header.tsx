@@ -412,7 +412,7 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       <p className={styles.lastUpdate}>{`Version ${versionCount === 1 ? "created" : "updated"} ${moment(
         lastUpdated.date,
-      ).format("MMM DD, YYYY")} by ${lastUpdated.author ?? "---"}`}</p>
+      ).format("MMM DD, YYYY")}`}</p>
     </FeatureHeader>
   );
 };

@@ -8,9 +8,11 @@ import {
   StructuredListCell,
 } from "@carbon/react";
 import { ComposedModal, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import moment from "moment";
 import { Catalog } from "@carbon/react/icons";
 import { ChangeLog, ModalTriggerProps } from "Types";
 import styles from "./versionHistory.module.scss";
+import { DATETIME_LOCAL_INPUT_FORMAT } from "Utils/dateHelper";
 
 interface VersionHistoryProps {
   changelog: ChangeLog;
@@ -51,7 +53,7 @@ const VersionHistoryModal: React.FC<VersionHistoryProps> = ({ changelog }) => {
         <StructuredListHead>
           <StructuredListRow head>
             <StructuredListCell head>Version</StructuredListCell>
-            <StructuredListCell head>Creator</StructuredListCell>
+            <StructuredListCell head>Author</StructuredListCell>
             <StructuredListCell head>Comments</StructuredListCell>
             <StructuredListCell head>Date</StructuredListCell>
           </StructuredListRow>
@@ -62,7 +64,7 @@ const VersionHistoryModal: React.FC<VersionHistoryProps> = ({ changelog }) => {
               <StructuredListCell>{log?.version ?? "---"}</StructuredListCell>
               <StructuredListCell noWrap>{log?.author ?? "---"}</StructuredListCell>
               <StructuredListCell>{log?.reason?.length ? log.reason : "---"}</StructuredListCell>
-              <StructuredListCell noWrap>{log?.date ?? "---"}</StructuredListCell>
+              <StructuredListCell noWrap>{log?.date ? moment(log.date).format(DATETIME_LOCAL_INPUT_FORMAT) : "---"}</StructuredListCell>
             </StructuredListRow>
           ))}
         </StructuredListBody>
