@@ -32,8 +32,8 @@ function WorkflowActivity() {
   const match = useRouteMatch();
 
   const workflowRunCountQuery = queryString.stringify({
-    fromDate: moment().startOf("day").unix(),
-    toDate: moment().endOf("day").unix(),
+    fromDate: moment().startOf("day").valueOf(),
+    toDate: moment().endOf("day").valueOf(),
     teams: team?.name,
   });
 
@@ -54,7 +54,6 @@ function WorkflowActivity() {
   const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>(getWorkflowsUrl);
 
   /**** Start get some data ****/
-
   const wfRunsURLQuery = queryString.stringify(
     {
       order,
