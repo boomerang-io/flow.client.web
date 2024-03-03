@@ -117,7 +117,7 @@ function Form({
     mutateAsync: actionsMutation,
     isLoading: actionsIsLoading,
     isError: actionsPutError,
-  } = useMutation(resolver.putWorkflowAction);
+  } = useMutation(resolver.putAction);
 
   const handleActions =
     ({ approved, notificationSubtitle, notificationTitle, setLoading, values }: any) =>

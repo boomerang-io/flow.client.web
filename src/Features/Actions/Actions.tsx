@@ -53,7 +53,7 @@ function Actions() {
     toDate: DEFAULT_TO_DATE,
   });
 
-  const actionsSummaryUrl = serviceUrl.getActionsSummary({ query: summaryQuery });
+  const actionsSummaryUrl = serviceUrl.action.getActionsSummary({ query: summaryQuery });
 
   /** Define constants */
   const actionType = location.pathname.includes("/manual") ? ActionType.Manual : ActionType.Approval;
@@ -114,7 +114,7 @@ function Actions() {
     queryStringOptions,
   );
 
-  const actionsFilterSummaryUrl = serviceUrl.getActionsSummary({ query: actionsUrlSummaryQuery });
+  const actionsFilterSummaryUrl = serviceUrl.action.getActionsSummary({ query: actionsUrlSummaryQuery });
 
   /** Get number of approvals and manual tasks */
   const { data: actionsFilterSummaryData } = useQuery({
@@ -125,7 +125,7 @@ function Actions() {
   const approvalsNumber = actionsFilterSummaryData ? actionsFilterSummaryData.approvals : 0;
   const manualTasksNumber = actionsFilterSummaryData ? actionsFilterSummaryData.manual : 0;
 
-  const actionsUrl = serviceUrl.getActions({ query: actionsUrlQuery });
+  const actionsUrl = serviceUrl.action.getActions({ query: actionsUrlQuery });
 
   /** Get table data */
   const actionsQuery = useQuery({

@@ -399,18 +399,18 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Actions
        */
-      this.get(serviceUrl.getActionsSummary({ query: null }), (schema) => {
+      this.get(serviceUrl.action.getActionsSummary({ query: null }), (schema) => {
         return schema.db.actionsSummary[0];
       });
 
-      this.get(serviceUrl.getActions({ query: null }), (schema, request) => {
+      this.get(serviceUrl.action.getActions({ query: null }), (schema, request) => {
         const { type } = request.queryParams;
         if (type === "approval") return schema.db.approvals[0];
         if (type === "task") return schema.db.manualTasks[0];
         return {};
       });
 
-      this.put(serviceUrl.putWorkflowAction(), () => {
+      this.put(serviceUrl.action.putAction(), () => {
         return {};
       });
 

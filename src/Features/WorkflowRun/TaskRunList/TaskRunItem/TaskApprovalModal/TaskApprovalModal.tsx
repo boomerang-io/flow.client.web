@@ -32,7 +32,7 @@ function TaskApprovalModal({ actionId, closeModal, workflowRunId }: Props) {
     mutateAsync: approvalMutator,
     isLoading: approvalsIsLoading,
     error: approvalsError,
-  } = useMutation(resolver.putWorkflowAction, {
+  } = useMutation(resolver.putAction, {
     onSuccess: () => {
       queryClient.invalidateQueries(serviceUrl.getWorkflowRun({ id: workflowRunId }));
     },

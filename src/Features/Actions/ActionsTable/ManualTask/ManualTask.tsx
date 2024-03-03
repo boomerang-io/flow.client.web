@@ -54,7 +54,7 @@ function Form({ action, closeModal, queryToRefetch }: FormProps) {
     mutateAsync: approvalMutator,
     isLoading: approvalsIsLoading,
     error: approvalsError,
-  } = useMutation(resolver.putWorkflowAction, {
+  } = useMutation(resolver.putAction, {
     onSuccess: () => {
       queryClient.invalidateQueries(queryToRefetch);
     },

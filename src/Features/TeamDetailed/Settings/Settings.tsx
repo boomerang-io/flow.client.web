@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useMutation, useQueryClient } from "react-query";
+import { useHistory } from "react-router-dom";
 import { InlineNotification, Button } from "@carbon/react";
 import {
   ConfirmModal,
@@ -22,6 +23,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import sortBy from "lodash/sortBy";
 import { FlowTeam } from "Types";
 import LabelModal from "Components/LabelModal";
+import { appLink } from "Config/appConfig";
 import styles from "./Settings.module.scss";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 
@@ -33,17 +35,20 @@ interface Label {
 export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: boolean }) {
   const [copyTokenText, setCopyTokenText] = useState("Copy");
   const queryClient = useQueryClient();
+  const history = useHistory();
 
-  const patchTeamMutator = useMutation(resolver.patchUpdateTeam);
+  const patchTeamMutator = useMutation(resolver.patchUpdateTeam); 
+  const deleteTeamMutator = useMutation(resolver.deleteTeam); 
 
-  const handleCloseTeam = async () => {
+  const handleDeleteTeam = async () => {
     try {
-      await patchTeamMutator.mutateAsync({ team: team.name, body: { status: "inactive" } });
-      queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: team.name }));
+      await deleteTeamMutator.mutateAsync({ team: team.name });
+      queryClient.invalidateQueries(serviceUrl.getUserProfile());
+      history.push(appLink.home());
       notify(
         <ToastNotification
-          title="Close Team"
-          subtitle={`Request to close '${team.displayName}' successful`}
+          title="Delete Team"
+          subtitle={`Request to delete '${team.displayName}' was successful`}
           kind="success"
         />,
       );
@@ -261,18 +266,17 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
         </dl>
         {/* <CreateToken getTokensUrl={getTokensUrl} principal={user.id} type="user" /> */}
       </SettingSection>
-      <SettingSection title="Close Team">
+      <SettingSection title="Delete Team">
         <div className={styles.buttonWithMessageContainer}>
           <p className={styles.buttonHelperText}>
-            Done with your work here? Closing the team means its members will no longer be able to access this team, and
-            access to the Services will be revoked.
+            Done with your work here? Deleting this team will permanently remove the team, including its Workflows, Task Templates, Runs, and Tokens. Its members will no longer be able to access this team. This action is irreversible - continue with caution.
           </p>
           <ConfirmModal
-            affirmativeAction={() => handleCloseTeam()}
+            affirmativeAction={() => handleDeleteTeam()}
             affirmativeButtonProps={{ kind: "danger", "data-testid": "confirm-close-team" }}
-            title={`Close ${team.displayName}?`}
+            title={`Delete ${team.displayName}?`}
             negativeText="Cancel"
-            affirmativeText="Close"
+            affirmativeText="Delete Team"
             modalTrigger={({ openModal }) => (
               <Button
                 disabled={!canEdit}
@@ -283,12 +287,11 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
                 size="md"
                 data-testid="close-team"
               >
-                Close Team
+                Delete Team
               </Button>
             )}
           >
-            Closing a team will submit a "leave team" request for each user on the team. After the requests are
-            processed, the team will become "inactive". Are you sure you want to do this?
+            This team will be permanently deleted, along with all of its Workflows, Task Templates, Runs, and Tokens. This action is irreversible - are you sure you want to do this?
           </ConfirmModal>
         </div>
       </SettingSection>
