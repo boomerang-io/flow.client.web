@@ -1,6 +1,7 @@
 import React from "react";
 import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
+import { useHistory } from "react-router-dom";
 import { Button, ModalBody, ModalFooter, InlineNotification } from "@carbon/react";
 import {
   notify,
@@ -12,6 +13,7 @@ import {
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import kebabcase from "lodash/kebabCase";
 import * as Yup from "yup";
+import { appLink } from "Config/appConfig";
 import styles from "./UpdateTeamName.module.scss";
 import { FlowTeam } from "Types";
 
@@ -22,19 +24,22 @@ interface UpdateTeamNameProps {
 
 const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team }) => {
   const queryClient = useQueryClient();
+  const history = useHistory();
 
   const validateTeamNameMutator = useMutation(resolver.postTeamValidateName);
   const updateTeamMutator = useMutation(resolver.patchUpdateTeam);
   const updateTeamName = async (values: { name: string }) => {
+    const newTeamName = kebabcase(values.name?.replace(`'`, "-"));
     try {
       await updateTeamMutator.mutateAsync({
         team: team.name,
         body: {
-          name: kebabcase(values.name?.replace(`'`, "-")),
+          name: newTeamName,
           displayName: values.name,
         },
       });
-      queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: team.name }));
+      queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: newTeamName }));
+      history.push(appLink.manageTeamSettings({ team: newTeamName }));
       notify(
         <ToastNotification kind="success" title="Update Team Settings" subtitle="Team settings successfully updated" />
       );

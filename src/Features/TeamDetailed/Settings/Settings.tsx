@@ -72,8 +72,8 @@ export default function Settings({ team, canEdit }: { team: FlowTeam; canEdit: b
       queryClient.invalidateQueries(serviceUrl.resourceTeam({ team: team.name }));
       notify(
         <ToastNotification
-          title="Remove Team"
-          subtitle={`Request to close ${team.displayName} successful`}
+          title="Add Label"
+          subtitle={`Added label to ${team.displayName} successfully`}
           kind="success"
         />,
       );
