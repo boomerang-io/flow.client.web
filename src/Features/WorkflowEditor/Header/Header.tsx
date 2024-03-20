@@ -24,7 +24,7 @@ interface DesignerHeaderProps {
   createRevision: (reason: string, callback?: () => any) => void;
   changeRevision: (revisionNumber: string) => void;
   canCreateNewVersion: boolean;
-  revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
+  revisionMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { team: any; workflowId: any; body: any }, unknown>;
   revisionState: Workflow;
   viewType: WorkflowViewType;
   revisionCount: number;

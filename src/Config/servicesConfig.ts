@@ -68,7 +68,6 @@ export const serviceUrl = {
   getInsights: ({ query }: QueryArg) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
   getManageTeamsCreate: () => `${BASE_URL}/manage/teams`,
   getManageTeamLabels: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/labels`,
-  // getPlatformConfig: () => `${BASE_CORE_USERS_URL}/navigation`,
   getContext: () => `${BASE_URL}/context`,
   getSchedules: ({ query }: QueryArg) => `${BASE_URL}/schedule/query${query ? "?" + query : ""}`,
   getSchedule: ({ scheduleId }) => `${BASE_URL}/schedule/${scheduleId}`,
@@ -85,35 +84,19 @@ export const serviceUrl = {
   deleteUser: ({ userId }) => `${BASE_URL}/user/${userId}`,
   getUserProfile: () => `${BASE_URL}/user/profile`,
   getUserProfileImage: ({ userEmail }) => `${BASE_CORE_USERS_URL}/image/${userEmail}`,
-  getWorkflows: ({ query }: QueryArg) => `${BASE_URL}/workflow/query${query ? "?" + query : ""}`,
   getIntegrations: ({ team }: TeamArg) => `${BASE_URL}/integration${team ? "?team=" + team : ""}`,
   getTaskrunLog: ({ id }: IdArg) =>
   `${BASE_URL}/taskrun/${id}/log`,
-  getWorkflow: ({ id, version }: IdArg & Partial<VersionArg>) => `${BASE_URL}/workflow/${id}${version ? `?version=${version}` : ""}`,
-  getWorkflowCompose: ({ id, version }: IdArg & Partial<VersionArg>) => `${BASE_URL}/workflow/${id}/compose${version ? `?version=${version}` : ""}`,
-  getWorkflowChangelog: ({ id }: IdArg) =>
-    `${BASE_URL}/workflow/${id}/changelog`,
   getWorkflowRun: ({ id }: IdArg) => `${BASE_URL}/workflowrun/${id}`,
-  getWorkflowRevision: ({ workflowId, revisionNumber }) =>
-    `${BASE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
-  getWorkflowSummary: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/summary`,
   getWorkflowSchedules: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/schedules`,
   getWorkflowSchedulesCalendar: ({ workflowId, query }: WorkflowIdArg & QueryArg) =>
     `${BASE_URL}/workflow/${workflowId}/schedules/calendar${query ? "?" + query : ""}`,
-  getWorkflowTaskTemplates: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/tasktemplate/workflow/${workflowId}`,
-  patchUpdateWorkflowProperties: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/properties`,
-  patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
   putSchedule: () => `${BASE_URL}/schedule`,
-  postCreateWorkflow: ({ team }: TeamArg) => `${BASE_URL}/workflow?team=${team}`,
-  postCreateWorkflowToken: ({ workflowId, label }: WorkflowIdArg & { label: string }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
-  postDuplicateWorkflow: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/duplicate`,
-  postSubmitWorkflow: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/submit`,
   postSchedule: ({ team }: TeamArg) => `${BASE_URL}/schedule?team=${team}`,
   postToken: () => `${BASE_URL}/token`,
   postTeamValidateName: () => `${BASE_URL}/team/validate-name`,
   postTeam: () => `${BASE_URL}/team`,
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
-  putCreateWorkflowRevision: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/compose`,
   putActivationApp: () => `${BASE_URL}/activate`,
   postTeamQuotasReset: ({ team }: TeamArg) => `${BASE_URL}/teams/${team}/quotas/reset`,
   resourceTeam: ({ team }: TeamArg) => `${BASE_URL}/team/${team}`,
@@ -121,22 +104,21 @@ export const serviceUrl = {
     `${BASE_URL}/team/${team}/approvers${groupId ? "/" + groupId : ""}`,
   resourceSettings: () => `${BASE_URL}/settings`,
   resourceTeamParameters: ({ team }) => `${BASE_URL}/team/${team}/parameters`,
-  workflowAvailableParameters: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
   getWorkflowTemplates: () => `${BASE_URL}/workflowtemplate/query`,
   resourceTrigger: () => `${BASE_URL}/trigger`,
   getGitHubAppInstallation: ({ id }: IdArg) => `${BASE_URL}/integration/github/installation${id ? "?id=" + id : ""}`,
   getGitHubAppInstallationForTeam: ({ team }: TeamArg) => `${BASE_URL}/integration/github/installation${team ? "?team=" + team : ""}`,
   postGitHubAppLink: () => `${BASE_URL}/integration/github/link`,
   postGitHubAppUnlink: () => `${BASE_URL}/integration/github/unlink`,
-  "tasktemplate": {
-    // deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
-    getTaskTemplates: ({ query }: QueryArg) => `${BASE_URL}/tasktemplate/query${query ? "?" + query : ""}`,
-    getTaskTemplate: ({ name, version }: NameArg & Partial<VersionArg>) =>
-      `${BASE_URL}/tasktemplate/${name}${version ? `?version=${version}` : ""}`,
-    getTaskTemplateChangelog: ({ name }: NameArg) =>
-      `${BASE_URL}/tasktemplate/${name}/changelog`,
-    putTaskTemplate: ({ replace }: ReplaceArg) => `${BASE_URL}/tasktemplate?replace=${replace ? replace : false}`,
-    postValidateYaml: () => `${BASE_URL}/tasktemplate/validate`,
+  "task": {
+    // deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/task/${id}`,
+    queryTasks: ({ query }: QueryArg) => `${BASE_URL}/task/query${query ? "?" + query : ""}`,
+    getTask: ({ name, version }: NameArg & Partial<VersionArg>) =>
+      `${BASE_URL}/task/${name}${version ? `?version=${version}` : ""}`,
+    getTaskChangelog: ({ name }: NameArg) =>
+      `${BASE_URL}/task/${name}/changelog`,
+    putTask: ({ replace }: ReplaceArg) => `${BASE_URL}/task?replace=${replace ? replace : false}`,
+    postValidateYaml: () => `${BASE_URL}/task/validate`,
   },
   "action": {
     getActionsSummary: ({ query }: QueryArg) => `${BASE_URL}/action/summary${query ? "?" + query : ""}`,
@@ -144,15 +126,27 @@ export const serviceUrl = {
     putAction: () => `${BASE_URL}/action`,
   },
   "team": {
-    "tasktemplate": {
-      // deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
-      getTaskTemplates: ({ team, query }: TeamArg & QueryArg) => `${BASE_URL}/team/${team}/tasktemplate/query${query ? "?" + query : ""}`,
-      getTaskTemplate: ({ team, name, version }: TeamArg & NameArg & Partial<VersionArg>) =>
-        `${BASE_URL}/team/${team}/tasktemplate/${name}${version ? `?version=${version}` : ""}`,
-      getTaskTemplateChangelog: ({ team, name }: TeamArg & NameArg) =>
-        `${BASE_URL}/team/${team}/tasktemplate/${name}/changelog`,
-      putTaskTemplate: ({ team, replace}: TeamArg & ReplaceArg) => `${BASE_URL}/team/${team}/tasktemplate?replace=${replace ? replace : false}`,
-      postValidateYaml: () => `${BASE_URL}/team/${team}/tasktemplate/validate`,
+    "task": {
+      // deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/task/${id}`,
+      queryTasks: ({ team, query }: TeamArg & QueryArg) => `${BASE_URL}/team/${team}/task/query${query ? "?" + query : ""}`,
+      getTask: ({ team, name, version }: TeamArg & NameArg & Partial<VersionArg>) =>
+        `${BASE_URL}/team/${team}/task/${name}${version ? `?version=${version}` : ""}`,
+      getTaskChangelog: ({ team, name }: TeamArg & NameArg) =>
+        `${BASE_URL}/team/${team}/task/${name}/changelog`,
+      putTask: ({ team, replace}: TeamArg & ReplaceArg) => `${BASE_URL}/team/${team}/task?replace=${replace ? replace : false}`,
+      postValidateYaml: () => `${BASE_URL}/team/${team}/task/validate`,
+    },
+    "workflow": {
+      getWorkflow: ({ team, id, version }: TeamArg & IdArg & Partial<VersionArg>) => `${BASE_URL}/team/${team}/workflow/${id}${version ? `?version=${version}` : ""}`,
+      getWorkflows: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/workflow/query${query ? "?" + query : ""}`,
+      getWorkflowCompose: ({ team, id, version }: TeamArg & IdArg & Partial<VersionArg>) => `${BASE_URL}/team/${team}/workflow/${id}/compose${version ? `?version=${version}` : ""}`,
+      getWorkflowChangelog: ({ team, id }: TeamArg & IdArg) =>
+        `${BASE_URL}/team/${team}/workflow/${id}/changelog`,
+      postCreateWorkflow: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/workflow`,
+      postDuplicateWorkflow: ({ team, workflowId }: TeamArg & WorkflowIdArg) => `${BASE_URL}/team/${team}/workflow/${workflowId}/duplicate`,
+      postSubmitWorkflow: ({ team, workflowId }: TeamArg & WorkflowIdArg) => `${BASE_URL}/team/${team}/workflow/${workflowId}/submit`,
+      getAvailableParameters: ({ team, workflowId }: TeamArg & WorkflowIdArg) => `${BASE_URL}/team/${team}/workflow/${workflowId}/available-parameters`,
+      putApplyWorkflow: ({ team, workflowId }: TeamArg & WorkflowIdArg) => `${BASE_URL}/team/${team}/workflow/${workflowId}/compose`,
     }
   }
 };
@@ -174,7 +168,7 @@ export const resolver = {
   deleteTeamMembers: ({ team, body }) => axios.delete(serviceUrl.deleteTeamMembers({ team }), body),
   deleteTeamParameters: ({ team, body }) =>
     axios.delete(serviceUrl.resourceTeamParameters({ team }), body),
-  deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
+  deleteWorkflow: ({ team, id }) => axios.delete(serviceUrl.team.workflow.getWorkflow({ team, id })),
   leaveTeam: ({ team }) => axios.delete(serviceUrl.leaveTeam({ team })),
   deleteSchedule: ({ scheduleId }) => axios.delete(serviceUrl.deleteSchedule({ scheduleId })),
   deleteTeam: ({ team }: TeamArg) => axios.delete(serviceUrl.resourceTeam({ team })),
@@ -194,7 +188,7 @@ export const resolver = {
   postValidateYaml: ({ body }) =>
     axios({
       method: HttpMethod.Post,
-      url: serviceUrl.tasktemplate.postValidateYaml(),
+      url: serviceUrl.task.postValidateYaml(),
       data: body,
       headers: {
         "content-type": "application/x-yaml",
@@ -206,9 +200,6 @@ export const resolver = {
       data: body,
       method: HttpMethod.Patch,
     }),
-  patchUpdateWorkflowSummary: ({ body }) => axios.patch(serviceUrl.patchUpdateWorkflowSummary(), body),
-  patchUpdateWorkflowProperties: ({ workflowId, body }) =>
-    axios.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId }), body),
   postApproverGroupRequest: ({ body, team }) =>
     axios({
       url: serviceUrl.resourceApproverGroups({ team }),
@@ -216,35 +207,35 @@ export const resolver = {
       method: HttpMethod.Post,
     }),
   postCreateTemplate: ({ body }) => axios.post(serviceUrl.getWorkflowTemplates(), body),
-  postCreateWorkflow: ({ team, body }) => axios.post(serviceUrl.postCreateWorkflow({ team }), body),
-  postDuplicateWorkflow: ({ workflowId }) => axios.post(serviceUrl.postDuplicateWorkflow({ workflowId })),
+  postCreateWorkflow: ({ team, body }) => axios.post(serviceUrl.team.workflow.postCreateWorkflow({ team }), body),
+  postDuplicateWorkflow: ({ team, workflowId }) => axios.post(serviceUrl.postDuplicateWorkflow({ team, workflowId })),
   postTemplateWorkflow: ({ workflowId, body }) => axios.post(serviceUrl.postDuplicateWorkflow({ workflowId }), body),
   postToken: ({ body }) => axios({ url: serviceUrl.postToken(), data: body, method: HttpMethod.Post }),
   putApplyTaskTemplate: ({ replace, body }) =>
-    axios({ url: serviceUrl.tasktemplate.putTaskTemplate({ replace }), data: body, method: HttpMethod.Put }),
+    axios({ url: serviceUrl.task.putTask({ replace }), data: body, method: HttpMethod.Put }),
   putApplyTeamTaskTemplate: ({ replace, team, body }) =>
-      axios({ url: serviceUrl.team.tasktemplate.putTaskTemplate({ replace, team }), data: body, method: HttpMethod.Put }),
+      axios({ url: serviceUrl.team.task.putTask({ replace, team }), data: body, method: HttpMethod.Put }),
   putApplyTaskTemplateYaml: ({ replace, body }) =>
     axios({
-      url: serviceUrl.tasktemplate.putTaskTemplate({ replace }),
+      url: serviceUrl.task.putTask({ replace }),
       data: body,
       method: HttpMethod.Put,
       headers: { "content-type": "application/x-yaml" },
     }),
     putApplyTeamTaskTemplateYaml: ({ replace, team, body }) =>
       axios({
-        url: serviceUrl.team.tasktemplate.putTaskTemplate({ replace, team }),
+        url: serviceUrl.team.task.putTask({ replace, team }),
         data: body,
         method: HttpMethod.Put,
         headers: { "content-type": "application/x-yaml" },
       }),
   postCreateTeam: ({ body }) =>
     axios({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethod.Post }),
-  putCreateWorkflowRevision: ({ workflowId, body }) =>
-    axios.put<Workflow, Workflow>(serviceUrl.putCreateWorkflowRevision({ workflowId }), body),
-  postSubmitWorkflow: ({ workflowId, body }) =>
+  putApplyWorkflow: ({ team, workflowId, body }) =>
+    axios.put<Workflow, Workflow>(serviceUrl.team.workflow.putApplyWorkflow({ team, workflowId }), body),
+  postSubmitWorkflow: ({ team, workflowId, body }) =>
     axios.post(
-      serviceUrl.postSubmitWorkflow({workflowId}),
+      serviceUrl.postSubmitWorkflow({team, workflowId}),
       body,
     ),
   postGlobalParameter: ({ body }) =>
@@ -252,8 +243,6 @@ export const resolver = {
   postSchedule: ({ team, body }) => axios.post(serviceUrl.postSchedule({ team }), body),
   postTeamParameter: ({ team, body }) =>
     axios({ url: serviceUrl.resourceTeamParameters({ team }), data: body, method: HttpMethod.Post }),
-  postWorkflowAvailableParameters: ({ workflowId, body }) =>
-    axios.post(serviceUrl.workflowAvailableParameters({ workflowId }), body),
   putActivationApp: ({ body }) =>
     axios({
       method: HttpMethod.Put,

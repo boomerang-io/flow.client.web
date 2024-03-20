@@ -21,7 +21,7 @@ interface TaskTemplateNodeProps extends WorkflowNodeProps {
 export default function TaskTemplateNode(props: TaskTemplateNodeProps) {
   const { mode, taskTemplatesData } = useEditorContext();
   // Get the first (and latest) version of the task template
-  const taskTemplate = taskTemplatesData[props.data.templateRef][0];
+  const taskTemplate = taskTemplatesData[props.data.taskRef][0];
 
   if (mode === WorkflowEngineMode.Executor) {
     return <TaskTemplateNodeExecution {...props} taskTemplate={taskTemplate} />;
@@ -57,7 +57,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
       if (node.id === props.id) {
         return {
           ...node,
-          data: { ...node.data, ...nameAndParamListRecord, templateVersion: version, templateUpgradesAvailable: false },
+          data: { ...node.data, ...nameAndParamListRecord, taskVersion: version, upgradesAvailable: false },
         };
       } else {
         return node;
@@ -123,7 +123,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
             "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
         }}
         modalTrigger={({ openModal }) =>
-          props.data?.templateUpgradesAvailable ? (
+          props.data?.upgradesAvailable ? (
             <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />
           ) : null
         }

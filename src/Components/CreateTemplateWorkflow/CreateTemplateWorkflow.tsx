@@ -25,8 +25,8 @@ function CreateTemplateWorkflow({ team, workflowList }: CreateTemplateWorkflowPr
   const workflowQuotasEnabled: boolean = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const workflowTemplatesUrl = serviceUrl.getWorkflowTemplates();
 
-  //WorkflowTemplates are global TaskTemplates only
-  const getTaskTemplatesUrl = serviceUrl.tasktemplate.getTaskTemplates({ query: "" });
+  //WorkflowTemplates are global Tasks only
+  const queryTasksUrl = serviceUrl.task.queryTasks({ query: "" });
 
   const {
     data: workflowTemplatesData,
@@ -38,12 +38,12 @@ function CreateTemplateWorkflow({ team, workflowList }: CreateTemplateWorkflowPr
   });
 
   const {
-    data: taskTemplatesData,
-    error: taskTemplatesError,
-    isLoading: taskTempaltesAreLoading,
+    data: taskData,
+    error: taskError,
+    isLoading: taskAreLoading,
   } = useQuery({
-    queryKey: getTaskTemplatesUrl,
-    queryFn: resolver.query(getTaskTemplatesUrl),
+    queryKey: queryTasksUrl,
+    queryFn: resolver.query(queryTasksUrl),
   });
 
   const {
@@ -99,10 +99,10 @@ function CreateTemplateWorkflow({ team, workflowList }: CreateTemplateWorkflowPr
       }}
     >
       <CreateWorkflowTemplates
-        templatesError={workflowTemplatesError || taskTemplatesError}
-        isLoading={workflowTemplatesIsLoading || taskTempaltesAreLoading}
+        templatesError={workflowTemplatesError || taskError}
+        isLoading={workflowTemplatesIsLoading || taskAreLoading}
         workflowTemplates={workflowTemplatesData?.content ? workflowTemplatesData.content : []}
-        taskTemplates={taskTemplatesData}
+        taskTemplates={taskData}
       />
       <CreateWorkflowContent
         createWorkflow={handleCreateWorkflow}

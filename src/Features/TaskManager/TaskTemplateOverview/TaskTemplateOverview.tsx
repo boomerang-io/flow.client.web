@@ -219,20 +219,20 @@ export function TaskTemplateOverview({
   const params = useParams();
   const history = useHistory();
 
-  let getTaskTemplateUrl = serviceUrl.tasktemplate.getTaskTemplate({
+  let getTaskTemplateUrl = serviceUrl.task.getTask({
     name: params.name,
     version: params.version,
   });
-  let getChangelogUrl = serviceUrl.tasktemplate.getTaskTemplateChangelog({
+  let getChangelogUrl = serviceUrl.task.getTaskChangelog({
     name: params.name,
   });
   if (params.team) {
-    getTaskTemplateUrl = serviceUrl.team.tasktemplate.getTaskTemplate({
+    getTaskTemplateUrl = serviceUrl.team.task.getTask({
       team: params.team,
       name: params.name,
       version: params.version,
     });
-    getChangelogUrl = serviceUrl.team.tasktemplate.getTaskTemplateChangelog({
+    getChangelogUrl = serviceUrl.team.task.getTaskChangelog({
       team: params.team,
       name: params.name,
     });

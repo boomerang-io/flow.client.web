@@ -251,9 +251,9 @@ export type PaginatedSchedulesResponse = Pageable<ScheduleUnion>;
 
 export type WorkflowNodeData = {
   name: string;
-  templateRef: string;
-  templateVersion: number;
-  templateUpgradesAvailable: boolean;
+  taskRef: string;
+  taskVersion: number;
+  upgradesAvailable: boolean;
   params: Array<{ name: string; value: string }>;
   results: Array<{ name: string; description: string }>;
 };
@@ -727,8 +727,8 @@ export interface TaskRun {
   startTime: string;
   status: RunStatus;
   statusMessage: string;
-  templateRef: string;
-  templateVersion: number;
+  taskRef: string;
+  taskRef: number;
   timeout: number;
   type: string;
   workflowRef: string;

@@ -19,7 +19,7 @@ const HELMET_TITLE = "Task Manager";
 function TaskTemplatesContainer() {
   const match = useRouteMatch();
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
-  const getTaskTemplatesUrl = serviceUrl.tasktemplate.getTaskTemplates({
+  const getTaskTemplatesUrl = serviceUrl.task.queryTasks({
     query: queryString.stringify({ statuses: "active,inactive" }),
   });
   const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);

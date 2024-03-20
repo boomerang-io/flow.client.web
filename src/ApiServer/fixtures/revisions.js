@@ -50,8 +50,8 @@ export default [
               value: "30",
             },
           ],
-          templateRef: "sleep",
-          templateVersion: 1,
+          taskRef: "sleep",
+          taskRef: 1,
           templateUpgradeAvailable: true,
         },
         type: "template",
@@ -91,8 +91,8 @@ export default [
       {
         name: "start",
         type: "start",
-        templateRef: null,
-        templateVersion: null,
+        taskRef: null,
+        taskRef: null,
         labels: {},
         annotations: {
           "boomerang.io/position": {
@@ -108,8 +108,8 @@ export default [
       {
         name: "end",
         type: "end",
-        templateRef: null,
-        templateVersion: null,
+        taskRef: null,
+        taskRef: null,
         labels: {},
         annotations: {
           "boomerang.io/position": {
@@ -131,8 +131,8 @@ export default [
       {
         name: "Sleep 1",
         type: "template",
-        templateRef: "sleep",
-        templateVersion: null,
+        taskRef: "sleep",
+        taskRef: null,
         labels: {},
         annotations: {
           "boomerang.io/position": {

@@ -1,4 +1,4 @@
-import { Loading, Error, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading, Error, notify, ToastNotification, Team } from "@boomerang-io/carbon-addons-boomerang-react";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import { useMutation, useQueryClient, UseMutationResult } from "react-query";
 import { Prompt, Route, Switch, useLocation, useParams } from "react-router-dom";
@@ -30,6 +30,7 @@ import {
   TaskTemplate,
   Workflow,
   WorkflowEditor,
+  FlowTeam,
 } from "Types";
 
 const CREATEABLE_PATHS = [
@@ -45,25 +46,24 @@ const CREATEABLE_PATHS = [
 ];
 
 export default function EditorContainer() {
-  const { team } = useTeamContext();
+  const { team }: { team: FlowTeam } = useTeamContext();
   // Init revision number state is held here so we can easily refect the data on change via react-query
 
   const [revisionNumber, setRevisionNumber] = useState<string | number>("");
   const { workflowId }: { workflowId: string } = useParams();
-  const queryClient = useQueryClient();
 
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
-  const getChangelogUrl = serviceUrl.getWorkflowChangelog({ id: workflowId });
-  const getWorkflowUrl = serviceUrl.getWorkflowCompose({ id: workflowId, version: revisionNumber });
+  const getWorkflowsUrl = serviceUrl.team.workflow.getWorkflows({ team: team.name });
+  const getChangelogUrl = serviceUrl.team.workflow.getWorkflowChangelog({ team: team.name, id: workflowId });
+  const getWorkflowUrl = serviceUrl.team.workflow.getWorkflowCompose({ team: team.name, id: workflowId, version: revisionNumber });
 
-  const getTaskTemplatesUrl = serviceUrl.tasktemplate.getTaskTemplates({
+  const getTaskTemplatesUrl = serviceUrl.task.queryTasks({
     query: queryString.stringify({ statuses: "active" }),
   });
-  const getTeamTaskTemplatesUrl = serviceUrl.team.tasktemplate.getTaskTemplates({
+  const getTeamTaskTemplatesUrl = serviceUrl.team.task.queryTasks({
     query: queryString.stringify({ statuses: "active" }), team: team.name, 
   });
 
-  const getAvailableParametersUrl = serviceUrl.workflowAvailableParameters({ workflowId });
+  const getAvailableParametersUrl = serviceUrl.team.workflow.getAvailableParameters({ team: team.name, workflowId });
 
   /**
    * Queries
@@ -83,11 +83,7 @@ export default function EditorContainer() {
   /**
    * Mutations
    */
-  const revisionMutator = useMutation(resolver.putCreateWorkflowRevision);
-  const parametersMutator = useMutation(resolver.postWorkflowAvailableParameters, {
-    onSuccess: (response) =>
-      queryClient.setQueryData(serviceUrl.workflowAvailableParameters({ workflowId }), response.data),
-  });
+  const revisionMutator = useMutation(resolver.putApplyWorkflow);
 
   if (
     workflowQuery.isLoading ||
@@ -123,16 +119,18 @@ export default function EditorContainer() {
     return (
       <EditorStateContainer
         availableParametersQueryData={availableParametersQuery.data}
-        parametersMutator={parametersMutator}
+        parametersUrl={getAvailableParametersUrl}
         changeLogData={changeLogQuery.data}
         revisionNumber={revisionNumber}
         revisionMutator={revisionMutator}
+        workflowQueryUrl={getWorkflowUrl}
         workflowQueryData={workflowQuery.data}
         workflowsQueryData={workflowsQuery.data}
         setRevisionNumber={setRevisionNumber}
         taskTemplatesList={taskTemplatesList}
         workflowId={workflowId}
         key={revisionNumber}
+        team={team}
       />
     );
   }
@@ -143,14 +141,16 @@ export default function EditorContainer() {
 interface EditorStateContainerProps {
   availableParametersQueryData: Array<string>;
   changeLogData: ChangeLogType;
-  parametersMutator: UseMutationResult<AxiosResponse<any, any>, unknown, { workflowId: any; body: any }, unknown>;
-  revisionMutator: UseMutationResult<AxiosResponse<Workflow, any>, unknown, { workflowId: any; body: any }, unknown>;
+  parametersUrl: string;
+  revisionMutator: UseMutationResult<AxiosResponse<Workflow, any>, unknown, { team: any; workflowId: any; body: any }, unknown>;
   revisionNumber: string | number;
   setRevisionNumber: React.Dispatch<React.SetStateAction<string | number>>;
   taskTemplatesList: Array<TaskTemplate>;
+  workflowQueryUrl: string;
   workflowQueryData: WorkflowEditor;
   workflowsQueryData: PaginatedWorkflowResponse;
   workflowId: string;
+  team: FlowTeam;
 }
 
 /**
@@ -160,13 +160,15 @@ interface EditorStateContainerProps {
 const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   availableParametersQueryData,
   changeLogData,
+  parametersUrl,
   revisionMutator,
-  revisionNumber,
   setRevisionNumber,
   taskTemplatesList,
+  workflowQueryUrl,
   workflowQueryData,
   workflowsQueryData,
   workflowId,
+  team,
 }) => {
   const location = useLocation();
   //const match: { params: { workflowId: string } } = useRouteMatch();
@@ -197,7 +199,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       };
 
       try {
-        const { data } = await revisionMutator.mutateAsync({ workflowId, body: revision });
+        const { data } = await revisionMutator.mutateAsync({ team: team.name, workflowId, body: revision });
         notify(
           <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />,
         );
@@ -206,8 +208,8 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         }
         revisionDispatch({ type: RevisionActionTypes.Set, data });
         setRevisionNumber(data.version);
-        queryClient.invalidateQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
-        queryClient.invalidateQueries(serviceUrl.getWorkflowChangelog({ id: workflowId }));
+        queryClient.invalidateQueries(parametersUrl);
+        queryClient.invalidateQueries(workflowQueryUrl);
       } catch (err) {
         notify(
           <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />,

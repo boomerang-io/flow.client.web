@@ -103,7 +103,7 @@ export default function Insights() {
   }
 
   /** Retrieve Workflows */
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
+  const getWorkflowsUrl = serviceUrl.team.workflow.getWorkflows({ team: team?.name });
   const {
     data: workflowsData,
     isLoading: workflowsIsLoading,

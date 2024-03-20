@@ -136,8 +136,8 @@ const workflowRun = {
                 "debug": false,
                 "deletion": "Never"
             },
-            "templateRef": "execute-shell",
-            "templateVersion": 2,
+            "taskRef": "execute-shell",
+            "taskRef": 2,
             "workflowRef": "651b91a77fbb1a64ab8b7154",
             "workflowRevisionRef": "651cffa3e99fd73f5122879d",
             "workflowRunRef": "651e4789ab1cb56bc8976ae4"

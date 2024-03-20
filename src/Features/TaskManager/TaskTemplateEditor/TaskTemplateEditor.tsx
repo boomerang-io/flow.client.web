@@ -60,17 +60,17 @@ export function TaskTemplateYamlEditor({
 
   const [docOpen, setDocOpen] = useState(true);
 
-  let getTaskTemplateUrl = serviceUrl.tasktemplate.getTaskTemplate({ name: params.name, version: params.version });
-  let getChangelogUrl = serviceUrl.tasktemplate.getTaskTemplateChangelog({
+  let getTaskTemplateUrl = serviceUrl.task.getTask({ name: params.name, version: params.version });
+  let getChangelogUrl = serviceUrl.task.getTaskChangelog({
     name: params.name,
   });
   if (params.team) {
-    getTaskTemplateUrl = serviceUrl.team.tasktemplate.getTaskTemplate({
+    getTaskTemplateUrl = serviceUrl.team.task.getTask({
       team: params.team,
       name: params.name,
       version: params.version,
     });
-    getChangelogUrl = serviceUrl.team.tasktemplate.getTaskTemplateChangelog({
+    getChangelogUrl = serviceUrl.team.task.getTaskChangelog({
       team: params.team,
       name: params.name,
     });
@@ -256,9 +256,9 @@ export function TaskTemplateYamlEditor({
 
   const handleDownloadTaskTemplate = async () => {
     try {
-      let url = serviceUrl.tasktemplate.getTaskTemplate({ name: selectedTaskTemplate.name, version: selectedTaskTemplate.version })
+      let url = serviceUrl.task.getTask({ name: selectedTaskTemplate.name, version: selectedTaskTemplate.version })
       if (params.team) {
-        url = serviceUrl.team.tasktemplate.getTaskTemplate({
+        url = serviceUrl.team.task.getTask({
           team: params.team,
           name: selectedTaskTemplate.name,
           version: selectedTaskTemplate.version,

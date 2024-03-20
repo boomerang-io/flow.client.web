@@ -67,7 +67,7 @@ const toggleProps = () => {
 export default function TaskUpdateModal(props: TaskUpdateModalProps) {
   const { latestTaskTemplate, closeModal, availableParameters, node, onSave } = props;
 
-  const getTaskTemplateUrl = serviceUrl.tasktemplate.getTaskTemplate({ name: node.templateRef, version: node.templateVersion });
+  const getTaskTemplateUrl = serviceUrl.task.getTask({ name: node.taskRef, version: node.taskRef });
 
   const templateQuery = useQuery<TaskTemplate>({
     queryKey: getTaskTemplateUrl,

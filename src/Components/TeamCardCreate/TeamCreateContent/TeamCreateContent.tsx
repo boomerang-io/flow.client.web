@@ -101,7 +101,7 @@ export default function TeamCreateContent({ closeModal, createTeam, isLoading, i
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
-              <Button disabled={!dirty || errors.name || isError} onClick={handleSubmit} data-testid="save-team-name">
+              <Button disabled={!dirty || errors.name || isLoading || validateTeamNameMutator.isLoading} onClick={handleSubmit} data-testid="save-team-name">
                 {buttonText}
               </Button>
             </ModalFooter>

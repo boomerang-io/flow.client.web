@@ -110,7 +110,7 @@ const workflowTemplates = {
         },
         {
           name: "MongoDB Execute Query",
-          templateRef: "mongodb-query-execution",
+          taskRef: "mongodb-query-execution",
           results: [],
           params: [
             {
@@ -184,7 +184,7 @@ const workflowTemplates = {
         },
         {
           name: "Display the results",
-          templateRef: "execute-shell",
+          taskRef: "execute-shell",
           results: [],
           params: [
             {
@@ -234,7 +234,7 @@ const workflowTemplates = {
         },
         {
           name: "Send the results as attachemnt",
-          templateRef: "send-email-with-sendgrid",
+          taskRef: "send-email-with-sendgrid",
           results: [],
           params: [
             {
@@ -313,7 +313,7 @@ const workflowTemplates = {
         },
         {
           name: "Failed to run the query email",
-          templateRef: "send-email-with-sendgrid",
+          taskRef: "send-email-with-sendgrid",
           results: [],
           params: [
             {
@@ -492,7 +492,7 @@ const workflowTemplates = {
         },
         {
           name: "Search through planets",
-          templateRef: "execute-basic-http-call",
+          taskRef: "execute-basic-http-call",
           results: [],
           params: [
             {
@@ -558,7 +558,7 @@ const workflowTemplates = {
         },
         {
           name: "Get the planet",
-          templateRef: "file-jsonpath-to-parameter",
+          taskRef: "file-jsonpath-to-parameter",
           results: [],
           params: [
             {
@@ -604,7 +604,7 @@ const workflowTemplates = {
         },
         {
           name: "Scan the planet",
-          templateRef: "execute-advanced-http-call",
+          taskRef: "execute-advanced-http-call",
           results: [],
           params: [
             {
@@ -690,7 +690,7 @@ const workflowTemplates = {
         },
         {
           name: "Track the film",
-          templateRef: "file-jsonpath-to-parameter",
+          taskRef: "file-jsonpath-to-parameter",
           results: [],
           params: [
             {
@@ -736,7 +736,7 @@ const workflowTemplates = {
         },
         {
           name: "Scan the film",
-          templateRef: "execute-advanced-http-call",
+          taskRef: "execute-advanced-http-call",
           results: [],
           params: [
             {
@@ -822,7 +822,7 @@ const workflowTemplates = {
         },
         {
           name: "Destroying the planet",
-          templateRef: "manual-task",
+          taskRef: "manual-task",
           results: [],
           params: [
             {
@@ -865,7 +865,7 @@ const workflowTemplates = {
         },
         {
           name: "Find Resistance troops",
-          templateRef: "file-jsonpath-to-parameter",
+          taskRef: "file-jsonpath-to-parameter",
           results: [],
           params: [
             {
@@ -911,7 +911,7 @@ const workflowTemplates = {
         },
         {
           name: "Find Resistance leader",
-          templateRef: "file-jsonpath-to-parameter",
+          taskRef: "file-jsonpath-to-parameter",
           results: [],
           params: [
             {

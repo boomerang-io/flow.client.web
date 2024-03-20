@@ -25,7 +25,7 @@ export default function Workflows() {
   const history = useHistory();
   const location = useLocation();
 
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}&statuses=active,inactive` });
+  const getWorkflowsUrl = serviceUrl.team.workflow.getWorkflows({ team: team?.name, query: `statuses=active,inactive` });
   const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>({
     queryKey: getWorkflowsUrl,
     queryFn: resolver.query(getWorkflowsUrl),

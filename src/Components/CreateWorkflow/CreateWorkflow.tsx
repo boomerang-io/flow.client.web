@@ -41,7 +41,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getWorkflows({ query: `teams=${team?.name}` }));
+        queryClient.invalidateQueries(serviceUrl.team.workflow.getWorkflows({ team: team?.name }));
       }
       return;
     } catch (e) {
@@ -65,7 +65,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, hasReachedWorkflo
       if (viewType === WorkflowView.Template) {
         queryClient.invalidateQueries(serviceUrl.getWorkflowTemplates());
       } else {
-        queryClient.invalidateQueries(serviceUrl.getWorkflows({ query: `teams=${team?.name}` }));
+        queryClient.invalidateQueries(serviceUrl.team.workflow.getWorkflows({ team: team?.name }));
       }
       closeModal();
     } catch (err) {

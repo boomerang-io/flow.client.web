@@ -257,7 +257,7 @@ function FlowDiagram(props: FlowDiagramProps) {
 
       // TODO: clean this up - determines how to give the task template a unique name
       const numTemplateRefInstances = nodes.reduce((accum, currentNode) => {
-        if (currentNode.data.templateRef === task.name) {
+        if (currentNode.data.taskRef === task.name) {
           accum += 1;
         }
         return accum;
@@ -273,9 +273,9 @@ function FlowDiagram(props: FlowDiagramProps) {
         position,
         data: {
           name: taskName,
-          templateRef: task.name,
-          templateVersion: task.version,
-          templateUpgradesAvailable: false,
+          taskRef: task.name,
+          taskVersion: task.version,
+          upgradesAvailable: false,
           params: [],
         },
       };

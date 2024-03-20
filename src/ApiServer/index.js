@@ -10,7 +10,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     // Prevent pluralization bc our apis are weird
     inflect.irregular("activity", "activity");
     inflect.irregular("config", "config");
-    // inflect.irregular("tasktemplate", "tasktemplate");
     inflect.irregular("insights", "insights");
     inflect.irregular("flowNavigation", "flowNavigation");
   });
@@ -42,8 +41,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       revision: Model,
       setting: Model,
       summary: Model,
-      tasktemplate: Model,
-      tasktemplateYaml: Model,
+      task: Model,
+      taskYaml: Model,
       team: Model,
       teamApproverUsers: Model,
       teamNameValidate: Model,
@@ -109,7 +108,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.workflowSchedules;
       });
 
-      this.get(serviceUrl.workflowAvailableParameters({ workflowId: ":workflowId" }), (schema) => {
+      this.get(serviceUrl.team.workflow.getAvailableParameters({ team: ":team", workflowId: ":workflowId" }), (schema) => {
         return schema.db.availableParameters[0].data;
       });
 
@@ -117,7 +116,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.workflowTemplates[0];
       });
 
-      this.get(serviceUrl.getWorkflows({ query: null }), (schema) => {
+      this.get(serviceUrl.team.workflow.getWorkflows({ team: null, query: null }), (schema) => {
         return schema.db.workflows[0];
       });
 
@@ -223,17 +222,17 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       /**
-       * Task Templates
+       * Tasks
        */
-      this.get(serviceUrl.tasktemplate.getTaskTemplate({ name: ":name" }), (schema, request) => {
+      this.get(serviceUrl.task.getTask({ name: ":name" }), (schema, request) => {
         console.log(request.requestHeaders);
         if (request.requestHeaders["Accept"] === "application/x-yaml") {
-          return schema.db.tasktemplateYaml[0].yaml;
+          return schema.db.taskYaml[0].yaml;
         } else {
-          return schema.db.tasktemplate[0].content.find((t) => t.name === request.params.name);
+          return schema.db.task[0].content.find((t) => t.name === request.params.name);
         }
       });
-      this.get(serviceUrl.tasktemplate.getTaskTemplateChangelog({ name: ":name" }), (schema) => {
+      this.get(serviceUrl.task.getTaskChangelog({ name: ":name" }), (schema) => {
         const response = [
           {
             author: "Bob",
@@ -250,42 +249,28 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         ];
         return response;
       });
-      const tasktemplatePath = serviceUrl.tasktemplate.getTaskTemplates({ query: null });
-      this.get(tasktemplatePath, (schema) => {
-        return schema.db.tasktemplate[0];
+      const taskPath = serviceUrl.task.queryTasks({ query: null });
+      this.get(taskPath, (schema) => {
+        return schema.db.task[0];
       });
-      this.put(tasktemplatePath, (schema, request) => {
+      this.put(taskPath, (schema, request) => {
         let body = JSON.parse(request.requestBody);
-        let taskTemplate = schema.tasktemplate.find(body.id);
-        taskTemplate.revisions.push(body);
-        taskTemplate.update({ ...body });
-        return taskTemplate;
+        let task = schema.task.find(body.id);
+        task.revisions.push(body);
+        task.update({ ...body });
+        return task;
       });
-      this.post(serviceUrl.tasktemplate.postValidateYaml(), (schema) => {
+      this.post(serviceUrl.task.postValidateYaml(), (schema) => {
         return new Response(200, {}, { errors: ["Name is already taken"] });
       });
-      this.put(serviceUrl.tasktemplate.putTaskTemplate({ replace: "true", team: ":team" }), (schema, request) => {
+      this.put(serviceUrl.task.putTask({ replace: "true", team: ":team" }), (schema, request) => {
         return {};
       });
 
       /**
        * Workflows
        */
-
-      // Workflow Summary
-      this.get(serviceUrl.getWorkflowSummary({ workflowId: ":workflowId" }), (schema, request) => {
-        let { workflowId } = request.params;
-        return schema.summaries.find(workflowId);
-      });
-
-      this.patch(serviceUrl.patchUpdateWorkflowSummary(), (schema, request) => {
-        let body = JSON.parse(request.requestBody);
-        let summary = schema.summaries.find(body.workflowId);
-        summary.update(body);
-        return summary;
-      });
-
-      this.post(serviceUrl.postCreateWorkflow({ team: ":team" }), (schema, request) => {
+      this.post(serviceUrl.team.workflow.postCreateWorkflow({ team: ":team" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let workflow = { ...body, id: uuid(), createdDate: Date.now(), revisionCount: 1, status: "active" };
         if (body.flowTeamId) {
@@ -298,53 +283,18 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return {};
       });
 
-      this.post(
-        serviceUrl.postCreateWorkflowToken({ workflowId: ":workflowId", label: ":label" }),
-        (schema, request) => {
-          return { token: uuid() };
-        },
-      );
-
-      this.get(serviceUrl.getWorkflowCompose({ id: ":id", version: null }), (schema, request) => {
+      this.get(serviceUrl.team.workflow.getWorkflowCompose({ team: ":team", id: ":id", version: null }), (schema, request) => {
         let { id } = request.params;
         return schema.db.workflowCompose.findBy({ id });
       });
 
-      this.del(serviceUrl.getWorkflow({ id: ":workflowId" }), (schema, request) => {
+      this.del(serviceUrl.team.workflow.getWorkflow({ team: ":team", id: ":workflowId" }), (schema, request) => {
         let { workflowId } = request.params;
         let flowTeam = schema.myTeams.where((team) => team.workflows.find((workflow) => workflow.id === workflowId));
         let { attrs } = flowTeam.models[0];
         const teamWorkflows = attrs.workflows.filter((workflow) => workflow.id !== workflowId);
         flowTeam.update({ workflows: teamWorkflows });
         return schema.db.summaries.remove({ id: workflowId });
-      });
-
-      // Workflow Revision
-      this.get(serviceUrl.getWorkflowRevision({ workflowId: ":workflowId" }), (schema, request) => {
-        return schema.db.revisions[0];
-        // let { workflowId } = request.params;
-        // if (workflowId) {
-        //   return schema.revisions.findBy({ workFlowId: workflowId });
-        // } else {
-        //   return {};
-        // }
-      });
-
-      this.get(
-        serviceUrl.getWorkflowRevision({ workflowId: ":workflowId", revisionNumber: ":revisionNumber" }),
-        (schema, request) => {
-          return schema.db.revisions[0];
-          // let { workflowId, revisionNumber } = request.params;
-          // if (revisionNumber) {
-          //   return schema.revisions.findBy({ workFlowId: workflowId, version: revisionNumber });
-          // } else {
-          //   return {};
-          // }
-        },
-      );
-
-      this.get(serviceUrl.getWorkflowTaskTemplates({ workflowId: ":workflowId" }), (schema, request) => {
-        return schema.db.tasktemplate;
       });
 
       //Workflow Config Cron
@@ -355,24 +305,11 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         };
       });
 
-      // Workflow Properties
-      this.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId: ":workflowId" }), (schema, request) => {
-        let body = JSON.parse(request.requestBody);
-        let { workflowId } = request.params;
-        let summary = schema.summaries.find(workflowId);
-        summary.update({ properties: body });
-        return summary;
-      });
-
       // Workflow Changelog
-      this.get(serviceUrl.getWorkflowChangelog({ id: ":id" }), (schema, request) => {
+      this.get(serviceUrl.team.workflow.getWorkflowChangelog({ team: ":team", id: ":id" }), (schema, request) => {
         return schema.db.changelogs;
       });
 
-      //Workflow Available Parameters
-      this.post(serviceUrl.workflowAvailableParameters({ workflowId: ":workflowId" }), (schema, request) => {
-        return schema.db.availableParameters[0].data;
-      });
       /**
        * Activity
        */
@@ -388,7 +325,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.workflowExecution[0];
       });
 
-      this.post(serviceUrl.postSubmitWorkflow({ workflowId: ":workflowId", body: null }), (schema, request) => {
+      this.post(serviceUrl.postSubmitWorkflow({ team: ":team", workflowId: ":workflowId", body: null }), (schema, request) => {
         return schema.db.workflowExecution[0];
       });
 
@@ -588,16 +525,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.get(serviceUrl.getGitHubAppInstallationForTeam({ team: null }), (schema, request) => {
         return schema.db.installations[0];
       });
-
-      /**
-       * Workflow Templates
-       */
-      this.post(serviceUrl.postDuplicateWorkflow({ workflowId: ":workflowId" }), (schema, request) => {
-        return {};
-      });
-      /**
-       * TODO
-       */
     },
   });
 }

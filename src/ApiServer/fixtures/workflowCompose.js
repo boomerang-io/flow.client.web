@@ -42,12 +42,12 @@ const workflowsCompose = [
     nodes: [
       {
         id: "64cafb1706ca9f65f338ae3b",
-        data: { name: "start", params: [], templateRef: null, templateVersion: null, templateUpgradesAvailable: false },
+        data: { name: "start", params: [], taskRef: null, taskVersion: null, upgradesAvailable: false },
         type: "start",
       },
       {
         id: "64cafb1706ca9f65f338ae3c",
-        data: { name: "end", params: [], templateRef: null, templateVersion: null, templateUpgradesAvailable: false },
+        data: { name: "end", params: [], taskRef: null, taskVersion: null, upgradesAvailable: false },
         type: "end",
       },
       {
@@ -66,9 +66,9 @@ const workflowsCompose = [
             { name: "projectId", value: "rare-charmer-175000" },
             { name: "privateKeyId", value: "3dbc985055ac90c2f0fcd4db549f0b416e78ad5c" },
           ],
-          templateRef: "create-spreadsheet",
-          templateVersion: "1",
-          templateUpgradesAvailable: true,
+          taskRef: "create-spreadsheet",
+          taskVersion: "1",
+          upgradesAvailable: true,
         },
         type: "template",
       },

@@ -23,7 +23,7 @@ import styles from "./Workflows.module.scss";
 function Workflows({ team }: { team: FlowTeam }) {
   const [searchQuery, setSearchQuery] = React.useState("");
 
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
+  const getWorkflowsUrl = serviceUrl.team.workflow.getWorkflows({ team: team?.name });
   const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>({
     queryKey: getWorkflowsUrl,
     queryFn: resolver.query(getWorkflowsUrl),

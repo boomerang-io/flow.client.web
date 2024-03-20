@@ -50,7 +50,7 @@ function WorkflowActivity() {
   } = queryString.parse(location.search, queryStringOptions);
 
   /** Retrieve Workflows */
-  const getWorkflowsUrl = serviceUrl.getWorkflows({ query: `teams=${team?.name}` });
+  const getWorkflowsUrl = serviceUrl.team.workflow.getWorkflows({ team: team?.name });
   const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>(getWorkflowsUrl);
 
   /**** Start get some data ****/

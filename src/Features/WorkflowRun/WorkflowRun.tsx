@@ -19,10 +19,10 @@ import { PaginatedTaskTemplateResponse, RunStatus, TaskTemplate, WorkflowEditor,
 
 export default function WorkflowRunContainer() {
   const { team, workflowId, runId }: { team: string; workflowId: string; runId: string } = useParams();
-  const getTaskTemplatesUrl = serviceUrl.tasktemplate.getTaskTemplates({
+  const getTaskTemplatesUrl = serviceUrl.task.queryTasks({
     query: queryString.stringify({ statuses: "active" }),
   });
-  const getTaskTemplatesTeamUrl = serviceUrl.team.tasktemplate.getTaskTemplates({
+  const getTaskTemplatesTeamUrl = serviceUrl.team.task.queryTasks({
     query: queryString.stringify({ statuses: "active" }), team: team, 
   });
   const getExecutionUrl = serviceUrl.getWorkflowRun({ id: runId });
@@ -62,6 +62,7 @@ export default function WorkflowRunContainer() {
   if (taskTemplatesQuery.data && taskTemplatesTeamQuery.data && executionQuery.data) {
     return (
       <RevisionContainer
+        team={team}
         workflowRun={executionQuery.data}
         taskTemplatesData={[...taskTemplatesQuery.data.content, ...taskTemplatesTeamQuery.data.content]}
         workflowId={workflowId}
@@ -73,14 +74,16 @@ export default function WorkflowRunContainer() {
 }
 
 type RevisionProps = {
+  team: string;
   taskTemplatesData: TaskTemplate[];
   workflowId: string;
   workflowRun: WorkflowRun;
 };
 
-function RevisionContainer({ workflowRun, taskTemplatesData, workflowId }: RevisionProps) {
+function RevisionContainer({ team, workflowRun, taskTemplatesData, workflowId }: RevisionProps) {
   const version = workflowRun.workflowVersion;
-  const getWorkflowUrl = serviceUrl.getWorkflowCompose({
+  const getWorkflowUrl = serviceUrl.team.workflow.getWorkflowCompose({
+    team: team,
     id: workflowId,
     version,
   });

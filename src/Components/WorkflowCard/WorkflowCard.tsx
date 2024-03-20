@@ -75,7 +75,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
   const handleDeleteWorkflow = async () => {
     const workflowId = workflow.id;
     try {
-      await deleteWorkflowMutator({ id: workflowId });
+      await deleteWorkflowMutator({ team: teamName, id: workflowId });
       notify(
         <ToastNotification kind="success" title={`Delete ${viewType}`} subtitle={`${viewType} successfully deleted`} />,
       );
@@ -97,7 +97,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
 
   const handleDuplicateWorkflow = async (workflow: Workflow) => {
     try {
-      await duplicateWorkflowMutator({ workflowId: workflow.id });
+      await duplicateWorkflowMutator({ team: teamName, workflowId: workflow.id });
       notify(
         <ToastNotification
           kind="success"
@@ -157,6 +157,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamName, quotas, workflow,
     try {
       // @ts-ignore:next-line
       const { data: execution } = await executeWorkflowMutator({
+        team: teamName,
         workflowId: workflowId,
         body: body,
       });
