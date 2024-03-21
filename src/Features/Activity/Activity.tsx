@@ -34,7 +34,6 @@ function WorkflowActivity() {
   const workflowRunCountQuery = queryString.stringify({
     fromDate: moment().startOf("day").valueOf(),
     toDate: moment().endOf("day").valueOf(),
-    teams: team?.name,
   });
 
   const {
@@ -61,7 +60,6 @@ function WorkflowActivity() {
       limit,
       sort,
       statuses,
-      teams: team?.name,
       triggers,
       workflows,
       fromDate,
@@ -70,8 +68,8 @@ function WorkflowActivity() {
     queryStringOptions
   );
 
-  const wfRunSummaryUrl = serviceUrl.getWorkflowRunCount({ query: workflowRunCountQuery });
-  const wfRunUrl = serviceUrl.getWorkflowRuns({ query: wfRunsURLQuery });
+  const wfRunSummaryUrl = serviceUrl.team.workflowrun.getWorkflowRunCount({ team: team?.name, query: workflowRunCountQuery });
+  const wfRunUrl = serviceUrl.team.workflowrun.getWorkflowRuns({ team: team?.name, query: wfRunsURLQuery });
 
   const wfRunSummaryQuery = useQuery(wfRunSummaryUrl);
   const wfRunQuery = useQuery(wfRunUrl);

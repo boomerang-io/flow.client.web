@@ -25,7 +25,7 @@ export default function WorkflowRunContainer() {
   const getTaskTemplatesTeamUrl = serviceUrl.team.task.queryTasks({
     query: queryString.stringify({ statuses: "active" }), team: team, 
   });
-  const getExecutionUrl = serviceUrl.getWorkflowRun({ id: runId });
+  const getExecutionUrl = serviceUrl.team.workflowrun.getWorkflowRun({ team: team, id: runId });
 
   /**
    * Queries

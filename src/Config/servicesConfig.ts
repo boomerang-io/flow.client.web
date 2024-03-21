@@ -53,13 +53,10 @@ type QueryArg = {
 }
 
 export const serviceUrl = {
-  deleteCancelWorkflow: ({ runId }) => `${BASE_URL}/workflowrun/${runId}/cancel`,
   deleteToken: ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
   deleteSchedule: ({ scheduleId }) => `${BASE_URL}/schedule/${scheduleId}`,
   deleteTeamMembers: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/members`,
   leaveTeam: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/leave`,
-  getWorkflowRunCount: ({ query }: QueryArg) => `${BASE_URL}/workflowrun/count${query ? "?" + query : ""}`,
-  getWorkflowRuns: ({ query }: QueryArg) => `${BASE_URL}/workflowrun/query${query ? "?" + query : ""}`,
   getFeatureFlags: () => `${BASE_URL}/features`,
   getNavigation: ({ query }: QueryArg) => `${BASE_URL}/navigation${query}`,
   getGlobalParameters: () => `${BASE_URL}/global-params`,
@@ -87,7 +84,6 @@ export const serviceUrl = {
   getIntegrations: ({ team }: TeamArg) => `${BASE_URL}/integration${team ? "?team=" + team : ""}`,
   getTaskrunLog: ({ id }: IdArg) =>
   `${BASE_URL}/taskrun/${id}/log`,
-  getWorkflowRun: ({ id }: IdArg) => `${BASE_URL}/workflowrun/${id}`,
   getWorkflowSchedules: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/schedules`,
   getWorkflowSchedulesCalendar: ({ workflowId, query }: WorkflowIdArg & QueryArg) =>
     `${BASE_URL}/workflow/${workflowId}/schedules/calendar${query ? "?" + query : ""}`,
@@ -147,6 +143,12 @@ export const serviceUrl = {
       postSubmitWorkflow: ({ team, workflowId }: TeamArg & WorkflowIdArg) => `${BASE_URL}/team/${team}/workflow/${workflowId}/submit`,
       getAvailableParameters: ({ team, workflowId }: TeamArg & WorkflowIdArg) => `${BASE_URL}/team/${team}/workflow/${workflowId}/available-parameters`,
       putApplyWorkflow: ({ team, workflowId }: TeamArg & WorkflowIdArg) => `${BASE_URL}/team/${team}/workflow/${workflowId}/compose`,
+    },
+    "workflowrun": {
+      deleteCancelWorkflow: ({ team, id }: TeamArg & IdArg) => `${BASE_URL}/team/${team}/workflowrun/${id}/cancel`,
+      getWorkflowRunCount: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/workflowrun/count${query ? "?" + query : ""}`,
+      getWorkflowRuns: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/workflowrun/query${query ? "?" + query : ""}`,
+      getWorkflowRun: ({ team, id }: TeamArg & IdArg) => `${BASE_URL}/team/${team}/workflowrun/${id}`,
     }
   }
 };
@@ -163,7 +165,7 @@ export const resolver = {
   putMutation: (request) => axios.put(request),
   deleteApproverGroup: ({ team, groupId }) => axios.delete(serviceUrl.resourceApproverGroups({ team, groupId })),
   // deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
-  deleteCancelWorkflow: ({ runId }) => axios.delete(serviceUrl.deleteCancelWorkflow({ runId })),
+  deleteCancelWorkflow: ({ team, runId }) => axios.delete(serviceUrl.team.workflowrun.deleteCancelWorkflow({ team, runId })),
   deleteGlobalParameter: ({ key }) => axios.delete(serviceUrl.getGlobalParameter({ key })),
   deleteTeamMembers: ({ team, body }) => axios.delete(serviceUrl.deleteTeamMembers({ team }), body),
   deleteTeamParameters: ({ team, body }) =>
@@ -235,7 +237,7 @@ export const resolver = {
     axios.put<Workflow, Workflow>(serviceUrl.team.workflow.putApplyWorkflow({ team, workflowId }), body),
   postSubmitWorkflow: ({ team, workflowId, body }) =>
     axios.post(
-      serviceUrl.postSubmitWorkflow({team, workflowId}),
+      serviceUrl.team.workflow.postSubmitWorkflow({team, workflowId}),
       body,
     ),
   postGlobalParameter: ({ body }) =>

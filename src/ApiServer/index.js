@@ -313,23 +313,23 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Activity
        */
-      this.get(serviceUrl.getWorkflowRuns({ query: null }), (schema) => {
+      this.get(serviceUrl.team.workflowrun.getWorkflowRuns({ team: ":team", query: null }), (schema) => {
         return schema.db.workflowRuns[0];
       });
 
-      this.get(serviceUrl.getWorkflowRunCount({ query: null }), (schema, request) => {
+      this.get(serviceUrl.team.workflowrun.getWorkflowRunCount({ team: ":team", query: null }), (schema, request) => {
         return schema.db.workflowRunCount[0];
       });
 
-      this.get(serviceUrl.getWorkflowRun({ id: ":id" }), (schema, request) => {
+      this.get(serviceUrl.team.workflowrun.getWorkflowRun({ team: ":team", id: ":id" }), (schema, request) => {
         return schema.db.workflowExecution[0];
       });
 
-      this.post(serviceUrl.postSubmitWorkflow({ team: ":team", workflowId: ":workflowId", body: null }), (schema, request) => {
+      this.post(serviceUrl.team.workflow.postSubmitWorkflow({ team: ":team", workflowId: ":workflowId", body: null }), (schema, request) => {
         return schema.db.workflowExecution[0];
       });
 
-      this.delete(serviceUrl.deleteCancelWorkflow({ runId: ":id" }), (schema, request) => {
+      this.delete(serviceUrl.team.workflowrun.deleteCancelWorkflow({ team: ":team", runId: ":id" }), (schema, request) => {
         return {};
       });
 

@@ -40,12 +40,12 @@ export default function ExecutionHeader({ workflow, workflowRun, version }: Prop
   const displayCancelButton = cancelSatusTypes.includes(status);
 
   const { mutateAsync: deleteCancelWorkflowMutation } = useMutation(resolver.deleteCancelWorkflow, {
-    onSuccess: () => queryClient.invalidateQueries(serviceUrl.getWorkflowRun({ id })),
+    onSuccess: () => queryClient.invalidateQueries(serviceUrl.team.workflowrun.getWorkflowRun({ team: team.name, id })),
   });
 
   const handleCancelWorkflow = async () => {
     try {
-      await deleteCancelWorkflowMutation({ runId: id });
+      await deleteCancelWorkflowMutation({ team: team.name, runId: id });
       notify(<ToastNotification kind="success" title="Cancel run" subtitle="Execution successfully cancelled" />);
     } catch {
       notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to cancel this execution`} />);
