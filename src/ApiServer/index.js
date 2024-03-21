@@ -211,7 +211,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Insights
        */
-      this.get(serviceUrl.getInsights({ query: null }), (schema, request) => {
+      this.get(serviceUrl.team.getInsights({ team: ":team", query: null }), (schema, request) => {
         //grab the querystring from the end of the request url
         const query = request.url.substring(14);
         // eslint-disable-next-line

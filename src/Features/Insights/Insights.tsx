@@ -81,7 +81,6 @@ export default function Insights() {
   const insightsSearchParams = queryString.stringify(
     {
       statuses,
-      teams: team?.name,
       triggers,
       workflows,
       fromDate,
@@ -90,7 +89,7 @@ export default function Insights() {
     queryStringOptions
   );
 
-  const insightsUrl = serviceUrl.getInsights({ query: insightsSearchParams });
+  const insightsUrl = serviceUrl.team.getInsights({ team: team?.name,query: insightsSearchParams });
   const insightsQuery = useQuery<WorkflowInsightsRes>({
     queryKey: insightsUrl,
     queryFn: resolver.query(insightsUrl),

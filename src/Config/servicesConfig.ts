@@ -62,7 +62,6 @@ export const serviceUrl = {
   getGlobalParameters: () => `${BASE_URL}/global-params`,
   getGlobalParameter: ({ key }: IdArg) => `${BASE_URL}/global-params/${key}`,
   getGlobalTokens: () => `${BASE_URL}/tokens/global-tokens`,
-  getInsights: ({ query }: QueryArg) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
   getManageTeamsCreate: () => `${BASE_URL}/manage/teams`,
   getManageTeamLabels: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/labels`,
   getContext: () => `${BASE_URL}/context`,
@@ -122,9 +121,10 @@ export const serviceUrl = {
     putAction: () => `${BASE_URL}/action`,
   },
   "team": {
+    getInsights: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/insights${query ? "?" + query : ""}`,
     "task": {
       // deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/task/${id}`,
-      queryTasks: ({ team, query }: TeamArg & QueryArg) => `${BASE_URL}/team/${team}/task/query${query ? "?" + query : ""}`,
+      queryTasks: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/task/query${query ? "?" + query : ""}`,
       getTask: ({ team, name, version }: TeamArg & NameArg & Partial<VersionArg>) =>
         `${BASE_URL}/team/${team}/task/${name}${version ? `?version=${version}` : ""}`,
       getTaskChangelog: ({ team, name }: TeamArg & NameArg) =>
@@ -149,7 +149,7 @@ export const serviceUrl = {
       getWorkflowRunCount: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/workflowrun/count${query ? "?" + query : ""}`,
       getWorkflowRuns: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/workflowrun/query${query ? "?" + query : ""}`,
       getWorkflowRun: ({ team, id }: TeamArg & IdArg) => `${BASE_URL}/team/${team}/workflowrun/${id}`,
-    }
+    },
   }
 };
 
