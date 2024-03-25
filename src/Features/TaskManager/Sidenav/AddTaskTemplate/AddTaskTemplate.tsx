@@ -27,14 +27,14 @@ function AddTaskTemplate({ taskNames, history, getTaskTemplatesUrl }: AddTaskTem
   const createTeamTaskTemplateMutation = useMutation(resolver.putApplyTeamTaskTemplate);
   const createTeamTaskTemplateYAMLMutation = useMutation(resolver.putApplyTeamTaskTemplateYaml);
 
-  const handleAddTaskTemplate = async ({ replace, body, closeModal }) => {
+  const handleAddTaskTemplate = async ({ name, replace, body, closeModal }) => {
     setIsSubmitting(true);
     try {
       let response;
       if (params.team) {
-        response = await createTeamTaskTemplateMutation.mutateAsync({ replace, team: params.team, body });
+        response = await createTeamTaskTemplateMutation.mutateAsync({ team: params.team, name: name, replace, body });
       } else {
-        response = await createTaskTemplateMutation.mutateAsync({ replace, body });
+        response = await createTaskTemplateMutation.mutateAsync({ name: name, replace, body });
       }
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
       notify(
@@ -47,12 +47,12 @@ function AddTaskTemplate({ taskNames, history, getTaskTemplatesUrl }: AddTaskTem
       );
       history.push(
         params.team
-          ? appLink.manageTaskTemplateEdit({
+          ? appLink.manageTasksEdit({
               team: params.team,
               name: task.name,
               version: task.version.toString(),
             })
-          : appLink.adminTaskTemplateDetail({
+          : appLink.adminTasksDetail({
               name: task.name,
               version: task.version.toString(),
             }),
@@ -64,21 +64,21 @@ function AddTaskTemplate({ taskNames, history, getTaskTemplatesUrl }: AddTaskTem
     }
   };
 
-  const handleImportTaskTemplate = async ({ type, replace, body, closeModal }) => {
+  const handleImportTaskTemplate = async ({ type, name, replace, body, closeModal }) => {
     setIsSubmitting(true);
     let response;
     try {
       if (type === "application/json") {
         if (params.team) {
-          response = await createTeamTaskTemplateMutation.mutateAsync({ replace, team: params.team, body });
+          response = await createTeamTaskTemplateMutation.mutateAsync({ team: params.team, name: name, replace, body });
         } else {
-          response = await createTaskTemplateMutation.mutateAsync({ replace, body });
+          response = await createTaskTemplateMutation.mutateAsync({ name: name, replace, body });
         }
       } else {
         if (params.team) {
-          response = await createTeamTaskTemplateYAMLMutation.mutateAsync({ replace, team: params.team, body });
+          response = await createTeamTaskTemplateYAMLMutation.mutateAsync({ team: params.team, name: name, replace, body });
         } else {
-          response = await createTaskTemplateYAMLMutation.mutateAsync({ replace, body });
+          response = await createTaskTemplateYAMLMutation.mutateAsync({ name: name, replace, body });
         }
       }
       await queryClient.invalidateQueries(getTaskTemplatesUrl);
@@ -92,12 +92,12 @@ function AddTaskTemplate({ taskNames, history, getTaskTemplatesUrl }: AddTaskTem
       );
       history.push(
         params.team
-          ? appLink.manageTaskTemplateEdit({
+          ? appLink.manageTasksEdit({
               team: params.team,
               name: task.name,
               version: task.version.toString(),
             })
-          : appLink.adminTaskTemplateDetail({
+          : appLink.adminTasksDetail({
               name: task.name,
               version: task.version.toString(),
             }),

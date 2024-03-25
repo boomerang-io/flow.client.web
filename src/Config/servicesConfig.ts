@@ -103,7 +103,7 @@ export const serviceUrl = {
       `${BASE_URL}/task/${name}${version ? `?version=${version}` : ""}`,
     getTaskChangelog: ({ name }: NameArg) =>
       `${BASE_URL}/task/${name}/changelog`,
-    putTask: ({ replace }: ReplaceArg) => `${BASE_URL}/task?replace=${replace ? replace : false}`,
+    putTask: ({ name, replace }: NameArg & Partial<ReplaceArg>) => `${BASE_URL}/task/${name}/?replace=${replace ? replace : false}`,
     postValidateYaml: () => `${BASE_URL}/task/validate`,
   },
   "action": {
@@ -120,7 +120,7 @@ export const serviceUrl = {
         `${BASE_URL}/team/${team}/task/${name}${version ? `?version=${version}` : ""}`,
       getTaskChangelog: ({ team, name }: TeamArg & NameArg) =>
         `${BASE_URL}/team/${team}/task/${name}/changelog`,
-      putTask: ({ team, replace}: TeamArg & ReplaceArg) => `${BASE_URL}/team/${team}/task?replace=${replace ? replace : false}`,
+      putTask: ({ team, name, replace}: TeamArg & NameArg & Partial<ReplaceArg>) => `${BASE_URL}/team/${team}/task/${name}?replace=${replace ? replace : false}`,
       postValidateYaml: () => `${BASE_URL}/team/${team}/task/validate`,
     },
     "workflow": {
@@ -173,7 +173,7 @@ export const resolver = {
     axios.delete(serviceUrl.resourceTeamParameters({ team }), body),
   deleteWorkflow: ({ team, id }) => axios.delete(serviceUrl.team.workflow.getWorkflow({ team, id })),
   leaveTeam: ({ team }) => axios.delete(serviceUrl.leaveTeam({ team })),
-  deleteSchedule: ({ team, id }) => axios.delete(serviceUrl.deleteSchedule({ team, id })),
+  deleteSchedule: ({ team, id }) => axios.delete(serviceUrl.team.schedule.deleteSchedule({ team, id })),
   deleteTeam: ({ team }: TeamArg) => axios.delete(serviceUrl.resourceTeam({ team })),
   deleteToken: ({ tokenId }) => axios.delete(serviceUrl.deleteToken({ tokenId })),
   deleteUser: ({ userId }) => axios.delete(serviceUrl.deleteUser({ userId })),
@@ -214,24 +214,24 @@ export const resolver = {
   postDuplicateWorkflow: ({ team, workflowId }) => axios.post(serviceUrl.postDuplicateWorkflow({ team, workflowId })),
   postTemplateWorkflow: ({ workflowId, body }) => axios.post(serviceUrl.postDuplicateWorkflow({ workflowId }), body),
   postToken: ({ body }) => axios({ url: serviceUrl.postToken(), data: body, method: HttpMethod.Post }),
-  putApplyTaskTemplate: ({ replace, body }) =>
-    axios({ url: serviceUrl.task.putTask({ replace }), data: body, method: HttpMethod.Put }),
-  putApplyTeamTaskTemplate: ({ replace, team, body }) =>
-      axios({ url: serviceUrl.team.task.putTask({ replace, team }), data: body, method: HttpMethod.Put }),
-  putApplyTaskTemplateYaml: ({ replace, body }) =>
+  putApplyTaskTemplate: ({ name, replace, body }) =>
+    axios({ url: serviceUrl.task.putTask({ name, replace }), data: body, method: HttpMethod.Put }),
+  putApplyTeamTaskTemplate: ({ team, name, replace, body }) =>
+      axios({ url: serviceUrl.team.task.putTask({ team, name, replace }), data: body, method: HttpMethod.Put }),
+  putApplyTaskTemplateYaml: ({ name, replace, body }) =>
     axios({
-      url: serviceUrl.task.putTask({ replace }),
+      url: serviceUrl.task.putTask({ name, replace }),
       data: body,
       method: HttpMethod.Put,
       headers: { "content-type": "application/x-yaml" },
     }),
-    putApplyTeamTaskTemplateYaml: ({ replace, team, body }) =>
-      axios({
-        url: serviceUrl.team.task.putTask({ replace, team }),
-        data: body,
-        method: HttpMethod.Put,
-        headers: { "content-type": "application/x-yaml" },
-      }),
+  putApplyTeamTaskTemplateYaml: ({ team, name, replace, body }) =>
+    axios({
+      url: serviceUrl.team.task.putTask({ team, name, replace }),
+      data: body,
+      method: HttpMethod.Put,
+      headers: { "content-type": "application/x-yaml" },
+    }),
   postCreateTeam: ({ body }) =>
     axios({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethod.Post }),
   putApplyWorkflow: ({ team, workflowId, body }) =>
@@ -243,7 +243,7 @@ export const resolver = {
     ),
   postGlobalParameter: ({ body }) =>
     axios({ url: serviceUrl.getGlobalParameters(), data: body, method: HttpMethod.Post }),
-  postSchedule: ({ team, body }) => axios.post(serviceUrl.postSchedule({ team }), body),
+  postSchedule: ({ team, body }) => axios.post(serviceUrl.team.schedule.postSchedule({ team }), body),
   postTeamParameter: ({ team, body }) =>
     axios({ url: serviceUrl.resourceTeamParameters({ team }), data: body, method: HttpMethod.Post }),
   putActivationApp: ({ body }) =>

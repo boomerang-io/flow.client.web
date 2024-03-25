@@ -32,7 +32,7 @@ const taskFilterElemList = taskIcons.map((TaskIcon) => ({
 interface SideInfoProps {
   team?: FlowTeam;
   isLoading?: boolean;
-  tasks?: Array<Task>;
+  tasks: Array<Task>;
   getTaskTemplatesUrl: string;
 }
 
@@ -119,7 +119,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, tasks, getTaskTemp
           <div className={styles.addTaskContainer}>
             <p className={styles.existingTasks}>{`Existing Tasks (${tasks?.length})`}</p>
             <AddTaskTemplate
-              taskTemplateNames={distinctTaskNames}
+              taskNames={distinctTaskNames}
               history={history}
               getTaskTemplatesUrl={getTaskTemplatesUrl}
             />
@@ -229,12 +229,12 @@ const TaskCard: React.FC<TaskCardProps> = (props) => {
     <SideNavLink
       to={
         team
-          ? appLink.manageTaskTemplateEdit({
+          ? appLink.manageTasksEdit({
               team: team.name,
               name: task.name,
               version: task.version.toString(),
             })
-          : appLink.adminTaskTemplateDetail({
+          : appLink.adminTasksDetail({
               name: task.name,
               version: task.version.toString(),
             })

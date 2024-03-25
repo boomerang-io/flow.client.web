@@ -106,7 +106,7 @@ export function TaskTemplateYamlEditor({
   // params.version is a string, getChangelogQuery.data.length is a number
   const isOldVersion = params.version !== getChangelogQuery.data.length;
 
-  const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
+  const handleSaveTaskTemplate = async (name, values, resetForm, requestType, setRequestError, closeModal) => {
     setIsSaving(true);
     try {
       let response;
@@ -119,8 +119,9 @@ export function TaskTemplateYamlEditor({
         };
         if (params.team) {
           response = await applyTeamTaskTemplateMutation.mutateAsync({
-            replace: false,
             team: params.team,
+            name: name,
+            replace: false,
             body,
           });
         } else {
@@ -161,7 +162,7 @@ export function TaskTemplateYamlEditor({
       resetForm();
       history.push(
         params.team
-          ? appLink.manageTaskTemplateEdit({
+          ? appLink.manageTasksEdit({
               team: params.team,
               name: response.data.name,
               version: response.data.version,
@@ -204,10 +205,11 @@ export function TaskTemplateYamlEditor({
         await applyTeamTaskTemplateMutation.mutateAsync({
           replace: "true",
           team: params.team,
+          name: selectedTaskTemplate.name, 
           body: selectedTaskTemplate,
         });
       } else {
-        await applyTaskTemplateMutation.mutateAsync({ replace: "true", body: selectedTaskTemplate });
+        await applyTaskTemplateMutation.mutateAsync({ replace: "true", name: selectedTaskTemplate.name, body: selectedTaskTemplate });
       }
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);
@@ -239,10 +241,11 @@ export function TaskTemplateYamlEditor({
         await applyTeamTaskTemplateMutation.mutateAsync({
           replace: "true",
           team: params.team,
+          name: selectedTaskTemplate.name, 
           body: selectedTaskTemplate,
         });
       } else {
-        await applyTaskTemplateMutation.mutateAsync({ replace: "true", body: selectedTaskTemplate });
+        await applyTaskTemplateMutation.mutateAsync({ name: selectedTaskTemplate.name, replace: "true", body: selectedTaskTemplate });
       }
       await queryClient.invalidateQueries(getTaskTemplateUrl);
       await queryClient.invalidateQueries(getChangelogUrl);

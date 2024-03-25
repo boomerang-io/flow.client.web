@@ -37,8 +37,10 @@ const ArchiveText: React.FC = () => (
 );
 
 interface SaveModalProps {
+  name: string, 
   formikProps: FormikProps<FormProps>;
   handleSubmit: (
+    name: string, 
     values: any,
     resetForm: () => void,
     requestType: string,
@@ -49,7 +51,7 @@ interface SaveModalProps {
   canEdit: boolean;
 }
 
-const SaveModal: React.FC<SaveModalProps> = ({ formikProps, handleSubmit, isLoading, canEdit }) => {
+const SaveModal: React.FC<SaveModalProps> = ({ name, formikProps, handleSubmit, isLoading, canEdit }) => {
   const [requestError, setRequestError] = React.useState<{ title?: string; subtitle?: string } | null>(null);
   const SaveMessage = () => {
     return (
@@ -128,6 +130,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ formikProps, handleSubmit, isLoad
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.preventDefault();
                   handleSubmit(
+                    name,
                     formikProps.values,
                     formikProps.resetForm,
                     TemplateRequestType.Overwrite,
@@ -142,6 +145,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ formikProps, handleSubmit, isLoad
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.preventDefault();
                   handleSubmit(
+                    name, 
                     formikProps.values,
                     formikProps.resetForm,
                     TemplateRequestType.New,
@@ -165,6 +169,7 @@ interface HeaderProps {
   editVerifiedTasksEnabled: boolean;
   formikProps: FormikProps<FormProps>;
   handleSaveTaskTemplate: (
+    name: string,
     values: any,
     resetForm: () => void,
     requestType: string,
@@ -194,7 +199,7 @@ const Header: React.FC<HeaderProps> = ({
   isActive,
   isLoading,
 }) => {
-  const params: { team: string; taskId: string; version: string } = useParams();
+  const params: { team: string; name: string; version: string } = useParams();
 
   const TaskIcon = taskIcons.find((icon) => icon.name === selectedTaskTemplate.icon);
   const versionCount = changelog.length;
@@ -212,12 +217,12 @@ const Header: React.FC<HeaderProps> = ({
             label="Overview"
             to={
               params.team
-                ? appLink.manageTaskTemplateEdit({
+                ? appLink.manageTasksEdit({
                     team: params.team,
                     name: selectedTaskTemplate.name,
                     version: selectedTaskTemplate.version.toString(),
                   })
-                : appLink.adminTaskTemplateDetail({
+                : appLink.adminTasksDetail({
                     name: selectedTaskTemplate.name,
                     version: selectedTaskTemplate.version.toString(),
                   })
@@ -228,12 +233,12 @@ const Header: React.FC<HeaderProps> = ({
             label="Editor"
             to={
               params.team
-                ? appLink.manageTaskTemplateYaml({
+                ? appLink.manageTasksYaml({
                     team: params.team,
                     name: selectedTaskTemplate.name,
                     version: selectedTaskTemplate.version.toString(),
                   })
-                : appLink.adminTaskTemplateEditor({
+                : appLink.adminTasksEditor({
                     name: selectedTaskTemplate.name,
                     version: selectedTaskTemplate.version.toString(),
                   })
@@ -308,7 +313,7 @@ const Header: React.FC<HeaderProps> = ({
           {isOldVersion ? (
             <ConfirmModal
               affirmativeAction={() =>
-                handleSaveTaskTemplate(formikProps.values, formikProps.resetForm, TemplateRequestType.Copy)
+                handleSaveTaskTemplate(selectedTaskTemplate.name, formikProps.values, formikProps.resetForm, TemplateRequestType.Copy)
               }
               children={
                 <>
@@ -338,6 +343,7 @@ const Header: React.FC<HeaderProps> = ({
             />
           ) : isActive ? (
             <SaveModal
+              name={selectedTaskTemplate.name}
               formikProps={formikProps}
               handleSubmit={handleSaveTaskTemplate}
               isLoading={isLoading}

@@ -30,7 +30,7 @@ function TaskTemplatesContainer() {
         <Helmet>
           <title>{HELMET_TITLE}</title>
         </Helmet>
-        <Sidenav isLoading getTaskTemplatesUrl={getTaskTemplatesUrl} />
+        <Sidenav isLoading tasks={[]} getTaskTemplatesUrl={getTaskTemplatesUrl} />
         <Box maxWidth="24rem" margin="0 auto">
           <WombatMessage className={styles.wombat} title="Retrieving Tasks..." />
         </Box>
@@ -54,7 +54,7 @@ function TaskTemplatesContainer() {
       <Helmet>
         <title>{HELMET_TITLE}</title>
       </Helmet>
-      <Sidenav taskTemplates={tasksData?.content} getTaskTemplatesUrl={getTaskTemplatesUrl} />
+      <Sidenav tasks={tasksData?.content} getTaskTemplatesUrl={getTaskTemplatesUrl} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -75,7 +75,7 @@ function TaskTemplatesContainer() {
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>
-        <Redirect to={appLink.taskTemplates()} />
+        <Redirect to={appLink.adminTasks()} />
       </Switch>
     </div>
   );

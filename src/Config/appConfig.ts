@@ -39,17 +39,17 @@ type AppPathKey =
   | "Profile"
   | "Insights"
   | "Integrations"
-  | "ManageTaskTemplates"
-  | "ManageTaskTemplateDetail"
-  | "ManageTaskTemplateEditor"
+  | "ManageTasks"
+  | "ManageTasksDetail"
+  | "ManageTasksEditor"
   | "ManageTeam"
   | "Properties"
   | "Schedules"
   | "Settings"
   | "TemplateWorkflows"
-  | "TaskTemplates"
-  | "TaskTemplateDetail"
-  | "TaskTemplateEditor"
+  | "Tasks"
+  | "TasksDetail"
+  | "TasksEditor"
   | "ManageTeam"
   | "ManageTeamSettings"
   | "ManageTeamWorkflows"
@@ -96,9 +96,9 @@ export const AppPath: Record<AppPathKey, string> = {
   Schedules: "/:team/schedules",
 
   //Manage
-  ManageTaskTemplates: `/:team/task-templates`,
-  ManageTaskTemplateDetail: `/:team/task-templates/:name/:version`,
-  ManageTaskTemplateEditor: `/:team/task-templates/:name/:version/editor`,
+  ManageTasks: `/:team/task-manager`,
+  ManageTasksDetail: `/:team/task-manager/:name/:version`,
+  ManageTasksEditor: `/:team/task-manager/:name/:version/editor`,
   ManageTeamParameters: `/:team/parameters`,
   ManageTeam: `/:team/manage`,
   ManageTeamTokens: "/:team/manage/tokens",
@@ -112,9 +112,9 @@ export const AppPath: Record<AppPathKey, string> = {
   Properties: "/admin/parameters",
   Settings: "/admin/settings",
   TemplateWorkflows: "/admin/template-workflows",
-  TaskTemplates: "/admin/task-templates",
-  TaskTemplateDetail: `/admin/task-templates/:name/:version`,
-  TaskTemplateEditor: `/admin/task-templates/:name/:version/editor`,
+  Tasks: "/admin/task-manager",
+  TasksDetail: `/admin/task-manager/:name/:version`,
+  TasksEditor: `/admin/task-manager/:name/:version/editor`,
   TeamList: "/admin/teams",
   Tokens: "/admin/tokens",
   User: "/admin/users/:userId",
@@ -170,12 +170,12 @@ export const appLink = {
   profile: () => "/profile",
   insights: ({ team }: TeamArg) => `/${team}/insights`,
   integrations: ({ team }: TeamArg) => `/${team}/integrations`,
-  manageTaskTemplates: ({ team }: TeamArg) =>
-    `/${team}/task-templates`,
-  manageTaskTemplateEdit: ({ team, name, version }: ManageTaskTemplateArgs) =>
-    `/${team}/task-templates/${name}/${version}`,
-  manageTaskTemplateYaml: ({ team, name, version }: ManageTaskTemplateArgs) =>
-    `/${team}/task-templates/${name}/${version}/editor`,
+  manageTasks: ({ team }: TeamArg) =>
+    `/${team}/task-manager`,
+  manageTasksEdit: ({ team, name, version }: ManageTaskTemplateArgs) =>
+    `/${team}/task-manager/${name}/${version}`,
+  manageTasksYaml: ({ team, name, version }: ManageTaskTemplateArgs) =>
+    `/${team}/task-manager/${name}/${version}/editor`,
   manageTeam: ({ team }: TeamArg) => `/${team}/manage`,
   manageTeamApprovers: ({ team }: TeamArg) => `/${team}/manage/approver-groups`,
   manageTeamWorkflows: ({ team }: TeamArg) => `/${team}/manage/workflows`,
@@ -189,9 +189,9 @@ export const appLink = {
   schedule: () => "/schedule",
   settings: () => "/admin/settings",
   templateWorkflows: () => "/admin/template-workflows",
-  taskTemplates: () => "/admin/task-templates",
-  adminTaskTemplateDetail: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}`,
-  adminTaskTemplateEditor: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-templates/${name}/${version}/editor`,
+  adminTasks: () => "/admin/task-manager",
+  adminTasksDetail: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-manager/${name}/${version}`,
+  adminTasksEditor: ({ name, version }: AdminTaskTemplateArgs) => `/admin/task-manager/${name}/${version}/editor`,
   teamList: () => "/admin/teams",
   tokens: () => `/admin/tokens`,
   user: ({ userId }: UserIdArg) => `/admin/users/${userId}`,

@@ -125,7 +125,7 @@ function AddTaskTemplateForm({
       config: hasFile && Boolean(values.config) ? values.config : [],
       spec: newTaskTemplateSpec,
     };
-    await handleAddTaskTemplate({ replace: "false", body, closeModal });
+    await handleAddTaskTemplate({ name: values.name, replace: "false", body, closeModal });
   };
 
   const handleImport = async (values) => {
@@ -146,7 +146,7 @@ function AddTaskTemplateForm({
       body.metadata.annotations["boomerang.io/icon"] = values.icon.value;
       // body.changelog = { reason: "Import new task" };
     }
-    await handleImportTaskTemplate({ type: values.file.type, replace: "false", body, closeModal });
+    await handleImportTaskTemplate({ type: values.file.type, name: values.name, replace: "false", body, closeModal });
   };
 
   const getTemplateData = async ({ file, setFieldValue, setFieldTouched }) => {

@@ -18,12 +18,12 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate,
   const backVersion = () => {
     history.push(
       params.team
-        ? appLink.manageTaskTemplateEdit({
+        ? appLink.manageTasksEdit({
             team: params.team,
             name: params.name,
             version: "" + (selectedTaskTemplate.version - 1),
           })
-        : appLink.adminTaskTemplateDetail({
+        : appLink.adminTasksDetail({
             name: params.name,
             version: "" + (selectedTaskTemplate.version - 1),
           }),
@@ -33,8 +33,8 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate,
   const fastBackVersion = () => {
     history.push(
       params.team
-        ? appLink.manageTaskTemplateEdit({ team: params.team, name: params.name, version: "1" })
-        : appLink.adminTaskTemplateDetail({
+        ? appLink.manageTasksEdit({ team: params.team, name: params.name, version: "1" })
+        : appLink.adminTasksDetail({
             name: params.name,
             version: "1",
           }),
@@ -44,12 +44,12 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate,
   const forwardVersion = () => {
     history.push(
       params.team
-        ? appLink.manageTaskTemplateEdit({
+        ? appLink.manageTasksEdit({
             team: params.team,
             name: params.name,
             version: "" + (selectedTaskTemplate.version + 1),
           })
-        : appLink.adminTaskTemplateDetail({
+        : appLink.adminTasksDetail({
             name: params.name,
             version: "" + (selectedTaskTemplate.version + 1),
           }),
@@ -59,8 +59,8 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate,
   const fastForwardVersion = () => {
     history.push(
       params.team
-        ? appLink.manageTaskTemplateEdit({ team: params.team, name: params.name, version: "" + versionCount })
-        : appLink.adminTaskTemplateDetail({
+        ? appLink.manageTasksEdit({ team: params.team, name: params.name, version: "" + versionCount })
+        : appLink.adminTasksDetail({
             name: params.name,
             version: "" + versionCount,
           }),

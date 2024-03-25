@@ -330,12 +330,12 @@ export function TaskTemplateOverview({
       resetForm();
       history.push(
         params.team
-          ? appLink.manageTaskTemplateEdit({
+          ? appLink.manageTasksEdit({
               team: params.team,
               name: response.data.name,
               version: response.data.version,
             })
-          : appLink.adminTaskTemplateDetail({
+          : appLink.adminTasksDetail({
               name: response.data.name,
               version: response.data.version,
             }),

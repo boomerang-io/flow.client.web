@@ -52,7 +52,7 @@ const flowNavigation = [
     name: "Task Manager",
     type: "link",
     icon: "TaskSettings",
-    link: "/BMRG_APP_ROOT_CONTEXT/admin-flowabl-io-personal-team/task-templates",
+    link: "/BMRG_APP_ROOT_CONTEXT/admin-flowabl-io-personal-team/task-manager",
   },
   {
     name: "Parameters",
@@ -99,7 +99,7 @@ const flowNavigation = [
       {
         name: "Task Manager",
         type: "link",
-        link: "/BMRG_APP_ROOT_CONTEXT/admin/task-templates",
+        link: "/BMRG_APP_ROOT_CONTEXT/admin/task-manager",
       },
       {
         name: "Template Workflows",
