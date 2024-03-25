@@ -11,6 +11,7 @@ import {
   Tag,
   Tile,
 } from "@carbon/react";
+import { useTeamContext } from "Hooks";
 import { ConfirmModal, TooltipHover, ToastNotification, notify } from "@boomerang-io/carbon-addons-boomerang-react";
 import cronstrue from "cronstrue";
 import { matchSorter } from "match-sorter";
@@ -152,6 +153,7 @@ interface ScheduledListItemProps {
 }
 
 function ScheduledListItem(props: ScheduledListItemProps) {
+  const { team } = useTeamContext();
   const queryClient = useQueryClient();
   const [isToggleStatusModalOpen, setIsToggleStatusModalOpen] = React.useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
@@ -183,7 +185,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
 
   const handleDeleteSchedule = async () => {
     try {
-      await deleteScheduleMutator({ scheduleId: props.schedule.id });
+      await deleteScheduleMutator({ team: team.name, id: props.schedule.id });
       notify(
         <ToastNotification
           kind="success"
@@ -213,7 +215,7 @@ function ScheduledListItem(props: ScheduledListItemProps) {
   const handleToggleStatus = async () => {
     const body = { ...props.schedule, status: isActive ? "inactive" : "active" };
     try {
-      await toggleScheduleStatusMutator({ body });
+      await toggleScheduleStatusMutator({ team: team.name, body });
       notify(
         <ToastNotification
           kind="success"

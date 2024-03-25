@@ -64,12 +64,11 @@ export default function Schedules() {
   const schedulesUrlQuery = queryString.stringify(
     {
       statuses,
-      teams: team?.name,
       workflows,
     },
     queryStringOptions
   );
-  const getSchedulesUrl = serviceUrl.getSchedules({ query: schedulesUrlQuery });
+  const getSchedulesUrl = serviceUrl.team.schedule.getSchedules({ team: team?.name, query: schedulesUrlQuery });
 
   const schedulesQuery = useQuery<PaginatedSchedulesResponse, string>({
     queryKey: getSchedulesUrl,

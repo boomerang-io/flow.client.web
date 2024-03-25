@@ -47,12 +47,11 @@ export default function ScheduleView(props: ScheduleProps) {
   const schedulesUrlQuery = queryString.stringify(
     {
       statuses: scheduleStatusOptions.map((statusObj) => statusObj.value),
-      teams: team?.name,
       workflows: props.workflow.id,
     },
     queryStringOptions
   );
-  const getSchedulesUrl = serviceUrl.getSchedules({ query: schedulesUrlQuery });
+  const getSchedulesUrl = serviceUrl.team.schedule.getSchedules({ team: team?.name, query: schedulesUrlQuery });
 
   const schedulesQuery = useQuery<PaginatedSchedulesResponse, string>({
     queryKey: getSchedulesUrl,
@@ -79,7 +78,7 @@ export default function ScheduleView(props: ScheduleProps) {
     },
     queryStringOptions
   );
-  const getCalendarUrl = serviceUrl.getSchedulesCalendars({ query: calendarUrlQuery });
+  const getCalendarUrl = serviceUrl.team.schedule.getSchedulesCalendars({ team: team?.name, query: calendarUrlQuery });
 
   const calendarQuery = useQuery<Array<CalendarEntry>, string>({
     queryKey: getCalendarUrl,

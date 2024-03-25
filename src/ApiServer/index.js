@@ -86,26 +86,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.featureFlags[0];
       });
 
-      this.get(
-        serviceUrl.getWorkflowSchedulesCalendar({
-          workflowId: ":workflowId",
-          query: null,
-        }),
-        (schema) => {
-          return schema.db.workflowCalendar;
-        },
-      );
-
-      this.get(serviceUrl.getSchedule({ query: null }), (schema) => {
+      this.get(serviceUrl.team.schedule.getSchedule({ team: ":team", query: null }), (schema) => {
         return schema.db.workflowSchedules;
       });
 
-      this.get(serviceUrl.getSchedules({ query: null }), (schema) => {
+      this.get(serviceUrl.team.schedule.getSchedules({ team: ":team", query: null }), (schema) => {
         return schema.db.workflowSchedules[0];
-      });
-
-      this.get(serviceUrl.getWorkflowSchedules({ workflowId: ":workflowId" }), (schema) => {
-        return schema.db.workflowSchedules;
       });
 
       this.get(serviceUrl.team.workflow.getAvailableParameters({ team: ":team", workflowId: ":workflowId" }), (schema) => {

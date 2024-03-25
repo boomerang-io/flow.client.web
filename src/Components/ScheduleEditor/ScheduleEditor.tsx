@@ -3,6 +3,7 @@ import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import moment from "moment-timezone";
 import ScheduleManagerForm from "Components/ScheduleManagerForm";
+import { useTeamContext } from "Hooks";
 import { cronDayNumberMap } from "Utils/cronHelper";
 import styles from "./ScheduleEditor.module.scss";
 import { resolver } from "Config/servicesConfig";
@@ -21,6 +22,7 @@ interface ScheduleEditorProps {
 
 function ScheduleEditor(props: ScheduleEditorProps) {
   const queryClient = useQueryClient();
+  const { team } = useTeamContext();
   /**
    * Update schedule
    */
@@ -29,7 +31,7 @@ function ScheduleEditor(props: ScheduleEditorProps) {
   const handleUpdateSchedule = async (updatedSchedule: ScheduleUnion) => {
     if (props.schedule) {
       // intentionally don't catch error so it can be done by the ScheduleManagerForm
-      await updateScheduleMutator({ body: updatedSchedule });
+      await updateScheduleMutator({ team: team.name, body: updatedSchedule });
       notify(
         <ToastNotification
           kind="success"

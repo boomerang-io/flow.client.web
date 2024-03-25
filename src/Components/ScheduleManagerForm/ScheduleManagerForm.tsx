@@ -147,7 +147,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             .test({
               name: "isValidCron",
               test: async (value: string | undefined, { createError, path }) => {
-                const response = await axios.get(serviceUrl.getScheduleCronValidation({ expression: value }));
+                const response = await axios.get(serviceUrl.schedule.getCronValidation({ expression: value }));
                 if (response.data.valid) {
                   return true;
                 } else {

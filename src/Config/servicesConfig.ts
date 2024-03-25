@@ -54,7 +54,6 @@ type QueryArg = {
 
 export const serviceUrl = {
   deleteToken: ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
-  deleteSchedule: ({ scheduleId }) => `${BASE_URL}/schedule/${scheduleId}`,
   deleteTeamMembers: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/members`,
   leaveTeam: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/leave`,
   getFeatureFlags: () => `${BASE_URL}/features`,
@@ -65,12 +64,6 @@ export const serviceUrl = {
   getManageTeamsCreate: () => `${BASE_URL}/manage/teams`,
   getManageTeamLabels: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/labels`,
   getContext: () => `${BASE_URL}/context`,
-  getSchedules: ({ query }: QueryArg) => `${BASE_URL}/schedule/query${query ? "?" + query : ""}`,
-  getSchedule: ({ scheduleId }) => `${BASE_URL}/schedule/${scheduleId}`,
-  getSchedulesCalendars: ({ query }: QueryArg) => `${BASE_URL}/schedule/calendars${query ? "?" + query : ""}`,
-  // getScheduleCalendar: ({ scheduleId, query }) =>
-  //   `${BASE_URL}/schedule/${scheduleId}/calendar${query ? "?" + query : ""}`,
-  getScheduleCronValidation: ({ expression }) => `${BASE_URL}/schedule/validate/cron?cron=${expression}`,
   getTeams: ({ query }: QueryArg) => `${BASE_URL}/team/query${query ? "?" + query : ""}`,
   deleteTeamQuotas: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/quotas`,
   getTeamQuotaDefaults: () => `${BASE_URL}/team/quotas/default`,
@@ -83,11 +76,6 @@ export const serviceUrl = {
   getIntegrations: ({ team }: TeamArg) => `${BASE_URL}/integration${team ? "?team=" + team : ""}`,
   getTaskrunLog: ({ id }: IdArg) =>
   `${BASE_URL}/taskrun/${id}/log`,
-  getWorkflowSchedules: ({ workflowId }: WorkflowIdArg) => `${BASE_URL}/workflow/${workflowId}/schedules`,
-  getWorkflowSchedulesCalendar: ({ workflowId, query }: WorkflowIdArg & QueryArg) =>
-    `${BASE_URL}/workflow/${workflowId}/schedules/calendar${query ? "?" + query : ""}`,
-  putSchedule: () => `${BASE_URL}/schedule`,
-  postSchedule: ({ team }: TeamArg) => `${BASE_URL}/schedule?team=${team}`,
   postToken: () => `${BASE_URL}/token`,
   postTeamValidateName: () => `${BASE_URL}/team/validate-name`,
   postTeam: () => `${BASE_URL}/team`,
@@ -96,7 +84,7 @@ export const serviceUrl = {
   postTeamQuotasReset: ({ team }: TeamArg) => `${BASE_URL}/teams/${team}/quotas/reset`,
   resourceTeam: ({ team }: TeamArg) => `${BASE_URL}/team/${team}`,
   resourceApproverGroups: ({ team, groupId }) =>
-    `${BASE_URL}/team/${team}/approvers${groupId ? "/" + groupId : ""}`,
+  `${BASE_URL}/team/${team}/approvers${groupId ? "/" + groupId : ""}`,
   resourceSettings: () => `${BASE_URL}/settings`,
   resourceTeamParameters: ({ team }) => `${BASE_URL}/team/${team}/parameters`,
   getWorkflowTemplates: () => `${BASE_URL}/workflowtemplate/query`,
@@ -105,6 +93,9 @@ export const serviceUrl = {
   getGitHubAppInstallationForTeam: ({ team }: TeamArg) => `${BASE_URL}/integration/github/installation${team ? "?team=" + team : ""}`,
   postGitHubAppLink: () => `${BASE_URL}/integration/github/link`,
   postGitHubAppUnlink: () => `${BASE_URL}/integration/github/unlink`,
+  "schedule": {
+    getCronValidation: ({ expression }) => `${BASE_URL}/schedule/validate-cron?cron=${expression}`,
+  },
   "task": {
     // deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/task/${id}`,
     queryTasks: ({ query }: QueryArg) => `${BASE_URL}/task/query${query ? "?" + query : ""}`,
@@ -150,6 +141,16 @@ export const serviceUrl = {
       getWorkflowRuns: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/workflowrun/query${query ? "?" + query : ""}`,
       getWorkflowRun: ({ team, id }: TeamArg & IdArg) => `${BASE_URL}/team/${team}/workflowrun/${id}`,
     },
+    "schedule": {
+      getSchedules: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/schedule/query${query ? "?" + query : ""}`,
+      getSchedule: ({ team, id }: TeamArg & IdArg) => `${BASE_URL}/team/${team}/schedule/${id}`,
+      getSchedulesCalendars: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/schedule/calendars${query ? "?" + query : ""}`,
+      deleteSchedule: ({ team, id }: TeamArg & IdArg ) => `${BASE_URL}/team/${team}/schedule/${id}`,
+      // getScheduleCalendar: ({ scheduleId, query }) =>
+      //   `${BASE_URL}/schedule/${scheduleId}/calendar${query ? "?" + query : ""}`,
+      putSchedule: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/schedule`,
+      postSchedule: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/schedule`,
+    }
   }
 };
 
@@ -172,7 +173,7 @@ export const resolver = {
     axios.delete(serviceUrl.resourceTeamParameters({ team }), body),
   deleteWorkflow: ({ team, id }) => axios.delete(serviceUrl.team.workflow.getWorkflow({ team, id })),
   leaveTeam: ({ team }) => axios.delete(serviceUrl.leaveTeam({ team })),
-  deleteSchedule: ({ scheduleId }) => axios.delete(serviceUrl.deleteSchedule({ scheduleId })),
+  deleteSchedule: ({ team, id }) => axios.delete(serviceUrl.deleteSchedule({ team, id })),
   deleteTeam: ({ team }: TeamArg) => axios.delete(serviceUrl.resourceTeam({ team })),
   deleteToken: ({ tokenId }) => axios.delete(serviceUrl.deleteToken({ tokenId })),
   deleteUser: ({ userId }) => axios.delete(serviceUrl.deleteUser({ userId })),
@@ -184,7 +185,7 @@ export const resolver = {
     axios({ url: serviceUrl.getUserProfile(), data: body, method: HttpMethod.Patch }),
   patchManageUser: ({ body, userId }) =>
     axios({ url: serviceUrl.getUser({ userId }), data: body, method: HttpMethod.Patch }),
-  putSchedule: ({ body }) => axios.put(serviceUrl.putSchedule(), body),
+  putSchedule: ({ team, body }) => axios.put(serviceUrl.team.schedule.putSchedule({ team }), body),
   postTeam: ({ body }) => axios.post(serviceUrl.postTeam(), body),
   postTeamValidateName: ({ body }) => axios.post(serviceUrl.postTeamValidateName(), body),
   postValidateYaml: ({ body }) =>
