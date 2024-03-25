@@ -61,14 +61,14 @@ function TaskTemplatesContainer() {
             <WombatMessage className={styles.wombat} title="Select a task or create one" />
           </Box>
         </Route>
-        <Route path={AppPath.TaskTemplateEditor} strict={true}>
+        <Route path={AppPath.TasksEditor} strict={true}>
           <TaskTemplateYamlEditor
             taskTemplates={tasksData?.content}
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>
-        <Route path={AppPath.TaskTemplateDetail} strict={true}>
+        <Route path={AppPath.TasksDetail} strict={true}>
           <TaskTemplateOverview
             taskTemplates={tasksData?.content}
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}

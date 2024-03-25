@@ -24,7 +24,7 @@ function TaskTemplatesContainer() {
   const match = useRouteMatch();
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const getTeamTaskTemplatesUrl = serviceUrl.team.task.queryTasks({
-    query: queryString.stringify({ statuses: "active,inactive" }),
+    query: queryString.stringify({ statuses: 'active,inactive' }),
     team: team.name,
   });
   const {
@@ -77,14 +77,14 @@ function TaskTemplatesContainer() {
             <WombatMessage className={styles.wombat} title="Select a task or create one" />
           </Box>
         </Route>
-        <Route path={AppPath.ManageTaskTemplateEditor} strict={true}>
+        <Route path={AppPath.ManageTasksEditor} strict={true}>
           <TaskTemplateYamlEditor
             taskTemplates={tasksData?.content}
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             getTaskTemplatesUrl={getTeamTaskTemplatesUrl}
           />
         </Route>
-        <Route path={AppPath.ManageTaskTemplateDetail} strict={true}>
+        <Route path={AppPath.ManageTasksDetail} strict={true}>
           <TaskTemplateOverview
             taskTemplates={tasksData?.content}
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}

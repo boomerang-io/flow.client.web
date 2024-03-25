@@ -291,7 +291,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
               <ProtectedRoute
                 allowedUserRoles={elevatedUserRoles}
                 component={<AdminTasks />}
-                path={AppPath.TaskTemplates}
+                path={AppPath.Tasks}
                 userRole={platformRole}
               />
               <ProtectedRoute
@@ -360,7 +360,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
                 <Route path={AppPath.Integrations}>
                   <Integrations />
                 </Route>
-                <Route path={AppPath.ManageTaskTemplates}>
+                <Route path={AppPath.ManageTasks}>
                   <TeamTasks />
                 </Route>
                 <Redirect exact from="/" to={AppPath.Workflows} />
