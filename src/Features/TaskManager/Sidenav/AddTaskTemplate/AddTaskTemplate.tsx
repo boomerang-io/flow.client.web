@@ -1,22 +1,22 @@
 //@ts-nocheck
 import React from "react";
-import { useMutation, useQueryClient } from "react-query";
 import { Button } from "@carbon/react";
-import { useParams } from "react-router-dom";
-import { notify, ToastNotification, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
-import AddTaskTemplateForm from "./AddTaskTemplateForm";
-import { resolver } from "Config/servicesConfig";
-import { appLink } from "Config/appConfig";
 import { Add } from "@carbon/react/icons";
+import { notify, ToastNotification, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { useMutation, useQueryClient } from "react-query";
+import { useParams } from "react-router-dom";
+import { appLink } from "Config/appConfig";
+import { resolver } from "Config/servicesConfig";
+import AddTaskTemplateForm from "./AddTaskTemplateForm";
 import styles from "./addTaskTemplate.module.scss";
 
 interface AddTaskTemplateProps {
-  taskTemplateNames: Array<string>;
+  taskNames: Array<string>;
   history: History;
   getTaskTemplatesUrl: string;
 }
 
-function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: AddTaskTemplateProps) {
+function AddTaskTemplate({ taskNames, history, getTaskTemplatesUrl }: AddTaskTemplateProps) {
   const params = useParams();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [isSubmitError, setIsSubmitError] = React.useState(false);
@@ -61,7 +61,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
       closeModal();
     } catch (err) {
       setIsSubmitError(true);
-    } 
+    }
   };
 
   const handleImportTaskTemplate = async ({ type, replace, body, closeModal }) => {
@@ -106,7 +106,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
       setIsSubmitting(false);
     } catch (err) {
       setIsSubmitError(true);
-    } 
+    }
   };
 
   return (
@@ -132,7 +132,7 @@ function AddTaskTemplate({ taskTemplateNames, history, getTaskTemplatesUrl }: Ad
           handleImportTaskTemplate={handleImportTaskTemplate}
           isSubmitting={isSubmitting}
           createError={isSubmitError}
-          taskTemplateNames={taskTemplateNames}
+          taskNames={taskNames}
           closeModal={closeModal}
         />
       )}

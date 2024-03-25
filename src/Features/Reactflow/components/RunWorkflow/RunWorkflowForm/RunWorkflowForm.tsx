@@ -1,9 +1,10 @@
-import { ComboBox, DynamicFormik, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import React, { useState } from "react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
+import { ComboBox, DynamicFormik, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { FormikProps } from "formik";
 import * as Yup from "yup";
 import { useEditorContext } from "Hooks";
+import { DataDrivenInput, Task, WorkflowNodeData } from "Types";
 import {
   AutoSuggestInput,
   TextAreaSuggestInput,
@@ -15,7 +16,6 @@ import {
   toggleProps,
 } from "../../shared/inputs";
 import styles from "./RunWorkflowForm.module.scss";
-import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 
 interface RunWorkflowFormProps {
   closeModal: () => void;
@@ -24,12 +24,12 @@ interface RunWorkflowFormProps {
   onSave: (inputs: Record<string, string>, results?: Array<{ name: string; description: string }>) => void;
   otherTaskNames: Array<string>;
   textEditorProps: any;
-  task: TaskTemplate;
+  task: Task;
 }
 
 function RunWorkflowForm(props: RunWorkflowFormProps) {
   const { workflowsQueryData } = useEditorContext();
-  const { availableParameters, node, task, otherTaskNames } = props;
+  const { availableParameters, node, otherTaskNames } = props;
   const paramWorkflowId = node?.params.find((param) => param.name === "workflowId")?.value;
   const [selectedWorkflowId, setSelectedWorkflowId] = useState(paramWorkflowId ?? "");
 

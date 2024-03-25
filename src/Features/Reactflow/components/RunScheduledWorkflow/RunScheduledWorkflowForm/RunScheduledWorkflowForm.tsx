@@ -1,10 +1,11 @@
-import { ComboBox, DynamicFormik, ModalForm, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import React, { useState } from "react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
+import { ComboBox, DynamicFormik, ModalForm, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
 import type { FormikProps } from "formik";
 import * as Yup from "yup";
 import { useEditorContext } from "Hooks";
 import { timezoneOptions, defaultTimeZone, transformTimeZone } from "Utils/dateHelper";
+import { DataDrivenInput, Task, WorkflowNodeData } from "Types";
 import {
   AutoSuggestInput,
   TextAreaSuggestInput,
@@ -16,7 +17,6 @@ import {
   toggleProps,
 } from "../../shared/inputs";
 import styles from "./RunScheduledWorkflowForm.module.scss";
-import { DataDrivenInput, TaskTemplate, WorkflowNodeData } from "Types";
 
 interface RunScheduledWorkflowFormProps {
   closeModal: () => void;
@@ -25,7 +25,7 @@ interface RunScheduledWorkflowFormProps {
   otherTaskNames: Array<string>;
   onSave: (inputs: Record<string, string>, results?: Array<{ name: string; description: string }>) => void;
   textEditorProps: Record<string, any>;
-  task: TaskTemplate;
+  task: Task;
 }
 
 const TimeInput = ({

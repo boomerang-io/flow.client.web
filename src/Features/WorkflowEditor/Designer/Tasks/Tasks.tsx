@@ -1,22 +1,22 @@
 // @ts-nocheck
 import { Component } from "react";
-import cx from "classnames";
-import { matchSorter } from "match-sorter";
-import uniqBy from "lodash/uniqBy";
-import { sortByProp } from "@boomerang-io/utils";
 import { Accordion, AccordionItem, Checkbox, Layer, OverflowMenu, Search } from "@carbon/react";
-import { CheckboxList } from "@boomerang-io/carbon-addons-boomerang-react";
-import Task from "./Task";
-import { taskIcons } from "Utils/taskIcons";
 import { ChevronLeft, SettingsAdjust, Recommend } from "@carbon/react/icons";
-import { TaskTemplate } from "Types";
+import { CheckboxList } from "@boomerang-io/carbon-addons-boomerang-react";
+import { sortByProp } from "@boomerang-io/utils";
+import cx from "classnames";
+import uniqBy from "lodash/uniqBy";
+import { matchSorter } from "match-sorter";
+import { groupTasksByName } from "Utils";
+import { taskIcons } from "Utils/taskIcons";
+import type { Task as TaskType } from "Types";
+import Task from "./Task";
 import styles from "./tasks.module.scss";
-import { groupTaskTemplatesByName } from "Utils";
 
 const FIRST_TASK_CATEGORY = "workflow";
 
 interface TaskProps {
-  tasks: Array<TaskTemplate>;
+  tasks: Array<TaskType>;
 }
 export default class Tasks extends Component<TaskProps> {
   state = {
@@ -95,13 +95,13 @@ export default class Tasks extends Component<TaskProps> {
   };
 
   handleCheckboxChange = () => {
-    const newTaskTemplates = this.state.showVerified
+    const newTasks = this.state.showVerified
       ? this.props.tasks.filter((task) => task.verified === true)
       : this.props.tasks;
     const tasksFilteredByType =
       this.state.activeFilters.length > 0
-        ? newTaskTemplates.filter((task) => this.state.activeFilters.includes(task.icon))
-        : newTaskTemplates;
+        ? newTasks.filter((task) => this.state.activeFilters.includes(task.icon))
+        : newTasks;
 
     const searchQuery = this.state.searchQuery;
 
@@ -114,7 +114,7 @@ export default class Tasks extends Component<TaskProps> {
     matchSorter(tasksToDisplay, searchQuery, { keys: ["category", "name"] });
 
   determineTasks = () => {
-    const taskTemplatesByName = groupTaskTemplatesByName(this.state.tasksToDisplay)
+    const taskTemplatesByName = groupTasksByName(this.state.tasksToDisplay);
     // List of distinct task names by latest version
     const tasksToDisplay = Object.values(taskTemplatesByName).map((taskList) => taskList[0]);
     //Create object with keys as the categories and values as tasks
@@ -238,7 +238,7 @@ export default class Tasks extends Component<TaskProps> {
                     onChange={() => {
                       this.setState(
                         (prevState) => ({ showVerified: !prevState.showVerified }),
-                        this.handleCheckboxChange
+                        this.handleCheckboxChange,
                       );
                     }}
                   />

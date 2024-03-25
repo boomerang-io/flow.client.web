@@ -1,15 +1,15 @@
+import { useState } from "react";
 import { Button } from "@carbon/react";
 import { SkeletonPlaceholder } from "@carbon/react";
 import { ArrowsVertical, ChevronLeft } from "@carbon/react/icons";
-import { useState } from "react";
-import { UseQueryResult } from "react-query";
 import orderBy from "lodash/orderBy";
+import { UseQueryResult } from "react-query";
 import { getSimplifiedDuration } from "Utils/timeHelper";
-import TaskRunItem from "./TaskRunItem";
-import styles from "./TaskRunList.module.scss";
 import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
 import { QueryStatus } from "Constants";
 import { RunStatus, WorkflowRun } from "Types";
+import TaskRunItem from "./TaskRunItem";
+import styles from "./TaskRunList.module.scss";
 
 type Props = {
   workflowRun: WorkflowRun;

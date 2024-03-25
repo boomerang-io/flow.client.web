@@ -1,11 +1,10 @@
 import React from "react";
 import cx from "classnames";
-import { useExecutionContext } from "Hooks";
 import WorkflowNode from "Components/WorkflowNode";
+import { useExecutionContext } from "Hooks";
+import ManualTaskNodeModel from "Utils/dag/manualTaskNode/ManualTaskNodeModel";
 import { RunStatus } from "Types";
 import styles from "./ManualTaskNodeExecution.module.scss";
-
-import ManualTaskNodeModel from "Utils/dag/manualTaskNode/ManualTaskNodeModel";
 
 interface ManualTaskNodeExecutionProps {
   node: ManualTaskNodeModel;
@@ -20,14 +19,6 @@ const ManualTaskNodeExecution: React.FC<ManualTaskNodeExecutionProps> = (props) 
     ? workflowExecution?.steps.find((step) => step.taskId === id)?.flowTaskStatus
     : null;
   const flowTaskStatus = stepTaskStatus ? stepTaskStatus : RunStatus.Skipped;
-
-  const scrollToTask = () => {
-    const taskLogItem = document.getElementById(`task-${id}`);
-    if (taskLogItem) {
-      taskLogItem.scrollIntoView();
-      taskLogItem.focus();
-    }
-  };
 
   return (
     <WorkflowNode

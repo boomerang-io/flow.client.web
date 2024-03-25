@@ -1,15 +1,15 @@
 //@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
-import { useEditorContext } from "Hooks";
-import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import PropTypes from "prop-types";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
-import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
+import WorkflowWarningButton from "Components/WorkflowWarningButton";
+import { useEditorContext } from "Hooks";
+import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import styles from "./TemplateTaskNodeDesigner.module.scss";
 
 const TemplateTaskNodeDesigner = React.memo(function TemplateTaskNodeDesigner({ diagramEngine, node: designerNode }) {
@@ -18,7 +18,7 @@ const TemplateTaskNodeDesigner = React.memo(function TemplateTaskNodeDesigner({ 
     revisionDispatch,
     revisionState,
     // summaryData,
-    taskTemplatesData,
+    tasksData,
   } = useEditorContext();
 
   /**
@@ -29,7 +29,7 @@ const TemplateTaskNodeDesigner = React.memo(function TemplateTaskNodeDesigner({ 
 
   const nodeDag = revisionState.dag.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
   const nodeConfig = revisionState.config[designerNode?.id] ?? {};
-  const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
+  const task = tasksData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
 
   // Get the taskNames names from the nodes on the model
   const taskNames = diagramEngine?.getDiagramModel

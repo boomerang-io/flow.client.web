@@ -1,34 +1,34 @@
 import React from "react";
+import dagre from "@dagrejs/dagre";
 import ReactFlow, {
-  ReactFlowProvider,
   Background,
-  Controls,
-  ControlButton,
-  Edge,
-  Node,
-  ReactFlowInstance,
-  addEdge,
   Connection,
-  XYPosition,
-  NodeProps,
+  ControlButton,
+  Controls,
+  Edge,
   EdgeProps,
+  Node,
+  NodeProps,
+  Position,
+  ReactFlowInstance,
+  ReactFlowProvider,
+  XYPosition,
+  addEdge,
   useEdgesState,
   useNodesState,
-  Position,
 } from "reactflow";
-import dagre from "@dagrejs/dagre";
+import "reactflow/dist/style.css";
 import { EdgeExecutionCondition, NodeType, WorkflowEngineMode } from "Constants";
-import * as GraphComps from "./components";
 import {
-  WorkflowEngineModeType,
   NodeTypeType,
   TaskTemplate,
-  WorkflowNodeData,
-  WorkflowNode,
   WorkflowEdge,
   WorkflowEdgeData,
+  WorkflowEngineModeType,
+  WorkflowNode,
+  WorkflowNodeData,
 } from "Types";
-import "reactflow/dist/style.css";
+import * as GraphComps from "./components";
 import "./styles.scss";
 
 function CustomEdgeArrow({ id, color }: any) {
@@ -256,16 +256,14 @@ function FlowDiagram(props: FlowDiagramProps) {
       }) as XYPosition;
 
       // TODO: clean this up - determines how to give the task template a unique name
-      const numTemplateRefInstances = nodes.reduce((accum, currentNode) => {
+      const numTaskRefInstances = nodes.reduce((accum, currentNode) => {
         if (currentNode.data.taskRef === task.name) {
           accum += 1;
         }
         return accum;
       }, 0);
 
-      const taskName = numTemplateRefInstances
-        ? `${task.displayName} ${numTemplateRefInstances + 1}`
-        : task.displayName;
+      const taskName = numTaskRefInstances ? `${task.displayName} ${numTaskRefInstances + 1}` : task.displayName;
 
       const newNode: Node = {
         id: taskName,

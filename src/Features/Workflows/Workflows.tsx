@@ -1,31 +1,34 @@
-import { ComposedModal, Error, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import React from "react";
 import { Button } from "@carbon/react";
 import { WarningAlt } from "@carbon/react/icons";
-import React from "react";
-import { useQuery } from "react-query";
-import { useHistory, useLocation } from "react-router-dom";
+import { ComposedModal, Error, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useFeature } from "flagged";
 import { matchSorter } from "match-sorter";
 import queryString from "query-string";
+import { useQuery } from "react-query";
+import { useHistory, useLocation } from "react-router-dom";
 import CreateWorkflow from "Components/CreateWorkflow";
 import EmptyState from "Components/EmptyState";
 import WorkflowCard from "Components/WorkflowCard";
 import { WorkflowCardSkeleton } from "Components/WorkflowCard";
 import WorkflowsHeader from "Components/WorkflowsHeader";
 import { useTeamContext } from "Hooks";
-import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
-import styles from "./workflows.module.scss";
+import { WorkflowView } from "Constants";
 import { FeatureFlag, appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { WorkflowView } from "Constants";
 import { FlowTeam, ModalTriggerProps, PaginatedWorkflowResponse, Workflow } from "Types";
+import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
+import styles from "./workflows.module.scss";
 
 export default function Workflows() {
   const { team } = useTeamContext();
   const history = useHistory();
   const location = useLocation();
 
-  const getWorkflowsUrl = serviceUrl.team.workflow.getWorkflows({ team: team?.name, query: `statuses=active,inactive` });
+  const getWorkflowsUrl = serviceUrl.team.workflow.getWorkflows({
+    team: team?.name,
+    query: `statuses=active,inactive`,
+  });
   const workflowsQuery = useQuery<PaginatedWorkflowResponse, string>({
     queryKey: getWorkflowsUrl,
     queryFn: resolver.query(getWorkflowsUrl),

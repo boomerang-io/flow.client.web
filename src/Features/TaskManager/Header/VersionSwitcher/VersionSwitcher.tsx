@@ -1,13 +1,13 @@
 import React from "react";
+import { ChevronLeft, ChevronRight, PageFirst, PageLast } from "@carbon/react/icons";
 import cx from "classnames";
 import { useHistory, useParams } from "react-router-dom";
-import { ChevronLeft, ChevronRight, PageFirst, PageLast } from "@carbon/react/icons";
 import { appLink } from "Config/appConfig";
-import { TaskTemplate } from "Types";
+import { Task } from "Types";
 import styles from "./VersionSwitcher.module.scss";
 
 interface VersionSwitcherProps {
-  selectedTaskTemplate: TaskTemplate;
+  selectedTaskTemplate: Task;
   versionCount: number;
   canEdit: boolean;
 }
@@ -26,7 +26,7 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate,
         : appLink.adminTaskTemplateDetail({
             name: params.name,
             version: "" + (selectedTaskTemplate.version - 1),
-          })
+          }),
     );
   };
 
@@ -37,7 +37,7 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate,
         : appLink.adminTaskTemplateDetail({
             name: params.name,
             version: "1",
-          })
+          }),
     );
   };
 
@@ -52,7 +52,7 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate,
         : appLink.adminTaskTemplateDetail({
             name: params.name,
             version: "" + (selectedTaskTemplate.version + 1),
-          })
+          }),
     );
   };
 
@@ -63,7 +63,7 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ selectedTaskTemplate,
         : appLink.adminTaskTemplateDetail({
             name: params.name,
             version: "" + versionCount,
-          })
+          }),
     );
   };
 

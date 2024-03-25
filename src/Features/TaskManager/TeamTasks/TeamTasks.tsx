@@ -1,20 +1,20 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import { useFeature } from "flagged";
-import { useQuery } from "Hooks";
-import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
-import { Box } from "reflexbox";
 import queryString from "query-string";
-import ErrorDragon from "Components/ErrorDragon";
+import { Helmet } from "react-helmet";
+import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { Box } from "reflexbox";
+import ErrorDragon from "Components/ErrorDragon";
 import WombatMessage from "Components/WombatMessage";
-import Sidenav from "../Sidenav";
-import TaskTemplateOverview from "../TaskTemplateOverview";
-import TaskTemplateYamlEditor from "../TaskTemplateEditor";
+import { useQuery } from "Hooks";
 import { useTeamContext } from "Hooks";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
+import Sidenav from "../Sidenav";
 import styles from "../TaskManager.module.scss";
+import TaskTemplateYamlEditor from "../TaskTemplateEditor";
+import TaskTemplateOverview from "../TaskTemplateOverview";
 
 const HELMET_TITLE = "Team Task Manager";
 
@@ -24,11 +24,12 @@ function TaskTemplatesContainer() {
   const match = useRouteMatch();
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const getTeamTaskTemplatesUrl = serviceUrl.team.task.queryTasks({
-    query: queryString.stringify({ statuses: "active,inactive" }), team: team.name,
+    query: queryString.stringify({ statuses: "active,inactive" }),
+    team: team.name,
   });
   const {
-    data: taskTemplatesData,
-    error: taskTemplatesDataError,
+    data: tasksData,
+    error: tasksDataError,
     isLoading,
   } = useQuery(getTeamTaskTemplatesUrl, {
     enabled: Boolean(team),
@@ -53,7 +54,7 @@ function TaskTemplatesContainer() {
     );
   }
 
-  if (taskTemplatesDataError) {
+  if (tasksDataError) {
     return (
       <div className={styles.container}>
         <Helmet>
@@ -69,7 +70,7 @@ function TaskTemplatesContainer() {
       <Helmet>
         <title>{HELMET_TITLE}</title>
       </Helmet>
-      <Sidenav team={team} taskTemplates={taskTemplatesData?.content} getTaskTemplatesUrl={getTeamTaskTemplatesUrl} />
+      <Sidenav team={team} taskTemplates={tasksData?.content} getTaskTemplatesUrl={getTeamTaskTemplatesUrl} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -78,14 +79,14 @@ function TaskTemplatesContainer() {
         </Route>
         <Route path={AppPath.ManageTaskTemplateEditor} strict={true}>
           <TaskTemplateYamlEditor
-            taskTemplates={taskTemplatesData?.content}
+            taskTemplates={tasksData?.content}
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             getTaskTemplatesUrl={getTeamTaskTemplatesUrl}
           />
         </Route>
         <Route path={AppPath.ManageTaskTemplateDetail} strict={true}>
           <TaskTemplateOverview
-            taskTemplates={taskTemplatesData?.content}
+            taskTemplates={tasksData?.content}
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             getTaskTemplatesUrl={getTeamTaskTemplatesUrl}
           />

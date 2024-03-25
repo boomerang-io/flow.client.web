@@ -1,7 +1,7 @@
 //@ts-nocheck
+import { summaries, revisions } from "ApiServer/fixtures";
 import { vi } from "vitest";
 import { EditorContextProvider } from "State/context";
-import { summaries, revisions } from "ApiServer/fixtures";
 
 const revisionDispatch = vi.mock();
 
@@ -12,7 +12,7 @@ export function EditorContextRender({ children, value }) {
         revisionDispatch,
         revisionState: revisions[0],
         summaryData: summaries[0],
-        taskTemplatesData: [],
+        tasksData: [],
         ...value,
       }}
     >

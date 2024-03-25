@@ -1,32 +1,32 @@
 //@ts-nocheck
 import React from "react";
-import { Helmet } from "react-helmet";
-import { Formik } from "formik";
-import { useHistory, Prompt, matchPath, useParams } from "react-router-dom";
-import { useMutation, useQueryClient } from "react-query";
-import { useQuery } from "Hooks";
 import { Button, InlineNotification, Tag, Tile } from "@carbon/react";
+import { Draggable as DraggableIcon, TrashCan, Bee } from "@carbon/react/icons";
 import { Loading, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { formatErrorMessage } from "@boomerang-io/utils";
+import { sentenceCase } from "change-case";
+import { Formik } from "formik";
+import fileDownload from "js-file-download";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import EmptyState from "Components/EmptyState";
+import { Helmet } from "react-helmet";
+import { useMutation, useQueryClient } from "react-query";
+import { useHistory, Prompt, matchPath, useParams } from "react-router-dom";
 import { Box } from "reflexbox";
-import WombatMessage from "Components/WombatMessage";
 import EditTaskTemplateModal from "Components/EditTaskTemplateModal";
-import TemplateParametersModal from "Components/TemplateParametersModal";
+import EmptyState from "Components/EmptyState";
 import PreviewConfig from "Components/PreviewConfig";
 import TemplateConfigModal from "Components/TemplateConfigModal";
-import Header from "../Header";
-import { formatErrorMessage } from "@boomerang-io/utils";
-import { TaskTemplateStatus } from "Constants";
-import { TemplateRequestType, FieldTypes } from "../constants";
+import TemplateParametersModal from "Components/TemplateParametersModal";
+import WombatMessage from "Components/WombatMessage";
+import { useQuery } from "Hooks";
 import { taskIcons } from "Utils/taskIcons";
-import { resolver, serviceUrl } from "Config/servicesConfig";
+import { TaskTemplateStatus } from "Constants";
 import { appLink, AppPath } from "Config/appConfig";
-import { Draggable as DraggableIcon, TrashCan, Bee } from "@carbon/react/icons";
-import { DataDrivenInput, TaskTemplate } from "Types";
+import { resolver, serviceUrl } from "Config/servicesConfig";
+import { DataDrivenInput, Task } from "Types";
+import Header from "../Header";
+import { TemplateRequestType, FieldTypes } from "../constants";
 import styles from "./TaskTemplateOverview.module.scss";
-import fileDownload from "js-file-download";
-import { sentenceCase } from "change-case";
 
 interface DetailDataElementsProps {
   label: string;
@@ -203,8 +203,8 @@ const Result: React.FC<ResultProps> = ({
   );
 };
 
-type TaskTemplateOverviewProps = {
-  taskTemplates: Array<TaskTemplate>;
+type TaskOverviewProps = {
+  taskTemplates: Array<Task>;
   getTaskTemplatesUrl: string;
   editVerifiedTasksEnabled: any;
 };
@@ -213,7 +213,7 @@ export function TaskTemplateOverview({
   taskTemplates,
   getTaskTemplatesUrl,
   editVerifiedTasksEnabled,
-}: TaskTemplateOverviewProps) {
+}: TaskOverviewProps) {
   const [isSaving, setIsSaving] = React.useState(false);
   const queryClient = useQueryClient();
   const params = useParams();
@@ -236,7 +236,7 @@ export function TaskTemplateOverview({
       team: params.team,
       name: params.name,
     });
-  } 
+  }
   const getTaskTemplateQuery = useQuery(getTaskTemplateUrl);
   const getChangelogQuery = useQuery<ChangeLog>(getChangelogUrl);
   const applyTaskTemplateMutation = useMutation(resolver.putApplyTaskTemplate);
@@ -261,7 +261,7 @@ export function TaskTemplateOverview({
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
   // params.version is a string, getChangelogQuery.data.length is a number
-  const isOldVersion = Boolean(params.version != getChangelogQuery.data.length);
+  const isOldVersion = Boolean(params.version !== getChangelogQuery.data.length);
 
   const fieldKeys = selectedTaskTemplate.config?.map((input: DataDrivenInput) => input.key) ?? [];
   const resultKeys = selectedTaskTemplate.result?.map((input: DataDrivenInput) => input.key) ?? [];
@@ -325,7 +325,7 @@ export function TaskTemplateOverview({
           title={"Task Template Updated"}
           subtitle={`Request to update ${body.displayName} succeeded`}
           data-testid="create-update-task-template-notification"
-        />
+        />,
       );
       resetForm();
       history.push(
@@ -338,7 +338,7 @@ export function TaskTemplateOverview({
           : appLink.adminTaskTemplateDetail({
               name: response.data.name,
               version: response.data.version,
-            })
+            }),
       );
       if (requestType !== TemplateRequestType.Copy) {
         typeof setRequestError === "function" && setRequestError(null);
@@ -358,7 +358,7 @@ export function TaskTemplateOverview({
             title={"Update Task Template Failed"}
             subtitle={"Something's Wrong"}
             data-testid="update-task-template-notification"
-          />
+          />,
         );
       }
     } finally {
@@ -370,7 +370,11 @@ export function TaskTemplateOverview({
     try {
       selectedTaskTemplate.status = "inactive";
       if (params.team) {
-        await applyTeamTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+        await applyTeamTaskTemplateMutation.mutateAsync({
+          replace: "true",
+          team: params.team,
+          body: selectedTaskTemplate,
+        });
       } else {
         await applyTaskTemplateMutation.mutateAsync({ replace: "true", body: selectedTaskTemplate });
       }
@@ -383,7 +387,7 @@ export function TaskTemplateOverview({
           title={"Successfully Archived Task Template"}
           subtitle={`Request to archive ${selectedTaskTemplate.name} succeeded`}
           data-testid="archive-task-template-notification"
-        />
+        />,
       );
     } catch (err) {
       notify(
@@ -392,7 +396,7 @@ export function TaskTemplateOverview({
           title={"Archive Task Template Failed"}
           subtitle={`Unable to archive the task. ${sentenceCase(err.message)}. Please contact support.`}
           data-testid="archive-task-template-notification"
-        />
+        />,
       );
     }
   };
@@ -401,7 +405,11 @@ export function TaskTemplateOverview({
     try {
       selectedTaskTemplate.status = "active";
       if (params.team) {
-        await applyTeamTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+        await applyTeamTaskTemplateMutation.mutateAsync({
+          replace: "true",
+          team: params.team,
+          body: selectedTaskTemplate,
+        });
       } else {
         await applyTaskTemplateMutation.mutateAsync({ replace: "true", body: selectedTaskTemplate });
       }
@@ -414,7 +422,7 @@ export function TaskTemplateOverview({
           title={"Successfully Restored Task Template"}
           subtitle={`Request to restore ${selectedTaskTemplate.name} succeeded`}
           data-testid="restore-task-template-notification"
-        />
+        />,
       );
     } catch (err) {
       notify(
@@ -423,7 +431,7 @@ export function TaskTemplateOverview({
           title={"Restore Task Template Failed"}
           subtitle={`Unable to restore the task. ${sentenceCase(err.message)}. Please contact support.`}
           data-testid="restore-task-template-notification"
-        />
+        />,
       );
     }
   };
@@ -438,7 +446,7 @@ export function TaskTemplateOverview({
           title={"Task Template Download"}
           subtitle={`Request to download ${params.name} started.`}
           data-testid="downloaded-task-template-notification"
-        />
+        />,
       );
     } catch (err) {
       console.log("err", err);
@@ -448,7 +456,7 @@ export function TaskTemplateOverview({
           title={"Download Task Template Failed"}
           subtitle={`Unable to download the task template. ${sentenceCase(err.message)}. Please contact support.`}
           data-testid="download-task-template-notification"
-        />
+        />,
       );
     }
   };

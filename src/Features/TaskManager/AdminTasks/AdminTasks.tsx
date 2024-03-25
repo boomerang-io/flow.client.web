@@ -1,18 +1,18 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 import { useFeature } from "flagged";
-import { useQuery } from "Hooks";
+import queryString from "query-string";
+import { Helmet } from "react-helmet";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import { Box } from "reflexbox";
-import queryString from "query-string";
 import ErrorDragon from "Components/ErrorDragon";
 import WombatMessage from "Components/WombatMessage";
-import Sidenav from "../Sidenav";
-import TaskTemplateOverview from "../TaskTemplateOverview";
-import TaskTemplateYamlEditor from "../TaskTemplateEditor";
+import { useQuery } from "Hooks";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
+import Sidenav from "../Sidenav";
 import styles from "../TaskManager.module.scss";
+import TaskTemplateYamlEditor from "../TaskTemplateEditor";
+import TaskTemplateOverview from "../TaskTemplateOverview";
 
 const HELMET_TITLE = "Task Manager";
 
@@ -22,7 +22,7 @@ function TaskTemplatesContainer() {
   const getTaskTemplatesUrl = serviceUrl.task.queryTasks({
     query: queryString.stringify({ statuses: "active,inactive" }),
   });
-  const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);
+  const { data: tasksData, error: tasksDataError, isLoading } = useQuery(getTaskTemplatesUrl);
 
   if (isLoading) {
     return (
@@ -38,7 +38,7 @@ function TaskTemplatesContainer() {
     );
   }
 
-  if (taskTemplatesDataError) {
+  if (tasksDataError) {
     return (
       <div className={styles.container}>
         <Helmet>
@@ -54,7 +54,7 @@ function TaskTemplatesContainer() {
       <Helmet>
         <title>{HELMET_TITLE}</title>
       </Helmet>
-      <Sidenav taskTemplates={taskTemplatesData?.content} getTaskTemplatesUrl={getTaskTemplatesUrl} />
+      <Sidenav taskTemplates={tasksData?.content} getTaskTemplatesUrl={getTaskTemplatesUrl} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">
@@ -63,14 +63,14 @@ function TaskTemplatesContainer() {
         </Route>
         <Route path={AppPath.TaskTemplateEditor} strict={true}>
           <TaskTemplateYamlEditor
-            taskTemplates={taskTemplatesData?.content}
+            taskTemplates={tasksData?.content}
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />
         </Route>
         <Route path={AppPath.TaskTemplateDetail} strict={true}>
           <TaskTemplateOverview
-            taskTemplates={taskTemplatesData?.content}
+            taskTemplates={tasksData?.content}
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             getTaskTemplatesUrl={getTaskTemplatesUrl}
           />

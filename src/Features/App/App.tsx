@@ -1,3 +1,6 @@
+import React, { lazy, useState, Suspense } from "react";
+import { Button } from "@carbon/react";
+import { ArrowRight, ArrowLeft, Close } from "@carbon/react/icons";
 import {
   DelayedRender,
   Error404,
@@ -5,26 +8,23 @@ import {
   NotificationsContainer,
   ProtectedRoute,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button } from "@carbon/react";
-import { ArrowRight, ArrowLeft, Close } from "@carbon/react/icons";
-import React, { lazy, useState, Suspense } from "react";
-import Joyride, { CallBackProps, TooltipRenderProps, STATUS } from "react-joyride";
-import { useQuery, useQueryClient } from "react-query";
-import { Switch, Route, Redirect, useLocation, useParams } from "react-router-dom";
-import { AppContextProvider, TeamContextProvider, useAppContext } from "State/context";
 import axios from "axios";
 import { detect } from "detect-browser";
 import { FlagsProvider, useFeature } from "flagged";
 import { sortBy } from "lodash";
+import Joyride, { CallBackProps, TooltipRenderProps, STATUS } from "react-joyride";
+import { useQuery, useQueryClient } from "react-query";
+import { Switch, Route, Redirect, useLocation, useParams } from "react-router-dom";
 import ErrorBoundary from "Components/ErrorBoundary";
 import ErrorDragon from "Components/ErrorDragon";
+import { AppContextProvider, TeamContextProvider, useAppContext } from "State/context";
+import { elevatedUserRoles } from "Constants";
+import { AppPath, FeatureFlag } from "Config/appConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, ContextConfig } from "Types";
 import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import styles from "./app.module.scss";
-import { AppPath, FeatureFlag } from "Config/appConfig";
-import { serviceUrl, resolver } from "Config/servicesConfig";
-import { elevatedUserRoles } from "Constants";
-import { FlowFeatures, FlowNavigationItem, FlowTeam, FlowUser, ContextConfig } from "Types";
 
 const AppActivation = lazy(() => import("./AppActivation"));
 const Activity = lazy(() => import("Features/Activity"));

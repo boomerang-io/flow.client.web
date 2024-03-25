@@ -1,6 +1,6 @@
 import React from "react";
-import moment from "moment";
 import { ModalBody } from "@carbon/react";
+import moment from "moment";
 import ProgressBar from "Components/ProgressBar";
 import { FlowTeamQuotas } from "Types";
 import styles from "./WorkflowQuotaModalContent.module.scss";

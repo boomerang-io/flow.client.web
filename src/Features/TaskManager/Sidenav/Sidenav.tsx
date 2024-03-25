@@ -1,8 +1,6 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import sortBy from "lodash/sortBy";
-import { matchSorter } from "match-sorter";
 import { Accordion, AccordionItem, Checkbox, Layer, OverflowMenu, Search, SkeletonText } from "@carbon/react";
+import { Bee, ViewOff, Recommend, SettingsAdjust } from "@carbon/react/icons";
 import {
   CheckboxList,
   FeatureSideNav as SideNav,
@@ -10,12 +8,14 @@ import {
   FeatureSideNavLinks as SideNavLinks,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import AddTaskTemplate from "./AddTaskTemplate";
-import { appLink } from "Config/appConfig";
-import { TaskTemplateStatus } from "Constants";
+import sortBy from "lodash/sortBy";
+import { matchSorter } from "match-sorter";
+import { useHistory } from "react-router-dom";
 import { taskIcons } from "Utils/taskIcons";
-import { Bee, ViewOff, Recommend, SettingsAdjust } from "@carbon/react/icons";
-import { FlowTeam, TaskTemplate } from "Types";
+import { TaskTemplateStatus } from "Constants";
+import { appLink } from "Config/appConfig";
+import { FlowTeam, Task } from "Types";
+import AddTaskTemplate from "./AddTaskTemplate";
 import styles from "./sideInfo.module.scss";
 
 const DESCRIPTION = "Create and import tasks to add to the Workflow Editor task list";
@@ -32,11 +32,11 @@ const taskFilterElemList = taskIcons.map((TaskIcon) => ({
 interface SideInfoProps {
   team?: FlowTeam;
   isLoading?: boolean;
-  taskTemplates?: Array<TaskTemplate>;
+  tasks?: Array<Task>;
   getTaskTemplatesUrl: string;
 }
 
-const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, getTaskTemplatesUrl }) => {
+const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, tasks, getTaskTemplatesUrl }) => {
   const history = useHistory();
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
   const [openCategories, setOpenCategories] = React.useState(false);
@@ -81,8 +81,8 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
   }
 
   // List of categories
-  let categories = taskTemplates
-    ?.reduce((acc: string[], task: TaskTemplate) => {
+  let categories = tasks
+    ?.reduce((acc: string[], task: Task) => {
       const newCategory = !acc.find((category) => task.category === category);
       if (newCategory) acc.push(task.category);
       return acc;
@@ -90,7 +90,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
     .sort();
 
   // Apply various filters
-  const tasksFilteredByVerified = showVerified ? taskTemplates.filter((task) => task.verified === true) : taskTemplates;
+  const tasksFilteredByVerified = showVerified ? tasks?.filter((task) => task.verified === true) : tasks;
 
   const tasksFilteredByStatus = showArchived
     ? tasksFilteredByVerified
@@ -108,16 +108,16 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
     tasks: sortBy(filteredTaskTemplates.filter((task) => task.category === category).sort(), "displayName"),
   }));
 
-  const distinctTaskNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
+  const distinctTaskNames = tasks?.map((task) => task.name);
 
   return (
     <SideNav className={styles.container} border="right">
       <h1 className={styles.title}>{team ? "Team " : ""}Task manager</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
-      {taskTemplates && (
+      {tasks && (
         <div className={styles.tasksContainer}>
           <div className={styles.addTaskContainer}>
-            <p className={styles.existingTasks}>{`Existing Tasks (${taskTemplates.length})`}</p>
+            <p className={styles.existingTasks}>{`Existing Tasks (${tasks?.length})`}</p>
             <AddTaskTemplate
               taskTemplateNames={distinctTaskNames}
               history={history}
@@ -180,17 +180,17 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
             </OverflowMenu>
           </Layer>
           <div className={styles.tasksInfo}>
-            <p className={styles.info}>{`Showing ${taskTemplates.length} tasks`}</p>
+            <p className={styles.info}>{`Showing ${tasks.length} tasks`}</p>
             <button className={styles.expandCollapse} onClick={() => setOpenCategories(!openCategories)}>
               {openCategories ? "Collapse all" : "Expand all"}
             </button>
           </div>
         </div>
       )}
-      {taskTemplates && (
+      {tasks && (
         <SideNavLinks>
           <Accordion>
-            {tasksByCategory.map((category, index) => {
+            {tasksByCategory?.map((category, index) => {
               return (
                 <AccordionItem
                   className={styles.taskCategory}
@@ -201,7 +201,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
                   {category.tasks.length > 0 ? (
                     category.tasks.map((task) => (
                       //@ts-ignore
-                      <Task key={task.name} task={task} team={team ?? null} />
+                      <TaskCard key={task.name} task={task} team={team ?? null} />
                     ))
                   ) : (
                     <EmptyTask key={`${category.name}-empty`} />
@@ -216,11 +216,11 @@ const SideInfo: React.FC<SideInfoProps> = ({ team, isLoading, taskTemplates, get
   );
 };
 
-interface TaskProps {
-  task: TaskTemplate;
+interface TaskCardProps {
+  task: Task;
   team?: FlowTeam | null;
 }
-const Task: React.FC<TaskProps> = (props) => {
+const TaskCard: React.FC<TaskCardProps> = (props) => {
   const { task, team } = props;
   const TaskIcon = taskIcons.find((icon) => icon.name === task.icon);
   const taskIsActive = task.status === TaskTemplateStatus.Active;

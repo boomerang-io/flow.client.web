@@ -1,48 +1,47 @@
 //@ts-nocheck
 import React, { useState } from "react";
-import cx from "classnames";
-import { useQuery } from "Hooks";
-import { Helmet } from "react-helmet";
-import { Formik } from "formik";
-import axios from "axios";
-import { useParams, useHistory, Prompt, matchPath } from "react-router-dom";
-import { useMutation, useQueryClient } from "react-query";
 import { InlineNotification } from "@carbon/react";
-import { Loading, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ChevronRight } from "@carbon/react/icons";
-import EmptyState from "Components/EmptyState";
-import Header from "../Header";
+import { Loading, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import { formatErrorMessage } from "@boomerang-io/utils";
-import { TaskTemplateStatus } from "Constants";
-import { TemplateRequestType } from "../constants";
-import { resolver, serviceUrl } from "Config/servicesConfig";
-import { appLink, AppPath } from "Config/appConfig";
-import styles from "./TaskTemplateEditor.module.scss";
-import { TaskTemplate } from "Types";
-import ReactMarkdown from "react-markdown";
-import { yamlInstructions } from "Constants";
-import fileDownload from "js-file-download";
+import "Styles/markdown.css";
+import axios from "axios";
 import { sentenceCase } from "change-case";
-
+import cx from "classnames";
+import "codemirror/addon/comment/comment.js";
+import "codemirror/addon/fold/brace-fold.js";
+import "codemirror/addon/fold/comment-fold.js";
+import "codemirror/addon/fold/foldcode.js";
+import "codemirror/addon/fold/foldgutter.css";
+import "codemirror/addon/fold/foldgutter.js";
+import "codemirror/addon/fold/indent-fold.js";
+import "codemirror/addon/hint/javascript-hint";
+import "codemirror/addon/hint/show-hint";
+import "codemirror/addon/search/searchcursor";
+import "codemirror/lib/codemirror.css";
+import "codemirror/mode/yaml/yaml";
+import "codemirror/theme/material.css";
+import { Formik } from "formik";
+import fileDownload from "js-file-download";
 // import CodeMirror from "codemirror";
 import { Controlled as CodeMirrorReact } from "react-codemirror2";
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/material.css";
-import "codemirror/mode/yaml/yaml";
-import "codemirror/addon/hint/show-hint";
-import "codemirror/addon/hint/javascript-hint";
-import "codemirror/addon/search/searchcursor";
-import "codemirror/addon/fold/foldgutter.css";
-import "codemirror/addon/fold/foldcode.js";
-import "codemirror/addon/fold/foldgutter.js";
-import "codemirror/addon/fold/brace-fold.js";
-import "codemirror/addon/fold/indent-fold.js";
-import "codemirror/addon/fold/comment-fold.js";
-import "codemirror/addon/comment/comment.js";
-import "Styles/markdown.css";
+import { Helmet } from "react-helmet";
+import ReactMarkdown from "react-markdown";
+import { useMutation, useQueryClient } from "react-query";
+import { useParams, useHistory, Prompt, matchPath } from "react-router-dom";
+import EmptyState from "Components/EmptyState";
+import { useQuery } from "Hooks";
+import { TaskTemplateStatus } from "Constants";
+import { yamlInstructions } from "Constants";
+import { appLink, AppPath } from "Config/appConfig";
+import { resolver, serviceUrl } from "Config/servicesConfig";
+import { Task } from "Types";
+import Header from "../Header";
+import { TemplateRequestType } from "../constants";
+import styles from "./TaskTemplateEditor.module.scss";
 
-type TaskTemplateYamlEditorProps = {
-  taskTemplates: Array<TaskTemplate>;
+type TaskYamlEditorProps = {
+  taskTemplates: Array<Task>;
   editVerifiedTasksEnabled: any;
   getTaskTemplatesUrl: string;
 };
@@ -51,7 +50,7 @@ export function TaskTemplateYamlEditor({
   taskTemplates,
   editVerifiedTasksEnabled,
   getTaskTemplatesUrl,
-}: TaskTemplateYamlEditorProps) {
+}: TaskYamlEditorProps) {
   const [isSaving, setIsSaving] = React.useState(false);
   const queryClient = useQueryClient();
 
@@ -74,7 +73,7 @@ export function TaskTemplateYamlEditor({
       team: params.team,
       name: params.name,
     });
-  } 
+  }
 
   const getTaskTemplateYamlQuery = useQuery({
     queryKey: [getTaskTemplateUrl, "yaml"],
@@ -86,7 +85,12 @@ export function TaskTemplateYamlEditor({
   const applyTeamTaskTemplateMutation = useMutation(resolver.putApplyTeamTaskTemplate);
   const applyTeamTaskTemplateYamlMutation = useMutation(resolver.putApplyTeamTaskTemplateYaml);
 
-  if (getTaskTemplateYamlQuery.isLoading || getChangelogQuery.isLoading || applyTaskTemplateYamlMutation.isLoading || applyTeamTaskTemplateYamlMutation.isLoading) {
+  if (
+    getTaskTemplateYamlQuery.isLoading ||
+    getChangelogQuery.isLoading ||
+    applyTaskTemplateYamlMutation.isLoading ||
+    applyTeamTaskTemplateYamlMutation.isLoading
+  ) {
     return <Loading />;
   }
 
@@ -100,7 +104,7 @@ export function TaskTemplateYamlEditor({
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
   // params.version is a string, getChangelogQuery.data.length is a number
-  const isOldVersion = params.version != getChangelogQuery.data.length;
+  const isOldVersion = params.version !== getChangelogQuery.data.length;
 
   const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
     setIsSaving(true);
@@ -110,6 +114,7 @@ export function TaskTemplateYamlEditor({
         let body = {
           ...selectedTaskTemplate,
           version: getChangelogQuery.data.length + 1,
+          // eslint-disable-next-line no-template-curly-in-string
           changelog: { reason: "Version copied from ${values.currentConfig.version}" },
         };
         if (params.team) {
@@ -142,7 +147,7 @@ export function TaskTemplateYamlEditor({
           });
         }
         queryClient.invalidateQueries([getTaskTemplateUrl, "yaml"]);
-      } 
+      }
       queryClient.invalidateQueries(getTaskTemplatesUrl);
       queryClient.invalidateQueries(serviceUrl.getFeatureFlags());
       notify(
@@ -151,7 +156,7 @@ export function TaskTemplateYamlEditor({
           title={"Task Template Updated"}
           subtitle={`Request to update succeeded`}
           data-testid="create-update-task-template-notification"
-        />
+        />,
       );
       resetForm();
       history.push(
@@ -164,7 +169,7 @@ export function TaskTemplateYamlEditor({
           : appLink.taskTemplateEdit({
               name: response.data.name,
               version: response.data.version,
-            })
+            }),
       );
       if (requestType !== TemplateRequestType.Copy) {
         typeof setRequestError === "function" && setRequestError(null);
@@ -184,7 +189,7 @@ export function TaskTemplateYamlEditor({
             title={"Update Task Template Failed"}
             subtitle={"Something's Wrong"}
             data-testid="update-task-template-notification"
-          />
+          />,
         );
       }
     } finally {
@@ -196,7 +201,11 @@ export function TaskTemplateYamlEditor({
     try {
       selectedTaskTemplate.status = "inactive";
       if (params.team) {
-        await applyTeamTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+        await applyTeamTaskTemplateMutation.mutateAsync({
+          replace: "true",
+          team: params.team,
+          body: selectedTaskTemplate,
+        });
       } else {
         await applyTaskTemplateMutation.mutateAsync({ replace: "true", body: selectedTaskTemplate });
       }
@@ -209,7 +218,7 @@ export function TaskTemplateYamlEditor({
           title={"Successfully Archived Task Template"}
           subtitle={`Request to archive ${selectedTaskTemplate.name} succeeded`}
           data-testid="archive-task-template-notification"
-        />
+        />,
       );
     } catch (err) {
       notify(
@@ -218,7 +227,7 @@ export function TaskTemplateYamlEditor({
           title={"Archive Task Template Failed"}
           subtitle={`Unable to archive the task. ${sentenceCase(err.message)}. Please contact support.`}
           data-testid="archive-task-template-notification"
-        />
+        />,
       );
     }
   };
@@ -227,7 +236,11 @@ export function TaskTemplateYamlEditor({
     try {
       selectedTaskTemplate.status = "active";
       if (params.team) {
-        await applyTeamTaskTemplateMutation.mutateAsync({ replace: "true", team: params.team, body: selectedTaskTemplate });
+        await applyTeamTaskTemplateMutation.mutateAsync({
+          replace: "true",
+          team: params.team,
+          body: selectedTaskTemplate,
+        });
       } else {
         await applyTaskTemplateMutation.mutateAsync({ replace: "true", body: selectedTaskTemplate });
       }
@@ -240,7 +253,7 @@ export function TaskTemplateYamlEditor({
           title={"Successfully Restored Task Template"}
           subtitle={`Request to restore ${selectedTaskTemplate.name} succeeded`}
           data-testid="restore-task-template-notification"
-        />
+        />,
       );
     } catch (err) {
       notify(
@@ -249,14 +262,14 @@ export function TaskTemplateYamlEditor({
           title={"Restore Task Template Failed"}
           subtitle={`Unable to restore the task. ${sentenceCase(err.message)}. Please contact support.`}
           data-testid="restore-task-template-notification"
-        />
+        />,
       );
     }
   };
 
   const handleDownloadTaskTemplate = async () => {
     try {
-      let url = serviceUrl.task.getTask({ name: selectedTaskTemplate.name, version: selectedTaskTemplate.version })
+      let url = serviceUrl.task.getTask({ name: selectedTaskTemplate.name, version: selectedTaskTemplate.version });
       if (params.team) {
         url = serviceUrl.team.task.getTask({
           team: params.team,
@@ -264,12 +277,9 @@ export function TaskTemplateYamlEditor({
           version: selectedTaskTemplate.version,
         });
       }
-      const response = await axios.get(
-        url,
-        {
-          headers: { Accept: "application/x-yaml" },
-        }
-      );
+      const response = await axios.get(url, {
+        headers: { Accept: "application/x-yaml" },
+      });
       fileDownload(response.data, `${selectedTaskTemplate.name}.yaml`);
       notify(
         <ToastNotification
@@ -277,7 +287,7 @@ export function TaskTemplateYamlEditor({
           title={"Task Template Download"}
           subtitle={`Request to download ${params.name} started.`}
           data-testid="downloaded-task-template-notification"
-        />
+        />,
       );
     } catch (err) {
       console.log("err", err);
@@ -287,7 +297,7 @@ export function TaskTemplateYamlEditor({
           title={"Download Task Template Failed"}
           subtitle={`Unable to download the task template. ${sentenceCase(err.message)}. Please contact support.`}
           data-testid="download-task-template-notification"
-        />
+        />,
       );
     }
   };

@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import cx from "classnames";
 import {
-  Loading,
-  // Tag,
+  Loading, // Tag,
   // TooltipHover,
 } from "@carbon/react";
 import { Button, ModalBody, ModalFooter } from "@carbon/react";
+import { Bee } from "@carbon/react/icons";
 import { ModalFlowForm, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
+import workflowIcons from "Assets/workflowIcons";
+import cx from "classnames";
 import { Box } from "reflexbox";
 import WombatMessage from "Components/WombatMessage";
-import workflowIcons from "Assets/workflowIcons";
-import { WorkflowTemplate } from "Types";
 import { WorkflowEngineMode } from "Constants";
-import { Bee } from "@carbon/react/icons";
+import { WorkflowTemplate } from "Types";
 import styles from "./createWorkflowTemplate.module.scss";
 
 export const TriggerType: { [key: string]: string } = {
@@ -58,7 +57,7 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
     formData.selectedWorkflow
       ? new WorkflowDagEngine({
           dag: formData.selectedWorkflow.revision.dag,
-          mode: WorkflowEngineMode.Executor,
+          mode: WorkflowEngineMode.Runner,
         })
       : null,
   );
@@ -75,7 +74,7 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
     // setCurrentDag(
     //   new WorkflowDagEngine({
     //     dag: template.revision.dag,
-    //     mode: WorkflowEngineMode.Executor,
+    //     mode: WorkflowEngineMode.Runner,
     //   })
     // );
   };

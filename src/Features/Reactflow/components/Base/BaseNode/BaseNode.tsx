@@ -1,12 +1,12 @@
-import { Bee } from "@carbon/react/icons";
 import React from "react";
-import { Connection, Handle, Position, useReactFlow } from "reactflow";
+import { Bee } from "@carbon/react/icons";
 import cx from "classnames";
+import { Connection, Handle, Position, useReactFlow } from "reactflow";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import { taskIcons } from "Utils/taskIcons";
-import styles from "./BaseNode.module.scss";
 import { WorkflowEngineMode } from "Constants";
 import { WorkflowEngineModeType, WorkflowNodeProps } from "Types";
+import styles from "./BaseNode.module.scss";
 
 //About: based on WorkflowNode component that serves as a base for many of the the components
 //TODO: add icon
@@ -19,6 +19,7 @@ interface BaseNodeProps {
   isConnectable: boolean;
   kind: WorkflowEngineModeType;
   nodeProps: WorkflowNodeProps;
+  onClick?: () => void;
   subtitle?: string;
   subtitleClass?: string;
   title?: string;

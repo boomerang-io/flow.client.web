@@ -1,7 +1,8 @@
-import { DynamicFormik, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@carbon/react";
 import React from "react";
+import { Button, ModalBody, ModalFooter } from "@carbon/react";
+import { DynamicFormik, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import * as Yup from "yup";
+import { Task, WorkflowNodeData } from "Types";
 import {
   AutoSuggestInput,
   ResultsInput,
@@ -14,7 +15,6 @@ import {
   toggleProps,
 } from "../../../shared/inputs";
 import styles from "./ScriptForm.module.scss";
-import { TaskTemplate, WorkflowNodeData } from "Types";
 
 interface ScriptFormProps {
   availableParameters: Array<string>;
@@ -23,7 +23,7 @@ interface ScriptFormProps {
   onSave: (inputs: Record<string, string>, results?: Array<{ name: string; description: string }>) => void;
   otherTaskNames: Array<string>;
   textEditorProps: any;
-  task: TaskTemplate;
+  task: Task;
 }
 
 function ScriptForm(props: ScriptFormProps) {

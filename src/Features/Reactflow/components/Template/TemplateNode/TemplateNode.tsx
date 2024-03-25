@@ -1,15 +1,15 @@
-import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import React from "react";
+import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useReactFlow, Node } from "reactflow";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import { useEditorContext } from "Hooks";
+import { WorkflowEngineMode } from "Constants";
+import type { DataDrivenInput, Task, WorkflowNode, WorkflowNodeProps } from "Types";
 import BaseNode from "../../Base/BaseNode";
 import { TaskForm as DefaultTaskForm } from "./TaskForm";
 import styles from "./TemplateNode.module.scss";
-import { WorkflowEngineMode } from "Constants";
-import type { DataDrivenInput, TaskTemplate, WorkflowNode, WorkflowNodeProps } from "Types";
 
 interface TaskTemplateNodeProps extends WorkflowNodeProps {
   additionalFormInputs?: Array<Partial<DataDrivenInput>>;
@@ -19,11 +19,11 @@ interface TaskTemplateNodeProps extends WorkflowNodeProps {
 }
 
 export default function TaskTemplateNode(props: TaskTemplateNodeProps) {
-  const { mode, taskTemplatesData } = useEditorContext();
+  const { mode, tasksData } = useEditorContext();
   // Get the first (and latest) version of the task template
-  const taskTemplate = taskTemplatesData[props.data.taskRef][0];
+  const taskTemplate = tasksData[props.data.taskRef][0];
 
-  if (mode === WorkflowEngineMode.Executor) {
+  if (mode === WorkflowEngineMode.Runner) {
     return <TaskTemplateNodeExecution {...props} taskTemplate={taskTemplate} />;
   }
 
@@ -31,7 +31,7 @@ export default function TaskTemplateNode(props: TaskTemplateNodeProps) {
 }
 
 interface TaskTemplateNodeInstanceProps extends TaskTemplateNodeProps {
-  taskTemplate: TaskTemplate;
+  taskTemplate: Task;
 }
 
 function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
@@ -158,15 +158,23 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
 }
 
 function TaskTemplateNodeExecution(props: TaskTemplateNodeInstanceProps) {
+  const scrollToTask = () => {
+    const taskLogItem = document.getElementById(`task-${props.id}`);
+    if (taskLogItem) {
+      taskLogItem.scrollIntoView();
+      taskLogItem.focus();
+    }
+  };
   return (
     <BaseNode
       className={props.className}
       icon={props.taskTemplate.icon}
       isConnectable={false}
-      kind={WorkflowEngineMode.Executor}
+      kind={WorkflowEngineMode.Runner}
       nodeProps={props}
       subtitle={props.taskTemplate.description}
       title={props.data.name}
+      onClick={scrollToTask}
     />
   );
 }

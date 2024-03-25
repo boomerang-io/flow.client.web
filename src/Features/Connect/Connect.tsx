@@ -1,6 +1,6 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import queryString from "query-string";
+import { useLocation } from "react-router-dom";
 import GitHub from "./GitHub";
 import styles from "./connect.module.scss";
 

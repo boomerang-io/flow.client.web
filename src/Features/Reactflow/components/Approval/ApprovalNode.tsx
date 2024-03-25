@@ -1,13 +1,13 @@
 import React from "react";
 import { useEditorContext } from "Hooks";
 import { useTeamContext } from "Hooks";
-import { TemplateNode } from "../Template";
 import { WorkflowEngineMode } from "Constants";
 import { WorkflowNodeProps } from "Types";
+import { TemplateNode } from "../Template";
 
 export default function ApprovalNode(props: WorkflowNodeProps) {
   const { mode } = useEditorContext();
-  if (mode === WorkflowEngineMode.Executor) {
+  if (mode === WorkflowEngineMode.Runner) {
     return <ApprovalNodeExecution {...props} />;
   }
 

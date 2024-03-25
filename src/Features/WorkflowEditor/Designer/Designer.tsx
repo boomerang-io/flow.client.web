@@ -1,21 +1,21 @@
 import React from "react";
+import cx from "classnames";
 import { Helmet } from "react-helmet";
 import { useLocation, useParams } from "react-router-dom";
-import ReactFlow from "Features/Reactflow";
-import Notes from "./Notes";
-import Tasks from "./Tasks";
-import cx from "classnames";
-import { appLink } from "Config/appConfig";
-import { TaskTemplateStatus, WorkflowEngineMode } from "Constants";
 import type { ReactFlowInstance } from "reactflow";
-import { TaskTemplate, WorkflowEditorState } from "Types";
+import ReactFlow from "Features/Reactflow";
+import { TaskTemplateStatus, WorkflowEngineMode } from "Constants";
+import { appLink } from "Config/appConfig";
+import { Task, WorkflowEditorState } from "Types";
+import Notes from "./Notes";
+import TaskList from "./Tasks";
 import styles from "./designer.module.scss";
 
 interface DesignerContainerProps {
   notes?: string;
   reactFlowInstance: ReactFlowInstance | null;
   setReactFlowInstance: React.Dispatch<React.SetStateAction<ReactFlowInstance | null>>;
-  tasks: Array<TaskTemplate>;
+  tasks: Array<Task>;
   updateNotes: (markdown: string) => void;
   workflow: WorkflowEditorState;
 }
@@ -39,7 +39,7 @@ const DesignerContainer: React.FC<DesignerContainerProps> = ({
       <Helmet>
         <title>{`Workflow - ${workflow.name}`}</title>
       </Helmet>
-      <Tasks tasks={tasks.filter((task) => task.status === TaskTemplateStatus.Active)} />
+      <TaskList tasks={tasks.filter((task) => task.status === TaskTemplateStatus.Active)} />
       <>
         <div id="workflow-dag-designer" className={styles.workflowContainer}>
           <ReactFlow

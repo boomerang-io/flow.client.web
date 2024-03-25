@@ -1,18 +1,18 @@
 import React from "react";
-import cx from "classnames";
 import { Tile } from "@carbon/react";
-import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
-import { taskIcons } from "Utils/taskIcons";
 import { Bee, Recommend } from "@carbon/react/icons";
-import { TaskTemplate } from "Types";
+import { TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import cx from "classnames";
+import { taskIcons } from "Utils/taskIcons";
+import { Task as TaskType } from "Types";
 import styles from "./task.module.scss";
 
-function Task({ name, icon, verified, scope, taskData }: TaskTemplate & { taskData: TaskTemplate }) {
+function Task({ name, icon, verified, scope, taskData }: TaskType & { taskData: TaskType }) {
   const [isDragActive, setIsDragActive] = React.useState(false);
   const isTeamTask = scope === "team";
   const TaskIcon = taskIcons.find((currentIcon) => currentIcon.name === icon);
 
-  const onDragStart = (event: any, task: TaskTemplate) => {
+  const onDragStart = (event: any, task: TaskType) => {
     event.dataTransfer.setData("application/reactflow", JSON.stringify(task));
     event.dataTransfer.effectAllowed = "move";
   };
@@ -63,6 +63,6 @@ function Task({ name, icon, verified, scope, taskData }: TaskTemplate & { taskDa
       </Tile>
     </li>
   );
-};
+}
 
 export default Task;

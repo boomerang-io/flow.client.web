@@ -4,13 +4,24 @@ import {
   EdgeExecutionCondition,
   FlowTeamStatus,
   NodeType,
-  TokenScope,
+  TokenType,
   UserRole,
   WorkflowEngineMode,
   WorkflowPropertyAction,
   WorkflowView,
 } from "Constants";
 
+/**
+ * Take an object const and turn the values into a
+ * union type e.g.
+ * const ActionKind = {
+ *    "Approval": "approval",
+ *    "Manual": "manual"
+ * } as const
+ *
+ * ActionKindType = ObjectValuesToType<typeof ActionKind>
+ * ^? "approval" | "manual"
+ */
 export type ObjectValuesToType<T> = T[keyof T];
 
 declare global {
@@ -245,7 +256,7 @@ type Pageable<T> = {
 
 export type PaginatedUserResponse = Pageable<FlowUser>;
 export type PaginatedTeamResponse = Pageable<FlowTeam>;
-export type PaginatedTaskTemplateResponse = Pageable<TaskTemplate>;
+export type PaginatedTaskResponse = Pageable<Task>;
 export type PaginatedWorkflowResponse = Pageable<Workflow>;
 export type PaginatedSchedulesResponse = Pageable<ScheduleUnion>;
 
@@ -296,7 +307,7 @@ export interface ChangeLogEntry {
 
 export type ChangeLog = Array<ChangeLogEntry>;
 
-export interface TaskTemplate {
+export interface Task {
   id: string;
   name: string;
   displayName: string;
@@ -311,10 +322,10 @@ export interface TaskTemplate {
   changelog: ChangeLog;
   verified: boolean;
   config: Array<DataDrivenInput>;
-  spec: TaskTemplateSpec;
+  spec: TaskSpec;
 }
 
-export interface TaskTemplateSpec {
+export interface TaskSpec {
   arguments?: Array<string>;
   command?: Array<string>;
   params?: any;
@@ -425,7 +436,7 @@ export interface PatchProperty {
   type?: string;
 }
 
-export type TokenScopeType = ObjectValuesToType<typeof TokenScope>;
+export type TokenScopeType = ObjectValuesToType<typeof TokenType>;
 
 export interface Token {
   id: string;
@@ -466,7 +477,7 @@ export interface WorkflowTemplate {
     description?: string;
     defaultValue?: object;
   }>;
-  tasks: Array<any>; //TODO: what shuold this be
+  tasks: Array<any>; //TODO: what should this be
   changelog: {
     author: string;
     reason: string;
@@ -728,7 +739,6 @@ export interface TaskRun {
   status: RunStatus;
   statusMessage: string;
   taskRef: string;
-  taskRef: number;
   timeout: number;
   type: string;
   workflowRef: string;

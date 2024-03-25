@@ -1,13 +1,13 @@
 //@ts-nocheck
 import React from "react";
-import { useEditorContext } from "Hooks";
-import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
-import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
+import WorkflowWarningButton from "Components/WorkflowWarningButton";
+import { useEditorContext } from "Hooks";
+import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import ConfigureInputsForm from "./ConfigureInputsForm";
 import styles from "./RunScheduledWorkflowNodeDesigner.module.scss";
 
@@ -20,7 +20,7 @@ const RunScheduledWorkflowNodeDesigner = React.memo(function RunWorkflowNodeDesi
     revisionDispatch,
     revisionState,
     // summaryData,
-    taskTemplatesData,
+    tasksData,
   } = useEditorContext();
 
   /**
@@ -30,7 +30,7 @@ const RunScheduledWorkflowNodeDesigner = React.memo(function RunWorkflowNodeDesi
   const inputProperties = availableParametersQueryData;
   const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
   const nodeConfig = revisionState.config[designerNode.id] ?? {};
-  const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
+  const task = tasksData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
 
   // Get the taskNames names from the nodes on the model
   const taskNames = Object.values(diagramEngine.getDiagramModel().getNodes())

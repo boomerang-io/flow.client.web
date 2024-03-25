@@ -1,9 +1,5 @@
 //@ts-nocheck
 import React from "react";
-import { Formik } from "formik";
-import { useMutation } from "react-query";
-import * as Yup from "yup";
-import YAML from "yaml";
 import {
   Button,
   FileUploaderDropContainer,
@@ -20,16 +16,20 @@ import {
   TextArea,
   RadioGroup,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import SelectIcon from "Components/SelectIcon";
+import { sentenceCase } from "change-case";
+import { Formik } from "formik";
 import orderBy from "lodash/orderBy";
+import { useMutation } from "react-query";
+import YAML from "yaml";
+import * as Yup from "yup";
+import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
 import { resolver } from "Config/servicesConfig";
-import { sentenceCase } from "change-case";
 import styles from "./addTaskTemplateForm.module.scss";
 
 interface AddTaskTemplateFormProps {
   closeModal: () => void;
-  taskTemplateNames: Array<string>;
+  taskNames: Array<string>;
   isSubmitting: boolean;
   createError: any;
   handleAddTaskTemplate: () => void;
@@ -67,7 +67,7 @@ function AddTaskTemplateForm({
   closeModal,
   isSubmitting,
   createError,
-  taskTemplateNames,
+  taskNames,
   handleAddTaskTemplate,
 }: AddTaskTemplateFormProps) {
   const OPTION_CREATE = "Start from scratch";
@@ -179,7 +179,7 @@ function AddTaskTemplateForm({
         setFieldValue("category", yamlData.metadata.annotations["boomerang.io/category"]);
         setFieldTouched("category", true);
         const selectedIcon = orderedIcons.find(
-          (icon) => icon.name === yamlData.metadata.annotations["boomerang.io/icon"]
+          (icon) => icon.name === yamlData.metadata.annotations["boomerang.io/icon"],
         );
         selectedIcon &&
           setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
@@ -210,7 +210,7 @@ function AddTaskTemplateForm({
         name: Yup.string()
           .required("Name is required")
           .matches(/^[a-z0-9-]+$/, "Name can only contain lowercase alphanumeric characters and dashes")
-          .notOneOf(taskTemplateNames, "Enter a unique value for task name"),
+          .notOneOf(taskNames, "Enter a unique value for task name"),
         displayName: Yup.string().required("Enter a display name"),
         category: Yup.string().required("Enter a category"),
         description: Yup.string()
@@ -231,7 +231,7 @@ function AddTaskTemplateForm({
           "fileSize",
           "File is larger than 1MiB",
           // If it's bigger than 1MiB will display the error (1048576 bytes = 1 mebibyte)
-          (file) => (file?.size ? file.size < 1048576 : true)
+          (file) => (file?.size ? file.size < 1048576 : true),
         ),
         // .test("validFile", "File is invalid", async (file) => {
         //   let isValid = true;
@@ -265,10 +265,7 @@ function AddTaskTemplateForm({
           resetForm,
         } = props;
         return (
-          <ModalForm
-            onSubmit={handleSubmit}
-            className={styles.container}
-          >
+          <ModalForm onSubmit={handleSubmit} className={styles.container}>
             <ModalBody>
               <div className={styles.typeRadio}>
                 <RadioGroup name="options" options={radioOptions} onChange={setSelectedOption} value={selectedOption} />
@@ -321,7 +318,7 @@ function AddTaskTemplateForm({
               )}
               {Boolean(
                 (values.file && !errors.file && !validateYamlError && !validateYamlIsLoading) ||
-                  selectedOption === OPTION_CREATE
+                  selectedOption === OPTION_CREATE,
               ) && (
                 <>
                   <TextInput

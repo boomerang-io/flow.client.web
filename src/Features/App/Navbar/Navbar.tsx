@@ -1,4 +1,4 @@
-import { UIShell, HeaderMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
+import React from "react";
 import {
   SideNav,
   SideNavDivider,
@@ -12,14 +12,14 @@ import {
   Tag,
 } from "@carbon/react";
 import { FlowData, ArrowsHorizontal, Settings } from "@carbon/react/icons";
-import React from "react";
+import { UIShell, HeaderMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Helmet } from "react-helmet";
 import { NavLink } from "react-router-dom";
 import * as navigationIcons from "Utils/navigationIcons";
-import styles from "./navbar.module.scss";
 import { APP_ROOT } from "Config/appConfig";
 import { appLink } from "Config/appConfig";
 import { FlowNavigationItem, FlowNavigationItemChild, FlowUser, ContextConfig } from "Types";
+import styles from "./navbar.module.scss";
 
 const skipToContentProps = {
   href: "#content",
@@ -187,6 +187,8 @@ function AppSideNav(props: AppSideNavProps) {
               </SideNavLink>
             );
           }
+
+          return null;
         })}
       </SideNavItems>
     </SideNav>

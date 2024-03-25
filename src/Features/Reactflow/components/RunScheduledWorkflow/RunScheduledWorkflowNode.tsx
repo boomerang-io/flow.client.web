@@ -1,13 +1,13 @@
 import React from "react";
-import { TemplateNode } from "../Template";
 import { useEditorContext } from "Hooks";
 import { WorkflowEngineMode } from "Constants";
 import { WorkflowNodeProps } from "Types";
+import { TemplateNode } from "../Template";
 import { RunScheduledWorkflowForm } from "./RunScheduledWorkflowForm";
 
 export default function RunScheduledWorkflowNode(props: WorkflowNodeProps) {
   const { mode } = useEditorContext();
-  if (mode === WorkflowEngineMode.Executor) {
+  if (mode === WorkflowEngineMode.Runner) {
     return <RunScheduledWorkflowExecution {...props} />;
   }
   return <RunScheduledWorkflowDesigner {...props} />;

@@ -3,11 +3,11 @@ import {
   FlowTeam,
   FlowUser,
   PaginatedWorkflowResponse,
-  TaskTemplate,
+  Task,
   Workflow,
   WorkflowEditor,
   WorkflowEngineModeType,
-  WorkflowExecution,
+  WorkflowRun,
 } from "Types";
 
 export function createContext<ContextType>() {
@@ -44,7 +44,7 @@ interface TaskProvider {
 
 interface ExecutionContext {
   tasks: Array<TaskProvider>;
-  workflowExecution?: WorkflowExecution;
+  workflowExecution?: WorkflowRun;
   workflow: WorkflowEditor;
 }
 export const [useExecutionContext, ExecutionContextProvider] = createContext<ExecutionContext>();
@@ -54,7 +54,7 @@ interface EditorContext {
   availableParameters: Array<string>;
   revisionDispatch?: Function;
   revisionState: Workflow;
-  taskTemplatesData: Record<string, Array<TaskTemplate>>;
+  tasksData: Record<string, Array<Task>>;
   workflowsQueryData: PaginatedWorkflowResponse;
 }
 

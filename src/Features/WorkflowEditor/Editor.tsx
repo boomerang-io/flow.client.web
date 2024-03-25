@@ -1,37 +1,37 @@
-import { Loading, Error, notify, ToastNotification, Team } from "@boomerang-io/carbon-addons-boomerang-react";
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { useMutation, useQueryClient, UseMutationResult } from "react-query";
-import { Prompt, Route, Switch, useLocation, useParams } from "react-router-dom";
-import type { ReactFlowInstance } from "reactflow";
-import { EditorContextProvider } from "State/context";
-import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
+import { Loading, Error, notify, ToastNotification, Team } from "@boomerang-io/carbon-addons-boomerang-react";
 import { AxiosResponse } from "axios";
 import { FormikProps } from "formik";
 import queryString from "query-string";
+import { useMutation, useQueryClient, UseMutationResult } from "react-query";
+import { Prompt, Route, Switch, useLocation, useParams } from "react-router-dom";
+import type { ReactFlowInstance } from "reactflow";
 import { useImmerReducer } from "use-immer";
 import { useAppContext, useTeamContext, useQuery } from "Hooks";
-import { groupTaskTemplatesByName } from "Utils";
+import { EditorContextProvider } from "State/context";
+import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
+import { groupTasksByName } from "Utils";
+import { WorkflowEngineMode, WorkspaceConfigType } from "Constants";
+import { WorkflowView } from "Constants";
+import { AppPath } from "Config/appConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import {
+  ChangeLog as ChangeLogType,
+  ConfigureWorkflowFormValues,
+  DataDrivenInput,
+  PaginatedTaskResponse,
+  PaginatedWorkflowResponse,
+  Task,
+  Workflow,
+  WorkflowEditor,
+  FlowTeam,
+} from "Types";
 import ChangeLog from "./ChangeLog";
 import Configure from "./Configure";
 import Designer from "./Designer";
 import Header from "./Header";
 import Parameters from "./Parameters";
 import Schedule from "./Schedule";
-import { AppPath } from "Config/appConfig";
-import { serviceUrl, resolver } from "Config/servicesConfig";
-import { WorkflowEngineMode, WorkspaceConfigType } from "Constants";
-import { WorkflowView } from "Constants";
-import {
-  ChangeLog as ChangeLogType,
-  ConfigureWorkflowFormValues,
-  DataDrivenInput,
-  PaginatedTaskTemplateResponse,
-  PaginatedWorkflowResponse,
-  TaskTemplate,
-  Workflow,
-  WorkflowEditor,
-  FlowTeam,
-} from "Types";
 
 const CREATEABLE_PATHS = [
   "canvas",
@@ -54,13 +54,18 @@ export default function EditorContainer() {
 
   const getWorkflowsUrl = serviceUrl.team.workflow.getWorkflows({ team: team.name });
   const getChangelogUrl = serviceUrl.team.workflow.getWorkflowChangelog({ team: team.name, id: workflowId });
-  const getWorkflowUrl = serviceUrl.team.workflow.getWorkflowCompose({ team: team.name, id: workflowId, version: revisionNumber });
+  const getWorkflowUrl = serviceUrl.team.workflow.getWorkflowCompose({
+    team: team.name,
+    id: workflowId,
+    version: revisionNumber,
+  });
 
-  const getTaskTemplatesUrl = serviceUrl.task.queryTasks({
+  const getTasksUrl = serviceUrl.task.queryTasks({
     query: queryString.stringify({ statuses: "active" }),
   });
-  const getTeamTaskTemplatesUrl = serviceUrl.team.task.queryTasks({
-    query: queryString.stringify({ statuses: "active" }), team: team.name, 
+  const getTeamTasksUrl = serviceUrl.team.task.queryTasks({
+    query: queryString.stringify({ statuses: "active" }),
+    team: team.name,
   });
 
   const getAvailableParametersUrl = serviceUrl.team.workflow.getAvailableParameters({ team: team.name, workflowId });
@@ -73,10 +78,10 @@ export default function EditorContainer() {
   const changeLogQuery = useQuery<ChangeLogType>(getChangelogUrl);
   const availableParametersQuery = useQuery<Array<string>>(getAvailableParametersUrl);
 
-  const taskTemplatesQuery = useQuery<PaginatedTaskTemplateResponse>(getTaskTemplatesUrl, {
+  const tasksQuery = useQuery<PaginatedTaskResponse>(getTasksUrl, {
     refetchOnWindowFocus: false,
   });
-  const teamTaskTemplatesQuery = useQuery<PaginatedTaskTemplateResponse>(getTeamTaskTemplatesUrl, {
+  const teamTasksQuery = useQuery<PaginatedTaskResponse>(getTeamTasksUrl, {
     refetchOnWindowFocus: false,
   });
 
@@ -89,8 +94,8 @@ export default function EditorContainer() {
     workflowQuery.isLoading ||
     workflowsQuery.isLoading ||
     changeLogQuery.isLoading ||
-    taskTemplatesQuery.isLoading ||
-    teamTaskTemplatesQuery.isLoading ||
+    tasksQuery.isLoading ||
+    teamTasksQuery.isLoading ||
     availableParametersQuery.isLoading
   ) {
     return <Loading />;
@@ -100,8 +105,8 @@ export default function EditorContainer() {
     workflowQuery.error ||
     workflowsQuery.error ||
     changeLogQuery.error ||
-    taskTemplatesQuery.error ||
-    teamTaskTemplatesQuery.error ||
+    tasksQuery.error ||
+    teamTasksQuery.error ||
     availableParametersQuery.error
   ) {
     return <Error />;
@@ -111,11 +116,11 @@ export default function EditorContainer() {
     workflowQuery.data &&
     workflowsQuery.data &&
     changeLogQuery.data &&
-    taskTemplatesQuery.data &&
-    teamTaskTemplatesQuery.data &&
+    tasksQuery.data &&
+    teamTasksQuery.data &&
     availableParametersQuery.data
   ) {
-    const taskTemplatesList = [...taskTemplatesQuery.data.content, ...teamTaskTemplatesQuery.data.content];
+    const taskList = [...tasksQuery.data.content, ...teamTasksQuery.data.content];
     return (
       <EditorStateContainer
         availableParametersQueryData={availableParametersQuery.data}
@@ -127,7 +132,7 @@ export default function EditorContainer() {
         workflowQueryData={workflowQuery.data}
         workflowsQueryData={workflowsQuery.data}
         setRevisionNumber={setRevisionNumber}
-        taskTemplatesList={taskTemplatesList}
+        taskList={taskList}
         workflowId={workflowId}
         key={revisionNumber}
         team={team}
@@ -142,10 +147,15 @@ interface EditorStateContainerProps {
   availableParametersQueryData: Array<string>;
   changeLogData: ChangeLogType;
   parametersUrl: string;
-  revisionMutator: UseMutationResult<AxiosResponse<Workflow, any>, unknown, { team: any; workflowId: any; body: any }, unknown>;
+  revisionMutator: UseMutationResult<
+    AxiosResponse<Workflow, any>,
+    unknown,
+    { team: any; workflowId: any; body: any },
+    unknown
+  >;
   revisionNumber: string | number;
   setRevisionNumber: React.Dispatch<React.SetStateAction<string | number>>;
-  taskTemplatesList: Array<TaskTemplate>;
+  taskList: Array<Task>;
   workflowQueryUrl: string;
   workflowQueryData: WorkflowEditor;
   workflowsQueryData: PaginatedWorkflowResponse;
@@ -163,7 +173,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   parametersUrl,
   revisionMutator,
   setRevisionNumber,
-  taskTemplatesList,
+  taskList,
   workflowQueryUrl,
   workflowQueryData,
   workflowsQueryData,
@@ -302,16 +312,16 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   const mode = version === revisionCount ? WorkflowEngineMode.Editor : WorkflowEngineMode.Viewer;
 
   const store = useMemo(() => {
-    const taskTemplatesData = groupTaskTemplatesByName(taskTemplatesList);
+    const tasksData = groupTasksByName(taskList);
     return {
       availableParameters,
       mode,
       revisionDispatch,
       revisionState,
-      taskTemplatesData,
+      tasksData,
       workflowsQueryData,
     };
-  }, [availableParameters, mode, revisionDispatch, revisionState, taskTemplatesList, workflowsQueryData]);
+  }, [availableParameters, mode, revisionDispatch, revisionState, taskList, workflowsQueryData]);
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
@@ -356,7 +366,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
               notes={markdown}
               reactFlowInstance={reactFlowInstance}
               setReactFlowInstance={setReactFlowInstance}
-              tasks={taskTemplatesList}
+              tasks={taskList}
               updateNotes={handleUpdateNotes}
               workflow={revisionState}
             />

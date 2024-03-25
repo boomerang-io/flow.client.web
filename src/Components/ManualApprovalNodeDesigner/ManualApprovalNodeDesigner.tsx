@@ -1,15 +1,15 @@
 //@ts-nocheck
 import React from "react";
-import { useQuery } from "react-query";
-import { useEditorContext } from "Hooks";
-import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { useQuery } from "react-query";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
-import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
+import WorkflowWarningButton from "Components/WorkflowWarningButton";
+import { useEditorContext } from "Hooks";
+import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./ManualApprovalNodeDesigner.module.scss";
 
@@ -17,8 +17,7 @@ const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigne
   diagramEngine,
   node: designerNode,
 }) {
-  const { availableParametersQueryData, revisionDispatch, revisionState, summaryData, taskTemplatesData } =
-    useEditorContext();
+  const { availableParametersQueryData, revisionDispatch, revisionState, summaryData, tasksData } = useEditorContext();
   const { flowTeamId } = summaryData;
 
   /**
@@ -29,7 +28,7 @@ const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigne
 
   const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
   const nodeConfig = revisionState.config[designerNode.id] ?? {};
-  const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
+  const task = tasksData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
 
   /**
    * Get approver groups

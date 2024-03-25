@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { matchSorter } from "match-sorter";
-import PropTypes from "prop-types";
-import moment from "moment";
 import { DataTable, Pagination, Search } from "@carbon/react";
+import { matchSorter } from "match-sorter";
+import moment from "moment";
+import PropTypes from "prop-types";
 import EmptyState from "Components/EmptyState";
 import { ChangeLog } from "Types";
 import styles from "./changeLogTable.module.scss";
@@ -22,7 +22,7 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
   state = {
     page: 1,
     pageSize: DEFAULT_PAGE_SIZE,
-    changeLog: this.props.changeLog ? this.props.changeLog.map((log) => ({ ...log, id: log.revisionId })) : [],
+    changeLog: this.props.changeLog ? this.props.changeLog.map((log) => ({ ...log, id: log.version })) : [],
     sort: {
       key: "version",
       sortDirection: "DESC",
