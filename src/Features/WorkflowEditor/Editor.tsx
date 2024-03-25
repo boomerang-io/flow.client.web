@@ -120,7 +120,7 @@ export default function EditorContainer() {
     teamTasksQuery.data &&
     availableParametersQuery.data
   ) {
-    const taskList = [...tasksQuery.data.content, ...teamTasksQuery.data.content];
+    const taskList = [...tasksQuery.data.content, ...prefixTeamTask(teamTasksQuery.data.content, team)];
     return (
       <EditorStateContainer
         availableParametersQueryData={availableParametersQuery.data}
@@ -424,4 +424,15 @@ function formatConfigureValues(configureValues: ConfigureWorkflowFormValues): Pa
   };
 
   return formattedWorkflowConfig;
+}
+
+// TODO make shared util
+function prefixTeamTask(taskList: Array<Task>, team: FlowTeam) {
+  return taskList.map((task) => {
+    return {
+      ...task,
+      name: `${team.name}/${task.name}`,
+      displayName: `${team.displayName} - ${task.displayName}`,
+    };
+  });
 }

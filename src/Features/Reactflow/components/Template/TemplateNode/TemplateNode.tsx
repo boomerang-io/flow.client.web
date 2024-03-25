@@ -159,6 +159,7 @@ function TaskTemplateNodeDesigner(props: TaskTemplateNodeInstanceProps) {
 
 function TaskTemplateNodeExecution(props: TaskTemplateNodeInstanceProps) {
   const scrollToTask = () => {
+    console.log(`task-${props.id}`);
     const taskLogItem = document.getElementById(`task-${props.id}`);
     if (taskLogItem) {
       taskLogItem.scrollIntoView();
