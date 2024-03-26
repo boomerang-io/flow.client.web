@@ -9,6 +9,7 @@ import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/reac
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { useQueryClient, useMutation } from "react-query";
+import { useTeamContext } from "Hooks";
 import "Styles/markdown.css";
 import EmptyGraphic from "Components/EmptyState/EmptyGraphic";
 import styles from "./ManualTask.module.scss";
@@ -48,6 +49,7 @@ type FormProps = {
 
 function Form({ action, closeModal, queryToRefetch }: FormProps) {
   const queryClient = useQueryClient();
+  const { team } = useTeamContext();
   const { id, instructions, status } = action ?? {};
 
   const {
@@ -69,7 +71,7 @@ function Form({ action, closeModal, queryToRefetch }: FormProps) {
       },
     ];
     try {
-      await approvalMutator({ body });
+      await approvalMutator({ team: team?.name, body });
       notify(
         <ToastNotification
           kind="success"

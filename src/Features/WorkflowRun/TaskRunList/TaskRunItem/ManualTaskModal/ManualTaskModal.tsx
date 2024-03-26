@@ -38,7 +38,7 @@ function TaskApprovalModal({ actionId, closeModal, instructions, workflowRunId }
       },
     ];
     try {
-      await approvalMutator({ body });
+      await approvalMutator({ team: team.name, body });
       notify(
         <ToastNotification
           kind="success"

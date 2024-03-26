@@ -146,12 +146,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Team Propertiies
        */
-      this.get(serviceUrl.resourceTeamParameters({ team: ":team" }), (schema, request) => {
+      this.get(serviceUrl.team.resourceTeamParameters({ team: ":team" }), (schema, request) => {
         let { team } = request.params;
         let property = schema.teamProperties.find(team);
         return property && property.properties ? property.properties : [];
       });
-      this.post(serviceUrl.resourceTeamParameters({ team: ":team" }), (schema, request) => {
+      this.post(serviceUrl.team.resourceTeamParameters({ team: ":team" }), (schema, request) => {
         /**
          * find team record, update the list of properties for that team
          */
@@ -164,7 +164,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.teamProperties.all();
       });
       this.patch(
-        serviceUrl.resourceTeamParameters({ team: ":team", configurationId: ":configurationId" }),
+        serviceUrl.team.resourceTeamParameters({ team: ":team", configurationId: ":configurationId" }),
         (schema, request) => {
           /**
            * find team record, update the list of properties for that team
@@ -180,7 +180,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         },
       );
       this.delete(
-        serviceUrl.resourceTeamParameters({ team: ":team", configurationId: ":configurationId" }),
+        serviceUrl.team.resourceTeamParameters({ team: ":team", configurationId: ":configurationId" }),
         (schema, request) => {
           /**
            * find team record, update the list of properties for that team
@@ -322,18 +322,18 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Actions
        */
-      this.get(serviceUrl.action.getActionsSummary({ query: null }), (schema) => {
+      this.get(serviceUrl.team.action.getActionsSummary({ team: ":team", query: null }), (schema) => {
         return schema.db.actionsSummary[0];
       });
 
-      this.get(serviceUrl.action.getActions({ query: null }), (schema, request) => {
+      this.get(serviceUrl.team.action.getActions({ team: ":team", query: null }), (schema, request) => {
         const { type } = request.queryParams;
         if (type === "approval") return schema.db.approvals[0];
         if (type === "task") return schema.db.manualTasks[0];
         return {};
       });
 
-      this.put(serviceUrl.action.putAction(), () => {
+      this.put(serviceUrl.team.action.putAction(), () => {
         return {};
       });
 

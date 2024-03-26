@@ -54,8 +54,6 @@ type QueryArg = {
 
 export const serviceUrl = {
   deleteToken: ({ tokenId }) => `${BASE_URL}/token/${tokenId}`,
-  deleteTeamMembers: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/members`,
-  leaveTeam: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/leave`,
   getFeatureFlags: () => `${BASE_URL}/features`,
   getNavigation: ({ query }: QueryArg) => `${BASE_URL}/navigation${query}`,
   getGlobalParameters: () => `${BASE_URL}/global-params`,
@@ -79,14 +77,13 @@ export const serviceUrl = {
   postToken: () => `${BASE_URL}/token`,
   postTeamValidateName: () => `${BASE_URL}/team/validate-name`,
   postTeam: () => `${BASE_URL}/team`,
-  // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
-  putActivationApp: () => `${BASE_URL}/activate`,
   postTeamQuotasReset: ({ team }: TeamArg) => `${BASE_URL}/teams/${team}/quotas/reset`,
   resourceTeam: ({ team }: TeamArg) => `${BASE_URL}/team/${team}`,
   resourceApproverGroups: ({ team, groupId }) =>
   `${BASE_URL}/team/${team}/approvers${groupId ? "/" + groupId : ""}`,
+  // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
+  putActivationApp: () => `${BASE_URL}/activate`,
   resourceSettings: () => `${BASE_URL}/settings`,
-  resourceTeamParameters: ({ team }) => `${BASE_URL}/team/${team}/parameters`,
   getWorkflowTemplates: () => `${BASE_URL}/workflowtemplate/query`,
   resourceTrigger: () => `${BASE_URL}/trigger`,
   getGitHubAppInstallation: ({ id }: IdArg) => `${BASE_URL}/integration/github/installation${id ? "?id=" + id : ""}`,
@@ -106,13 +103,16 @@ export const serviceUrl = {
     putTask: ({ name, replace }: NameArg & Partial<ReplaceArg>) => `${BASE_URL}/task/${name}/?replace=${replace ? replace : false}`,
     postValidateYaml: () => `${BASE_URL}/task/validate`,
   },
-  "action": {
-    getActionsSummary: ({ query }: QueryArg) => `${BASE_URL}/action/summary${query ? "?" + query : ""}`,
-    getActions: ({ query }: QueryArg) => `${BASE_URL}/action/query${query ? "?" + query : ""}`,
-    putAction: () => `${BASE_URL}/action`,
-  },
   "team": {
+    deleteTeamMembers: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/members`,
+    leaveTeam: ({ team }: TeamArg) => `${BASE_URL}/team/${team}/leave`,
+    resourceTeamParameters: ({ team }) => `${BASE_URL}/team/${team}/parameters`,
     getInsights: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/insights${query ? "?" + query : ""}`,
+    "action": {
+      getActionsSummary: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/action/summary${query ? "?" + query : ""}`,
+      getActions: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/action/query${query ? "?" + query : ""}`,
+      putAction: ({team}: TeamArg) => `${BASE_URL}/team/${team}/action`,
+    },
     "task": {
       // deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/task/${id}`,
       queryTasks: ({ team, query }: TeamArg & Partial<QueryArg>) => `${BASE_URL}/team/${team}/task/query${query ? "?" + query : ""}`,
@@ -168,11 +168,11 @@ export const resolver = {
   // deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   deleteCancelWorkflow: ({ team, runId }) => axios.delete(serviceUrl.team.workflowrun.deleteCancelWorkflow({ team, runId })),
   deleteGlobalParameter: ({ key }) => axios.delete(serviceUrl.getGlobalParameter({ key })),
-  deleteTeamMembers: ({ team, body }) => axios.delete(serviceUrl.deleteTeamMembers({ team }), body),
+  deleteTeamMembers: ({ team, body }) => axios.delete(serviceUrl.team.deleteTeamMembers({ team }), body),
   deleteTeamParameters: ({ team, body }) =>
-    axios.delete(serviceUrl.resourceTeamParameters({ team }), body),
+    axios.delete(serviceUrl.team.resourceTeamParameters({ team }), body),
   deleteWorkflow: ({ team, id }) => axios.delete(serviceUrl.team.workflow.getWorkflow({ team, id })),
-  leaveTeam: ({ team }) => axios.delete(serviceUrl.leaveTeam({ team })),
+  leaveTeam: ({ team }) => axios.delete(serviceUrl.team.leaveTeam({ team })),
   deleteSchedule: ({ team, id }) => axios.delete(serviceUrl.team.schedule.deleteSchedule({ team, id })),
   deleteTeam: ({ team }: TeamArg) => axios.delete(serviceUrl.resourceTeam({ team })),
   deleteToken: ({ tokenId }) => axios.delete(serviceUrl.deleteToken({ tokenId })),
@@ -245,7 +245,7 @@ export const resolver = {
     axios({ url: serviceUrl.getGlobalParameters(), data: body, method: HttpMethod.Post }),
   postSchedule: ({ team, body }) => axios.post(serviceUrl.team.schedule.postSchedule({ team }), body),
   postTeamParameter: ({ team, body }) =>
-    axios({ url: serviceUrl.resourceTeamParameters({ team }), data: body, method: HttpMethod.Post }),
+    axios({ url: serviceUrl.team.resourceTeamParameters({ team }), data: body, method: HttpMethod.Post }),
   putActivationApp: ({ body }) =>
     axios({
       method: HttpMethod.Put,
@@ -264,8 +264,8 @@ export const resolver = {
   patchUpdateTeam: ({ team, body }) => axios.patch(serviceUrl.resourceTeam({ team }), body),
   deleteTeamQuotas: ({ team }) =>
     axios({ url: serviceUrl.deleteTeamQuotas({ team }), method: HttpMethod.Delete }),
-  putAction: ({ body }) =>
-    axios({ url: serviceUrl.action.putAction(), data: body, method: HttpMethod.Put }),
+  putAction: ({ team, body }) =>
+    axios({ url: serviceUrl.team.action.putAction({ team }), data: body, method: HttpMethod.Put }),
   postGitHubAppLink: ({ body }) => axios.post(serviceUrl.postGitHubAppLink(), body),
   postGitHubAppUnlink: ({ body }) => axios.post(serviceUrl.postGitHubAppUnlink(), body),
 };

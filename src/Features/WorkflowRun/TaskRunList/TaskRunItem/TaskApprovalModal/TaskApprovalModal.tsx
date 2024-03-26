@@ -9,6 +9,7 @@ import {
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@carbon/react";
 import { ThumbsUp, ThumbsDown } from "@carbon/react/icons";
 import { useQueryClient, useMutation } from "react-query";
+import { useTeamContext } from "Hooks";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styles from "./taskApprovalModal.module.scss";
@@ -27,6 +28,7 @@ type Props = {
 
 function TaskApprovalModal({ actionId, closeModal, workflowRunId }: Props) {
   const queryClient = useQueryClient();
+  const { team } = useTeamContext();
 
   const {
     mutateAsync: approvalMutator,
@@ -34,7 +36,7 @@ function TaskApprovalModal({ actionId, closeModal, workflowRunId }: Props) {
     error: approvalsError,
   } = useMutation(resolver.putAction, {
     onSuccess: () => {
-      queryClient.invalidateQueries(serviceUrl.getWorkflowRun({ id: workflowRunId }));
+      queryClient.invalidateQueries(serviceUrl.team.workflowrun.getWorkflowRun({ team: team?.name, id: workflowRunId }));
     },
   });
 
@@ -47,7 +49,7 @@ function TaskApprovalModal({ actionId, closeModal, workflowRunId }: Props) {
       },
     ];
     try {
-      await approvalMutator({ body });
+      await approvalMutator({ team: team?.name, body });
       notify(
         <ToastNotification
           kind="success"

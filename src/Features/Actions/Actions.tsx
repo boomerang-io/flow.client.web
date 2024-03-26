@@ -48,12 +48,11 @@ function Actions() {
   const match = useRouteMatch();
 
   const summaryQuery = queryString.stringify({
-    teams: team?.name,
     fromDate: DEFAULT_FROM_DATE,
     toDate: DEFAULT_TO_DATE,
   });
 
-  const actionsSummaryUrl = serviceUrl.action.getActionsSummary({ query: summaryQuery });
+  const actionsSummaryUrl = serviceUrl.team.action.getActionsSummary({ team: team?.name, query: summaryQuery });
 
   /** Define constants */
   const actionType = location.pathname.includes("/manual") ? ActionType.Manual : ActionType.Approval;
@@ -106,7 +105,6 @@ function Actions() {
 
   const actionsUrlSummaryQuery = queryString.stringify(
     {
-      teams: team?.name,
       workflows,
       fromDate,
       toDate,
@@ -114,7 +112,7 @@ function Actions() {
     queryStringOptions,
   );
 
-  const actionsFilterSummaryUrl = serviceUrl.action.getActionsSummary({ query: actionsUrlSummaryQuery });
+  const actionsFilterSummaryUrl = serviceUrl.team.action.getActionsSummary({ team: team?.name, query: actionsUrlSummaryQuery });
 
   /** Get number of approvals and manual tasks */
   const { data: actionsFilterSummaryData } = useQuery({
@@ -125,7 +123,7 @@ function Actions() {
   const approvalsNumber = actionsFilterSummaryData ? actionsFilterSummaryData.approvals : 0;
   const manualTasksNumber = actionsFilterSummaryData ? actionsFilterSummaryData.manual : 0;
 
-  const actionsUrl = serviceUrl.action.getActions({ query: actionsUrlQuery });
+  const actionsUrl = serviceUrl.team.action.getActions({ team: team?.name, query: actionsUrlQuery });
 
   /** Get table data */
   const actionsQuery = useQuery({

@@ -2,7 +2,7 @@ import React from "react";
 import { useQueryClient, useMutation } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useAppContext } from "Hooks";
+import { useAppContext, useTeamContext } from "Hooks";
 import {
   ComposedModal,
   Loading,
@@ -108,6 +108,7 @@ function Form({
   type,
 }: FormProps) {
   const { user } = useAppContext();
+  const { team } = useTeamContext();
   const queryClient = useQueryClient();
   const [approveLoading, setApproveLoading] = React.useState(false);
   const [rejectLoading, setRejectLoading] = React.useState(false);
@@ -130,7 +131,7 @@ function Form({
       });
 
       try {
-        await actionsMutation({ body: request });
+        await actionsMutation({ team: team?.name, body: request });
         typeof setLoading === "function" && setLoading(false);
         onSuccessfulApprovalRejection();
         queryClient.invalidateQueries(queryToRefetch);
