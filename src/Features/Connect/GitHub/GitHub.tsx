@@ -58,7 +58,7 @@ export default function Github({ installId }: GitHubProps) {
       });
     } catch (error) {
       notify(
-        <ToastNotification kind="error" title="Something's Wrong" subtitle="Request to link GitHab App failed." />,
+        <ToastNotification kind="error" title="Something's Wrong" subtitle="Request to link GitHub App failed." />,
       );
     }
   };

@@ -33,10 +33,10 @@ export const parseChartsData = (data: Array<InsightsRuns>, statuses: RunStatus |
 
   data.forEach((execution) => {
     // Get execution count
-    if (!executionPerWorkflowMap[execution.id]) {
-      executionPerWorkflowMap[execution.id] = { label: execution.workflowName, value: 1 };
+    if (!executionPerWorkflowMap[execution.workflowRef]) {
+      executionPerWorkflowMap[execution.workflowRef] = { label: execution.workflowName, value: 1 };
     } else {
-      executionPerWorkflowMap[execution.id].value += 1;
+      executionPerWorkflowMap[execution.workflowRef].value += 1;
     }
 
     const executionDate = new Date(execution.creationDate);
@@ -86,7 +86,7 @@ export const parseChartsData = (data: Array<InsightsRuns>, statuses: RunStatus |
         statusListMap.skipped.push(execution);
         break;
       default:
-      // no-op
+        //no-op
     }
 
     // Group by execution date for line chart

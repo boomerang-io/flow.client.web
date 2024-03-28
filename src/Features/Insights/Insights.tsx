@@ -42,9 +42,7 @@ import type {
 import styles from "./Insights.module.scss";
 
 export interface InsightsRuns {
-  id: string;
-  creationDate: string;
-  startTime: string;
+  creationDate: string; 
   duration: number;
   status: RunStatus;
   workflowRef: string;
@@ -72,7 +70,6 @@ export default function Insights() {
    */
   const {
     statuses,
-    triggers,
     workflows,
     fromDate = defaultFromDate,
     toDate = defaultToDate,
@@ -81,7 +78,6 @@ export default function Insights() {
   const insightsSearchParams = queryString.stringify(
     {
       statuses,
-      triggers,
       workflows,
       fromDate,
       toDate,
@@ -195,10 +191,9 @@ interface SelectsProps {
 function Selects(props: SelectsProps) {
   const location = useLocation();
 
-  const { statuses, workflows, triggers, fromDate, toDate } = queryString.parse(location.search, queryStringOptions);
+  const { statuses, workflows, fromDate, toDate } = queryString.parse(location.search, queryStringOptions);
   const selectedWorkflowIds = typeof workflows === "string" ? [workflows] : workflows;
   const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
-  const selectedTriggers = typeof triggers === "string" ? [triggers] : triggers;
   const selectedFromDate = Array.isArray(fromDate)
     ? Number.parseInt(fromDate[0])
     : typeof fromDate === "string"
@@ -224,13 +219,6 @@ function Selects(props: SelectsProps) {
     //@ts-ignore next-line
     const statuses = selectedItems.length > 0 ? selectedItems.map((status) => status.value) : undefined;
     props.updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses });
-    return;
-  }
-
-  function handleSelectTriggers({ selectedItems }: MultiSelectItems) {
-    //@ts-ignore next-line
-    const triggers = selectedItems.length > 0 ? selectedItems.map((trigger) => trigger.value) : undefined;
-    props.updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), triggers: triggers });
     return;
   }
 
@@ -269,19 +257,6 @@ function Selects(props: SelectsProps) {
           Boolean(selectedWorkflowIds ? selectedWorkflowIds.find((id) => id === workflow.id) : false)
         )}
         titleText="Filter by Workflow"
-      />
-      <FilterableMultiSelect
-        id="insights-triggers-select"
-        label="Choose trigger type(s)"
-        placeholder="Choose trigger type(s)"
-        invalid={false}
-        onChange={handleSelectTriggers}
-        items={executionOptions}
-        itemToString={(item: MultiSelectItem) => (item ? item.label : "")}
-        initialSelectedItems={executionOptions.filter((option) =>
-          Boolean(selectedTriggers?.find((trigger: string) => trigger === option.value))
-        )}
-        titleText="Filter by trigger"
       />
       <FilterableMultiSelect
         id="insights-statuses-select"
