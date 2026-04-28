@@ -178,6 +178,9 @@ importers:
       typeface-ibm-plex-sans:
         specifier: 1.1.13
         version: 1.1.13
+      underscore:
+        specifier: ^1.13.8
+        version: 1.13.8
       use-immer:
         specifier: ^0.4.0
         version: 0.4.2(immer@9.0.21)(react@16.14.0)
@@ -8335,6 +8338,9 @@ packages:
 
   underscore@1.12.1:
     resolution: {integrity: sha512-hEQt0+ZLDVUMhebKxL4x1BTtDY7bavVofhZ9KZ4aI26X9SRaE+Y3m83XUL1UP2jn8ynjndwCCpEHdUG+9pP1Tw==}
+
+  underscore@1.13.8:
+    resolution: {integrity: sha512-DXtD3ZtEQzc7M8m4cXotyHR+FAS18C64asBYY5vqZexfYryNNnDc02W4hKg3rdQuqOYas1jkseX0+nZXjTXnvQ==}
 
   unicode-canonical-property-names-ecmascript@2.0.1:
     resolution: {integrity: sha512-dA8WbNeb2a6oQzAQ55YlT5vQAWGV9WXOsi3SskE3bcCdM0P4SDd+24zS/OCacdRq5BkdsRj9q3Pg6YyQoxIGqg==}
@@ -18508,6 +18514,8 @@ snapshots:
       react-lifecycles-compat: 3.0.4
 
   underscore@1.12.1: {}
+
+  underscore@1.13.8: {}
 
   unicode-canonical-property-names-ecmascript@2.0.1: {}
 
