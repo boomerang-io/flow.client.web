@@ -151,7 +151,8 @@
       "dompurify": "^3.2.4",
       "cross-spawn": "^7.0.5",
       "braces": "^3.0.3",
-      "validator": "^13.7.0"
+      "validator": "^13.7.0",
+      "uuid": "^14.0.0"
     }
   },
   "browserslist": {
