@@ -21,6 +21,7 @@ overrides:
   cross-spawn: ^7.0.5
   braces: ^3.0.3
   validator: ^13.7.0
+  '@cypress/request>uuid': 8.3.2
   uuid: ^14.0.0
 
 importers:
@@ -8493,6 +8494,10 @@ packages:
     resolution: {integrity: sha512-Qo+uWgilfSmAhXCMav1uYFynlQO7fMFiMVZsQqZRMIXp0O7rR7qjkj+cPvBHLgBqi960QCoo/PH2/6ZtVqKvrg==}
     hasBin: true
 
+  uuid@8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+
   v8-to-istanbul@8.1.1:
     resolution: {integrity: sha512-FGtKtv3xIpR6BYhvgH8MI/y78oT7d8Au3ww4QIxymrCtZEh5b8gCw2siywE+puhEmuWKDtmfrvF5UlB298ut3w==}
     engines: {node: '>=10.12.0'}
@@ -10094,7 +10099,7 @@ snapshots:
       safe-buffer: 5.2.1
       tough-cookie: 4.1.4
       tunnel-agent: 0.6.0
-      uuid: 14.0.0
+      uuid: 8.3.2
 
   '@cypress/webpack-preprocessor@5.17.1(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(babel-loader@8.4.1(@babel/core@7.26.10)(webpack@5.98.0))(webpack@5.98.0)':
     dependencies:
@@ -18652,6 +18657,8 @@ snapshots:
   utils-merge@1.0.1: {}
 
   uuid@14.0.0: {}
+
+  uuid@8.3.2: {}
 
   v8-to-istanbul@8.1.1:
     dependencies:
