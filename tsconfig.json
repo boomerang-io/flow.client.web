@@ -5,16 +5,12 @@
     "target": "es2020",
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "es2020"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext", "es2020"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "strict": true,
+    "ignoreDeprecations": "6.0",
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -27,13 +23,6 @@
     ],
     "noFallthroughCasesInSwitch": true
   },
-  "exclude": [
-    "dist",
-    "node_modules",
-    "public",
-    "server"
-  ],
-  "include": [
-    "src"
-  ]
+  "exclude": ["dist", "node_modules", "public", "server"],
+  "include": ["src"]
 }

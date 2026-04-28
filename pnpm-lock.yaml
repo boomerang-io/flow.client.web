@@ -7,6 +7,7 @@ settings:
 overrides:
   axios: ^1.8.4
   json5: ^1.0.2
+  underscore: 1.13.8
   ws: ^8.17.1
   decode-uri-component: ^0.2.1
   nth-check: 2.1.1
@@ -179,7 +180,7 @@ importers:
         specifier: 1.1.13
         version: 1.1.13
       underscore:
-        specifier: ^1.13.8
+        specifier: 1.13.8
         version: 1.13.8
       use-immer:
         specifier: ^0.4.0
@@ -8336,9 +8337,6 @@ packages:
     peerDependencies:
       react: '>=15.0.0'
 
-  underscore@1.12.1:
-    resolution: {integrity: sha512-hEQt0+ZLDVUMhebKxL4x1BTtDY7bavVofhZ9KZ4aI26X9SRaE+Y3m83XUL1UP2jn8ynjndwCCpEHdUG+9pP1Tw==}
-
   underscore@1.13.8:
     resolution: {integrity: sha512-DXtD3ZtEQzc7M8m4cXotyHR+FAS18C64asBYY5vqZexfYryNNnDc02W4hKg3rdQuqOYas1jkseX0+nZXjTXnvQ==}
 
@@ -15311,7 +15309,7 @@ snapshots:
     dependencies:
       esprima: 1.2.2
       static-eval: 2.0.2
-      underscore: 1.12.1
+      underscore: 1.13.8
 
   jsonpointer@5.0.1: {}
 
@@ -18512,8 +18510,6 @@ snapshots:
       invariant: 2.2.4
       react: 16.14.0
       react-lifecycles-compat: 3.0.4
-
-  underscore@1.12.1: {}
 
   underscore@1.13.8: {}
 

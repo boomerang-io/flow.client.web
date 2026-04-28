@@ -138,6 +138,7 @@
     "overrides": {
       "axios": "^1.8.4",
       "json5": "^1.0.2",
+      "underscore": "1.13.8",
       "ws": "^8.17.1",
       "decode-uri-component": "^0.2.1",
       "nth-check": "2.1.1",
