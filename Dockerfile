@@ -6,7 +6,7 @@ RUN apk add --no-cache openssl=3.5.6-r0
 
 WORKDIR $BMRG_HOME
 COPY server .
-RUN npm install -g pnpm && CI=true pnpm install --production --config.minimumReleaseAge=0 --ignore-scripts
+RUN npm install -g pnpm@9.15.9 && CI=true pnpm install --production --config.minimumReleaseAge=0 --ignore-scripts
 
 RUN rm -r /usr/local/lib/node_modules/npm/node_modules/cross-spawn/
 
