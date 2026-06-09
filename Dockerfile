@@ -1,8 +1,8 @@
 FROM node:18-alpine
 ENV BMRG_HOME=/opt/boomerang/server
 
-# Update Alpine packages to fix CVE-2026-31789 (OpenSSL heap buffer overflow)
-RUN apk update && apk upgrade openssl
+# Fix CVE-2026-31789 (OpenSSL heap buffer overflow) - pin to patched version 3.3.7-r0
+RUN apk add --no-cache openssl=3.3.7-r0
 
 WORKDIR $BMRG_HOME
 COPY server .
