@@ -2,6 +2,9 @@
   "name": "boomerang-flow-server",
   "version": "0.0.1",
   "description": "Boomerang Flow Express Server",
+  "engines": {
+    "node": ">=22.22.0"
+  },
   "scripts": {
     "start": "boomerang-webapp-server serve",
     "dev": "boomerang-webapp-server serve -p \"config/.env.local\""
