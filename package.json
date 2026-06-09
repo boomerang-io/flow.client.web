@@ -151,8 +151,6 @@
       "dompurify": "^3.2.4",
       "cross-spawn": "^7.0.5",
       "braces": "^3.0.3",
-      "minimatch": "^9.0.6",
-      "tar": "^7.5.8",
       "validator": "^13.7.0",
       "@cypress/request>uuid": "8.3.2",
       "uuid": "^14.0.0"
