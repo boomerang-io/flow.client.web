@@ -16,7 +16,10 @@
     "@boomerang-io/webapp-spa-server": "1.1.1-beta.1",
     "replace-in-file": "^6.3.2"
   },
-  "overrides": {
-    "protobufjs": "7.5.8"
+  "pnpm": {
+    "overrides": {
+      "serialize-javascript": "^7.0.3",
+      "protobufjs": "7.5.8"
+    }
   }
 }
