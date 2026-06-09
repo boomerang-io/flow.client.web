@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "Boomerang Flow Express Server",
   "scripts": {
-    "start": "boomerang-webapp-server serve",
-    "dev": "boomerang-webapp-server serve -p \"config/.env.local\""
+    "start": "NODE_OPTIONS=\"--experimental-global-webcrypto\" boomerang-webapp-server serve",
+    "dev": "NODE_OPTIONS=\"--experimental-global-webcrypto\" boomerang-webapp-server serve -p \"config/.env.local\""
   },
   "contributors": [
     {
@@ -18,7 +18,7 @@
   },
   "pnpm": {
     "overrides": {
-      "serialize-javascript": "^7.0.3",
+      "serialize-javascript": "7.0.5",
       "protobufjs": "7.5.8"
     }
   }
