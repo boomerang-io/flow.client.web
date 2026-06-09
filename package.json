@@ -140,6 +140,7 @@
   "pnpm": {
     "overrides": {
       "axios": "^1.8.4",
+      "serialize-javascript": "7.0.5",
       "json5": "^1.0.2",
       "underscore": "1.13.8",
       "ws": "^8.17.1",
