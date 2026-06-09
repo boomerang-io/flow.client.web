@@ -9,7 +9,7 @@
   "sideEffects": false,
   "scripts": {
     "analyze": "source-map-explorer build/static/js/*.js",
-    "build": "react-scripts build && ncp build server/build",
+    "build": "cross-env NODE_OPTIONS=--experimental-global-webcrypto react-scripts build && ncp build server/build",
     "build:rewriteAssetPaths": "cross-env APP_ROOT=/local node server/scripts/rewriteAssetPaths.js",
     "cypress": "cypress open",
     "docker": "cross-env NODE_ENV=test run-s docker:build docker:run",
