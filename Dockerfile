@@ -6,10 +6,10 @@ RUN apk add --no-cache openssl=3.5.6-r0
 
 WORKDIR $BMRG_HOME
 COPY server .
-# Fix CVE-2026-33750 and CVE-2026-26960 by pinning npm to a release with patched bundled deps
+# Install server deps, then remove build-only package managers from runtime image
 RUN npm install -g npm@11.16.0 pnpm@10.34.1 && CI=true pnpm install --production --config.minimumReleaseAge=0 --ignore-scripts
 
-RUN rm -rf /usr/local/lib/node_modules/npm/node_modules/cross-spawn/
+RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/pnpm /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/pnpm /usr/local/bin/pnpx
 
 # Create user, chown, and chmod. 
 # OpenShift requires that a numeric user is used in the USER declaration instead of the user name
