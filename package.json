@@ -155,7 +155,7 @@
       "dompurify": "^3.2.4",
       "cross-spawn": "^7.0.5",
       "braces": "^3.0.3",
-      "protobufjs": "7.5.8",
+      "protobufjs": "7.6.1",
       "validator": "^13.7.0",
       "@cypress/request>uuid": "8.3.2",
       "uuid": "^14.0.0"
