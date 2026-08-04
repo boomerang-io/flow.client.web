@@ -140,12 +140,13 @@
   "pnpm": {
     "overrides": {
       "axios": "^1.8.4",
-      "brace-expansion": "5.0.8",
+      "brace-expansion": "^5.0.9",
+      "immutable": "4.3.9",
       "serialize-javascript": "7.0.5",
       "json5": "^1.0.2",
       "underscore": "1.13.8",
       "ws": "^8.17.1",
-      "decode-uri-component": "^0.2.1",
+      "decode-uri-component": "^0.5.0",
       "nth-check": "2.1.1",
       "loader-utils": "^1.4.1",
       "ejs": "3.1.10",
