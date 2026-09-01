@@ -1,3 +1,14 @@
+> [!IMPORTANT]
+> ## 🔧 v3 maintenance only
+> This repository is the web client of **Boomerang Flow v3**. It is kept for v3 security and compatibility fixes —
+> IBM maintains that line on the `essentials_v3_stable` and `cve_fix` branches. v4 development here has ended.
+>
+> **Boomerang Flow v5 is a monorepo**: the webapp continues as [`client-web/`](https://github.com/boomerang-io/flow/tree/feat-v5/client-web) (React Router 7, server-side rendering).
+> New bugs and features go to [boomerang-io/flow issues](https://github.com/boomerang-io/flow/issues/new/choose);
+> only v3-line fixes belong here.
+
+---
+
 # Boomerang Flow Web Client
 
 The web client for Boomerang Flow, a low-code, cloud-native workflow automation tool.
